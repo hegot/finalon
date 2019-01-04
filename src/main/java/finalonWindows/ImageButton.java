@@ -1,4 +1,4 @@
-package main;
+package finalonWindows;
 
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
