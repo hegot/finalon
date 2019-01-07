@@ -1,41 +1,34 @@
-package finalonWindows.settingsScene.templates;
-import java.util.UUID;
+package entities;
 
 public class Item {
-    private String id;
-    private String name;
-    private int code;
-    private String shortName;
-    private Boolean isPositive;
-    private String parent;
-    private Double defaultValue;
-
-
-
+    public int id;
+    public String name;
+    public String shortName;
+    public Boolean isPositive;
+    public int parent;
+    public int parentSheet;
 
     public Item(
-        String id,
+        int id,
         String name,
-        int code,
         String shortName,
         Boolean isPositive,
-        String parent,
-        Double defaultValue
+        int parent,
+        int parentSheet
     ) {
         this.id = id;
         this.name = name;
-        this.code = code;
         this.shortName = shortName;
         this.isPositive = isPositive;
         this.parent = parent;
-        this.defaultValue = defaultValue;
+        this.parentSheet = parentSheet;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -45,14 +38,6 @@ public class Item {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
     }
 
     public String getShortName() {
@@ -71,20 +56,20 @@ public class Item {
         this.isPositive = isPositive;
     }
 
-    public String getParent() {
+    public int getParent() {
         return parent;
     }
 
-    public void setParent(String parent) {
+    public void setParent(int parent) {
         this.parent = parent;
     }
 
-    public Double getDefaultValue() {
-        return defaultValue;
+    public int getParentSheet() {
+        return parentSheet;
     }
 
-    public void setDefaultValue(Double defaultValue) {
-        this.defaultValue = defaultValue;
+    public void setParentSheet(int code) {
+        this.parentSheet = code;
     }
 
 }
