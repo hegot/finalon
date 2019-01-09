@@ -18,66 +18,76 @@ import java.util.ArrayList;
 
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 public class TemplateEditable {
 
 
     private TableView<Item> table;
     private ObservableList<Item> items;
     private ArrayList<Sheet> sheets;
-    private ArrayList<String> mainCategories;
-    private ArrayList<String> subCategories;
 
     public TemplateEditable(ObservableList<Item> items, ArrayList<Sheet> sheets) {
         this.items = items;
         this.sheets = sheets;
-        populateCategories();
     }
 
-    public VBox getTemplateEditable() {
-        // Button deleteButton = new Button("Delete");
-        //  deleteButton.setOnAction(e -> deleteButtonClicked());
-
-        // HBox hBox = new HBox();
-        //   hBox.setPadding(new Insets(10, 10, 10, 10));
-        //  hBox.setSpacing(10);
-        //hBox.getChildren().addAll(deleteButton);
-
-        VBox vBox = new VBox();
-        vBox.setMinHeight(300);
-        vBox.setPadding(new Insets(10, 10, 10, 10));
+    public TabPane getTemplateEditable() {
+        TabPane tabs = new TabPane();
         for (int i = 0; i < this.sheets.size(); i++) {
-            VBox vBox2 = getSheetRendered(this.sheets.get(i));
-            vBox.getChildren().add(vBox2);
+            Tab tab = getSheetRendered(this.sheets.get(i));
+            tabs.getTabs().add(tab);
         }
-        return vBox;
+        return tabs;
     }
 
-    private VBox getSheetRendered(Sheet sheet) {
-        VBox sheetBox = new VBox();
-        sheetBox.setPadding(new Insets(20, 0, 10, 0));
-        sheetBox.setMinHeight(300);
-        Text sheetHeader = new Text(sheet.name);
-        sheetBox.getChildren().add(sheetHeader);
-        for (int i = 0; i < this.mainCategories.size(); i++) {
-            String mainCategory = this.mainCategories.get(i);
-            Text mainCatHeader = new Text(mainCategory);
-            mainCatHeader.setFont(Font.font("Verdana", 15));
-            mainCatHeader.setFill(Color.OLIVEDRAB);
-            sheetBox.getChildren().add(mainCatHeader);
-            for (int j = 0; j < this.subCategories.size(); j++) {
-                String subCategory = this.subCategories.get(j);
-                Text subCatHeader = new Text(subCategory);
-                subCatHeader.setFont(Font.font("Verdana", 13));
-                subCatHeader.setFill(Color.BROWN);
-                TableView table = getSingleTable(sheet.id, mainCategory, subCategory);
-                table.setFixedCellSize(25);
-                sheetBox.getChildren().addAll(subCatHeader, table);
+    private Tab getSheetRendered(Sheet sheet) {
+        Tab tab = new Tab();
+        tab.setText(sheet.name);
+
+        ArrayList<String> mainCategories = getMainCategories(sheet.id);
+
+        if (mainCategories.isEmpty()) {
+            TableView table = getSingleTable(sheet.id, "", "");
+            tab.setContent(table);
+        }else{
+            TabPane tabs = new TabPane();
+            for (int i = 0; i < mainCategories.size(); i++) {
+                String mainCategory = mainCategories.get(i);
+                Tab categoryTab = getMCatRendered(mainCategory, sheet.id);
+                tabs.getTabs().add(categoryTab);
             }
+            tab.setContent(tabs);
         }
 
-        return sheetBox;
+        return tab;
     }
+
+    private Tab getMCatRendered(String mainCategory, int sheetId) {
+        VBox vBox = new VBox();
+        ArrayList<String> subCategories = getSubCategories(sheetId, mainCategory);
+        for (int j = 0; j < subCategories.size(); j++) {
+            String subCategory = subCategories.get(j);
+            Text subCatHeader = new Text(subCategory);
+            subCatHeader.setFont(Font.font("Verdana", 13));
+            subCatHeader.setFill(Color.BROWN);
+            TableView table = getSingleTable(sheetId, mainCategory, subCategory);
+            table.setFixedCellSize(25);
+            vBox.getChildren().addAll(subCatHeader, table);
+        }
+        Tab tab = new Tab();
+        tab.setText(mainCategory);
+        tab.setContent(vBox);
+        return tab;
+    }
+
+
+
+
+
+
+
+
 
 
     private TableView getSingleTable(int sheetId, String mainCategory, String subCategory) {
@@ -112,28 +122,36 @@ public class TemplateEditable {
         return returnItems;
     }
 
-    private void populateCategories() {
+    private ArrayList<String> getMainCategories(int sheetId) {
         ArrayList<String> mainCategories = new ArrayList<String>();
-        ArrayList<String> subCategories = new ArrayList<String>();
         for (int i = 0; i < this.items.size(); i++) {
             Item item = this.items.get(i);
             String mainCat = item.getMainCategory();
-            String subCat = item.getSubCategory();
-            if (!mainCategories.contains(mainCat)) {
+            int itemSheetId= item.getParentSheet();
+            if (!mainCategories.contains(mainCat) && itemSheetId == sheetId) {
                 if (mainCat != null && !mainCat.isEmpty()) {
                     mainCategories.add(mainCat);
                 }
             }
-            if (!subCategories.contains(subCat)) {
+        }
+        return mainCategories;
+    }
+
+    private ArrayList<String> getSubCategories(int sheetId, String mainCategory) {
+        ArrayList<String> subCategories = new ArrayList<String>();
+        for (int i = 0; i < this.items.size(); i++) {
+            Item item = this.items.get(i);
+            String subCat = item.getSubCategory();
+            String mainCat = item.getMainCategory();
+            int itemSheetId= item.getParentSheet();
+            if (!subCategories.contains(subCat)  && itemSheetId == sheetId && mainCategory == mainCat) {
                 if (subCat != null && !subCat.isEmpty()) {
                     subCategories.add(subCat);
                 }
             }
         }
-        this.mainCategories = mainCategories;
-        this.subCategories = subCategories;
+        return subCategories;
     }
-
 
     //Delete button clicked
     public void deleteButtonClicked() {

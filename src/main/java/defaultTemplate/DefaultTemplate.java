@@ -60,7 +60,7 @@ public class DefaultTemplate {
 
         //Non-current liabilities
 
-    /*    Items.add(new Item(0, "Non-current provisions for employee benefits", "NoncurrentProvisionsForEmployeeBenefits", "Equity and Liabilities", "Non-current liabilities",true, 0, 0));
+        Items.add(new Item(0, "Non-current provisions for employee benefits", "NoncurrentProvisionsForEmployeeBenefits", "Equity and Liabilities", "Non-current liabilities",true, 0, 0));
         Items.add(new Item(0, "Other non-current provisions", "OtherLongtermProvisions", "Equity and Liabilities", "Non-current liabilities",true, 0, 0));
         Items.add(new Item(0, "Trade and other non-current payables", "NoncurrentPayables", "Equity and Liabilities", "Non-current liabilities",true, 0, 0));
         Items.add(new Item(0, "Deferred tax liabilities", "DeferredTaxLiabilities", "Equity and Liabilities", "Non-current liabilities",true, 0, 0));
@@ -109,7 +109,7 @@ public class DefaultTemplate {
         Items.add(new Item(0, "Profit (loss)", "ProfitLoss", "", "",true, 0, 1));
         Items.add(new Item(0, "Other comprehensive income", "OtherComprehensiveIncome", "", "",true, 0, 1));
         Items.add(new Item(0, "COMPREHENSIVE INCOME", "ComprehensiveIncome", "", "",true, 0, 1));
-*/
+
         return Items;
     }
 }
