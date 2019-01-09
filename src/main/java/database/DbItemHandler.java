@@ -5,9 +5,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class DbItemHandler extends DbHandlerBase{
 
@@ -32,11 +29,6 @@ public class DbItemHandler extends DbHandlerBase{
                     "`parentSheet` INTEGER" +
                     ");");
 
-            addItem(new Item(0, "Property, plant and equipment", "PropertyPlantAndEquipment", true, 0, 0));
-            addItem(new Item(0, "Investment property", "Investmentproperty", true, 0, 0));
-            addItem(new Item(0, "Goodwill", "Goodwill", true, 0, 0));
-            addItem(new Item(0, "Intangible assets other than goodwill", "IntangibleAssetsOtherThanGoodwill ", true, 0, 0));
-            addItem(new Item(0, "Investment accounted for using equity method", "InvestmentAccountedForUsingEquityMethod ", true, 0, 0));
             System.out.println("Table " + tableName + " created");
         }else{
             System.out.println("Table " + tableName + " already exists");
@@ -47,13 +39,15 @@ public class DbItemHandler extends DbHandlerBase{
     public ObservableList<Item> getAllItems() {
         ObservableList<Item> Items = FXCollections.observableArrayList();
         try (Statement statement = this.connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName, isPositive, parent, parentSheet FROM " + tableName );
+            ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName, mainCategory, subCategory, isPositive, parent, parentSheet FROM " + tableName );
             while (resultSet.next()) {
                 Items.add(
                     new Item(
                         resultSet.getInt("id"),
                         resultSet.getString("name"),
                         resultSet.getString("shortName"),
+                        resultSet.getString("mainCategory"),
+                        resultSet.getString("subCategory"),
                         resultSet.getBoolean("isPositive"),
                         resultSet.getInt("parent"),
                         resultSet.getInt("parentSheet")
@@ -69,10 +63,12 @@ public class DbItemHandler extends DbHandlerBase{
 
     public void addItem(Item Item) throws ClassNotFoundException, SQLException {
         try (PreparedStatement statement = this.connection.prepareStatement(
-                "INSERT INTO " + tableName + " (`id`, `name`, `shortName`, `isPositive`, `parent`, `parentSheet`) " +
+                "INSERT INTO " + tableName + " (`id`, `name`, `shortName`, `mainCategory`, `subCategory`, `isPositive`, `parent`, `parentSheet`) " +
                         "VALUES(NULL, ?, ?, ?, ?, ?)")) {
             statement.setObject(1, Item.name);
             statement.setObject(2, Item.shortName);
+            statement.setObject(3, Item.mainCategory);
+            statement.setObject(3, Item.subCategory);
             statement.setObject(3, Item.isPositive);
             statement.setObject(4, Item.parent);
             statement.setObject(5, Item.parentSheet);
