@@ -1,4 +1,4 @@
-package finalonWindows.settingsScene.templates;
+package finalonWindows.addTemplateScene.templates;
 
 import entities.Item;
 import entities.Sheet;
@@ -20,6 +20,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+
 public class TemplateEditable {
 
 

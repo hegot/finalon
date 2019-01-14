@@ -3,17 +3,19 @@ package finalonWindows.settingsScene;
 import defaultTemplate.DefaultTemplate;
 import entities.Item;
 import entities.Sheet;
+import finalonWindows.ImageButton;
+import finalonWindows.SceneName;
+import finalonWindows.SceneSwitcher;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import finalonWindows.SceneBase;
-import finalonWindows.settingsScene.templates.TemplateEditable;
-
+import javafx.scene.control.Label;
 import java.util.ArrayList;
 
 public class SettingsScene extends SceneBase {
@@ -33,26 +35,24 @@ public class SettingsScene extends SceneBase {
         return header;
     }
 
-    public Scene getSettingsScene() {
-       /* BorderPane root = new BorderPane();
-        //DbItemHandler dbItemHandler = new DbItemHandler();
-        //ObservableList Items = dbItemHandler.getAllItems();
-        //return Items;
-        ObservableList<Item> allItems = DefaultTemplate.getAllItems();
-        ArrayList<Sheet> sheets = DefaultTemplate.getSheets();
-        TemplateEditable templateEditable = new TemplateEditable(allItems, sheets);
-        root.setTop(templateEditable.getTemplateEditable());
-        return new Scene(root, 1000, 600);*/
-        ObservableList<Item> allItems = DefaultTemplate.getAllItems();
-        ArrayList<Sheet> sheets = DefaultTemplate.getSheets();
-        TemplateEditable templateEditable = new TemplateEditable(allItems, sheets);
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setPrefSize(900, 550);
-        scrollPane.setFitToHeight(true);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setContent(templateEditable.getTemplateEditable());
-        Scene scene = new Scene(scrollPane, 1000, 900);
-        scene.getStylesheets().add("/styles/style.css");
+    public Scene getScene() {
+        Label label2= new Label("This is the second scene");
+        HBox layout2= new HBox(20);
+        layout2.getChildren().addAll(label2,  addSettingsButton());
+        Scene scene = new Scene(layout2,300,250);
         return scene;
+    }
+
+    public ImageButton addSettingsButton() {
+        ImageButton btn = new ImageButton();
+        btn.updateImages(new Image("/image/settings.png"), new Image("/image/settings1.png"));
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                window.setScene(SceneSwitcher.getScenes().get(SceneName.ADDTEMPLATE));
+
+            }
+        });
+        return btn;
     }
 }

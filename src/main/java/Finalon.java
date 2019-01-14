@@ -3,6 +3,8 @@ import javafx.stage.Stage;
 import finalonWindows.SceneSwitcher;
 import java.sql.SQLException;
 import  database.AddDefaultTpl;
+import finalonWindows.SceneSwitcher;
+import finalonWindows.SceneName;
 
 public class Finalon extends Application {
 
@@ -23,7 +25,7 @@ public class Finalon extends Application {
         addDefaultTpl.start();
         window = primaryStage;
         SceneSwitcher sceneSwitcher = new SceneSwitcher(window);
-        sceneSwitcher.setMainScene();
+        window.setScene(SceneSwitcher.getScenes().get(SceneName.MAIN));
         window.show();
     }
 

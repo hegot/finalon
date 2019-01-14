@@ -1,6 +1,9 @@
 package finalonWindows.mainScene;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
@@ -8,6 +11,9 @@ import javafx.geometry.Insets;
 import javafx.scene.layout.BorderPane;
 import finalonWindows.ImageButton;
 import finalonWindows.SceneBase;
+import finalonWindows.SceneSwitcher;
+import finalonWindows.SceneName;
+
 
 public class MainScene extends SceneBase {
 
@@ -26,23 +32,59 @@ public class MainScene extends SceneBase {
         return header;
     }
 
-    public Scene getMainScene(
-            ImageButton CompanyButton,
-            ImageButton SettingsButton,
-            ImageButton HelpButton,
-            ImageButton ExitButton
-    ) {
+    public Scene getScene() {
         BorderPane root = new BorderPane();
         root.setTop(getHeader());
         VBox pane2 = new VBox();
         pane2.setBackground(background("#222C3C"));
         pane2.setPadding(new Insets(10, 10, 10, 10));
         pane2.setSpacing(10);
-        pane2.getChildren().add(CompanyButton);
-        pane2.getChildren().add(SettingsButton);
-        pane2.getChildren().add(HelpButton);
-        pane2.getChildren().add(ExitButton);
+        pane2.getChildren().add(addCompanyButton());
+        pane2.getChildren().add(addSettingsButton());
+        pane2.getChildren().add(addHelpButton());
+        pane2.getChildren().add(addExitButton());
         root.setLeft(pane2);
         return new Scene(root, 900, 600);
+    }
+
+
+    public ImageButton addCompanyButton() {
+        ImageButton btn = new ImageButton();
+        btn.updateImages(new Image("/image/add.png"), new Image("/image/add1.png"));
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                System.out.println("Accepted");
+            }
+        });
+        return btn;
+    }
+
+    public ImageButton addSettingsButton() {
+        ImageButton btn = new ImageButton();
+        btn.updateImages(new Image("/image/settings.png"), new Image("/image/settings1.png"));
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                //setSettingsScene();
+
+                window.setScene(SceneSwitcher.getScenes().get(SceneName.SETTINGSMAIN));
+                System.out.println("Accepted");
+
+            }
+        });
+        return btn;
+    }
+
+    public ImageButton addHelpButton() {
+        ImageButton btn = new ImageButton();
+        btn.updateImages(new Image("/image/info.png"), new Image("/image/info1.png"));
+        return btn;
+    }
+
+    public ImageButton addExitButton() {
+        ImageButton btn = new ImageButton();
+        btn.updateImages(new Image("/image/exit.png"), new Image("/image/exit1.png"));
+        return btn;
     }
 }
