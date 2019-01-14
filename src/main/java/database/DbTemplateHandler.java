@@ -1,7 +1,13 @@
 package database;
 
+import entities.Item;
+import entities.Sheet;
 import entities.Template;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DbTemplateHandler extends DbHandlerBase{
 
@@ -21,13 +27,29 @@ public class DbTemplateHandler extends DbHandlerBase{
                     "`id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," +
                     "`name` TEXT" +
                     ");");
-
-            addTemplate(new Template(1, "Default Template"));
             System.out.println("Table " + tableName + " created");
         }else{
             System.out.println("Table " + tableName + " already exists");
         }
 
+    }
+
+    public  ArrayList<Template> getTemplates() {
+        ArrayList<Template> templates = new ArrayList<Template>();
+        try (Statement statement = this.connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery("SELECT id, name FROM " + tableName );
+            while (resultSet.next()) {
+                templates.add(
+                        new Template(
+                                resultSet.getInt("id"),
+                                resultSet.getString("name")
+                        )
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return templates;
     }
 
 
