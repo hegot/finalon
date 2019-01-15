@@ -1,16 +1,14 @@
+import database.AddDefaultTpl;
+import finalonWindows.SceneName;
+import finalonWindows.SceneSwitcher;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import finalonWindows.SceneSwitcher;
+
 import java.sql.SQLException;
-import  database.AddDefaultTpl;
-import finalonWindows.SceneSwitcher;
-import finalonWindows.SceneName;
 
 public class Finalon extends Application {
 
     private Stage window;
-
-
 
 
     public static void main(String[] args) {
@@ -19,7 +17,7 @@ public class Finalon extends Application {
 
 
     @Override
-    public void start(Stage primaryStage)  throws ClassNotFoundException, SQLException {
+    public void start(Stage primaryStage) throws ClassNotFoundException, SQLException {
 
         AddDefaultTpl addDefaultTpl = new AddDefaultTpl();
         addDefaultTpl.start();
@@ -28,7 +26,6 @@ public class Finalon extends Application {
         window.setScene(SceneSwitcher.getScenes().get(SceneName.MAIN));
         window.show();
     }
-
 
 
 }

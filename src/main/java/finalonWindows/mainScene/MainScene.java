@@ -1,22 +1,20 @@
 package finalonWindows.mainScene;
 
+import finalonWindows.SceneBase;
+import finalonWindows.SceneName;
+import finalonWindows.SceneSwitcher;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.HBox;
-import javafx.geometry.Insets;
-import javafx.scene.layout.BorderPane;
-import finalonWindows.ImageButton;
-import finalonWindows.SceneBase;
-import finalonWindows.SceneSwitcher;
-import finalonWindows.SceneName;
 
 
 public class MainScene extends SceneBase {
@@ -47,7 +45,7 @@ public class MainScene extends SceneBase {
         return new Scene(root, 900, 600);
     }
 
-    private VBox getSidebar(){
+    private VBox getSidebar() {
         VBox sidebar = new VBox(10);
         sidebar.setStyle(whiteBorderedPanel());
         sidebar.getChildren().add(addCompanyButton());

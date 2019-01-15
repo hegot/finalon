@@ -1,14 +1,19 @@
 package finalonWindows.settingsScene;
 
+import database.DbTemplateHandler;
 import entities.Template;
 import finalonWindows.ImageButton;
+import finalonWindows.SceneBase;
 import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -16,11 +21,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import finalonWindows.SceneBase;
 
 import java.util.ArrayList;
-
-import database.DbTemplateHandler;
 
 public class SettingsScene extends SceneBase {
 
@@ -68,6 +70,7 @@ public class SettingsScene extends SceneBase {
                 ImageButton button = editTemplateButton(template.id);
                 vbox.getChildren().addAll(templateName, button);
             }
+            vbox.getChildren().add(addTemplateButton());
         } else {
             HBox hbox = new HBox(20);
             hbox.setStyle(whiteBorderedPanel());
@@ -82,8 +85,7 @@ public class SettingsScene extends SceneBase {
     }
 
 
-
-    private HBox templatesMessage(){
+    private HBox templatesMessage() {
         HBox hbox = new HBox(20);
         hbox.setStyle(whiteBorderedPanel());
         hbox.setPrefWidth(400);
@@ -97,9 +99,6 @@ public class SettingsScene extends SceneBase {
         hbox.getChildren().add(text);
         return hbox;
     }
-
-
-
 
 
     public Button addTemplateButton() {

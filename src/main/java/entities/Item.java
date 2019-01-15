@@ -11,14 +11,14 @@ public class Item {
     public int parentSheet;
 
     public Item(
-        int id,
-        String name,
-        String shortName,
-        String mainCategory,
-        String subCategory,
-        Boolean isPositive,
-        int parent,
-        int parentSheet
+            int id,
+            String name,
+            String shortName,
+            String mainCategory,
+            String subCategory,
+            Boolean isPositive,
+            int parent,
+            int parentSheet
     ) {
         this.id = id;
         this.name = name;
@@ -90,8 +90,8 @@ public class Item {
         return parentSheet;
     }
 
-    public void setParentSheet(int code) {
-        this.parentSheet = code;
+    public void setParentSheet(int parentSheet) {
+        this.parentSheet = parentSheet;
     }
 
 }

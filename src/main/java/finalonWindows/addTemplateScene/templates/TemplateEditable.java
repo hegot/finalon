@@ -1,4 +1,5 @@
 package finalonWindows.addTemplateScene.templates;
+
 import entities.Item;
 import entities.Sheet;
 import javafx.collections.FXCollections;
@@ -7,10 +8,10 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import java.util.ArrayList;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+
+import java.util.ArrayList;
 
 public class TemplateEditable {
 
@@ -19,9 +20,17 @@ public class TemplateEditable {
     private ObservableList<Item> items;
     private ArrayList<Sheet> sheets;
 
-    public TemplateEditable(ObservableList<Item> items, ArrayList<Sheet> sheets) {
-        this.items = items;
+    public TemplateEditable(ArrayList<Sheet> sheets) {
         this.sheets = sheets;
+        this.items = getAllItems();
+    }
+
+    private ObservableList<Item> getAllItems() {
+        ObservableList<Item> combined = FXCollections.observableArrayList();
+        for (int i = 0; i < this.sheets.size(); i++) {
+            combined.addAll(this.sheets.get(i).items);
+        }
+        return combined;
     }
 
     public TabPane getTemplateEditable() {
@@ -40,13 +49,13 @@ public class TemplateEditable {
         ArrayList<String> mainCategories = getMainCategories(sheet.id);
 
         if (mainCategories.isEmpty()) {
-            TableView table = getSingleTable(sheet.id, "", "");
+            TableView table = getSingleTable(sheet, "", "");
             tab.setContent(table);
-        }else{
+        } else {
             TabPane tabs = new TabPane();
             for (int i = 0; i < mainCategories.size(); i++) {
                 String mainCategory = mainCategories.get(i);
-                Tab categoryTab = getMCatRendered(mainCategory, sheet.id);
+                Tab categoryTab = getMCatRendered(mainCategory, sheet);
                 tabs.getTabs().add(categoryTab);
             }
             tab.setContent(tabs);
@@ -55,12 +64,12 @@ public class TemplateEditable {
         return tab;
     }
 
-    private Tab getMCatRendered(String mainCategory, int sheetId) {
+    private Tab getMCatRendered(String mainCategory, Sheet sheet) {
         VBox vBox = new VBox();
-        ArrayList<String> subCategories = getSubCategories(sheetId, mainCategory);
+        ArrayList<String> subCategories = getSubCategories(sheet, mainCategory);
         for (int j = 0; j < subCategories.size(); j++) {
             String subCategory = subCategories.get(j);
-            TableView table = getSingleTable(sheetId, mainCategory, subCategory);
+            TableView table = getSingleTable(sheet, mainCategory, subCategory);
             table.setFixedCellSize(25);
             vBox.getChildren().addAll(greyLabel(subCategory), table);
         }
@@ -70,7 +79,7 @@ public class TemplateEditable {
         return tab;
     }
 
-    private Label greyLabel(String text){
+    private Label greyLabel(String text) {
         Label label = new Label(text);
         label.setStyle("-fx-font-weight: bold");
         label.setPadding(new Insets(10, 5, 10, 5));
@@ -80,7 +89,7 @@ public class TemplateEditable {
     }
 
 
-    private TableView getSingleTable(int sheetId, String mainCategory, String subCategory) {
+    private TableView getSingleTable(Sheet sheet, String mainCategory, String subCategory) {
         TableColumn<Item, String> nameColumn = new TableColumn<Item, String>("Indicator");
         nameColumn.setMinWidth(400);
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -90,23 +99,18 @@ public class TemplateEditable {
         table = new TableView<>();
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         table.getColumns().addAll(nameColumn, shortNameColumn);
-        table.setItems(getItems(sheetId, mainCategory, subCategory));
+        table.setItems(getItems(sheet, mainCategory, subCategory));
         return table;
     }
 
-    public ObservableList<Item> getItems(int SheetId, String mainCategory, String subCategory) {
+    public ObservableList<Item> getItems(Sheet sheet, String mainCategory, String subCategory) {
         ObservableList<Item> returnItems = FXCollections.observableArrayList();
-        for (int i = 0; i < this.items.size(); i++) {
-            Item item = this.items.get(i);
-            int itemSheetId = item.getParentSheet();
+        for (int i = 0; i < sheet.items.size(); i++) {
+            Item item = sheet.items.get(i);
             String itemMainCategory = item.getMainCategory();
             String itemSubCategory = item.getSubCategory();
-
-            if (itemSheetId == SheetId
-                    && itemMainCategory == mainCategory
-                    && itemSubCategory == subCategory) {
+            if (itemMainCategory == mainCategory && itemSubCategory == subCategory) {
                 returnItems.add(item);
-                //this.items.remove(item);
             }
         }
         return returnItems;
@@ -117,7 +121,7 @@ public class TemplateEditable {
         for (int i = 0; i < this.items.size(); i++) {
             Item item = this.items.get(i);
             String mainCat = item.getMainCategory();
-            int itemSheetId= item.getParentSheet();
+            int itemSheetId = item.getParentSheet();
             if (!mainCategories.contains(mainCat) && itemSheetId == sheetId) {
                 if (mainCat != null && !mainCat.isEmpty()) {
                     mainCategories.add(mainCat);
@@ -127,14 +131,13 @@ public class TemplateEditable {
         return mainCategories;
     }
 
-    private ArrayList<String> getSubCategories(int sheetId, String mainCategory) {
+    private ArrayList<String> getSubCategories(Sheet sheet, String mainCategory) {
         ArrayList<String> subCategories = new ArrayList<String>();
-        for (int i = 0; i < this.items.size(); i++) {
-            Item item = this.items.get(i);
+        for (int i = 0; i < sheet.items.size(); i++) {
+            Item item = sheet.items.get(i);
             String subCat = item.getSubCategory();
             String mainCat = item.getMainCategory();
-            int itemSheetId= item.getParentSheet();
-            if (!subCategories.contains(subCat)  && itemSheetId == sheetId && mainCategory == mainCat) {
+            if (!subCategories.contains(subCat) && mainCategory == mainCat) {
                 if (subCat != null && !subCat.isEmpty()) {
                     subCategories.add(subCat);
                 }
