@@ -15,6 +15,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import  finalonWindows.addTemplateScene.templates.*;
 import javafx.scene.control.Button;
@@ -29,29 +32,33 @@ public class AddTemplateScene extends SceneBase {
     }
 
 
+    private HBox headerMenu(){
+        HBox hbox = new HBox(10);
+        hbox.setStyle(whiteBorderedPanelMenu());
+
+        hbox.getChildren().addAll( backButton(), addTemplateButton());
+        return hbox;
+    }
+
     public Scene getScene() {
         ObservableList<Item> allItems = DefaultTemplate.getAllItems();
         ArrayList<Sheet> sheets = DefaultTemplate.getSheets();
         TemplateEditable templateEditable = new TemplateEditable(allItems, sheets);
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setPrefSize(900, 550);
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
         VBox vBox = new VBox();
-        vBox.getChildren().addAll(backButton(), templateEditable.getTemplateEditable(), addTemplateButton());
+        vBox.getChildren().addAll( headerMenu(), templateEditable.getTemplateEditable());
         scrollPane.setContent(vBox);
 
-        Scene scene = new Scene(scrollPane, 1000, 900);
+        Scene scene = new Scene(scrollPane, 1000, 600);
         scene.getStylesheets().add("/styles/style.css");
         return scene;
     }
 
     public Button backButton() {
-        Button button = new Button("<- Back to Settings");
-        button.setStyle("-fx-border-color: #ff0000; -fx-border-width: 5px;");
-        button.setStyle("-fx-background-color: #69E781");
-        button.setStyle("-fx-font-size: 2em; ");
-        button.setStyle("-fx-text-fill: #0B2239");
+        Button button = new Button("Back to Settings");
+        button.setStyle( blueButonStyle());
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -64,10 +71,7 @@ public class AddTemplateScene extends SceneBase {
 
     public Button addTemplateButton() {
         Button button = new Button("Save Template");
-        button.setStyle("-fx-border-color: #ff0000; -fx-border-width: 5px;");
-        button.setStyle("-fx-background-color: #69E781");
-        button.setStyle("-fx-font-size: 2em; ");
-        button.setStyle("-fx-text-fill: #0B2239");
+        button.setStyle( blueButonStyle());
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {

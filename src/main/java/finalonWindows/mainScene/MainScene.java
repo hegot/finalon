@@ -3,7 +3,11 @@ package finalonWindows.mainScene;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
@@ -25,32 +29,38 @@ public class MainScene extends SceneBase {
 
     private HBox getHeader() {
         HBox header = new HBox(10);
-        header.setMaxHeight(180);
-        header.setPrefHeight(180);
-        header.setFillHeight(false);
-        header.setBackground(background("#0095CD"));
+        header.setMaxHeight(100);
+        header.setPrefHeight(100);
+        header.setStyle(whiteBorderedPanel());
+        Label label = new Label("Financial Statement Analysis Application");
+        label.setPadding(new Insets(7, 0, 0, 0));
+        label.setFont(Font.font("Arial", 20));
+        label.setTextFill(Color.web("#6a6c6f"));
+        header.getChildren().add(label);
         return header;
     }
 
     public Scene getScene() {
         BorderPane root = new BorderPane();
         root.setTop(getHeader());
-        VBox pane2 = new VBox();
-        pane2.setBackground(background("#222C3C"));
-        pane2.setPadding(new Insets(10, 10, 10, 10));
-        pane2.setSpacing(10);
-        pane2.getChildren().add(addCompanyButton());
-        pane2.getChildren().add(addSettingsButton());
-        pane2.getChildren().add(addHelpButton());
-        pane2.getChildren().add(addExitButton());
-        root.setLeft(pane2);
+        root.setLeft(getSidebar());
         return new Scene(root, 900, 600);
     }
 
+    private VBox getSidebar(){
+        VBox sidebar = new VBox(10);
+        sidebar.setStyle(whiteBorderedPanel());
+        sidebar.getChildren().add(addCompanyButton());
+        sidebar.getChildren().add(addSettingsButton());
+        sidebar.getChildren().add(addHelpButton());
+        sidebar.getChildren().add(addExitButton());
+        return sidebar;
+    }
 
-    public ImageButton addCompanyButton() {
-        ImageButton btn = new ImageButton();
-        btn.updateImages(new Image("/image/add.png"), new Image("/image/add1.png"), 50);
+
+    public Button addCompanyButton() {
+        Button btn = new Button("Add Company");
+        btn.setStyle(sidebarBlueButonStyle());
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -60,9 +70,9 @@ public class MainScene extends SceneBase {
         return btn;
     }
 
-    public ImageButton addSettingsButton() {
-        ImageButton btn = new ImageButton();
-        btn.updateImages(new Image("/image/settings.png"), new Image("/image/settings1.png"), 50);
+    public Button addSettingsButton() {
+        Button btn = new Button("Settings");
+        btn.setStyle(sidebarBlueButonStyle());
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -76,15 +86,15 @@ public class MainScene extends SceneBase {
         return btn;
     }
 
-    public ImageButton addHelpButton() {
-        ImageButton btn = new ImageButton();
-        btn.updateImages(new Image("/image/info.png"), new Image("/image/info1.png"), 50);
+    public Button addHelpButton() {
+        Button btn = new Button("Help");
+        btn.setStyle(sidebarBlueButonStyle());
         return btn;
     }
 
-    public ImageButton addExitButton() {
-        ImageButton btn = new ImageButton();
-        btn.updateImages(new Image("/image/exit.png"), new Image("/image/exit1.png"), 50);
+    public Button addExitButton() {
+        Button btn = new Button("Exit");
+        btn.setStyle(sidebarBlueButonStyle());
         return btn;
     }
 }

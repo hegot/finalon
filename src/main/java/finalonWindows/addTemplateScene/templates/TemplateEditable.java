@@ -3,16 +3,14 @@ import entities.Item;
 import entities.Sheet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import java.util.ArrayList;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 
 public class TemplateEditable {
 
@@ -62,12 +60,9 @@ public class TemplateEditable {
         ArrayList<String> subCategories = getSubCategories(sheetId, mainCategory);
         for (int j = 0; j < subCategories.size(); j++) {
             String subCategory = subCategories.get(j);
-            Text subCatHeader = new Text(subCategory);
-            subCatHeader.setFont(Font.font("Verdana", 13));
-            subCatHeader.setFill(Color.BROWN);
             TableView table = getSingleTable(sheetId, mainCategory, subCategory);
             table.setFixedCellSize(25);
-            vBox.getChildren().addAll(subCatHeader, table);
+            vBox.getChildren().addAll(greyLabel(subCategory), table);
         }
         Tab tab = new Tab();
         tab.setText(mainCategory);
@@ -75,13 +70,14 @@ public class TemplateEditable {
         return tab;
     }
 
-
-
-
-
-
-
-
+    private Label greyLabel(String text){
+        Label label = new Label(text);
+        label.setStyle("-fx-font-weight: bold");
+        label.setPadding(new Insets(10, 5, 10, 5));
+        label.setFont(Font.font("Arial", 15));
+        label.setTextFill(Color.web("#6a6c6f"));
+        return label;
+    }
 
 
     private TableView getSingleTable(int sheetId, String mainCategory, String subCategory) {
