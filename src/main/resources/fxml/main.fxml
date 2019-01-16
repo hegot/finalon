@@ -1,0 +1,28 @@
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<fx:root type="javafx.scene.layout.VBox" xmlns:fx="http://javafx.com/fxml">
+    <BorderPane>
+        <top>
+            <HBox spacing="20" prefHeight="100" styleClass="header">
+                <Label fx:id="inputLbl" alignment="CENTER_LEFT" cache="true" cacheHint="SCALE"  text="Financial Statement Analysis Application" textAlignment="LEFT"/>
+            </HBox>
+        </top>
+        <left>
+            <VBox spacing="20" styleClass="header">
+                <Button styleClass="sidebar-btn" text="Add Company" onAction="#addCompanyAction" />
+                <Button styleClass="sidebar-btn" text="Settings" onAction="#settingsAction"/>
+                <Button styleClass="sidebar-btn" text="Help" onAction="#helpAction"/>
+                <Button styleClass="sidebar-btn" text="Exit" onAction="#exitAction"/>
+            </VBox>
+        </left>
+        <center>
+            <Label text="Some data here"/>
+        </center>
+        <stylesheets>
+            <URL value="@style.css"></URL>
+        </stylesheets>
+    </BorderPane>
+</fx:root>
+
