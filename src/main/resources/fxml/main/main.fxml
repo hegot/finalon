@@ -1,6 +1,7 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import finalonWindows.mainScene.LabelFlow ?>
 <?import java.net.URL?>
 <fx:root type="javafx.scene.layout.VBox" xmlns:fx="http://javafx.com/fxml">
     <BorderPane>
@@ -20,6 +21,9 @@
         <center>
             <Label text="Some data here"/>
         </center>
+        <bottom>
+            <LabelFlow fx:id="labelFlow" numLabels="10"/>
+        </bottom>
         <stylesheets>
             <URL value="@style.css"></URL>
         </stylesheets>

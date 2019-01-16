@@ -98,7 +98,6 @@ public class AddTemplateScene extends SceneBase {
                 }
 
 
-
             }
         });
         return button;

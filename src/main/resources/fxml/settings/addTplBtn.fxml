@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<fx:root styleClass="addTpl" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/8.0.121"
+         xmlns:fx="http://javafx.com/fxml/1" maxWidth="600">
+    <Label styleClass="add-template-text" text="You have no custom templates yet, you can add one here" textFill="#6a6c6f" />
+
+    <Button styleClass="add-template-btn" text="Add Template" onAction="#addTemplateAction"/>
+
+    <stylesheets>
+        <URL value="@style.css"/>
+    </stylesheets>
+</fx:root>
+
