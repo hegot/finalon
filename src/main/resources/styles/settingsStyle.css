@@ -1,0 +1,102 @@
+.tab-pane .tab-header-area .tab-header-background {
+   -fx-background-color: #122538;
+}
+
+.tab-pane > .tab-header-area > .headers-region{
+    -fx-border-style: solid outside;
+    -fx-border-width: 1;
+    -fx-border-radius: 2;
+    -fx-border-color: #e4e5e7;
+}
+
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-color: transparent;
+}
+
+.tab-pane .tab{
+    -fx-background-color: #FFF;
+    -fx-padding: 5px 15px;
+    -fx-border-width: 0 0 2 0;
+    -fx-border-color:#122538;
+
+}
+
+.tab-pane .tab:selected{
+    -fx-border-width: 0 0 2 0;
+    -fx-border-color: #FFF;
+}
+
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #6a6c6f;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: #34495e;
+}
+
+.settingsMessage, .addTemplate{
+    -fx-padding: 15;
+    -fx-border-style: solid outside;
+    -fx-border-width: 1;
+    -fx-border-insets: 0;
+    -fx-border-radius: 2;
+    -fx-border-color: #e4e5e7;
+    -fx-background-color: #fff;
+     -fx-text-fill: #6a6c6f;
+}
+
+.addTemplate .add-template-btn{
+    -fx-background-color: #74d348;
+    -fx-font-size: 13px;
+    -fx-text-fill: #FFFFFF;
+    -fx-padding: 10 25 10 25;
+}
+
+.addTemplate .add-template-text{
+    -fx-padding: 10 25 10 25;
+}
+
+.row{
+    -fx-padding: 10;
+    -fx-border-style: solid outside;
+    -fx-border-width: 1;
+    -fx-border-insets: 0;
+    -fx-border-radius: 2;
+    -fx-border-color: #ccd1d1;
+    -fx-background-color: #fff;
+    -fx-pref-width: 200px;
+    -fx-max-width:200px;
+    -fx-max-height: 300px;
+
+}
+
+.row .btn-panel{
+    -fx-alignment: center;
+    -fx-border-insets: 15px;
+        -fx-background-insets: 15px;
+}
+
+.row .btn-panel .btn{
+    -fx-background-color:#3f5872;
+    -fx-font-size: 12px;
+    -fx-text-fill: #FFFFFF;
+    -fx-padding:10;
+    -fx-alignment:  baseline-left;
+    -fx-background-radius: 5em;
+}
+
+
+.row .row-text{
+    -fx-font-size: 16px;
+    -fx-padding: 5 25 5 25;
+    -fx-pref-width: 400px;
+    -fx-text-fill: #6a6c6f;
+    -fx-alignment: center;
+      -fx-pref-height: 100px;
+     -fx-max-width:200px;
+     -fx-wrap-text: true;
+}

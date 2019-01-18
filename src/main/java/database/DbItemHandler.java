@@ -37,6 +37,31 @@ public class DbItemHandler extends DbHandlerBase {
 
     }
 
+    public ObservableList<Item> getItems(int parentSheet) {
+        ObservableList<Item> Items = FXCollections.observableArrayList();
+        try (Statement statement = this.connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName, mainCategory, subCategory, isPositive, parent, parentSheet FROM "
+                    + tableName + " WHERE parentSheet = " + parentSheet);
+            while (resultSet.next()) {
+                Items.add(
+                        new Item(
+                                resultSet.getInt("id"),
+                                resultSet.getString("name"),
+                                resultSet.getString("shortName"),
+                                resultSet.getString("mainCategory"),
+                                resultSet.getString("subCategory"),
+                                resultSet.getBoolean("isPositive"),
+                                resultSet.getInt("parent"),
+                                resultSet.getInt("parentSheet")
+                        )
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Items;
+    }
+
     public ObservableList<Item> getAllItems() {
         ObservableList<Item> Items = FXCollections.observableArrayList();
         try (Statement statement = this.connection.createStatement()) {

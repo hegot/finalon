@@ -1,4 +1,4 @@
-package finalonWindows.addTemplateScene.templates;
+package finalonWindows.TemplateScene.templates;
 
 import entities.Item;
 import entities.Sheet;

@@ -8,7 +8,7 @@ import java.io.IOException;
 public class SettingsMessage extends VBox {
 
     public SettingsMessage() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/settings/settings_message.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/settings/settingsMessage.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         try {

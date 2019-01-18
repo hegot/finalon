@@ -2,10 +2,8 @@ package database;
 
 import entities.Sheet;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class DbSheetHandler extends DbHandlerBase {
 
@@ -23,7 +21,7 @@ public class DbSheetHandler extends DbHandlerBase {
             this.connection.createStatement().execute("CREATE TABLE if not exists `" + tableName + "` (" +
                     "`id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," +
                     "`name` TEXT," +
-                    "`parentSheet` INTEGER" +
+                    "`parentTpl` INTEGER" +
                     ");");
 
             addSheet(new Sheet(0, "Statement of Financial Position (Balance Sheet)", 0));
@@ -35,11 +33,34 @@ public class DbSheetHandler extends DbHandlerBase {
     }
 
 
+    public ArrayList<Sheet> getSheets(int parentTpl) {
+        ArrayList<Sheet> Sheets = new ArrayList<Sheet>();
+        DbItemHandler itemHandler = new DbItemHandler();
+        try (Statement statement = this.connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery("SELECT id, name, parentTpl FROM " + tableName + " WHERE parentTpl = " + parentTpl);
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                Sheets.add(
+                        new Sheet(
+                                id,
+                                resultSet.getString("name"),
+                                resultSet.getInt("parentTpl"),
+                                itemHandler.getItems(id)
+                        )
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Sheets;
+    }
+
+
     public int addSheet(Sheet Sheet) throws ClassNotFoundException, SQLException {
 
         try {
             String[] returnId = {"id"};
-            String sql = "INSERT INTO " + tableName + " (`id`, `name`, `parentSheet`) " + "VALUES(NULL, ?, ?)";
+            String sql = "INSERT INTO " + tableName + " (`id`, `name`, `parentTpl`) " + "VALUES(NULL, ?, ?)";
             PreparedStatement statement = this.connection.prepareStatement(sql, returnId);
             statement.setObject(1, Sheet.name);
             statement.setObject(2, Sheet.parentTpl);
@@ -60,7 +81,7 @@ public class DbSheetHandler extends DbHandlerBase {
         return 0;
     }
 
-    public void deleteItem(int id) {
+    public void deleteSheet(int id) {
         try (PreparedStatement statement = this.connection.prepareStatement(
                 "DELETE FROM " + tableName + " WHERE id = ?")) {
             statement.setObject(1, id);

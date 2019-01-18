@@ -4,17 +4,15 @@ import database.DbTemplateHandler;
 import entities.Template;
 import finalonWindows.ImageButton;
 import finalonWindows.SceneBase;
-import finalonWindows.SceneName;
-import finalonWindows.SceneSwitcher;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -34,6 +32,7 @@ public class SettingsScene extends SceneBase {
 
     public Scene getScene() {
         TabPane tabs = new TabPane();
+        tabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         Tab templates = new Tab();
         templates.setText("Templates Customization");
         templates.setContent(getTemplates());
@@ -42,6 +41,7 @@ public class SettingsScene extends SceneBase {
         formulas.setContent(getFormulas());
         tabs.getTabs().addAll(templates, formulas);
         Scene scene = new Scene(tabs, 900, 600);
+        scene.getStylesheets().add("styles/settingsStyle.css");
         return scene;
     }
 
@@ -59,35 +59,20 @@ public class SettingsScene extends SceneBase {
         DbTemplateHandler dbTempalte = new DbTemplateHandler();
         ArrayList<Template> templates = dbTempalte.getTemplates();
         VBox vbox = new VBox(20);
-        vbox.setPadding(new Insets(50, 50, 20, 50));
+        vbox.setStyle("-fx-padding: 20px 30px;");
+        TilePane tilePane = new TilePane();
+        tilePane.setStyle("-fx-padding:10px");
+        tilePane.setHgap(10);
+        tilePane.setVgap(10);
         if (templates.size() > 0) {
             for (int j = 0; j < templates.size(); j++) {
-                Template template = templates.get(j);
-                Text templateName = new Text(template.name);
-                templateName.setFont(Font.font("Verdana", 13));
-                templateName.setFill(Color.BROWN);
-                ImageButton button = editTemplateButton(template.id);
-                vbox.getChildren().addAll(templateName, button);
+                tilePane.getChildren().add(new TemplateRow(window, templates.get(j)));
             }
-            vbox.getChildren().add(addTemplateButton());
+            vbox.getChildren().addAll(tilePane, new AddTemplateBtn(window, "Add new template: "));
         } else {
-            vbox.getChildren().addAll(new SettingsMessage(), new AddTemplateBtn(window));
+            vbox.getChildren().addAll(new SettingsMessage(), new AddTemplateBtn(window, "You have no custom templates yet, you can add one here: "));
         }
         return vbox;
-    }
-
-
-    public Button addTemplateButton() {
-        Button btn = new Button("Add Template");
-        btn.setStyle(" ");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                window.setScene(SceneSwitcher.getScenes().get(SceneName.ADDTEMPLATE));
-
-            }
-        });
-        return btn;
     }
 
 

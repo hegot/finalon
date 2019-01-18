@@ -1,5 +1,5 @@
 package finalonWindows;
 
 public enum SceneName {
-    MAIN, SETTINGSMAIN, ADDTEMPLATE;
+    MAIN, SETTINGSMAIN, ADDTEMPLATE, EDITTEMPLATE, VIEWTEMPLATE,
 }

@@ -15,7 +15,9 @@ public class MainScene extends SceneBase {
 
     public Scene getScene() {
         CustomControl customControl = new CustomControl(window);
-        return new Scene(customControl, 800, 500);
+        Scene scene = new Scene(customControl, 800, 500);
+        scene.getStylesheets().add("styles/mainStyle.css");
+        return scene;
     }
 
 

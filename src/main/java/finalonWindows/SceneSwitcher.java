@@ -1,11 +1,14 @@
 package finalonWindows;
 
-import finalonWindows.addTemplateScene.AddTemplateScene;
+import entities.Sheet;
+import finalonWindows.TemplateScene.AddTemplate;
+
 import finalonWindows.mainScene.MainScene;
 import finalonWindows.settingsScene.SettingsScene;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,8 +27,7 @@ public class SceneSwitcher {
         window = windowArg;
         scenes.put(SceneName.MAIN, new MainScene(window).getScene());
         scenes.put(SceneName.SETTINGSMAIN, new SettingsScene(window).getScene());
-        scenes.put(SceneName.ADDTEMPLATE, new AddTemplateScene(window).getScene());
-
+        scenes.put(SceneName.ADDTEMPLATE, new AddTemplate(window).getScene());
     }
 
 
@@ -35,6 +37,4 @@ public class SceneSwitcher {
     public static Map<SceneName, Scene> getScenes() {
         return scenes;
     }
-
-
 }

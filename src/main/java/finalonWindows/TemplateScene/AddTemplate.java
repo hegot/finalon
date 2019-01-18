@@ -1,4 +1,4 @@
-package finalonWindows.addTemplateScene;
+package finalonWindows.TemplateScene;
 
 import database.TemplateCreator;
 import defaultTemplate.DefaultTemplate;
@@ -6,7 +6,7 @@ import entities.Sheet;
 import finalonWindows.SceneBase;
 import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
-import finalonWindows.addTemplateScene.templates.TemplateEditable;
+import finalonWindows.TemplateScene.templates.TemplateEditable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -23,12 +23,12 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
-public class AddTemplateScene extends SceneBase {
+public class AddTemplate extends SceneBase {
 
     private Stage window;
     private TextField templateName;
 
-    public AddTemplateScene(Stage windowArg) {
+    public AddTemplate(Stage windowArg) {
         window = windowArg;
     }
 
@@ -66,7 +66,7 @@ public class AddTemplateScene extends SceneBase {
         scrollPane.setContent(vBox);
 
         Scene scene = new Scene(scrollPane, 1000, 800);
-        scene.getStylesheets().add("/styles/style.css");
+        scene.getStylesheets().add("/styles/settingsStyle.css");
         return scene;
     }
 
