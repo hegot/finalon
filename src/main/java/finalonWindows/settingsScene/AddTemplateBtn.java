@@ -28,7 +28,7 @@ public class AddTemplateBtn extends HBox {
 
     @FXML
     protected void addTemplateAction() {
-        window.setScene(SceneSwitcher.getScenes().get(SceneName.ADDTEMPLATE));
+        window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.ADDTEMPLATE));
     }
 
 }

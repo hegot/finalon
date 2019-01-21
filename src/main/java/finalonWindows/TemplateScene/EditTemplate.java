@@ -1,7 +1,6 @@
 package finalonWindows.TemplateScene;
 
-import database.TemplateCreator;
-import defaultTemplate.DefaultTemplate;
+import database.TemplateEditor;
 import entities.Sheet;
 import entities.Template;
 import finalonWindows.SceneBase;
@@ -30,19 +29,20 @@ public class EditTemplate extends SceneBase {
     private TextField templateName;
     private Template template;
     private ArrayList<Sheet> sheets;
-
+    private TemplateEditable templateEditable;
 
     public EditTemplate(Stage windowArg, Template template, ArrayList<Sheet> sheets) {
         this.window = windowArg;
         this.template = template;
         this.sheets = sheets;
+        this.templateEditable = new TemplateEditable(this.sheets);
     }
 
 
     private HBox headerMenu() {
         HBox hbox = new HBox(10);
         hbox.setStyle(whiteBorderedPanelMenu());
-        hbox.getChildren().addAll(backButton(), addTemplateButton());
+        hbox.getChildren().addAll(backButton(), saveTemplateButton());
         return hbox;
     }
 
@@ -63,14 +63,12 @@ public class EditTemplate extends SceneBase {
 
 
     public Scene getScene() {
-        TemplateEditable templateEditable = new TemplateEditable(this.sheets);
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
         VBox vBox = new VBox();
         vBox.getChildren().addAll(headerMenu(), templateName(), templateEditable.getTemplateEditable());
         scrollPane.setContent(vBox);
-
         Scene scene = new Scene(scrollPane, 1000, 800);
         scene.getStylesheets().add("/styles/settingsStyle.css");
         return scene;
@@ -82,23 +80,27 @@ public class EditTemplate extends SceneBase {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                window.setScene(SceneSwitcher.getScenes().get(SceneName.SETTINGSMAIN));
+                window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.SETTINGSMAIN));
 
             }
         });
         return button;
     }
 
-    public Button addTemplateButton() {
-        Button button = new Button("Save Template");
+    public Button saveTemplateButton() {
+
+
+        Template template = this.template;
+        Button button = new Button("Save edited Template");
         button.setStyle(blueButonStyle());
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
                 if ((templateName.getText() != null && !templateName.getText().isEmpty())) {
-                    TemplateCreator creator = new TemplateCreator(templateName.getText(), DefaultTemplate.getSheets());
-                    creator.createTpl();
-                    window.setScene(SceneSwitcher.getScenes().get(SceneName.SETTINGSMAIN));
+                    template.name = templateName.getText();
+                    TemplateEditor updater = new TemplateEditor(template, templateEditable.getSheets());
+                    updater.updateTpl();
+                    window.setScene(SceneSwitcher.getScenes(SceneName.SETTINGSMAIN).get(SceneName.SETTINGSMAIN));
                 } else {
                     System.out.println("err");
                 }

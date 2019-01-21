@@ -76,7 +76,7 @@ public class AddTemplate extends SceneBase {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                window.setScene(SceneSwitcher.getScenes().get(SceneName.SETTINGSMAIN));
+                window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.SETTINGSMAIN));
 
             }
         });
@@ -92,7 +92,7 @@ public class AddTemplate extends SceneBase {
                 if ((templateName.getText() != null && !templateName.getText().isEmpty())) {
                     TemplateCreator creator = new TemplateCreator(templateName.getText(), DefaultTemplate.getSheets());
                     creator.createTpl();
-                    window.setScene(SceneSwitcher.getScenes().get(SceneName.SETTINGSMAIN));
+                    window.setScene(SceneSwitcher.getScenes(SceneName.SETTINGSMAIN).get(SceneName.SETTINGSMAIN));
                 } else {
                     System.out.println("err");
                 }

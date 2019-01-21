@@ -74,6 +74,16 @@ public class DbTemplateHandler extends DbHandlerBase {
         return 0;
     }
 
+    public void updateTemplate(Template Template) throws ClassNotFoundException, SQLException {
+        try {
+            String sql = "UPDATE " + tableName + " SET `name` = '" + Template.name + "' WHERE `id` = " + Template.id;
+            PreparedStatement statement = this.connection.prepareStatement(sql);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void deleteItem(int id) {
         try (PreparedStatement statement = this.connection.prepareStatement(
                 "DELETE FROM " + tableName + " WHERE id = ?")) {

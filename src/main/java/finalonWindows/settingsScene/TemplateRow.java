@@ -1,19 +1,18 @@
 package finalonWindows.settingsScene;
 
+import database.DbSheetHandler;
 import entities.Sheet;
 import entities.Template;
 import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
+import finalonWindows.TemplateScene.EditTemplate;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import database.DbSheetHandler;
+
 import java.io.IOException;
 import java.util.ArrayList;
-
-import finalonWindows.TemplateScene.EditTemplate;
 
 public class TemplateRow extends VBox {
     @FXML
@@ -38,14 +37,14 @@ public class TemplateRow extends VBox {
 
     @FXML
     protected void viewRowAction() {
-        window.setScene(SceneSwitcher.getScenes().get(SceneName.ADDTEMPLATE));
+        window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.ADDTEMPLATE));
         System.out.println("The button was clicked!sss");
     }
 
     @FXML
     protected void editRowAction() {
         DbSheetHandler sheetHandler = new DbSheetHandler();
-        ArrayList<Sheet> sheets = sheetHandler.getSheets(tplId);
+        ArrayList<Sheet> sheets = sheetHandler.getSheets(this.template.id);
         EditTemplate editTpl = new EditTemplate(window, template, sheets);
         window.setScene(editTpl.getScene());
     }

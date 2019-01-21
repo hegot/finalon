@@ -6,7 +6,6 @@ import finalonWindows.ImageButton;
 import finalonWindows.SceneBase;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;

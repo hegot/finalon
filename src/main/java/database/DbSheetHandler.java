@@ -23,8 +23,6 @@ public class DbSheetHandler extends DbHandlerBase {
                     "`name` TEXT," +
                     "`parentTpl` INTEGER" +
                     ");");
-
-            addSheet(new Sheet(0, "Statement of Financial Position (Balance Sheet)", 0));
             System.out.println("Table " + tableName + " created");
         } else {
             System.out.println("Table " + tableName + " already exists");

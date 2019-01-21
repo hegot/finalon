@@ -23,7 +23,7 @@ public class Finalon extends Application {
         addDefaultTpl.start();
         window = primaryStage;
         SceneSwitcher sceneSwitcher = new SceneSwitcher(window);
-        window.setScene(SceneSwitcher.getScenes().get(SceneName.MAIN));
+        window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.MAIN));
         window.show();
     }
 

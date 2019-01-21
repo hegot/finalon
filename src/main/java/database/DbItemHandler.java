@@ -104,6 +104,23 @@ public class DbItemHandler extends DbHandlerBase {
         }
     }
 
+    public void updateItem(Item Item) throws ClassNotFoundException, SQLException {
+        try (PreparedStatement statement = this.connection.prepareStatement(
+                "UPDATE " + tableName + " SET `name` = ?,  `shortName` = ?, `mainCategory` = ?, `subCategory` = ?, `isPositive` = ?, `parent` = ?, `parentSheet` = ? WHERE `id` = " + Item.id
+        )) {
+            statement.setObject(1, Item.name);
+            statement.setObject(2, Item.shortName);
+            statement.setObject(3, Item.mainCategory);
+            statement.setObject(4, Item.subCategory);
+            statement.setObject(5, Item.isPositive);
+            statement.setObject(6, Item.parent);
+            statement.setObject(7, Item.parentSheet);
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void deleteItem(int id) {
         try (PreparedStatement statement = this.connection.prepareStatement(
                 "DELETE FROM " + tableName + " WHERE id = ?")) {
