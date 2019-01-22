@@ -1,0 +1,18 @@
+.tree-table-cell {
+    -fx-border-color: #e4e5e7;
+    -fx-border-style: solid;
+}
+
+.tree-table-view .column-header,
+.tree-table-view .column-header .filler,
+.tree-table-view .column-header-background .filler {
+    -fx-background-color: #34495e;
+
+       -fx-padding: 15;
+}
+
+.tree-table-view  .column-header .label {
+-fx-text-fill: #fff;
+      -fx-font-size: 13px;
+       -fx-font-weight: bold;
+}

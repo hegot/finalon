@@ -1,11 +1,12 @@
 package entities;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 public class Item {
     public int id;
     public String name;
     public String shortName;
-    public String mainCategory;
-    public String subCategory;
     public Boolean isPositive;
     public int parent;
     public int parentSheet;
@@ -14,8 +15,6 @@ public class Item {
             int id,
             String name,
             String shortName,
-            String mainCategory,
-            String subCategory,
             Boolean isPositive,
             int parent,
             int parentSheet
@@ -23,8 +22,6 @@ public class Item {
         this.id = id;
         this.name = name;
         this.shortName = shortName;
-        this.mainCategory = mainCategory;
-        this.subCategory = subCategory;
         this.isPositive = isPositive;
         this.parent = parent;
         this.parentSheet = parentSheet;
@@ -54,21 +51,6 @@ public class Item {
         this.shortName = shortName;
     }
 
-    public String getMainCategory() {
-        return mainCategory;
-    }
-
-    public void setMainCategory(String mainCategory) {
-        this.mainCategory = mainCategory;
-    }
-
-    public String getSubCategory() {
-        return subCategory;
-    }
-
-    public void setSubCategory(String subCategory) {
-        this.subCategory = subCategory;
-    }
 
     public Boolean getIsPositive() {
         return isPositive;
@@ -94,4 +76,7 @@ public class Item {
         this.parentSheet = parentSheet;
     }
 
+    public BooleanProperty isPositive() {
+        return  new SimpleBooleanProperty(this, "isPositive", isPositive);
+    }
 }

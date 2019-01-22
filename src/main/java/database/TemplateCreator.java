@@ -4,6 +4,7 @@ import defaultTemplate.DefaultTemplate;
 import entities.Item;
 import entities.Sheet;
 import entities.Template;
+import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class TemplateCreator {
             ArrayList<Sheet> sheets
     ) {
         this.tplName = tplName;
-        this.sheets = sheets;
+        this.sheets = DefaultTemplate.getSheets();
     }
 
 
@@ -36,19 +37,28 @@ public class TemplateCreator {
 
     private void createSheets(int parentTplId) {
         if (parentTplId > 0) {
-            ArrayList<Sheet> sheets = DefaultTemplate.getSheets();
             for (int i = 0; i < sheets.size(); i++) {
                 Sheet sheet = sheets.get(i);
                 int sheetId = sheetCreator(sheet, parentTplId);
                 for (int j = 0; j < sheet.items.size(); j++) {
                     Item item = sheet.items.get(j);
                     item.setParentSheet(sheetId);
-                    createItem(item);
+                    int newId = createItem(item);
+                    updateChilds(item.getId(), newId, i);
                 }
             }
         }
     }
 
+    private void updateChilds(int oldId, int newId, int i){
+        Sheet sheet = sheets.get(i);
+        for (int j = 0; j < sheet.items.size(); j++) {
+            Item item = sheet.items.get(j);
+            if(oldId == item.getParent()){
+                item.setParent(newId);
+            }
+        }
+    }
 
     private int sheetCreator(Sheet sheet, int parentTplId) {
         try {
@@ -63,14 +73,15 @@ public class TemplateCreator {
         return 0;
     }
 
-    private void createItem(Item item) {
+    private int createItem(Item item) {
         try {
             DbItemHandler itemCreator = new DbItemHandler();
-            itemCreator.addItem(item);
+            return itemCreator.addItem(item);
         } catch (SQLException se) {
             se.printStackTrace();
         } catch (ClassNotFoundException ce) {
             ce.printStackTrace();
         }
+        return 0;
     }
 }
