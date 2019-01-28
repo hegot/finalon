@@ -1,9 +1,10 @@
 package finalonWindows.settingsScene;
 
-import database.DbTemplateHandler;
-import entities.Template;
+import database.DbItemHandler;
+import entities.Item;
 import finalonWindows.ImageButton;
 import finalonWindows.SceneBase;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -18,7 +19,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 
 public class SettingsScene extends SceneBase {
 
@@ -55,17 +55,17 @@ public class SettingsScene extends SceneBase {
     }
 
     private VBox getTemplates() {
-        DbTemplateHandler dbTempalte = new DbTemplateHandler();
-        ArrayList<Template> templates = dbTempalte.getTemplates();
+        DbItemHandler dbItem = new DbItemHandler();
+        ObservableList<Item> iteems = dbItem.getTemplates();
         VBox vbox = new VBox(20);
         vbox.setStyle("-fx-padding: 20px 30px;");
         TilePane tilePane = new TilePane();
         tilePane.setStyle("-fx-padding:10px");
         tilePane.setHgap(10);
         tilePane.setVgap(10);
-        if (templates.size() > 0) {
-            for (int j = 0; j < templates.size(); j++) {
-                tilePane.getChildren().add(new TemplateRow(window, templates.get(j)));
+        if (iteems.size() > 0) {
+            for (int j = 0; j < iteems.size(); j++) {
+                tilePane.getChildren().add(new TemplateRow(window, iteems.get(j)));
             }
             vbox.getChildren().addAll(tilePane, new AddTemplateBtn(window, "Add new template: "));
         } else {

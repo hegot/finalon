@@ -1,9 +1,9 @@
 package finalonWindows.TemplateScene;
 
 import database.TemplateEditor;
-import entities.Sheet;
-import entities.Template;
+import entities.Item;
 import finalonWindows.TemplateScene.templates.TemplateEditable;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -12,18 +12,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-
 public class EditTemplate extends TemplateBase {
 
     protected Stage window;
-    private ArrayList<Sheet> sheets;
+    protected ObservableList<Item> items;
     private TemplateEditable templateEditable;
 
-    public EditTemplate(Stage windowArg, Template template, ArrayList<Sheet> sheets) {
-        super(windowArg, template, sheets);
-        this.sheets = sheets;
-        this.templateEditable = new TemplateEditable(this.sheets);
+    public EditTemplate(Stage windowArg, ObservableList<Item> items) {
+        super(windowArg, items);
+        this.items = items;
+        this.templateEditable = new TemplateEditable(items);
     }
 
     private HBox headerMenu() {
@@ -34,9 +32,12 @@ public class EditTemplate extends TemplateBase {
             @Override
             public void handle(ActionEvent e) {
                 if ((templateName.getText() != null && !templateName.getText().isEmpty())) {
-                    template.name = templateName.getText();
-                    TemplateEditor updater = new TemplateEditor(template, templateEditable.getSheets());
-                    updater.updateTpl();
+                    Item rootItem =  getRoot();
+                    rootItem.setName(templateName.getText());
+                    ObservableList<Item> items = templateEditable.getItems();
+                    items.add(rootItem);
+                     TemplateEditor updater = new TemplateEditor(templateName.getText(), items);
+                     updater.updateTpl();
                     redirectToSettings();
                 } else {
                     System.out.println("err");

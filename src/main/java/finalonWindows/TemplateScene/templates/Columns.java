@@ -1,50 +1,32 @@
 package finalonWindows.TemplateScene.templates;
 
 import entities.Item;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import finalonWindows.TemplateScene.templates.eventHandlers.RemoveHandler;
+import finalonWindows.TemplateScene.templates.eventHandlers.TextEditHandler;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
+import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.cell.CheckBoxTreeTableCell;
 import javafx.scene.control.cell.TextFieldTreeTableCell;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
-import javafx.util.Callback;
 
 
 class Columns {
 
+    private TextEditHandler textEditHandler;
+    private RemoveHandler removeHandler;
+
+    public Columns(
+            TextEditHandler textEditHandler,
+            RemoveHandler removeHandler
+    ) {
+        this.textEditHandler = textEditHandler;
+        this.removeHandler = removeHandler;
+    }
+
     TreeTableColumn buttonCol() {
-        TreeTableColumn<Item, Void> col = new TreeTableColumn<>("add");
+        TreeTableColumn<Item, Void> col = new TreeTableColumn<>("delete");
         col.setMinWidth(50);
-
-        Callback<TreeTableColumn<Item, Void>, TreeTableCell<Item, Void>> cellFactory = new Callback<TreeTableColumn<Item, Void>, TreeTableCell<Item, Void>>() {
-            @Override
-            public TreeTableCell<Item, Void> call(final TreeTableColumn<Item, Void> param) {
-                final TreeTableCell<Item, Void> cell = new TreeTableCell<Item, Void>() {
-
-                    private final Button btn = new Button("Action");
-
-                    {
-                        btn.setOnAction((ActionEvent event) -> {
-                            System.out.println("selectedData: ");
-                        });
-                    }
-
-                    @Override
-                    public void updateItem(Void item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                        } else {
-                            setGraphic(btn);
-                        }
-                    }
-                };
-                return cell;
-            }
-        };
-
-        col.setCellFactory(cellFactory);
+        col.setCellFactory(removeHandler.getRemoveFactory());
         return col;
     }
 
@@ -54,7 +36,7 @@ class Columns {
         col.setMinWidth(300);
         col.setCellValueFactory(new TreeItemPropertyValueFactory<Item, String>("name"));
         col.setCellFactory(TextFieldTreeTableCell.<Item>forTreeTableColumn());
-        setColumnEventHandlers(col, "name");
+        textEditHandler.setColumnEventHandlers(col, "name");
         return col;
     }
 
@@ -64,7 +46,7 @@ class Columns {
         col.setMinWidth(300);
         col.setCellValueFactory(new TreeItemPropertyValueFactory<Item, String>("shortName"));
         col.setCellFactory(TextFieldTreeTableCell.<Item>forTreeTableColumn());
-        setColumnEventHandlers(col, "shortName");
+        textEditHandler.setColumnEventHandlers(col, "shortName");
         return col;
     }
 
@@ -88,41 +70,5 @@ class Columns {
         return col;
     }
 
-
-    private void updateCell(TreeTableColumn.CellEditEvent<Item, String> t, String param) {
-        String value = t.getNewValue();
-        TreeItem<Item> treeItem = t.getRowValue();
-        Item item = treeItem.getValue();
-        if (param.equals("name")) {
-            item.setName(value);
-        }
-        if (param.equals("shortName")) {
-            item.setShortName(value);
-        }
-    }
-
-
-    private void setColumnEventHandlers(TreeTableColumn column, String param) {
-        column.setOnEditCommit(
-                new EventHandler<TreeTableColumn.CellEditEvent<Item, String>>() {
-                    @Override
-                    public void handle(TreeTableColumn.CellEditEvent<Item, String> t) {
-                        updateCell(t, param);
-                    }
-                }
-        );
-        column.setOnEditCancel(
-                new EventHandler<TreeTableColumn.CellEditEvent<Item, String>>() {
-                    @Override
-                    public void handle(TreeTableColumn.CellEditEvent<Item, String> t) {
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Information");
-                        alert.setHeaderText("To save changes press 'Enter'");
-                        alert.show();
-                    }
-                }
-        );
-
-    }
 
 }

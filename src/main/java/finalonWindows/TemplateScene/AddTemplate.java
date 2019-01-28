@@ -2,9 +2,10 @@ package finalonWindows.TemplateScene;
 
 import database.TemplateCreator;
 import defaultTemplate.DefaultTemplate;
-import entities.Sheet;
-import entities.Template;
+import entities.Item;
 import finalonWindows.TemplateScene.templates.TemplateEditable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -13,18 +14,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-
 public class AddTemplate extends TemplateBase {
 
-    protected Template template;
-    private ArrayList<Sheet> sheets;
     private TemplateEditable templateEditable;
 
     public AddTemplate(Stage windowArg) {
         super(windowArg);
-        this.sheets = DefaultTemplate.getSheets();
-        this.templateEditable = new TemplateEditable(sheets);
+        this.items = FXCollections.observableArrayList(DefaultTemplate.getTpl());
+        this.templateEditable = new TemplateEditable(items);
     }
 
     private HBox headerMenu() {
@@ -35,7 +32,11 @@ public class AddTemplate extends TemplateBase {
             @Override
             public void handle(ActionEvent e) {
                 if ((templateName.getText() != null && !templateName.getText().isEmpty())) {
-                    TemplateCreator creator = new TemplateCreator(templateName.getText(), templateEditable.getSheets());
+                    String tplName = templateName.getText();
+                    Item mainItem = new Item(1, tplName, tplName, true, 0, 0);
+                    ObservableList<Item> items = templateEditable.getItems();
+                    items.add(mainItem);
+                    TemplateCreator creator = new TemplateCreator(templateName.getText(), items);
                     creator.createTpl();
                     redirectToSettings();
                 } else {

@@ -77,6 +77,6 @@ public class Item {
     }
 
     public BooleanProperty isPositive() {
-        return  new SimpleBooleanProperty(this, "isPositive", isPositive);
+        return new SimpleBooleanProperty(this, "isPositive", isPositive);
     }
 }

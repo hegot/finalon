@@ -1,48 +1,33 @@
 package database;
 
 import entities.Item;
-import entities.Sheet;
-import entities.Template;
+import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class TemplateEditor {
-    private Template template;
-    private ArrayList<Sheet> sheets;
-
+    private ObservableList<Item> items;
+    private String tplName;
+    private int rootId;
     public TemplateEditor(
-            Template template,
-            ArrayList<Sheet> sheets
+            String tplName,
+            ObservableList<Item> items
+
     ) {
-        this.template = template;
-        this.sheets = sheets;
+        this.items = items;
+        this.tplName = tplName;
+        setRoot();
     }
 
 
-    public void updateTpl() {
-        try {
-            DbTemplateHandler templateCreator = new DbTemplateHandler();
-            templateCreator.updateTemplate(this.template);
-            updateSheets();
-        } catch (SQLException se) {
-            se.printStackTrace();
-        } catch (ClassNotFoundException ce) {
-            ce.printStackTrace();
-        }
-    }
-
-
-    private void updateSheets() {
-        ArrayList<Sheet> sheets = this.sheets;
-        for (int i = 0; i < sheets.size(); i++) {
-            Sheet sheet = sheets.get(i);
-            for (int j = 0; j < sheet.items.size(); j++) {
-                Item item = sheet.items.get(j);
-                updateItem(item);
+    public void setRoot() {
+        for (Item item : this.items) {
+            if (item.getParent() == 0) {
+                this.rootId = item.getId();
             }
         }
     }
+
 
 
     private void updateItem(Item item) {
@@ -55,4 +40,29 @@ public class TemplateEditor {
             ce.printStackTrace();
         }
     }
+
+    private Boolean hasItem(int Id){
+        Boolean contains = false;
+        for (Item item : this.items) {
+            if(item.getId() == Id){
+                contains = true;
+            }
+        }
+        return contains;
+    }
+
+
+    public void updateTpl(){
+        DbItemHandler itemsHandler = new DbItemHandler();
+        ObservableList<Item> oldItems = itemsHandler.getItems(rootId);
+        for (Item item : oldItems) {
+            if(!hasItem(item.getId())){
+                itemsHandler.deleteItem(item.getId());
+            }
+        }
+        for (Item item : this.items) {
+            updateItem(item);
+        }
+    }
+
 }

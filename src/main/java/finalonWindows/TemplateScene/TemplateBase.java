@@ -1,10 +1,10 @@
 package finalonWindows.TemplateScene;
 
-import entities.Sheet;
-import entities.Template;
+import entities.Item;
 import finalonWindows.SceneBase;
 import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -19,26 +19,21 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-
 public class TemplateBase extends SceneBase {
 
     protected Stage window;
-    protected Template template;
     protected TextField templateName;
+    protected ObservableList<Item> items;
 
     TemplateBase(
             Stage windowArg,
-            Template template,
-            ArrayList<Sheet> sheets) {
+            ObservableList<Item> items) {
         this.window = windowArg;
-        this.template = template;
-
+        this.items = items;
     }
 
     TemplateBase(Stage windowArg) {
         this.window = windowArg;
-        this.template = new Template(0, "");
     }
 
     HBox templateName() {
@@ -49,10 +44,20 @@ public class TemplateBase extends SceneBase {
         label.setFont(Font.font("Arial", 14));
         label.setTextFill(Color.web("#6a6c6f"));
         templateName = new TextField();
-        templateName.setText(this.template.name);
+        Item rootItem = getRoot();
+        templateName.setText(rootItem.getName());
         templateName.setPrefWidth(300);
         hbox.getChildren().addAll(label, templateName);
         return hbox;
+    }
+
+    protected Item getRoot() {
+        for (Item item : this.items) {
+            if (item.getParent() == 0) {
+                return item;
+            }
+        }
+        return new Item(1, "", "", true, 0, 0);
     }
 
 

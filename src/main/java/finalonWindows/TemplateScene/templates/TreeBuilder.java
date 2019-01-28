@@ -1,7 +1,6 @@
 package finalonWindows.TemplateScene.templates;
 
 import entities.Item;
-import entities.Sheet;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
 
@@ -10,15 +9,24 @@ class TreeBuilder {
     private ObservableList<Item> items;
 
     TreeBuilder(
-            Sheet sheet
+            int Id,
+            ObservableList<Item> items
     ) {
+        this.items = items;
+
+        Item rootItem = new Item(0, "", "", true, 0, 0);
+        for (int i = 0; i < this.items.size(); i++) {
+            Item item = this.items.get(i);
+            if (item.getId() == Id) {
+                rootItem = item;
+            }
+        }
         TreeItem<Item> rootNode = new TreeItem<>(
-                new Item(0, sheet.name, sheet.name, true, 0, 0)
+                rootItem
         );
         rootNode.setExpanded(true);
         this.rootNode = rootNode;
-        this.items = sheet.items;
-        loopItems(0, rootNode);
+        loopItems(rootItem.getId(), rootNode);
     }
 
 

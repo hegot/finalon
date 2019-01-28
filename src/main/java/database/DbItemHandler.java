@@ -35,11 +35,11 @@ public class DbItemHandler extends DbHandlerBase {
 
     }
 
-    public ObservableList<Item> getItems(int parentSheet) {
+    public ObservableList<Item> getItems(int parent) {
         ObservableList<Item> Items = FXCollections.observableArrayList();
         try (Statement statement = this.connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName,  isPositive, parent, parentSheet FROM "
-                    + tableName + " WHERE parentSheet = " + parentSheet);
+                    + tableName + " WHERE parentSheet = " + parent);
             while (resultSet.next()) {
                 Items.add(
                         new Item(
@@ -80,6 +80,28 @@ public class DbItemHandler extends DbHandlerBase {
         return Items;
     }
 
+    public ObservableList<Item> getTemplates() {
+        ObservableList<Item> Items = FXCollections.observableArrayList();
+        try (Statement statement = this.connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName,  isPositive, parent, parentSheet FROM "
+                    + tableName + " WHERE parent = 0");
+            while (resultSet.next()) {
+                Items.add(
+                        new Item(
+                                resultSet.getInt("id"),
+                                resultSet.getString("name"),
+                                resultSet.getString("shortName"),
+                                resultSet.getBoolean("isPositive"),
+                                resultSet.getInt("parent"),
+                                resultSet.getInt("parentSheet")
+                        )
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Items;
+    }
 
     public int addItem(Item Item) throws ClassNotFoundException, SQLException {
         try {
@@ -122,6 +144,21 @@ public class DbItemHandler extends DbHandlerBase {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public Boolean itemExists(int id) {
+        try {
+            String query = "SELECT (count(*) > 0) as found FROM " + tableName + " WHERE WHERE `id` = " + id;
+            PreparedStatement pst = this.connection.prepareStatement(query);
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getBoolean(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public void deleteItem(int id) {
