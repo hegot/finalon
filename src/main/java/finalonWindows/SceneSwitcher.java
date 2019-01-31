@@ -1,8 +1,12 @@
 package finalonWindows;
 
+import defaultTemplate.DefaultTemplate;
+import entities.Item;
 import finalonWindows.TemplateScene.AddTemplate;
 import finalonWindows.mainScene.MainScene;
 import finalonWindows.settingsScene.SettingsScene;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -17,14 +21,13 @@ public class SceneSwitcher {
      */
     private static Map<SceneName, Scene> scenes = new HashMap<>();
     private static Stage window;
-    private Scene mainScene;
-    private Scene settingsScene;
 
     public SceneSwitcher(Stage windowArg) {
         window = windowArg;
+        ObservableList<Item> items = FXCollections.observableArrayList(DefaultTemplate.getTpl());
         scenes.put(SceneName.MAIN, new MainScene(window).getScene());
         scenes.put(SceneName.SETTINGSMAIN, new SettingsScene(window).getScene());
-        scenes.put(SceneName.ADDTEMPLATE, new AddTemplate(window).getScene());
+        scenes.put(SceneName.ADDTEMPLATE, new AddTemplate(window, items).getScene());
     }
 
 

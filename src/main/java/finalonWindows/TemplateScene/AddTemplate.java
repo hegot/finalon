@@ -17,10 +17,11 @@ import javafx.stage.Stage;
 public class AddTemplate extends TemplateBase {
 
     private TemplateEditable templateEditable;
+    protected ObservableList<Item> items;
 
-    public AddTemplate(Stage windowArg) {
-        super(windowArg);
-        this.items = FXCollections.observableArrayList(DefaultTemplate.getTpl());
+    public AddTemplate(Stage windowArg, ObservableList<Item> items) {
+        super(windowArg, items);
+        this.items = items;
         this.templateEditable = new TemplateEditable(items);
     }
 

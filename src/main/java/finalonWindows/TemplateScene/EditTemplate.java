@@ -32,12 +32,12 @@ public class EditTemplate extends TemplateBase {
             @Override
             public void handle(ActionEvent e) {
                 if ((templateName.getText() != null && !templateName.getText().isEmpty())) {
-                    Item rootItem =  getRoot();
+                    Item rootItem = getRoot();
                     rootItem.setName(templateName.getText());
                     ObservableList<Item> items = templateEditable.getItems();
                     items.add(rootItem);
-                     TemplateEditor updater = new TemplateEditor(templateName.getText(), items);
-                     updater.updateTpl();
+                    TemplateEditor updater = new TemplateEditor(templateName.getText(), items);
+                    updater.updateTpl();
                     redirectToSettings();
                 } else {
                     System.out.println("err");

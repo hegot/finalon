@@ -52,7 +52,6 @@ public class DefaultTemplate {
         Items.add(new Item(34, "Non-current assets or disposal groups classified as held for sale or as held for distribution to owners", "NoncurrentAssetsOrDisposalGroupsClassifiedAsHeldForSaleOrAsHeldForDistributionToOwners", true, 6, 0));
 
 
-
         //Equity
         Items.add(new Item(35, "Issued (share) capital", "IssuedCapital", true, 8, 0));
         Items.add(new Item(36, "Share premium", "SharePremium", true, 8, 0));

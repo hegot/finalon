@@ -1,9 +1,9 @@
 package database;
+
 import entities.Item;
 import javafx.collections.ObservableList;
-import java.sql.SQLException;
 
-public class TemplateCreator {
+public class TemplateCreator extends TemplateBase {
     private ObservableList<Item> items;
     private String tplName;
 
@@ -12,6 +12,7 @@ public class TemplateCreator {
             ObservableList<Item> items
 
     ) {
+        super(tplName, items);
         this.items = items;
         this.tplName = tplName;
     }
@@ -19,15 +20,15 @@ public class TemplateCreator {
 
     public void createTpl() {
         int templateId = 0;
-        for (Item item : this.items) {
+        for (Item item : items) {
             if (item.getParent() == 0) {
-                item.setName(this.tplName);
+                item.setName(tplName);
                 templateId = createItem(item);
                 updateChilds(item.getId(), templateId);
                 setParentTpl(templateId);
             }
         }
-        for (Item item : this.items) {
+        for (Item item : items) {
             if (item.getParent() != 0) {
                 int newId = createItem(item);
                 updateChilds(item.getId(), newId);
@@ -37,31 +38,12 @@ public class TemplateCreator {
     }
 
 
-    private void setParentTpl(int templateId){
-        for (Item item : this.items) {
+    private void setParentTpl(int templateId) {
+        for (Item item : items) {
             item.setParentSheet(templateId);
         }
     }
 
-    private int createItem(Item item) {
-        try {
-            DbItemHandler itemCreator = new DbItemHandler();
-            return itemCreator.addItem(item);
-        } catch (SQLException se) {
-            se.printStackTrace();
-        } catch (ClassNotFoundException ce) {
-            ce.printStackTrace();
-        }
-        return 0;
-    }
 
-
-    private void updateChilds(int oldId, int newId){
-        for (Item item : this.items) {
-            if (oldId == item.getParent()) {
-                item.setParent(newId);
-            }
-        }
-    }
 }
 

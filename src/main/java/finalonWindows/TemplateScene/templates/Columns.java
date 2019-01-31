@@ -25,7 +25,7 @@ class Columns {
 
     TreeTableColumn buttonCol() {
         TreeTableColumn<Item, Void> col = new TreeTableColumn<>("delete");
-        col.setMinWidth(50);
+        col.setMinWidth(45);
         col.setCellFactory(removeHandler.getRemoveFactory());
         return col;
     }
@@ -33,7 +33,7 @@ class Columns {
 
     TreeTableColumn getNameCol() {
         TreeTableColumn<Item, String> col = new TreeTableColumn<Item, String>("Indicator");
-        col.setMinWidth(300);
+        col.setMinWidth(400);
         col.setCellValueFactory(new TreeItemPropertyValueFactory<Item, String>("name"));
         col.setCellFactory(TextFieldTreeTableCell.<Item>forTreeTableColumn());
         textEditHandler.setColumnEventHandlers(col, "name");

@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import finalonWindows.mainScene.LabelFlow?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import java.net.URL?>
 <?import javafx.scene.text.Text?>
 <fx:root xmlns:fx="http://javafx.com/fxml/1" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/8.0.121">
     <BorderPane>
@@ -88,9 +86,9 @@
             </TilePane>
         </center>
         <bottom>
-           <HBox  styleClass="footer">
-               <Text text="© finalon.com 2019 all rights reserved" />
-           </HBox>
+            <HBox styleClass="footer">
+                <Text text="© finalon.com 2019 all rights reserved"/>
+            </HBox>
         </bottom>
     </BorderPane>
 </fx:root>
