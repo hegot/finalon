@@ -65,7 +65,7 @@ public class DefaultTemplate {
         Items.add(new Item(51, "Other equity interest", "OtherEquityInterest", true, false, 12, 0));
         Items.add(new Item(52, "Other reserves", "OtherReserves", true, false, 12, 0));
         Items.add(new Item(53, "Retained earnings", "RetainedEarnings", true, false, 12, 0));
-        Items.add(new Item(54, "Non-controlling interests", "NoncontrollingInterests", false, true, 12, 0));
+        Items.add(new Item(54, "Non-controlling interests", "NoncontrollingInterests", true, true, 12, 0));
 
 
         //Liabilities
@@ -112,13 +112,13 @@ public class DefaultTemplate {
         Items.add(new Item(87, "Gains (losses) arising from difference between previous carrying amount and fair value of financial assets reclassified as measured at fair value", "GainsLossesArisingFromDifferenceBetweenPreviousCarryingAmountAndFairValueOfFinancialAssetsReclassifiedAsMeasuredAtFairValue", true, false, 3, 1));
         Items.add(new Item(88, "Cumulative gain (loss) previously recognised in other comprehensive income arising from reclassification of financial assets out of fair value through other comprehensive income into fair value through profit or loss measurement category", "CumulativeGainLossPreviouslyRecognisedInOtherComprehensiveIncomeArisingFromReclassificationOfFinancialAssetsOutOfFairValueThroughOtherComprehensiveIncomeIntoFairValueThroughProfitOrLossMeasurementCategory", true, false, 3, 1));
         Items.add(new Item(89, "Hedging gains (losses) for hedge of group of items with offsetting risk positions", "HedgingGainsLossesForHedgeOfGroupOfItemsWithOffsettingRiskPositions", true, false, 3, 1));
-        Items.add(new Item(90, "Profit (loss) before tax", "ProfitLossBeforeTax", true, false, 3, 1));
+        Items.add(new Item(90, "Profit (loss) before tax", "ProfitLossBeforeTax", true, true, 3, 1));
         Items.add(new Item(91, "Income tax expense (from continuing operations)", "IncomeTaxExpenseContinuingOperations", false, false, 3, 1));
-        Items.add(new Item(92, "Profit (loss) from continuing operations", "ProfitLossFromContinuingOperations", true, false, 3, 1));
+        Items.add(new Item(92, "Profit (loss) from continuing operations", "ProfitLossFromContinuingOperations", true, true, 3, 1));
         Items.add(new Item(93, "Profit (loss) from discontinued operations", "ProfitLossFromDiscontinuedOperations", true, false, 3, 1));
-        Items.add(new Item(94, "Profit (loss)", "ProfitLoss", true, false, 3, 1));
+        Items.add(new Item(94, "Profit (loss)", "ProfitLoss", true, true, 3, 1));
         Items.add(new Item(95, "Other comprehensive income", "OtherComprehensiveIncome", true, false, 3, 1));
-        Items.add(new Item(96, "COMPREHENSIVE INCOME", "ComprehensiveIncome", true, false, 3, 1));
+        Items.add(new Item(96, "Comprehensive Income", "ComprehensiveIncome", true, true, 3, 1));
 
 
         //Cash Flow Statement
@@ -158,7 +158,7 @@ public class DefaultTemplate {
 
         //Other Data
         Items.add(new Item(121, "Number of employees", "NumberOfEmployees", true, false, 5, 0));
-        Items.add(new Item(122, "Amortization", "Amortization", true, false, 5, 0));
+        Items.add(new Item(122, "Depreciation and amortisation expense", "Amortization", true, false, 5, 0));
 
 
         return Items;
