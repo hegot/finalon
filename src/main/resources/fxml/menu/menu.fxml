@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.HBox?>
+<?import java.net.URL?>
+<fx:root xmlns:fx="http://javafx.com/fxml/1" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/8.0.121">
+    <Button onAction="#homeAction" styleClass="btn" text=" Home">
+        <graphic>
+            <ImageView styleClass="imageView">
+                <image>
+                    <Image url="@img/house.png"/>
+                </image>
+            </ImageView>
+        </graphic>
+    </Button>
+    <Button onAction="#addCompanyAction" styleClass="btn" text=" Add Company">
+        <graphic>
+            <ImageView styleClass="imageView">
+                <image>
+                    <Image url="@img/analytics.png"/>
+                </image>
+            </ImageView>
+        </graphic>
+    </Button>
+    <Button onAction="#settingsAction" styleClass="btn" text=" Settings">
+        <graphic>
+            <ImageView styleClass="imageView">
+                <image>
+                    <Image url="@img/gears.png"/>
+                </image>
+            </ImageView>
+        </graphic>
+    </Button>
+    <Button onAction="#helpAction" styleClass="btn" text=" Help">
+        <graphic>
+            <ImageView styleClass="imageView">
+                <image>
+                    <Image url="@img/help.png"/>
+                </image>
+            </ImageView>
+        </graphic>
+    </Button>
+    <Button onAction="#exitAction" styleClass="btn" text=" Exit">
+        <graphic>
+            <ImageView styleClass="imageView">
+                <image>
+                    <Image url="@img/exit.png"/>
+                </image>
+            </ImageView>
+        </graphic>
+    </Button>
+    <stylesheets>
+        <URL value="@style.css"/>
+    </stylesheets>
+</fx:root>

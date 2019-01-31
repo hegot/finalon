@@ -8,8 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
@@ -30,7 +29,12 @@ public class SettingsScene extends SceneBase {
 
 
     public Scene getScene() {
+        VBox vbox = new VBox(0);
+        vbox.setPrefSize(900,600);
+        vbox.setPrefHeight(600);
+
         TabPane tabs = new TabPane();
+        tabs.setPrefHeight(600);
         tabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         Tab templates = new Tab();
         templates.setText("Templates Customization");
@@ -39,7 +43,8 @@ public class SettingsScene extends SceneBase {
         formulas.setText("Formula Customization");
         formulas.setContent(getFormulas());
         tabs.getTabs().addAll(templates, formulas);
-        Scene scene = new Scene(tabs, 900, 600);
+        vbox.getChildren().addAll(topMenu(), tabs);
+        Scene scene = new Scene(vbox, 900, 600);
         scene.getStylesheets().add("styles/settingsStyle.css");
         return scene;
     }

@@ -63,7 +63,7 @@ public class RemoveHandler {
                         return " -fx-background-color:#6CC629;" +
                                 "-fx-font-size: 12px;" +
                                 "-fx-text-fill: #FFFFFF;" +
-                                "-fx-padding:3;" +
+                                "-fx-padding:0;" +
                                 "-fx-alignment:  baseline-left;" +
                                 "-fx-background-radius: 5em;";
                     }

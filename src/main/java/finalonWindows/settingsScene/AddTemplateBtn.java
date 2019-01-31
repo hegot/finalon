@@ -30,7 +30,7 @@ public class AddTemplateBtn extends HBox {
 
     @FXML
     protected void addTemplateAction() {
-        window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.ADDTEMPLATE));
+        window.setScene(SceneSwitcher.getScenes(SceneName.ADDTEMPLATE).get(SceneName.ADDTEMPLATE));
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         window.setHeight(primaryScreenBounds.getHeight());
     }

@@ -1,10 +1,15 @@
 package finalonWindows;
 
+import finalonWindows.mainScene.CustomControl;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class SceneBase {
     public Background background(String color) {
@@ -29,5 +34,54 @@ public class SceneBase {
 
     protected String sidebarBlueButonStyle() {
         return "-fx-background-color:#3f5872; -fx-font-size: 14px; -fx-text-fill: #FFFFFF; -fx-padding: 10 25 10 25;  -fx-pref-width: 150px; -fx-alignment:  baseline-left;";
+    }
+
+    protected CustomMenu topMenu(){
+        CustomMenu CustomMenu = new CustomMenu();
+        return CustomMenu;
+    }
+
+
+
+}
+
+class CustomMenu extends HBox {
+
+    public CustomMenu() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/menu/menu.fxml"));
+        fxmlLoader.setRoot(this);
+        fxmlLoader.setController(this);
+        try {
+            fxmlLoader.load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
+    @FXML
+    protected void homeAction() {
+        Stage window = (Stage) this.getScene().getWindow();
+        window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.MAIN));
+    }
+
+    @FXML
+    protected void addCompanyAction() {
+        System.out.println("The button was clicked!sss");
+    }
+
+    @FXML
+    protected void settingsAction() {
+        Stage window =(Stage) this.getScene().getWindow();
+        window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.SETTINGSMAIN));
+    }
+
+    @FXML
+    protected void helpAction() {
+        System.out.println("The button was clicked!");
+    }
+
+    @FXML
+    protected void exitAction() {
+        System.out.println("The button was clicked!");
     }
 }

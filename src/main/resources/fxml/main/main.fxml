@@ -86,9 +86,9 @@
             </TilePane>
         </center>
         <bottom>
-            <HBox styleClass="footer">
+            <VBox styleClass="footer">
                 <Text text="© finalon.com 2019 all rights reserved"/>
-            </HBox>
+            </VBox>
         </bottom>
     </BorderPane>
 </fx:root>

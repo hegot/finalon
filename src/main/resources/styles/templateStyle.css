@@ -7,12 +7,25 @@
 .tree-table-view .column-header .filler,
 .tree-table-view .column-header-background .filler {
     -fx-background-color: #34495e;
-
-       -fx-padding: 15;
+    -fx-padding: 15;
 }
 
 .tree-table-view  .column-header .label {
--fx-text-fill: #fff;
-      -fx-font-size: 13px;
-       -fx-font-weight: bold;
+    -fx-text-fill: #fff;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.tab-pane .tab{
+    -fx-pref-height: 40px;
+}
+
+.tab-pane .tab .tab-label{
+-fx-pref-height: 40px;
+}
+
+
+.tab-pane {
+  -fx-tab-min-height:40px;
+  -fx-tab-max-height:40px;
 }

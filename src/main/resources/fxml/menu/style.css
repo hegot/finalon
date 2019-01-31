@@ -1,0 +1,15 @@
+.btn {
+    -fx-background-color:#3f5872;
+    -fx-font-size: 12px;
+    -fx-text-fill: #FFFFFF;
+    -fx-padding: 5 10 5 10;
+    -fx-min-width: 100px;
+    -fx-alignment:  baseline-left;
+    -fx-border-insets: 2px;
+    -fx-background-insets: 2px;
+}
+
+.btn .imageView {
+   -fx-fit-width: 16;
+   -fx-fit-height: 16;
+}

@@ -21,10 +21,10 @@ public class SceneSwitcher {
      */
     private static Map<SceneName, Scene> scenes = new HashMap<>();
     private static Stage window;
+    private final static ObservableList<Item> items = FXCollections.observableArrayList(DefaultTemplate.getTpl());
 
     public SceneSwitcher(Stage windowArg) {
         window = windowArg;
-        ObservableList<Item> items = FXCollections.observableArrayList(DefaultTemplate.getTpl());
         scenes.put(SceneName.MAIN, new MainScene(window).getScene());
         scenes.put(SceneName.SETTINGSMAIN, new SettingsScene(window).getScene());
         scenes.put(SceneName.ADDTEMPLATE, new AddTemplate(window, items).getScene());
@@ -37,6 +37,9 @@ public class SceneSwitcher {
     public static Map<SceneName, Scene> getScenes(SceneName sceneName) {
         if (sceneName == SceneName.SETTINGSMAIN) {
             scenes.put(SceneName.SETTINGSMAIN, new SettingsScene(window).getScene());
+        }
+        if (sceneName == SceneName.ADDTEMPLATE) {
+            scenes.put(SceneName.ADDTEMPLATE, new AddTemplate(window, items).getScene());
         }
         return scenes;
     }

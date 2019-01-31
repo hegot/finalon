@@ -29,6 +29,7 @@ public class TemplateEditable {
 
     public TabPane getTemplateEditable() {
         TabPane tabs = new TabPane();
+        tabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         ObservableList<Item> Sheets = getChildren(rootId);
         for (Item Sheet : Sheets) {
             Tab tab = new Tab();
