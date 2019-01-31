@@ -117,7 +117,7 @@ public class DefaultTemplate {
         Items.add(new Item(92, "Profit (loss) from continuing operations", "ProfitLossFromContinuingOperations", true, true, 3, 1));
         Items.add(new Item(93, "Profit (loss) from discontinued operations", "ProfitLossFromDiscontinuedOperations", true, false, 3, 1));
         Items.add(new Item(94, "Profit (loss)", "ProfitLoss", true, true, 3, 1));
-        Items.add(new Item(95, "Other comprehensive income", "OtherComprehensiveIncome", true, false, 3, 1));
+        Items.add(new Item(95, "Other comprehensi ж      ve income", "OtherComprehensiveIncome", true, false, 3, 1));
         Items.add(new Item(96, "Comprehensive Income", "ComprehensiveIncome", true, true, 3, 1));
 
 
@@ -152,7 +152,7 @@ public class DefaultTemplate {
         Items.add(new Item(116, "Net cash used in financing activities", "NetCashUsedInFinancingActivities", true, true, 99, 1));
         Items.add(new Item(117, "Effect of exchange rate changes", "EffectOfExchangeRateChanges", true, false, 99, 1));
         Items.add(new Item(118, "Net increase in cash and cash equivalents", "NetIncreaseInCashAndCashEquivalents", true, true, 99, 1));
-        Items.add(new Item(119, "Cash and cash equivalents at beginning of period", "CashAndCashEquivalentsAtBeginningOfPeriod", false, false, 99, 1));
+        Items.add(new Item(119, "Cash and cash equivalents at beginning of period", "CashAndCashEquivalentsAtBeginningOfPeriod", true, false, 99, 1));
         Items.add(new Item(120, "Cash and cash equivalents at end of period", "CashAndCashEquivalentsAtEndOfPeriod", true, false, 99, 1));
 
 
