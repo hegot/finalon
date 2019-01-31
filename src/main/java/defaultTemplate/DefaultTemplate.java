@@ -61,7 +61,7 @@ public class DefaultTemplate {
         //Equity
         Items.add(new Item(48, "Issued (share) capital", "IssuedCapital", true, false, 12, 0));
         Items.add(new Item(49, "Share premium", "SharePremium", true, false, 12, 0));
-        Items.add(new Item(50, "Treasury shares", "TreasuryShares", true, false, 12, 0));
+        Items.add(new Item(50, "Treasury shares", "TreasuryShares", false, false, 12, 0));
         Items.add(new Item(51, "Other equity interest", "OtherEquityInterest", true, false, 12, 0));
         Items.add(new Item(52, "Other reserves", "OtherReserves", true, false, 12, 0));
         Items.add(new Item(53, "Retained earnings", "RetainedEarnings", true, false, 12, 0));
@@ -93,27 +93,27 @@ public class DefaultTemplate {
 
         //Statement of Comprehensive Income (P&L Statement)
         Items.add(new Item(70, "Revenue", "Revenue", true, false, 3, 1));
-        Items.add(new Item(71, "Cost of sales", "CostOfSales", true, false, 3, 1));
-        Items.add(new Item(72, "Gross profit", "GrossProfit", true, false, 3, 1));
+        Items.add(new Item(71, "Cost of sales", "CostOfSales", false, false, 3, 1));
+        Items.add(new Item(72, "Gross profit", "GrossProfit", true, true, 3, 1));
         Items.add(new Item(73, "Other income", "OtherIncome", true, false, 3, 1));
-        Items.add(new Item(74, "Distribution costs", "DistributionCosts", true, false, 3, 1));
-        Items.add(new Item(75, "Administrative expense", "AdministrativeExpense", true, false, 3, 1));
-        Items.add(new Item(76, "Other expense", "OtherExpenseByFunction", true, false, 3, 1));
+        Items.add(new Item(74, "Distribution costs", "DistributionCosts", false, false, 3, 1));
+        Items.add(new Item(75, "Administrative expense", "AdministrativeExpense", false, false, 3, 1));
+        Items.add(new Item(76, "Other expense", "OtherExpenseByFunction", false, false, 3, 1));
         Items.add(new Item(77, "Other gains (losses)", "OtherGainsLosses", true, false, 3, 1));
-        Items.add(new Item(78, "Profit (loss) from operating activities", "ProfitLossFromOperatingActivities", true, false, 3, 1));
+        Items.add(new Item(78, "Profit (loss) from operating activities", "ProfitLossFromOperatingActivities", true, true, 3, 1));
         Items.add(new Item(79, "Difference between carrying amount of dividends payable and carrying amount of non-cash assets distributed", "DifferenceBetweenCarryingAmountOfDividendsPayableAndCarryingAmountOfNoncashAssetsDistributed", true, false, 3, 1));
         Items.add(new Item(80, "Gains (losses) on net monetary position", "GainsLossesOnNetMonetaryPosition", true, false, 3, 1));
         Items.add(new Item(81, "Gain (loss) arising from derecognition of financial assets measured at amortised cost", "GainLossArisingFromDerecognitionOfFinancialAssetsMeasuredAtAmortisedCost", true, false, 3, 1));
         Items.add(new Item(82, "Finance income", "FinanceIncome", true, false, 3, 1));
-        Items.add(new Item(83, "Finance costs", "FinanceCosts", true, false, 3, 1));
-        Items.add(new Item(84, "Impairment loss (impairment gain and reversal of impairment loss) determined in accordance with IFRS 9", "ImpairmentLossImpairmentGainAndReversalOfImpairmentLossDeterminedInAccordanceWithIFRS9", true, false, 3, 1));
+        Items.add(new Item(83, "Finance costs", "FinanceCosts", false, false, 3, 1));
+        Items.add(new Item(84, "Impairment loss (impairment gain and reversal of impairment loss) determined in accordance with IFRS 9", "ImpairmentLossImpairmentGainAndReversalOfImpairmentLossDeterminedInAccordanceWithIFRS9", false, false, 3, 1));
         Items.add(new Item(85, "Share of profit (loss) of associates and joint ventures accounted for using equity method", "ShareOfProfitLossOfAssociatesAndJointVenturesAccountedForUsingEquityMethod", true, false, 3, 1));
         Items.add(new Item(86, "Other income (expense) from subsidiaries, jointly controlled entities and associates", "OtherIncomeExpenseFromSubsidiariesJointlyControlledEntitiesAndAssociates", true, false, 3, 1));
         Items.add(new Item(87, "Gains (losses) arising from difference between previous carrying amount and fair value of financial assets reclassified as measured at fair value", "GainsLossesArisingFromDifferenceBetweenPreviousCarryingAmountAndFairValueOfFinancialAssetsReclassifiedAsMeasuredAtFairValue", true, false, 3, 1));
         Items.add(new Item(88, "Cumulative gain (loss) previously recognised in other comprehensive income arising from reclassification of financial assets out of fair value through other comprehensive income into fair value through profit or loss measurement category", "CumulativeGainLossPreviouslyRecognisedInOtherComprehensiveIncomeArisingFromReclassificationOfFinancialAssetsOutOfFairValueThroughOtherComprehensiveIncomeIntoFairValueThroughProfitOrLossMeasurementCategory", true, false, 3, 1));
         Items.add(new Item(89, "Hedging gains (losses) for hedge of group of items with offsetting risk positions", "HedgingGainsLossesForHedgeOfGroupOfItemsWithOffsettingRiskPositions", true, false, 3, 1));
         Items.add(new Item(90, "Profit (loss) before tax", "ProfitLossBeforeTax", true, false, 3, 1));
-        Items.add(new Item(91, "Income tax expense (from continuing operations)", "IncomeTaxExpenseContinuingOperations", true, false, 3, 1));
+        Items.add(new Item(91, "Income tax expense (from continuing operations)", "IncomeTaxExpenseContinuingOperations", false, false, 3, 1));
         Items.add(new Item(92, "Profit (loss) from continuing operations", "ProfitLossFromContinuingOperations", true, false, 3, 1));
         Items.add(new Item(93, "Profit (loss) from discontinued operations", "ProfitLossFromDiscontinuedOperations", true, false, 3, 1));
         Items.add(new Item(94, "Profit (loss)", "ProfitLoss", true, false, 3, 1));

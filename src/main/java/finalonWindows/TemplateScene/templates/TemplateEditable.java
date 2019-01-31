@@ -35,14 +35,14 @@ public class TemplateEditable {
             Tab tab = new Tab();
             Item sheet = Sheet;
             tab.setText(sheet.getName());
-            TreeTableView<Item> table = getSingleTable(sheet.getId());
+            TreeTableView<Item> table = getSingleTable(sheet.getId(), sheet.getName());
             tab.setContent(table);
             tabs.getTabs().add(tab);
         }
         return tabs;
     }
 
-    private TreeTableView<Item> getSingleTable(int Id) {
+    private TreeTableView<Item> getSingleTable(int Id, String SheetName) {
         TreeTableView<Item> table = new TreeTableView<>();
         table.setEditable(true);
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -50,7 +50,11 @@ public class TemplateEditable {
         TextEditHandler texthandler = new TextEditHandler();
         RemoveHandler removeHandler = new RemoveHandler();
         Columns cols = new Columns(texthandler, removeHandler);
-        table.getColumns().addAll(cols.getNameCol(), cols.getCodeCol(), cols.isPositiveCol(), cols.finResultCol(), cols.buttonCol());
+        if(SheetName.equals("Statement of Financial Position \n (Balance Sheet)")|| SheetName.equals("Other Data")){
+            table.getColumns().addAll(cols.getNameCol(), cols.getCodeCol(), cols.isPositiveCol(), cols.buttonCol());
+        }else{
+            table.getColumns().addAll(cols.getNameCol(), cols.getCodeCol(), cols.isPositiveCol(), cols.finResultCol(), cols.buttonCol());
+        }
         TreeBuilder treeBuilder = new TreeBuilder(Id, this.items);
         TreeItem rootNode = treeBuilder.getTree();
         table.setRoot(rootNode);
