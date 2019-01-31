@@ -50,7 +50,7 @@ public class TemplateEditable {
         TextEditHandler texthandler = new TextEditHandler();
         RemoveHandler removeHandler = new RemoveHandler();
         Columns cols = new Columns(texthandler, removeHandler);
-        table.getColumns().addAll(cols.getNameCol(), cols.getCodeCol(), cols.isPositiveCol(), cols.buttonCol());
+        table.getColumns().addAll(cols.getNameCol(), cols.getCodeCol(), cols.isPositiveCol(), cols.finResultCol(), cols.buttonCol());
         TreeBuilder treeBuilder = new TreeBuilder(Id, this.items);
         TreeItem rootNode = treeBuilder.getTree();
         table.setRoot(rootNode);
@@ -84,7 +84,7 @@ public class TemplateEditable {
 
     private ObservableList<Item> getChildren(int id) {
         ObservableList<Item> Items = FXCollections.observableArrayList();
-        for (Item item : this.items) {
+        for (Item item : items) {
             if (item.getParent() == id) {
                 Items.add(item);
             }

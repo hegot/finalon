@@ -14,7 +14,7 @@ class TreeBuilder {
     ) {
         this.items = items;
 
-        Item rootItem = new Item(0, "", "", true, 0, 0);
+        Item rootItem = new Item(0, "", "", true, false, 0, 0);
         for (int i = 0; i < this.items.size(); i++) {
             Item item = this.items.get(i);
             if (item.getId() == Id) {

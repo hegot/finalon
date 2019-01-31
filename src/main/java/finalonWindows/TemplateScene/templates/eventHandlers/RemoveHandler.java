@@ -43,7 +43,7 @@ public class RemoveHandler {
                         if (treeItem != null) {
                             btn.setOnAction((ActionEvent event) -> {
                                 Item node = (Item) treeItem.getValue();
-                                Item itemNew = new Item(-1, "Set value here", "Set value here", true, node.getId(), -1);
+                                Item itemNew = new Item(-1, "Set value here", "Set value here", true, false,  node.getId(), -1);
                                 TreeItem treeItemNew = new TreeItem<Item>(itemNew);
                                 treeItemNew.setExpanded(true);
                                 treeItem.getChildren().add(treeItemNew);

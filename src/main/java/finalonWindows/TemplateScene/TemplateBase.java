@@ -57,7 +57,7 @@ public class TemplateBase extends SceneBase {
                 return item;
             }
         }
-        return new Item(1, "", "", true, 0, 0);
+        return new Item(1, "", "", true, false,0, 0);
     }
 
 

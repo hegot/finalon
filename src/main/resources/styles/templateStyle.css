@@ -13,7 +13,8 @@
 .tree-table-view  .column-header .label {
     -fx-text-fill: #fff;
     -fx-font-size: 13px;
-    -fx-font-weight: bold;
+    -fx-font-weight: normal;
+    -fx-pref-height: 20px;
 }
 
 .tab-pane .tab{

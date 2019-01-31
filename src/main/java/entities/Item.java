@@ -4,18 +4,20 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
 public class Item {
-    public int id;
-    public String name;
-    public String shortName;
-    public Boolean isPositive;
-    public int parent;
-    public int parentSheet;
+    private int id;
+    private String name;
+    private String shortName;
+    private Boolean isPositive;
+    private Boolean finResult;
+    private int parent;
+    private int parentSheet;
 
     public Item(
             int id,
             String name,
             String shortName,
             Boolean isPositive,
+            Boolean finResult,
             int parent,
             int parentSheet
     ) {
@@ -23,6 +25,7 @@ public class Item {
         this.name = name;
         this.shortName = shortName;
         this.isPositive = isPositive;
+        this.finResult = finResult;
         this.parent = parent;
         this.parentSheet = parentSheet;
     }
@@ -52,6 +55,14 @@ public class Item {
     }
 
 
+    public Boolean getFinResult() {
+        return finResult;
+    }
+
+    public void setFinResult(Boolean finResult) {
+        this.finResult = finResult;
+    }
+
     public Boolean getIsPositive() {
         return isPositive;
     }
@@ -78,5 +89,9 @@ public class Item {
 
     public BooleanProperty isPositive() {
         return new SimpleBooleanProperty(this, "isPositive", isPositive);
+    }
+
+    public BooleanProperty hasFinResult() {
+        return new SimpleBooleanProperty(this, "finResult", finResult);
     }
 }

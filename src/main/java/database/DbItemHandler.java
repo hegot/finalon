@@ -17,28 +17,44 @@ public class DbItemHandler extends DbHandlerBase {
         tableName = "items";
     }
 
+    private void createTbl() throws SQLException {
+        this.connection.createStatement().execute("CREATE TABLE if not exists `" + tableName + "` (" +
+                "`id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                "`name` TEXT," +
+                "`shortName` TEXT," +
+                "`isPositive` INTEGER," +
+                "`finResult` INTEGER," +
+                "`parent` INTEGER," +
+                "`parentSheet` INTEGER" +
+                ");");
+
+        System.out.println("Table " + tableName + " created");
+    }
+
+    private void addCol() throws SQLException {
+        this.connection.createStatement().executeUpdate("ALTER TABLE " + tableName + " ADD `finResult` INTEGER");
+        System.out.println("Table " + tableName + " updated");
+    }
+
+
     public void createTable(int parentSheet) throws ClassNotFoundException, SQLException {
         if (!tableExists(this.connection, tableName)) {
-            this.connection.createStatement().execute("CREATE TABLE if not exists `" + tableName + "` (" +
-                    "`id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
-                    "`name` TEXT," +
-                    "`shortName` TEXT," +
-                    "`isPositive` INTEGER," +
-                    "`parent` INTEGER," +
-                    "`parentSheet` INTEGER" +
-                    ");");
-
-            System.out.println("Table " + tableName + " created");
+            createTbl();
         } else {
             System.out.println("Table " + tableName + " already exists");
         }
-
+        DatabaseMetaData md = this.connection.getMetaData();
+        ResultSet rs = md.getColumns(null, null, tableName, "finResult");
+        if (!rs.next()) {
+            addCol();
+            createTbl();
+        }
     }
 
     public ObservableList<Item> getItems(int parent) {
         ObservableList<Item> Items = FXCollections.observableArrayList();
         try (Statement statement = this.connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName,  isPositive, parent, parentSheet FROM "
+            ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName,  isPositive, finResult, parent, parentSheet FROM "
                     + tableName + " WHERE parentSheet = " + parent);
             while (resultSet.next()) {
                 Items.add(
@@ -47,6 +63,7 @@ public class DbItemHandler extends DbHandlerBase {
                                 resultSet.getString("name"),
                                 resultSet.getString("shortName"),
                                 resultSet.getBoolean("isPositive"),
+                                resultSet.getBoolean("finResult"),
                                 resultSet.getInt("parent"),
                                 resultSet.getInt("parentSheet")
                         )
@@ -69,6 +86,7 @@ public class DbItemHandler extends DbHandlerBase {
                                 resultSet.getString("name"),
                                 resultSet.getString("shortName"),
                                 resultSet.getBoolean("isPositive"),
+                                resultSet.getBoolean("finResult"),
                                 resultSet.getInt("parent"),
                                 resultSet.getInt("parentSheet")
                         )
@@ -83,7 +101,7 @@ public class DbItemHandler extends DbHandlerBase {
     public ObservableList<Item> getTemplates() {
         ObservableList<Item> Items = FXCollections.observableArrayList();
         try (Statement statement = this.connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName,  isPositive, parent, parentSheet FROM "
+            ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName,  isPositive, finResult, parent, parentSheet FROM "
                     + tableName + " WHERE parent = 0");
             while (resultSet.next()) {
                 Items.add(
@@ -92,6 +110,7 @@ public class DbItemHandler extends DbHandlerBase {
                                 resultSet.getString("name"),
                                 resultSet.getString("shortName"),
                                 resultSet.getBoolean("isPositive"),
+                                resultSet.getBoolean("finResult"),
                                 resultSet.getInt("parent"),
                                 resultSet.getInt("parentSheet")
                         )
@@ -106,14 +125,15 @@ public class DbItemHandler extends DbHandlerBase {
     public int addItem(Item Item) throws ClassNotFoundException, SQLException {
         try {
             String[] returnId = {"id"};
-            String sql = "INSERT INTO " + tableName + " (`id`, `name`, `shortName`,  `isPositive`, `parent`, `parentSheet`) " +
-                    "VALUES(NULL, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO " + tableName + " (`id`, `name`, `shortName`,  `isPositive`, `finResult`, `parent`, `parentSheet`) " +
+                    "VALUES(NULL, ?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = this.connection.prepareStatement(sql, returnId);
-            statement.setObject(1, Item.name);
-            statement.setObject(2, Item.shortName);
-            statement.setObject(3, Item.isPositive);
-            statement.setObject(4, Item.parent);
-            statement.setObject(5, Item.parentSheet);
+            statement.setObject(1, Item.getName());
+            statement.setObject(2, Item.getShortName());
+            statement.setObject(3, Item.getIsPositive());
+            statement.setObject(4, Item.getFinResult());
+            statement.setObject(5, Item.getParent());
+            statement.setObject(6, Item.getParentSheet());
             int affectedRows = statement.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException("Creating item failed, no rows affected.");
@@ -133,14 +153,15 @@ public class DbItemHandler extends DbHandlerBase {
 
     public void updateItem(Item Item) throws ClassNotFoundException, SQLException {
         try (PreparedStatement statement = this.connection.prepareStatement(
-                "UPDATE " + tableName + " SET `name` = ?,  `shortName` = ?, `isPositive` = ?, `parent` = ?, `parentSheet` = ? WHERE `id` = " + Item.id
+                "UPDATE " + tableName + " SET `name` = ?,  `shortName` = ?, `isPositive` = ?, `finResult` = ?, `parent` = ?, `parentSheet` = ? WHERE `id` = " + Item.getId()
         )) {
-            statement.setObject(1, Item.name);
-            statement.setObject(2, Item.shortName);
-            statement.setObject(3, Item.isPositive);
-            statement.setObject(4, Item.parent);
-            statement.setObject(5, Item.parentSheet);
-            statement.execute();
+            statement.setObject(1, Item.getName());
+            statement.setObject(2, Item.getShortName());
+            statement.setObject(3, Item.getIsPositive());
+            statement.setObject(4, Item.getFinResult());
+            statement.setObject(5, Item.getParent());
+            statement.setObject(6, Item.getParentSheet());
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -165,7 +186,7 @@ public class DbItemHandler extends DbHandlerBase {
         try (PreparedStatement statement = this.connection.prepareStatement(
                 "DELETE FROM " + tableName + " WHERE id = ?")) {
             statement.setObject(1, id);
-            statement.execute();
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
