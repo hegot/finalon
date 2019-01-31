@@ -22,6 +22,7 @@ public class EditTemplate extends TemplateBase {
         super(windowArg, items);
         this.items = items;
         this.templateEditable = new TemplateEditable(items);
+        this.window = windowArg;
     }
 
     private HBox headerMenu() {
@@ -39,6 +40,7 @@ public class EditTemplate extends TemplateBase {
                     TemplateEditor updater = new TemplateEditor(templateName.getText(), items);
                     updater.updateTpl();
                     redirectToSettings();
+                    window.setHeight(600);
                 } else {
                     System.out.println("err");
                 }

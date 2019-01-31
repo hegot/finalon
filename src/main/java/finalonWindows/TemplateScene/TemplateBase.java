@@ -22,8 +22,8 @@ import javafx.stage.Stage;
 public class TemplateBase extends SceneBase {
 
     protected Stage window;
-    protected TextField templateName;
     protected ObservableList<Item> items;
+    TextField templateName;
 
     TemplateBase(
             Stage windowArg,
@@ -51,7 +51,7 @@ public class TemplateBase extends SceneBase {
         return hbox;
     }
 
-    protected Item getRoot() {
+    Item getRoot() {
         for (Item item : this.items) {
             if (item.getParent() == 0) {
                 return item;
@@ -68,7 +68,8 @@ public class TemplateBase extends SceneBase {
             @Override
             public void handle(ActionEvent e) {
                 window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.SETTINGSMAIN));
-
+                window.setHeight(600);
+                window.setWidth(900);
             }
         });
         return button;
@@ -85,7 +86,7 @@ public class TemplateBase extends SceneBase {
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
         scrollPane.setContent(vBox);
-        Scene scene = new Scene(scrollPane, 1000, 800);
+        Scene scene = new Scene(scrollPane, 900, 800);
         scene.getStylesheets().add("/styles/templateStyle.css");
         return scene;
     }

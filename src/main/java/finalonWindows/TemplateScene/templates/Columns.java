@@ -53,7 +53,7 @@ class Columns {
 
     TreeTableColumn isPositiveCol() {
         TreeTableColumn<Item, Boolean> col = new TreeTableColumn<>("Positive");
-        col.setMinWidth(50);
+        col.setMinWidth(55);
 
         col.setCellValueFactory((TreeTableColumn.CellDataFeatures<Item, Boolean> param) -> {
             Item item = param.getValue().getValue();

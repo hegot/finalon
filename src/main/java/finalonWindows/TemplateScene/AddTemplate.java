@@ -1,10 +1,8 @@
 package finalonWindows.TemplateScene;
 
 import database.TemplateCreator;
-import defaultTemplate.DefaultTemplate;
 import entities.Item;
 import finalonWindows.TemplateScene.templates.TemplateEditable;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,13 +14,14 @@ import javafx.stage.Stage;
 
 public class AddTemplate extends TemplateBase {
 
-    private TemplateEditable templateEditable;
     protected ObservableList<Item> items;
+    private TemplateEditable templateEditable;
 
     public AddTemplate(Stage windowArg, ObservableList<Item> items) {
         super(windowArg, items);
         this.items = items;
         this.templateEditable = new TemplateEditable(items);
+        this.window = windowArg;
     }
 
     private HBox headerMenu() {
@@ -40,6 +39,7 @@ public class AddTemplate extends TemplateBase {
                     TemplateCreator creator = new TemplateCreator(templateName.getText(), items);
                     creator.createTpl();
                     redirectToSettings();
+                    window.setHeight(600);
                 } else {
                     System.out.println("err");
                 }

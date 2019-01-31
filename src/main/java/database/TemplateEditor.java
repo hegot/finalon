@@ -52,7 +52,7 @@ public class TemplateEditor extends TemplateBase {
     }
 
 
-    private void deleteItem(int Id) {
+    public void deleteItem(int Id) {
         itemsHandler.deleteItem(Id);
         for (Item item : items) {
             if (item.getParent() == Id) {

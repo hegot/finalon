@@ -4,7 +4,9 @@ import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.layout.HBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -29,6 +31,8 @@ public class AddTemplateBtn extends HBox {
     @FXML
     protected void addTemplateAction() {
         window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.ADDTEMPLATE));
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        window.setHeight(primaryScreenBounds.getHeight());
     }
 
 }

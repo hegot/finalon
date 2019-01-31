@@ -5,10 +5,12 @@ import finalonWindows.TemplateScene.templates.eventHandlers.RemoveHandler;
 import finalonWindows.TemplateScene.templates.eventHandlers.TextEditHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableView;
+import javafx.stage.Screen;
 
 import java.util.ArrayList;
 
@@ -42,7 +44,8 @@ public class TemplateEditable {
     private TreeTableView<Item> getSingleTable(int Id) {
         TreeTableView<Item> table = new TreeTableView<>();
         table.setEditable(true);
-        table.setMinHeight(780);
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        table.setMinHeight(primaryScreenBounds.getHeight() - 150);
         TextEditHandler texthandler = new TextEditHandler();
         RemoveHandler removeHandler = new RemoveHandler();
         Columns cols = new Columns(texthandler, removeHandler);
