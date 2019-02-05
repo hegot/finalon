@@ -1,4 +1,4 @@
-package finalonWindows.TemplateScene.templates;
+package finalonWindows.templateScene.templates;
 
 import entities.Item;
 import javafx.collections.ObservableList;

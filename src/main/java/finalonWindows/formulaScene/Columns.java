@@ -1,6 +1,7 @@
 package finalonWindows.formulaScene;
 
 import entities.Formula;
+import finalonWindows.formulaScene.eventHandlers.EditHandler;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.cell.TextFieldTreeTableCell;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
@@ -28,17 +29,17 @@ class Columns {
 
     TreeTableColumn getValueCol() {
         TreeTableColumn<Formula, String> col = new TreeTableColumn<Formula, String>("Value");
-        col.setMinWidth(200);
+        col.setMinWidth(280);
         col.setCellValueFactory(new TreeItemPropertyValueFactory<Formula, String>("value"));
         col.setCellFactory(TextFieldTreeTableCell.<Formula>forTreeTableColumn());
         return col;
     }
 
-    TreeTableColumn getUnitCol() {
-        TreeTableColumn<Formula, String> col = new TreeTableColumn<Formula, String>("Unit");
-        col.setMinWidth(200);
-        col.setCellValueFactory(new TreeItemPropertyValueFactory<Formula, String>("unit"));
-        col.setCellFactory(TextFieldTreeTableCell.<Formula>forTreeTableColumn());
+    EditHandler editHandler = new EditHandler();
+    TreeTableColumn buttonCol() {
+        TreeTableColumn<Formula, Void> col = new TreeTableColumn<>("");
+        col.setMinWidth(50);
+        col.setCellFactory(editHandler.getBtnFactory());
         return col;
     }
 }

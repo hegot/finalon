@@ -1,4 +1,4 @@
-package finalonWindows.TemplateScene;
+package finalonWindows.templateScene;
 
 import entities.Item;
 import finalonWindows.SceneBase;

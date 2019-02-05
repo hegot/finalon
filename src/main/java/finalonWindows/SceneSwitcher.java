@@ -2,7 +2,7 @@ package finalonWindows;
 
 import defaultData.DefaultTemplate;
 import entities.Item;
-import finalonWindows.TemplateScene.AddTemplate;
+import finalonWindows.templateScene.AddTemplate;
 import finalonWindows.formulaScene.FormulaScene;
 import finalonWindows.mainScene.MainScene;
 import finalonWindows.settingsScene.SettingsScene;

@@ -1,7 +1,7 @@
-package finalonWindows.TemplateScene;
+package finalonWindows.templateScene;
 
 import entities.Item;
-import finalonWindows.TemplateScene.templates.TemplatePreview;
+import finalonWindows.templateScene.templates.TemplatePreview;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;

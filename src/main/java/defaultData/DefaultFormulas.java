@@ -30,15 +30,9 @@ public class DefaultFormulas {
         counter++;
 
 
-
-
-
-
-
-
         //IFRS Formula Level
-        ObservableList<Formula> IFRSFormulas =  getIndustryChilds(IFRSGeneraliD);
-        ObservableList<Formula> USGAAPFormulas =  getIndustryChilds(USGAAPGeneraliD);
+        ObservableList<Formula> IFRSFormulas = getIndustryChilds(IFRSGeneraliD);
+        ObservableList<Formula> USGAAPFormulas = getIndustryChilds(USGAAPGeneraliD);
         Formulas.addAll(IFRSFormulas);
         Formulas.addAll(USGAAPFormulas);
 
@@ -46,9 +40,7 @@ public class DefaultFormulas {
     }
 
 
-
-
-    private static  ObservableList<Formula> getIndustryChilds(int parent){
+    private static ObservableList<Formula> getIndustryChilds(int parent) {
         ObservableList<Formula> Formulas = FXCollections.observableArrayList();
         //IFRS CategoryLevel
         int FSiD = counter;

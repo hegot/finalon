@@ -24,13 +24,13 @@ public class FormulaEditable {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         table.setMinHeight(primaryScreenBounds.getHeight() - 150);
         Columns cols = new Columns();
-        table.getColumns().addAll(cols.getNameCol(), cols.getCodeCol(), cols.getValueCol(), cols.getUnitCol());
+        table.getColumns().addAll(cols.getNameCol(), cols.getCodeCol(), cols.getValueCol(), cols.buttonCol());
         updateTable(rootIndustry);
         return table;
     }
 
 
-    public void updateTable(Formula rootIndustry){
+    public void updateTable(Formula rootIndustry) {
         TreeBuilder treeBuilder = new TreeBuilder(rootIndustry);
         TreeItem rootNode = treeBuilder.getTree();
         table.setRoot(rootNode);

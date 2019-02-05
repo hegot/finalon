@@ -1,8 +1,8 @@
-package finalonWindows.TemplateScene.templates;
+package finalonWindows.templateScene.templates;
 
 import entities.Item;
-import finalonWindows.TemplateScene.templates.eventHandlers.RemoveHandler;
-import finalonWindows.TemplateScene.templates.eventHandlers.TextEditHandler;
+import finalonWindows.templateScene.templates.eventHandlers.RemoveHandler;
+import finalonWindows.templateScene.templates.eventHandlers.TextEditHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Rectangle2D;

@@ -23,9 +23,11 @@ public class FormulaScene extends SceneBase {
     private Stage window;
     private DbFormulaHandler dbFormula = new DbFormulaHandler();
     private Formula selectedIndustry;
-    private ComboBox<Formula> industryBox = getIndustry();
     private ComboBox<Formula> standardBox = getStandard();
+    private ComboBox<Formula> industryBox = getIndustry();
     private FormulaEditable formulaEditable = new FormulaEditable(selectedIndustry);
+
+
     public FormulaScene(Stage windowArg) {
         window = windowArg;
     }
@@ -47,7 +49,7 @@ public class FormulaScene extends SceneBase {
         );
 
         Scene scene = new Scene(vbox, 900, 600);
-        scene.getStylesheets().add("styles/settingsStyle.css");
+        scene.getStylesheets().add("styles/templateStyle.css");
         return scene;
     }
 

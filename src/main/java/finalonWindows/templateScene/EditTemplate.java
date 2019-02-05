@@ -1,8 +1,8 @@
-package finalonWindows.TemplateScene;
+package finalonWindows.templateScene;
 
-import database.template.TemplateCreator;
+import database.template.TemplateEditor;
 import entities.Item;
-import finalonWindows.TemplateScene.templates.TemplateEditable;
+import finalonWindows.templateScene.templates.TemplateEditable;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,12 +12,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class AddTemplate extends TemplateBase {
+public class EditTemplate extends TemplateBase {
 
+    protected Stage window;
     protected ObservableList<Item> items;
     private TemplateEditable templateEditable;
 
-    public AddTemplate(Stage windowArg, ObservableList<Item> items) {
+    public EditTemplate(Stage windowArg, ObservableList<Item> items) {
         super(windowArg, items);
         this.items = items;
         this.templateEditable = new TemplateEditable(items);
@@ -32,12 +33,12 @@ public class AddTemplate extends TemplateBase {
             @Override
             public void handle(ActionEvent e) {
                 if ((templateName.getText() != null && !templateName.getText().isEmpty())) {
-                    String tplName = templateName.getText();
-                    Item mainItem = new Item(1, tplName, tplName, true, false, 0, 0);
+                    Item rootItem = getRoot();
+                    rootItem.setName(templateName.getText());
                     ObservableList<Item> items = templateEditable.getItems();
-                    items.add(mainItem);
-                    TemplateCreator creator = new TemplateCreator(templateName.getText(), items);
-                    creator.createTpl();
+                    items.add(rootItem);
+                    TemplateEditor updater = new TemplateEditor(templateName.getText(), items);
+                    updater.updateTpl();
                     redirectToSettings();
                     window.setHeight(600);
                 } else {
@@ -49,12 +50,14 @@ public class AddTemplate extends TemplateBase {
         return hbox;
     }
 
+
     public Scene getScene() {
         VBox vBox = new VBox();
         vBox.getChildren().addAll(headerMenu(), templateName(), templateEditable.getTemplateEditable());
         Scene scene = baseScene(vBox);
         return scene;
     }
+
 }
 
 
