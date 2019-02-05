@@ -1,8 +1,9 @@
 package finalonWindows;
 
-import defaultTemplate.DefaultTemplate;
+import defaultData.DefaultTemplate;
 import entities.Item;
 import finalonWindows.TemplateScene.AddTemplate;
+import finalonWindows.formulaScene.FormulaScene;
 import finalonWindows.mainScene.MainScene;
 import finalonWindows.settingsScene.SettingsScene;
 import javafx.collections.FXCollections;
@@ -29,6 +30,8 @@ public class SceneSwitcher {
         scenes.put(SceneName.MAIN, new MainScene(window).getScene());
         scenes.put(SceneName.SETTINGSMAIN, new SettingsScene(window).getScene());
         scenes.put(SceneName.ADDTEMPLATE, new AddTemplate(window, items).getScene());
+        scenes.put(SceneName.FORMULA, new FormulaScene(window).getScene());
+
     }
 
 

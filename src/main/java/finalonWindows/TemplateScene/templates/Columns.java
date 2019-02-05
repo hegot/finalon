@@ -6,9 +6,7 @@ import finalonWindows.TemplateScene.templates.eventHandlers.TextEditHandler;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.cell.CheckBoxTreeTableCell;
 import javafx.scene.control.cell.TextFieldTreeTableCell;
@@ -66,7 +64,7 @@ class Columns {
         });
         col.setCellValueFactory((TreeTableColumn.CellDataFeatures<Item, Boolean> param) -> {
             Item item = param.getValue().getValue();
-            SimpleBooleanProperty booleanProp= new SimpleBooleanProperty(item.getIsPositive());
+            SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(item.getIsPositive());
             booleanProp.addListener(new ChangeListener<Boolean>() {
                 @Override
                 public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
@@ -88,7 +86,7 @@ class Columns {
 
         col.setCellValueFactory((TreeTableColumn.CellDataFeatures<Item, Boolean> param) -> {
             Item item = param.getValue().getValue();
-            SimpleBooleanProperty booleanProp= new SimpleBooleanProperty(item.getFinResult());
+            SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(item.getFinResult());
             booleanProp.addListener(new ChangeListener<Boolean>() {
                 @Override
                 public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
@@ -103,7 +101,7 @@ class Columns {
         return col;
     }
 
-    private void setCellFactory(TreeTableColumn col){
+    private void setCellFactory(TreeTableColumn col) {
         col.setCellFactory(column -> {
             CheckBoxTreeTableCell<Item, Boolean> checkBoxTreeTableCell = new CheckBoxTreeTableCell<>();
             checkBoxTreeTableCell.setEditable(true);
@@ -111,7 +109,6 @@ class Columns {
             return checkBoxTreeTableCell;
         });
     }
-
 
 
 }

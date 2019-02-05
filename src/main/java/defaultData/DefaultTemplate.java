@@ -1,4 +1,4 @@
-package defaultTemplate;
+package defaultData;
 
 import entities.Item;
 import javafx.collections.FXCollections;

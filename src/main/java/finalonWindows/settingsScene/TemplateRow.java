@@ -1,7 +1,7 @@
 package finalonWindows.settingsScene;
 
-import database.DbItemHandler;
-import database.TemplateEditor;
+import database.template.DbItemHandler;
+import database.template.TemplateEditor;
 import entities.Item;
 import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;

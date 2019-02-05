@@ -1,6 +1,6 @@
 package finalonWindows.TemplateScene;
 
-import database.TemplateCreator;
+import database.template.TemplateCreator;
 import entities.Item;
 import finalonWindows.TemplateScene.templates.TemplateEditable;
 import javafx.collections.ObservableList;
@@ -33,7 +33,7 @@ public class AddTemplate extends TemplateBase {
             public void handle(ActionEvent e) {
                 if ((templateName.getText() != null && !templateName.getText().isEmpty())) {
                     String tplName = templateName.getText();
-                    Item mainItem = new Item(1, tplName, tplName, true, false,0, 0);
+                    Item mainItem = new Item(1, tplName, tplName, true, false, 0, 0);
                     ObservableList<Item> items = templateEditable.getItems();
                     items.add(mainItem);
                     TemplateCreator creator = new TemplateCreator(templateName.getText(), items);

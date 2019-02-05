@@ -1,5 +1,7 @@
-package database;
+package database.template;
 
+import database.Connect;
+import database.DbHandlerBase;
 import entities.Item;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,7 +39,7 @@ public class DbItemHandler extends DbHandlerBase {
     }
 
 
-    public void createTable(int parentSheet) throws ClassNotFoundException, SQLException {
+    public void createTable() throws ClassNotFoundException, SQLException {
         if (!tableExists(this.connection, tableName)) {
             createTbl();
         } else {
@@ -75,28 +77,6 @@ public class DbItemHandler extends DbHandlerBase {
         return Items;
     }
 
-    public ObservableList<Item> getAllItems() {
-        ObservableList<Item> Items = FXCollections.observableArrayList();
-        try (Statement statement = this.connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName, isPositive, parent, parentSheet FROM " + tableName);
-            while (resultSet.next()) {
-                Items.add(
-                        new Item(
-                                resultSet.getInt("id"),
-                                resultSet.getString("name"),
-                                resultSet.getString("shortName"),
-                                resultSet.getBoolean("isPositive"),
-                                resultSet.getBoolean("finResult"),
-                                resultSet.getInt("parent"),
-                                resultSet.getInt("parentSheet")
-                        )
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return Items;
-    }
 
     public ObservableList<Item> getTemplates() {
         ObservableList<Item> Items = FXCollections.observableArrayList();
@@ -122,7 +102,7 @@ public class DbItemHandler extends DbHandlerBase {
         return Items;
     }
 
-    public int addItem(Item Item) throws ClassNotFoundException, SQLException {
+    int addItem(Item Item) throws ClassNotFoundException, SQLException {
         try {
             String[] returnId = {"id"};
             String sql = "INSERT INTO " + tableName + " (`id`, `name`, `shortName`,  `isPositive`, `finResult`, `parent`, `parentSheet`) " +
@@ -151,7 +131,7 @@ public class DbItemHandler extends DbHandlerBase {
         return 0;
     }
 
-    public void updateItem(Item Item) throws ClassNotFoundException, SQLException {
+    void updateItem(Item Item) throws ClassNotFoundException, SQLException {
         try (PreparedStatement statement = this.connection.prepareStatement(
                 "UPDATE " + tableName + " SET `name` = ?,  `shortName` = ?, `isPositive` = ?, `finResult` = ?, `parent` = ?, `parentSheet` = ? WHERE `id` = " + Item.getId()
         )) {
@@ -182,7 +162,7 @@ public class DbItemHandler extends DbHandlerBase {
         return false;
     }
 
-    public void deleteItem(int id) {
+    void deleteItem(int id) {
         try (PreparedStatement statement = this.connection.prepareStatement(
                 "DELETE FROM " + tableName + " WHERE id = ?")) {
             statement.setObject(1, id);

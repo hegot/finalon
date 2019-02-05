@@ -1,4 +1,4 @@
-package database;
+package database.template;
 
 import entities.Item;
 import javafx.collections.ObservableList;

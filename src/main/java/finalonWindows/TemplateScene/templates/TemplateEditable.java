@@ -50,9 +50,9 @@ public class TemplateEditable {
         TextEditHandler texthandler = new TextEditHandler();
         RemoveHandler removeHandler = new RemoveHandler();
         Columns cols = new Columns(texthandler, removeHandler);
-        if(SheetName.equals("Statement of Financial Position \n (Balance Sheet)")|| SheetName.equals("Other Data")){
+        if (SheetName.equals("Statement of Financial Position \n (Balance Sheet)") || SheetName.equals("Other Data")) {
             table.getColumns().addAll(cols.getNameCol(), cols.getCodeCol(), cols.isPositiveCol(), cols.buttonCol());
-        }else{
+        } else {
             table.getColumns().addAll(cols.getNameCol(), cols.getCodeCol(), cols.isPositiveCol(), cols.finResultCol(), cols.buttonCol());
         }
         TreeBuilder treeBuilder = new TreeBuilder(Id, this.items);

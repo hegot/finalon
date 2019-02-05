@@ -1,6 +1,6 @@
 package finalonWindows.TemplateScene;
 
-import database.TemplateEditor;
+import database.template.TemplateEditor;
 import entities.Item;
 import finalonWindows.TemplateScene.templates.TemplateEditable;
 import javafx.collections.ObservableList;

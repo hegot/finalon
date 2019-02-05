@@ -90,8 +90,4 @@ public class Item {
     public BooleanProperty isPositive() {
         return new SimpleBooleanProperty(this, "isPositive", isPositive);
     }
-
-    public BooleanProperty hasFinResult() {
-        return new SimpleBooleanProperty(this, "finResult", finResult);
-    }
 }
