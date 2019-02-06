@@ -10,6 +10,8 @@ import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 class Columns {
 
 
+    EditHandler editHandler = new EditHandler();
+
     TreeTableColumn getNameCol() {
         TreeTableColumn<Formula, String> col = new TreeTableColumn<Formula, String>("Indicator");
         col.setMinWidth(350);
@@ -17,7 +19,6 @@ class Columns {
         col.setCellFactory(TextFieldTreeTableCell.<Formula>forTreeTableColumn());
         return col;
     }
-
 
     TreeTableColumn getCodeCol() {
         TreeTableColumn<Formula, String> col = new TreeTableColumn<Formula, String>("Code");
@@ -35,7 +36,6 @@ class Columns {
         return col;
     }
 
-    EditHandler editHandler = new EditHandler();
     TreeTableColumn buttonCol() {
         TreeTableColumn<Formula, Void> col = new TreeTableColumn<>("");
         col.setMinWidth(50);

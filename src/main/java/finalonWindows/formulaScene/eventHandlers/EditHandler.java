@@ -18,7 +18,6 @@ public class EditHandler {
                 final TreeTableCell<Formula, Void> cell = new TreeTableCell<Formula, Void>() {
 
 
-
                     private ImageButton editBtn() {
                         TreeTableView<Formula> table = getTreeTableView();
 
@@ -45,7 +44,7 @@ public class EditHandler {
 
 
                     private String btnStyle() {
-                        return  "-fx-background-color: #FFFFFF;" +
+                        return "-fx-background-color: #FFFFFF;" +
                                 "-fx-font-size: 12px;" +
                                 "-fx-text-fill: #FFFFFF;" +
                                 "-fx-padding: 5px;" +

@@ -29,7 +29,12 @@ class TreeBuilder {
             TreeItem treeItem = new TreeItem<Formula>(child);
             treeItem.setExpanded(true);
             root.getChildren().add(treeItem);
-            attachChilds(child.getId(), treeItem);
+            ObservableList<Formula> childs2 = dbFormula.getFormulas(child.getId());
+            for (Formula child2 : childs2) {
+                TreeItem treeItem2 = new TreeItem<Formula>(child2);
+                treeItem2.setExpanded(true);
+                treeItem.getChildren().add(treeItem2);
+            }
         }
     }
 
