@@ -2,6 +2,7 @@ package finalonWindows.formulaScene.eventHandlers;
 
 import database.formula.DbFormulaHandler;
 import entities.Formula;
+import finalonWindows.formulaScene.EditStorage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -20,12 +21,15 @@ public class EditPopup {
     private TreeItem treeItem;
     private String[][] arr;
     private ButtonType saveButtonType = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
-    private DbFormulaHandler dbFormula = new DbFormulaHandler();
+    private ObservableList<Formula> childs;
+    private EditStorage storage = EditStorage.getInstance();
 
     public EditPopup(TreeItem treeItem) {
         this.treeItem = treeItem;
         this.formula = (Formula) treeItem.getValue();
         this.arr = getEditArr();
+        DbFormulaHandler dbFormula = new DbFormulaHandler();
+        childs = dbFormula.getFormulas(formula.getId());
     }
 
     public Dialog getdialog() {
@@ -48,7 +52,6 @@ public class EditPopup {
         VBox vBox = new VBox(15);
         vBox.setPadding(new Insets(10, 2, 10, 2));
         vBox.setPrefWidth(400.00);
-        ObservableList<Formula> childs = dbFormula.getFormulas(formula.getId());
         for (Formula item : childs) {
             HBox hbox = new HBox(10);
             VBox vBoxIn = new VBox(3);
@@ -56,55 +59,88 @@ public class EditPopup {
                     "-fx-border-width: 1; -fx-border-radius: 2;" +
                     "-fx-border-color: #DDDDDD; -fx-pref-width: 300px; -fx-background-color: #E6E6FA");
             String rightComar = item.getCategory();
-            TextField conclusions = textfield(item.getDescription(), 400.00);
-            ComboBox name = choicebox(nameOp(), item.getName());
-            ComboBox comparator = choicebox(compOp(), item.getShortName());
-            TextField value = textfield(item.getValue(), 40fgbc
-            b' /                 .00);
             if (rightComar != null && !rightComar.isEmpty()) {
-                ComboBox comparator2 = choicebox(compOp(), item.getCategory());
-                TextField value2 = textfield(item.getUnit(), 40.00);
                 hbox.getChildren().addAll(
-                        value,
-                        comparator,
-                        name,
-                        comparator2,
-                        value2
+                        value(item),
+                        comparator(item),
+                        name(item),
+                        comparator2(item),
+                        value2(item)
                 );
             } else {
                 hbox.getChildren().addAll(
-                        name,
-                        comparator,
-                        value
+                        name(item),
+                        comparator(item),
+                        value(item)
                 );
             }
-            vBoxIn.getChildren().addAll(hbox, conclusions);
+            vBoxIn.getChildren().addAll(hbox, conclusions(item));
             vBox.getChildren().add(vBoxIn);
-
         }
         return vBox;
     }
 
 
-    private ObservableList<String> compOp() {
-        return FXCollections.observableArrayList(
-                ">",
-                ">=",
-                "=",
-                "<",
-                "<="
-        );
+    private TextField conclusions(Formula item) {
+        TextField conclusions = textfield(item.getDescription(), 400.00);
+        conclusions.focusedProperty().addListener((obs, oldVal, newVal) -> {
+            String text = (String) conclusions.getText();
+            item.setDescription(text);
+            storage.addItem(item.getId(), item);
+        });
+        return conclusions;
     }
 
-    private ObservableList<String> nameOp() {
-        return FXCollections.observableArrayList(
-                "excellent",
-                "good",
-                "satisfactory",
-                "unsatisfactory",
-                "bad"
-        );
+    private TextField value(Formula item) {
+        TextField value = textfield(item.getValue(), 40.00);
+        value.focusedProperty().addListener((obs, oldVal, newVal) -> {
+            String text = (String) value.getText();
+            item.setValue(text);
+            storage.addItem(item.getId(), item);
+        });
+        return value;
     }
+
+    private TextField value2(Formula item) {
+        TextField value2 = textfield(item.getUnit(), 40.00);
+        value2.focusedProperty().addListener((obs, oldVal, newVal) -> {
+            String text = (String) value2.getText();
+            item.setUnit(text);
+            storage.addItem(item.getId(), item);
+        });
+        return value2;
+    }
+
+    private ComboBox comparator(Formula item) {
+        ComboBox comparator = choicebox(compOp(), item.getShortName());
+        comparator.setOnAction((e) -> {
+            String text = (String) comparator.getSelectionModel().getSelectedItem();
+            item.setShortName(text);
+            storage.addItem(item.getId(), item);
+        });
+        return comparator;
+    }
+
+    private ComboBox name(Formula item) {
+        ComboBox name = choicebox(nameOp(), item.getName());
+        name.setOnAction((e) -> {
+            String text = (String) name.getSelectionModel().getSelectedItem();
+            item.setName(text);
+            storage.addItem(item.getId(), item);
+        });
+        return name;
+    }
+
+    private ComboBox comparator2(Formula item) {
+        ComboBox comparator2 = choicebox(compOp(), item.getCategory());
+        comparator2.setOnAction((e) -> {
+            String text = (String) comparator2.getSelectionModel().getSelectedItem();
+            item.setCategory(text);
+            storage.addItem(item.getId(), item);
+        });
+        return comparator2;
+    }
+
 
     private TextField textfield(String value, Double width) {
         TextField textfield = new TextField();
@@ -120,6 +156,7 @@ public class EditPopup {
         cb.getSelectionModel().select(value);
         return cb;
     }
+
 
     private GridPane formualEdit(Dialog dialog) {
         GridPane grid = new GridPane();
@@ -158,7 +195,9 @@ public class EditPopup {
                             System.out.println("no match");
                     }
                 }
+
                 treeItem.setValue(formula);
+                storage.addItem(formula.getId(), formula);
             }
             return null;
         });
@@ -174,6 +213,26 @@ public class EditPopup {
                 {"unit", "Unit:", formula.getUnit(),},
         };
         return arr;
+    }
+
+    private ObservableList<String> compOp() {
+        return FXCollections.observableArrayList(
+                ">",
+                ">=",
+                "=",
+                "<",
+                "<="
+        );
+    }
+
+    private ObservableList<String> nameOp() {
+        return FXCollections.observableArrayList(
+                "excellent",
+                "good",
+                "satisfactory",
+                "unsatisfactory",
+                "bad"
+        );
     }
 
 }

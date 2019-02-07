@@ -4,12 +4,17 @@ import database.formula.DbFormulaHandler;
 import entities.Formula;
 import entities.FormulaConverter;
 import finalonWindows.SceneBase;
+import finalonWindows.SceneName;
+import finalonWindows.SceneSwitcher;
 import finalonWindows.settingsScene.SettingsMenu;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
@@ -28,7 +33,6 @@ public class FormulaScene extends SceneBase {
     private FormulaEditable formulaEditable = new FormulaEditable(selectedIndustry);
 
 
-
     public FormulaScene(Stage windowArg) {
         window = windowArg;
     }
@@ -41,7 +45,7 @@ public class FormulaScene extends SceneBase {
         SettingsMenu settingsMenu = new SettingsMenu(window);
         HBox hBox = new HBox(20);
         hBox.setPadding(new Insets(0, 10, 0, 10));
-        hBox.getChildren().addAll(standardChoiceBox, industryChoiceBox);
+        hBox.getChildren().addAll(standardChoiceBox, industryChoiceBox, saveFormulasButton());
 
         vbox.getChildren().addAll(
                 settingsMenu.getMenu(),
@@ -105,5 +109,23 @@ public class FormulaScene extends SceneBase {
         return hBox;
     }
 
+    private Button saveFormulasButton() {
+        Button btn = new Button("Save Changes");
+        btn.setStyle(blueButonStyle());
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                try {
+                    EditStorage storage = EditStorage.getInstance();
+                    storage.saveItems();
+                } catch (Exception exception) {
+                    System.out.println("Error while saving formulas map");
+                }
+                window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.SETTINGSMAIN));
+                window.setHeight(600);
+            }
+        });
+        return btn;
+    }
 
 }
