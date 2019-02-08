@@ -44,32 +44,32 @@ public class DefaultFormulas {
         ObservableList<Formula> Formulas = FXCollections.observableArrayList();
         //IFRS CategoryLevel
         int FSiD = counter;
-        Formulas.add(new Formula(FSiD, "Financial Sustainability", "FS", "", "", "", "", parent));
+        Formulas.add(new Formula(FSiD, "Financial Sustainability", "FS", "", "", "section", "", parent));
         counter++;
 
         int LiD = counter;
-        Formulas.add(new Formula(LiD, "Liquidity", "L", "", "", "", "", parent));
+        Formulas.add(new Formula(LiD, "Liquidity", "L", "", "", "section", "", parent));
         counter++;
 
         int PaPiD = counter;
-        Formulas.add(new Formula(PaPiD, "Profitability and Performance", "PaP", "", "", "", "", parent));
+        Formulas.add(new Formula(PaPiD, "Profitability and Performance", "PaP", "", "", "section", "", parent));
         counter++;
 
         int TiD = counter;
-        Formulas.add(new Formula(TiD, "Turnover", "T", "", "", "", "", parent));
+        Formulas.add(new Formula(TiD, "Turnover", "T", "", "", "section", "", parent));
         counter++;
 
 
         int IAiD = counter;
-        Formulas.add(new Formula(IAiD, "Investment analysis", "IA", "", "", "", "", parent));
+        Formulas.add(new Formula(IAiD, "Investment analysis", "IA", "", "", "section", "", parent));
         counter++;
 
         int AZSiD = counter;
-        Formulas.add(new Formula(AZSiD, "Altman Z-score", "AZS", "", "", "", "", parent));
+        Formulas.add(new Formula(AZSiD, "Altman Z-score", "AZS", "", "", "section", "", parent));
         counter++;
 
         int OIiD = counter;
-        Formulas.add(new Formula(OIiD, "Other", "OI", "", "", "", "", parent));
+        Formulas.add(new Formula(OIiD, "Other", "OI", "", "", "section", "", parent));
         counter++;
 
         //Financial Sustainability

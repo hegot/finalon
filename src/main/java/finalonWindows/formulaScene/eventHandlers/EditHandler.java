@@ -36,9 +36,31 @@ public class EditHandler {
                         return btn;
                     }
 
+                    private ImageButton addBtn() {
+                        TreeTableView<Formula> table = getTreeTableView();
+
+                        ImageButton btn = new ImageButton();
+                        btn.setStyle(btnStyle());
+                        btn.updateImages(new Image("image/add-plus-button.png"), new Image("image/add-plus-button.png"), 16);
+                        TreeItem treeItem = this.getTreeTableRow().getTreeItem();
+                        if (treeItem != null) {
+                            btn.setOnAction((ActionEvent event) -> {
+                                EditPopup popup = new EditPopup(treeItem);
+                                Dialog dialog = popup.getdialog();
+                                dialog.showAndWait();
+                                table.refresh();
+                            });
+                        }
+                        return btn;
+                    }
+
                     private HBox container() {
-                        HBox hBox = new HBox(10);
-                        hBox.getChildren().addAll(editBtn());
+                        Formula item = this.getTreeTableRow().getTreeItem().getValue();
+                        HBox hBox = new HBox(5);
+                        hBox.getChildren().add(editBtn());
+                        if(item.getCategory().equals("section")){
+                            hBox.getChildren().add(addBtn());
+                        }
                         return hBox;
                     }
 

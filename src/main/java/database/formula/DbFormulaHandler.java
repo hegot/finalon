@@ -90,11 +90,11 @@ public class DbFormulaHandler extends DbHandlerBase {
     }
 
 
-    int addFormula(Formula Formula) throws SQLException {
+    public int addFormula(Formula Formula) throws SQLException {
         try {
             String[] returnId = {"id"};
             String sql = "INSERT INTO " + tableName + " (`id`, `name`, `shortName`,  `value`, `description`, `category`, `unit`, `parent`) " +
-                    "VALUES(NULL, ?, ?, ?, ?, ?, ?)";
+                    "VALUES(NULL, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = this.connection.prepareStatement(sql, returnId);
             statement.setObject(1, Formula.getName());
             statement.setObject(2, Formula.getShortName());

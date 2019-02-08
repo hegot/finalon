@@ -14,7 +14,7 @@ class Columns {
 
     TreeTableColumn getNameCol() {
         TreeTableColumn<Formula, String> col = new TreeTableColumn<Formula, String>("Indicator");
-        col.setMinWidth(350);
+        col.setMinWidth(320);
         col.setCellValueFactory(new TreeItemPropertyValueFactory<Formula, String>("name"));
         col.setCellFactory(TextFieldTreeTableCell.<Formula>forTreeTableColumn());
         return col;
@@ -38,7 +38,7 @@ class Columns {
 
     TreeTableColumn buttonCol() {
         TreeTableColumn<Formula, Void> col = new TreeTableColumn<>("");
-        col.setMinWidth(50);
+        col.setMinWidth(80);
         col.setCellFactory(editHandler.getBtnFactory());
         return col;
     }

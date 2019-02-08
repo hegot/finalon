@@ -5,6 +5,8 @@ import entities.Formula;
 import finalonWindows.formulaScene.EditStorage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -12,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,13 +26,20 @@ public class EditPopup {
     private ButtonType saveButtonType = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
     private ObservableList<Formula> childs;
     private EditStorage storage = EditStorage.getInstance();
+    private Tab tab2;
+    private ArrayList<Formula> formulasAdd;
+    private ArrayList<Formula> formulasRemove;
+    private ScrollPane scrollPane;
 
     public EditPopup(TreeItem treeItem) {
         this.treeItem = treeItem;
         this.formula = (Formula) treeItem.getValue();
         this.arr = getEditArr();
         DbFormulaHandler dbFormula = new DbFormulaHandler();
-        childs = dbFormula.getFormulas(formula.getId());
+        this.childs = dbFormula.getFormulas(formula.getId());
+        tab2 = new Tab("Normative values");
+        this.formulasAdd = new ArrayList<Formula>();
+        this.formulasRemove = new ArrayList<Formula>();
     }
 
     public Dialog getdialog() {
@@ -40,49 +50,87 @@ public class EditPopup {
         TabPane tabpane = new TabPane();
         Tab tab = new Tab("Formula");
         tab.setContent(formualEdit(dialog));
-        Tab tab2 = new Tab("Normative values");
-        tab2.setContent(normativeValues(dialog));
+        tab2.setContent(normativeValues());
         tabpane.getTabs().addAll(tab, tab2);
         dialog.getDialogPane().setContent(tabpane);
         return dialog;
     }
 
 
-    private VBox normativeValues(Dialog dialog) {
+    private VBox normativeValues() {
+        VBox vBoxOuter = new VBox(15);
         VBox vBox = new VBox(15);
         vBox.setPadding(new Insets(10, 2, 10, 2));
-        vBox.setPrefWidth(400.00);
+        vBox.setPrefWidth(450.00);
         for (Formula item : childs) {
             HBox hbox = new HBox(10);
             VBox vBoxIn = new VBox(3);
-            vBoxIn.setStyle(" -fx-padding: 5; -fx-border-style: solid outside;" +
+            vBoxIn.setStyle("-fx-padding: 5; -fx-border-style: solid outside;" +
                     "-fx-border-width: 1; -fx-border-radius: 2;" +
-                    "-fx-border-color: #DDDDDD; -fx-pref-width: 300px; -fx-background-color: #E6E6FA");
-            String rightComar = item.getCategory();
-            if (rightComar != null && !rightComar.isEmpty()) {
-                hbox.getChildren().addAll(
-                        value(item),
-                        comparator(item),
-                        name(item),
-                        comparator2(item),
-                        value2(item)
-                );
-            } else {
-                hbox.getChildren().addAll(
-                        name(item),
-                        comparator(item),
-                        value(item)
-                );
-            }
+                    "-fx-border-color: #DDDDDD; -fx-pref-width: 350px; -fx-background-color: #E6E6FA");
+
+            hbox.getChildren().addAll(
+                    value(item),
+                    comparator(item),
+                    name(item),
+                    comparator2(item),
+                    value2(item),
+                    removeButton(item.getId())
+            );
+
             vBoxIn.getChildren().addAll(hbox, conclusions(item));
             vBox.getChildren().add(vBoxIn);
         }
-        return vBox;
+
+        scrollPane = new ScrollPane();
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPane.setContent(vBox);
+        vBoxOuter.getChildren().addAll(scrollPane, addButton());
+
+        return vBoxOuter;
+    }
+
+    private Button addButton() {
+        Button btn = new Button("+ Add");
+        btn.setStyle("-fx-background-color: #AAD3E6; -fx-border-color: #898989; -fx-border-radius: 2;");
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                Formula item = new Formula(-1, "", "", "", "", "", "", formula.getId());
+                childs.add(item);
+                formulasAdd.add(item);
+                tab2.setContent(normativeValues());
+                scrollPane.setVvalue(1.0);
+            }
+        });
+        return btn;
+    }
+
+    private Button removeButton(int Id) {
+        Button btn = new Button("—");
+        btn.setStyle("-fx-background-color: #AAD3E6; -fx-border-color: #AAD3E6; -fx-border-radius: 5em;  -fx-background-radius: 5em; -fx-text-fill: #242424;-fx-font-size: 15px;  -fx-font-weight: bold; -fx-padding: 0 4px 3px 4px;");
+        //  btn.updateImages(new Image("/image/minus.png"), new Image("/image/minus.png"), 50);
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                int rem = -1;
+                for (int j = 0; j < childs.size(); j++) {
+                    Formula item = childs.get(j);
+                    if(item.getId() == Id){
+                        formulasRemove.add(item);
+                        rem = j;
+                    }
+                }
+                childs.remove(rem);
+                tab2.setContent(normativeValues());
+            }
+        });
+        return btn;
     }
 
 
     private TextField conclusions(Formula item) {
-        TextField conclusions = textfield(item.getDescription(), 400.00);
+        TextField conclusions = textfield(item.getDescription(), 400.00, "Customize conclusions for this indicator range");
         conclusions.focusedProperty().addListener((obs, oldVal, newVal) -> {
             String text = (String) conclusions.getText();
             item.setDescription(text);
@@ -92,7 +140,7 @@ public class EditPopup {
     }
 
     private TextField value(Formula item) {
-        TextField value = textfield(item.getValue(), 40.00);
+        TextField value = textfield(item.getValue(), 40.00, "");
         value.focusedProperty().addListener((obs, oldVal, newVal) -> {
             String text = (String) value.getText();
             item.setValue(text);
@@ -102,7 +150,7 @@ public class EditPopup {
     }
 
     private TextField value2(Formula item) {
-        TextField value2 = textfield(item.getUnit(), 40.00);
+        TextField value2 = textfield(item.getUnit(), 40.00, "");
         value2.focusedProperty().addListener((obs, oldVal, newVal) -> {
             String text = (String) value2.getText();
             item.setUnit(text);
@@ -142,11 +190,11 @@ public class EditPopup {
     }
 
 
-    private TextField textfield(String value, Double width) {
+    private TextField textfield(String value, Double width, String prompt) {
         TextField textfield = new TextField();
         textfield.setMaxWidth(width);
         textfield.setText(value);
-        textfield.setPromptText("Customize conclusions for this indicator range");
+        textfield.setPromptText(prompt);
         return textfield;
     }
 
@@ -198,6 +246,8 @@ public class EditPopup {
 
                 treeItem.setValue(formula);
                 storage.addItem(formula.getId(), formula);
+                storage.addItemsAdded(formulasAdd);
+                storage.addItemsDeleted(formulasRemove);
             }
             return null;
         });
@@ -217,6 +267,7 @@ public class EditPopup {
 
     private ObservableList<String> compOp() {
         return FXCollections.observableArrayList(
+                " ",
                 ">",
                 ">=",
                 "=",
@@ -227,6 +278,7 @@ public class EditPopup {
 
     private ObservableList<String> nameOp() {
         return FXCollections.observableArrayList(
+                " ",
                 "excellent",
                 "good",
                 "satisfactory",
