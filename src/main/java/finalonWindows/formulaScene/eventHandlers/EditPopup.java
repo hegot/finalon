@@ -24,14 +24,18 @@ public class EditPopup {
     private TreeItem treeItem;
     private String[][] arr;
     private ButtonType saveButtonType = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
+    private ButtonType closeButtonType = new ButtonType("Cancel", ButtonBar.ButtonData.NEXT_FORWARD);
     private ObservableList<Formula> childs;
     private EditStorage storage = EditStorage.getInstance();
     private Tab tab2;
     private ArrayList<Formula> formulasAdd;
     private ArrayList<Formula> formulasRemove;
     private ScrollPane scrollPane;
+    private Dialog dialog;
+    private String type;
 
-    public EditPopup(TreeItem treeItem) {
+    public EditPopup(TreeItem treeItem, String type) {
+        this.type = type;
         this.treeItem = treeItem;
         this.formula = (Formula) treeItem.getValue();
         this.arr = getEditArr();
@@ -46,13 +50,14 @@ public class EditPopup {
         Dialog<Pair<String, String>> dialog = new Dialog<>();
         dialog.setTitle("Edit Formula");
         dialog.setWidth(400);
-        dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, ButtonType.CANCEL);
+        dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, closeButtonType);
         TabPane tabpane = new TabPane();
         Tab tab = new Tab("Formula");
         tab.setContent(formualEdit(dialog));
         tab2.setContent(normativeValues());
         tabpane.getTabs().addAll(tab, tab2);
         dialog.getDialogPane().setContent(tabpane);
+        this.dialog = dialog;
         return dialog;
     }
 
@@ -222,6 +227,17 @@ public class EditPopup {
             grid.add(textfield, 1, j);
         }
         dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == closeButtonType) {
+                if(type.equals("add")){
+                    TreeItem Parent = treeItem.getParent();
+                    if(Parent != null){
+                        Parent.getChildren().remove(treeItem);
+                    }
+                }
+                dialog.setResult(Boolean.TRUE);
+                dialog.close();
+            }
+
             if (dialogButton == saveButtonType) {
                 for (int j = 0; j < arr.length; j++) {
                     TextField textfieldget = textfields.get(arr[j][0]);
@@ -248,7 +264,10 @@ public class EditPopup {
                 storage.addItem(formula.getId(), formula);
                 storage.addItemsAdded(formulasAdd);
                 storage.addItemsDeleted(formulasRemove);
+                dialog.setResult(Boolean.TRUE);
+                dialog.close();
             }
+
             return null;
         });
         return grid;

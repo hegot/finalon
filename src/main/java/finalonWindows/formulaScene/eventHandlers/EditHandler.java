@@ -27,7 +27,7 @@ public class EditHandler {
                         TreeItem treeItem = this.getTreeTableRow().getTreeItem();
                         if (treeItem != null) {
                             btn.setOnAction((ActionEvent event) -> {
-                                EditPopup popup = new EditPopup(treeItem);
+                                EditPopup popup = new EditPopup(treeItem, "edit");
                                 Dialog dialog = popup.getdialog();
                                 dialog.showAndWait();
                                 table.refresh();
@@ -42,10 +42,14 @@ public class EditHandler {
                         ImageButton btn = new ImageButton();
                         btn.setStyle(btnStyle());
                         btn.updateImages(new Image("image/add-plus-button.png"), new Image("image/add-plus-button.png"), 16);
-                        TreeItem treeItem = this.getTreeTableRow().getTreeItem();
-                        if (treeItem != null) {
+                        TreeItem root = this.getTreeTableRow().getTreeItem();
+                        if (root != null) {
                             btn.setOnAction((ActionEvent event) -> {
-                                EditPopup popup = new EditPopup(treeItem);
+                                Formula parentFormula = (Formula) root.getValue();
+                                Formula newFormula = new Formula(-1, "", "", "", "", "", "", parentFormula.getId());
+                                TreeItem treeItemNew = new TreeItem<Formula>(newFormula);
+                                root.getChildren().add(treeItemNew);
+                                EditPopup popup = new EditPopup(treeItemNew, "add");
                                 Dialog dialog = popup.getdialog();
                                 dialog.showAndWait();
                                 table.refresh();
@@ -55,11 +59,14 @@ public class EditHandler {
                     }
 
                     private HBox container() {
-                        Formula item = this.getTreeTableRow().getTreeItem().getValue();
                         HBox hBox = new HBox(5);
-                        hBox.getChildren().add(editBtn());
-                        if(item.getCategory().equals("section")){
-                            hBox.getChildren().add(addBtn());
+                        TreeItem treeItem = this.getTreeTableRow().getTreeItem();
+                        if (treeItem != null) {
+                            Formula item = (Formula) treeItem.getValue();
+                            hBox.getChildren().add(editBtn());
+                            if (item.getCategory().equals("section")) {
+                                hBox.getChildren().add(addBtn());
+                            }
                         }
                         return hBox;
                     }
