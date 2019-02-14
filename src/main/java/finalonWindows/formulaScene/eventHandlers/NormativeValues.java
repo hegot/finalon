@@ -1,6 +1,7 @@
 package finalonWindows.formulaScene.eventHandlers;
 
 import entities.Formula;
+import finalonWindows.NumField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -162,7 +163,7 @@ public class NormativeValues {
 
 
     private TextField textfield(String value, Double width, String prompt) {
-        TextField textfield = new NumFieldFX();
+        TextField textfield = new NumField();
         textfield.setMaxWidth(width);
         textfield.setText(value);
         textfield.setPromptText(prompt);
@@ -198,20 +199,8 @@ public class NormativeValues {
                 "bad"
         );
     }
+
+
 }
 
 
-class NumFieldFX extends TextField {
-    public NumFieldFX() {
-        this.addEventFilter(KeyEvent.KEY_TYPED, new EventHandler<KeyEvent>() {
-            public void handle( KeyEvent t ) {
-                char ar[] = t.getCharacter().toCharArray();
-                char ch = ar[t.getCharacter().toCharArray().length - 1];
-                if (!(ch >= '0' && ch <= '9')) {
-                    System.out.println("The char you entered is not a number");
-                    t.consume();
-                }
-            }
-        });
-    }
-}

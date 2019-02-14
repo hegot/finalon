@@ -38,9 +38,7 @@ class FormulaEditable {
         private TreeItem<Formula> rootNode;
         private DbFormulaHandler dbFormula = new DbFormulaHandler();
         TreeBuilder(Formula rootIndustry) {
-            TreeItem<Formula> rootNode = new TreeItem<Formula>(
-                    rootIndustry
-            );
+            TreeItem<Formula> rootNode = new TreeItem<Formula>(rootIndustry);
             rootNode.setExpanded(true);
             this.rootNode = rootNode;
             attachChilds(rootIndustry.getId(), rootNode);

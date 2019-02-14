@@ -1,15 +1,11 @@
 package finalonWindows.formulaScene.eventHandlers;
 
 import entities.Formula;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.GridPane;
-import javafx.util.converter.NumberStringConverter;
 
 public class EditFormula {
 

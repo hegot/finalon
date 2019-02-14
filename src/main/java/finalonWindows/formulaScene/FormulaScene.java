@@ -91,7 +91,6 @@ public class FormulaScene extends SceneBase {
             @Override
             public void changed(ObservableValue<? extends Formula> arg0, Formula arg1, Formula arg2) {
                 if (arg2 != null) {
-                    System.out.println(arg2.getId());
                     formulaEditable.updateTable(arg2);
                 }
             }
