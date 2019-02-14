@@ -11,7 +11,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class EditStorage {
-    public static Map<Integer, FormulaExtended> formulas;
+    private static Map<Integer, FormulaExtended> formulas;
     public static EditStorage editStorage;
     private static DbFormulaHandler dbFormula = new DbFormulaHandler();
     private boolean initalized = false;
@@ -39,7 +39,7 @@ public class EditStorage {
         return formulas;
     }
 
-    public static void saveItems() throws SQLException {
+    static void saveItems() throws SQLException {
         Iterator it = formulas.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
@@ -81,7 +81,7 @@ public class EditStorage {
     }
 
     private static class SingletonHolder {
-        public static final EditStorage INSTANCE = new EditStorage();
+        static final EditStorage INSTANCE = new EditStorage();
     }
 
 

@@ -48,7 +48,7 @@ public class EditHandler {
                         if (root != null) {
                             btn.setOnAction((ActionEvent event) -> {
                                 Formula parentFormula = (Formula) root.getValue();
-                                Formula newFormula = new Formula(-1, "", "", "", "", "", "", parentFormula.getId());
+                                Formula newFormula = new Formula(-1, "", "", "", "", "formula", "", parentFormula.getId());
                                 TreeItem treeItemNew = new TreeItem<Formula>(newFormula);
                                 root.getChildren().add(treeItemNew);
                                 EditPopup popup = new EditPopup(treeItemNew, "add");
