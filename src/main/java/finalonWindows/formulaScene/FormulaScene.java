@@ -33,6 +33,7 @@ public class FormulaScene extends SceneBase {
     private FormulaEditable formulaEditable = new FormulaEditable(selectedIndustry);
 
 
+
     public FormulaScene(Stage windowArg) {
         window = windowArg;
     }

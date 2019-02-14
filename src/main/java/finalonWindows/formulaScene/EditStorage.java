@@ -9,8 +9,8 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class EditStorage {
-    private static Map<Integer, FormulaExtended> formulas;
     public static EditStorage editStorage;
+    private static Map<Integer, FormulaExtended> formulas;
     private static DbFormulaHandler dbFormula = new DbFormulaHandler();
     private boolean initalized = false;
 
@@ -71,26 +71,26 @@ public class EditStorage {
                 }
             }
 
-            if(formula.getCategory() == "TO_BE_DELETED"){
+            if (formula.getCategory() == "TO_BE_DELETED") {
                 dbFormula.deleteItem(ID);
             }
-            if(formula.getCategory() == "TO_BE_ADDED"){
+            if (formula.getCategory() == "TO_BE_ADDED") {
                 dbFormula.updateFormula(formula);
             }
         }
         it.remove();
     }
 
-    private static class SingletonHolder {
-        static final EditStorage INSTANCE = new EditStorage();
-    }
-
-    public static  int getBiggestId(){
+    public static int getBiggestId() {
         Set<Integer> set = formulas.keySet();
-        if(set.size() > 0){
+        if (set.size() > 0) {
             return Collections.max(set);
         }
         return 0;
+    }
+
+    private static class SingletonHolder {
+        static final EditStorage INSTANCE = new EditStorage();
     }
 
 

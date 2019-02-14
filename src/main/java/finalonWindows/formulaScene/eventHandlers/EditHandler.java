@@ -11,9 +11,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
-import java.util.Collections;
-import java.util.Set;
-
 public class EditHandler {
 
 
@@ -55,7 +52,7 @@ public class EditHandler {
                                 DbFormulaHandler dbFormula = new DbFormulaHandler();
                                 int id = dbFormula.getLastId();
                                 int biggestId = storage.getBiggestId();
-                                if(biggestId >= id){
+                                if (biggestId >= id) {
                                     id = biggestId + 1;
                                 }
                                 Formula newFormula = new Formula(id, "", "", "", "", "TO_BE_ADDED", "", parentFormula.getId());

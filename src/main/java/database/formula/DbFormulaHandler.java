@@ -121,7 +121,7 @@ public class DbFormulaHandler extends DbHandlerBase {
     }
 
     public void updateFormula(Formula Formula) throws SQLException {
-        if(itemExists(Formula.getId(), tableName, this.connection)){
+        if (itemExists(Formula.getId(), tableName, this.connection)) {
             try (PreparedStatement statement = this.connection.prepareStatement(
                     "UPDATE " + tableName + " SET `name` = ?,  `shortName` = ?, `value` = ?, `description` = ?,  `category` = ?, `unit` = ?, `parent` = ? WHERE `id` = " + Formula.getId()
             )) {
@@ -136,7 +136,7 @@ public class DbFormulaHandler extends DbHandlerBase {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
             addFormula(Formula);
         }
     }
@@ -167,7 +167,7 @@ public class DbFormulaHandler extends DbHandlerBase {
         return true;
     }
 
-    public int getLastId(){
+    public int getLastId() {
         try {
             Statement stmt = this.connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT MAX(id) FROM " + tableName);
