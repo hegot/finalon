@@ -426,7 +426,7 @@ public class DefaultFormulas {
         Formulas.add(new Formula(X2, "Altman Z-score X2", "X2", "RetainedEarnings/Assets", "", "formula", "", AZSiD));
         counter++;
         int X3 = counter;
-        Formulas.add(new Formula(X3, "Altman Z-score	X3", "X3", "(ProfitLossBeforeTax+FinanceCost)/Assets", "", "formula", "", AZSiD));
+        Formulas.add(new Formula(X3, "Altman Z-score X3", "X3", "(ProfitLossBeforeTax+FinanceCost)/Assets", "", "formula", "", AZSiD));
         counter++;
         int X4 = counter;
         Formulas.add(new Formula(X4, "Altman Z-score X4", "X4", "Equity/(NonCurrentAssets+CurrentLiabilities)", "", "formula", "", AZSiD));

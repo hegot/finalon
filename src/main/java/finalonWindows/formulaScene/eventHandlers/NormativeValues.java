@@ -1,6 +1,7 @@
 package finalonWindows.formulaScene.eventHandlers;
 
 import entities.Formula;
+import finalonWindows.ImageButton;
 import finalonWindows.NumField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -80,8 +82,9 @@ public class NormativeValues {
     }
 
     private Button removeButton(int Id) {
-        Button btn = new Button("—");
-        btn.setStyle("-fx-background-color: #AAD3E6; -fx-border-color: #AAD3E6; -fx-border-radius: 5em;  -fx-background-radius: 5em; -fx-text-fill: #242424;-fx-font-size: 15px;  -fx-font-weight: bold; -fx-padding: 0 4px 3px 4px;");
+        ImageButton btn = new ImageButton();
+        btn.setStyle(btnStyle());
+        btn.updateImages(new Image("image/removeBlack.png"), 16);
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -100,6 +103,14 @@ public class NormativeValues {
         return btn;
     }
 
+    private String btnStyle() {
+        return "-fx-background-color: #A2CBDF;" +
+                "-fx-font-size: 0px;" +
+                "-fx-text-fill: #FFFFFF;" +
+                "-fx-padding: 4px;" +
+                "-fx-alignment:  baseline-left;" +
+                "-fx-background-radius: 5em;";
+    }
 
     private TextField conclusions(Formula item) {
 
