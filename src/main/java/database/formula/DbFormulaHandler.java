@@ -121,19 +121,23 @@ public class DbFormulaHandler extends DbHandlerBase {
     }
 
     public void updateFormula(Formula Formula) throws SQLException {
-        try (PreparedStatement statement = this.connection.prepareStatement(
-                "UPDATE " + tableName + " SET `name` = ?,  `shortName` = ?, `value` = ?, `description` = ?,  `category` = ?, `unit` = ?, `parent` = ? WHERE `id` = " + Formula.getId()
-        )) {
-            statement.setObject(1, Formula.getName());
-            statement.setObject(2, Formula.getShortName());
-            statement.setObject(3, Formula.getValue());
-            statement.setObject(4, Formula.getDescription());
-            statement.setObject(5, Formula.getCategory());
-            statement.setObject(6, Formula.getUnit());
-            statement.setObject(7, Formula.getParent());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if(itemExists(Formula.getId(), tableName, this.connection)){
+            try (PreparedStatement statement = this.connection.prepareStatement(
+                    "UPDATE " + tableName + " SET `name` = ?,  `shortName` = ?, `value` = ?, `description` = ?,  `category` = ?, `unit` = ?, `parent` = ? WHERE `id` = " + Formula.getId()
+            )) {
+                statement.setObject(1, Formula.getName());
+                statement.setObject(2, Formula.getShortName());
+                statement.setObject(3, Formula.getValue());
+                statement.setObject(4, Formula.getDescription());
+                statement.setObject(5, Formula.getCategory());
+                statement.setObject(6, Formula.getUnit());
+                statement.setObject(7, Formula.getParent());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }else{
+            addFormula(Formula);
         }
     }
 
@@ -162,4 +166,16 @@ public class DbFormulaHandler extends DbHandlerBase {
 
         return true;
     }
+
+    public int getLastId(){
+        try {
+            Statement stmt = this.connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT MAX(id) FROM " + tableName);
+            return rs.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 }

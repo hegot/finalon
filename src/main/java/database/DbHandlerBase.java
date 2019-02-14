@@ -19,7 +19,7 @@ public class DbHandlerBase {
 
     public Boolean itemExists(int id, String tableName, Connection connection) {
         try {
-            String query = "SELECT (count(*) > 0) as found FROM " + tableName + " WHERE WHERE `id` = " + id;
+            String query = "SELECT (count(*) > 0) as found FROM " + tableName + " WHERE `id` = " + id;
             PreparedStatement pst = connection.prepareStatement(query);
             try (ResultSet rs = pst.executeQuery()) {
                 if (rs.next()) {

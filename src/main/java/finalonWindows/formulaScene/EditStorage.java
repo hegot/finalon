@@ -6,9 +6,7 @@ import finalonWindows.formulaScene.eventHandlers.FormulaExtended;
 import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class EditStorage {
     private static Map<Integer, FormulaExtended> formulas;
@@ -76,12 +74,23 @@ public class EditStorage {
             if(formula.getCategory() == "TO_BE_DELETED"){
                 dbFormula.deleteItem(ID);
             }
+            if(formula.getCategory() == "TO_BE_ADDED"){
+                dbFormula.updateFormula(formula);
+            }
         }
         it.remove();
     }
 
     private static class SingletonHolder {
         static final EditStorage INSTANCE = new EditStorage();
+    }
+
+    public static  int getBiggestId(){
+        Set<Integer> set = formulas.keySet();
+        if(set.size() > 0){
+            return Collections.max(set);
+        }
+        return 0;
     }
 
 

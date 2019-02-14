@@ -1,5 +1,6 @@
 package finalonWindows.formulaScene.eventHandlers;
 
+import database.formula.DbFormulaHandler;
 import entities.Formula;
 import finalonWindows.ImageButton;
 import finalonWindows.formulaScene.EditStorage;
@@ -10,6 +11,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
+import java.util.Collections;
+import java.util.Set;
+
 public class EditHandler {
 
 
@@ -18,7 +22,7 @@ public class EditHandler {
             @Override
             public TreeTableCell<Formula, Void> call(final TreeTableColumn<Formula, Void> param) {
                 final TreeTableCell<Formula, Void> cell = new TreeTableCell<Formula, Void>() {
-
+                    private EditStorage storage = EditStorage.getInstance();
 
                     private ImageButton editBtn() {
                         TreeTableView<Formula> table = getTreeTableView();
@@ -48,7 +52,13 @@ public class EditHandler {
                         if (root != null) {
                             btn.setOnAction((ActionEvent event) -> {
                                 Formula parentFormula = (Formula) root.getValue();
-                                Formula newFormula = new Formula(-1, "", "", "", "", "formula", "", parentFormula.getId());
+                                DbFormulaHandler dbFormula = new DbFormulaHandler();
+                                int id = dbFormula.getLastId();
+                                int biggestId = storage.getBiggestId();
+                                if(biggestId >= id){
+                                    id = biggestId + 1;
+                                }
+                                Formula newFormula = new Formula(id, "", "", "", "", "TO_BE_ADDED", "", parentFormula.getId());
                                 TreeItem treeItemNew = new TreeItem<Formula>(newFormula);
                                 root.getChildren().add(treeItemNew);
                                 EditPopup popup = new EditPopup(treeItemNew, "add");
@@ -61,8 +71,6 @@ public class EditHandler {
                     }
 
                     private ImageButton removeBtn() {
-                        TreeTableView<Formula> table = getTreeTableView();
-
                         ImageButton btn = new ImageButton();
                         btn.setStyle(btnStyle());
                         btn.updateImages(new Image("image/remove.png"), 16);
@@ -76,7 +84,6 @@ public class EditHandler {
                                 }
                                 formula.setCategory("TO_BE_DELETED");
                                 FormulaExtended formulaExtended = new FormulaExtended(formula, FXCollections.observableArrayList());
-                                EditStorage storage = EditStorage.getInstance();
                                 storage.addItem(formula.getId(), formulaExtended);
                             });
                         }

@@ -55,5 +55,4 @@ public class FormulaExtended extends Formula {
     public void setChilds(ObservableList<Formula> childs) {
         this.childs = childs;
     }
-
 }

@@ -4,6 +4,7 @@ import database.formula.DbFormulaHandler;
 import entities.Formula;
 import finalonWindows.formulaScene.EditStorage;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.util.Pair;
 
@@ -41,7 +42,10 @@ public class EditPopup {
         Dialog<Pair<String, String>> dialog = new Dialog<>();
         dialog.setTitle("Edit Formula");
         dialog.setWidth(400);
-        dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, closeButtonType);
+        dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, closeButtonType, ButtonType.CLOSE);
+        Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CLOSE);
+        closeButton.managedProperty().bind(closeButton.visibleProperty());
+        closeButton.setVisible(false);
         TabPane tabpane = new TabPane();
         tabpane.getTabs().addAll(editFormula.getTab(), normativeValues.getNormativeValues());
         dialog.getDialogPane().setContent(tabpane);
@@ -85,7 +89,7 @@ public class EditPopup {
                             System.out.println("no match");
                     }
                 }
-
+                formula.setCategory("formula");
                 treeItem.setValue(formula);
                 FormulaExtended formulaExtended = normativeValues.getFormulaUpdated();
                 ObservableList<Formula> childs = formulaExtended.getChilds();
