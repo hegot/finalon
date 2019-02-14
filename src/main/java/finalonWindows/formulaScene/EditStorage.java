@@ -44,6 +44,7 @@ public class EditStorage {
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
             FormulaExtended formula = (FormulaExtended) pair.getValue();
+            int ID = formula.getId();
             dbFormula.updateFormula(formula);
 
 
@@ -58,7 +59,7 @@ public class EditStorage {
             }
 
             //handle deleted items
-            ObservableList<Formula> oldChilds = dbFormula.getFormulas(formula.getId());
+            ObservableList<Formula> oldChilds = dbFormula.getFormulas(ID);
             for (Formula oldChild : oldChilds) {
                 int id = oldChild.getId();
                 Boolean found = false;
@@ -70,6 +71,10 @@ public class EditStorage {
                 if (!found) {
                     dbFormula.deleteItem(id);
                 }
+            }
+
+            if(formula.getCategory() == "TO_BE_DELETED"){
+                dbFormula.deleteItem(ID);
             }
         }
         it.remove();

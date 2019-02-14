@@ -59,7 +59,7 @@ public class SettingsScene extends SceneBase {
 
     public ImageButton editTemplateButton(int id) {
         ImageButton btn = new ImageButton();
-        btn.updateImages(new Image("/image/template.png"), new Image("/image/template.png"), 50);
+        btn.updateImages(new Image("/image/template.png"), 50);
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {

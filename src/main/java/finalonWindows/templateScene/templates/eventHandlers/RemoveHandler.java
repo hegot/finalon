@@ -22,7 +22,7 @@ public class RemoveHandler {
                     private ImageButton removeBtn() {
                         ImageButton btn = new ImageButton();
                         btn.setStyle(btnStyle());
-                        btn.updateImages(new Image("image/delRow.png"), new Image("image/delRow.png"), 16);
+                        btn.updateImages(new Image("image/delRow.png"), 16);
                         TreeItem treeItem = this.getTreeTableRow().getTreeItem();
                         if (treeItem != null) {
                             TreeItem parentTreeItem = treeItem.getParent();
@@ -38,7 +38,7 @@ public class RemoveHandler {
                     private ImageButton addBtn() {
                         ImageButton btn = new ImageButton();
                         btn.setStyle(btnStyle());
-                        btn.updateImages(new Image("image/addRow.png"), new Image("image/addRow.png"), 16);
+                        btn.updateImages(new Image("image/addRow.png"), 16);
                         TreeItem treeItem = this.getTreeTableRow().getTreeItem();
                         if (treeItem != null) {
                             btn.setOnAction((ActionEvent event) -> {

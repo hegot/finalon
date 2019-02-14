@@ -2,6 +2,8 @@ package finalonWindows.formulaScene.eventHandlers;
 
 import entities.Formula;
 import finalonWindows.ImageButton;
+import finalonWindows.formulaScene.EditStorage;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -23,7 +25,7 @@ public class EditHandler {
 
                         ImageButton btn = new ImageButton();
                         btn.setStyle(btnStyle());
-                        btn.updateImages(new Image("image/pencil.png"), new Image("image/pencil.png"), 16);
+                        btn.updateImages(new Image("image/pencil.png"), 16);
                         TreeItem treeItem = this.getTreeTableRow().getTreeItem();
                         if (treeItem != null) {
                             btn.setOnAction((ActionEvent event) -> {
@@ -41,7 +43,7 @@ public class EditHandler {
 
                         ImageButton btn = new ImageButton();
                         btn.setStyle(btnStyle());
-                        btn.updateImages(new Image("image/add-plus-button.png"), new Image("image/add-plus-button.png"), 16);
+                        btn.updateImages(new Image("image/add-plus-button.png"), 16);
                         TreeItem root = this.getTreeTableRow().getTreeItem();
                         if (root != null) {
                             btn.setOnAction((ActionEvent event) -> {
@@ -58,6 +60,29 @@ public class EditHandler {
                         return btn;
                     }
 
+                    private ImageButton removeBtn() {
+                        TreeTableView<Formula> table = getTreeTableView();
+
+                        ImageButton btn = new ImageButton();
+                        btn.setStyle(btnStyle());
+                        btn.updateImages(new Image("image/remove.png"), 16);
+                        TreeItem root = this.getTreeTableRow().getTreeItem();
+                        if (root != null) {
+                            btn.setOnAction((ActionEvent event) -> {
+                                Formula formula = (Formula) root.getValue();
+                                TreeItem parentTreeItem = root.getParent();
+                                if (parentTreeItem != null) {
+                                    parentTreeItem.getChildren().remove(root);
+                                }
+                                formula.setCategory("TO_BE_DELETED");
+                                FormulaExtended formulaExtended = new FormulaExtended(formula, FXCollections.observableArrayList());
+                                EditStorage storage = EditStorage.getInstance();
+                                storage.addItem(formula.getId(), formulaExtended);
+                            });
+                        }
+                        return btn;
+                    }
+
                     private HBox container() {
                         HBox hBox = new HBox(5);
                         TreeItem treeItem = this.getTreeTableRow().getTreeItem();
@@ -66,6 +91,9 @@ public class EditHandler {
                             hBox.getChildren().add(editBtn());
                             if (item.getCategory().equals("section")) {
                                 hBox.getChildren().add(addBtn());
+                            }
+                            if (item.getCategory().equals("formula")) {
+                                hBox.getChildren().add(removeBtn());
                             }
                         }
                         return hBox;

@@ -13,20 +13,20 @@ public class DefaultFormulas {
 
         //Standard Level
         int IFRSiD = counter;
-        Formulas.add(new Formula(IFRSiD, "IFRS", "", "", "", "", "", 0));
+        Formulas.add(new Formula(IFRSiD, "IFRS", "", "", "", "standard", "", 0));
         counter++;
 
         int USGAAPiD = counter;
-        Formulas.add(new Formula(USGAAPiD, "US GAAP", "", "", "", "", "", 0));
+        Formulas.add(new Formula(USGAAPiD, "US GAAP", "", "", "", "standard", "", 0));
         counter++;
 
         //IndustryLevel
         int IFRSGeneraliD = counter;
-        Formulas.add(new Formula(IFRSGeneraliD, "IFRS General", "IFRS General", "", "", "", "", IFRSiD));
+        Formulas.add(new Formula(IFRSGeneraliD, "IFRS General", "IFRS General", "", "", "industry", "", IFRSiD));
         counter++;
 
         int USGAAPGeneraliD = counter;
-        Formulas.add(new Formula(USGAAPGeneraliD, "US GAAP General", "US GAAP General", "", "", "", "", USGAAPiD));
+        Formulas.add(new Formula(USGAAPGeneraliD, "US GAAP General", "US GAAP General", "", "", "industry", "", USGAAPiD));
         counter++;
 
 
@@ -74,7 +74,7 @@ public class DefaultFormulas {
 
         //Financial Sustainability
         int TimesInterestEarned = counter;
-        Formulas.add(new Formula(TimesInterestEarned, "Times Interest Earned", "TimesInterestEarned", "(ProfitLossBeforeTax-FinanceCost-GainsLossesOnNetMonetaryPosition)/FinanceCost", "", "", "times", FSiD));
+        Formulas.add(new Formula(TimesInterestEarned, "Times Interest Earned", "TimesInterestEarned", "(ProfitLossBeforeTax-FinanceCost-GainsLossesOnNetMonetaryPosition)/FinanceCost", "", "formula", "times", FSiD));
         counter++;
             int TimesInterestEarnedexcellent = counter;
             Formulas.add(new Formula(TimesInterestEarnedexcellent, "excellent", ">=", "2", "", "", "", TimesInterestEarned));
@@ -87,7 +87,7 @@ public class DefaultFormulas {
             counter++;
 
         int DebtRatio = counter;
-        Formulas.add(new Formula(DebtRatio, "Debt Ratio", "DebtRatio", "(NonCurrentAssets+CurrentLiabilities)/Assets", "", "", "", FSiD));
+        Formulas.add(new Formula(DebtRatio, "Debt Ratio", "DebtRatio", "(NonCurrentAssets+CurrentLiabilities)/Assets", "", "formula", "", FSiD));
         counter++;
             int DebtRatioexcellent = counter;
             Formulas.add(new Formula(DebtRatioexcellent, "excellent", "<=", "0.4", "", "", "", DebtRatio));
@@ -100,7 +100,7 @@ public class DefaultFormulas {
             counter++;
 
         int LongTermDebtRatio = counter;
-        Formulas.add(new Formula(LongTermDebtRatio, "Long-Term Debt Ratio", "LongTermDebtRatio", "NonCurrentAssets/Assets", "", "", "", FSiD));
+        Formulas.add(new Formula(LongTermDebtRatio, "Long-Term Debt Ratio", "LongTermDebtRatio", "NonCurrentAssets/Assets", "", "formula", "", FSiD));
         counter++;
             int LongTermDebtRatioexcellent = counter;
             Formulas.add(new Formula(LongTermDebtRatioexcellent, "excellent", ">=", "0.2", "", "", "", LongTermDebtRatio));
@@ -113,7 +113,7 @@ public class DefaultFormulas {
             counter++;
 
         int TheLongTermDebttoTotalCapitalizationRatio = counter;
-        Formulas.add(new Formula(TheLongTermDebttoTotalCapitalizationRatio, "The Long-Term Debt to Total Capitalization Ratio", "TheLongTermDebttoTotalCapitalizationRatio", "(NonCurrentAssets)/(NonCurrentAssets+IssuedCapital+SharePremium)", "", "", "", FSiD));
+        Formulas.add(new Formula(TheLongTermDebttoTotalCapitalizationRatio, "The Long-Term Debt to Total Capitalization Ratio", "TheLongTermDebttoTotalCapitalizationRatio", "(NonCurrentAssets)/(NonCurrentAssets+IssuedCapital+SharePremium)", "", "formula", "", FSiD));
         counter++;
             int TheLongTermDebttoTotalCapitalizationRatioexcellent = counter;
             Formulas.add(new Formula(TheLongTermDebttoTotalCapitalizationRatioexcellent, "excellent", ">=", "0.6", "", "", "", TheLongTermDebttoTotalCapitalizationRatio));
@@ -126,10 +126,10 @@ public class DefaultFormulas {
             counter++;
 
         int DebtEquityRatio = counter;
-        Formulas.add(new Formula(DebtEquityRatio, "Debt/Equity Ratio", "DebtEquityRatio", "(NonCurrentAssets+CurrentLiabilities)/Equity", "", "", "", FSiD));
+        Formulas.add(new Formula(DebtEquityRatio, "Debt/Equity Ratio", "DebtEquityRatio", "(NonCurrentAssets+CurrentLiabilities)/Equity", "", "formula", "", FSiD));
         counter++;
         int DebttoTangibleNetWorthRatio = counter;
-        Formulas.add(new Formula(DebttoTangibleNetWorthRatio, "Debt to Tangible Net Worth Ratio", "DebttoTangibleNetWorthRatio", "(NonCurrentAssets+CurrentLiabilities)/(Equity-IntangibleAssetsOtherThanGoodwill-Goodwill)", "", "", "", FSiD));
+        Formulas.add(new Formula(DebttoTangibleNetWorthRatio, "Debt to Tangible Net Worth Ratio", "DebttoTangibleNetWorthRatio", "(NonCurrentAssets+CurrentLiabilities)/(Equity-IntangibleAssetsOtherThanGoodwill-Goodwill)", "", "formula", "", FSiD));
         counter++;
             int DebttoTangibleNetWorthRatioexcellent = counter;
             Formulas.add(new Formula(DebttoTangibleNetWorthRatioexcellent, "excellent", ">=", "0.6", "", "", "", DebttoTangibleNetWorthRatio));
@@ -142,7 +142,7 @@ public class DefaultFormulas {
             counter++;
 
         int LongTermDebttoEquity = counter;
-        Formulas.add(new Formula(LongTermDebttoEquity, "Long-Term Debt to Equity", "LongTermDebttoEquity", "NonCurrentAssets/(IssuedCapital+SharePremium)", "", "", "", FSiD));
+        Formulas.add(new Formula(LongTermDebttoEquity, "Long-Term Debt to Equity", "LongTermDebttoEquity", "NonCurrentAssets/(IssuedCapital+SharePremium)", "", "formula", "", FSiD));
         counter++;
             int LongTermDebttoEquityexcellent = counter;
             Formulas.add(new Formula(LongTermDebttoEquityexcellent, "excellent", ">=", "1", "", "", "", LongTermDebttoEquity));
@@ -156,7 +156,7 @@ public class DefaultFormulas {
 
         //Liquidity
         int CurrentRatio = counter;
-        Formulas.add(new Formula(CurrentRatio, "Current Ratio", "CurrentRatio", "CurrentAssets/CurrentLiabilities", "", "", "", LiD));
+        Formulas.add(new Formula(CurrentRatio, "Current Ratio", "CurrentRatio", "CurrentAssets/CurrentLiabilities", "", "formula", "", LiD));
         counter++;
             int CurrentRatiosatisfactory = counter;
             Formulas.add(new Formula(CurrentRatiosatisfactory, "satisfactory", ">", "3", "", "", "", CurrentRatio));
@@ -172,10 +172,10 @@ public class DefaultFormulas {
             counter++;
 
         int QuickRatio = counter;
-        Formulas.add(new Formula(QuickRatio, "Quick Ratio (Acid Test Ratio)", "QuickRatio", "(CashAndCashEquivalents+TradeAndOtherCurrentReceivables)/CurrentLiabilities", "", "", "", LiD));
+        Formulas.add(new Formula(QuickRatio, "Quick Ratio (Acid Test Ratio)", "QuickRatio", "(CashAndCashEquivalents+TradeAndOtherCurrentReceivables)/CurrentLiabilities", "", "formula", "", LiD));
         counter++;
         int CashRatio = counter;
-        Formulas.add(new Formula(CashRatio, "Cash Ratio", "CashRatio", "CashAndCashEquivalents/CurrentLiabilities", "", "", "", LiD));
+        Formulas.add(new Formula(CashRatio, "Cash Ratio", "CashRatio", "CashAndCashEquivalents/CurrentLiabilities", "", "formula", "", LiD));
         counter++;
             int CashRatioexcellent = counter;
             Formulas.add(new Formula(CashRatioexcellent, "excellent", ">=", "0.2", "", "", "", CashRatio));
@@ -188,10 +188,10 @@ public class DefaultFormulas {
             counter++;
 
         int NetWorkingCapital = counter;
-        Formulas.add(new Formula(NetWorkingCapital, "Net Working Capital", "NetWorkingCapital", "CurrentAssets-CurrentLiabilities", "", "", "money (tousand dollar)", LiD));
+        Formulas.add(new Formula(NetWorkingCapital, "Net Working Capital", "NetWorkingCapital", "CurrentAssets-CurrentLiabilities", "", "formula", "money (tousand dollar)", LiD));
         counter++;
         int SalestoNetWorkingCapital = counter;
-        Formulas.add(new Formula(SalestoNetWorkingCapital, "Sales to Net Working Capital", "SalestoNetWorkingCapital", "Revenue/((CurrentAssets[1]-CurrentLiabilities[1]+CurrentAssets[0]-CurrentLiabilities[0])/2)", "", "", "", LiD));
+        Formulas.add(new Formula(SalestoNetWorkingCapital, "Sales to Net Working Capital", "SalestoNetWorkingCapital", "Revenue/((CurrentAssets[1]-CurrentLiabilities[1]+CurrentAssets[0]-CurrentLiabilities[0])/2)", "", "formula", "", LiD));
         counter++;
             int SalestoNetWorkingCapitalexcellent = counter;
             Formulas.add(new Formula(SalestoNetWorkingCapitalexcellent, "excellent", "<", "3", "", "<", "3", SalestoNetWorkingCapital));
@@ -205,14 +205,14 @@ public class DefaultFormulas {
 
         //Profitability and Performance
         int NetProfitMargin = counter;
-        Formulas.add(new Formula(NetProfitMargin, "Net Profit Margin", "NetProfitMargin", "(ProfitLossBeforeTax-IncomeTaxExpenseContinuingOperations)/Revenue", "", "", "%", PaPiD));
+        Formulas.add(new Formula(NetProfitMargin, "Net Profit Margin", "NetProfitMargin", "(ProfitLossBeforeTax-IncomeTaxExpenseContinuingOperations)/Revenue", "", "formula", "%", PaPiD));
         counter++;
         int OperatingIncomeMargin = counter;
-        Formulas.add(new Formula(OperatingIncomeMargin, "Operating Income Margin", "OperatingIncomeMargin", "ProfitLossFromOperatingActivities/Revenue", "", "", "%", PaPiD));
+        Formulas.add(new Formula(OperatingIncomeMargin, "Operating Income Margin", "OperatingIncomeMargin", "ProfitLossFromOperatingActivities/Revenue", "", "formula", "%", PaPiD));
         counter++;
 
         int GrossProfitMargin = counter;
-        Formulas.add(new Formula(GrossProfitMargin, "Gross Profit Margin", "GrossProfitMargin", "GrossProfit/Revenue", "", "", "%", PaPiD));
+        Formulas.add(new Formula(GrossProfitMargin, "Gross Profit Margin", "GrossProfitMargin", "GrossProfit/Revenue", "", "formula", "%", PaPiD));
         counter++;
             int GrossProfitMargingood = counter;
             Formulas.add(new Formula(GrossProfitMargingood, "good", ">", "0", "", "", "", GrossProfitMargin));
@@ -223,13 +223,13 @@ public class DefaultFormulas {
 
 
         int ReturnoNonCurrentAssets = counter;
-        Formulas.add(new Formula(ReturnoNonCurrentAssets, "Return on Assets", "ReturnoNonCurrentAssets", "(ProfitLossBeforeTax-IncomeTaxExpenseContinuingOperations)/(Assets[1]/2+Assets[0]/2)", "", "", "%", PaPiD));
+        Formulas.add(new Formula(ReturnoNonCurrentAssets, "Return on Assets", "ReturnoNonCurrentAssets", "(ProfitLossBeforeTax-IncomeTaxExpenseContinuingOperations)/(Assets[1]/2+Assets[0]/2)", "", "formula", "%", PaPiD));
         counter++;
         int ReturnonOperatingAssets = counter;
-        Formulas.add(new Formula(ReturnonOperatingAssets, "Return on Operating Assets", "ReturnonOperatingAssets", "ProfitLossFromOperatingActivities/(Assets[0]/2+Assets[1]/2-IntangibleAssetsOtherThanGoodwill[0]/2-IntangibleAssetsOtherThanGoodwill[1]/2-Goodwill[0]/2-Goodwill[1]/2-OtherNoncurrentNonfinancialAssets[0]/2-OtherNoncurrentNonfinancialAssets[1]/2-DeferredTaxAssets[0]/2-DeferredTaxAssets[1]/2-OtherNoncurrentFinancialAssets[0]/2-OtherNoncurrentFinancialAssets[1]/2-CurrentTaxAssetsNoncurrent[0]/2-CurrentTaxAssetsNoncurrent[1]/2)", "", "", "%", PaPiD));
+        Formulas.add(new Formula(ReturnonOperatingAssets, "Return on Operating Assets", "ReturnonOperatingAssets", "ProfitLossFromOperatingActivities/(Assets[0]/2+Assets[1]/2-IntangibleAssetsOtherThanGoodwill[0]/2-IntangibleAssetsOtherThanGoodwill[1]/2-Goodwill[0]/2-Goodwill[1]/2-OtherNoncurrentNonfinancialAssets[0]/2-OtherNoncurrentNonfinancialAssets[1]/2-DeferredTaxAssets[0]/2-DeferredTaxAssets[1]/2-OtherNoncurrentFinancialAssets[0]/2-OtherNoncurrentFinancialAssets[1]/2-CurrentTaxAssetsNoncurrent[0]/2-CurrentTaxAssetsNoncurrent[1]/2)", "", "formula", "%", PaPiD));
         counter++;
         int ReturnonInvestment = counter;
-        Formulas.add(new Formula(ReturnonInvestment, "Return on Investment", "ReturnonInvestment", "(ProfitLossBeforeTax-IncomeTaxExpenseContinuingOperations+FinanceCost)/(Equity[0]/2+Equity[1]/2+NonCurrentAssets[0]/2+NonCurrentAssets[1]/2)", "", "", "%", PaPiD));
+        Formulas.add(new Formula(ReturnonInvestment, "Return on Investment", "ReturnonInvestment", "(ProfitLossBeforeTax-IncomeTaxExpenseContinuingOperations+FinanceCost)/(Equity[0]/2+Equity[1]/2+NonCurrentAssets[0]/2+NonCurrentAssets[1]/2)", "", "formula", "%", PaPiD));
         counter++;
             int ReturnonInvestmentexcellent = counter;
             Formulas.add(new Formula(ReturnonInvestmentexcellent, "excellent", ">", "4", "", "", "", ReturnonInvestment));
@@ -245,7 +245,7 @@ public class DefaultFormulas {
             counter++;
 
         int ReturnonEquityafterTax = counter;
-        Formulas.add(new Formula(ReturnonEquityafterTax, "Return on Equity after Tax", "ReturnonEquityafterTax", "(ProfitLossBeforeTax-IncomeTaxExpenseContinuingOperations)/(Equity[0]/2+Equity[1]/2)", "", "", "%", PaPiD));
+        Formulas.add(new Formula(ReturnonEquityafterTax, "Return on Equity after Tax", "ReturnonEquityafterTax", "(ProfitLossBeforeTax-IncomeTaxExpenseContinuingOperations)/(Equity[0]/2+Equity[1]/2)", "", "formula", "%", PaPiD));
         counter++;
             int ReturnonEquityafterTaxexcellent = counter;
             Formulas.add(new Formula(ReturnonEquityafterTaxexcellent, "excellent", ">", "7", "", "", "", ReturnonEquityafterTax));
@@ -261,7 +261,7 @@ public class DefaultFormulas {
             counter++;
 
         int ReturnoNonAssets = counter;
-        Formulas.add(new Formula(ReturnoNonAssets, "Return on Assets", "ReturnoNonAssets", "(ProfitLossBeforeTax-IncomeTaxExpenseContinuingOperations)/(Assets[0]/2+Assets[1]/2)", "", "", "%", PaPiD));
+        Formulas.add(new Formula(ReturnoNonAssets, "Return on Assets", "ReturnoNonAssets", "(ProfitLossBeforeTax-IncomeTaxExpenseContinuingOperations)/(Assets[0]/2+Assets[1]/2)", "", "formula", "%", PaPiD));
         counter++;
             int ReturnoNonAssetsexcellent = counter;
             Formulas.add(new Formula(ReturnoNonAssetsexcellent, "excellent", ">", "5", "", "", "", ReturnoNonAssets));
@@ -278,7 +278,7 @@ public class DefaultFormulas {
 
         //Turnover
         int TotalAssetTurnover = counter;
-        Formulas.add(new Formula(TotalAssetTurnover, "Total Asset Turnover", "TotalAssetTurnover", "Revenue/(Assets[0]/2+Assets[1]/2)", "", "", "times", TiD));
+        Formulas.add(new Formula(TotalAssetTurnover, "Total Asset Turnover", "TotalAssetTurnover", "Revenue/(Assets[0]/2+Assets[1]/2)", "", "formula", "times", TiD));
         counter++;
             int TotalAssetTurnovergood = counter;
             Formulas.add(new Formula(TotalAssetTurnovergood, "good", ">", "6", "", "", "", TotalAssetTurnover));
@@ -288,7 +288,7 @@ public class DefaultFormulas {
             counter++;
 
         int SalestoFixedAssets = counter;
-        Formulas.add(new Formula(SalestoFixedAssets, "Sales to Fixed Assets", "SalestoFixedAssets", "Revenue/(PropertyPlantAndEquipment[0]/2+PropertyPlantAndEquipment[1]/2)", "", "", "times", TiD));
+        Formulas.add(new Formula(SalestoFixedAssets, "Sales to Fixed Assets", "SalestoFixedAssets", "Revenue/(PropertyPlantAndEquipment[0]/2+PropertyPlantAndEquipment[1]/2)", "", "formula", "times", TiD));
         counter++;
             int SalestoFixedAssetsgood = counter;
             Formulas.add(new Formula(SalestoFixedAssetsgood, "good", ">", "8", "", "", "", SalestoFixedAssets));
@@ -298,7 +298,7 @@ public class DefaultFormulas {
             counter++;
 
         int CurrentAssetTurnover = counter;
-        Formulas.add(new Formula(CurrentAssetTurnover, "Current Asset Turnover", "CurrentAssetTurnover", "Revenue/((CurrentAssets[0]+CurrentAssets[1])/2)", "", "", "times", TiD));
+        Formulas.add(new Formula(CurrentAssetTurnover, "Current Asset Turnover", "CurrentAssetTurnover", "Revenue/((CurrentAssets[0]+CurrentAssets[1])/2)", "", "formula", "times", TiD));
         counter++;
             int CurrentAssetTurnovergood = counter;
             Formulas.add(new Formula(CurrentAssetTurnovergood, "good", ">", "10", "", "", "", CurrentAssetTurnover));
@@ -309,7 +309,7 @@ public class DefaultFormulas {
 
 
         int WorkingCapitalTurnover = counter;
-        Formulas.add(new Formula(WorkingCapitalTurnover, "Working Capital Turnover", "WorkingCapitalTurnover", "Revenue/((CurrentAssets[1]-CurrentLiabilities[1]+CurrentAssets[0]-CurrentLiabilities[0])/2)", "", "", "times", TiD));
+        Formulas.add(new Formula(WorkingCapitalTurnover, "Working Capital Turnover", "WorkingCapitalTurnover", "Revenue/((CurrentAssets[1]-CurrentLiabilities[1]+CurrentAssets[0]-CurrentLiabilities[0])/2)", "", "formula", "times", TiD));
         counter++;
             int WorkingCapitalTurnovergood = counter;
             Formulas.add(new Formula(WorkingCapitalTurnovergood, "good", ">", "5", "", "", "", WorkingCapitalTurnover));
@@ -320,7 +320,7 @@ public class DefaultFormulas {
 
 
         int AccountsReceivableTurnover = counter;
-        Formulas.add(new Formula(AccountsReceivableTurnover, "Accounts Receivable Turnover (Times)", "AccountsReceivableTurnover", "Revenue/((TradeAndOtherCurrentReceivables[0]+TradeAndOtherCurrentReceivables[1])/2)", "", "", "times", TiD));
+        Formulas.add(new Formula(AccountsReceivableTurnover, "Accounts Receivable Turnover (Times)", "AccountsReceivableTurnover", "Revenue/((TradeAndOtherCurrentReceivables[0]+TradeAndOtherCurrentReceivables[1])/2)", "", "formula", "times", TiD));
         counter++;
             int AccountsReceivableTurnovergood = counter;
             Formulas.add(new Formula(AccountsReceivableTurnovergood, "good", ">", "6", "", "", "", AccountsReceivableTurnover));
@@ -330,7 +330,7 @@ public class DefaultFormulas {
             counter++;
 
         int AverageCollectionPeriod = counter;
-        Formulas.add(new Formula(AverageCollectionPeriod, "Average Collection Period (Accounts Receivable Turnover in Days)", "AverageCollectionPeriod", "360*((TradeAndOtherCurrentReceivables[0]+TradeAndOtherCurrentReceivables[1])/2)/Revenue", "", "", "days", TiD));
+        Formulas.add(new Formula(AverageCollectionPeriod, "Average Collection Period (Accounts Receivable Turnover in Days)", "AverageCollectionPeriod", "360*((TradeAndOtherCurrentReceivables[0]+TradeAndOtherCurrentReceivables[1])/2)/Revenue", "", "formula", "days", TiD));
         counter++;
             int AverageCollectionPeriodgood = counter;
             Formulas.add(new Formula(AverageCollectionPeriodgood, "good", "<", "60", "", "", "", AverageCollectionPeriod));
@@ -340,7 +340,7 @@ public class DefaultFormulas {
             counter++;
 
         int AccountsPayableTurnover = counter;
-        Formulas.add(new Formula(AccountsPayableTurnover, "Accounts Payable Turnover", "AccountsPayableTurnover", "CostOfSales/(((TradeAndOtherCurrentPayables[0]+TradeAndOtherCurrentPayables[1])/2))", "", "", "times", TiD));
+        Formulas.add(new Formula(AccountsPayableTurnover, "Accounts Payable Turnover", "AccountsPayableTurnover", "CostOfSales/(((TradeAndOtherCurrentPayables[0]+TradeAndOtherCurrentPayables[1])/2))", "", "formula", "times", TiD));
         counter++;
             int AccountsPayableTurnovergood = counter;
             Formulas.add(new Formula(AccountsPayableTurnovergood, "good", ">", "6", "", "", "", AccountsPayableTurnover));
@@ -350,7 +350,7 @@ public class DefaultFormulas {
             counter++;
 
         int DaysPayableOutstanding = counter;
-        Formulas.add(new Formula(DaysPayableOutstanding, "Days Payable Outstanding", "DaysPayableOutstanding", "(((TradeAndOtherCurrentPayables[0]+TradeAndOtherCurrentPayables[1])/2)*360)/CostOfSales", "", "", "times", TiD));
+        Formulas.add(new Formula(DaysPayableOutstanding, "Days Payable Outstanding", "DaysPayableOutstanding", "(((TradeAndOtherCurrentPayables[0]+TradeAndOtherCurrentPayables[1])/2)*360)/CostOfSales", "", "formula", "times", TiD));
         counter++;
             int DaysPayableOutstandinggood = counter;
             Formulas.add(new Formula(DaysPayableOutstandinggood, "good", "<", "60", "", "", "", DaysPayableOutstanding));
@@ -360,7 +360,7 @@ public class DefaultFormulas {
             counter++;
 
         int InventoryTurnover = counter;
-        Formulas.add(new Formula(InventoryTurnover, "Inventory Turnover  (Days Inventory Outstanding)", "InventoryTurnover", "CostOfSales/((Inventories[1]+Inventories[0])/2)", "", "", "days", TiD));
+        Formulas.add(new Formula(InventoryTurnover, "Inventory Turnover  (Days Inventory Outstanding)", "InventoryTurnover", "CostOfSales/((Inventories[1]+Inventories[0])/2)", "", "formula", "days", TiD));
         counter++;
             int InventoryTurnovergood = counter;
             Formulas.add(new Formula(InventoryTurnovergood, "good", ">", "6", "", "", "", InventoryTurnover));
@@ -370,7 +370,7 @@ public class DefaultFormulas {
             counter++;
 
         int InventoryTurnoverinDays = counter;
-        Formulas.add(new Formula(InventoryTurnoverinDays, "Inventory Turnover in Days", "InventoryTurnoverinDays", "360*((Inventories[1]+Inventories[0])/2)/CostOfSales", "", "", "days", TiD));
+        Formulas.add(new Formula(InventoryTurnoverinDays, "Inventory Turnover in Days", "InventoryTurnoverinDays", "360*((Inventories[1]+Inventories[0])/2)/CostOfSales", "", "formula", "days", TiD));
         counter++;
             int InventoryTurnoverinDaysgood = counter;
             Formulas.add(new Formula(InventoryTurnoverinDaysgood, "good", "<", "60", "", "", "", InventoryTurnoverinDays));
@@ -380,7 +380,7 @@ public class DefaultFormulas {
             counter++;
 
         int CashTurnover = counter;
-        Formulas.add(new Formula(CashTurnover, "Cash Turnover", "CashTurnover", "Revenue/((CashAndCashEquivalents[0]+CashAndCashEquivalents[1])/2)", "", "", "times", TiD));
+        Formulas.add(new Formula(CashTurnover, "Cash Turnover", "CashTurnover", "Revenue/((CashAndCashEquivalents[0]+CashAndCashEquivalents[1])/2)", "", "formula", "times", TiD));
         counter++;
             int CashTurnovergood = counter;
             Formulas.add(new Formula(CashTurnovergood, "good", ">", "12", "", "", "", CashTurnover));
@@ -391,7 +391,7 @@ public class DefaultFormulas {
 
 
         int OperatingCycle = counter;
-        Formulas.add(new Formula(OperatingCycle, "Operating Cycle", "OperatingCycle", "360*((Inventories[1]+Inventories[0])/2)/CostOfSales+360*((TradeAndOtherCurrentReceivables[0]+TradeAndOtherCurrentReceivables[1])/2)/Revenue", "", "", "days", TiD));
+        Formulas.add(new Formula(OperatingCycle, "Operating Cycle", "OperatingCycle", "360*((Inventories[1]+Inventories[0])/2)/CostOfSales+360*((TradeAndOtherCurrentReceivables[0]+TradeAndOtherCurrentReceivables[1])/2)/Revenue", "", "formula", "days", TiD));
         counter++;
             int OperatingCyclegood = counter;
             Formulas.add(new Formula(OperatingCyclegood, "good", "<", "90", "", "", "", OperatingCycle));
@@ -401,7 +401,7 @@ public class DefaultFormulas {
             counter++;
 
         int CashConversionCycle = counter;
-        Formulas.add(new Formula(CashConversionCycle, "Cash Conversion Cycle", "CashConversionCycle", "360*((Inventories[1]+Inventories[0])/2)/CostOfSales+360*((TradeAndOtherCurrentReceivables[0]+TradeAndOtherCurrentReceivables[1])/2)/Revenue-(((TradeAndOtherCurrentPayables[0]+TradeAndOtherCurrentPayables[1])/2)*360)/CostOfSales", "", "", "days", TiD));
+        Formulas.add(new Formula(CashConversionCycle, "Cash Conversion Cycle", "CashConversionCycle", "360*((Inventories[1]+Inventories[0])/2)/CostOfSales+360*((TradeAndOtherCurrentReceivables[0]+TradeAndOtherCurrentReceivables[1])/2)/Revenue-(((TradeAndOtherCurrentPayables[0]+TradeAndOtherCurrentPayables[1])/2)*360)/CostOfSales", "", "formula", "days", TiD));
         counter++;
             int CashConversionCyclegood = counter;
             Formulas.add(new Formula(CashConversionCyclegood, "good", "<", "60", "", "", "", CashConversionCycle));
@@ -413,34 +413,34 @@ public class DefaultFormulas {
 
         //Investment analysis
         int NetAssets = counter;
-        Formulas.add(new Formula(NetAssets, "Net assets (Net worth)", "NetAssets", "Assets-NonCurrentAssets-CurrentAssets", "", "", "money", IAiD));
+        Formulas.add(new Formula(NetAssets, "Net assets (Net worth)", "NetAssets", "Assets-NonCurrentAssets-CurrentAssets", "", "formula", "money", IAiD));
         counter++;
 
 
         //Altman Z-score
         int X1 = counter;
-        Formulas.add(new Formula(X1, "Altman Z-score X1", "X1", "(CurrentAssets-CurrentLiabilities)/Assets", "", "", "", AZSiD));
+        Formulas.add(new Formula(X1, "Altman Z-score X1", "X1", "(CurrentAssets-CurrentLiabilities)/Assets", "", "formula", "", AZSiD));
         counter++;
 
         int X2 = counter;
-        Formulas.add(new Formula(X2, "Altman Z-score X2", "X2", "RetainedEarnings/Assets", "", "", "", AZSiD));
+        Formulas.add(new Formula(X2, "Altman Z-score X2", "X2", "RetainedEarnings/Assets", "", "formula", "", AZSiD));
         counter++;
         int X3 = counter;
-        Formulas.add(new Formula(X3, "Altman Z-score	X3", "X3", "(ProfitLossBeforeTax+FinanceCost)/Assets", "", "", "", AZSiD));
+        Formulas.add(new Formula(X3, "Altman Z-score	X3", "X3", "(ProfitLossBeforeTax+FinanceCost)/Assets", "", "formula", "", AZSiD));
         counter++;
         int X4 = counter;
-        Formulas.add(new Formula(X4, "Altman Z-score X4", "X4", "Equity/(NonCurrentAssets+CurrentLiabilities)", "", "", "", AZSiD));
+        Formulas.add(new Formula(X4, "Altman Z-score X4", "X4", "Equity/(NonCurrentAssets+CurrentLiabilities)", "", "formula", "", AZSiD));
         counter++;
         int X5 = counter;
-        Formulas.add(new Formula(X5, "Altman Z-score X5", "X5", "Revenue/Assets", "", "", "", AZSiD));
+        Formulas.add(new Formula(X5, "Altman Z-score X5", "X5", "Revenue/Assets", "", "formula", "", AZSiD));
         counter++;
         int Z = counter;
-        Formulas.add(new Formula(Z, "Altman Z-score Z", "Z", "0.717*(CurrentAssets-CurrentLiabilities)/Assets+0.847*RetainedEarnings/Assets+3.107*(ProfitLossBeforeTax+FinanceCost)/Assets+0.42*Equity/(NonCurrentAssets+CurrentLiabilities)+0.998*Revenue/Assets", "", "", "", AZSiD));
+        Formulas.add(new Formula(Z, "Altman Z-score Z", "Z", "0.717*(CurrentAssets-CurrentLiabilities)/Assets+0.847*RetainedEarnings/Assets+3.107*(ProfitLossBeforeTax+FinanceCost)/Assets+0.42*Equity/(NonCurrentAssets+CurrentLiabilities)+0.998*Revenue/Assets", "", "formula", "", AZSiD));
         counter++;
 
         //Other
         int Laborproductivity = counter;
-        Formulas.add(new Formula(Laborproductivity, "Labor productivity", "Laborproductivity", "Revenue/NumberOfEmployees", "", "", "money per person", OIiD));
+        Formulas.add(new Formula(Laborproductivity, "Labor productivity", "Laborproductivity", "Revenue/NumberOfEmployees", "", "formula", "money per person", OIiD));
         counter++;
         return Formulas;
     }

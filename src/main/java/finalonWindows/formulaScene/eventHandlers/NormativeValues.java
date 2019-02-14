@@ -7,8 +7,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.converter.NumberStringConverter;
 
 
 public class NormativeValues {
@@ -101,7 +103,11 @@ public class NormativeValues {
 
 
     private TextField conclusions(Formula item) {
-        TextField conclusions = textfield(item.getDescription(), 400.00, "Customize conclusions for this indicator range");
+
+        TextField conclusions = new TextField();
+        conclusions.setMaxWidth(400.00);
+        conclusions.setText(item.getDescription());
+        conclusions.setPromptText("Customize conclusions for this indicator range");
         conclusions.focusedProperty().addListener((obs, oldVal, newVal) -> {
             String text = (String) conclusions.getText();
             item.setDescription(text);
@@ -112,7 +118,7 @@ public class NormativeValues {
     private TextField value(Formula item) {
         TextField value = textfield(item.getValue(), 40.00, "");
         value.focusedProperty().addListener((obs, oldVal, newVal) -> {
-            String text = (String) value.getText();
+            String text = value.getText();
             item.setValue(text);
         });
         return value;
@@ -121,7 +127,7 @@ public class NormativeValues {
     private TextField value2(Formula item) {
         TextField value2 = textfield(item.getUnit(), 40.00, "");
         value2.focusedProperty().addListener((obs, oldVal, newVal) -> {
-            String text = (String) value2.getText();
+            String text = value2.getText();
             item.setUnit(text);
         });
         return value2;
@@ -156,7 +162,7 @@ public class NormativeValues {
 
 
     private TextField textfield(String value, Double width, String prompt) {
-        TextField textfield = new TextField();
+        TextField textfield = new NumFieldFX();
         textfield.setMaxWidth(width);
         textfield.setText(value);
         textfield.setPromptText(prompt);
@@ -191,5 +197,21 @@ public class NormativeValues {
                 "unsatisfactory",
                 "bad"
         );
+    }
+}
+
+
+class NumFieldFX extends TextField {
+    public NumFieldFX() {
+        this.addEventFilter(KeyEvent.KEY_TYPED, new EventHandler<KeyEvent>() {
+            public void handle( KeyEvent t ) {
+                char ar[] = t.getCharacter().toCharArray();
+                char ch = ar[t.getCharacter().toCharArray().length - 1];
+                if (!(ch >= '0' && ch <= '9')) {
+                    System.out.println("The char you entered is not a number");
+                    t.consume();
+                }
+            }
+        });
     }
 }
