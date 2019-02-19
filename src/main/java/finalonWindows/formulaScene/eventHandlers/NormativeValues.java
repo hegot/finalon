@@ -1,8 +1,8 @@
 package finalonWindows.formulaScene.eventHandlers;
 
 import entities.Formula;
-import finalonWindows.ImageButton;
-import finalonWindows.NumField;
+import finalonWindows.reusableComponents.ImageButton;
+import finalonWindows.reusableComponents.NumField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

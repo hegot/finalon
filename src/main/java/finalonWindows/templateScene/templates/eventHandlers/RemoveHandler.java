@@ -1,7 +1,7 @@
 package finalonWindows.templateScene.templates.eventHandlers;
 
 import entities.Item;
-import finalonWindows.ImageButton;
+import finalonWindows.reusableComponents.ImageButton;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableCell;

@@ -2,7 +2,7 @@ package finalonWindows.formulaScene.eventHandlers;
 
 import database.formula.DbFormulaHandler;
 import entities.Formula;
-import finalonWindows.ImageButton;
+import finalonWindows.reusableComponents.ImageButton;
 import finalonWindows.formulaScene.EditStorage;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;

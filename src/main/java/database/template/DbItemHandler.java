@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
+import java.util.TreeSet;
 
 public class DbItemHandler extends DbHandlerBase {
 
@@ -171,4 +172,18 @@ public class DbItemHandler extends DbHandlerBase {
             e.printStackTrace();
         }
     }
+
+    public TreeSet getCodes(){
+        TreeSet entries = new TreeSet<String>();
+        try (Statement statement = this.connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery("SELECT shortName FROM " + tableName);
+            while (resultSet.next()) {
+                entries.add(resultSet.getString("shortName"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return entries;
+    }
+
 }

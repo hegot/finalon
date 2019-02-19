@@ -2,7 +2,7 @@ package finalonWindows.settingsScene;
 
 import database.template.DbItemHandler;
 import entities.Item;
-import finalonWindows.ImageButton;
+import finalonWindows.reusableComponents.ImageButton;
 import finalonWindows.SceneBase;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

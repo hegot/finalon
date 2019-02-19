@@ -1,11 +1,18 @@
 package finalonWindows.formulaScene.eventHandlers;
 
 import entities.Formula;
+import finalonWindows.reusableComponents.AutoCompleteTextArea;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
+import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.scene.control.TextArea;
+
 
 public class EditFormula {
 
@@ -28,7 +35,6 @@ public class EditFormula {
         this.grid = grid;
     }
 
-
     private void populateGrid() {
         for (int j = 0; j < arr.length; j++) {
             Row row = arr[j];
@@ -40,7 +46,29 @@ public class EditFormula {
             row.textfield = textfield;
             arr[j] = row;
         }
+        grid.add(new Label("Edit formula"), 0, 4);
+        grid.add(formulaEditor(), 1, 4);
     }
+
+    private VBox formulaEditor(){
+        VBox vBox = new VBox(10);
+        TextArea textArea = new AutoCompleteTextArea(formula.getValue());
+        textArea.setWrapText(true);
+        vBox.getChildren().add(textArea);
+        return vBox;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     public Tab getTab() {
         Tab tab = new Tab("Formula");
@@ -53,11 +81,10 @@ public class EditFormula {
     }
 
     private Row[] getEditArr() {
-        Row arr[] = new Row[4];
+        Row arr[] = new Row[3];
         arr[0] = new Row("name", "Name:", formula.getName(), null);
         arr[1] = new Row("shortName", "Code:", formula.getShortName(), null);
-        arr[2] = new Row("value", "Formula:", formula.getValue(), null);
-        arr[3] = new Row("unit", "Unit:", formula.getUnit(), null);
+        arr[2] = new Row("unit", "Unit:", formula.getUnit(), null);
         return arr;
     }
 
