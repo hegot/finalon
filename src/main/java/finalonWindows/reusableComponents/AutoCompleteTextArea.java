@@ -133,7 +133,11 @@ public class AutoCompleteTextArea extends TextArea
         if(start >= indexStart && end <= indexEnd){
             this.endString = s;
             this.indexStart = indexStart;
-            this.indexEnd = indexEnd - 1;
+            if(end == indexEnd){
+                this.indexEnd = indexEnd-1;
+            }else{
+                this.indexEnd = indexEnd;
+            }
         }
     }
 
@@ -151,35 +155,50 @@ public class AutoCompleteTextArea extends TextArea
     @Override
     public void replaceText(int start, int end, String text) {
         String cur =  getText();
-        String modified  = addChar(cur, text, start);
-        populateChunks(modified, start, end);
-        setSubset();
-        Character before = cur.charAt(start -1);
-        String beforeStr = Character.toString(before);
-        if(Character.isDigit(before)){
-            if (!text.matches("[^0-9.*+()-/:]")) {
-                super.replaceText(start, end, text);
-            }
-        }
-
-        if(Character.isLetter(before)){
-            if (!text.matches("[^a-zA-Z.*+()-/:]")) {
-                if(text.length() > 0){
-                    if(subSet.size() > 0){
+        int len = cur.length();
+        if(len > 0) {
+            String modified = addChar(cur, text, start);
+            populateChunks(modified, start, end);
+            setSubset();
+            if(start > 0 && len >= start){
+                Character before = cur.charAt(start - 1);
+                String beforeStr = Character.toString(before);
+                if (Character.isDigit(before)) {
+                    if (!text.matches("[^0-9.*+()-/:]")) {
                         super.replaceText(start, end, text);
                     }
-                }else{
+                }
+
+                if (Character.isLetter(before)) {
+                    if (!text.matches("[^a-zA-Z.*+()-/:]")) {
+                        if (text.length() > 0) {
+                            if(text.equals(")")){
+                                super.replaceText(start, end, text);
+                            }else if(!text.equals("(")){
+                                if (subSet.size() > 0) {
+                                    super.replaceText(start, end, text);
+                                }
+                            }
+                        } else {
+                            super.replaceText(start, end, text);
+                        }
+                    }
+                }
+
+                if (!beforeStr.matches("[^.*+()-/:]")) {
+                    if (!text.matches("[^a-zA-Z0-9]")) {
+                        super.replaceText(start, end, text);
+                    }
+                }
+            }else if(start == 0){
+                if (!text.matches("[^a-zA-Z0-9.*+()-/:\\[\\]]")) {
+                    text = text.replace(":", "/");
                     super.replaceText(start, end, text);
                 }
             }
+        }else{
+            super.replaceText(start, end, text);
         }
-
-        if(!beforeStr.matches("[^.*+()-/:]")){
-            if (!text.matches("[^a-zA-Z0-9]")) {
-                super.replaceText(start, end, text);
-            }
-        }
-
 
 
         /*else if (!text.matches("[^a-zA-Z0-9.*+()-/:\\[\\]]")) {
@@ -194,10 +213,19 @@ public class AutoCompleteTextArea extends TextArea
 
     private void substitute(String result){
         String cur =  getText();
+        int len = cur.length();
         System.out.println(indexStart);
         System.out.println(indexEnd);
-        String replacement = cur.substring(0, indexStart) + result + cur.substring(indexEnd -1);
-        setText(replacement);
+        System.out.println(len);
+        System.out.println(result);
+        String ending = indexEnd < len ?  cur.substring(indexEnd) : "";
+        String beginning = indexStart < len ? cur.substring(0, indexStart) : "";
+        String replacement = beginning + result + ending;
+        if(indexStart== 0 && indexEnd==0){
+            setText(result);
+        }else{
+            setText(replacement);
+        }
     }
 
 
