@@ -85,11 +85,6 @@ public class Suggestions {
 
     private void substitute(String result) {
         int len = text.length();
-        /*System.out.println(indexStart);
-        System.out.println(indexEnd);
-        System.out.println(len);
-        System.out.println(result);
-        System.out.println(text);*/
         String ending = indexEnd <= len ? text.substring(indexEnd) : "";
         String beginning = indexStart <= len ? text.substring(0, indexStart) : "";
         String replacement = beginning + result + ending;

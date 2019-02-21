@@ -18,6 +18,7 @@ class FinalValidation extends ParserBase {
         validateWords();
         validateBrackets();
         validateSequence();
+        validateEnding();
     }
 
     private static boolean isBalanced(String s, Character ch1, Character ch2) {
@@ -71,6 +72,14 @@ class FinalValidation extends ParserBase {
             }
         }
     }
+
+    private void validateEnding() {
+        String last = Character.toString(input.charAt(input.length() - 1));
+        if (last.matches("[" + StrValidator.OPERATORS + "]")) {
+            errors.add("Formula can not end with operator: " + last);
+        }
+    }
+
 
     private Boolean isOperator(String str) {
         return !str.matches("[^" + StrValidator.OPERATORS + "]");

@@ -2,13 +2,17 @@ package finalonWindows.formulaScene.eventHandlers;
 
 import entities.Formula;
 import finalonWindows.reusableComponents.autocomplete.AutoCompleteTextArea;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.TextArea;
+
+import java.util.TreeSet;
 
 
 public class EditFormula {
@@ -47,24 +51,35 @@ public class EditFormula {
         grid.add(formulaEditor(), 1, 4);
     }
 
-    private VBox formulaEditor(){
+    private VBox formulaEditor() {
         VBox vBox = new VBox(10);
+        VBox errorsBox = new VBox(1);
         TextArea textArea = new AutoCompleteTextArea(formula.getValue());
+        textArea.setPrefHeight(80);
         textArea.setWrapText(true);
-        vBox.getChildren().add(textArea);
+
+        textArea.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                TreeSet<String> errors = ((AutoCompleteTextArea) textArea).getErrors();
+                if (errors.size() > 0) {
+                    errorsBox.getChildren().clear();
+                    for (String error : errors) {
+                        Label err = new Label(error);
+                        err.setStyle("-fx-text-fill: #FF0000; -fx-font-size: 11px;");
+                        errorsBox.getChildren().add(err);
+                    }
+                } else {
+                    errorsBox.getChildren().clear();
+                }
+
+            }
+        });
+
+
+        vBox.getChildren().addAll(textArea, errorsBox);
         return vBox;
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
     public Tab getTab() {

@@ -76,4 +76,13 @@ public class StrValidator {
         return false;
     }
 
+
+    Boolean validStart(String text) {
+        return !text.matches("[^" + LETTERS + OPERATORS + "()]");
+    }
+
+    Boolean validSelection(String text) {
+        return !text.matches("[^" + LETTERS + OPERATORS + "()\\[\\]]");
+    }
+
 }
