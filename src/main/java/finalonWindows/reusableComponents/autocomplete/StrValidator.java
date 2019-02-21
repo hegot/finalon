@@ -56,7 +56,7 @@ public class StrValidator {
 
     private Boolean afterOperator() {
         if (!beforeStr.matches("[^" +  OPERATORS + "]")) {
-            return !text.matches("[^" + LETTERS + DIGITS + "(\\[]");
+            return !text.matches("[^" + LETTERS + DIGITS + "(]");
         }
         return false;
     }

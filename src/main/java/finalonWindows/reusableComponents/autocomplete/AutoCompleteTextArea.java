@@ -4,10 +4,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextArea;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.regex.Pattern;
 
 /**
  * This class is a TextField which implements an "autocomplete" functionality, based on a supplied list of entries.
@@ -31,10 +27,14 @@ public class AutoCompleteTextArea extends TextArea {
         parser = new StrParser();
         suggestions = new Suggestions();
         strValidator = new StrValidator();
+
+
         focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean aBoolean2) {
                 suggestions.hide();
+                FinalValidation finalValidation = new FinalValidation(getText(), suggestions.entries);
+
             }
         });
 
@@ -76,4 +76,7 @@ public class AutoCompleteTextArea extends TextArea {
             super.replaceSelection(text);
         }
     }
+
+
+
 }

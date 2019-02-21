@@ -1,9 +1,8 @@
 package finalonWindows.reusableComponents.autocomplete;
 
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
-class StrParser {
+class StrParser extends ParserBase {
     private int indexStart;
     private int indexEnd;
     private String endString;
@@ -12,12 +11,7 @@ class StrParser {
     void change(String input, String text, int start, int end) {
         if(start > 0 && end > 0){
             input = addChar(input, text, start);
-            String charToDel = "()-+/*:[].";
-            String pat = "[" + Pattern.quote(charToDel) + "]";
-            String str = input.replaceAll(pat, " ");
-            str = str.replaceAll("^\\d+|\\d+$", "");
-            str = str.replaceAll("\\s{2,}", " ").trim();
-            String[] words = (str.split(" "));
+            String[] words = getChunks(input);
             for (String s : words) {
                 int len = input.length();
                 if(len > 0 && len > s.length()){
