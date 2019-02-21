@@ -21,6 +21,7 @@ public class AutoCompleteTextArea extends TextArea {
 
     private Suggestions suggestions;
     private StrParser parser;
+    private StrValidator strValidator;
     /**
      * Construct a new AutoCompleteTextField.
      */
@@ -29,6 +30,7 @@ public class AutoCompleteTextArea extends TextArea {
         this.setText(value);
         parser = new StrParser();
         suggestions = new Suggestions();
+        strValidator = new StrValidator();
         focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean aBoolean2) {
@@ -50,52 +52,12 @@ public class AutoCompleteTextArea extends TextArea {
 
             if (start > 0 && cur.length() >= start) {
                 Character before = cur.charAt(start - 1);
-                String beforeStr = Character.toString(before);
-                if (Character.isDigit(before)) {
-                    if (!text.matches("[^0-9.*+-/:\\]]")) {
-                        super.replaceText(start, end, text);
-                    }
-                }
-
-                if (Character.isLetter(before)) {
-                    if (!text.matches("[^a-zA-Z.*+()-/:\\[]")) {
-                        if (text.length() > 0) {
-                            if (text.equals(")") || text.equals("[")) {
-                                super.replaceText(start, end, text);
-                            } else if (!text.equals("(")) {
-                                if (suggestions.subSet.size() > 0) {
-                                    super.replaceText(start, end, text);
-                                }
-                            }
-                        } else {
-                            super.replaceText(start, end, text);
-                        }
-                    }
-                    if (!text.matches("[^0-9]")) {
-                        text = text.replace(":", "/");
-                        super.replaceText(start, end, text);
-                    }
-                }
-
-                if (!beforeStr.matches("[^.*+()-/:]")) {
-                    if (!text.matches("[^a-zA-Z0-9()\\[]")) {
-                        super.replaceText(start, end, text);
-                    }
-                }
-
-                if (beforeStr.matches("[\\[]")) {
-                    if (!text.matches("[^0-9]")) {
-                        super.replaceText(start, end, text);
-                    }
-                }
-
-                if (beforeStr.matches("[\\]]")) {
-                    if (!text.matches("[^.*+()-/:]")) {
-                        super.replaceText(start, end, text);
-                    }
+                Boolean valid = strValidator.validate(before, text, suggestions.subSet.size());
+                if(valid){
+                    super.replaceText(start, end, text);
                 }
             } else if (start == 0) {
-                if (!text.matches("[^a-zA-Z0-9.*+()-/:\\[\\]]")) {
+                if (!text.matches("[^a-zA-Z0-9()]")) {
                     text = text.replace(":", "/");
                     super.replaceText(start, end, text);
                 }

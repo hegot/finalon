@@ -10,24 +10,29 @@ class StrParser {
 
 
     void change(String input, String text, int start, int end) {
-        input = addChar(input, text, start);
-        String charToDel = "()-+/*:[].";
-        String pat = "[" + Pattern.quote(charToDel) + "]";
-        String str = input.replaceAll(pat, " ");
-        str = str.replaceAll("^\\d+|\\d+$", "");
-        str = str.replaceAll("\\s{2,}", " ").trim();
-        String[] words = (str.split(" "));
-        for (String s : words) {
-            int len = input.length();
-            if(len > 0 && len > s.length()){
-                for (Integer indexStart : getIndexes(input, s)) {
-                    setEndString(s, indexStart, start, end);
+        if(start > 0 && end > 0){
+            input = addChar(input, text, start);
+            String charToDel = "()-+/*:[].";
+            String pat = "[" + Pattern.quote(charToDel) + "]";
+            String str = input.replaceAll(pat, " ");
+            str = str.replaceAll("^\\d+|\\d+$", "");
+            str = str.replaceAll("\\s{2,}", " ").trim();
+            String[] words = (str.split(" "));
+            for (String s : words) {
+                int len = input.length();
+                if(len > 0 && len > s.length()){
+                    for (Integer indexStart : getIndexes(input, s)) {
+                        setEndString(s, indexStart, start, end);
+                    }
+                }else{
+                    setEndString(s, 0, start, end);
                 }
-            }else{
-                setEndString(s, 0, start, end);
-            }
 
+            }
+        }else{
+            setEndString(text, 0, start, end);
         }
+
     }
 
     private ArrayList<Integer> getIndexes(String phrase, String word) {

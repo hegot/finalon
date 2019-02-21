@@ -75,6 +75,8 @@ public class Suggestions {
     private void setSubset(String endString){
         if(endString != null && endString.length() > 0){
             this.subSet = entries.subSet(endString, endString + Character.MAX_VALUE);
+        }else{
+            this.subSet = new TreeSet<String>();
         }
     }
 
