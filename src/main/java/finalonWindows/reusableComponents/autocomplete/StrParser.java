@@ -9,21 +9,21 @@ class StrParser extends ParserBase {
 
 
     void change(String input, String text, int start, int end) {
-        if(start > 0 && end > 0){
+        if (start > 0 && end > 0) {
             input = addChar(input, text, start);
             String[] words = getChunks(input);
             for (String s : words) {
                 int len = input.length();
-                if(len > 0 && len > s.length()){
+                if (len > 0 && len > s.length()) {
                     for (Integer indexStart : getIndexes(input, s)) {
                         setEndString(s, indexStart, start, end);
                     }
-                }else{
+                } else {
                     setEndString(s, 0, start, end);
                 }
 
             }
-        }else{
+        } else {
             setEndString(text, 0, start, end);
         }
 
@@ -48,7 +48,7 @@ class StrParser extends ParserBase {
             if (end == indexEnd) {
                 this.indexEnd = indexEnd;
             } else {
-                this.indexEnd = indexEnd -1;
+                this.indexEnd = indexEnd - 1;
             }
         }
     }

@@ -10,20 +10,20 @@ public class StrValidator {
     private int subSetSize;
     private String beforeStr;
 
-    public Boolean validate(Character ch, String text, int subSetSize){
+    public Boolean validate(Character ch, String text, int subSetSize) {
         this.ch = ch;
         this.text = text;
         this.subSetSize = subSetSize;
         this.beforeStr = Character.toString(ch);
 
         Boolean valid = digitValidate();
-        if(!valid){
+        if (!valid) {
             valid = letterValidate();
-            if(!valid){
+            if (!valid) {
                 valid = afterOperator();
-                if(!valid){
+                if (!valid) {
                     valid = afterSquareBracketOpen();
-                    if(!valid){
+                    if (!valid) {
                         valid = afterSquareBracketClose();
                     }
                 }
@@ -32,9 +32,9 @@ public class StrValidator {
         return valid;
     }
 
-    private Boolean digitValidate(){
+    private Boolean digitValidate() {
         if (Character.isDigit(ch)) {
-            return !text.matches("[^" + DIGITS +  OPERATORS + "\\]]");
+            return !text.matches("[^" + DIGITS + OPERATORS + "\\]]");
         }
         return false;
     }
@@ -55,7 +55,7 @@ public class StrValidator {
     }
 
     private Boolean afterOperator() {
-        if (!beforeStr.matches("[^" +  OPERATORS + "]")) {
+        if (!beforeStr.matches("[^" + OPERATORS + "]")) {
             return !text.matches("[^" + LETTERS + DIGITS + "(]");
         }
         return false;
@@ -71,7 +71,7 @@ public class StrValidator {
 
     private Boolean afterSquareBracketClose() {
         if (beforeStr.matches("[\\]]")) {
-            return !text.matches("[^" +  OPERATORS + "]");
+            return !text.matches("[^" + OPERATORS + "]");
         }
         return false;
     }

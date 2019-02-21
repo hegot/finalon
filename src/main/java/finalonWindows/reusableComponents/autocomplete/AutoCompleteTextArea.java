@@ -18,6 +18,7 @@ public class AutoCompleteTextArea extends TextArea {
     private Suggestions suggestions;
     private StrParser parser;
     private StrValidator strValidator;
+
     /**
      * Construct a new AutoCompleteTextField.
      */
@@ -53,7 +54,7 @@ public class AutoCompleteTextArea extends TextArea {
             if (start > 0 && cur.length() >= start) {
                 Character before = cur.charAt(start - 1);
                 Boolean valid = strValidator.validate(before, text, suggestions.subSet.size());
-                if(valid){
+                if (valid) {
                     super.replaceText(start, end, text);
                 }
             } else if (start == 0) {
@@ -76,7 +77,6 @@ public class AutoCompleteTextArea extends TextArea {
             super.replaceSelection(text);
         }
     }
-
 
 
 }
