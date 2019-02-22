@@ -18,7 +18,7 @@ class FormulaEditable {
     }
 
     TreeTableView getFormulaTable() {
-        table.setEditable(true);
+        table.setEditable(false);
         table.setMinWidth(900);
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         table.setMinHeight(primaryScreenBounds.getHeight() - 150);

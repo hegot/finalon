@@ -15,13 +15,14 @@ import javafx.scene.layout.VBox;
 import java.util.TreeSet;
 
 
-public class EditFormula {
+class EditFormula {
 
     private Formula formula;
     private Row[] arr;
     private GridPane grid;
+    private TreeSet<String> errors;
 
-    public EditFormula(Formula formula) {
+    EditFormula(Formula formula) {
         this.formula = formula;
         this.arr = getEditArr();
         createGrid();
@@ -61,7 +62,7 @@ public class EditFormula {
         textArea.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                TreeSet<String> errors = ((AutoCompleteTextArea) textArea).getErrors();
+                errors = ((AutoCompleteTextArea) textArea).getErrors();
                 if (errors.size() > 0) {
                     errorsBox.getChildren().clear();
                     for (String error : errors) {
@@ -82,13 +83,13 @@ public class EditFormula {
     }
 
 
-    public Tab getTab() {
+    Tab getTab() {
         Tab tab = new Tab("Formula");
         tab.setContent(grid);
         return tab;
     }
 
-    public Row[] getTextfields() {
+    Row[] getTextfields() {
         return arr;
     }
 
@@ -100,6 +101,10 @@ public class EditFormula {
         return arr;
     }
 
+
+    TreeSet<String> getErrors(){
+        return errors;
+    }
 
 }
 

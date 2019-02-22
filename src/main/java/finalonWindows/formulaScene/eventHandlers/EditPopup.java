@@ -67,35 +67,39 @@ public class EditPopup {
             }
             Row[] arr = editFormula.getTextfields();
             if (dialogButton == saveButtonType) {
-                for (int j = 0; j < arr.length; j++) {
-                    Row row = arr[j];
-                    String key = row.key;
-                    TextField textfieldget = row.textfield;
-                    String value = textfieldget.getText();
-                    switch (key) {
-                        case "name":
-                            formula.setName(value);
-                            break;
-                        case "shortName":
-                            formula.setShortName(value);
-                            break;
-                        case "value":
-                            formula.setValue(value);
-                            break;
-                        case "unit":
-                            formula.setUnit(value);
-                            break;
-                        default:
-                            System.out.println("no match");
+                if(editFormula.getErrors().size() > 0){
+
+                }else{
+                    for (int j = 0; j < arr.length; j++) {
+                        Row row = arr[j];
+                        String key = row.key;
+                        TextField textfieldget = row.textfield;
+                        String value = textfieldget.getText();
+                        switch (key) {
+                            case "name":
+                                formula.setName(value);
+                                break;
+                            case "shortName":
+                                formula.setShortName(value);
+                                break;
+                            case "value":
+                                formula.setValue(value);
+                                break;
+                            case "unit":
+                                formula.setUnit(value);
+                                break;
+                            default:
+                                System.out.println("no match");
+                        }
                     }
+                    formula.setCategory("formula");
+                    treeItem.setValue(formula);
+                    FormulaExtended formulaExtended = normativeValues.getFormulaUpdated();
+                    ObservableList<Formula> childs = formulaExtended.getChilds();
+                    FormulaExtended newFormulaExtended = new FormulaExtended(formula, childs);
+                    storage.addItem(formula.getId(), newFormulaExtended);
+                    dialog.close();
                 }
-                formula.setCategory("formula");
-                treeItem.setValue(formula);
-                FormulaExtended formulaExtended = normativeValues.getFormulaUpdated();
-                ObservableList<Formula> childs = formulaExtended.getChilds();
-                FormulaExtended newFormulaExtended = new FormulaExtended(formula, childs);
-                storage.addItem(formula.getId(), newFormulaExtended);
-                dialog.close();
             }
 
             return null;
