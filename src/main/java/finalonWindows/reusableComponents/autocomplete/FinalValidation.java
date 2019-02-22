@@ -85,7 +85,7 @@ class FinalValidation extends ParserBase {
         return !str.matches("[^" + StrValidator.OPERATORS + "]");
     }
 
-    public TreeSet<String> getErrors() {
+    TreeSet<String> getErrors() {
         return errors;
     }
 }

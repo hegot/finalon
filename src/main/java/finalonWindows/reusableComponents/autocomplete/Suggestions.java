@@ -13,11 +13,11 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-public class Suggestions {
+class Suggestions {
 
-    public TreeSet<String> entries;
+    TreeSet<String> entries;
 
-    public SortedSet<String> subSet;
+    SortedSet<String> subSet;
 
     private ContextMenu entriesPopup;
 
@@ -30,17 +30,22 @@ public class Suggestions {
     private int indexEnd;
 
 
-    public Suggestions() {
-        DbItemHandler dbItemHandler = new DbItemHandler();
-        entries = new TreeSet<String>();
-        entries = dbItemHandler.getCodes();
-        entriesPopup = new ContextMenu();
+    Suggestions() {
+        this.entries = getEntries();
+        this.entriesPopup = new ContextMenu();
         this.text = "";
-        setSubset("");
+        this.subSet = new TreeSet<String>();
     }
 
 
-    public void change(String text, String endString, AutoCompleteTextArea anchor, int indexStart, int indexEnd) {
+    private TreeSet<String> getEntries() {
+        DbItemHandler dbItemHandler = new DbItemHandler();
+        TreeSet<String> entries = dbItemHandler.getCodes();
+        return entries;
+    }
+
+
+    void change(String text, String endString, AutoCompleteTextArea anchor, int indexStart, int indexEnd) {
         this.text = text;
         this.anchor = anchor;
         this.indexStart = indexStart;
@@ -50,13 +55,8 @@ public class Suggestions {
             entriesPopup.hide();
         } else {
             LinkedList<String> searchResult = new LinkedList<>();
-            setSubset(endString);
-            if (subSet != null) {
-                searchResult.addAll(subSet);
-            } else {
-                String a = "asd";
-            }
-
+            subSet = getSubset(endString);
+            searchResult.addAll(subSet);
             if (entries.size() > 0) {
                 populatePopup(searchResult);
                 if (!entriesPopup.isShowing()) {
@@ -70,15 +70,15 @@ public class Suggestions {
         }
     }
 
-    private void setSubset(String endString) {
+    private SortedSet<String> getSubset(String endString) {
         if (endString != null && endString.length() > 0) {
-            this.subSet = entries.subSet(endString, endString + Character.MAX_VALUE);
+            return entries.subSet(endString, endString + Character.MAX_VALUE);
         } else {
-            this.subSet = new TreeSet<String>();
+            return new TreeSet<String>();
         }
     }
 
-    public void hide() {
+    void hide() {
         entriesPopup.hide();
     }
 

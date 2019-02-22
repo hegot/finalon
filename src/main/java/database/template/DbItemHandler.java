@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class DbItemHandler extends DbHandlerBase {
@@ -173,10 +174,35 @@ public class DbItemHandler extends DbHandlerBase {
         }
     }
 
-    public TreeSet getCodes(){
-        TreeSet entries = new TreeSet<String>();
+    private ArrayList<Integer> parentIds() {
+        ArrayList<Integer> ids = new ArrayList<>();
         try (Statement statement = this.connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT shortName FROM " + tableName);
+            ResultSet resultSet = statement.executeQuery("SELECT id FROM " + tableName + " WHERE parent = 0");
+            while (resultSet.next()) {
+                int Id = resultSet.getInt("id");
+                Statement statement2 = this.connection.createStatement();
+                ResultSet resultSet2 = statement2.executeQuery("SELECT id FROM " + tableName + " WHERE parent = " + Id);
+                ids.add(Id);
+                while (resultSet2.next()) {
+                    ids.add(resultSet2.getInt("id"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ids;
+    }
+
+    public TreeSet getCodes() {
+        TreeSet entries = new TreeSet<String>();
+        ArrayList<Integer> parents = parentIds();
+        String list = "";
+        for (int id : parents) {
+            list += id + ", ";
+        }
+        list = list.substring(0, list.length() - 2);
+        try (Statement statement = this.connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery("SELECT shortName FROM " + tableName + " WHERE id NOT IN (" + list + ")");
             while (resultSet.next()) {
                 entries.add(resultSet.getString("shortName"));
             }

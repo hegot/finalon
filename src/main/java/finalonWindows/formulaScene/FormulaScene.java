@@ -29,10 +29,9 @@ public class FormulaScene extends SceneBase {
     private DbFormulaHandler dbFormula = new DbFormulaHandler();
     private Formula selectedIndustry;
     private ComboBox<Formula> industryBox = getIndustry();
-    private ComboBox<Formula> standardBox = getStandard();
     private FormulaEditable formulaEditable = new FormulaEditable(selectedIndustry);
 
-
+    private ComboBox<Formula> standardBox = getStandard();
 
     public FormulaScene(Stage windowArg) {
         window = windowArg;

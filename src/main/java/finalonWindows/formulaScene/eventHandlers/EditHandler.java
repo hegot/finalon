@@ -2,8 +2,8 @@ package finalonWindows.formulaScene.eventHandlers;
 
 import database.formula.DbFormulaHandler;
 import entities.Formula;
-import finalonWindows.reusableComponents.ImageButton;
 import finalonWindows.formulaScene.EditStorage;
+import finalonWindows.reusableComponents.ImageButton;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
