@@ -72,7 +72,13 @@ class Suggestions {
 
     private SortedSet<String> getSubset(String endString) {
         if (endString != null && endString.length() > 0) {
-            return entries.subSet(endString, endString + Character.MAX_VALUE);
+            TreeSet<String> set = new TreeSet<String>();
+            for (String entry : entries) {
+                if (entry.indexOf(endString) > -1) {
+                    set.add(entry);
+                }
+            }
+            return set;
         } else {
             return new TreeSet<String>();
         }
