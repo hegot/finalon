@@ -74,10 +74,17 @@ class FinalValidation extends ParserBase {
     }
 
     private void validateEnding() {
-        String last = Character.toString(input.charAt(input.length() - 1));
-        if (last.matches("[" + StrValidator.OPERATORS + "]")) {
-            errors.add("Formula can not end with operator: '" + last + "'");
+        try{
+            if(input.length() > 0){
+                String last = Character.toString(input.charAt(input.length() - 1));
+                if (last.matches("[" + StrValidator.OPERATORS + "]")) {
+                    errors.add("Formula can not end with operator: '" + last + "'");
+                }
+            }
+        }catch(Exception e){
+
         }
+
     }
 
 
