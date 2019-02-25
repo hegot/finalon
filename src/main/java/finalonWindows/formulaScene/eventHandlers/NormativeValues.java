@@ -9,17 +9,16 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 
-public class NormativeValues {
+class NormativeValues {
     private ScrollPane scrollPane;
     private FormulaExtended parent;
     private Tab tab;
 
-    public NormativeValues(FormulaExtended parent) {
+    NormativeValues(FormulaExtended parent) {
         this.parent = parent;
         tab = new Tab("Normative values");
         this.scrollPane = new ScrollPane();
@@ -28,11 +27,11 @@ public class NormativeValues {
     }
 
 
-    public Tab getNormativeValues() {
+    Tab getNormativeValues() {
         return tab;
     }
 
-    public FormulaExtended getFormulaUpdated() {
+    FormulaExtended getFormulaUpdated() {
         return parent;
     }
 
@@ -44,10 +43,7 @@ public class NormativeValues {
         for (Formula item : parent.getChilds()) {
             HBox hbox = new HBox(10);
             VBox vBoxIn = new VBox(3);
-            vBoxIn.setStyle("-fx-padding: 5; -fx-border-style: solid outside;" +
-                    "-fx-border-width: 1; -fx-border-radius: 2;" +
-                    "-fx-border-color: #DDDDDD; -fx-pref-width: 350px; -fx-background-color: #E6E6FA");
-
+            vBoxIn.getStyleClass().add("normative-container");
             hbox.getChildren().addAll(
                     value(item),
                     comparator(item),
@@ -56,11 +52,9 @@ public class NormativeValues {
                     value2(item),
                     removeButton(item.getId())
             );
-
             vBoxIn.getChildren().addAll(hbox, conclusions(item));
             vBox.getChildren().add(vBoxIn);
         }
-
         scrollPane.setContent(vBox);
         vBoxOuter.getChildren().addAll(scrollPane, addButton());
         return vBoxOuter;
@@ -68,7 +62,7 @@ public class NormativeValues {
 
     private Button addButton() {
         Button btn = new Button("+ Add");
-        btn.setStyle("-fx-background-color: #AAD3E6; -fx-border-color: #898989; -fx-border-radius: 2;");
+        btn.getStyleClass().add("normative-add-btn");
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -82,9 +76,8 @@ public class NormativeValues {
     }
 
     private Button removeButton(int Id) {
-        ImageButton btn = new ImageButton();
-        btn.setStyle(btnStyle());
-        btn.updateImages(new Image("image/removeBlack.png"), 16);
+        ImageButton btn = new ImageButton("image/removeBlack.png", 16);
+        btn.getStyleClass().add("normative-remove-btn");
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -103,14 +96,6 @@ public class NormativeValues {
         return btn;
     }
 
-    private String btnStyle() {
-        return "-fx-background-color: #A2CBDF;" +
-                "-fx-font-size: 0px;" +
-                "-fx-text-fill: #FFFFFF;" +
-                "-fx-padding: 4px;" +
-                "-fx-alignment:  baseline-left;" +
-                "-fx-background-radius: 5em;";
-    }
 
     private TextField conclusions(Formula item) {
 

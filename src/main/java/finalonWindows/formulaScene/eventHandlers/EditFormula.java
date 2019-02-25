@@ -20,13 +20,14 @@ class EditFormula {
     private Formula formula;
     private Row[] arr;
     private GridPane grid;
-    private TreeSet<String> errors;
+    private AutoCompleteTextArea textArea;
 
     EditFormula(Formula formula) {
         this.formula = formula;
         this.arr = getEditArr();
         createGrid();
         populateGrid();
+
     }
 
     private void createGrid() {
@@ -55,19 +56,18 @@ class EditFormula {
     private VBox formulaEditor() {
         VBox vBox = new VBox(10);
         VBox errorsBox = new VBox(1);
-        TextArea textArea = new AutoCompleteTextArea(formula.getValue());
+        this.textArea = new AutoCompleteTextArea(formula.getValue());
         textArea.setPrefHeight(80);
         textArea.setWrapText(true);
-
         textArea.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                errors = ((AutoCompleteTextArea) textArea).getErrors();
+                TreeSet<String> errors = ((AutoCompleteTextArea) textArea).getErrors();
                 if (errors.size() > 0) {
                     errorsBox.getChildren().clear();
                     for (String error : errors) {
                         Label err = new Label(error);
-                        err.setStyle("-fx-text-fill: #FF0000; -fx-font-size: 11px;");
+                        err.getStyleClass().add("error");
                         errorsBox.getChildren().add(err);
                     }
                 } else {
@@ -76,8 +76,6 @@ class EditFormula {
 
             }
         });
-
-
         vBox.getChildren().addAll(textArea, errorsBox);
         return vBox;
     }
@@ -101,11 +99,9 @@ class EditFormula {
         return arr;
     }
 
-
-    TreeSet<String> getErrors(){
-        return errors;
+    AutoCompleteTextArea getTextArea(){
+        return textArea;
     }
-
 }
 
 class Row {

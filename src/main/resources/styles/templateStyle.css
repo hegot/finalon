@@ -30,3 +30,40 @@
   -fx-tab-min-height:40px;
   -fx-tab-max-height:40px;
 }
+
+.whiteBorderedPanel{
+    -fx-padding: 15;
+    -fx-border-style: solid outside;
+    -fx-border-width: 1;
+    -fx-border-insets: 0;
+    -fx-border-radius: 2;
+    -fx-border-color: #e4e5e7;
+    -fx-background-color: #fff;
+}
+
+.whiteBorderedPanelMenu{
+    -fx-padding: 5;
+    -fx-border-style: solid outside;
+    -fx-border-width: 1;
+    -fx-border-insets: 0;
+    -fx-border-radius: 2;
+    -fx-border-color: #e4e5e7;
+    -fx-background-color: #fff;
+}
+
+.blue-btn{
+    -fx-background-color:#3f5872;
+    -fx-font-size: 14px;
+    -fx-text-fill: #FFFFFF;
+    -fx-padding: 5 10 5 10;
+    -fx-alignment:  baseline-left;
+}
+
+.sidebar-blue-btn{
+    -fx-background-color:#3f5872;
+    -fx-font-size: 14px;
+    -fx-text-fill: #FFFFFF;
+    -fx-padding: 10 25 10 25;
+    -fx-pref-width: 150px;
+    -fx-alignment:  baseline-left;
+}

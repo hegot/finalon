@@ -35,7 +35,7 @@ public class FormulaExtended extends Formula {
         this.childs = childs;
     }
 
-    public FormulaExtended(Formula f, ObservableList<Formula> childs) {
+    FormulaExtended(Formula f, ObservableList<Formula> childs) {
         super(f.getId(), f.getName(), f.getShortName(), f.getValue(), f.getDescription(), f.getCategory(), f.getUnit(), f.getParent());
         this.id = f.getId();
         this.name = f.getName();

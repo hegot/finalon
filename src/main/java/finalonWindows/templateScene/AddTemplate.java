@@ -26,7 +26,7 @@ public class AddTemplate extends TemplateBase {
 
     private HBox headerMenu() {
         HBox hbox = new HBox(10);
-        hbox.setStyle(whiteBorderedPanelMenu());
+        hbox.getStyleClass().add("whiteBorderedPanel");
         Button saveTemplateButton = saveTemplateButton();
         saveTemplateButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -53,6 +53,7 @@ public class AddTemplate extends TemplateBase {
         VBox vBox = new VBox();
         vBox.getChildren().addAll(headerMenu(), templateName(), templateEditable.getTemplateEditable());
         Scene scene = baseScene(vBox);
+        scene.getStylesheets().add("styles/templateStyle.css");
         return scene;
     }
 }

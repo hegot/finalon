@@ -22,7 +22,7 @@ public class PreviewTemplate extends TemplateBase {
 
     private HBox headerMenu() {
         HBox hbox = new HBox(10);
-        hbox.setStyle(whiteBorderedPanelMenu());
+        hbox.getStyleClass().add("whiteBorderedPanel");
         hbox.getChildren().addAll(backButton());
         return hbox;
     }
@@ -32,6 +32,7 @@ public class PreviewTemplate extends TemplateBase {
         VBox vBox = new VBox();
         vBox.getChildren().addAll(headerMenu(), templatePreview.getTemplatePreview());
         Scene scene = baseScene(vBox);
+        scene.getStylesheets().add("styles/templateStyle.css");
         return scene;
     }
 

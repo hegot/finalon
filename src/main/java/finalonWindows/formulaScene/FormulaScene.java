@@ -54,7 +54,8 @@ public class FormulaScene extends SceneBase {
         );
 
         Scene scene = new Scene(vbox, 900, 600);
-        scene.getStylesheets().add("styles/templateStyle.css");
+        scene.getStylesheets().addAll("styles/templateStyle.css", "styles/formulaEdit.css");
+        EditStorage editStorage = EditStorage.getInstance();
         return scene;
     }
 
@@ -110,13 +111,12 @@ public class FormulaScene extends SceneBase {
 
     private Button saveFormulasButton() {
         Button btn = new Button("Save Changes");
-        btn.setStyle(blueButonStyle());
+        btn.getStyleClass().add("blue-btn");
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
                 try {
-                    EditStorage storage = EditStorage.getInstance();
-                    storage.saveItems();
+                    EditStorage.saveItems();
                 } catch (Exception exception) {
                     System.out.println("Error while saving formulas map");
                 }

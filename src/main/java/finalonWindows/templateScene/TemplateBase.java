@@ -38,7 +38,7 @@ public class TemplateBase extends SceneBase {
 
     HBox templateName() {
         HBox hbox = new HBox(10);
-        hbox.setStyle(whiteBorderedPanelMenu());
+        hbox.getStyleClass().add("whiteBorderedPanel");
         Label label = new Label("Enter your template name: ");
         label.setPadding(new Insets(3, 0, 0, 0));
         label.setFont(Font.font("Arial", 14));
@@ -63,7 +63,7 @@ public class TemplateBase extends SceneBase {
 
     Button backButton() {
         Button button = new Button("Back to Settings");
-        button.setStyle(blueButonStyle());
+        button.getStyleClass().add("blue-btn");
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -77,7 +77,7 @@ public class TemplateBase extends SceneBase {
 
     Button saveTemplateButton() {
         Button button = new Button("Save Template");
-        button.setStyle(blueButonStyle());
+        button.getStyleClass().add("blue-btn");
         return button;
     }
 

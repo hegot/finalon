@@ -96,7 +96,7 @@ public class DefaultFormulas {
         Formulas.add(new Formula(DebtRatiogood, "good", "<", "0.4", "", "<=", "0.6", DebtRatio));
         counter++;
         int DebtRatiobad = counter;
-        Formulas.add(new Formula(DebtRatiobad, "bad", ">", "6", "", "", "", DebtRatio));
+        Formulas.add(new Formula(DebtRatiobad, "bad", ">", "0.6", "", "", "", DebtRatio));
         counter++;
 
         int LongTermDebtRatio = counter;

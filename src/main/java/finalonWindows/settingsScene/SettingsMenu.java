@@ -19,7 +19,7 @@ public class SettingsMenu {
         this.window = window;
     }
 
-    protected String blueButonStyle() {
+    private String blueButonStyle() {
         return "-fx-background-color:#3f5872; -fx-font-size: 14px; -fx-text-fill: #FFFFFF; -fx-padding: 5 10 5 10;   -fx-alignment:  baseline-left;";
     }
 

@@ -5,8 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
-import javafx.scene.control.CustomMenuItem;
-import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -33,6 +32,7 @@ class Suggestions {
     Suggestions() {
         this.entries = getEntries();
         this.entriesPopup = new ContextMenu();
+        entriesPopup.setStyle("-fx-cursor: hand;");
         this.text = "";
         this.subSet = new TreeSet<String>();
     }
@@ -107,13 +107,12 @@ class Suggestions {
      * @param searchResult The set of matching strings.
      */
     private void populatePopup(List<String> searchResult) {
-        List<CustomMenuItem> menuItems = new LinkedList<>();
+        List<MenuItem> menuItems = new LinkedList<>();
         int maxEntries = 10;
         int count = Math.min(searchResult.size(), maxEntries);
         for (int i = 0; i < count; i++) {
             final String result = searchResult.get(i);
-            Label entryLabel = new Label(result);
-            CustomMenuItem item = new CustomMenuItem(entryLabel, true);
+            MenuItem item = new MenuItem(result);
             item.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {

@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
-import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
@@ -20,9 +19,8 @@ public class RemoveHandler {
                 final TreeTableCell<Item, Void> cell = new TreeTableCell<Item, Void>() {
 
                     private ImageButton removeBtn() {
-                        ImageButton btn = new ImageButton();
+                        ImageButton btn = new ImageButton("image/delRow.png", 16);
                         btn.setStyle(btnStyle());
-                        btn.updateImages(new Image("image/delRow.png"), 16);
                         TreeItem treeItem = this.getTreeTableRow().getTreeItem();
                         if (treeItem != null) {
                             TreeItem parentTreeItem = treeItem.getParent();
@@ -36,9 +34,8 @@ public class RemoveHandler {
                     }
 
                     private ImageButton addBtn() {
-                        ImageButton btn = new ImageButton();
+                        ImageButton btn = new ImageButton("image/addRow.png", 16);
                         btn.setStyle(btnStyle());
-                        btn.updateImages(new Image("image/addRow.png"), 16);
                         TreeItem treeItem = this.getTreeTableRow().getTreeItem();
                         if (treeItem != null) {
                             btn.setOnAction((ActionEvent event) -> {

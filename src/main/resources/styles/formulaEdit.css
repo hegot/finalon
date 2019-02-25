@@ -1,0 +1,39 @@
+.formula-btn{
+    -fx-background-color: #FFFFFF;
+    -fx-font-size: 12px;
+    -fx-text-fill: #FFFFFF;
+    -fx-padding: 5px;
+    -fx-alignment:  baseline-left;
+    -fx-background-radius: 5em;
+}
+
+.normative-container{
+    -fx-padding: 5;
+    -fx-border-style: solid outside;
+    -fx-border-width: 1;
+    -fx-border-radius: 2;
+    -fx-border-color: #DDDDDD;
+    -fx-pref-width: 350px;
+    -fx-background-color: #E6E6FA;
+}
+
+.normative-add-btn{
+    -fx-background-color: #AAD3E6;
+    -fx-border-color: #898989;
+    -fx-border-radius: 2;
+}
+
+.normative-remove-btn{
+    -fx-background-color: #A2CBDF;
+    -fx-font-size: 0px;
+    -fx-text-fill: #FFFFFF;
+    -fx-padding: 4px;
+    -fx-alignment:  baseline-left;
+    -fx-background-radius: 5em;
+}
+
+
+.error{
+    -fx-text-fill: #FF0000;
+    -fx-font-size: 11px;
+}

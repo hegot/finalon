@@ -100,3 +100,21 @@
      -fx-max-width:200px;
      -fx-wrap-text: true;
 }
+
+.whiteBorderedPanel{
+    -fx-padding: 15;
+    -fx-border-style: solid outside;
+    -fx-border-width: 1;
+    -fx-border-insets: 0;
+    -fx-border-radius: 2;
+    -fx-border-color: #e4e5e7;
+    -fx-background-color: #fff;
+}
+
+.blue-btn{
+    -fx-background-color:#3f5872;
+    -fx-font-size: 14px;
+    -fx-text-fill: #FFFFFF;
+    -fx-padding: 5 10 5 10;
+    -fx-alignment:  baseline-left;
+}
