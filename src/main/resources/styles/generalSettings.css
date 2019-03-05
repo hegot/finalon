@@ -1,0 +1,54 @@
+.number-format-container{
+    -fx-padding: 0 10px;
+}
+
+.radio-button{
+    -fx-pref-width: 400px;
+    -fx-font-size: 12px;
+}
+
+.sub-label{
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-padding: 0px;
+}
+
+.settings-label{
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-padding: 0px;
+}
+
+.inner-container{
+    -fx-padding: 10px 30px;
+    -fx-border-style: solid outside;
+    -fx-border-width: 1;
+    -fx-border-insets: 0;
+    -fx-border-radius: 2;
+    -fx-border-color: #e4e5e7;
+    -fx-background-color: #fff;
+}
+
+.vbox-row{
+    -fx-padding: 10px;
+    -fx-border-style: solid outside;
+    -fx-border-width: 1;
+    -fx-border-insets: 0;
+    -fx-border-radius: 2;
+    -fx-border-color: #e4e5e7;
+    -fx-background-color:  #f4f7f7;
+}
+
+.blue-btn{
+    -fx-background-color:#3f5872;
+    -fx-font-size: 14px;
+    -fx-text-fill: #FFFFFF;
+    -fx-padding: 5 10 5 10;
+    -fx-alignment:  baseline-left;
+}
+
+.confirm-label{
+    -fx-font-size: 14px;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+}

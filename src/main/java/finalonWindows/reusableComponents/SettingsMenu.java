@@ -1,4 +1,4 @@
-package finalonWindows.settingsScene;
+package finalonWindows.reusableComponents;
 
 import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
@@ -26,7 +26,7 @@ public class SettingsMenu {
     public HBox getMenu() {
         HBox hbox = new HBox(10);
         hbox.setPadding(new Insets(5, 10, 10, 10));
-        hbox.getChildren().addAll(HomeButton(), TemplateButton(), FormulaButton());
+        hbox.getChildren().addAll(HomeButton(), GeneralSettingsButton(), TemplateButton(), FormulaButton());
         return hbox;
     }
 
@@ -41,7 +41,7 @@ public class SettingsMenu {
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.SETTINGSMAIN));
+                window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.TEMPLATESLIST));
                 window.setHeight(600);
             }
         });
@@ -56,6 +56,19 @@ public class SettingsMenu {
             public void handle(ActionEvent e) {
                 window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.FORMULA));
                 window.setHeight(height());
+            }
+        });
+        return btn;
+    }
+
+    private Button GeneralSettingsButton() {
+        Button btn = new Button("General Settings");
+        btn.setStyle(blueButonStyle());
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                window.setScene(SceneSwitcher.getScenes(SceneName.SETTINGSMAIN).get(SceneName.SETTINGSMAIN));
+                window.setHeight(600);
             }
         });
         return btn;

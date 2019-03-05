@@ -6,6 +6,8 @@ import finalonWindows.formulaScene.FormulaScene;
 import finalonWindows.mainScene.MainScene;
 import finalonWindows.settingsScene.SettingsScene;
 import finalonWindows.templateScene.AddTemplate;
+import finalonWindows.templateScene.TemplatesScene;
+import finalonWindows.addReport.AddReportScene;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -29,9 +31,10 @@ public class SceneSwitcher {
         ObservableList<Item> items = FXCollections.observableArrayList(DefaultTemplate.getTpl());
         scenes.put(SceneName.MAIN, new MainScene(window).getScene());
         scenes.put(SceneName.SETTINGSMAIN, new SettingsScene(window).getScene());
+        scenes.put(SceneName.TEMPLATESLIST, new TemplatesScene(window).getScene());
         scenes.put(SceneName.ADDTEMPLATE, new AddTemplate(window, items).getScene());
         scenes.put(SceneName.FORMULA, new FormulaScene(window).getScene());
-
+        scenes.put(SceneName.ADDREPORT, new AddReportScene(window).getScene());
     }
 
 
@@ -39,8 +42,8 @@ public class SceneSwitcher {
      * Returns a Map of the scenes by {@link SceneName}
      */
     public static Map<SceneName, Scene> getScenes(SceneName sceneName) {
-        if (sceneName == SceneName.SETTINGSMAIN) {
-            scenes.put(SceneName.SETTINGSMAIN, new SettingsScene(window).getScene());
+        if (sceneName == SceneName.TEMPLATESLIST) {
+            scenes.put(SceneName.TEMPLATESLIST, new TemplatesScene(window).getScene());
         }
         if (sceneName == SceneName.ADDTEMPLATE) {
             ObservableList<Item> items = FXCollections.observableArrayList(DefaultTemplate.getTpl());

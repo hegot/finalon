@@ -1,72 +1,105 @@
 package finalonWindows.settingsScene;
 
-import database.template.DbItemHandler;
-import entities.Item;
+import database.setting.DbSettingHandler;
 import finalonWindows.SceneBase;
-import finalonWindows.reusableComponents.ImageButton;
-import javafx.collections.ObservableList;
+import finalonWindows.reusableComponents.SettingsMenu;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.layout.TilePane;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
+import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
-public class SettingsScene extends SceneBase {
+public class SettingsScene{
 
     private Stage window;
+    private DbSettingHandler dbSettingHandler;
+    private ObservableMap<String, String> settings;
+    private Timer timer;
+
 
     public SettingsScene(Stage windowArg) {
         window = windowArg;
+        this.dbSettingHandler = new DbSettingHandler();
+        this.settings = FXCollections.observableHashMap();
+        settings.put("numberFormat", dbSettingHandler.getSetting("numberFormat"));
+        settings.put("yearOrder", dbSettingHandler.getSetting("yearOrder"));
+        settings.put("includeAll", dbSettingHandler.getSetting("includeAll"));
+        settings.put("defaultCurrency", dbSettingHandler.getSetting("defaultCurrency"));
     }
 
 
     public Scene getScene() {
-        VBox vbox = new VBox(0);
-        vbox.setPrefSize(900, 600);
-        vbox.setPrefHeight(600);
 
-        SettingsMenu settingsMenu = new SettingsMenu(window);
-        vbox.getChildren().addAll(settingsMenu.getMenu(), getTemplates());
-        Scene scene = new Scene(vbox, 900, 600);
-        scene.getStylesheets().add("styles/settingsStyle.css");
+        Scene scene = new Scene(getSettings(), 900, 600);
+        scene.getStylesheets().add("styles/generalSettings.css");
         return scene;
     }
 
 
-    private VBox getTemplates() {
-        DbItemHandler dbItem = new DbItemHandler();
-        ObservableList<Item> iteems = dbItem.getTemplates();
-        VBox vbox = new VBox(20);
-        vbox.setStyle("-fx-padding: 20px 30px;");
-        TilePane tilePane = new TilePane();
-        tilePane.setStyle("-fx-padding:10px");
-        tilePane.setHgap(10);
-        tilePane.setVgap(10);
-        if (iteems.size() > 0) {
-            for (int j = 0; j < iteems.size(); j++) {
-                tilePane.getChildren().add(new TemplateRow(window, iteems.get(j)));
-            }
-            vbox.getChildren().addAll(tilePane, new AddTemplateBtn(window, "Add new template: "));
-        } else {
-            vbox.getChildren().addAll(new SettingsMessage(), new AddTemplateBtn(window, "You have no custom templates yet, you can add one here: "));
-        }
+    private VBox getSettings() {
+        VBox vbox = new VBox(0);
+        SettingsMenu settingsMenu = new SettingsMenu(window);
+        vbox.getStyleClass().add("number-format-container");
+
+        VBox vboxInner = new VBox(10);
+        vboxInner.getStyleClass().add("inner-container");
+        Label mainLabel = new Label("General Application Settings");
+        mainLabel.getStyleClass().add("settings-label");
+        NumberFormatBlock numberFormat = new NumberFormatBlock(settings);
+        CurrencyBlock currencyBlock = new CurrencyBlock(settings);
+        YearsOrderBlock yearsOrderBlock = new YearsOrderBlock(settings);
+        ShowAllBlock showAllBlock = new ShowAllBlock(settings);
+        HBox hbox = new HBox(20);
+        hbox.getChildren().addAll(yearsOrderBlock.get(), currencyBlock.get());
+        vboxInner.getChildren().addAll(mainLabel, hbox, numberFormat.get(), showAllBlock.get(), submitBtn());
+        vbox.getChildren().addAll(settingsMenu.getMenu(), vboxInner);
         return vbox;
     }
 
 
-    public ImageButton editTemplateButton(int id) {
-        ImageButton btn = new ImageButton("/image/template.png", 50);
+    private HBox submitBtn() {
+        HBox hbox = new HBox(20);
+        Label label = new Label("");
+        label.getStyleClass().add("confirm-label");
+        Button btn = new Button("Save Changes");
+        btn.getStyleClass().add("blue-btn");
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                System.out.println(id);
+                try {
+                    for (String key : settings.keySet()) {
+                        dbSettingHandler.updateSetting(key, settings.get(key));
+                    }
+                    label.setText("Your changes have been saved!");
+                    Timeline timeline = new Timeline(new KeyFrame(
+                            Duration.millis(2500),
+                            ae -> label.setText("")));
+                    timeline.play();
 
+
+                } catch (Exception exception) {
+                    System.out.println("Error while saving settings");
+                }
             }
         });
-        return btn;
+        hbox.getChildren().addAll(btn, label);
+        return hbox;
     }
-
 
 }

@@ -6,10 +6,15 @@ import entities.FormulaConverter;
 import finalonWindows.SceneBase;
 import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
-import finalonWindows.settingsScene.SettingsMenu;
+import finalonWindows.reusableComponents.SettingsMenu;
+import finalonWindows.reusableComponents.selectbox.Choices;
+import finalonWindows.reusableComponents.selectbox.IndustrySelect;
+import finalonWindows.reusableComponents.selectbox.StandardSelect;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -26,12 +31,14 @@ public class FormulaScene extends SceneBase {
 
     private final int defaultStandard = 1;
     private Stage window;
-    private DbFormulaHandler dbFormula = new DbFormulaHandler();
-    private Formula selectedIndustry;
-    private ComboBox<Formula> industryBox = getIndustry();
+
+    ObservableMap<String, Object> settings = FXCollections.observableHashMap();
+    private ComboBox<Formula> industryBox = IndustrySelect.get(defaultStandard, settings);
+    private ComboBox<Formula> standardBox =  StandardSelect.get(settings);
+    private Formula selectedIndustry = industryBox.getValue();
     private FormulaEditable formulaEditable = new FormulaEditable(selectedIndustry);
 
-    private ComboBox<Formula> standardBox = getStandard();
+
 
     public FormulaScene(Stage windowArg) {
         window = windowArg;
@@ -39,6 +46,26 @@ public class FormulaScene extends SceneBase {
 
     public Scene getScene() {
         VBox vbox = new VBox(20);
+
+        standardBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Formula>() {
+            @Override
+            public void changed(ObservableValue<? extends Formula> arg0, Formula arg1, Formula arg2) {
+                if (arg2 != null) {
+                    industryBox.setItems(Choices.getChoices(arg2.getId()));
+                    industryBox.getSelectionModel().selectFirst();
+                }
+            }
+        });
+        industryBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Formula>() {
+            @Override
+            public void changed(ObservableValue<? extends Formula> arg0, Formula arg1, Formula arg2) {
+                if (arg2 != null) {
+                    formulaEditable.updateTable(arg2);
+                }
+            }
+        });
+
+
         HBox standardChoiceBox = getChoicebox(standardBox, "Statements GAAP:", "Select the accounting standard");
         HBox industryChoiceBox = getChoicebox(industryBox, "Industry:", "Select the industry");
 
@@ -57,46 +84,6 @@ public class FormulaScene extends SceneBase {
         scene.getStylesheets().addAll("styles/templateStyle.css", "styles/formulaEdit.css");
         EditStorage editStorage = EditStorage.getInstance();
         return scene;
-    }
-
-
-    private ObservableList<Formula> getChoices(int parent) {
-        return dbFormula.getFormulas(parent);
-    }
-
-    private ComboBox getStandard() {
-        ComboBox<Formula> cb = new ComboBox<>(getChoices(0));
-        cb.setConverter(new FormulaConverter());
-        cb.getSelectionModel().selectFirst();
-        cb.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Formula>() {
-            @Override
-            public void changed(ObservableValue<? extends Formula> arg0, Formula arg1, Formula arg2) {
-                if (arg2 != null) {
-                    industryBox.setItems(getChoices(arg2.getId()));
-                    industryBox.getSelectionModel().selectFirst();
-                }
-            }
-        });
-        return cb;
-    }
-
-
-    private ComboBox<Formula> getIndustry() {
-        ComboBox<Formula> industryBox = new ComboBox<Formula>();
-        industryBox.setConverter(new FormulaConverter());
-        ObservableList<Formula> industries = getChoices(defaultStandard);
-        selectedIndustry = industries.get(0);
-        industryBox.setItems(industries);
-        industryBox.getSelectionModel().selectFirst();
-        industryBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Formula>() {
-            @Override
-            public void changed(ObservableValue<? extends Formula> arg0, Formula arg1, Formula arg2) {
-                if (arg2 != null) {
-                    formulaEditable.updateTable(arg2);
-                }
-            }
-        });
-        return industryBox;
     }
 
 

@@ -1,4 +1,4 @@
-package finalonWindows.settingsScene;
+package finalonWindows.templateScene.listing;
 
 import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;

@@ -1,0 +1,65 @@
+.container{
+    -fx-padding: 0 10px;
+    -fx-pref-width: 900px;
+    -fx-pref-height: 600px;
+}
+
+.main-label{
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px;
+}
+
+.sub-label{
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-padding: 5px 0;
+    -fx-pref-width: 200px;
+}
+
+.date-label{
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-padding: 5px 0;
+}
+
+
+.hbox-row{
+    -fx-padding: 10px;
+    -fx-border-style: solid outside;
+    -fx-border-width: 1;
+    -fx-border-radius: 2;
+    -fx-border-color: #e4e5e7;
+    -fx-background-color:  #f4f7f7;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+}
+
+.inner-container{
+    -fx-padding: 10px 30px;
+    -fx-border-style: solid outside;
+    -fx-border-width: 1;
+    -fx-border-insets: 0;
+    -fx-border-radius: 2;
+    -fx-border-color: #e4e5e7;
+    -fx-background-color: #fff;
+}
+
+.blue-btn{
+    -fx-background-color:#3f5872;
+    -fx-font-size: 14px;
+    -fx-text-fill: #FFFFFF;
+    -fx-padding: 7 20 7 20;
+    -fx-alignment:  baseline-left;
+}
+
+.hbox-row-btn{
+    -fx-padding: 20px;
+    -fx-border-style: solid outside;
+    -fx-border-width: 1;
+    -fx-border-radius: 2;
+    -fx-border-color: #e4e5e7;
+    -fx-background-color:  #f4f7f7;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+}

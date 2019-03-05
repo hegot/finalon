@@ -1,4 +1,4 @@
-package finalonWindows.settingsScene;
+package finalonWindows.templateScene.listing;
 
 import database.template.DbItemHandler;
 import database.template.TemplateEditor;
@@ -25,7 +25,7 @@ public class TemplateRow extends VBox {
     private Item item;
     private Stage window;
 
-    TemplateRow(Stage window, Item item) {
+    public TemplateRow(Stage window, Item item) {
         this.window = window;
         this.item = item;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/settings/templateRow.fxml"));
@@ -79,7 +79,7 @@ public class TemplateRow extends VBox {
             TemplateEditor templateEditor = new TemplateEditor(name, items);
             templateEditor.deleteItem(id);
             System.out.println("Template " + name + " deleted successfully");
-            window.setScene(SceneSwitcher.getScenes(SceneName.SETTINGSMAIN).get(SceneName.SETTINGSMAIN));
+            window.setScene(SceneSwitcher.getScenes(SceneName.TEMPLATESLIST).get(SceneName.TEMPLATESLIST));
         }
     }
 

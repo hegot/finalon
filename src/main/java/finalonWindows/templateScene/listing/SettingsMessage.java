@@ -1,4 +1,4 @@
-package finalonWindows.settingsScene;
+package finalonWindows.templateScene.listing;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;

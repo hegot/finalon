@@ -67,7 +67,7 @@ public class TemplateBase extends SceneBase {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.SETTINGSMAIN));
+                window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.TEMPLATESLIST));
                 window.setHeight(600);
                 window.setWidth(900);
             }
@@ -92,7 +92,7 @@ public class TemplateBase extends SceneBase {
     }
 
     void redirectToSettings() {
-        window.setScene(SceneSwitcher.getScenes(SceneName.SETTINGSMAIN).get(SceneName.SETTINGSMAIN));
+        window.setScene(SceneSwitcher.getScenes(SceneName.TEMPLATESLIST).get(SceneName.TEMPLATESLIST));
     }
 
 

@@ -30,13 +30,12 @@ public class CustomControl extends VBox {
 
     @FXML
     protected void addCompanyAction() {
-        System.out.println("The button was clicked!sss");
+        window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.ADDREPORT));
     }
 
     @FXML
     protected void settingsAction() {
         window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.SETTINGSMAIN));
-        System.out.println("Accepted");
     }
 
     @FXML
