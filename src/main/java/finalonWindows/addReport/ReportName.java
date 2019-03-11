@@ -1,11 +1,12 @@
 package finalonWindows.addReport;
+
 import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
 public class ReportName {
-    public static HBox get(ObservableMap<String, Object> settings) {
+    public static HBox get(ObservableMap<String, String> settings) {
         Label label = new Label("Company name: ");
         HBox hBox = new HBox(20);
         hBox.getStyleClass().add("hbox-row");

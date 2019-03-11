@@ -8,7 +8,7 @@ import javafx.collections.ObservableMap;
 import javafx.scene.control.ComboBox;
 
 public class FinancialYear {
-    public static ComboBox<String> get(ObservableMap<String, Object> settings) {
+    public static ComboBox<String> get(ObservableMap<String, String> settings) {
         ComboBox<String> box = new ComboBox<String>();
         ObservableList<String> steps = FXCollections.observableArrayList();
         steps.addAll(

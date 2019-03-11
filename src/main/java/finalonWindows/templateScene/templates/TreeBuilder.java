@@ -4,11 +4,11 @@ import entities.Item;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
 
-class TreeBuilder {
+public class TreeBuilder {
     private TreeItem<Item> rootNode;
     private ObservableList<Item> items;
 
-    TreeBuilder(
+    public TreeBuilder(
             int Id,
             ObservableList<Item> items
     ) {
@@ -42,7 +42,7 @@ class TreeBuilder {
         }
     }
 
-    TreeItem getTree() {
+    public TreeItem getTree() {
         return rootNode;
     }
 }

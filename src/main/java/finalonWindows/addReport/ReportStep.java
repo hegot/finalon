@@ -1,4 +1,5 @@
 package finalonWindows.addReport;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -7,7 +8,7 @@ import javafx.collections.ObservableMap;
 import javafx.scene.control.ComboBox;
 
 public class ReportStep {
-    public static ComboBox<String> get(ObservableMap<String, Object> settings) {
+    public static ComboBox<String> get(ObservableMap<String, String> settings) {
         ComboBox<String> stepBox = new ComboBox<String>();
         ObservableList<String> steps = FXCollections.observableArrayList();
         steps.addAll("month", "quater", "half year", "year");

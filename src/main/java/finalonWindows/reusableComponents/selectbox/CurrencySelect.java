@@ -9,7 +9,7 @@ import javafx.collections.ObservableMap;
 import javafx.scene.control.ComboBox;
 
 public class CurrencySelect {
-    public static ComboBox<String> get(ObservableMap<String, Object> settings) {
+    public static ComboBox<String> get(ObservableMap<String, String> settings) {
         ComboBox<String> currencyBox = new ComboBox<String>();
         ObservableList<String> currencies = DefaultCurrency.getCurrencies();
         DbSettingHandler dbSettingHandler = new DbSettingHandler();
@@ -21,11 +21,13 @@ public class CurrencySelect {
             }
         }
         currencyBox.setItems(currencies);
+        settings.put("currency", currencies.get(0));
         currencyBox.getSelectionModel().select(index);
         currencyBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
                 if (arg2 != null) {
+                    System.out.println(arg2);
                     settings.replace("defaultCurrency", arg2);
                 }
             }

@@ -29,10 +29,10 @@ import javafx.stage.Stage;
 
 public class FormulaScene extends SceneBase {
 
-    private final int defaultStandard = 1;
+    private final String defaultStandard = "1";
     private Stage window;
 
-    ObservableMap<String, Object> settings = FXCollections.observableHashMap();
+    ObservableMap<String, String> settings = FXCollections.observableHashMap();
     private ComboBox<Formula> industryBox = IndustrySelect.get(defaultStandard, settings);
     private ComboBox<Formula> standardBox =  StandardSelect.get(settings);
     private Formula selectedIndustry = industryBox.getValue();

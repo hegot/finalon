@@ -63,3 +63,8 @@
     -fx-border-insets: 5px;
     -fx-background-insets: 5px;
 }
+
+.settings-error{
+ -fx-text-fill: #FF0000;
+    -fx-font-size: 13px;
+}
