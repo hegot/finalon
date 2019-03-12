@@ -1,8 +1,6 @@
 package finalonWindows.addReport;
 
 import entities.Formula;
-import finalonWindows.SceneName;
-import finalonWindows.SceneSwitcher;
 import finalonWindows.addReport.report.SecondStep;
 import finalonWindows.reusableComponents.SettingsMenu;
 import finalonWindows.reusableComponents.selectbox.Choices;

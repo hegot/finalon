@@ -2,6 +2,8 @@ package entities;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 
 public class Item {
     private int id;
@@ -11,6 +13,7 @@ public class Item {
     private Boolean finResult;
     private int parent;
     private int parentSheet;
+    private ObservableMap<String, Integer> values;
 
     public Item(
             int id,
@@ -28,6 +31,27 @@ public class Item {
         this.finResult = finResult;
         this.parent = parent;
         this.parentSheet = parentSheet;
+        this.values = FXCollections.observableHashMap();
+    }
+
+    public Item(
+            int id,
+            String name,
+            String shortName,
+            Boolean isPositive,
+            Boolean finResult,
+            int parent,
+            int parentSheet,
+            ObservableMap<String, Integer> values
+    ) {
+        this.id = id;
+        this.name = name;
+        this.shortName = shortName;
+        this.isPositive = isPositive;
+        this.finResult = finResult;
+        this.parent = parent;
+        this.parentSheet = parentSheet;
+        this.values = values;
     }
 
     public int getId() {
@@ -81,6 +105,14 @@ public class Item {
 
     public int getParentSheet() {
         return parentSheet;
+    }
+
+    public void setValues(ObservableMap<String, Integer> values) {
+        this.values = values;
+    }
+
+    public ObservableMap<String, Integer> getValues() {
+        return this.values;
     }
 
     public void setParentSheet(int parentSheet) {

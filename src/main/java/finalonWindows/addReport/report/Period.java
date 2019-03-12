@@ -3,7 +3,6 @@ package finalonWindows.addReport.report;
 import javafx.collections.ObservableMap;
 
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -73,9 +72,9 @@ public class Period {
         int chunks = (monthAmount) / num;
         LocalDateTime time = LocalDateTime.of(startYear, startMonth, 1, 0, 0);
         for (int j = 0; j < chunks; j++) {
-            String  str = time.format(formatM);
+            String str = time.format(formatM);
             time = time.plusMonths(num);
-            str += " - " +  time.format(formatM) + "/" + time.format(formatY);
+            str += " - " + time.format(formatM) + "/" + time.format(formatY);
             periods.add(str);
         }
 

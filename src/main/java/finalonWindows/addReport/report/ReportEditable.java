@@ -1,9 +1,7 @@
 package finalonWindows.addReport.report;
 
-import finalonWindows.templateScene.templates.TreeBuilder;
 import entities.Item;
-import finalonWindows.templateScene.templates.eventHandlers.RemoveHandler;
-import finalonWindows.templateScene.templates.eventHandlers.TextEditHandler;
+import finalonWindows.templateScene.templates.TreeBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -32,7 +30,6 @@ public class ReportEditable {
     }
 
 
-
     public TabPane getTemplateEditable() {
         TabPane tabs = new TabPane();
         tabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
@@ -54,27 +51,18 @@ public class ReportEditable {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         table.setMinHeight(primaryScreenBounds.getHeight() - 150);
         TextEditHandler texthandler = new TextEditHandler();
-        RemoveHandler removeHandler = new RemoveHandler();
-        Columns cols = new Columns(texthandler, removeHandler);
-        if (SheetName.equals("Statement of Financial Position \n (Balance Sheet)") || SheetName.equals("Other Data")) {
-            table.getColumns().addAll(cols.getNameCol(), cols.getCodeCol(), cols.isPositiveCol(), cols.buttonCol());
-        } else {
-            table.getColumns().addAll(cols.getNameCol(), cols.getCodeCol(), cols.isPositiveCol(), cols.finResultCol(), cols.buttonCol());
+        Columns cols = new Columns(texthandler);
+        table.getColumns().addAll(cols.getNameCol(), cols.getCodeCol());
+        Period period = new Period(settings);
+        ArrayList<String> periods = period.getPeriods();
+        for (String col : periods) {
+            table.getColumns().add(cols.getPeriodCol(col));
         }
         TreeBuilder treeBuilder = new TreeBuilder(Id, this.items);
         TreeItem rootNode = treeBuilder.getTree();
         table.setRoot(rootNode);
         roots.add(rootNode);
-        getPeriods();
         return table;
-    }
-
-    private String  getPeriods(){
-
-        Period period = new Period(settings);
-        ArrayList<String> periods = period.getPeriods();
-
-        return "asd";
     }
 
 
