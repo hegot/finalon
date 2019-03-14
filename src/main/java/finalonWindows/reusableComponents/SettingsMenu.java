@@ -42,7 +42,6 @@ public class SettingsMenu {
             @Override
             public void handle(ActionEvent e) {
                 window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.TEMPLATESLIST));
-                window.setHeight(600);
             }
         });
         return btn;
@@ -55,7 +54,6 @@ public class SettingsMenu {
             @Override
             public void handle(ActionEvent e) {
                 window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.FORMULA));
-                window.setHeight(height());
             }
         });
         return btn;
@@ -68,7 +66,6 @@ public class SettingsMenu {
             @Override
             public void handle(ActionEvent e) {
                 window.setScene(SceneSwitcher.getScenes(SceneName.SETTINGSMAIN).get(SceneName.SETTINGSMAIN));
-                window.setHeight(600);
             }
         });
         return btn;
@@ -81,7 +78,6 @@ public class SettingsMenu {
             @Override
             public void handle(ActionEvent e) {
                 window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.MAIN));
-                window.setHeight(600);
             }
         });
         return btn;

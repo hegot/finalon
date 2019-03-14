@@ -42,7 +42,7 @@ class FormulaEditable {
         table.setRoot(rootNode);
     }
 
-    TreeTableColumn getCol(String title, String key, double width){
+    TreeTableColumn getCol(String title, String key, double width) {
         TreeTableColumn<Formula, String> col = new TreeTableColumn<Formula, String>(title);
         col.setMinWidth(width);
         col.setCellValueFactory(new TreeItemPropertyValueFactory<Formula, String>(key));

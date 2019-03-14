@@ -5,11 +5,9 @@ import finalonWindows.SceneBase;
 import finalonWindows.reusableComponents.SettingsMenu;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -19,13 +17,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.awt.event.ActionListener;
-import java.text.DateFormat;
 import java.util.Timer;
-import java.util.TimerTask;
 
 
-public class SettingsScene{
+public class SettingsScene extends SceneBase {
 
     private Stage window;
     private DbSettingHandler dbSettingHandler;
@@ -45,8 +40,7 @@ public class SettingsScene{
 
 
     public Scene getScene() {
-
-        Scene scene = new Scene(getSettings(), 900, 600);
+        Scene scene = baseScene(getSettings(), 900);
         scene.getStylesheets().add("styles/generalSettings.css");
         return scene;
     }
@@ -55,7 +49,7 @@ public class SettingsScene{
     private VBox getSettings() {
         VBox vbox = new VBox(0);
         SettingsMenu settingsMenu = new SettingsMenu(window);
-        vbox.getStyleClass().add("number-format-container");
+        vbox.getStyleClass().add("settings-container");
 
         VBox vboxInner = new VBox(10);
         vboxInner.getStyleClass().add("inner-container");

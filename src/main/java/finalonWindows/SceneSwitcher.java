@@ -2,12 +2,12 @@ package finalonWindows;
 
 import defaultData.DefaultTemplate;
 import entities.Item;
+import finalonWindows.addReport.AddReportScene;
 import finalonWindows.formulaScene.FormulaScene;
 import finalonWindows.mainScene.MainScene;
 import finalonWindows.settingsScene.SettingsScene;
 import finalonWindows.templateScene.AddTemplate;
 import finalonWindows.templateScene.TemplatesScene;
-import finalonWindows.addReport.AddReportScene;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;

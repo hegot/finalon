@@ -1,6 +1,7 @@
 package finalonWindows.addReport;
 
 import entities.Formula;
+import finalonWindows.SceneBase;
 import finalonWindows.addReport.report.SecondStep;
 import finalonWindows.reusableComponents.SettingsMenu;
 import finalonWindows.reusableComponents.selectbox.Choices;
@@ -25,7 +26,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class AddReportScene {
+public class AddReportScene extends SceneBase {
     private final String defaultStandard = "1";
     private Stage window;
     private ObservableMap<String, String> settings;
@@ -38,8 +39,7 @@ public class AddReportScene {
         settings.put("standard", defaultStandard);
         settings.put("company", "");
 
-        settings.put("step", "month");
-        settings.put("finYear", "1st of January");
+        settings.put("step", "year");
     }
 
     public Scene getScene() {
@@ -47,8 +47,8 @@ public class AddReportScene {
         vbox.getStyleClass().add("container");
         SettingsMenu settingsMenu = new SettingsMenu(window);
         vbox.getChildren().addAll(settingsMenu.getMenu(), vboxInner());
-        Scene scene = new Scene(vbox, 900, 600);
-        scene.getStylesheets().addAll("styles/addReport.css", "styles/calendar_styles.css");
+        Scene scene = baseScene(vbox, 900);
+        scene.getStylesheets().addAll("styles/addReport.css");
         return scene;
     }
 
@@ -61,25 +61,37 @@ public class AddReportScene {
         HBox hBox = new HBox(20);
         hBox.getChildren().addAll(
                 titledHbox("Step of Analysis", ReportStep.get(settings)),
-                titledHbox("First date of financial year", FinancialYear.get(settings))
+                titledHbox("How many periods \nyou want to analyse: ", Periods.get(settings))
         );
+
         HBox err = new HBox(20);
         err.getStyleClass().add("hbox-row");
         err.getChildren().add(errors);
+
+        DateSelect dateSelect = new DateSelect(settings);
         vbox.getChildren().addAll(
                 mainLabel,
                 ReportName.get(settings),
                 titledHbox("Template", TemplateSelect.get(settings)),
-                titledHbox("Currency", CurrencySelect.get(settings)),
+                currencyRow(),
                 standardIndustry(),
                 hBox,
-                getPeriod(),
+                dateSelect.get(),
                 err,
                 nextButton()
         );
         return vbox;
     }
 
+
+    private HBox currencyRow() {
+        HBox hBox = new HBox(20);
+        Label label = new Label("Currency");
+        hBox.getStyleClass().add("hbox-row");
+        label.getStyleClass().add("sub-label");
+        hBox.getChildren().addAll(label, AmountSelect.get(settings), CurrencySelect.get(settings));
+        return hBox;
+    }
 
     private HBox standardIndustry() {
         HBox hBox = new HBox(20);
@@ -99,23 +111,6 @@ public class AddReportScene {
         return hBox;
     }
 
-
-    private VBox getPeriod() {
-        VBox vbox = new VBox(10);
-        vbox.getStyleClass().add("hbox-row");
-        Label label = new Label("Analysing period:");
-        label.getStyleClass().add("sub-label");
-        HBox hBox = new HBox(50);
-        Label from = new Label("From:");
-        from.getStyleClass().add("date-label");
-        Label to = new Label("To:");
-        to.getStyleClass().add("date-label");
-        Callendar start = new Callendar("start", settings);
-        Callendar end = new Callendar("end", settings);
-        hBox.getChildren().addAll(from, start.get(), to, end.get());
-        vbox.getChildren().addAll(label, hBox);
-        return vbox;
-    }
 
     private HBox titledHbox(String title, ComboBox select) {
         Label label = new Label(title);
@@ -138,18 +133,13 @@ public class AddReportScene {
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                try {
-                    String company = settings.get("company").toString();
-                    if (company.length() == 0) {
-                        errors.setText("Please fill in company name");
-                    } else {
-                        errors.setText("");
-                        SecondStep secondStep = new SecondStep(window, settings);
-                        window.setScene(secondStep.getScene());
-                        window.setHeight(900);
-                    }
-                } catch (Exception exception) {
-                    System.out.println("Error while saving report settings");
+                String company = settings.get("company").toString();
+                if (company.length() == 0) {
+                    errors.setText("Please fill in company name");
+                } else {
+                    errors.setText("");
+                    SecondStep secondStep = new SecondStep(window, settings);
+                    window.setScene(secondStep.getScene());
                 }
             }
         });

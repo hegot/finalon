@@ -62,9 +62,9 @@ class EditPopup {
 
     private void dialogSubmit(Dialog dialog) {
         EventHandler<ActionEvent> saveFilter = event -> {
-            if(editFormula.getTextArea().getErrors().size() > 0){
+            if (editFormula.getTextArea().getErrors().size() > 0) {
                 event.consume();
-            }else{
+            } else {
                 updateFormula();
                 treeItem.setValue(formula);
                 FormulaExtended formulaExtended = normativeValues.getFormulaUpdated();
@@ -91,7 +91,7 @@ class EditPopup {
     }
 
 
-    private void updateFormula(){
+    private void updateFormula() {
         Row[] arr = editFormula.getTextfields();
         for (Row row : arr) {
             String key = row.key;

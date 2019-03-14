@@ -1,8 +1,8 @@
 .container{
     -fx-padding: 0 10px;
-    -fx-pref-width: 900px;
-    -fx-pref-height: 600px;
 }
+
+
 
 .main-label{
     -fx-font-size: 15px;

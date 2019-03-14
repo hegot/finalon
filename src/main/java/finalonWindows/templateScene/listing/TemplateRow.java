@@ -52,7 +52,6 @@ public class TemplateRow extends VBox {
         items.add(this.item);
         PreviewTemplate editTpl = new PreviewTemplate(window, items);
         window.setScene(editTpl.getScene());
-        window.setHeight(height());
     }
 
     @FXML
@@ -62,7 +61,6 @@ public class TemplateRow extends VBox {
         items.add(this.item);
         EditTemplate editTpl = new EditTemplate(window, items);
         window.setScene(editTpl.getScene());
-        window.setHeight(height());
     }
 
     @FXML

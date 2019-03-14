@@ -1,8 +1,6 @@
 package finalonWindows.formulaScene;
 
-import database.formula.DbFormulaHandler;
 import entities.Formula;
-import entities.FormulaConverter;
 import finalonWindows.SceneBase;
 import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
@@ -13,7 +11,6 @@ import finalonWindows.reusableComponents.selectbox.StandardSelect;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -30,14 +27,12 @@ import javafx.stage.Stage;
 public class FormulaScene extends SceneBase {
 
     private final String defaultStandard = "1";
-    private Stage window;
-
     ObservableMap<String, String> settings = FXCollections.observableHashMap();
+    private Stage window;
     private ComboBox<Formula> industryBox = IndustrySelect.get(defaultStandard, settings);
-    private ComboBox<Formula> standardBox =  StandardSelect.get(settings);
+    private ComboBox<Formula> standardBox = StandardSelect.get(settings);
     private Formula selectedIndustry = industryBox.getValue();
     private FormulaEditable formulaEditable = new FormulaEditable(selectedIndustry);
-
 
 
     public FormulaScene(Stage windowArg) {
@@ -80,7 +75,7 @@ public class FormulaScene extends SceneBase {
                 formulaEditable.getFormulaTable()
         );
 
-        Scene scene = new Scene(vbox, 900, 600);
+        Scene scene = baseScene(vbox, 900);
         scene.getStylesheets().addAll("styles/templateStyle.css", "styles/formulaEdit.css");
         EditStorage editStorage = EditStorage.getInstance();
         return scene;
@@ -108,7 +103,6 @@ public class FormulaScene extends SceneBase {
                     System.out.println("Error while saving formulas map");
                 }
                 window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.SETTINGSMAIN));
-                window.setHeight(600);
             }
         });
         return btn;

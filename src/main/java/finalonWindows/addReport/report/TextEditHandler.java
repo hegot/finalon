@@ -10,7 +10,7 @@ public class TextEditHandler {
     private void updateCell(TreeTableColumn.CellEditEvent<Item, String> t, String param) {
         String value = t.getNewValue();
         TreeItem<Item> treeItem = t.getRowValue();
-        if (treeItem != null && value  != null) {
+        if (treeItem != null && value != null) {
             Item item = treeItem.getValue();
             ObservableMap<String, Integer> values = item.getValues();
             for (String key : values.keySet()) {

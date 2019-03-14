@@ -16,7 +16,7 @@ public class DbSettingHandler extends DbHandlerBase {
     }
 
     private void createTbl() throws SQLException {
-        this.connection.createStatement().execute("CREATE TABLE if not exists " + tableName +  " (`key` TEXT, `value` TEXT);");
+        this.connection.createStatement().execute("CREATE TABLE if not exists " + tableName + " (`key` TEXT, `value` TEXT);");
 
         System.out.println("Table " + tableName + " created");
         String sql = "INSERT INTO " + tableName + " (`key`, `value`) VALUES('numberFormat', 'default')";
@@ -52,14 +52,14 @@ public class DbSettingHandler extends DbHandlerBase {
     }
 
     public void updateSetting(String key, String value) throws SQLException {
-            try (PreparedStatement statement = this.connection.prepareStatement(
-                    "UPDATE " + tableName + " SET `value` = ? WHERE key = '" + key + "'"
-            )) {
-                statement.setObject(1, value);
-                statement.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        try (PreparedStatement statement = this.connection.prepareStatement(
+                "UPDATE " + tableName + " SET `value` = ? WHERE key = '" + key + "'"
+        )) {
+            statement.setObject(1, value);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

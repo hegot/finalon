@@ -107,16 +107,16 @@ public class Item {
         return parentSheet;
     }
 
-    public void setValues(ObservableMap<String, Integer> values) {
-        this.values = values;
+    public void setParentSheet(int parentSheet) {
+        this.parentSheet = parentSheet;
     }
 
     public ObservableMap<String, Integer> getValues() {
         return this.values;
     }
 
-    public void setParentSheet(int parentSheet) {
-        this.parentSheet = parentSheet;
+    public void setValues(ObservableMap<String, Integer> values) {
+        this.values = values;
     }
 
     public BooleanProperty isPositive() {

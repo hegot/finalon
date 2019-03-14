@@ -31,7 +31,7 @@ public class PreviewTemplate extends TemplateBase {
     public Scene getScene() {
         VBox vBox = new VBox();
         vBox.getChildren().addAll(headerMenu(), templatePreview.getTemplatePreview());
-        Scene scene = baseScene(vBox);
+        Scene scene = baseScene(vBox, 900);
         scene.getStylesheets().add("styles/templateStyle.css");
         return scene;
     }

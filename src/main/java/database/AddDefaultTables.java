@@ -2,8 +2,9 @@ package database;
 
 import database.formula.DbFormulaHandler;
 import database.formula.FormulaCreator;
-import database.template.DbItemHandler;
 import database.setting.DbSettingHandler;
+import database.template.DbItemHandler;
+
 import java.sql.SQLException;
 
 public class AddDefaultTables {

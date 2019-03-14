@@ -8,13 +8,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -68,7 +65,6 @@ public class TemplateBase extends SceneBase {
             @Override
             public void handle(ActionEvent e) {
                 window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.TEMPLATESLIST));
-                window.setHeight(600);
                 window.setWidth(900);
             }
         });
@@ -79,16 +75,6 @@ public class TemplateBase extends SceneBase {
         Button button = new Button("Save Template");
         button.getStyleClass().add("blue-btn");
         return button;
-    }
-
-    Scene baseScene(VBox vBox) {
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setFitToHeight(true);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setContent(vBox);
-        Scene scene = new Scene(scrollPane, 900, 800);
-        scene.getStylesheets().add("/styles/templateStyle.css");
-        return scene;
     }
 
     void redirectToSettings() {

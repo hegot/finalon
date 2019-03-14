@@ -5,7 +5,7 @@ import javafx.util.StringConverter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ItemConverter  extends StringConverter<Item> {
+public class ItemConverter extends StringConverter<Item> {
     private Map<String, Item> itemMap = new HashMap<String, Item>();
 
     @Override

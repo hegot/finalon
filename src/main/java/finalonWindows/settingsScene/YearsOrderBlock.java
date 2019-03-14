@@ -10,10 +10,10 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 
 class YearsOrderBlock {
-    private ObservableMap<String, String> settings;
-    private ToggleGroup radioGroup;
     private final String ASCENDING = "Ascending (Example: 2014-2015-1016)";
     private final String DESCENDING = "Descending (Example: 2016-2015-1014)";
+    private ObservableMap<String, String> settings;
+    private ToggleGroup radioGroup;
 
     YearsOrderBlock(ObservableMap<String, String> settings) {
         this.settings = settings;

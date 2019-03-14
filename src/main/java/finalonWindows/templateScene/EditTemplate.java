@@ -40,7 +40,6 @@ public class EditTemplate extends TemplateBase {
                     TemplateEditor updater = new TemplateEditor(templateName.getText(), items);
                     updater.updateTpl();
                     redirectToSettings();
-                    window.setHeight(600);
                 } else {
                     System.out.println("err");
                 }
@@ -54,7 +53,7 @@ public class EditTemplate extends TemplateBase {
     public Scene getScene() {
         VBox vBox = new VBox();
         vBox.getChildren().addAll(headerMenu(), templateName(), templateEditable.getTemplateEditable());
-        Scene scene = baseScene(vBox);
+        Scene scene = baseScene(vBox, 900);
         scene.getStylesheets().add("styles/templateStyle.css");
         return scene;
     }

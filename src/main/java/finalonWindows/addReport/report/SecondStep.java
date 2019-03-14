@@ -2,14 +2,14 @@ package finalonWindows.addReport.report;
 
 import database.template.DbItemHandler;
 import entities.Item;
+import finalonWindows.SceneBase;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class SecondStep {
+public class SecondStep extends SceneBase {
     private Stage window;
     private ObservableMap<String, String> settings;
 
@@ -26,19 +26,8 @@ public class SecondStep {
         items.add(itemsHandler.getItem(tpl));
         ReportEditable report = new ReportEditable(items, settings);
         vbox.getChildren().addAll(report.getTemplateEditable());
-        Scene scene = baseScene(vbox);
+        Scene scene = baseScene(vbox, 900);
         scene.getStylesheets().add("styles/templateStyle.css");
-        return scene;
-    }
-
-
-    Scene baseScene(VBox vBox) {
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setFitToHeight(true);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setContent(vBox);
-        Scene scene = new Scene(scrollPane, 900, 800);
-        scene.getStylesheets().add("/styles/templateStyle.css");
         return scene;
     }
 

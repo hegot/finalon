@@ -38,24 +38,25 @@ public class ReportEditable {
             Tab tab = new Tab();
             Item sheet = Sheet;
             tab.setText(sheet.getName());
-            TreeTableView<Item> table = getSingleTable(sheet.getId(), sheet.getName());
+            TreeTableView<Item> table = getSingleTable(sheet.getId());
             tab.setContent(table);
             tabs.getTabs().add(tab);
         }
         return tabs;
     }
 
-    private TreeTableView<Item> getSingleTable(int Id, String SheetName) {
+    private TreeTableView<Item> getSingleTable(int Id) {
         TreeTableView<Item> table = new TreeTableView<>();
         table.setEditable(true);
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         table.setMinHeight(primaryScreenBounds.getHeight() - 150);
+        table.setPrefWidth(880);
         TextEditHandler texthandler = new TextEditHandler();
         Columns cols = new Columns(texthandler);
         table.getColumns().addAll(cols.getNameCol(), cols.getCodeCol());
-        Period period = new Period(settings);
-        ArrayList<String> periods = period.getPeriods();
-        for (String col : periods) {
+        Periods periods = new Periods(settings);
+        ArrayList<String> arr = periods.getPeriodArr();
+        for (String col : arr) {
             table.getColumns().add(cols.getPeriodCol(col));
         }
         TreeBuilder treeBuilder = new TreeBuilder(Id, this.items);

@@ -11,7 +11,7 @@ public class ReportStep {
     public static ComboBox<String> get(ObservableMap<String, String> settings) {
         ComboBox<String> stepBox = new ComboBox<String>();
         ObservableList<String> steps = FXCollections.observableArrayList();
-        steps.addAll("month", "quater", "half year", "year");
+        steps.addAll("year", "half year", "quater", "month");
         stepBox.setItems(steps);
         stepBox.getSelectionModel().selectFirst();
         stepBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {

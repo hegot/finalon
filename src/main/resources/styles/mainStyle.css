@@ -1,3 +1,7 @@
+.main-container{
+ -fx-pref-width: 900px;
+}
+
 .sidebar-btn {
     -fx-background-color:#3f5872;
     -fx-font-size: 14px;
@@ -8,7 +12,7 @@
 }
 
 .header{
-    -fx-padding: 25;
+    -fx-padding: 50 25;
     -fx-background-color: #122538;
 }
 

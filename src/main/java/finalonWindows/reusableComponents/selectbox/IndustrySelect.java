@@ -16,7 +16,7 @@ public class IndustrySelect extends Choices {
         industryBox.setItems(industries);
         settings.put("industry", Integer.toString(industries.get(0).getId()));
         industryBox.getSelectionModel().selectFirst();
-        if(settings.size() > 0){
+        if (settings.size() > 0) {
             industryBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Formula>() {
                 @Override
                 public void changed(ObservableValue<? extends Formula> arg0, Formula arg1, Formula arg2) {

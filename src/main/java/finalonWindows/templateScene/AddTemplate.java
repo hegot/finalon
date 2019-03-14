@@ -39,7 +39,6 @@ public class AddTemplate extends TemplateBase {
                     TemplateCreator creator = new TemplateCreator(templateName.getText(), items);
                     creator.createTpl();
                     redirectToSettings();
-                    window.setHeight(600);
                 } else {
                     System.out.println("err");
                 }
@@ -51,8 +50,9 @@ public class AddTemplate extends TemplateBase {
 
     public Scene getScene() {
         VBox vBox = new VBox();
+
         vBox.getChildren().addAll(headerMenu(), templateName(), templateEditable.getTemplateEditable());
-        Scene scene = baseScene(vBox);
+        Scene scene = baseScene(vBox, 900);
         scene.getStylesheets().add("styles/templateStyle.css");
         return scene;
     }

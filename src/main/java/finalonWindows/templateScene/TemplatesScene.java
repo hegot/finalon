@@ -4,8 +4,8 @@ import database.template.DbItemHandler;
 import entities.Item;
 import finalonWindows.SceneBase;
 import finalonWindows.reusableComponents.ImageButton;
-import finalonWindows.templateScene.listing.AddTemplateBtn;
 import finalonWindows.reusableComponents.SettingsMenu;
+import finalonWindows.templateScene.listing.AddTemplateBtn;
 import finalonWindows.templateScene.listing.SettingsMessage;
 import finalonWindows.templateScene.listing.TemplateRow;
 import javafx.collections.ObservableList;
@@ -33,7 +33,7 @@ public class TemplatesScene extends SceneBase {
 
         SettingsMenu settingsMenu = new SettingsMenu(window);
         vbox.getChildren().addAll(settingsMenu.getMenu(), getTemplates());
-        Scene scene = new Scene(vbox, 900, 600);
+        Scene scene = baseScene(vbox, 900);
         scene.getStylesheets().add("styles/settingsStyle.css");
         return scene;
     }

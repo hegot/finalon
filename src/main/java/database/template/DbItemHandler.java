@@ -78,21 +78,22 @@ public class DbItemHandler extends DbHandlerBase {
         }
         return Items;
     }
+
     public Item getItem(int id) {
-        Item item = new Item(0, "", "" ,false, false, 0, 0);
+        Item item = new Item(0, "", "", false, false, 0, 0);
         try (Statement statement = this.connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName,  isPositive, finResult, parent, parentSheet FROM "
                     + tableName + " WHERE id = " + id);
             while (resultSet.next()) {
-               item = new Item(
-                                resultSet.getInt("id"),
-                                resultSet.getString("name"),
-                                resultSet.getString("shortName"),
-                                resultSet.getBoolean("isPositive"),
-                                resultSet.getBoolean("finResult"),
-                                resultSet.getInt("parent"),
-                                resultSet.getInt("parentSheet")
-                        );
+                item = new Item(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("shortName"),
+                        resultSet.getBoolean("isPositive"),
+                        resultSet.getBoolean("finResult"),
+                        resultSet.getInt("parent"),
+                        resultSet.getInt("parentSheet")
+                );
             }
         } catch (SQLException e) {
             e.printStackTrace();
