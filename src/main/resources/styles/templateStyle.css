@@ -14,7 +14,7 @@
 .report-tabs .tree-table-view .column-header .filler,
 .report-tabs .tree-table-view .column-header-background .filler {
     -fx-background-color: #34495e;
-    -fx-padding: 15;
+    -fx-padding: 5;
     -fx-pref-height: 50px;
 }
 

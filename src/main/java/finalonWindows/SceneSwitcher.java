@@ -49,6 +49,9 @@ public class SceneSwitcher {
             ObservableList<Item> items = FXCollections.observableArrayList(DefaultTemplate.getTpl());
             scenes.put(SceneName.ADDTEMPLATE, new AddTemplate(window, items).getScene());
         }
+        if (sceneName == SceneName.ADDREPORT) {
+            scenes.put(SceneName.ADDREPORT, new AddReportScene(window).getScene());
+        }
         return scenes;
     }
 }
