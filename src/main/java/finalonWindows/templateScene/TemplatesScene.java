@@ -59,18 +59,4 @@ public class TemplatesScene extends SceneBase {
         return vbox;
     }
 
-
-    public ImageButton editTemplateButton(int id) {
-        ImageButton btn = new ImageButton("/image/template.png", 50);
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                System.out.println(id);
-
-            }
-        });
-        return btn;
-    }
-
-
 }

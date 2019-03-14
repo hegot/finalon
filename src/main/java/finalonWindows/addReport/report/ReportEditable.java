@@ -32,6 +32,7 @@ public class ReportEditable {
 
     public TabPane getTemplateEditable() {
         TabPane tabs = new TabPane();
+        tabs.getStyleClass().add("report-tabs");
         tabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         ObservableList<Item> Sheets = getChildren(rootId);
         for (Item Sheet : Sheets) {

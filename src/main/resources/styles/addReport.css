@@ -65,6 +65,6 @@
 }
 
 .settings-error{
- -fx-text-fill: #FF0000;
+    -fx-text-fill: #FF0000;
     -fx-font-size: 13px;
 }

@@ -62,9 +62,9 @@ public class Periods {
 
         LocalDateTime time = LocalDateTime.of(endYear, endMonth, endDay, 0, 0);
         for (int j = 0; j < periods; j++) {
-            String str = time.format(formatM) + "/" + time.format(formatY);
+            String str = time.format(formatM) + "/" + time.format(formatY) + "-";
             time = time.minusMonths(month);
-            str += " - " + time.format(formatM) + "/" + time.format(formatY);
+            str += "\n" + time.format(formatM) + "/" + time.format(formatY);
             arr.add(str);
         }
 

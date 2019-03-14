@@ -10,6 +10,16 @@
     -fx-padding: 15;
 }
 
+.report-tabs .tree-table-view .column-header,
+.report-tabs .tree-table-view .column-header .filler,
+.report-tabs .tree-table-view .column-header-background .filler {
+    -fx-background-color: #34495e;
+    -fx-padding: 15;
+    -fx-pref-height: 50px;
+}
+
+
+
 .tree-table-view  .column-header .label {
     -fx-text-fill: #fff;
     -fx-font-size: 13px;
