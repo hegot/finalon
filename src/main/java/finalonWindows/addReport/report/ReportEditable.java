@@ -22,7 +22,7 @@ public class ReportEditable {
     private ArrayList<TreeItem> roots;
     private ObservableMap<String, String> settings;
 
-    public ReportEditable(ObservableList<Item> items, ObservableMap<String, String> settings) {
+    ReportEditable(ObservableList<Item> items, ObservableMap<String, String> settings) {
         this.items = items;
         this.roots = new ArrayList<>();
         this.settings = settings;
@@ -30,7 +30,7 @@ public class ReportEditable {
     }
 
 
-    public TabPane getTemplateEditable() {
+    TabPane getTemplateEditable() {
         TabPane tabs = new TabPane();
         tabs.getStyleClass().add("report-tabs");
         tabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);

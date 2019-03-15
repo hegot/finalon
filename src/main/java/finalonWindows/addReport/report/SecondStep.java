@@ -1,10 +1,12 @@
 package finalonWindows.addReport.report;
 
 import database.template.DbItemHandler;
+import defaultData.DefaultTemplate;
 import entities.Item;
 import finalonWindows.SceneBase;
 import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
@@ -28,7 +30,11 @@ public class SecondStep extends SceneBase {
         DbItemHandler itemsHandler = new DbItemHandler();
         int tpl = Integer.parseInt(settings.get("template"));
         ObservableList<Item> items = itemsHandler.getItems(tpl);
-        items.add(itemsHandler.getItem(tpl));
+        if(items.size() == 0){
+            items = FXCollections.observableArrayList(DefaultTemplate.getTpl());
+        }else{
+            items.add(itemsHandler.getItem(tpl));
+        }
         ReportEditable report = new ReportEditable(items, settings);
         vbox.getChildren().addAll(backButton(), report.getTemplateEditable());
         Scene scene = baseScene(vbox, 900);

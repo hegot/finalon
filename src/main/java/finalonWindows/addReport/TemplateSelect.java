@@ -15,8 +15,12 @@ public class TemplateSelect {
         ObservableList<Item> items = dbItem.getTemplates();
         ComboBox<Item> templatesBox = new ComboBox<Item>();
         templatesBox.setConverter(new ItemConverter());
-        templatesBox.getSelectionModel().selectFirst();
-        settings.put("template", Integer.toString(items.get(0).getId()));
+        if(items.size() > 0){
+            settings.put("template", Integer.toString(items.get(0).getId()));
+        }else{
+            settings.put("template", "1");
+            items.add(new Item(1, "Default Template", "DefaultTemplate", true, false, 0, 0));
+        }
         templatesBox.setItems(items);
         templatesBox.getSelectionModel().selectFirst();
         templatesBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Item>() {
