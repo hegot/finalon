@@ -33,9 +33,9 @@ public class SecondStep extends SceneBase {
         DbItemHandler itemsHandler = new DbItemHandler();
         int tpl = Integer.parseInt(settings.get("template"));
         ObservableList<Item> items = itemsHandler.getItems(tpl);
-        if(items.size() == 0){
+        if (items.size() == 0) {
             items = FXCollections.observableArrayList(DefaultTemplate.getTpl());
-        }else{
+        } else {
             items.add(itemsHandler.getItem(tpl));
         }
         this.report = new ReportEditable(items, settings);
@@ -45,7 +45,7 @@ public class SecondStep extends SceneBase {
         return scene;
     }
 
-    HBox headerMenu(){
+    HBox headerMenu() {
         HBox hBox = new HBox(20);
         hBox.getChildren().addAll(backButton(), generateButton());
         return hBox;

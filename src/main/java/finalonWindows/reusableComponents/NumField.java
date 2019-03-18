@@ -10,7 +10,18 @@ public class NumField extends TextField {
             public void handle(KeyEvent t) {
                 char ar[] = t.getCharacter().toCharArray();
                 char ch = ar[t.getCharacter().toCharArray().length - 1];
-                if (!(ch >= '0' && ch <= '9') || ch == '.') {
+                boolean consume = false;
+                if (!(ch >= '0' && ch <= '9')) {
+                    consume = true;
+                }
+                String s = Character.toString(ch);
+                String[] match = {"-", ".", ","};
+                for(String i : match){
+                    if(s.contains(i)){
+                        consume = false;
+                    }
+                }
+                if(consume){
                     t.consume();
                 }
             }

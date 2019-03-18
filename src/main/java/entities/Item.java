@@ -13,7 +13,7 @@ public class Item {
     private Boolean finResult;
     private int parent;
     private int parentSheet;
-    private ObservableMap<String, Integer> values;
+    private ObservableMap<String, Double> values;
 
     public Item(
             int id,
@@ -42,7 +42,7 @@ public class Item {
             Boolean finResult,
             int parent,
             int parentSheet,
-            ObservableMap<String, Integer> values
+            ObservableMap<String, Double> values
     ) {
         this.id = id;
         this.name = name;
@@ -111,11 +111,11 @@ public class Item {
         this.parentSheet = parentSheet;
     }
 
-    public ObservableMap<String, Integer> getValues() {
+    public ObservableMap<String, Double> getValues() {
         return this.values;
     }
 
-    public void setValues(ObservableMap<String, Integer> values) {
+    public void setValues(ObservableMap<String, Double> values) {
         this.values = values;
     }
 

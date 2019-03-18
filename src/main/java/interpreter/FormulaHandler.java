@@ -10,10 +10,10 @@ import java.util.Map;
 
 class FormulaHahdler {
     private Formula formula;
-    private Map<String, ObservableMap<String, Integer>> values;
+    private Map<String, ObservableMap<String, Double>> values;
     private String period;
 
-    public FormulaHahdler(Formula formula, Map<String, ObservableMap<String, Integer>> values, String period) {
+    public FormulaHahdler(Formula formula, Map<String, ObservableMap<String, Double>> values, String period) {
         this.formula = formula;
         this.values = values;
         this.period = period;
@@ -31,9 +31,9 @@ class FormulaHahdler {
     public String getValuesInPlace() {
         String formulaVal = formula.getValue();
         for (String index : getIndexes()) {
-            Integer val = searchInValues(index);
+            Double val = searchInValues(index);
             if (val != null) {
-                String indexVal = Integer.toString(val);
+                String indexVal = Double.toString(val);
                 formulaVal = formulaVal.replace(index, indexVal);
             } else {
                 return null;
@@ -42,8 +42,8 @@ class FormulaHahdler {
         return formulaVal;
     }
 
-    private Integer searchInValues(String index) {
-        ObservableMap<String, Integer> map = values.get(index);
+    private Double searchInValues(String index) {
+        ObservableMap<String, Double> map = values.get(index);
         if (map != null) {
             return map.get(period);
         }

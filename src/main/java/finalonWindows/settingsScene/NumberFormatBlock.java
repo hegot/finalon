@@ -23,6 +23,7 @@ public class NumberFormatBlock {
         ObservableList<entities.NumberFormat> Formats = DefaultNumberFormats.getFormats();
         ToggleGroup radioGroup = getRadioGroup(Formats);
         String defaultVal = settings.get("numberFormat");
+
         VBox vboxrow = new VBox(10);
         vboxrow.getStyleClass().add("vbox-row");
         Label subLabel = new Label("Number format: ");

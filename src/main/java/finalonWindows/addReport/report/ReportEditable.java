@@ -52,8 +52,8 @@ public class ReportEditable {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         table.setMinHeight(primaryScreenBounds.getHeight() - 150);
         table.setPrefWidth(880);
-        TextEditHandler texthandler = new TextEditHandler();
-        Columns cols = new Columns(texthandler);
+        TextEditHandler texthandler = new TextEditHandler(items);
+        Columns cols = new Columns(texthandler, settings);
         table.getColumns().addAll(cols.getNameCol(), cols.getCodeCol());
         Periods periods = new Periods(settings);
         ArrayList<String> arr = periods.getPeriodArr();
@@ -69,7 +69,6 @@ public class ReportEditable {
 
 
     private void populateList(TreeItem<Item> item, ObservableList<Item> items) {
-
         if (item.getChildren().size() > 0) {
             Item node = (Item) item.getValue();
             items.add(node);

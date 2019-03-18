@@ -48,7 +48,7 @@ public class Interprter {
 
     private String loopFormulas() {
         String result = "";
-        Map<String, ObservableMap<String, Integer>> values = obtainKeyValueArray();
+        Map<String, ObservableMap<String, Double>> values = obtainKeyValueArray();
         ArrayList<String> periods = getPeriods();
         for (Formula formula : formulas) {
             if (formula.getValue().length() > 0) {
@@ -66,8 +66,8 @@ public class Interprter {
     }
 
 
-    private Map<String, ObservableMap<String, Integer>> obtainKeyValueArray() {
-        Map<String, ObservableMap<String, Integer>> values = new HashMap<>();
+    private Map<String, ObservableMap<String, Double>> obtainKeyValueArray() {
+        Map<String, ObservableMap<String, Double>> values = new HashMap<>();
         for (Item item : items) {
             if (item.getValues().size() > 0) {
                 values.put(item.getShortName(), item.getValues());
