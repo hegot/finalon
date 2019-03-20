@@ -1,4 +1,4 @@
-package finalonWindows.addReport.report;
+package finalonWindows.addReport.stepTwo;
 
 import entities.Item;
 import finalonWindows.templateScene.templates.TreeBuilder;

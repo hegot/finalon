@@ -1,4 +1,4 @@
-package finalonWindows.addReport;
+package finalonWindows.addReport.stepOne;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -15,7 +15,7 @@ import java.util.Date;
 public class DateSelect {
     private ObservableMap<String, String> settings;
 
-    DateSelect(ObservableMap<String, String> settings) {
+    public DateSelect(ObservableMap<String, String> settings) {
         this.settings = settings;
     }
 

@@ -3,7 +3,7 @@ package interpreter;
 import database.formula.DbFormulaHandler;
 import entities.Formula;
 import entities.Item;
-import finalonWindows.addReport.report.Periods;
+import finalonWindows.addReport.stepTwo.Periods;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -55,8 +55,11 @@ public class Interprter {
                 for (String period : periods) {
                     FormulaHahdler formulaHahdler = new FormulaHahdler(formula, values, period);
                     String res = formulaHahdler.getResult();
-                    if (res != null) {
-                        result += "\n" + formula.getName() + " " + res;
+
+                    if (res != null && res.length() > 0) {
+                        Double doubleInt = Double.parseDouble(res);
+                        String formatedRes = String.format("%.2f", doubleInt);
+                        result += "\n" + formula.getName() + " " + formatedRes;
                     }
                 }
             }

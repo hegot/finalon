@@ -1,4 +1,4 @@
-package finalonWindows.addReport;
+package finalonWindows.addReport.stepOne;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

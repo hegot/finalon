@@ -1,10 +1,13 @@
-package finalonWindows.addReport.report;
+package finalonWindows.addReport.stepTwo;
 
 import finalonWindows.reusableComponents.NumField;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.util.StringConverter;
 
 import java.util.ArrayList;
@@ -71,6 +74,14 @@ public class EditCell<S, T> extends TreeTableCell<S, T> {
                 if (nextColumn != null) {
                     getTreeTableView().getSelectionModel().clearAndSelect(getTreeTableRow().getIndex(), nextColumn);
                     getTreeTableView().edit(getTreeTableRow().getIndex(), nextColumn);
+                }
+            }
+        });
+        this.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                if (t.getButton() == MouseButton.PRIMARY && t.getClickCount() == 2) {
+                    t.consume();
                 }
             }
         });

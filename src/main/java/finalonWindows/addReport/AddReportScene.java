@@ -1,152 +1,113 @@
 package finalonWindows.addReport;
 
-import entities.Formula;
+import entities.Item;
 import finalonWindows.SceneBase;
-import finalonWindows.addReport.report.SecondStep;
+import finalonWindows.addReport.stepOne.StepOne;
+import finalonWindows.addReport.stepThree.StepThree;
+import finalonWindows.addReport.stepTwo.StepTwo;
 import finalonWindows.reusableComponents.SettingsMenu;
-import finalonWindows.reusableComponents.selectbox.Choices;
-import finalonWindows.reusableComponents.selectbox.CurrencySelect;
-import finalonWindows.reusableComponents.selectbox.IndustrySelect;
-import finalonWindows.reusableComponents.selectbox.StandardSelect;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class AddReportScene extends SceneBase {
-    private final String defaultStandard = "1";
     private Stage window;
     private ObservableMap<String, String> settings;
-    private Label errors = new Label();
+    private ObservableList<Item> items;
 
     public AddReportScene(Stage windowArg) {
-        errors.getStyleClass().add("settings-error");
         window = windowArg;
         this.settings = FXCollections.observableHashMap();
-        settings.put("standard", defaultStandard);
-        settings.put("company", "");
-
-        settings.put("step", "year");
+        this.items = FXCollections.observableArrayList();
     }
 
     public Scene getScene() {
         VBox vbox = new VBox(0);
         vbox.getStyleClass().add("container");
         SettingsMenu settingsMenu = new SettingsMenu(window);
-        vbox.getChildren().addAll(settingsMenu.getMenu(), vboxInner());
+        StepOne stepOne = new StepOne(settings, vbox);
+        StepTwo stepTwo = new StepTwo(settings, items, vbox);
+        StepThree stepThree = new StepThree(settings, items);
+        settings.put("step", "second");
+        settings.addListener(new MapChangeListener() {
+            @Override
+            public void onChanged(MapChangeListener.Change change) {
+                if (change.getKey().equals("step")) {
+                    String newStep = (String) change.getValueAdded();
+                    vbox.getChildren().clear();
+                    if (newStep.equals("one")) {
+                        vbox.getChildren().addAll(settingsMenu.getMenu(), stepOne.show());
+                    } else if (newStep.equals("two")) {
+                        vbox.getChildren().addAll(headerMenu(), stepTwo.show());
+                    } else if (newStep.equals("three")) {
+                        vbox.getChildren().addAll(headerMenu(), stepThree.show());
+                    }
+                }
+            }
+        });
+
+        vbox.getChildren().addAll(settingsMenu.getMenu(), stepOne.show());
         Scene scene = baseScene(vbox, 900);
-        scene.getStylesheets().addAll("styles/addReport.css");
+        scene.getStylesheets().addAll("styles/addReport.css", "styles/templateStyle.css");
         return scene;
     }
 
 
-    private VBox vboxInner() {
-        VBox vbox = new VBox(0);
-        vbox.getStyleClass().add("inner-container");
-        Label mainLabel = new Label("Generate Report");
-        mainLabel.getStyleClass().add("main-label");
-        HBox hBox = new HBox(20);
-        hBox.getChildren().addAll(
-                titledHbox("Step of Analysis", ReportStep.get(settings)),
-                titledHbox("How many periods \nyou want to analyse: ", Periods.get(settings))
-        );
-
-        HBox err = new HBox(20);
-        err.getStyleClass().add("hbox-row");
-        err.getChildren().add(errors);
-
-        DateSelect dateSelect = new DateSelect(settings);
-        vbox.getChildren().addAll(
-                mainLabel,
-                ReportName.get(settings),
-                titledHbox("Template", TemplateSelect.get(settings)),
-                currencyRow(),
-                standardIndustry(),
-                hBox,
-                dateSelect.get(),
-                err,
-                nextButton()
-        );
-        return vbox;
+    HBox headerMenu() {
+        HBox hbox = new HBox(20);
+        String step = settings.get("step");
+        if (step.equals("two")) {
+            hbox.getChildren().addAll(backSettingsButton(), generateButton());
+        }
+        if (step.equals("three")) {
+            hbox.getChildren().addAll(backSettingsButton(), backStepTwoButton());
+        }
+        return hbox;
     }
 
 
-    private HBox currencyRow() {
-        HBox hBox = new HBox(20);
-        Label label = new Label("Currency");
-        hBox.getStyleClass().add("hbox-row");
-        label.getStyleClass().add("sub-label");
-        hBox.getChildren().addAll(label, AmountSelect.get(settings), CurrencySelect.get(settings));
-        return hBox;
-    }
-
-    private HBox standardIndustry() {
-        HBox hBox = new HBox(20);
-        ComboBox<Formula> standard = StandardSelect.get(settings);
-        ComboBox<Formula> industry = IndustrySelect.get(defaultStandard, settings);
-        standard.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Formula>() {
-            @Override
-            public void changed(ObservableValue<? extends Formula> arg0, Formula arg1, Formula arg2) {
-                if (arg2 != null) {
-                    industry.setItems(Choices.getChoices(arg2.getId()));
-                    industry.getSelectionModel().selectFirst();
-                    settings.replace("standard", Integer.toString(arg2.getId()));
-                }
-            }
-        });
-        hBox.getChildren().addAll(titledHbox("Finance analysis standard", standard), titledHbox("Industry", industry));
-        return hBox;
-    }
-
-
-    private HBox titledHbox(String title, ComboBox select) {
-        Label label = new Label(title);
-        HBox hBox = new HBox(20);
-        hBox.getStyleClass().add("hbox-row");
-        label.getStyleClass().add("sub-label");
-        hBox.getChildren().addAll(label, select);
-        return hBox;
-    }
-
-
-    private HBox nextButton() {
-        HBox hBox = new HBox(20);
-        hBox.getStyleClass().add("hbox-row-btn");
-        Button btn = new Button(" Next");
-        Image img = new Image("image/right-arrow.png");
-        ImageView iv = new ImageView(img);
-        btn.setGraphic(iv);
-        btn.getStyleClass().add("blue-btn");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
+    Button generateButton() {
+        Button button = new Button("Generate Report");
+        button.getStyleClass().add("blue-btn");
+        button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                String company = settings.get("company").toString();
-                if (company.length() == 0) {
-                    errors.setText("Please fill in company name");
-                } else {
-                    errors.setText("");
-                    SecondStep secondStep = new SecondStep(window, settings);
-                    window.setScene(secondStep.getScene());
-                }
+                settings.put("step", "three");
             }
         });
-        hBox.getChildren().add(btn);
-        hBox.setHgrow(btn, Priority.ALWAYS);
-        hBox.setAlignment(Pos.BASELINE_CENTER);
-        return hBox;
+        return button;
+    }
+
+    Button backSettingsButton() {
+        Button button = new Button("Report Settings");
+        button.getStyleClass().add("blue-btn");
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                settings.put("step", "one");
+            }
+        });
+        return button;
+    }
+
+    Button backStepTwoButton() {
+        Button button = new Button("Back to data input");
+        button.getStyleClass().add("blue-btn");
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                settings.put("step", "two");
+            }
+        });
+        return button;
     }
 
 }

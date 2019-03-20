@@ -1,4 +1,4 @@
-package finalonWindows.addReport.report;
+package finalonWindows.addReport.stepTwo;
 
 import database.setting.DbSettingHandler;
 import entities.Item;
@@ -13,6 +13,7 @@ class Columns {
 
     private TextEditHandler textEditHandler;
     private ObservableMap<String, String> settings;
+
     public Columns(
             TextEditHandler textEditHandler,
             ObservableMap<String, String> settings
@@ -48,9 +49,9 @@ class Columns {
         col.setCellValueFactory(cellData -> {
             Item item = (Item) cellData.getValue().getValue();
             if (item != null && item.getValues().size() > 0) {
-                String  val = Double.toString(item.getValues().get(colname));
+                String val = Double.toString(item.getValues().get(colname));
                 DbSettingHandler dbSettingHandler = new DbSettingHandler();
-                if(dbSettingHandler.getSetting("numberFormat").equals("comma")){
+                if (dbSettingHandler.getSetting("numberFormat").equals("comma")) {
                     val = val.replace('.', ',');
                 }
                 return new SimpleStringProperty(val);

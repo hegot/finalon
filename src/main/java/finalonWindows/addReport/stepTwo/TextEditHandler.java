@@ -1,4 +1,4 @@
-package finalonWindows.addReport.report;
+package finalonWindows.addReport.stepTwo;
 
 import entities.Item;
 import javafx.collections.ObservableList;
@@ -7,18 +7,16 @@ import javafx.event.EventHandler;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 
-import java.util.ArrayList;
-
 public class TextEditHandler {
 
     private ObservableList<Item> items;
 
-    public TextEditHandler(ObservableList<Item> items){
+    public TextEditHandler(ObservableList<Item> items) {
         this.items = items;
     }
 
     private void updateCell(TreeTableColumn.CellEditEvent<Item, String> t, String param) {
-        String value = t.getNewValue().replace(',','.');
+        String value = t.getNewValue().replace(',', '.');
         if (value != null) {
             TreeItem<Item> treeItem = t.getRowValue();
             if (treeItem != null) {
@@ -41,23 +39,23 @@ public class TextEditHandler {
     }
 
     private void updateParent(Item child, String param) {
-        for(Item parent : items){
-            if(child.getParent() == parent.getId()){
+        for (Item parent : items) {
+            if (child.getParent() == parent.getId()) {
                 ObservableMap<String, Double> values = parent.getValues();
-                values.put(param,  getChildVals(parent.getId(), param));
+                values.put(param, getChildVals(parent.getId(), param));
                 updateParent(parent, param);
             }
         }
     }
 
-    private Double getChildVals(int id, String param){
+    private Double getChildVals(int id, String param) {
         Double val = 0.0;
-        for(Item item : items){
-            if(item.getParent() == id){
+        for (Item item : items) {
+            if (item.getParent() == id) {
                 ObservableMap<String, Double> values = item.getValues();
-                if(values.size() > 0){
+                if (values.size() > 0) {
                     Double value = values.get(param);
-                    if(value != null){
+                    if (value != null) {
                         val += value;
                     }
                 }
@@ -65,7 +63,6 @@ public class TextEditHandler {
         }
         return val;
     }
-
 
 
     public void setColumnEventHandlers(TreeTableColumn column, String param) {

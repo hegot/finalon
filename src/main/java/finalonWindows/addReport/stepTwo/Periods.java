@@ -1,4 +1,4 @@
-package finalonWindows.addReport.report;
+package finalonWindows.addReport.stepTwo;
 
 import javafx.collections.ObservableMap;
 

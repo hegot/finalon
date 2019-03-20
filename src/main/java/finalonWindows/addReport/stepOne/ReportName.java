@@ -1,4 +1,4 @@
-package finalonWindows.addReport;
+package finalonWindows.addReport.stepOne;
 
 import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
