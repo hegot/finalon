@@ -7,9 +7,6 @@ import finalonWindows.addReport.stepTwo.Periods;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,34 +46,23 @@ public class Interprter {
     }
 
 
-    public VBox result() {
+    public ObservableList<Formula> result() {
         Map<String, ObservableMap<String, Double>> values = obtainKeyValueArray();
         ArrayList<String> periods = getPeriods();
-        VBox vBox = new VBox(20);
-
-        HBox header = new HBox(20);
-        header.getChildren().add(new Label("Formula Name"));
-        for (String period : periods) {
-            header.getChildren().add(new Label(period));
-        }
-        vBox.getChildren().add(header);
-
         for (Formula formula : formulas) {
             if (formula.getValue().length() > 0) {
-                HBox hBox = new HBox(20);
-                hBox.getChildren().add(new Label(formula.getShortName()));
+                ObservableMap<String, String> formulaPeriods = FXCollections.observableHashMap();
                 for (String period : periods) {
                     FormulaHahdler formulaHahdler = new FormulaHahdler(formula, values, period);
                     String res = formulaHahdler.getResult();
-                    if(res != null && res.length() > 0){
-                        hBox.getChildren().add(new Label(res));
+                    if (res != null && res.length() > 0) {
+                        formulaPeriods.put(period, res);
                     }
                 }
-                vBox.getChildren().add(hBox);
+                formula.setPeriods(formulaPeriods);
             }
-
         }
-        return vBox;
+        return formulas;
     }
 
 
