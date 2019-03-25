@@ -12,6 +12,8 @@ class FormulaHahdler {
     private Formula formula;
     private Map<String, ObservableMap<String, Double>> values;
     private String period;
+    private String Fperiod = "[0]";
+    private String Speriod = "[1]";
 
     public FormulaHahdler(Formula formula, Map<String, ObservableMap<String, Double>> values, String period) {
         this.formula = formula;
@@ -42,9 +44,31 @@ class FormulaHahdler {
         return formulaVal;
     }
 
+
     private Double searchInValues(String index) {
+        boolean nextIndex = false;
+        if(index.indexOf(Fperiod) > -1){
+            index = index.replace(Fperiod,"");
+        }
+        if(index.indexOf(Speriod) > -1){
+            index = index.replace(Speriod,"");
+            nextIndex = true;
+        }
         ObservableMap<String, Double> map = values.get(index);
         if (map != null) {
+            if(nextIndex){
+                Object[] set = map.keySet().toArray();
+                for (int i =0; i < set.length; i++) {
+                    String key = (String) set[i];
+                    if(key.equals(period)){
+                        int i2 = i+ 1;
+                        if(i2 < set.length){
+                            String nextPeriod = (String) set[i + 1];
+                            return map.get(nextPeriod);
+                        }
+                    }
+                }
+            }
             return map.get(period);
         }
         return null;
@@ -52,7 +76,8 @@ class FormulaHahdler {
 
 
     private String[] getIndexes() {
-        String[] chunks = new ParserBase().getChunks(formula.getValue());
+        String formulaVal = formula.getValue();
+        String[] chunks = new ParserBase().getChunks(formulaVal, true);
         return chunks;
     }
 
@@ -63,11 +88,15 @@ class FormulaHahdler {
         String res = "";
         try {
             res = engine.eval(value).toString();
-            System.out.println(res);
+            if (res != null && res.length() > 0) {
+                Double doubleInt = Double.parseDouble(res);
+                res = value + " = " + String.format("%.2f", doubleInt);
+            }else{
+                res = "";
+            }
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
-
         return res;
     }
 

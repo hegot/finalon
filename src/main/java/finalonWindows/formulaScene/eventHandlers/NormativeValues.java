@@ -15,10 +15,10 @@ import javafx.scene.layout.VBox;
 
 class NormativeValues {
     private ScrollPane scrollPane;
-    private FormulaExtended parent;
+    private Formula parent;
     private Tab tab;
 
-    NormativeValues(FormulaExtended parent) {
+    NormativeValues(Formula parent) {
         this.parent = parent;
         tab = new Tab("Normative values");
         this.scrollPane = new ScrollPane();
@@ -31,7 +31,7 @@ class NormativeValues {
         return tab;
     }
 
-    FormulaExtended getFormulaUpdated() {
+    Formula getFormulaUpdated() {
         return parent;
     }
 

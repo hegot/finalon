@@ -72,8 +72,7 @@ public class EditHandler {
                                 parentTreeItem.getChildren().remove(treeItem);
                             }
                             parentFormula.setCategory("TO_BE_DELETED");
-                            FormulaExtended formulaExtended = new FormulaExtended(parentFormula, FXCollections.observableArrayList());
-                            EditStorage.addItem(parentFormula.getId(), formulaExtended);
+                            EditStorage.addItem(parentFormula.getId(), parentFormula);
                         });
                         return btn;
                     }

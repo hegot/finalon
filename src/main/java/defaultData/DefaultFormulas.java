@@ -74,7 +74,7 @@ public class DefaultFormulas {
 
         //Financial Sustainability
         int TimesInterestEarned = counter;
-        Formulas.add(new Formula(TimesInterestEarned, "Times Interest Earned", "TimesInterestEarned", "(ProfitLossBeforeTax-FinanceCost-GainsLossesOnNetMonetaryPosition)/FinanceCost", "", "formula", "times", FSiD));
+        Formulas.add(new Formula(TimesInterestEarned, "Times Interest Earned", "TimesInterestEarned", "(ProfitLossBeforeTax-FinanceCosts-GainsLossesOnNetMonetaryPosition)/FinanceCosts", "", "formula", "times", FSiD));
         counter++;
         int TimesInterestEarnedexcellent = counter;
         Formulas.add(new Formula(TimesInterestEarnedexcellent, "excellent", ">=", "2", "", "", "", TimesInterestEarned));
@@ -229,7 +229,7 @@ public class DefaultFormulas {
         Formulas.add(new Formula(ReturnonOperatingAssets, "Return on Operating Assets", "ReturnonOperatingAssets", "ProfitLossFromOperatingActivities/(Assets[0]/2+Assets[1]/2-IntangibleAssetsOtherThanGoodwill[0]/2-IntangibleAssetsOtherThanGoodwill[1]/2-Goodwill[0]/2-Goodwill[1]/2-OtherNoncurrentNonfinancialAssets[0]/2-OtherNoncurrentNonfinancialAssets[1]/2-DeferredTaxAssets[0]/2-DeferredTaxAssets[1]/2-OtherNoncurrentFinancialAssets[0]/2-OtherNoncurrentFinancialAssets[1]/2-CurrentTaxAssetsNoncurrent[0]/2-CurrentTaxAssetsNoncurrent[1]/2)", "", "formula", "%", PaPiD));
         counter++;
         int ReturnonInvestment = counter;
-        Formulas.add(new Formula(ReturnonInvestment, "Return on Investment", "ReturnonInvestment", "(ProfitLossBeforeTax-IncomeTaxExpenseContinuingOperations+FinanceCost)/(Equity[0]/2+Equity[1]/2+NonCurrentAssets[0]/2+NonCurrentAssets[1]/2)", "", "formula", "%", PaPiD));
+        Formulas.add(new Formula(ReturnonInvestment, "Return on Investment", "ReturnonInvestment", "(ProfitLossBeforeTax-IncomeTaxExpenseContinuingOperations+FinanceCosts)/(Equity[0]/2+Equity[1]/2+NonCurrentAssets[0]/2+NonCurrentAssets[1]/2)", "", "formula", "%", PaPiD));
         counter++;
         int ReturnonInvestmentexcellent = counter;
         Formulas.add(new Formula(ReturnonInvestmentexcellent, "excellent", ">", "4", "", "", "", ReturnonInvestment));
@@ -426,7 +426,7 @@ public class DefaultFormulas {
         Formulas.add(new Formula(X2, "Altman Z-score X2", "X2", "RetainedEarnings/Assets", "", "formula", "", AZSiD));
         counter++;
         int X3 = counter;
-        Formulas.add(new Formula(X3, "Altman Z-score X3", "X3", "(ProfitLossBeforeTax+FinanceCost)/Assets", "", "formula", "", AZSiD));
+        Formulas.add(new Formula(X3, "Altman Z-score X3", "X3", "(ProfitLossBeforeTax+FinanceCosts)/Assets", "", "formula", "", AZSiD));
         counter++;
         int X4 = counter;
         Formulas.add(new Formula(X4, "Altman Z-score X4", "X4", "Equity/(NonCurrentAssets+CurrentLiabilities)", "", "formula", "", AZSiD));
@@ -435,7 +435,7 @@ public class DefaultFormulas {
         Formulas.add(new Formula(X5, "Altman Z-score X5", "X5", "Revenue/Assets", "", "formula", "", AZSiD));
         counter++;
         int Z = counter;
-        Formulas.add(new Formula(Z, "Altman Z-score Z", "Z", "0.717*(CurrentAssets-CurrentLiabilities)/Assets+0.847*RetainedEarnings/Assets+3.107*(ProfitLossBeforeTax+FinanceCost)/Assets+0.42*Equity/(NonCurrentAssets+CurrentLiabilities)+0.998*Revenue/Assets", "", "formula", "", AZSiD));
+        Formulas.add(new Formula(Z, "Altman Z-score Z", "Z", "0.717*(CurrentAssets-CurrentLiabilities)/Assets+0.847*RetainedEarnings/Assets+3.107*(ProfitLossBeforeTax+FinanceCosts)/Assets+0.42*Equity/(NonCurrentAssets+CurrentLiabilities)+0.998*Revenue/Assets", "", "formula", "", AZSiD));
         counter++;
 
         //Other

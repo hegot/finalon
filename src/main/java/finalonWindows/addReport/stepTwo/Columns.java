@@ -49,12 +49,16 @@ class Columns {
         col.setCellValueFactory(cellData -> {
             Item item = (Item) cellData.getValue().getValue();
             if (item != null && item.getValues().size() > 0) {
-                String val = Double.toString(item.getValues().get(colname));
-                DbSettingHandler dbSettingHandler = new DbSettingHandler();
-                if (dbSettingHandler.getSetting("numberFormat").equals("comma")) {
-                    val = val.replace('.', ',');
+                Double dob = item.getValues().get(colname);
+                if(dob != null){
+                    String val = Double.toString(dob);
+                    DbSettingHandler dbSettingHandler = new DbSettingHandler();
+                    if (dbSettingHandler.getSetting("numberFormat").equals("comma")) {
+                        val = val.replace('.', ',');
+                    }
+                    return new SimpleStringProperty(val);
                 }
-                return new SimpleStringProperty(val);
+
             }
             return null;
         });

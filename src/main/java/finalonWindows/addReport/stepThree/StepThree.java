@@ -18,19 +18,11 @@ public class StepThree extends SceneBase {
     }
 
     public VBox show() {
-
-        String res = evaluateFormula();
-        Label label = new Label(res);
+        Interprter interprter = new Interprter(settings, items);
         VBox vbox = new VBox(10);
-        vbox.getChildren().addAll(label);
+        vbox.getChildren().addAll(interprter.result());
 
         return vbox;
-    }
-
-
-    private String evaluateFormula() {
-        Interprter interprter = new Interprter(settings, items);
-        return interprter.result();
     }
 
 

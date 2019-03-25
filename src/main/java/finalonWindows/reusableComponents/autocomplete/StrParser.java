@@ -11,7 +11,7 @@ class StrParser extends ParserBase {
     void change(String input, String text, int start, int end) {
         if (start > 0 && end > 0) {
             input = addChar(input, text, start);
-            String[] words = getChunks(input);
+            String[] words = getChunks(input, false);
             for (String s : words) {
                 int len = input.length();
                 if (len > 0 && len > s.length()) {

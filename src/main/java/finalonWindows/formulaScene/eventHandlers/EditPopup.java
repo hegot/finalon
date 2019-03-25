@@ -29,11 +29,11 @@ class EditPopup {
 
 
         this.editFormula = new EditFormula(formula);
-        FormulaExtended formulaExtended = EditStorage.find(formula.getId());
+        Formula formulaExtended = EditStorage.find(formula.getId());
         if (formulaExtended == null) {
-            formulaExtended = new FormulaExtended(formula, getChilds());
+            formula.setChilds(getChilds());
         }
-        this.normativeValues = new NormativeValues(formulaExtended);
+        this.normativeValues = new NormativeValues(formula);
     }
 
     private ObservableList<Formula> getChilds() {
@@ -67,10 +67,10 @@ class EditPopup {
             } else {
                 updateFormula();
                 treeItem.setValue(formula);
-                FormulaExtended formulaExtended = normativeValues.getFormulaUpdated();
-                ObservableList<Formula> childs = formulaExtended.getChilds();
-                FormulaExtended newFormulaExtended = new FormulaExtended(formula, childs);
-                EditStorage.addItem(formula.getId(), newFormulaExtended);
+                Formula formulaWithNormative = normativeValues.getFormulaUpdated();
+                ObservableList<Formula> childs = formulaWithNormative.getChilds();
+                formula.setChilds(childs);
+                EditStorage.addItem(formula.getId(), formula);
                 dialog.close();
             }
         };

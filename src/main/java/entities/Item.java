@@ -31,7 +31,7 @@ public class Item {
         this.finResult = finResult;
         this.parent = parent;
         this.parentSheet = parentSheet;
-        this.values = FXCollections.observableHashMap();
+        this.values = null;
     }
 
     public Item(

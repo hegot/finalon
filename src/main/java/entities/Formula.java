@@ -1,5 +1,9 @@
 package entities;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
+
 public class Formula {
     private int id;
     private String name;
@@ -9,6 +13,8 @@ public class Formula {
     private String category;
     private String unit;
     private int parent;
+    private ObservableList<Formula> childs;
+    private ObservableMap<String, String> periods;
 
     public Formula(
             int id,
@@ -28,6 +34,54 @@ public class Formula {
         this.category = category;
         this.unit = unit;
         this.parent = parent;
+        this.childs =  null;
+        this.periods = null;
+    }
+
+    public Formula(
+            int id,
+            String name,
+            String shortName,
+            String value,
+            String description,
+            String category,
+            String unit,
+            int parent,
+            ObservableList<Formula> childs
+    ) {
+        this.id = id;
+        this.name = name;
+        this.shortName = shortName;
+        this.value = value;
+        this.description = description;
+        this.category = category;
+        this.unit = unit;
+        this.parent = parent;
+        this.childs =  childs;
+        this.periods = null;
+    }
+
+    public Formula(
+            int id,
+            String name,
+            String shortName,
+            String value,
+            String description,
+            String category,
+            String unit,
+            int parent,
+            ObservableMap<String, String> periods
+    ) {
+        this.id = id;
+        this.name = name;
+        this.shortName = shortName;
+        this.value = value;
+        this.description = description;
+        this.category = category;
+        this.unit = unit;
+        this.parent = parent;
+        this.childs =  null;
+        this.periods = periods;
     }
 
     public int getId() {
@@ -97,5 +151,22 @@ public class Formula {
 
     public String toString(Formula formula) {
         return formula == null ? null : formula.getName();
+    }
+
+
+    public ObservableList<Formula> getChilds() {
+        return this.childs;
+    }
+
+    public void setChilds(ObservableList<Formula> childs) {
+        this.childs = childs;
+    }
+
+    public ObservableMap<String, String> getPeriods() {
+        return this.periods;
+    }
+
+    public void setPeriods(ObservableMap<String, String> periods) {
+        this.periods = periods;
     }
 }

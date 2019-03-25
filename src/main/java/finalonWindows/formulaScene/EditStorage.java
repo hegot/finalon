@@ -2,7 +2,6 @@ package finalonWindows.formulaScene;
 
 import database.formula.DbFormulaHandler;
 import entities.Formula;
-import finalonWindows.formulaScene.eventHandlers.FormulaExtended;
 import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
@@ -10,7 +9,7 @@ import java.util.*;
 
 public class EditStorage {
     public static EditStorage editStorage;
-    private static Map<Integer, FormulaExtended> formulas;
+    private static Map<Integer, Formula> formulas;
     private static DbFormulaHandler dbFormula = new DbFormulaHandler();
     private boolean initalized = false;
 
@@ -25,15 +24,15 @@ public class EditStorage {
         return SingletonHolder.INSTANCE;
     }
 
-    public static void addItem(Integer key, FormulaExtended formula) {
+    public static void addItem(Integer key, Formula formula) {
         formulas.put(key, formula);
     }
 
-    public static FormulaExtended find(Integer key) {
+    public static Formula find(Integer key) {
         return formulas.get(key);
     }
 
-    public static Map<Integer, FormulaExtended> getItems() {
+    public static Map<Integer, Formula> getItems() {
         return formulas;
     }
 
@@ -41,7 +40,7 @@ public class EditStorage {
         Iterator it = formulas.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
-            FormulaExtended formula = (FormulaExtended) pair.getValue();
+            Formula formula = (Formula) pair.getValue();
             int ID = formula.getId();
             dbFormula.updateFormula(formula);
 

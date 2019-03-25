@@ -2,6 +2,7 @@ package database.template;
 
 import database.Connect;
 import database.DbHandlerBase;
+import defaultData.DefaultTemplate;
 import entities.Item;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,7 +19,7 @@ public class DbItemHandler extends DbHandlerBase {
     public DbItemHandler() {
         Connect connect = Connect.getInstance();
         this.connection = connect.conn;
-        tableName = "items";
+        this.tableName = "items";
     }
 
     private void createTbl() throws SQLException {
@@ -218,19 +219,29 @@ public class DbItemHandler extends DbHandlerBase {
     public TreeSet getCodes() {
         TreeSet entries = new TreeSet<String>();
         ArrayList<Integer> parents = parentIds();
-        String list = "";
-        for (int id : parents) {
-            list += id + ", ";
-        }
-        list = list.substring(0, list.length() - 2);
-        try (Statement statement = this.connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT shortName FROM " + tableName + " WHERE id NOT IN (" + list + ")");
-            while (resultSet.next()) {
-                entries.add(resultSet.getString("shortName"));
+        if(parents.size() > 0){
+            String list = "";
+            for (int id : parents) {
+                list += id + ", ";
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            list = list.substring(0, list.length() - 2);
+            try (Statement statement = this.connection.createStatement()) {
+                ResultSet resultSet = statement.executeQuery("SELECT shortName FROM " + tableName + " WHERE id NOT IN (" + list + ")");
+                while (resultSet.next()) {
+                    entries.add(resultSet.getString("shortName"));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
+        if(entries.size() == 0){
+            ObservableList<Item> items =  DefaultTemplate.getTpl();
+            for (Item item : items) {
+                entries.add(item.getShortName());
+            }
+        }
+
         return entries;
     }
 
