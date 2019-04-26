@@ -6,7 +6,9 @@ import javafx.collections.ObservableMap;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.TreeMap;
 
 class FormulaHahdler {
     private Formula formula;
@@ -32,13 +34,16 @@ class FormulaHahdler {
 
     public String getValuesInPlace() {
         String formulaVal = formula.getValue();
-        for (String index : getIndexes()) {
-            Double val = searchInValues(index);
-            if (val != null) {
-                String indexVal = Double.toString(val);
-                formulaVal = formulaVal.replace(index, indexVal);
-            } else {
-                return null;
+        String[] indexes = getIndexes();
+        for (String index : indexes) {
+            if(!isNumeric(index)){
+                Double val = searchInValues(index);
+                if (val != null) {
+                    String indexVal = Double.toString(val);
+                    formulaVal = formulaVal.replace(index, indexVal);
+                } else {
+                    return null;
+                }
             }
         }
         return formulaVal;
@@ -46,30 +51,32 @@ class FormulaHahdler {
 
 
     private Double searchInValues(String index) {
-        boolean nextIndex = false;
+        boolean prevIndex = false;
         if(index.indexOf(Fperiod) > -1){
             index = index.replace(Fperiod,"");
+            prevIndex = true;
         }
         if(index.indexOf(Speriod) > -1){
             index = index.replace(Speriod,"");
-            nextIndex = true;
         }
         ObservableMap<String, Double> map = values.get(index);
         if (map != null) {
-            if(nextIndex){
+            if(prevIndex){
                 Object[] set = map.keySet().toArray();
-                for (int i =0; i < set.length; i++) {
+                Arrays.sort(set);
+                for (int i = 0; i < set.length; i++) {
                     String key = (String) set[i];
                     if(key.equals(period)){
-                        int i2 = i+ 1;
-                        if(i2 < set.length){
-                            String nextPeriod = (String) set[i + 1];
-                            return map.get(nextPeriod);
+                        int i2 = i - 1;
+                        if(i2 >= 0){
+                            String prevPeriod = (String) set[i2];
+                            return map.get(prevPeriod);
                         }
                     }
                 }
+            }else{
+                return map.get(period);
             }
-            return map.get(period);
         }
         return null;
     }
@@ -100,4 +107,13 @@ class FormulaHahdler {
         return res;
     }
 
+
+    public static boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
+    }
 }

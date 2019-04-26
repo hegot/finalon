@@ -34,7 +34,7 @@ public class Periods {
 
     public int getMonths() {
         int amount = 1;
-        String step = settings.get("step");
+        String step = settings.get("reportStep");
         switch (step) {
             case "month":
                 amount = 1;
@@ -61,9 +61,11 @@ public class Periods {
         date.setDate(endDay);
 
         LocalDateTime time = LocalDateTime.of(endYear, endMonth, endDay, 0, 0);
+        int totall = periods * month;
+        time = time.minusMonths(totall);
         for (int j = 0; j < periods; j++) {
             String str = time.format(formatM) + "/" + time.format(formatY) + "-";
-            time = time.minusMonths(month);
+            time = time.plusMonths(month);
             str += "\n" + time.format(formatM) + "/" + time.format(formatY);
             arr.add(str);
         }

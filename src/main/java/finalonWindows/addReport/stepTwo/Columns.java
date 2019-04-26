@@ -9,6 +9,8 @@ import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.cell.TextFieldTreeTableCell;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 
+import java.util.Arrays;
+
 
 class Columns {
 
@@ -51,15 +53,21 @@ class Columns {
             TreeItem treeItem = cellData.getValue();
             if (treeItem != null) {
                 Item item = (Item) treeItem.getValue();
-                if (item != null && item.getValues().size() > 0) {
-                    Double dob = item.getValues().get(colname);
-                    if (dob != null) {
-                        String val = Double.toString(dob);
-                        DbSettingHandler dbSettingHandler = new DbSettingHandler();
-                        if (dbSettingHandler.getSetting("numberFormat").equals("comma")) {
-                            val = val.replace('.', ',');
+                if (item != null) {
+                    String[] arr = {"StatementOfFinancialPosition", "StatementOfComprehensiveIncome", "CashFlowStatement", "OtherData"};
+                    if (Arrays.asList(arr).contains(item.getShortName())) {
+                        return null;
+                    }
+                    if (item.getValues().size() > 0) {
+                        Double dob = item.getValues().get(colname);
+                        if (dob != null) {
+                            String val = Double.toString(dob);
+                            DbSettingHandler dbSettingHandler = new DbSettingHandler();
+                            if (dbSettingHandler.getSetting("numberFormat").equals("comma")) {
+                                val = val.replace('.', ',');
+                            }
+                            return new SimpleStringProperty(val);
                         }
-                        return new SimpleStringProperty(val);
                     }
                 }
             }

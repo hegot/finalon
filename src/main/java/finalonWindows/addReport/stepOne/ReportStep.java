@@ -13,12 +13,13 @@ public class ReportStep {
         ObservableList<String> steps = FXCollections.observableArrayList();
         steps.addAll("year", "half year", "quater", "month");
         stepBox.setItems(steps);
+        settings.put("reportStep", "year");
         stepBox.getSelectionModel().selectFirst();
         stepBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
                 if (arg2 != null) {
-                    settings.replace("step", arg2);
+                    settings.replace("reportStep", arg2);
                 }
             }
         });

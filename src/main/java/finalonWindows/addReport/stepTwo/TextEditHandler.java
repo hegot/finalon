@@ -30,12 +30,21 @@ public class TextEditHandler {
 
 
     private void updateItem(Item item, ObservableMap<String, Double> values, String value, String param) {
-        if (value.length() > 0) {
+        if (value.length() > 0 &&  isNumeric(value)) {
             values.put(param, Double.parseDouble(value));
         } else {
             values.remove(param);
         }
         item.setValues(values);
+    }
+
+    public static boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
     }
 
     private void updateParent(Item child, String param) {

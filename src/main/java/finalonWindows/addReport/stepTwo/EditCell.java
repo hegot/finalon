@@ -2,7 +2,6 @@ package finalonWindows.addReport.stepTwo;
 
 import finalonWindows.reusableComponents.NumField;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -77,12 +76,9 @@ public class EditCell<S, T> extends TreeTableCell<S, T> {
                 }
             }
         });
-        this.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent t) {
-                if (t.getButton() == MouseButton.PRIMARY && t.getClickCount() == 2) {
-                    t.consume();
-                }
+        this.addEventHandler(MouseEvent.ANY, event -> {
+            if (event.getClickCount() == 2 && event.getButton().equals(MouseButton.PRIMARY)) {
+                this.getTreeTableRow().getTreeItem().setExpanded(true);
             }
         });
     }

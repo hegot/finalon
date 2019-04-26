@@ -31,8 +31,7 @@ public class StepOne {
         this.settings = settings;
         this.parent = parent;
         settings.put("standard", defaultStandard);
-        settings.put("company", "");
-        settings.put("step", "year");
+        settings.put("company", " ");
     }
 
 
