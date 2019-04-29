@@ -25,7 +25,7 @@ public class Periods {
     }
 
     private void setMonthDay() {
-        String date = "31.12";
+        String date = settings.get("date");
         String[] tempArray = date.split("\\.");
         this.endMonth = Integer.parseInt(tempArray[1]);
         this.endDay = Integer.parseInt(tempArray[0]);

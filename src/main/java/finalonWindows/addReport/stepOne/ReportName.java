@@ -16,9 +16,9 @@ public class ReportName {
         company.setMinWidth(300.00);
         company.setPromptText("Company name will be used in report");
         String companyVal = settings.get("company");
-        if(companyVal != null){
+        if (companyVal != null) {
             company.setText(companyVal);
-        }else{
+        } else {
             settings.put("company", "");
         }
         company.focusedProperty().addListener((obs, oldVal, newVal) -> {

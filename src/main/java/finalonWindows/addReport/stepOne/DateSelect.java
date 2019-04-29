@@ -30,7 +30,7 @@ public class DateSelect {
     private ComboBox dates() {
         ObservableList<String> dates = FXCollections.observableArrayList();
         dates.addAll("31.12", "30.11", "31.10", "30.09", "31.08", "30.07", "31.06", "30.05", "31.04", "30.03", "28.02", "31.01");
-        return SettingsSelect.get(settings, dates, "date","31.12");
+        return SettingsSelect.get(settings, dates, "date", "31.12");
     }
 
 

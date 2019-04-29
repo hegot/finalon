@@ -15,9 +15,9 @@ public class SettingsSelect {
         box.setItems(items);
         box.getSelectionModel().selectFirst();
         String val = settings.get(key);
-        if(val != null){
+        if (val != null) {
             box.setValue(val);
-        }else{
+        } else {
             settings.put(key, defaultVal);
             box.getSelectionModel().selectFirst();
         }
