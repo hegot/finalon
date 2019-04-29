@@ -15,6 +15,15 @@ public class TextEditHandler {
         this.items = items;
     }
 
+    public static boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
     private void updateCell(TreeTableColumn.CellEditEvent<Item, String> t, String param) {
         String value = t.getNewValue().replace(',', '.');
         if (value != null) {
@@ -28,23 +37,13 @@ public class TextEditHandler {
         }
     }
 
-
     private void updateItem(Item item, ObservableMap<String, Double> values, String value, String param) {
-        if (value.length() > 0 &&  isNumeric(value)) {
+        if (value.length() > 0 && isNumeric(value)) {
             values.put(param, Double.parseDouble(value));
         } else {
             values.remove(param);
         }
         item.setValues(values);
-    }
-
-    public static boolean isNumeric(String str) {
-        try {
-            Double.parseDouble(str);
-            return true;
-        } catch(NumberFormatException e){
-            return false;
-        }
     }
 
     private void updateParent(Item child, String param) {

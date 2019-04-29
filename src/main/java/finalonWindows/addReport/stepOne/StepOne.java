@@ -1,12 +1,14 @@
 package finalonWindows.addReport.stepOne;
 
+import defaultData.DefaultCurrency;
 import entities.Formula;
 import finalonWindows.reusableComponents.selectbox.Choices;
-import finalonWindows.reusableComponents.selectbox.CurrencySelect;
 import finalonWindows.reusableComponents.selectbox.IndustrySelect;
 import finalonWindows.reusableComponents.selectbox.StandardSelect;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -30,48 +32,63 @@ public class StepOne {
         errors.getStyleClass().add("settings-error");
         this.settings = settings;
         this.parent = parent;
-        settings.put("standard", defaultStandard);
-        settings.put("company", " ");
     }
-
 
     public VBox show() {
         VBox vbox = new VBox(0);
         vbox.getStyleClass().add("inner-container");
         Label mainLabel = new Label("Generate Report");
         mainLabel.getStyleClass().add("main-label");
-        HBox hBox = new HBox(20);
-        hBox.getChildren().addAll(
-                titledHbox("Step of Analysis", ReportStep.get(settings)),
-                titledHbox("How many periods \nyou want to analyse: ", Periods.get(settings))
-        );
-
         HBox err = new HBox(20);
         err.getStyleClass().add("hbox-row");
         err.getChildren().add(errors);
-
-        DateSelect dateSelect = new DateSelect(settings);
         vbox.getChildren().addAll(
                 mainLabel,
                 ReportName.get(settings),
                 titledHbox("Template", TemplateSelect.get(settings)),
                 currencyRow(),
                 standardIndustry(),
-                hBox,
-                dateSelect.get(),
+                periodsRow(),
+                new DateSelect(settings).get(),
                 err,
                 nextButton()
         );
         return vbox;
     }
 
+    private HBox periodsRow() {
+        HBox hBox = new HBox(20);
+        ObservableList<String> steps = FXCollections.observableArrayList();
+        steps.addAll("year", "half year", "quater", "month");
+        ObservableList<String> periods = FXCollections.observableArrayList();
+        for (int i = 1; i < 15; i++) {
+            periods.add(Integer.toString(i));
+        }
+        hBox.getChildren().addAll(
+                titledHbox(
+                        "Step of Analysis",
+                        SettingsSelect.get(settings, steps, "reportStep", "year")
+                ),
+                titledHbox(
+                        "How many periods \nyou want to analyse: ",
+                        SettingsSelect.get(settings, periods, "periods", "1")
+                )
+        );
+        return hBox;
+    }
 
     private HBox currencyRow() {
         HBox hBox = new HBox(20);
         Label label = new Label("Currency");
         hBox.getStyleClass().add("hbox-row");
         label.getStyleClass().add("sub-label");
-        hBox.getChildren().addAll(label, AmountSelect.get(settings), CurrencySelect.get(settings));
+        ObservableList<String> amountItems = FXCollections.observableArrayList();
+        amountItems.addAll("thousand", "million");
+        hBox.getChildren().addAll(
+                label,
+                SettingsSelect.get(settings, amountItems, "amount", "thousand"),
+                SettingsSelect.get(settings, DefaultCurrency.getCurrencies(), "defaultCurrency", "USD")
+        );
         return hBox;
     }
 
@@ -89,6 +106,7 @@ public class StepOne {
                 }
             }
         });
+
         hBox.getChildren().addAll(titledHbox("Finance analysis standard", standard), titledHbox("Industry", industry));
         return hBox;
     }

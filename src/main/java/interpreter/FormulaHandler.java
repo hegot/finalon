@@ -8,7 +8,6 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import java.util.Arrays;
 import java.util.Map;
-import java.util.TreeMap;
 
 class FormulaHahdler {
     private Formula formula;
@@ -21,6 +20,15 @@ class FormulaHahdler {
         this.formula = formula;
         this.values = values;
         this.period = period;
+    }
+
+    public static boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     public String getResult() {
@@ -36,7 +44,7 @@ class FormulaHahdler {
         String formulaVal = formula.getValue();
         String[] indexes = getIndexes();
         for (String index : indexes) {
-            if(!isNumeric(index)){
+            if (!isNumeric(index)) {
                 Double val = searchInValues(index);
                 if (val != null) {
                     String indexVal = Double.toString(val);
@@ -49,45 +57,42 @@ class FormulaHahdler {
         return formulaVal;
     }
 
-
     private Double searchInValues(String index) {
         boolean prevIndex = false;
-        if(index.indexOf(Fperiod) > -1){
-            index = index.replace(Fperiod,"");
+        if (index.indexOf(Fperiod) > -1) {
+            index = index.replace(Fperiod, "");
             prevIndex = true;
         }
-        if(index.indexOf(Speriod) > -1){
-            index = index.replace(Speriod,"");
+        if (index.indexOf(Speriod) > -1) {
+            index = index.replace(Speriod, "");
         }
         ObservableMap<String, Double> map = values.get(index);
         if (map != null) {
-            if(prevIndex){
+            if (prevIndex) {
                 Object[] set = map.keySet().toArray();
                 Arrays.sort(set);
                 for (int i = 0; i < set.length; i++) {
                     String key = (String) set[i];
-                    if(key.equals(period)){
+                    if (key.equals(period)) {
                         int i2 = i - 1;
-                        if(i2 >= 0){
+                        if (i2 >= 0) {
                             String prevPeriod = (String) set[i2];
                             return map.get(prevPeriod);
                         }
                     }
                 }
-            }else{
+            } else {
                 return map.get(period);
             }
         }
         return null;
     }
 
-
     private String[] getIndexes() {
         String formulaVal = formula.getValue();
         String[] chunks = new ParserBase().getChunks(formulaVal, true);
         return chunks;
     }
-
 
     private String evaluateFormula(String value) {
         ScriptEngineManager mgr = new ScriptEngineManager();
@@ -98,22 +103,12 @@ class FormulaHahdler {
             if (res != null && res.length() > 0) {
                 Double doubleInt = Double.parseDouble(res);
                 res = value + " = " + String.format("%.2f", doubleInt);
-            }else{
+            } else {
                 res = "";
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return res;
-    }
-
-
-    public static boolean isNumeric(String str) {
-        try {
-            Double.parseDouble(str);
-            return true;
-        } catch(NumberFormatException e){
-            return false;
-        }
     }
 }

@@ -15,6 +15,10 @@ public class ReportName {
         TextField company = new TextField();
         company.setMinWidth(300.00);
         company.setPromptText("Company name will be used in report");
+        String companyVal = settings.get("company");
+        if(companyVal != null){
+            company.setText(companyVal);
+        }
         company.focusedProperty().addListener((obs, oldVal, newVal) -> {
             String text = (String) company.getText();
             settings.replace("company", text);

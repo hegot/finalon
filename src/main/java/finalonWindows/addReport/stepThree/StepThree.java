@@ -3,7 +3,6 @@ package finalonWindows.addReport.stepThree;
 import entities.Formula;
 import entities.Item;
 import finalonWindows.SceneBase;
-import finalonWindows.addReport.stepTwo.EditCell;
 import finalonWindows.addReport.stepTwo.Periods;
 import interpreter.Interprter;
 import javafx.beans.property.SimpleStringProperty;
@@ -12,10 +11,7 @@ import javafx.collections.ObservableMap;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 

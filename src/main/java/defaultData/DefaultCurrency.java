@@ -9,7 +9,7 @@ public class DefaultCurrency {
     public static ObservableList<String> getCurrencies() {
         ObservableList<String> Currencies = FXCollections.observableArrayList();
         String[] arr = {
-                "RUR", "USD", "EUR",
+                "USD", "RUR", "EUR",
                 "GBP", "AED", "ARA",
                 "ARS", "AUD", "BGL",
                 "BHD", "BRL", "BWP",
