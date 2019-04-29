@@ -15,6 +15,7 @@ class FormulaHahdler {
     private String period;
     private String Fperiod = "[0]";
     private String Speriod = "[1]";
+    private String[] indexes;
 
     public FormulaHahdler(Formula formula, Map<String, ObservableMap<String, Double>> values, String period) {
         this.formula = formula;
@@ -33,7 +34,8 @@ class FormulaHahdler {
 
     public String getResult() {
         String formulaUpdated = getValuesInPlace();
-        if (formulaUpdated != null) {
+        boolean findNullDivision  = formulaUpdated.contains("/0.0");
+        if (formulaUpdated != null && !findNullDivision) {
             return evaluateFormula(formulaUpdated);
         } else {
             return null;
@@ -43,6 +45,7 @@ class FormulaHahdler {
     public String getValuesInPlace() {
         String formulaVal = formula.getValue();
         String[] indexes = getIndexes();
+        this.indexes = indexes;
         for (String index : indexes) {
             if (!isNumeric(index)) {
                 Double val = searchInValues(index);
@@ -82,8 +85,11 @@ class FormulaHahdler {
                     }
                 }
             } else {
-                return map.get(period);
+                Double val = map.get(period);
+                return val != null ? val : 0.0;
             }
+        }else{
+            return 0.0;
         }
         return null;
     }
@@ -102,9 +108,9 @@ class FormulaHahdler {
             res = engine.eval(value).toString();
             if (res != null && res.length() > 0) {
                 Double doubleInt = Double.parseDouble(res);
-                res = value + " = " + String.format("%.2f", doubleInt);
-            } else {
-                res = "";
+                String val = String.format("%.2f", doubleInt);
+                if(val.equals("NaN")) val = "0.0";
+                res = value + " = " + val;
             }
         } catch (Exception e) {
             e.printStackTrace();

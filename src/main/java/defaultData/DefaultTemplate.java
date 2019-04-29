@@ -16,24 +16,24 @@ public class DefaultTemplate {
         Items.add(new Item(5, "Other Data", "OtherData", true, false, 1, 0));
 
 
-        Items.add(new Item(8, "Assets", "Assets", true, false, 2, 0));
+        Items.add(new Item(8, "Assets", "AssetsGeneral", true, false, 2, 0));
         Items.add(new Item(9, "Non-current assets", "NonCurrentAssets", true, false, 8, 0));
-        Items.add(new Item(10, "Current assets", "CurrentAssets", true, false, 8, 0));
+        Items.add(new Item(10, "Current assets", "GeneralCurrentAssets", true, false, 8, 0));
 
         //Equity And Liabilities
         Items.add(new Item(11, "Equity And Liabilities", "EquityAndLiabilities", true, false, 2, 0));
 
-        Items.add(new Item(12, "Equity", "Equity", true, false, 11, 0));
+        Items.add(new Item(12, "Equity", "EquityGeneral", true, false, 11, 0));
 
-        Items.add(new Item(13, "Liabilities", "Liabilities", true, false, 11, 0));
+        Items.add(new Item(13, "Liabilities", "LiabilitiesGeneral", true, false, 11, 0));
         Items.add(new Item(14, "Non-current liabilities", "NonCurrentLiabilities", true, false, 13, 0));
         Items.add(new Item(15, "Current liabilities", "CurrentLiabilities", true, false, 13, 0));
 
 
         //Non-current assets
         Items.add(new Item(16, "Property, plant and equipment", "PropertyPlantAndEquipment", true, false, 9, 0));
-        Items.add(new Item(17, "Investment property", "Investmentproperty", true, false, 9, 0));
-        Items.add(new Item(18, "Goodwill", "Goodwill", true, false, 9, 0));
+        Items.add(new Item(17, "Investment property", "InvestmentProperty", true, false, 9, 0));
+        Items.add(new Item(18, "Goodwill", "GoodwillGeneral", true, false, 9, 0));
         Items.add(new Item(19, "Intangible assets other than goodwill", "IntangibleAssetsOtherThanGoodwill", true, false, 9, 0));
         Items.add(new Item(20, "Investment accounted for using equity method", "InvestmentAccountedForUsingEquityMethod", true, false, 9, 0));
         Items.add(new Item(21, "Investments in subsidiaries, joint ventures and associates", "InvestmentsInSubsidiariesJointVenturesAndAssociates", true, false, 9, 0));
@@ -47,7 +47,7 @@ public class DefaultTemplate {
         Items.add(new Item(29, "Non-current non-cash assets pledged as collateral for which transferee has right by contract or custom to sell or repledge collateral", "InvestmentAccountedForUsingEquityMethod", true, false, 9, 0));
 
         //Current Assets
-        Items.add(new Item(30, "Current inventories", "Inventories", true, false, 10, 0));
+        Items.add(new Item(30, "Current inventories", "CurrentInventories", true, false, 10, 0));
         Items.add(new Item(40, "Trade and other current receivables", "TradeAndOtherCurrentReceivables", true, false, 10, 0));
         Items.add(new Item(41, "Current tax assets, current", "CurrentTaxAssetsCurrent", true, false, 10, 0));
         Items.add(new Item(42, "Current biological assets", "CurrentBiologicalAssets", true, false, 10, 0));
@@ -92,11 +92,11 @@ public class DefaultTemplate {
 
 
         //Statement of Comprehensive Income (P&L Statement)
-        Items.add(new Item(70, "Revenue", "Revenue", true, false, 3, 1));
+        Items.add(new Item(70, "Revenue", "RevenueGeneral", true, false, 3, 1));
         Items.add(new Item(71, "Cost of sales", "CostOfSales", false, false, 3, 1));
         Items.add(new Item(72, "Gross profit", "GrossProfit", true, true, 3, 1));
-        Items.add(new Item(73, "Other income", "OtherIncome", true, false, 3, 1));
-        Items.add(new Item(74, "Distribution costs", "DistributionCosts", false, false, 3, 1));
+        Items.add(new Item(73, "Other income", "OtherIncomeGeneral", true, false, 3, 1));
+        Items.add(new Item(74, "Distribution costs", "DistributionCostsGeneral", false, false, 3, 1));
         Items.add(new Item(75, "Administrative expense", "AdministrativeExpense", false, false, 3, 1));
         Items.add(new Item(76, "Other expense", "OtherExpenseByFunction", false, false, 3, 1));
         Items.add(new Item(77, "Other gains (losses)", "OtherGainsLosses", true, false, 3, 1));
@@ -116,22 +116,22 @@ public class DefaultTemplate {
         Items.add(new Item(91, "Income tax expense (from continuing operations)", "IncomeTaxExpenseContinuingOperations", false, false, 3, 1));
         Items.add(new Item(92, "Profit (loss) from continuing operations", "ProfitLossFromContinuingOperations", true, true, 3, 1));
         Items.add(new Item(93, "Profit (loss) from discontinued operations", "ProfitLossFromDiscontinuedOperations", true, false, 3, 1));
-        Items.add(new Item(94, "Profit (loss)", "ProfitLoss", true, true, 3, 1));
-        Items.add(new Item(95, "Other comprehensi ж      ve income", "OtherComprehensiveIncome", true, false, 3, 1));
-        Items.add(new Item(96, "Comprehensive Income", "ComprehensiveIncome", true, true, 3, 1));
+        Items.add(new Item(94, "Profit (loss)", "ProfitLossGeneral", true, true, 3, 1));
+        Items.add(new Item(95, "Other comprehensive income", "OtherComprehensiveIncome", true, false, 3, 1));
+        Items.add(new Item(96, "Comprehensive Income", "ComprehensiveIncomeGeneral", true, true, 3, 1));
 
 
         //Cash Flow Statement
-        Items.add(new Item(97, "Operating activities", "Operating activities", true, false, 4, 0));
-        Items.add(new Item(98, "Investing activities", "Investing activities", true, false, 4, 0));
-        Items.add(new Item(99, "Financing activities", "Financing activities", true, false, 4, 0));
+        Items.add(new Item(97, "Operating activities", "OperatingActivitiesGeneral", true, false, 4, 0));
+        Items.add(new Item(98, "Investing activities", "InvestingActivitiesGeneral", true, false, 4, 0));
+        Items.add(new Item(99, "Financing activities", "FinancingActivitiesGeneral", true, false, 4, 0));
 
 
         //Operating activities
         Items.add(new Item(100, "Cash receipts from customers", "CashReceiptsFromCustomers", true, false, 97, 1));
         Items.add(new Item(101, "Cash paid to suppliers and employees", "CashPaidToSuppliersAndEmployees", false, false, 97, 1));
         Items.add(new Item(102, "Cash generated from operations", "CashGeneratedFromOperations", true, false, 97, 1));
-        Items.add(new Item(102, "Interest paid", "InterestPaid", false, false, 97, 1));
+        Items.add(new Item(102, "Interest paid", "InterestPaidGeneral", false, false, 97, 1));
         Items.add(new Item(104, "Income taxes paid", "IncomeTaxesPaid", false, false, 97, 1));
         Items.add(new Item(105, "Net cash from operating activities", "NetCashFromOperatingActivities", true, true, 97, 1));
 
@@ -158,7 +158,7 @@ public class DefaultTemplate {
 
         //Other Data
         Items.add(new Item(121, "Number of employees", "NumberOfEmployees", true, false, 5, 0));
-        Items.add(new Item(122, "Depreciation and amortisation expense", "Amortization", true, false, 5, 0));
+        Items.add(new Item(122, "Depreciation and amortisation expense", "AmortizationGeneral", true, false, 5, 0));
 
 
         return Items;
