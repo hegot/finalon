@@ -26,12 +26,10 @@ public class StepOne {
     private final String defaultStandard = "1";
     private ObservableMap<String, String> settings;
     private Label errors = new Label();
-    private VBox parent;
 
     public StepOne(ObservableMap<String, String> settings, VBox parent) {
         errors.getStyleClass().add("settings-error");
         this.settings = settings;
-        this.parent = parent;
     }
 
     public VBox show() {

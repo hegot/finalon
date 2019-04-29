@@ -18,6 +18,8 @@ public class ReportName {
         String companyVal = settings.get("company");
         if(companyVal != null){
             company.setText(companyVal);
+        }else{
+            settings.put("company", "");
         }
         company.focusedProperty().addListener((obs, oldVal, newVal) -> {
             String text = (String) company.getText();
