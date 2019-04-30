@@ -16,73 +16,80 @@
             <Label styleClass="headerText" text="Financial Statement Analysis Application" textAlignment="LEFT"/>
         </HBox>
     </top>
-    <left>
-        <VBox spacing="20" styleClass="sidebar">
-            <Button onAction="#addCompanyAction" styleClass="sidebar-btn" text=" Add Company">
-                <graphic>
-                    <ImageView>
-                        <image>
-                            <Image url="@img/analytics.png"/>
-                        </image>
-                    </ImageView>
-                </graphic>
-            </Button>
-            <Button onAction="#settingsAction" styleClass="sidebar-btn" text=" Settings">
-                <graphic>
-                    <ImageView>
-                        <image>
-                            <Image url="@img/gears.png"/>
-                        </image>
-                    </ImageView>
-                </graphic>
-            </Button>
-            <Button onAction="#helpAction" styleClass="sidebar-btn" text=" Help">
-                <graphic>
-                    <ImageView>
-                        <image>
-                            <Image url="@img/help.png"/>
-                        </image>
-                    </ImageView>
-                </graphic>
-            </Button>
-            <Button onAction="#exitAction" styleClass="sidebar-btn" text=" Exit">
-                <graphic>
-                    <ImageView>
-                        <image>
-                            <Image url="@img/exit.png"/>
-                        </image>
-                    </ImageView>
-                </graphic>
-            </Button>
-        </VBox>
-    </left>
     <center>
-
         <TilePane prefHeight="400.0" prefWidth="600.0" vgap="10" hgap="10" style="-fx-padding:10px">
             <VBox styleClass="content-block">
-                <ImageView>
-                    <image>
-                        <Image url="@img/history.png"/>
-                    </image>
-                </ImageView>
-                <Label styleClass="blockText" text="Reports history" textAlignment="LEFT"/>
+                <Button onAction="#addCompanyAction" styleClass="tile-btn" text="Add Company">
+                    <graphic>
+                        <ImageView>
+                            <image>
+                                <Image url="@img/company.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
             </VBox>
+
             <VBox styleClass="content-block">
-                <ImageView>
-                    <image>
-                        <Image url="@img/template.png"/>
-                    </image>
-                </ImageView>
-                <Label styleClass="blockText" text="Your Templates" textAlignment="LEFT"/>
+                <Button onAction="#settingsAction" styleClass="tile-btn" text=" Settings">
+                    <graphic>
+                        <ImageView>
+                            <image>
+                                <Image url="@img/settings.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
             </VBox>
+
             <VBox styleClass="content-block">
-                <ImageView>
-                    <image>
-                        <Image url="@img/analytics-btn.png"/>
-                    </image>
-                </ImageView>
-                <Label styleClass="blockText" text="Statistics" textAlignment="LEFT"/>
+                <Button onAction="#helpAction" styleClass="tile-btn" text=" Help">
+                    <graphic>
+                        <ImageView>
+                            <image>
+                                <Image url="@img/help.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
             </VBox>
+
+            <VBox styleClass="content-block">
+                <Button onAction="#templatesAction" styleClass="tile-btn" text=" Your Templates">
+                    <graphic>
+                        <ImageView>
+                            <image>
+                                <Image url="@img/template.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </VBox>
+
+            <VBox styleClass="content-block">
+                <Button onAction="#formulaAction" styleClass="tile-btn" text=" Customize Formulas">
+                    <graphic>
+                        <ImageView>
+                            <image>
+                                <Image url="@img/formula.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </VBox>
+
+            <VBox styleClass="content-block">
+                <Button onAction="#templatesAction" styleClass="tile-btn" text=" Analytics">
+                    <graphic>
+                        <ImageView>
+                            <image>
+                                <Image url="@img/analytics.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </VBox>
+
         </TilePane>
     </center>
     <bottom>

@@ -1,18 +1,5 @@
-.main-container{
- -fx-pref-width: 900px;
-}
-
-.sidebar-btn {
-    -fx-background-color:#3f5872;
-    -fx-font-size: 14px;
-    -fx-text-fill: #FFFFFF;
-    -fx-padding: 10 25 10 25;
-    -fx-pref-width: 200px;
-    -fx-alignment:  baseline-left;
-}
-
 .header{
-    -fx-padding: 50 25;
+    -fx-padding: 20 25;
     -fx-background-color: #122538;
 }
 
@@ -30,16 +17,13 @@
     -fx-font-weight: bold;
 }
 
-.sidebar{
+.tile-btn{
+    -fx-border: 0;
+    -fx-background-color: transparent;
     -fx-padding: 15;
-    -fx-border-style: solid outside;
-    -fx-border-width: 1;
-    -fx-border-radius: 2;
-    -fx-border-color: #e4e5e7;
-    -fx-background-color: #fff;
-    -fx-border-insets: 5px;
-    -fx-background-insets: 5px;
-     -fx-pref-height: 500px;
+    -fx-font-family: Arial, sans-serif;
+    -fx-font-weight: bold;
+    -fx-text-fill: #6a6c6f;
 }
 
 .content-block{

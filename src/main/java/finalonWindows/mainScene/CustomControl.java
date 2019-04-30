@@ -39,12 +39,18 @@ public class CustomControl extends BorderPane {
     }
 
     @FXML
-    protected void helpAction() {
-        System.out.println("The button was clicked!");
+    protected void templatesAction() {
+        window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.SETTINGSMAIN));
     }
 
     @FXML
-    protected void exitAction() {
-        System.out.println("The button was clicked!");
+    protected void formulaAction() {
+        window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.FORMULA));
     }
+
+    @FXML
+    protected void helpAction() {
+        window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.FORMULA));
+    }
+
 }

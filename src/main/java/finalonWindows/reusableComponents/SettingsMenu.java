@@ -4,11 +4,10 @@ import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
-import javafx.stage.Screen;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class SettingsMenu {
@@ -19,67 +18,68 @@ public class SettingsMenu {
         this.window = window;
     }
 
-    private String blueButonStyle() {
-        return "-fx-background-color:#3f5872; -fx-font-size: 14px; -fx-text-fill: #FFFFFF; -fx-padding: 5 10 5 10;   -fx-alignment:  baseline-left;";
+    public MenuBar getMenu() {
+        MenuBar menuBar = new MenuBar();
+        Menu menu = new Menu("navigation");
+        menu.setGraphic(new ImageView("image/menuBtn.jpg"));
+        menu.getItems().addAll(home(), addCompany(), settings(), templates(), formulas());
+        menuBar.getMenus().add(menu);
+        return menuBar;
     }
 
-    public HBox getMenu() {
-        HBox hbox = new HBox(10);
-        hbox.setPadding(new Insets(5, 10, 10, 10));
-        hbox.getChildren().addAll(HomeButton(), GeneralSettingsButton(), TemplateButton(), FormulaButton());
-        return hbox;
-    }
-
-    private double height() {
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        return primaryScreenBounds.getHeight();
-    }
-
-    private Button TemplateButton() {
-        Button btn = new Button("Template Customization");
-        btn.setStyle(blueButonStyle());
-        btn.setOnAction(new EventHandler<ActionEvent>() {
+    private MenuItem addCompany() {
+        MenuItem home = new MenuItem("Add company");
+        home.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent e) {
-                window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.TEMPLATESLIST));
+            public void handle(ActionEvent event) {
+                window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.ADDREPORT));
             }
         });
-        return btn;
+        return home;
     }
 
-    private Button FormulaButton() {
-        Button btn = new Button("Formula Customization");
-        btn.setStyle(blueButonStyle());
-        btn.setOnAction(new EventHandler<ActionEvent>() {
+    private MenuItem home() {
+        MenuItem home = new MenuItem("Home");
+        home.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent e) {
-                window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.FORMULA));
-            }
-        });
-        return btn;
-    }
-
-    private Button GeneralSettingsButton() {
-        Button btn = new Button("General Settings");
-        btn.setStyle(blueButonStyle());
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                window.setScene(SceneSwitcher.getScenes(SceneName.SETTINGSMAIN).get(SceneName.SETTINGSMAIN));
-            }
-        });
-        return btn;
-    }
-
-    private Button HomeButton() {
-        Button btn = new Button("Home");
-        btn.setStyle(blueButonStyle());
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
+            public void handle(ActionEvent event) {
                 window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.MAIN));
             }
         });
-        return btn;
+        return home;
     }
+
+    private MenuItem templates() {
+        MenuItem templates = new MenuItem("Templates Customization");
+        templates.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.TEMPLATESLIST));
+            }
+        });
+        return templates;
+    }
+
+    private MenuItem formulas() {
+        MenuItem formulas = new MenuItem("Formula Customization");
+        formulas.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.FORMULA));
+            }
+        });
+        return formulas;
+    }
+
+    private MenuItem settings() {
+        MenuItem settings = new MenuItem("General Settings");
+        settings.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                window.setScene(SceneSwitcher.getScenes(SceneName.SETTINGSMAIN).get(SceneName.SETTINGSMAIN));
+            }
+        });
+        return settings;
+    }
+
 }
