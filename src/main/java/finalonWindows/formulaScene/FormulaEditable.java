@@ -3,10 +3,12 @@ package finalonWindows.formulaScene;
 import database.formula.DbFormulaHandler;
 import entities.Formula;
 import finalonWindows.formulaScene.eventHandlers.EditHandler;
+import finalonWindows.formulaScene.eventHandlers.EditPopup;
 import javafx.collections.ObservableList;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableRow;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.TextFieldTreeTableCell;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
@@ -33,6 +35,17 @@ class FormulaEditable {
                 buttonCol()
         );
         updateTable(rootIndustry);
+
+        table.setRowFactory(tv -> {
+            TreeTableRow<Formula> row = new TreeTableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 1 && (! row.isEmpty()) ) {
+                    EditPopup popup = new EditPopup(row.getTreeItem(), "edit");
+                    popup.getdialog();
+                }
+            });
+            return row ;
+        });
         return table;
     }
 

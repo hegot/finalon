@@ -7,15 +7,12 @@ public class StrValidator {
     public static final String LETTERS = "a-zA-Z";
     private Character ch;
     private String text;
-    private int subSetSize;
     private String beforeStr;
 
-    public Boolean validate(Character ch, String text, int subSetSize) {
+    public Boolean validate(Character ch, String text) {
         this.ch = ch;
         this.text = text;
-        this.subSetSize = subSetSize;
         this.beforeStr = Character.toString(ch);
-
         Boolean valid = digitValidate();
         if (!valid) {
             valid = letterValidate();
@@ -25,6 +22,12 @@ public class StrValidator {
                     valid = afterSquareBracketOpen();
                     if (!valid) {
                         valid = afterSquareBracketClose();
+                        if (!valid) {
+                            valid = afterRoundBracketOpen();
+                            if (!valid) {
+                                valid = afterRoundBracketClose();
+                            }
+                        }
                     }
                 }
             }
@@ -43,9 +46,7 @@ public class StrValidator {
         if (Character.isLetter(ch)) {
             if (!text.matches("[^" + LETTERS + OPERATORS + ")\\[]")) {
                 if (text.length() > 0) {
-                    if (subSetSize > 0) {
-                        return true;
-                    }
+                    return true;
                 } else {
                     return true;
                 }
@@ -64,6 +65,20 @@ public class StrValidator {
     private Boolean afterSquareBracketOpen() {
         if (beforeStr.matches("[\\[]")) {
             return !text.matches("[^" + DIGITS + "]");
+        }
+        return false;
+    }
+
+    private Boolean afterRoundBracketOpen() {
+        if (beforeStr.matches("[(]")) {
+            return !text.matches("[^" + LETTERS + DIGITS + "(]");
+        }
+        return false;
+    }
+
+    private Boolean afterRoundBracketClose() {
+        if (beforeStr.matches("[)]")) {
+            return !text.matches("[^" + OPERATORS + ")]");
         }
         return false;
     }

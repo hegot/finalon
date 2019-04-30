@@ -58,7 +58,7 @@ public class AutoCompleteTextArea extends TextArea {
 
             if (start > 0 && cur.length() >= start) {
                 Character before = cur.charAt(start - 1);
-                Boolean valid = strValidator.validate(before, text, suggestions.subSet.size());
+                Boolean valid = strValidator.validate(before, text);
                 if (valid) {
                     super.replaceText(start, end, text);
                 }

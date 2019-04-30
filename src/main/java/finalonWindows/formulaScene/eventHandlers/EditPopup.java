@@ -12,7 +12,7 @@ import javafx.scene.control.*;
 import javafx.util.Pair;
 
 
-class EditPopup {
+public class EditPopup {
 
     private Formula formula;
     private TreeItem treeItem;
@@ -22,7 +22,7 @@ class EditPopup {
     private EditFormula editFormula;
     private NormativeValues normativeValues;
 
-    EditPopup(TreeItem treeItem, String type) {
+    public EditPopup(TreeItem treeItem, String type) {
         this.type = type;
         this.treeItem = treeItem;
         this.formula = (Formula) treeItem.getValue();
@@ -41,7 +41,7 @@ class EditPopup {
         return dbFormula.getFormulas(formula.getId());
     }
 
-    Dialog getdialog() {
+    public Dialog getdialog() {
         Dialog<Pair<String, String>> dialog = new Dialog<>();
         dialog.setTitle("Edit Formula");
         dialog.setWidth(400);
