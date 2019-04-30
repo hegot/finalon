@@ -34,8 +34,8 @@ class FormulaHahdler {
 
     public String getResult() {
         String formulaUpdated = getValuesInPlace();
-        boolean findNullDivision  = formulaUpdated.contains("/0.0");
-        if (formulaUpdated != null && !findNullDivision) {
+        if (formulaUpdated != null) {
+            if(formulaUpdated.contains("/0.0")) return null;
             return evaluateFormula(formulaUpdated);
         } else {
             return null;
@@ -109,8 +109,8 @@ class FormulaHahdler {
             if (res != null && res.length() > 0) {
                 Double doubleInt = Double.parseDouble(res);
                 String val = String.format("%.2f", doubleInt);
-                if(val.equals("NaN")) val = "0.0";
                 res = value + " = " + val;
+                if(val.equals("NaN")) res = "";
             }
         } catch (Exception e) {
             e.printStackTrace();
