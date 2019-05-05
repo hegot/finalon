@@ -1,11 +1,11 @@
 .header{
     -fx-padding: 20 25;
-    -fx-background-color: #122538;
+    -fx-background-color: #324A5E;
 }
 
 .footer{
     -fx-padding:15;
-    -fx-background-color: #122538;
+    -fx-background-color: #324A5E;
     -fx-text-fill: #FFFFFF;
     -fx-alignment: center;
 }

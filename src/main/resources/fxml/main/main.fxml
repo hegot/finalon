@@ -67,7 +67,7 @@
             </VBox>
 
             <VBox styleClass="content-block">
-                <Button onAction="#formulaAction" styleClass="tile-btn" text=" Customize Formulas">
+                <Button onAction="#formulaAction" styleClass="tile-btn" text="Formula&#10;Customization">
                     <graphic>
                         <ImageView>
                             <image>

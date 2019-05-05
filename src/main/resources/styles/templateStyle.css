@@ -77,3 +77,12 @@
     -fx-pref-width: 150px;
     -fx-alignment:  baseline-left;
 }
+
+.img-btn{
+    -fx-background-color: transparent;
+    -fx-font-size: 12px;
+    -fx-text-fill: #FFFFFF;
+    -fx-padding: 5px;
+    -fx-alignment:  baseline-left;
+    -fx-background-radius: 5em;
+}

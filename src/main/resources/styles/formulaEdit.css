@@ -7,6 +7,15 @@
     -fx-background-radius: 5em;
 }
 
+.industry-btn{
+    -fx-background-color: grey;
+    -fx-font-size: 9px;
+    -fx-text-fill: #E6E6FA;
+    -fx-padding: 3px 10px;
+    -fx-alignment: baseline-left;
+    -fx-background-radius: 2px;
+}
+
 .normative-container{
     -fx-padding: 5;
     -fx-border-style: solid outside;

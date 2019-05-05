@@ -2,16 +2,18 @@ package finalonWindows.formulaScene.eventHandlers;
 
 import database.formula.DbFormulaHandler;
 import entities.Formula;
+import finalonWindows.SceneName;
+import finalonWindows.SceneSwitcher;
 import finalonWindows.formulaScene.EditStorage;
 import finalonWindows.reusableComponents.ImageButton;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableCell;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableView;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import javafx.util.Callback;
+
+import java.util.Optional;
 
 public class EditHandler {
 
@@ -77,14 +79,39 @@ public class EditHandler {
                         return btn;
                     }
 
+                    private Button removeIndustryBtn() {
+                        Button btn = new Button("delete\nindustry");
+                        btn.getStyleClass().add("industry-btn");
+                        btn.setOnAction((ActionEvent event) -> {
+
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert.setTitle("Delete Industry");
+                            alert.setHeaderText("Are you sure want to delete Industry");
+
+                            Optional<ButtonType> option = alert.showAndWait();
+
+                            if (option.get() == ButtonType.OK && parentFormula != null) {
+                                new DbFormulaHandler().deleteItem(parentFormula.getId());
+                                Stage window = (Stage) this.getScene().getWindow();
+                                window.setScene(SceneSwitcher.getScenes(SceneName.FORMULA).get(SceneName.FORMULA));
+                            }
+                        });
+                        return btn;
+                    }
+
                     private HBox container() {
                         HBox hBox = new HBox(5);
-                        hBox.getChildren().add(editBtn());
+
                         if (parentFormula.getCategory().equals("section")) {
+                            hBox.getChildren().add(editBtn());
                             hBox.getChildren().add(addBtn());
                         }
                         if (parentFormula.getCategory().equals("formula")) {
+                            hBox.getChildren().add(editBtn());
                             hBox.getChildren().add(removeBtn());
+                        }
+                        if (parentFormula.getCategory().equals("industry")) {
+                            hBox.getChildren().add(removeIndustryBtn());
                         }
                         return hBox;
                     }

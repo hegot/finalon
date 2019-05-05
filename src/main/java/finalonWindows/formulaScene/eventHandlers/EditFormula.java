@@ -48,8 +48,10 @@ class EditFormula {
             row.textfield = textfield;
             arr[j] = row;
         }
-        grid.add(new Label("Edit formula"), 0, 4);
-        grid.add(formulaEditor(), 1, 4);
+        if(!formula.getCategory().equals("industry")) {
+            grid.add(new Label("Edit formula"), 0, 4);
+            grid.add(formulaEditor(), 1, 4);
+        }
     }
 
     private VBox formulaEditor() {
@@ -86,16 +88,28 @@ class EditFormula {
         return tab;
     }
 
+    GridPane getGrid(){
+        return grid;
+    }
+
+
     Row[] getTextfields() {
         return arr;
     }
 
     private Row[] getEditArr() {
-        Row arr[] = new Row[3];
-        arr[0] = new Row("name", "Name:", formula.getName(), null);
-        arr[1] = new Row("shortName", "Code:", formula.getShortName(), null);
-        arr[2] = new Row("unit", "Unit:", formula.getUnit(), null);
-        return arr;
+
+        if(formula.getCategory().equals("industry")){
+            Row arr[] = new Row[1];
+            arr[0] = new Row("name", "Industry Name:", formula.getName(), null);
+            return arr;
+        }else{
+            Row arr[] = new Row[3];
+            arr[0] = new Row("name", "Name:", formula.getName(), null);
+            arr[1] = new Row("shortName", "Code:", formula.getShortName(), null);
+            arr[2] = new Row("unit", "Unit:", formula.getUnit(), null);
+            return arr;
+        }
     }
 
     AutoCompleteTextArea getTextArea() {

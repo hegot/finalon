@@ -43,7 +43,7 @@ public class EditPopup {
 
     public Dialog getdialog() {
         Dialog<Pair<String, String>> dialog = new Dialog<>();
-        dialog.setTitle("Edit Formula");
+
         dialog.setWidth(400);
         DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.getStylesheets().add("styles/formulaEdit.css");
@@ -52,9 +52,16 @@ public class EditPopup {
         Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CLOSE);
         closeButton.managedProperty().bind(closeButton.visibleProperty());
         closeButton.setVisible(false);
-        TabPane tabpane = new TabPane();
-        tabpane.getTabs().addAll(editFormula.getTab(), normativeValues.getNormativeValues());
-        dialog.getDialogPane().setContent(tabpane);
+        if(formula.getCategory().equals("industry")){
+            dialog.setTitle("Edit Industry");
+            dialog.getDialogPane().setContent(editFormula.getGrid());
+        }else{
+            dialog.setTitle("Edit Formula");
+            TabPane tabpane = new TabPane();
+            tabpane.getTabs().addAll(editFormula.getTab(), normativeValues.getNormativeValues());
+            dialog.getDialogPane().setContent(tabpane);
+        }
+
         dialogSubmit(dialog);
         dialog.showAndWait();
         return dialog;
@@ -62,16 +69,23 @@ public class EditPopup {
 
     private void dialogSubmit(Dialog dialog) {
         EventHandler<ActionEvent> saveFilter = event -> {
-            if (editFormula.getTextArea().getErrors().size() > 0) {
-                event.consume();
-            } else {
+            if(formula.getCategory().equals("industry")){
                 updateFormula();
                 treeItem.setValue(formula);
-                Formula formulaWithNormative = normativeValues.getFormulaUpdated();
-                ObservableList<Formula> childs = formulaWithNormative.getChilds();
-                formula.setChilds(childs);
                 EditStorage.addItem(formula.getId(), formula);
                 dialog.close();
+            }else{
+                if (editFormula.getTextArea().getErrors().size() > 0) {
+                    event.consume();
+                } else {
+                    updateFormula();
+                    treeItem.setValue(formula);
+                    Formula formulaWithNormative = normativeValues.getFormulaUpdated();
+                    ObservableList<Formula> childs = formulaWithNormative.getChilds();
+                    formula.setChilds(childs);
+                    EditStorage.addItem(formula.getId(), formula);
+                    dialog.close();
+                }
             }
         };
         Button okButton = (Button) dialog.getDialogPane().lookupButton(saveButtonType);
@@ -93,13 +107,14 @@ public class EditPopup {
 
     private void updateFormula() {
         Row[] arr = editFormula.getTextfields();
+
         for (Row row : arr) {
             String key = row.key;
             TextField textfieldget = row.textfield;
             String value = textfieldget.getText();
             switch (key) {
                 case "name":
-                    formula.setName(value);
+                    formula.setName(value);System.out.println(value);
                     break;
                 case "shortName":
                     formula.setShortName(value);
@@ -111,10 +126,12 @@ public class EditPopup {
                     System.out.println("no match");
             }
         }
-        formula.setCategory("formula");
-        AutoCompleteTextArea textArea = editFormula.getTextArea();
-        String value = textArea.getText();
-        formula.setValue(value);
+        if(!formula.getCategory().equals("industry")) {
+            formula.setCategory("formula");
+            AutoCompleteTextArea textArea = editFormula.getTextArea();
+            String value = textArea.getText();
+            formula.setValue(value);
+        }
     }
 
 

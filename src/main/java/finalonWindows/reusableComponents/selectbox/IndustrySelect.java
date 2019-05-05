@@ -14,7 +14,7 @@ public class IndustrySelect extends Choices {
         industryBox.setConverter(new FormulaConverter());
         ObservableList<Formula> industries = getChoices(Integer.parseInt(defaultStandard));
         industryBox.setItems(industries);
-        settings.put("industry", Integer.toString(industries.get(0).getId()));
+        if(industries.size() > 0) settings.put("industry", Integer.toString(industries.get(0).getId()));
         industryBox.getSelectionModel().selectFirst();
         if (settings.size() > 0) {
             industryBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Formula>() {

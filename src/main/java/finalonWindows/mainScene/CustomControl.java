@@ -40,7 +40,7 @@ public class CustomControl extends BorderPane {
 
     @FXML
     protected void templatesAction() {
-        window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.SETTINGSMAIN));
+        window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.TEMPLATESLIST));
     }
 
     @FXML
