@@ -84,6 +84,7 @@ public class DbFormulaHandler extends DbHandlerBase {
                 throw new SQLException("Creating formula failed, no rows affected.");
             }
         } catch (SQLException e) {
+
             e.printStackTrace();
         }
         return 0;
@@ -176,6 +177,19 @@ public class DbFormulaHandler extends DbHandlerBase {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public Integer findByName(String name) {
+        try (Statement statement = this.connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery("SELECT id FROM " + tableName + " WHERE name = " + name);
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                return id;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

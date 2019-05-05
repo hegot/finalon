@@ -34,7 +34,7 @@ public class Formula {
         this.category = category;
         this.unit = unit;
         this.parent = parent;
-        this.childs =  FXCollections.observableArrayList();
+        this.childs = FXCollections.observableArrayList();
         this.periods = FXCollections.observableHashMap();
     }
 
@@ -57,7 +57,7 @@ public class Formula {
         this.category = category;
         this.unit = unit;
         this.parent = parent;
-        this.childs =  childs;
+        this.childs = childs;
         this.periods = FXCollections.observableHashMap();
     }
 
@@ -80,7 +80,7 @@ public class Formula {
         this.category = category;
         this.unit = unit;
         this.parent = parent;
-        this.childs =  null;
+        this.childs = null;
         this.periods = periods;
     }
 

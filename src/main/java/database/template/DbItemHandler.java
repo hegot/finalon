@@ -219,7 +219,7 @@ public class DbItemHandler extends DbHandlerBase {
     public TreeSet getCodes() {
         TreeSet entries = new TreeSet<String>();
         ArrayList<Integer> parents = parentIds();
-        if(parents.size() > 0){
+        if (parents.size() > 0) {
             String list = "";
             for (int id : parents) {
                 list += id + ", ";
@@ -235,8 +235,8 @@ public class DbItemHandler extends DbHandlerBase {
             }
         }
 
-        if(entries.size() == 0){
-            ObservableList<Item> items =  DefaultTemplate.getTpl();
+        if (entries.size() == 0) {
+            ObservableList<Item> items = DefaultTemplate.getTpl();
             for (Item item : items) {
                 entries.add(item.getShortName());
             }

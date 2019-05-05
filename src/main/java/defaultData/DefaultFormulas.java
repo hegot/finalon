@@ -39,6 +39,17 @@ public class DefaultFormulas {
         return Formulas;
     }
 
+    public static ObservableList<Formula> getFormulasForIndustry(int standard, String industry, int counterStart) {
+        counter = counterStart + 1;
+        ObservableList<Formula> Formulas = FXCollections.observableArrayList();
+        int industryId = counter;
+        Formulas.add(new Formula(industryId, industry, industry, "", "", "industry", "", standard));
+        counter++;
+        ObservableList<Formula> childFormulas = getIndustryChilds(industryId);
+        Formulas.addAll(childFormulas);
+        return Formulas;
+    }
+
 
     private static ObservableList<Formula> getIndustryChilds(int parent) {
         ObservableList<Formula> Formulas = FXCollections.observableArrayList();

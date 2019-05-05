@@ -9,18 +9,22 @@ import java.sql.SQLException;
 
 public class FormulaCreator {
     private ObservableList<Formula> formulas;
+    private DbFormulaHandler formulaDbHandler = new DbFormulaHandler();
 
     public FormulaCreator() {
-        ObservableList<Formula> formulas = FXCollections.observableArrayList(DefaultFormulas.getFormulas());
-        this.formulas = formulas;
+        this.formulas = FXCollections.observableArrayList(DefaultFormulas.getFormulas());
+    }
+
+    public FormulaCreator(int standard, String Industry) {
+        this.formulas = FXCollections.observableArrayList(
+                DefaultFormulas.getFormulasForIndustry(standard, Industry, formulaDbHandler.getLastId())
+        );
     }
 
     public void createFormulas() throws SQLException {
-        DbFormulaHandler formulaCreator = new DbFormulaHandler();
         for (Formula formula : formulas) {
-            formulaCreator.addDefaultFormula(formula);
+            formulaDbHandler.addDefaultFormula(formula);
         }
-
     }
 }
 

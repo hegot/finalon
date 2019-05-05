@@ -37,3 +37,7 @@
     -fx-text-fill: #FF0000;
     -fx-font-size: 11px;
 }
+
+.industry-box{
+    -fx-alignment: baseline-center;
+}

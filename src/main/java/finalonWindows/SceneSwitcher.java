@@ -42,15 +42,20 @@ public class SceneSwitcher {
      * Returns a Map of the scenes by {@link SceneName}
      */
     public static Map<SceneName, Scene> getScenes(SceneName sceneName) {
-        if (sceneName == SceneName.TEMPLATESLIST) {
-            scenes.put(SceneName.TEMPLATESLIST, new TemplatesScene(window).getScene());
-        }
-        if (sceneName == SceneName.ADDTEMPLATE) {
-            ObservableList<Item> items = FXCollections.observableArrayList(DefaultTemplate.getTpl());
-            scenes.put(SceneName.ADDTEMPLATE, new AddTemplate(window, items).getScene());
-        }
-        if (sceneName == SceneName.ADDREPORT) {
-            scenes.put(SceneName.ADDREPORT, new AddReportScene(window).getScene());
+        switch (sceneName){
+            case TEMPLATESLIST :
+                scenes.put(SceneName.TEMPLATESLIST, new TemplatesScene(window).getScene());
+                break;
+            case ADDTEMPLATE :
+                ObservableList<Item> items = FXCollections.observableArrayList(DefaultTemplate.getTpl());
+                scenes.put(SceneName.ADDTEMPLATE, new AddTemplate(window, items).getScene());
+                break;
+            case ADDREPORT :
+                scenes.put(SceneName.ADDREPORT, new AddReportScene(window).getScene());
+                break;
+            case FORMULA :
+                scenes.put(SceneName.FORMULA, new FormulaScene(window).getScene());
+                break;
         }
         return scenes;
     }
