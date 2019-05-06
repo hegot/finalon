@@ -1,6 +1,6 @@
 package database.formula;
 
-import defaultData.DefaultFormulas;
+import defaultData.Formula.DefaultFormulas;
 import entities.Formula;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
