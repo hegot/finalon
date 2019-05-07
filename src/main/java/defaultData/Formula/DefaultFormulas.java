@@ -1,7 +1,10 @@
 package defaultData.Formula;
 
+import defaultData.Formula.AltmanZScore.*;
 import defaultData.Formula.FinancialSustainability.*;
+import defaultData.Formula.InvestmentAnalysis.NetAssets;
 import defaultData.Formula.Liquidity.*;
+import defaultData.Formula.Other.LaborProductivity;
 import defaultData.Formula.ProfitabilityAndPerformance.*;
 import defaultData.Formula.Turnover.*;
 import entities.Formula;
@@ -19,27 +22,21 @@ public class DefaultFormulas {
         int IFRSiD = counter;
         Formulas.add(new Formula(IFRSiD, "IFRS", "", "", "", "standard", "", 0));
         counter++;
-
         int USGAAPiD = counter;
         Formulas.add(new Formula(USGAAPiD, "US GAAP", "", "", "", "standard", "", 0));
         counter++;
-
         //IndustryLevel
         int IFRSGeneraliD = counter;
         Formulas.add(new Formula(IFRSGeneraliD, "IFRS General", "IFRS General", "", "", "industry", "", IFRSiD));
         counter++;
-
         int USGAAPGeneraliD = counter;
         Formulas.add(new Formula(USGAAPGeneraliD, "US GAAP General", "US GAAP General", "", "", "industry", "", USGAAPiD));
         counter++;
-
-
         //IFRS Formula Level
         ObservableList<Formula> IFRSFormulas = getIndustryChilds(IFRSGeneraliD);
         ObservableList<Formula> USGAAPFormulas = getIndustryChilds(USGAAPGeneraliD);
         Formulas.addAll(IFRSFormulas);
         Formulas.addAll(USGAAPFormulas);
-
         return Formulas;
     }
 
@@ -61,32 +58,24 @@ public class DefaultFormulas {
         int FSiD = counter;
         Formulas.add(new Formula(FSiD, "Financial Sustainability", "FS", "", "", "section", "", parent));
         counter++;
-
         int LiD = counter;
         Formulas.add(new Formula(LiD, "Liquidity", "L", "", "", "section", "", parent));
         counter++;
-
         int PaPiD = counter;
         Formulas.add(new Formula(PaPiD, "Profitability and Performance", "PaP", "", "", "section", "", parent));
         counter++;
-
         int TiD = counter;
         Formulas.add(new Formula(TiD, "Turnover", "T", "", "", "section", "", parent));
         counter++;
-
-
         int IAiD = counter;
         Formulas.add(new Formula(IAiD, "Investment analysis", "IA", "", "", "section", "", parent));
         counter++;
-
         int AZSiD = counter;
         Formulas.add(new Formula(AZSiD, "Altman Z-score", "AZS", "", "", "section", "", parent));
         counter++;
-
         int OIiD = counter;
         Formulas.add(new Formula(OIiD, "Other", "OI", "", "", "section", "", parent));
         counter++;
-
         //Financial Sustainability
         Formulas.addAll(TimesInterestEarned.get(FSiD, counter));
         counter = counter + 4;
@@ -102,7 +91,6 @@ public class DefaultFormulas {
         counter = counter + 4;
         Formulas.addAll(LongTermDebttoEquity.get(FSiD, counter));
         counter = counter + 4;
-
         //Liquidity
         Formulas.addAll(CurrentRatio.get(LiD, counter));
         counter = counter + 5;
@@ -114,9 +102,6 @@ public class DefaultFormulas {
         counter = counter + 4;
         Formulas.addAll(SalestoNetWorkingCapital.get(LiD, counter));
         counter = counter + 4;
-
-
-
         //Profitability and Performance
         Formulas.addAll(NetProfitMargin.get(PaPiD, counter));
         counter = counter + 1;
@@ -134,20 +119,6 @@ public class DefaultFormulas {
         counter = counter + 5;
         Formulas.addAll(ReturnOnAssets.get(PaPiD, counter));
         counter = counter + 5;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         //Turnover
         Formulas.addAll(TotalAssetTurnover.get(TiD, counter));
         counter = counter + 3;
@@ -167,77 +138,34 @@ public class DefaultFormulas {
         counter = counter + 3;
         Formulas.addAll(InventoryTurnover.get(TiD, counter));
         counter = counter + 3;
-
         Formulas.addAll(InventoryTurnoverinDays.get(TiD, counter));
         counter = counter + 3;
         Formulas.addAll(CashTurnover.get(TiD, counter));
         counter = counter + 3;
         Formulas.addAll(OperatingCycle.get(TiD, counter));
         counter = counter + 3;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        int CashConversionCycle = counter;
-        Formulas.add(new Formula(CashConversionCycle, "Cash Conversion Cycle", "CashConversionCycle", "360*((Inventories[1]+Inventories[0])/2)/CostOfSales+360*((TradeAndOtherCurrentReceivables[0]+TradeAndOtherCurrentReceivables[1])/2)/RevenueGeneral-(((TradeAndOtherCurrentPayables[0]+TradeAndOtherCurrentPayables[1])/2)*360)/CostOfSales", "", "formula", "days", TiD));
-        counter++;
-        int CashConversionCyclegood = counter;
-        Formulas.add(new Formula(CashConversionCyclegood, "good", "<", "60", "", "", "", CashConversionCycle));
-        counter++;
-        int CashConversionCyclesatisfactory = counter;
-        Formulas.add(new Formula(CashConversionCyclesatisfactory, "unsatisfactory", ">=", "60", "", "", "", CashConversionCycle));
-        counter++;
-
-
-
-
+        Formulas.addAll(CashConversionCycle.get(TiD, counter));
+        counter = counter + 3;
         //Investment analysis
-        int NetAssets = counter;
-        Formulas.add(new Formula(NetAssets, "Net assets (Net worth)", "NetAssets", "AssetsGeneral-NonCurrentAssets-GeneralCurrentAssets", "", "formula", "money", IAiD));
-        counter++;
-
-
+        Formulas.addAll(NetAssets.get(IAiD, counter));
+        counter = counter + 1;
         //Altman Z-score
-        int X1 = counter;
-        Formulas.add(new Formula(X1, "Altman Z-score X1", "X1", "(GeneralCurrentAssets-CurrentLiabilities)/AssetsGeneral", "", "formula", "", AZSiD));
-        counter++;
-
-        int X2 = counter;
-        Formulas.add(new Formula(X2, "Altman Z-score X2", "X2", "RetainedEarnings/AssetsGeneral", "", "formula", "", AZSiD));
-        counter++;
-        int X3 = counter;
-        Formulas.add(new Formula(X3, "Altman Z-score X3", "X3", "(ProfitLossBeforeTax+FinanceCosts)/AssetsGeneral", "", "formula", "", AZSiD));
-        counter++;
-        int X4 = counter;
-        Formulas.add(new Formula(X4, "Altman Z-score X4", "X4", "EquityGeneral/(NonCurrentAssets+CurrentLiabilities)", "", "formula", "", AZSiD));
-        counter++;
-        int X5 = counter;
-        Formulas.add(new Formula(X5, "Altman Z-score X5", "X5", "RevenueGeneral/AssetsGeneral", "", "formula", "", AZSiD));
-        counter++;
-        int Z = counter;
-        Formulas.add(new Formula(Z, "Altman Z-score Z", "Z", "0.717*(GeneralCurrentAssets-CurrentLiabilities)/AssetsGeneral+0.847*RetainedEarnings/AssetsGeneral+3.107*(ProfitLossBeforeTax+FinanceCosts)/AssetsGeneral+0.42*EquityGeneral/(NonCurrentAssets+CurrentLiabilities)+0.998*RevenueGeneral/AssetsGeneral", "", "formula", "", AZSiD));
-        counter++;
-
+        Formulas.addAll(X1.get(AZSiD, counter));
+        counter = counter + 1;
+        Formulas.addAll(X2.get(AZSiD, counter));
+        counter = counter + 1;
+        Formulas.addAll(X3.get(AZSiD, counter));
+        counter = counter + 1;
+        Formulas.addAll(X4.get(AZSiD, counter));
+        counter = counter + 1;
+        Formulas.addAll(X5.get(AZSiD, counter));
+        counter = counter + 1;
+        Formulas.addAll(Z.get(AZSiD, counter));
+        counter = counter + 1;
         //Other
-        int Laborproductivity = counter;
-        Formulas.add(new Formula(Laborproductivity, "Labor productivity", "Laborproductivity", "RevenueGeneral/NumberOfEmployees", "", "formula", "money per person", OIiD));
-        counter++;
+        Formulas.addAll(LaborProductivity.get(OIiD, counter));
+        counter = counter + 1;
+
         return Formulas;
     }
 

@@ -45,7 +45,6 @@ public class DebtRatio {
                 "",
                 "",
                 DebtRatio));
-        counter++;
         return Formulas;
     }
 }
