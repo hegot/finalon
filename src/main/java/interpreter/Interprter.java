@@ -3,10 +3,13 @@ package interpreter;
 import database.formula.DbFormulaHandler;
 import entities.Formula;
 import entities.Item;
-import finalonWindows.addReport.stepTwo.Periods;
+import finalonWindows.reusableComponents.ItemsTable.Periods;
+import interpreter.AssetsReport.AssetsReport;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import javafx.scene.control.TreeTableView;
+import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,6 +66,10 @@ public class Interprter {
             }
         }
         return formulas;
+    }
+
+    public VBox assetReport(){
+       return new AssetsReport(this.items, this.settings).get();
     }
 
 

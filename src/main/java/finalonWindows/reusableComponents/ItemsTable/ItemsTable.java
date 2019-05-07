@@ -4,7 +4,6 @@ import entities.Item;
 import finalonWindows.templateScene.templates.TreeBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableView;
 
@@ -13,15 +12,11 @@ import java.util.ArrayList;
 public class ItemsTable {
 
     private ObservableList<Item> items;
-    private int rootId;
     private ArrayList<TreeItem> roots;
-    private ObservableMap<String, String> settings;
 
-    ItemsTable(ObservableList<Item> items, ObservableMap<String, String> settings) {
+    public ItemsTable(ObservableList<Item> items) {
         this.items = items;
         this.roots = new ArrayList<>();
-        this.settings = settings;
-        setRoot();
     }
 
     protected TreeTableView<Item> getTable(int Id) {
@@ -46,16 +41,6 @@ public class ItemsTable {
         }
     }
 
-
-    public void setRoot() {
-        for (Item item : this.items) {
-            if (item.getParent() == 0) {
-                this.rootId = item.getId();
-            }
-        }
-    }
-
-
     public ObservableList<Item> getItems() {
         ObservableList<Item> Items = FXCollections.observableArrayList();
         for (TreeItem rootNode : this.roots) {
@@ -63,5 +48,17 @@ public class ItemsTable {
         }
         return Items;
     }
+
+    protected ObservableList<Item> getChildren(int id) {
+        ObservableList<Item> Items = FXCollections.observableArrayList();
+        for (Item item : items) {
+            if (item.getParent() == id) {
+                Items.add(item);
+            }
+        }
+        return Items;
+    }
+
+
 
 }

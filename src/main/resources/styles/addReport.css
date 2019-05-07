@@ -1,3 +1,66 @@
+.tree-table-cell {
+    -fx-border-color: #e4e5e7;
+    -fx-border-style: solid;
+}
+
+.tree-table-view .column-header,
+.tree-table-view .column-header .filler,
+.tree-table-view .column-header-background .filler {
+    -fx-background-color: #34495e;
+    -fx-padding: 15;
+}
+
+.report-tabs .report-input .column-header,
+.report-tabs .report-input .column-header .filler,
+.report-tabs .report-input .column-header-background .filler {
+    -fx-background-color: #34495e;
+    -fx-padding: 5;
+    -fx-pref-height: 50px;
+}
+
+
+.report-tabs .assets-report .column-header,
+.report-tabs .assets-report .column-header .filler,
+.report-tabs .assets-report .column-header-background .filler {
+    -fx-background-color: #34495e;
+    -fx-padding: 5;
+    -fx-pref-height: 250px;
+
+}
+
+
+.report-input  .column-header .label {
+    -fx-text-fill: #fff;
+    -fx-font-size: 13px;
+    -fx-font-weight: normal;
+    -fx-pref-height: 20px;
+}
+
+.assets-report  .column-header .label {
+    -fx-text-fill: #fff;
+    -fx-font-size: 10px;
+    -fx-font-weight: normal;
+    -fx-pref-height: 50px;
+    -fx-alignment: baseline-left;
+}
+
+
+
+
+.tab-pane .tab{
+    -fx-pref-height: 40px;
+}
+
+.tab-pane .tab .tab-label{
+-fx-pref-height: 40px;
+}
+
+
+.tab-pane {
+  -fx-tab-min-height:40px;
+  -fx-tab-max-height:40px;
+}
+
 .container{
     -fx-padding: 0 10px;
 }

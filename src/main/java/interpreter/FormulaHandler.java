@@ -35,7 +35,7 @@ class FormulaHahdler {
     public String getResult() {
         String formulaUpdated = getValuesInPlace();
         if (formulaUpdated != null) {
-            if(formulaUpdated.contains("/0.0")) return null;
+            if (formulaUpdated.contains("/0.0")) return null;
             return evaluateFormula(formulaUpdated);
         } else {
             return null;
@@ -88,7 +88,7 @@ class FormulaHahdler {
                 Double val = map.get(period);
                 return val != null ? val : 0.0;
             }
-        }else{
+        } else {
             return 0.0;
         }
         return null;
@@ -110,7 +110,7 @@ class FormulaHahdler {
                 Double doubleInt = Double.parseDouble(res);
                 String val = String.format("%.2f", doubleInt);
                 res = value + " = " + val;
-                if(val.equals("NaN")) res = "";
+                if (val.equals("NaN")) res = "";
             }
         } catch (Exception e) {
             e.printStackTrace();

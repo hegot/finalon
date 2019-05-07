@@ -1,4 +1,4 @@
-package finalonWindows.addReport.stepTwo;
+package finalonWindows.reusableComponents.ItemsTable;
 
 import javafx.collections.ObservableMap;
 
@@ -16,6 +16,9 @@ public class Periods {
     private int endMonth;
     private DateTimeFormatter formatM = DateTimeFormatter.ofPattern("MM");
     private DateTimeFormatter formatY = DateTimeFormatter.ofPattern("yyyy");
+    private ArrayList<String> periodArr;
+    private String timeStart;
+    private String timeEnd;
 
     public Periods(ObservableMap<String, String> settings) {
         this.settings = settings;
@@ -32,7 +35,7 @@ public class Periods {
     }
 
 
-    public int getMonths() {
+    private int getMonths() {
         int amount = 1;
         String step = settings.get("reportStep");
         switch (step) {
@@ -59,10 +62,11 @@ public class Periods {
         date.setMonth(endMonth);
         date.setYear(endYear);
         date.setDate(endDay);
-
         LocalDateTime time = LocalDateTime.of(endYear, endMonth, endDay, 0, 0);
+        this.timeEnd = time.format(formatM) + "/" + time.format(formatY);
         int totall = periods * month;
         time = time.minusMonths(totall);
+        this.timeStart = time.format(formatM) + "/" + time.format(formatY);
         for (int j = 0; j < periods; j++) {
             String str = time.format(formatM) + "/" + time.format(formatY) + "-";
             time = time.plusMonths(month);
@@ -73,4 +77,11 @@ public class Periods {
         return arr;
     }
 
+    public String getStart(){
+        return timeStart;
+    }
+
+    public String getEnd(){
+        return timeEnd;
+    }
 }

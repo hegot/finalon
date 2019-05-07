@@ -3,7 +3,7 @@ package finalonWindows.addReport.stepThree;
 import entities.Formula;
 import entities.Item;
 import finalonWindows.SceneBase;
-import finalonWindows.addReport.stepTwo.Periods;
+import finalonWindows.reusableComponents.ItemsTable.Periods;
 import interpreter.Interprter;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
@@ -43,6 +43,7 @@ public class StepThree extends SceneBase {
             table.getColumns().add(getPeriodCol(col));
         }
         table.setItems(formulas);
+        vbox.getChildren().add(interprter.assetReport());
         vbox.getChildren().add(table);
 
         return vbox;

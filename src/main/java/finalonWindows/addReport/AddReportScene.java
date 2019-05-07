@@ -56,7 +56,7 @@ public class AddReportScene extends SceneBase {
 
         vbox.getChildren().addAll(settingsMenu.getMenu(), stepOne.show());
         Scene scene = baseScene(vbox, 900);
-        scene.getStylesheets().addAll("styles/addReport.css", "styles/templateStyle.css");
+        scene.getStylesheets().add("styles/addReport.css");
         return scene;
     }
 

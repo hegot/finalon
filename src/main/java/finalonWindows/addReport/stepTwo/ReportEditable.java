@@ -1,8 +1,8 @@
 package finalonWindows.addReport.stepTwo;
 
 import entities.Item;
-import finalonWindows.templateScene.templates.TreeBuilder;
-import javafx.collections.FXCollections;
+import finalonWindows.reusableComponents.ItemsTable.ItemsTable;
+import finalonWindows.reusableComponents.ItemsTable.Periods;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.geometry.Rectangle2D;
@@ -15,7 +15,7 @@ import javafx.stage.Screen;
 import java.util.ArrayList;
 
 
-public class ReportEditable {
+public class ReportEditable extends ItemsTable {
 
     private ObservableList<Item> items;
     private int rootId;
@@ -23,10 +23,11 @@ public class ReportEditable {
     private ObservableMap<String, String> settings;
 
     ReportEditable(ObservableList<Item> items, ObservableMap<String, String> settings) {
+        super(items);
         this.items = items;
         this.roots = new ArrayList<>();
         this.settings = settings;
-        setRoot();
+        this.rootId = getRoot();
     }
 
 
@@ -47,7 +48,8 @@ public class ReportEditable {
     }
 
     private TreeTableView<Item> getSingleTable(int Id) {
-        TreeTableView<Item> table = new TreeTableView<>();
+        TreeTableView<Item> table =  getTable(Id);
+        table.getStyleClass().add("report-input");
         table.setEditable(true);
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         table.setMinHeight(primaryScreenBounds.getHeight() - 150);
@@ -60,53 +62,17 @@ public class ReportEditable {
         for (String col : arr) {
             table.getColumns().add(cols.getPeriodCol(col));
         }
-        TreeBuilder treeBuilder = new TreeBuilder(Id, this.items);
-        TreeItem rootNode = treeBuilder.getTree();
-        table.setRoot(rootNode);
-        roots.add(rootNode);
         return table;
     }
 
 
-    private void populateList(TreeItem<Item> item, ObservableList<Item> items) {
-        if (item.getChildren().size() > 0) {
-            Item node = (Item) item.getValue();
-            items.add(node);
-            for (TreeItem<Item> subItem : item.getChildren()) {
-                populateList(subItem, items);
-            }
-        } else {
-            Item node = (Item) item.getValue();
-            items.add(node);
-        }
-    }
-
-
-    public void setRoot() {
+    private int getRoot() {
         for (Item item : this.items) {
             if (item.getParent() == 0) {
-                this.rootId = item.getId();
+                return item.getId();
             }
         }
-    }
-
-
-    private ObservableList<Item> getChildren(int id) {
-        ObservableList<Item> Items = FXCollections.observableArrayList();
-        for (Item item : items) {
-            if (item.getParent() == id) {
-                Items.add(item);
-            }
-        }
-        return Items;
-    }
-
-    public ObservableList<Item> getItems() {
-        ObservableList<Item> Items = FXCollections.observableArrayList();
-        for (TreeItem rootNode : this.roots) {
-            populateList(rootNode, Items);
-        }
-        return Items;
+        return 0;
     }
 
 }
