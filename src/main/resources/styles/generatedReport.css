@@ -1,0 +1,26 @@
+.report-title{
+    -fx-font-weight: bold;
+    -fx-text-fill: #6a6c6f;
+    -fx-font-size: 20px;
+    -fx-padding: 20 25 5 25;
+    -fx-alignment: center;
+}
+.report-text{
+    -fx-text-fill: #6a6c6f;
+    -fx-font-size: 14px;
+    -fx-padding: 5 25;
+}
+
+.assets-label{
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+    -fx-font-size: 17px;
+    -fx-padding: 20 5 5 5;
+}
+
+.assets-table-name{
+    -fx-text-fill: #000000;
+    -fx-font-size: 12px;
+    -fx-alignment: center;
+    -fx-padding: 0 5;
+}

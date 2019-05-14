@@ -16,9 +16,7 @@ public class Periods {
     private int endMonth;
     private DateTimeFormatter formatM = DateTimeFormatter.ofPattern("MM");
     private DateTimeFormatter formatY = DateTimeFormatter.ofPattern("yyyy");
-    private ArrayList<String> periodArr;
-    private String timeStart;
-    private String timeEnd;
+    private int month;
 
     public Periods(ObservableMap<String, String> settings) {
         this.settings = settings;
@@ -32,11 +30,11 @@ public class Periods {
         String[] tempArray = date.split("\\.");
         this.endMonth = Integer.parseInt(tempArray[1]);
         this.endDay = Integer.parseInt(tempArray[0]);
+        this.month = getMonths();
     }
 
-
     private int getMonths() {
-        int amount = 1;
+        int amount = 12;
         String step = settings.get("reportStep");
         switch (step) {
             case "month":
@@ -57,31 +55,37 @@ public class Periods {
 
     public ArrayList<String> getPeriodArr() {
         ArrayList<String> arr = new ArrayList<>();
-        int month = getMonths();
-        Date date = new Date();
-        date.setMonth(endMonth);
-        date.setYear(endYear);
-        date.setDate(endDay);
-        LocalDateTime time = LocalDateTime.of(endYear, endMonth, endDay, 0, 0);
-        this.timeEnd = time.format(formatM) + "/" + time.format(formatY);
-        int totall = periods * month;
-        time = time.minusMonths(totall);
-        this.timeStart = time.format(formatM) + "/" + time.format(formatY);
+        LocalDateTime time = getStartTime();
         for (int j = 0; j < periods; j++) {
             String str = time.format(formatM) + "/" + time.format(formatY) + "-";
             time = time.plusMonths(month);
             str += "\n" + time.format(formatM) + "/" + time.format(formatY);
             arr.add(str);
         }
-
         return arr;
     }
 
+    public LocalDateTime getStartTime(){
+        int totall = periods * month;
+        LocalDateTime time = getEndTime();
+        return time.minusMonths(totall);
+    }
+
+    public LocalDateTime getEndTime(){
+        Date date = new Date();
+        date.setMonth(endMonth);
+        date.setYear(endYear);
+        date.setDate(endDay);
+        return LocalDateTime.of(endYear, endMonth, endDay, 0, 0);
+    }
+
     public String getStart(){
-        return timeStart;
+        LocalDateTime time = getStartTime();
+        return time.format(formatM) + "/" + time.format(formatY);
     }
 
     public String getEnd(){
-        return timeEnd;
+        LocalDateTime time = getEndTime();
+        return time.format(formatM) + "/" + time.format(formatY);
     }
 }

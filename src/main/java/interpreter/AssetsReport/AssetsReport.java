@@ -3,10 +3,10 @@ package interpreter.AssetsReport;
 import entities.Item;
 import finalonWindows.reusableComponents.ItemsTable.ItemsTable;
 import finalonWindows.reusableComponents.ItemsTable.Periods;
+import interpreter.AssetsReport.Outcomes.TotallAssetsAnalyze;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
-import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.layout.VBox;
 
@@ -17,34 +17,33 @@ public class AssetsReport extends ItemsTable {
 
     private ObservableList<Item> items;
     private int rootId;
-    private ArrayList<TreeItem> roots;
     private ObservableMap<String, String> settings;
     private Periods periods;
 
     public AssetsReport(ObservableList<Item> items, ObservableMap<String, String> settings) {
         super(items);
         this.items = items;
-        this.roots = new ArrayList<>();
         this.settings = settings;
-        this.rootId = getRoot();
+        Item root = getItemByCode("AssetsGeneral");
+        this.rootId = (root != null) ? root.getId() : 0;
         this.periods = new Periods(settings);
     }
 
     public VBox get() {
-        String companyName = settings.get("company") + "'s";
-        Label title = new Label(
-                "Analysis of " + companyName
-                        + " financial statements for the period from "
-                        + periods.getStart() + " to "
-                        + periods.getEnd());
-        Label text1 = new Label("This report analyzes the balance sheets and income statements of " + companyName
-                + ". Trends for the major balance sheet and income statement items and ratio analysis are used " +
-                "to understand the financial position and financial effectiveness of the company. " +
-                "The report studied the " + periods.getStart() + " - " + periods.getEnd() + " period.");
-        Label text2 = new Label("1. The Common-Size Analysis of the Assets, Liabilities and Shareholders' Equity ");
-        Label text3 = new Label("Table 1. Assets Trend Analysis, in currency");
-        VBox box = new VBox(20);
-        box.getChildren().addAll(title, text1, text2, text3, getAssetsReportTable());
+
+        Label label = new Label("1. The Common-Size Analysis of the Assets, Liabilities and Shareholders' Equity ");
+        label.getStyleClass().add("assets-label");
+        label.setWrapText(true);
+        Label tableName = new Label("Table 1. Assets Trend Analysis, in currency");
+        tableName.getStyleClass().add("assets-table-name");
+        tableName.setWrapText(true);
+        VBox box = new VBox(10);
+        box.getChildren().addAll(
+                label,
+                tableName,
+                getAssetsReportTable(),
+                new TotallAssetsAnalyze(getItemByCode("AssetsGeneral")).get()
+        );
         return box;
     }
 
@@ -76,15 +75,14 @@ public class AssetsReport extends ItemsTable {
         return table;
     }
 
-    private int getRoot() {
+
+    private Item getItemByCode(String code) {
         for (Item item : this.items) {
-            if (item.getShortName().equals("AssetsGeneral")) {
-                return item.getId();
+            if (item.getShortName().equals(code)) {
+                return item;
             }
         }
-        return 0;
+        return null;
     }
-
-
 }
 

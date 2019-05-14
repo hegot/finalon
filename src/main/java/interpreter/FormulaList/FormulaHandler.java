@@ -1,4 +1,4 @@
-package interpreter;
+package interpreter.FormulaList;
 
 import entities.Formula;
 import finalonWindows.reusableComponents.autocomplete.ParserBase;
@@ -9,7 +9,7 @@ import javax.script.ScriptEngineManager;
 import java.util.Arrays;
 import java.util.Map;
 
-class FormulaHahdler {
+class FormulaHandler {
     private Formula formula;
     private Map<String, ObservableMap<String, Double>> values;
     private String period;
@@ -17,7 +17,7 @@ class FormulaHahdler {
     private String Speriod = "[1]";
     private String[] indexes;
 
-    public FormulaHahdler(Formula formula, Map<String, ObservableMap<String, Double>> values, String period) {
+    public FormulaHandler(Formula formula, Map<String, ObservableMap<String, Double>> values, String period) {
         this.formula = formula;
         this.values = values;
         this.period = period;

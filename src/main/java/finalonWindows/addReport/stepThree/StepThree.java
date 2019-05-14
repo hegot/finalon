@@ -1,75 +1,68 @@
 package finalonWindows.addReport.stepThree;
 
-import entities.Formula;
 import entities.Item;
 import finalonWindows.SceneBase;
 import finalonWindows.reusableComponents.ItemsTable.Periods;
 import interpreter.Interprter;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Screen;
-
-import java.util.ArrayList;
 
 public class StepThree extends SceneBase {
     private ObservableMap<String, String> settings;
     private ObservableList<Item> items;
-    private ObservableList<Formula> formulas;
+    private String companyName;
+    private Periods periods;
 
     public StepThree(ObservableMap<String, String> settings, ObservableList<Item> items) {
         this.settings = settings;
         this.items = items;
-
     }
 
     public VBox show() {
+        this.companyName = settings.get("company") + "'s";
+        this.periods = new Periods(settings);
         Interprter interprter = new Interprter(settings, items);
-        this.formulas = interprter.result();
-        VBox vbox = new VBox(10);
-        TableView<Formula> table = new TableView<Formula>();
-        table.setEditable(true);
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        table.setMinHeight(primaryScreenBounds.getHeight() - 150);
-        table.getColumns().add(getNameCol());
-        Periods periods = new Periods(settings);
-        ArrayList<String> arr = periods.getPeriodArr();
-        for (String col : arr) {
-            table.getColumns().add(getPeriodCol(col));
-        }
-        table.setItems(formulas);
-        vbox.getChildren().add(interprter.assetReport());
-        vbox.getChildren().add(table);
+        TabPane tabs = new TabPane();
+        tabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+        Tab tab1 = new Tab("Assets report");
+        tab1.setContent(interprter.assetReport());
+        Tab tab2 = new Tab("Formula Calculation");
+        tab2.setContent(interprter.formulaList());
 
-        return vbox;
+        tabs.getTabs().addAll(tab1, tab2);
+        VBox vBox = new VBox(5);
+        vBox.getChildren().addAll(
+                getTitle(),
+                getDescText(),
+                tabs);
+        return vBox;
     }
 
-    TableColumn getNameCol() {
-        TableColumn<Formula, String> col = new TableColumn<Formula, String>("Formula");
-        col.setMinWidth(350);
-        col.setCellValueFactory(new PropertyValueFactory<Formula, String>("name"));
-        return col;
+    private Label getDescText(){
+        Label text = new Label("This report analyzes the balance sheets and income statements of " + companyName
+                + ". Trends for the major balance sheet and income statement items and ratio analysis are used " +
+                "to understand the finan" + "cial position and financial effectiveness of the company. " +
+                "The report studied the " + periods.getStart() + " - " + periods.getEnd() + " period.");
+        text.getStyleClass().add("report-text");
+        text.setWrapText(true);
+        return text;
     }
 
-    TableColumn getPeriodCol(String colname) {
-        TableColumn<Formula, String> col = new TableColumn<Formula, String>(colname);
-        col.setMinWidth(100);
-        col.setCellValueFactory(cellData -> {
-            Formula formula = (Formula) cellData.getValue();
-            if (formula != null && formula.getPeriods().size() > 0) {
-                String period = formula.getPeriods().get(colname);
-                if (period != null) {
-                    return new SimpleStringProperty(period);
-                }
 
-            }
-            return null;
-        });
-        return col;
+    private Label getTitle(){
+        Label title = new Label(
+                "Analysis of " + companyName
+                        + " financial statements for the period from "
+                        + periods.getStart() + " to "
+                        + periods.getEnd());
+        title.getStyleClass().add("report-title");
+        title.setWrapText(true);
+        return title;
     }
+
+
 }
