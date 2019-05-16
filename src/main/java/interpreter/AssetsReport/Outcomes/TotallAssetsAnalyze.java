@@ -4,120 +4,81 @@ import entities.Item;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
+
 import java.util.Map;
 
-public class TotallAssetsAnalyze {
+public class TotallAssetsAnalyze extends OutcomeBase {
 
-    private ObservableMap<String, Double> values;
     private Map.Entry<String, Double> first;
     private Map.Entry<String, Double> last;
+    private String startDate;
+    private String endDate;
 
-    public TotallAssetsAnalyze(Item item) {
-        this.values = item.getValues();
-        this.first = getFirst();
-        this.last = getLast();
-    }
-
-    private Map.Entry<String, Double> getLast() {
-        Map.Entry<String, Double> last = null;
-        for (Map.Entry<String, Double> entry : values.entrySet()) {
-            last = entry;
+    public TotallAssetsAnalyze(
+            Item item,
+            String startDate,
+            String endDate
+    ) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        ObservableMap<String, Double> values = item.getValues();
+        if (values.size() > 1) {
+            this.first = getFirst(values);
+            this.last = getLast(values);
         }
-        return last;
-    }
-
-    private Map.Entry<String, Double> getFirst() {
-        return values.entrySet().iterator().next();
     }
 
     public VBox get() {
         VBox hbox = new VBox(10);
-        Double first = this.first.getValue();
-        Double last = this.last.getValue();
-        String output = "";
-        if (last > first) {
-            output = increase();
+        if (first != null && last != null) {
+            Double firstVal = first.getValue();
+            Double lastVal = last.getValue();
+            String output = "";
+            if (lastVal > firstVal) {
+                output = increase();
+            }
+            if (lastVal < firstVal) {
+                output = decrease();
+            }
+            if (lastVal == firstVal) {
+                output = equal();
+            }
+            Label text1 = new Label(output);
+            text1.getStyleClass().add("report-text-small");
+            text1.setWrapText(true);
+            Label text2 = new Label(consequence());
+            text2.getStyleClass().add("report-text-small");
+            text2.setWrapText(true);
+            hbox.getChildren().addAll(text1, text2);
         }
-        if (last < first) {
-            output = decrease();
-        }
-        if (last == first) {
-            output = equal();
-        }
-        Label text1 = new Label(output);
-        text1.setWrapText(true);
-        Label text2 = new Label(consequence());
-        text2.setWrapText(true);
-        hbox.getChildren().addAll(text1, text2);
         return hbox;
     }
 
-    private String formatDate(String input) {
-        input = input.replace("\n", "");
-        String[] parts = input.split("-");
-        return (parts[1] != null) ? parts[1] : "";
-    }
-
-    private String endDate() {
-        return formatDate(last.getKey());
-    }
-
-    private String startDate() {
-        return formatDate(first.getKey());
-    }
 
     private String increase() {
-        return " It can be noticed from Table 1 that there was a " +
+        return "It can be noticed from Table 1 that there was a " +
                 "tendency to increase in the total value of the assets. " +
                 "The percentage change was equal " +
-                getRelativeChange() + "% in " + startDate() +
-                " comparing to " + endDate() + ". ";
+                getRelativeChange(first.getValue(), last.getValue()) + "% in " + startDate +
+                " comparing to " + endDate + ". ";
     }
 
     private String decrease() {
         return "It can be noticed from Table 1 that there was a " +
                 "tendency to decrease in the total value of the assets. " +
                 "The percentage change was equal " +
-                getRelativeChange() + "% in " + startDate() +
-                " comparing to " + endDate() + ". ";
+                getRelativeChange(first.getValue(), last.getValue()) + "% in " + startDate +
+                " comparing to " + endDate + ". ";
     }
 
     private String equal() {
         return "It can be noticed from Table 1 that " +
                 "total value of the assets was stable in "
-                + startDate() + " and " + endDate() + ". ";
+                + startDate + " and " + endDate + ". ";
     }
 
     private String consequence() {
         return "The value of the assets totalled " + last.getValue() +
-                " at the end of " + endDate() + ". ";
-    }
-
-    private String getRelativeChange() {
-        Double start = first.getValue();
-        Double end = last.getValue();
-        ScriptEngineManager mgr = new ScriptEngineManager();
-        ScriptEngine engine = mgr.getEngineByName("JavaScript");
-        String formula = "(("
-                + Double.toString(end)
-                + "-"
-                + Double.toString(start)
-                + ")/"
-                + Double.toString(start)
-                + ") * 100";
-        String val = "";
-        try {
-            String result = engine.eval(formula).toString();
-            if (result != null && result.length() > 0) {
-                Double doubleInt = Double.parseDouble(result);
-                val = String.format("%.1f", doubleInt);
-                if (val.equals("NaN")) val = "";
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return val;
+                " at the end of " + endDate + ". ";
     }
 }

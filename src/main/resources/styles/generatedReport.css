@@ -11,6 +11,13 @@
     -fx-padding: 5 25;
 }
 
+.report-text-small{
+    -fx-text-fill: #000000;
+    -fx-font-size: 14px;
+    -fx-padding: 0 5;
+    -fx-pref-width: 800px;
+}
+
 .assets-label{
     -fx-font-weight: bold;
     -fx-text-fill: #000000;
@@ -18,9 +25,9 @@
     -fx-padding: 20 5 5 5;
 }
 
-.assets-table-name{
-    -fx-text-fill: #000000;
-    -fx-font-size: 12px;
-    -fx-alignment: center;
-    -fx-padding: 0 5;
+.assets-table-name,
+.chart .chart-title {
+    -fx-text-fill: #6A6C6F;
+    -fx-font-size: 14px;
+    -fx-padding: 5px 0;
 }

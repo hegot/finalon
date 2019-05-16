@@ -45,7 +45,7 @@ public class StepThree extends SceneBase {
     private Label getDescText(){
         Label text = new Label("This report analyzes the balance sheets and income statements of " + companyName
                 + ". Trends for the major balance sheet and income statement items and ratio analysis are used " +
-                "to understand the finan" + "cial position and financial effectiveness of the company. " +
+                "to understand the financial position and financial effectiveness of the company. " +
                 "The report studied the " + periods.getStart() + " - " + periods.getEnd() + " period.");
         text.getStyleClass().add("report-text");
         text.setWrapText(true);

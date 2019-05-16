@@ -1,27 +1,63 @@
-package interpreter.AssetsReport;
+package interpreter.AssetsReport.Outcomes;
 
 import database.setting.DbSettingHandler;
 import entities.Item;
+import finalonWindows.reusableComponents.ItemsTable.ItemsTable;
+import finalonWindows.reusableComponents.ItemsTable.Periods;
+import interpreter.JsCalcHelper;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.TextFieldTreeTableCell;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
+import java.util.ArrayList;
 
-import java.text.DecimalFormat;
 
-
-class Columns {
-    private ObservableMap<String, String> settings;
+public class AssetsReportTable extends ItemsTable implements JsCalcHelper {
     private DbSettingHandler dbSettingHandler = new DbSettingHandler();
+    private Periods periods;
+    private int rootId;
+    private ObservableList<Item> items;
 
-    public Columns(
-            ObservableMap<String, String> settings
+    public AssetsReportTable(
+            ObservableList<Item> items,
+            Periods periods,
+            int rootId
     ) {
-        this.settings = settings;
+        super(items);
+        this.items = items;
+        this.periods = periods;
+        this.rootId = rootId;
     }
 
+    public TreeTableView<Item> get() {
+        TreeTableView<Item> table = getTable(rootId);
+        table.getStyleClass().add("assets-report");
+        table.setPrefWidth(880);
+        table.getColumns().addAll(getNameCol());
+        ArrayList<String> arr = periods.getPeriodArr();
+        for (String col : arr) {
+            table.getColumns().add(getPeriodCol(col));
+        }
+        int count = arr.size() - 1;
+        if (count > 0) {
+            for (int j = 0; j < count; j++) {
+                String colStart = arr.get(j);
+                String colEnd = arr.get(j + 1);
+                table.getColumns().add(getAbsoluteComparisonCol(colStart, colEnd));
+            }
+            for (int j = 0; j < count; j++) {
+                String colStart = arr.get(j);
+                String colEnd = arr.get(j + 1);
+                table.getColumns().add(getRelativeComparisonCol(colStart, colEnd));
+            }
+        }
+
+        return table;
+    }
 
     TreeTableColumn getNameCol() {
         TreeTableColumn<Item, String> col = new TreeTableColumn<Item, String>("Indicator");
@@ -29,15 +65,6 @@ class Columns {
         col.setCellValueFactory(new TreeItemPropertyValueFactory<Item, String>("name"));
         col.setCellFactory(TextFieldTreeTableCell.<Item>forTreeTableColumn());
         return col;
-    }
-
-    private String formatDate(String date) {
-        return date.replace("\n", "");
-    }
-
-    private Double formatDouble(Double num) {
-        DecimalFormat df = new DecimalFormat("#.##");
-        return Double.valueOf(df.format(num));
     }
 
     private ObservableMap<String, Double> getValues(TreeTableColumn.CellDataFeatures<Item, String> cellData) {
@@ -53,8 +80,7 @@ class Columns {
         return null;
     }
 
-    private String commaFormat(Double val) {
-        String value = Double.toString(val);
+    private String commaFormat(String value) {
         if (dbSettingHandler.getSetting("numberFormat").equals("comma")) {
             value = value.replace('.', ',');
         }
@@ -72,7 +98,7 @@ class Columns {
                 Double colStartVAl = values.get(colStart);
                 Double colEndVAl = values.get(colEnd);
                 if (colStartVAl != null && colEndVAl != null) {
-                    Double absolute = colEndVAl - colStartVAl;
+                    String absolute = Double.toString(colEndVAl - colStartVAl);
                     return new SimpleStringProperty(commaFormat(absolute));
                 }
             }
@@ -91,7 +117,7 @@ class Columns {
                 Double colStartVAl = values.get(colStart);
                 Double colEndVAl = values.get(colEnd);
                 if (colStartVAl != null && colEndVAl != null) {
-                    Double relative = formatDouble((colEndVAl - colStartVAl) / colStartVAl) * 100;
+                    String relative = getRelativeChange(colStartVAl, colEndVAl);
                     return new SimpleStringProperty(commaFormat(relative) + "%");
                 }
             }
@@ -102,14 +128,14 @@ class Columns {
 
 
     TreeTableColumn getPeriodCol(String colname) {
-        TreeTableColumn<Item, String> col = new TreeTableColumn<Item, String>(colname);
+        TreeTableColumn<Item, String> col = new TreeTableColumn<Item, String>(formatDate(colname));
         col.setMinWidth(100);
         col.setCellValueFactory(cellData -> {
             ObservableMap<String, Double> values = getValues(cellData);
             if (values != null) {
                 Double dob = values.get(colname);
                 if (dob != null) {
-                    return new SimpleStringProperty(commaFormat(dob));
+                    return new SimpleStringProperty(commaFormat(Double.toString(dob)));
                 }
             }
             return null;

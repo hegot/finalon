@@ -80,7 +80,7 @@ public class Periods {
     }
 
     public String getStart(){
-        LocalDateTime time = getStartTime();
+        LocalDateTime time = getStartTime().plusMonths(month);;
         return time.format(formatM) + "/" + time.format(formatY);
     }
 
