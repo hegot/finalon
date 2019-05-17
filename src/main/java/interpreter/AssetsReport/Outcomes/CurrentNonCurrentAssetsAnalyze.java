@@ -99,9 +99,11 @@ public class CurrentNonCurrentAssetsAnalyze extends OutcomeBase {
     private String endString() {
         return " in " + startDate + " comparing to " + endDate + ".";
     }
+
     private String incStr() {
         return "The overall increase of the assets reflects a growth in the ";
     }
+
     private String decStr() {
         return "The overall decrease of the assets reflects a reduction in the ";
     }

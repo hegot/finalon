@@ -1,4 +1,4 @@
-.formula-btn{
+.formula-edit .formula-btn{
     -fx-background-color: #FFFFFF;
     -fx-font-size: 12px;
     -fx-text-fill: #FFFFFF;
@@ -7,7 +7,7 @@
     -fx-background-radius: 5em;
 }
 
-.industry-btn{
+.formula-edit .industry-btn{
     -fx-background-color: grey;
     -fx-font-size: 9px;
     -fx-text-fill: #E6E6FA;
@@ -16,7 +16,7 @@
     -fx-background-radius: 2px;
 }
 
-.normative-container{
+.formula-edit .normative-container{
     -fx-padding: 5;
     -fx-border-style: solid outside;
     -fx-border-width: 1;
@@ -26,13 +26,13 @@
     -fx-background-color: #E6E6FA;
 }
 
-.normative-add-btn{
+.formula-edit .normative-add-btn{
     -fx-background-color: #AAD3E6;
     -fx-border-color: #898989;
     -fx-border-radius: 2;
 }
 
-.normative-remove-btn{
+.formula-edit .normative-remove-btn{
     -fx-background-color: #A2CBDF;
     -fx-font-size: 0px;
     -fx-text-fill: #FFFFFF;
@@ -42,11 +42,11 @@
 }
 
 
-.error{
+.formula-edit .error{
     -fx-text-fill: #FF0000;
     -fx-font-size: 11px;
 }
 
-.industry-box{
+.formula-edit .industry-box{
     -fx-alignment: baseline-center;
 }

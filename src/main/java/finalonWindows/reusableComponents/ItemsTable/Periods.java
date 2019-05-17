@@ -65,13 +65,13 @@ public class Periods {
         return arr;
     }
 
-    public LocalDateTime getStartTime(){
+    public LocalDateTime getStartTime() {
         int totall = periods * month;
         LocalDateTime time = getEndTime();
         return time.minusMonths(totall);
     }
 
-    public LocalDateTime getEndTime(){
+    public LocalDateTime getEndTime() {
         Date date = new Date();
         date.setMonth(endMonth);
         date.setYear(endYear);
@@ -79,12 +79,13 @@ public class Periods {
         return LocalDateTime.of(endYear, endMonth, endDay, 0, 0);
     }
 
-    public String getStart(){
-        LocalDateTime time = getStartTime().plusMonths(month);;
+    public String getStart() {
+        LocalDateTime time = getStartTime().plusMonths(month);
+        ;
         return time.format(formatM) + "/" + time.format(formatY);
     }
 
-    public String getEnd(){
+    public String getEnd() {
         LocalDateTime time = getEndTime();
         return time.format(formatM) + "/" + time.format(formatY);
     }

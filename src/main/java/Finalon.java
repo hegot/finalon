@@ -2,6 +2,11 @@ import database.AddDefaultTables;
 import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
 import javafx.application.Application;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
@@ -22,10 +27,33 @@ public class Finalon extends Application {
         AddDefaultTables addDefaultTpl = new AddDefaultTables();
         addDefaultTpl.start();
         window = primaryStage;
-        SceneSwitcher sceneSwitcher = new SceneSwitcher(window);
-        window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.MAIN));
+        VBox mainVBox = new VBox();
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setContent(mainVBox);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setMinWidth(900);
+        scrollPane.setPrefHeight(height());
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        Scene scene = new Scene(scrollPane, 900, height());
+        scene.getStylesheets().addAll(
+                "styles/addReport.css",
+                "styles/formulaEdit.css",
+                "styles/generalSettings.css",
+                "styles/generatedReport.css",
+                "styles/mainStyle.css",
+                "styles/templatesListing.css",
+                "styles/templateStyle.css"
+        );
+        primaryStage.setScene(scene);
+        SceneSwitcher sceneSwitcher = new SceneSwitcher(mainVBox);
+        sceneSwitcher.goTo(SceneName.MAIN);
         window.show();
     }
 
+    protected double height() {
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        return primaryScreenBounds.getHeight() - 100;
+    }
 
 }

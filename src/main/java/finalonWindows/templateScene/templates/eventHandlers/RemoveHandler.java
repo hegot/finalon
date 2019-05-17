@@ -56,16 +56,6 @@ public class RemoveHandler {
                     }
 
 
-                    private String btnStyle() {
-                        return " -fx-background-color:#6CC629;" +
-                                "-fx-font-size: 12px;" +
-                                "-fx-text-fill: #FFFFFF;" +
-                                "-fx-padding:0;" +
-                                "-fx-alignment:  baseline-left;" +
-                                "-fx-background-radius: 5em;";
-                    }
-
-
                     @Override
                     public void updateItem(Void item, boolean empty) {
                         super.updateItem(item, empty);

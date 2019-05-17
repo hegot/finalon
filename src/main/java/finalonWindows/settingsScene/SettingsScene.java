@@ -9,27 +9,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import java.util.Timer;
-
 
 public class SettingsScene extends SceneBase {
 
-    private Stage window;
     private DbSettingHandler dbSettingHandler;
     private ObservableMap<String, String> settings;
-    private Timer timer;
 
-
-    public SettingsScene(Stage windowArg) {
-        window = windowArg;
+    public SettingsScene() {
         this.dbSettingHandler = new DbSettingHandler();
         this.settings = FXCollections.observableHashMap();
         settings.put("numberFormat", dbSettingHandler.getSetting("numberFormat"));
@@ -39,18 +30,9 @@ public class SettingsScene extends SceneBase {
     }
 
 
-    public Scene getScene() {
-        Scene scene = baseScene(getSettings(), 900);
-        scene.getStylesheets().add("styles/generalSettings.css");
-        return scene;
-    }
-
-
-    private VBox getSettings() {
+    public VBox getScene() {
         VBox vbox = new VBox(0);
-        SettingsMenu settingsMenu = new SettingsMenu(window);
         vbox.getStyleClass().add("settings-container");
-
         VBox vboxInner = new VBox(10);
         vboxInner.getStyleClass().add("inner-container");
         Label mainLabel = new Label("General Application Settings");
@@ -62,7 +44,7 @@ public class SettingsScene extends SceneBase {
         HBox hbox = new HBox(20);
         hbox.getChildren().addAll(yearsOrderBlock.get(), currencyBlock.get());
         vboxInner.getChildren().addAll(mainLabel, hbox, numberFormat.get(), showAllBlock.get(), submitBtn());
-        vbox.getChildren().addAll(settingsMenu.getMenu(), vboxInner);
+        vbox.getChildren().addAll(new SettingsMenu().getMenu(), vboxInner);
         return vbox;
     }
 

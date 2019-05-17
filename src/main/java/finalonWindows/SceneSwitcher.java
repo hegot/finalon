@@ -10,8 +10,7 @@ import finalonWindows.templateScene.AddTemplate;
 import finalonWindows.templateScene.TemplatesScene;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import javafx.scene.layout.VBox;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,41 +21,49 @@ public class SceneSwitcher {
     /**
      * Holds the various scenes to switch between
      */
-    private static Map<SceneName, Scene> scenes = new HashMap<>();
-    private static Stage window;
+    private static Map<SceneName, VBox> scenes = new HashMap<>();
+    private static VBox window;
 
 
-    public SceneSwitcher(Stage windowArg) {
+    public SceneSwitcher(VBox windowArg) {
         window = windowArg;
+
         ObservableList<Item> items = FXCollections.observableArrayList(DefaultTemplate.getTpl());
-        scenes.put(SceneName.MAIN, new MainScene(window).getScene());
-        scenes.put(SceneName.SETTINGSMAIN, new SettingsScene(window).getScene());
-        scenes.put(SceneName.TEMPLATESLIST, new TemplatesScene(window).getScene());
-        scenes.put(SceneName.ADDTEMPLATE, new AddTemplate(window, items).getScene());
-        scenes.put(SceneName.FORMULA, new FormulaScene(window).getScene());
-        scenes.put(SceneName.ADDREPORT, new AddReportScene(window).getScene());
+        scenes.put(SceneName.MAIN, new MainScene().getScene());
+        scenes.put(SceneName.SETTINGSMAIN, new SettingsScene().getScene());
+        scenes.put(SceneName.TEMPLATESLIST, new TemplatesScene().getScene());
+        scenes.put(SceneName.ADDTEMPLATE, new AddTemplate(items).getScene());
+        scenes.put(SceneName.FORMULA, new FormulaScene().getScene());
+        scenes.put(SceneName.ADDREPORT, new AddReportScene().getScene());
     }
 
+    public static void goTo(SceneName sceneName) {
+        window.getChildren().setAll(scenes.get(sceneName));
+    }
+
+    public static VBox getWindow() {
+        return window;
+    }
 
     /**
      * Returns a Map of the scenes by {@link SceneName}
      */
-    public static Map<SceneName, Scene> getScenes(SceneName sceneName) {
-        switch (sceneName){
-            case TEMPLATESLIST :
-                scenes.put(SceneName.TEMPLATESLIST, new TemplatesScene(window).getScene());
+    public static void refresh(SceneName sceneName) {
+        switch (sceneName) {
+            case TEMPLATESLIST:
+                scenes.put(SceneName.TEMPLATESLIST, new TemplatesScene().getScene());
                 break;
-            case ADDTEMPLATE :
+            case ADDTEMPLATE:
                 ObservableList<Item> items = FXCollections.observableArrayList(DefaultTemplate.getTpl());
-                scenes.put(SceneName.ADDTEMPLATE, new AddTemplate(window, items).getScene());
+                scenes.put(SceneName.ADDTEMPLATE, new AddTemplate(items).getScene());
                 break;
-            case ADDREPORT :
-                scenes.put(SceneName.ADDREPORT, new AddReportScene(window).getScene());
+            case ADDREPORT:
+                scenes.put(SceneName.ADDREPORT, new AddReportScene().getScene());
                 break;
-            case FORMULA :
-                scenes.put(SceneName.FORMULA, new FormulaScene(window).getScene());
+            case FORMULA:
+                scenes.put(SceneName.FORMULA, new FormulaScene().getScene());
                 break;
         }
-        return scenes;
+        window.getChildren().setAll(scenes.get(sceneName));
     }
 }

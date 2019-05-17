@@ -48,7 +48,7 @@ class EditFormula {
             row.textfield = textfield;
             arr[j] = row;
         }
-        if(!formula.getCategory().equals("industry")) {
+        if (!formula.getCategory().equals("industry")) {
             grid.add(new Label("Edit formula"), 0, 4);
             grid.add(formulaEditor(), 1, 4);
         }
@@ -88,7 +88,7 @@ class EditFormula {
         return tab;
     }
 
-    GridPane getGrid(){
+    GridPane getGrid() {
         return grid;
     }
 
@@ -99,11 +99,11 @@ class EditFormula {
 
     private Row[] getEditArr() {
 
-        if(formula.getCategory().equals("industry")){
+        if (formula.getCategory().equals("industry")) {
             Row arr[] = new Row[1];
             arr[0] = new Row("name", "Industry Name:", formula.getName(), null);
             return arr;
-        }else{
+        } else {
             Row arr[] = new Row[3];
             arr[0] = new Row("name", "Name:", formula.getName(), null);
             arr[1] = new Row("shortName", "Code:", formula.getShortName(), null);

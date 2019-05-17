@@ -14,24 +14,17 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 
 public class TemplateBase extends SceneBase {
 
-    protected Stage window;
     protected ObservableList<Item> items;
     TextField templateName;
 
     TemplateBase(
-            Stage windowArg,
             ObservableList<Item> items) {
-        this.window = windowArg;
         this.items = items;
     }
 
-    TemplateBase(Stage windowArg) {
-        this.window = windowArg;
-    }
 
     HBox templateName() {
         HBox hbox = new HBox(10);
@@ -64,8 +57,7 @@ public class TemplateBase extends SceneBase {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.TEMPLATESLIST));
-                window.setWidth(900);
+                SceneSwitcher.goTo(SceneName.TEMPLATESLIST);
             }
         });
         return button;
@@ -75,10 +67,6 @@ public class TemplateBase extends SceneBase {
         Button button = new Button("Save Template");
         button.getStyleClass().add("blue-btn");
         return button;
-    }
-
-    void redirectToSettings() {
-        window.setScene(SceneSwitcher.getScenes(SceneName.TEMPLATESLIST).get(SceneName.TEMPLATESLIST));
     }
 
 

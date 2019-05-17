@@ -1,32 +1,32 @@
-.report-title{
+.generated-report .report-title{
     -fx-font-weight: bold;
     -fx-text-fill: #6a6c6f;
     -fx-font-size: 20px;
     -fx-padding: 20 25 5 25;
     -fx-alignment: center;
 }
-.report-text{
+.generated-report .report-text{
     -fx-text-fill: #6a6c6f;
     -fx-font-size: 14px;
     -fx-padding: 5 25;
 }
 
-.report-text-small{
+.generated-report .report-text-small{
     -fx-text-fill: #000000;
     -fx-font-size: 14px;
     -fx-padding: 0 5;
     -fx-pref-width: 800px;
 }
 
-.assets-label{
+.generated-report .assets-label{
     -fx-font-weight: bold;
     -fx-text-fill: #000000;
     -fx-font-size: 17px;
     -fx-padding: 20 5 5 5;
 }
 
-.assets-table-name,
-.chart .chart-title {
+.generated-report .assets-table-name,
+.generated-report .chart .chart-title {
     -fx-text-fill: #6A6C6F;
     -fx-font-size: 14px;
     -fx-padding: 5px 0;

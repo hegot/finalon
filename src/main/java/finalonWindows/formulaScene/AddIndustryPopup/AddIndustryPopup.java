@@ -10,7 +10,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 import javafx.util.Pair;
 
 import java.sql.SQLException;
@@ -21,13 +20,11 @@ public class AddIndustryPopup {
     private TextField industry;
     private ComboBox<Formula> standard;
     private ObservableMap<String, String> settings;
-    private Stage window;
 
-    public AddIndustryPopup(ObservableMap<String, String> settings, Stage windowArg){
+    public AddIndustryPopup(ObservableMap<String, String> settings) {
         this.settings = settings;
         this.industry = new TextField();
         this.standard = StandardSelect.get(settings);
-        this.window = windowArg;
     }
 
     public Dialog getdialog() {
@@ -53,11 +50,11 @@ public class AddIndustryPopup {
                     standard.getValue().getId(),
                     industry.getText()
             );
-            try{
+            try {
                 formulaCreator.createFormulas();
-                window.setScene(SceneSwitcher.getScenes(SceneName.FORMULA).get(SceneName.FORMULA));
+                SceneSwitcher.refresh(SceneName.FORMULA);
             } catch (SQLException e) {
-                System.out.println("Username=" + industry.getText() + ", standard=" +   standard.getValue().getName()+ " not created");
+                System.out.println("Username=" + industry.getText() + ", standard=" + standard.getValue().getName() + " not created");
                 e.printStackTrace();
             }
         });
@@ -65,7 +62,7 @@ public class AddIndustryPopup {
     }
 
 
-    private GridPane getContent (){
+    private GridPane getContent() {
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);

@@ -2,7 +2,10 @@ package interpreter.AssetsReport;
 
 import entities.Item;
 import finalonWindows.reusableComponents.ItemsTable.Periods;
-import interpreter.AssetsReport.Outcomes.*;
+import interpreter.AssetsReport.Outcomes.AssetsCharts;
+import interpreter.AssetsReport.Outcomes.AssetsReportTable;
+import interpreter.AssetsReport.Outcomes.CurrentNonCurrentAssetsAnalyze;
+import interpreter.AssetsReport.Outcomes.TotallAssetsAnalyze;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;

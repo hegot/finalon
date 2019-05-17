@@ -1,10 +1,6 @@
 package finalonWindows.reusableComponents.autocomplete;
 
 import database.template.DbItemHandler;
-import defaultData.DefaultTemplate;
-import entities.Item;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Side;

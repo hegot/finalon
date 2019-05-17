@@ -3,41 +3,26 @@ package finalonWindows.templateScene;
 import database.template.DbItemHandler;
 import entities.Item;
 import finalonWindows.SceneBase;
-import finalonWindows.reusableComponents.ImageButton;
 import finalonWindows.reusableComponents.SettingsMenu;
 import finalonWindows.templateScene.listing.AddTemplateBtn;
 import finalonWindows.templateScene.listing.SettingsMessage;
 import finalonWindows.templateScene.listing.TemplateRow;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 
 public class TemplatesScene extends SceneBase {
 
-    private Stage window;
-
-    public TemplatesScene(Stage windowArg) {
-        window = windowArg;
-    }
-
-
-    public Scene getScene() {
+    public VBox getScene() {
         VBox vbox = new VBox(0);
+        vbox.getStyleClass().add("templates-listing");
         vbox.setPrefSize(900, 600);
         vbox.setPrefHeight(600);
-
-        SettingsMenu settingsMenu = new SettingsMenu(window);
+        SettingsMenu settingsMenu = new SettingsMenu();
         vbox.getChildren().addAll(settingsMenu.getMenu(), getTemplates());
-        Scene scene = baseScene(vbox, 900);
-        scene.getStylesheets().add("styles/settingsStyle.css");
-        return scene;
+        return vbox;
     }
-
 
     private VBox getTemplates() {
         DbItemHandler dbItem = new DbItemHandler();
@@ -50,13 +35,18 @@ public class TemplatesScene extends SceneBase {
         tilePane.setVgap(10);
         if (items.size() > 0) {
             for (Item item : items) {
-                tilePane.getChildren().add(new TemplateRow(window, item));
+                tilePane.getChildren().add(new TemplateRow(item));
             }
-            vbox.getChildren().addAll(tilePane, new AddTemplateBtn(window, "Add new template: "));
+            vbox.getChildren().addAll(
+                    tilePane,
+                    new AddTemplateBtn("Add new template: ")
+            );
         } else {
-            vbox.getChildren().addAll(new SettingsMessage(), new AddTemplateBtn(window, "You have no custom templates yet, you can add one here: "));
+            vbox.getChildren().addAll(
+                    new SettingsMessage(),
+                    new AddTemplateBtn("You have no custom templates yet, you can add one here: ")
+            );
         }
         return vbox;
     }
-
 }

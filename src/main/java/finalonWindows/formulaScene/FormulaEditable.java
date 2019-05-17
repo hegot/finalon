@@ -39,13 +39,13 @@ class FormulaEditable {
         table.setRowFactory(tv -> {
             TreeTableRow<Formula> row = new TreeTableRow<>();
             row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 1 && (! row.isEmpty()) ) {
+                if (event.getClickCount() == 1 && (!row.isEmpty())) {
                     EditPopup popup = new EditPopup(row.getTreeItem(), "edit");
                     popup.getdialog();
                     table.refresh();
                 }
             });
-            return row ;
+            return row;
         });
         return table;
     }

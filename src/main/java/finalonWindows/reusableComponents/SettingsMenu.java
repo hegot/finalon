@@ -8,15 +8,8 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 
 public class SettingsMenu {
-
-    private Stage window;
-
-    public SettingsMenu(Stage window) {
-        this.window = window;
-    }
 
     public MenuBar getMenu() {
         MenuBar menuBar = new MenuBar();
@@ -32,7 +25,7 @@ public class SettingsMenu {
         home.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.ADDREPORT));
+                SceneSwitcher.goTo(SceneName.ADDREPORT);
             }
         });
         return home;
@@ -43,7 +36,7 @@ public class SettingsMenu {
         home.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.MAIN));
+                SceneSwitcher.goTo(SceneName.MAIN);
             }
         });
         return home;
@@ -54,7 +47,7 @@ public class SettingsMenu {
         templates.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.TEMPLATESLIST));
+                SceneSwitcher.goTo(SceneName.TEMPLATESLIST);
             }
         });
         return templates;
@@ -65,7 +58,7 @@ public class SettingsMenu {
         formulas.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.FORMULA));
+                SceneSwitcher.goTo(SceneName.FORMULA);
             }
         });
         return formulas;
@@ -76,7 +69,7 @@ public class SettingsMenu {
         settings.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                window.setScene(SceneSwitcher.getScenes(SceneName.SETTINGSMAIN).get(SceneName.SETTINGSMAIN));
+                SceneSwitcher.goTo(SceneName.SETTINGSMAIN);
             }
         });
         return settings;

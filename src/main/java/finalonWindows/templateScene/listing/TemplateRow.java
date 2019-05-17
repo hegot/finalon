@@ -15,7 +15,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -23,10 +22,8 @@ import java.util.Optional;
 public class TemplateRow extends VBox {
     @FXML
     private Item item;
-    private Stage window;
 
-    public TemplateRow(Stage window, Item item) {
-        this.window = window;
+    public TemplateRow(Item item) {
         this.item = item;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/settings/templateRow.fxml"));
         fxmlLoader.getNamespace().put("labelText", item.getName());
@@ -50,8 +47,8 @@ public class TemplateRow extends VBox {
         DbItemHandler itemsHandler = new DbItemHandler();
         ObservableList<Item> items = itemsHandler.getItems(item.getId());
         items.add(this.item);
-        PreviewTemplate editTpl = new PreviewTemplate(window, items);
-        window.setScene(editTpl.getScene());
+        PreviewTemplate previewTpl = new PreviewTemplate(items);
+        SceneSwitcher.getWindow().getChildren().setAll(previewTpl.getScene());
     }
 
     @FXML
@@ -59,8 +56,8 @@ public class TemplateRow extends VBox {
         DbItemHandler itemsHandler = new DbItemHandler();
         ObservableList<Item> items = itemsHandler.getItems(item.getId());
         items.add(this.item);
-        EditTemplate editTpl = new EditTemplate(window, items);
-        window.setScene(editTpl.getScene());
+        EditTemplate editTpl = new EditTemplate(items);
+        SceneSwitcher.getWindow().getChildren().setAll(editTpl.getScene());
     }
 
     @FXML
@@ -77,7 +74,7 @@ public class TemplateRow extends VBox {
             TemplateEditor templateEditor = new TemplateEditor(name, items);
             templateEditor.deleteItem(id);
             System.out.println("Template " + name + " deleted successfully");
-            window.setScene(SceneSwitcher.getScenes(SceneName.TEMPLATESLIST).get(SceneName.TEMPLATESLIST));
+            SceneSwitcher.refresh(SceneName.TEMPLATESLIST);
         }
     }
 

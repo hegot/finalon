@@ -12,27 +12,23 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class AddReportScene extends SceneBase {
-    private Stage window;
     private ObservableMap<String, String> settings;
     private ObservableList<Item> items;
 
-    public AddReportScene(Stage windowArg) {
-        window = windowArg;
+    public AddReportScene() {
         this.settings = FXCollections.observableHashMap();
         this.items = FXCollections.observableArrayList();
     }
 
-    public Scene getScene() {
+    public VBox getScene() {
         VBox vbox = new VBox(0);
-        vbox.getStyleClass().add("container");
-        SettingsMenu settingsMenu = new SettingsMenu(window);
+        vbox.getStyleClass().add("add-company");
+        SettingsMenu settingsMenu = new SettingsMenu();
         StepOne stepOne = new StepOne(settings, vbox);
         StepTwo stepTwo = new StepTwo(settings, items, vbox);
         StepThree stepThree = new StepThree(settings, items);
@@ -54,10 +50,11 @@ public class AddReportScene extends SceneBase {
             }
         });
 
-        vbox.getChildren().addAll(settingsMenu.getMenu(), stepOne.show());
-        Scene scene = baseScene(vbox, 900);
-        scene.getStylesheets().addAll("styles/addReport.css", "styles/generatedReport.css");
-        return scene;
+        vbox.getChildren().addAll(
+                settingsMenu.getMenu(),
+                stepOne.show()
+        );
+        return vbox;
     }
 
 

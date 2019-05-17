@@ -35,6 +35,7 @@ public class StepThree extends SceneBase {
 
         tabs.getTabs().addAll(tab1, tab2);
         VBox vBox = new VBox(5);
+        vBox.getStyleClass().add("generated-report");
         vBox.getChildren().addAll(
                 getTitle(),
                 getDescText(),
@@ -42,7 +43,7 @@ public class StepThree extends SceneBase {
         return vBox;
     }
 
-    private Label getDescText(){
+    private Label getDescText() {
         Label text = new Label("This report analyzes the balance sheets and income statements of " + companyName
                 + ". Trends for the major balance sheet and income statement items and ratio analysis are used " +
                 "to understand the financial position and financial effectiveness of the company. " +
@@ -53,7 +54,7 @@ public class StepThree extends SceneBase {
     }
 
 
-    private Label getTitle(){
+    private Label getTitle() {
         Label title = new Label(
                 "Analysis of " + companyName
                         + " financial statements for the period from "

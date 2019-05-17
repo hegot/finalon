@@ -1,18 +1,18 @@
-.tree-table-cell {
+.template-screen .tree-table-cell {
     -fx-border-color: #e4e5e7;
     -fx-border-style: solid;
 }
 
-.tree-table-view .column-header,
-.tree-table-view .column-header .filler,
-.tree-table-view .column-header-background .filler {
+.template-screen .tree-table-view .column-header,
+.template-screen .tree-table-view .column-header .filler,
+.template-screen .tree-table-view .column-header-background .filler {
     -fx-background-color: #34495e;
     -fx-padding: 15;
 }
 
-.report-tabs .tree-table-view .column-header,
-.report-tabs .tree-table-view .column-header .filler,
-.report-tabs .tree-table-view .column-header-background .filler {
+.template-screen .report-tabs .tree-table-view .column-header,
+.template-screen .report-tabs .tree-table-view .column-header .filler,
+.template-screen .report-tabs .tree-table-view .column-header-background .filler {
     -fx-background-color: #34495e;
     -fx-padding: 5;
     -fx-pref-height: 50px;
@@ -20,28 +20,28 @@
 
 
 
-.tree-table-view  .column-header .label {
+.template-screen .tree-table-view  .column-header .label {
     -fx-text-fill: #fff;
     -fx-font-size: 13px;
     -fx-font-weight: normal;
     -fx-pref-height: 20px;
 }
 
-.tab-pane .tab{
+.template-screen .tab-pane .tab{
     -fx-pref-height: 40px;
 }
 
-.tab-pane .tab .tab-label{
+.template-screen .tab-pane .tab .tab-label{
 -fx-pref-height: 40px;
 }
 
 
-.tab-pane {
+.template-screen .tab-pane {
   -fx-tab-min-height:40px;
   -fx-tab-max-height:40px;
 }
 
-.whiteBorderedPanel{
+.template-screen .whiteBorderedPanel{
     -fx-padding: 15;
     -fx-border-style: solid outside;
     -fx-border-width: 1;
@@ -51,7 +51,7 @@
     -fx-background-color: #fff;
 }
 
-.whiteBorderedPanelMenu{
+.template-screen .whiteBorderedPanelMenu{
     -fx-padding: 5;
     -fx-border-style: solid outside;
     -fx-border-width: 1;
@@ -61,7 +61,7 @@
     -fx-background-color: #fff;
 }
 
-.blue-btn{
+.template-screen .blue-btn{
     -fx-background-color:#3f5872;
     -fx-font-size: 14px;
     -fx-text-fill: #FFFFFF;
@@ -69,7 +69,7 @@
     -fx-alignment:  baseline-left;
 }
 
-.sidebar-blue-btn{
+.template-screen .sidebar-blue-btn{
     -fx-background-color:#3f5872;
     -fx-font-size: 14px;
     -fx-text-fill: #FFFFFF;
@@ -78,7 +78,7 @@
     -fx-alignment:  baseline-left;
 }
 
-.img-btn{
+.template-screen .img-btn{
     -fx-background-color: transparent;
     -fx-font-size: 12px;
     -fx-text-fill: #FFFFFF;

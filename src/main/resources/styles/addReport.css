@@ -1,42 +1,44 @@
-.tree-table-cell {
+.add-company{
+ -fx-padding: 0 10;
+}
+
+.add-company .tree-table-cell {
     -fx-border-color: #e4e5e7;
     -fx-border-style: solid;
 }
 
-.tree-table-view .column-header,
-.tree-table-view .column-header .filler,
-.tree-table-view .column-header-background .filler {
+.add-company .tree-table-view .column-header,
+.add-company .tree-table-view .column-header .filler,
+.add-company .tree-table-view .column-header-background .filler {
     -fx-background-color: #34495e;
     -fx-padding: 15;
 }
 
-.report-tabs .report-input .column-header,
-.report-tabs .report-input .column-header .filler,
-.report-tabs .report-input .column-header-background .filler {
+.add-company .report-tabs .report-input .column-header,
+.add-company .report-tabs .report-input .column-header .filler,
+.add-company .report-tabs .report-input .column-header-background .filler {
     -fx-background-color: #34495e;
     -fx-padding: 5;
     -fx-pref-height: 50px;
 }
 
-
-.report-tabs .assets-report .column-header,
-.report-tabs .assets-report .column-header .filler,
-.report-tabs .assets-report .column-header-background .filler {
+.add-company .report-tabs .assets-report .column-header,
+.add-company .report-tabs .assets-report .column-header .filler,
+.add-company .report-tabs .assets-report .column-header-background .filler {
     -fx-background-color: #34495e;
     -fx-padding: 5;
     -fx-pref-height: 250px;
 
 }
 
-
-.report-input  .column-header .label {
+.add-company .report-input  .column-header .label {
     -fx-text-fill: #fff;
     -fx-font-size: 13px;
     -fx-font-weight: normal;
     -fx-pref-height: 20px;
 }
 
-.assets-report  .column-header .label {
+.add-company .assets-report  .column-header .label {
     -fx-text-fill: #fff;
     -fx-font-size: 10px;
     -fx-font-weight: normal;
@@ -44,50 +46,40 @@
     -fx-alignment: baseline-left;
 }
 
-
-
-
-.tab-pane .tab{
+.add-company .tab-pane .tab{
     -fx-pref-height: 40px;
 }
 
-.tab-pane .tab .tab-label{
--fx-pref-height: 40px;
+.add-company .tab-pane .tab .tab-label{
+    -fx-pref-height: 40px;
 }
 
-
-.tab-pane {
+.add-company  .tab-pane {
   -fx-tab-min-height:40px;
   -fx-tab-max-height:40px;
 }
 
-.container{
-    -fx-padding: 0 10px;
-}
-
-
-
-.main-label{
+.add-company .main-label{
     -fx-font-size: 15px;
     -fx-font-weight: bold;
     -fx-padding: 10px;
 }
 
-.sub-label{
+.add-company .sub-label{
     -fx-font-weight: bold;
     -fx-font-size: 12px;
     -fx-padding: 5px 0;
     -fx-pref-width: 200px;
 }
 
-.date-label{
+.add-company .date-label{
     -fx-font-weight: bold;
     -fx-font-size: 12px;
     -fx-padding: 5px 0;
 }
 
 
-.hbox-row{
+.add-company .hbox-row{
     -fx-padding: 10px;
     -fx-border-style: solid outside;
     -fx-border-width: 1;
@@ -98,7 +90,7 @@
     -fx-background-insets: 5px;
 }
 
-.inner-container{
+.add-company .inner-container{
     -fx-padding: 10px 30px;
     -fx-border-style: solid outside;
     -fx-border-width: 1;
@@ -108,7 +100,7 @@
     -fx-background-color: #fff;
 }
 
-.blue-btn{
+.add-company .blue-btn{
     -fx-background-color:#3f5872;
     -fx-font-size: 14px;
     -fx-text-fill: #FFFFFF;
@@ -116,7 +108,7 @@
     -fx-alignment:  baseline-left;
 }
 
-.hbox-row-btn{
+.add-company .hbox-row-btn{
     -fx-padding: 20px;
     -fx-border-style: solid outside;
     -fx-border-width: 1;
@@ -127,7 +119,7 @@
     -fx-background-insets: 5px;
 }
 
-.settings-error{
+.add-company .settings-error{
     -fx-text-fill: #FF0000;
     -fx-font-size: 13px;
 }

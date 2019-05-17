@@ -6,11 +6,9 @@ import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
 import finalonWindows.formulaScene.EditStorage;
 import finalonWindows.reusableComponents.ImageButton;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.util.Optional;
@@ -92,8 +90,7 @@ public class EditHandler {
 
                             if (option.get() == ButtonType.OK && parentFormula != null) {
                                 new DbFormulaHandler().deleteItem(parentFormula.getId());
-                                Stage window = (Stage) this.getScene().getWindow();
-                                window.setScene(SceneSwitcher.getScenes(SceneName.FORMULA).get(SceneName.FORMULA));
+                                SceneSwitcher.refresh(SceneName.FORMULA);
                             }
                         });
                         return btn;

@@ -3,19 +3,16 @@ package finalonWindows.templateScene;
 import entities.Item;
 import finalonWindows.templateScene.templates.TemplatePreview;
 import javafx.collections.ObservableList;
-import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class PreviewTemplate extends TemplateBase {
 
-    protected Stage window;
     protected ObservableList<Item> items;
     private TemplatePreview templatePreview;
 
-    public PreviewTemplate(Stage windowArg, ObservableList<Item> items) {
-        super(windowArg, items);
+    public PreviewTemplate(ObservableList<Item> items) {
+        super(items);
         this.items = items;
         this.templatePreview = new TemplatePreview(items);
     }
@@ -28,12 +25,14 @@ public class PreviewTemplate extends TemplateBase {
     }
 
 
-    public Scene getScene() {
+    public VBox getScene() {
         VBox vBox = new VBox();
-        vBox.getChildren().addAll(headerMenu(), templatePreview.getTemplatePreview());
-        Scene scene = baseScene(vBox, 900);
-        scene.getStylesheets().add("styles/templateStyle.css");
-        return scene;
+        vBox.getStyleClass().add("template-screen");
+        vBox.getChildren().addAll(
+                headerMenu(),
+                templatePreview.getTemplatePreview()
+        );
+        return vBox;
     }
 
 }

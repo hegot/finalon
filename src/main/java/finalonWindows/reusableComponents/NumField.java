@@ -16,12 +16,12 @@ public class NumField extends TextField {
                 }
                 String s = Character.toString(ch);
                 String[] match = {"-", ".", ","};
-                for(String i : match){
-                    if(s.contains(i)){
+                for (String i : match) {
+                    if (s.contains(i)) {
                         consume = false;
                     }
                 }
-                if(consume){
+                if (consume) {
                     t.consume();
                 }
             }

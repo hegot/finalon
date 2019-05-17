@@ -9,10 +9,10 @@ public class Choices {
     public static ObservableList<Formula> getChoices(int parent) {
         DbFormulaHandler dbFormula = new DbFormulaHandler();
         ObservableList<Formula> choices = dbFormula.getFormulas(parent);
-        if(choices.size()>0){
+        if (choices.size() > 0) {
             return choices;
-        }else{
-            return  FXCollections.observableArrayList();
+        } else {
+            return FXCollections.observableArrayList();
         }
     }
 }

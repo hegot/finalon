@@ -11,11 +11,12 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
-public class AssetsCharts extends OutcomeBase{
+public class AssetsCharts extends OutcomeBase {
     private Periods periods;
     private ObservableMap<String, Double> valuesCurrent;
     private ObservableMap<String, Double> valuesNonCurrent;
     private ObservableMap<String, String> settings;
+
     public AssetsCharts(
             ObservableMap<String, String> settings,
             Periods periods,
@@ -31,8 +32,8 @@ public class AssetsCharts extends OutcomeBase{
     public VBox get() {
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
-        final BarChart<String,Number> bc =
-                new BarChart<String,Number>(xAxis,yAxis);
+        final BarChart<String, Number> bc =
+                new BarChart<String, Number>(xAxis, yAxis);
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("Current Assets");
 
@@ -47,14 +48,14 @@ public class AssetsCharts extends OutcomeBase{
         yAxis.setLabel("Value");
 
         ArrayList<String> arr = periods.getPeriodArr();
-        if(valuesCurrent.size() > 1) {
+        if (valuesCurrent.size() > 1) {
             for (String period : arr) {
                 String date = formatDate(period);
                 series1.getData().add(new XYChart.Data(date, valuesCurrent.get(period)));
             }
         }
 
-        if(valuesNonCurrent.size() > 1) {
+        if (valuesNonCurrent.size() > 1) {
             for (String period : arr) {
                 String date = formatDate(period);
                 series2.getData().add(new XYChart.Data(date, valuesNonCurrent.get(period)));

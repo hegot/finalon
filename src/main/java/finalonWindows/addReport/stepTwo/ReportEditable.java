@@ -48,7 +48,7 @@ public class ReportEditable extends ItemsTable {
     }
 
     private TreeTableView<Item> getSingleTable(int Id) {
-        TreeTableView<Item> table =  getTable(Id);
+        TreeTableView<Item> table = getTable(Id);
         table.getStyleClass().add("report-input");
         table.setEditable(true);
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();

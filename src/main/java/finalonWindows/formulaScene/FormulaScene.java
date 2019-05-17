@@ -17,33 +17,32 @@ import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class FormulaScene extends SceneBase {
 
-    private final String defaultStandard = "2";
-    ObservableMap<String, String> settings = FXCollections.observableHashMap();
-    private Stage window;
-    private ComboBox<Formula> industryBox = industryBox(defaultStandard,  settings);
-    private ComboBox<Formula> standardBox = standardBox(settings);
-    private Formula selectedIndustry = industryBox.getValue();
-    private FormulaEditable formulaEditable = new FormulaEditable(selectedIndustry);
+    private ObservableMap<String, String> settings;
+    private ComboBox<Formula> standardBox;
+    private ComboBox<Formula> industryBox;
+    private FormulaEditable formulaEditable;
 
-
-    public FormulaScene(Stage windowArg) {
-        window = windowArg;
+    public FormulaScene() {
+        String defaultStandard = "2";
+        this.settings = FXCollections.observableHashMap();
+        this.standardBox = standardBox(settings);
+        this.industryBox = industryBox(defaultStandard, settings);
+        Formula selectedIndustry = industryBox.getValue();
+        this.formulaEditable = new FormulaEditable(selectedIndustry);
     }
 
-
-    public Scene getScene() {
+    public VBox getScene() {
         VBox vbox = new VBox(20);
+        vbox.getStyleClass().add("formula-edit");
         VBox industryVBox = new VBox(1);
         industryVBox.getStyleClass().add("industry-box");
         industryVBox.getChildren().addAll(
@@ -58,21 +57,19 @@ public class FormulaScene extends SceneBase {
                 saveFormulasButton()
         );
         vbox.getChildren().addAll(
-                new SettingsMenu(window).getMenu(),
+                new SettingsMenu().getMenu(),
                 hBox,
                 formulaEditable.getFormulaTable()
         );
-        Scene scene = baseScene(vbox, 900);
-        scene.getStylesheets().addAll("styles/templateStyle.css", "styles/formulaEdit.css");
         EditStorage.getInstance();
-        return scene;
+        return vbox;
     }
 
 
     private TextImageButton addIndustryBtn() {
         TextImageButton btn = new TextImageButton("Industry", "image/add-plus-button.png", 16);
         btn.setOnAction((ActionEvent event) -> {
-            new AddIndustryPopup(settings, window).getdialog();
+            new AddIndustryPopup(settings).getdialog();
         });
         return btn;
     }
@@ -86,7 +83,7 @@ public class FormulaScene extends SceneBase {
         return hBox;
     }
 
-    private ComboBox<Formula> industryBox(String defaultStandard,  ObservableMap<String, String>settings){
+    private ComboBox<Formula> industryBox(String defaultStandard, ObservableMap<String, String> settings) {
         ComboBox<Formula> industryBox = IndustrySelect.get(defaultStandard, settings);
         industryBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Formula>() {
             @Override
@@ -99,7 +96,7 @@ public class FormulaScene extends SceneBase {
         return industryBox;
     }
 
-    private ComboBox<Formula> standardBox(ObservableMap<String, String>settings){
+    private ComboBox<Formula> standardBox(ObservableMap<String, String> settings) {
         ComboBox<Formula> standardBox = StandardSelect.get(settings);
         standardBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Formula>() {
             @Override
@@ -124,7 +121,7 @@ public class FormulaScene extends SceneBase {
                 } catch (Exception exception) {
                     System.out.println("Error while saving formulas map");
                 }
-                window.setScene(SceneSwitcher.getScenes(SceneName.BARE).get(SceneName.SETTINGSMAIN));
+                SceneSwitcher.goTo(SceneName.SETTINGSMAIN);
             }
         });
         return btn;

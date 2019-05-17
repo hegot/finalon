@@ -8,7 +8,7 @@ public class ParserBase {
         String pat = "[" + Pattern.quote(charToDel) + "]";
         String str = input.replaceAll(pat, " ");
         str = str.replaceAll("^\\d+|\\d+$", "");
-        if(!leavePeriods){
+        if (!leavePeriods) {
             str = str.replaceAll("\\d", "");
         }
         str = str.replaceAll("\\s{2,}", " ").trim();

@@ -52,10 +52,10 @@ public class EditPopup {
         Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CLOSE);
         closeButton.managedProperty().bind(closeButton.visibleProperty());
         closeButton.setVisible(false);
-        if(formula.getCategory().equals("industry")){
+        if (formula.getCategory().equals("industry")) {
             dialog.setTitle("Edit Industry");
             dialog.getDialogPane().setContent(editFormula.getGrid());
-        }else{
+        } else {
             dialog.setTitle("Edit Formula");
             TabPane tabpane = new TabPane();
             tabpane.getTabs().addAll(editFormula.getTab(), normativeValues.getNormativeValues());
@@ -69,12 +69,12 @@ public class EditPopup {
 
     private void dialogSubmit(Dialog dialog) {
         EventHandler<ActionEvent> saveFilter = event -> {
-            if(formula.getCategory().equals("industry")){
+            if (formula.getCategory().equals("industry")) {
                 updateFormula();
                 treeItem.setValue(formula);
                 EditStorage.addItem(formula.getId(), formula);
                 dialog.close();
-            }else{
+            } else {
                 if (editFormula.getTextArea().getErrors().size() > 0) {
                     event.consume();
                 } else {
@@ -114,7 +114,8 @@ public class EditPopup {
             String value = textfieldget.getText();
             switch (key) {
                 case "name":
-                    formula.setName(value);System.out.println(value);
+                    formula.setName(value);
+                    System.out.println(value);
                     break;
                 case "shortName":
                     formula.setShortName(value);
@@ -126,7 +127,7 @@ public class EditPopup {
                     System.out.println("no match");
             }
         }
-        if(!formula.getCategory().equals("industry")) {
+        if (!formula.getCategory().equals("industry")) {
             formula.setCategory("formula");
             AutoCompleteTextArea textArea = editFormula.getTextArea();
             String value = textArea.getText();

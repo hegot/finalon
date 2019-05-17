@@ -2,27 +2,25 @@ package finalonWindows.templateScene;
 
 import database.template.TemplateEditor;
 import entities.Item;
+import finalonWindows.SceneName;
+import finalonWindows.SceneSwitcher;
 import finalonWindows.templateScene.templates.TemplateEditable;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class EditTemplate extends TemplateBase {
 
-    protected Stage window;
     protected ObservableList<Item> items;
     private TemplateEditable templateEditable;
 
-    public EditTemplate(Stage windowArg, ObservableList<Item> items) {
-        super(windowArg, items);
+    public EditTemplate(ObservableList<Item> items) {
+        super(items);
         this.items = items;
         this.templateEditable = new TemplateEditable(items);
-        this.window = windowArg;
     }
 
     private HBox headerMenu() {
@@ -39,7 +37,7 @@ public class EditTemplate extends TemplateBase {
                     items.add(rootItem);
                     TemplateEditor updater = new TemplateEditor(templateName.getText(), items);
                     updater.updateTpl();
-                    redirectToSettings();
+                    SceneSwitcher.refresh(SceneName.TEMPLATESLIST);
                 } else {
                     System.out.println("err");
                 }
@@ -50,12 +48,15 @@ public class EditTemplate extends TemplateBase {
     }
 
 
-    public Scene getScene() {
+    public VBox getScene() {
         VBox vBox = new VBox();
-        vBox.getChildren().addAll(headerMenu(), templateName(), templateEditable.getTemplateEditable());
-        Scene scene = baseScene(vBox, 900);
-        scene.getStylesheets().add("styles/templateStyle.css");
-        return scene;
+        vBox.getStyleClass().add("template-screen");
+        vBox.getChildren().addAll(
+                headerMenu(),
+                templateName(),
+                templateEditable.getTemplateEditable()
+        );
+        return vBox;
     }
 
 }
