@@ -1,6 +1,7 @@
 package interpreter.AssetsReport.Outcomes;
 
 import entities.Item;
+import interpreter.ReusableComponents.OutcomeBase;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -9,38 +10,41 @@ import java.util.Map;
 
 public class TotallAssetsAnalyze extends OutcomeBase {
 
-    private Map.Entry<String, Double> first;
-    private Map.Entry<String, Double> last;
+    private Double first;
+    private Double last;
     private String startDate;
     private String endDate;
+    private ObservableMap<String, String> settings;
 
     public TotallAssetsAnalyze(
+            ObservableMap<String, String> settings,
             Item item,
             String startDate,
             String endDate
     ) {
+        this.settings = settings;
         this.startDate = startDate;
         this.endDate = endDate;
         ObservableMap<String, Double> values = item.getValues();
         if (values.size() > 1) {
-            this.first = getFirst(values);
-            this.last = getLast(values);
+            this.first = getFirstVal(values);
+            this.last = getLastVal(values);
+            settings.put("assetsDifference", Double.toString(last - first));
         }
+
     }
 
     public VBox get() {
         VBox hbox = new VBox(10);
         if (first != null && last != null) {
-            Double firstVal = first.getValue();
-            Double lastVal = last.getValue();
             String output = "";
-            if (lastVal > firstVal) {
+            if (last > first) {
                 output = increase();
             }
-            if (lastVal < firstVal) {
+            if (last < first) {
                 output = decrease();
             }
-            if (lastVal == firstVal) {
+            if (last == first) {
                 output = equal();
             }
             Label text1 = new Label(output);
@@ -59,7 +63,7 @@ public class TotallAssetsAnalyze extends OutcomeBase {
         return "It can be noticed from Table 1 that there was a " +
                 "tendency to increase in the total value of the assets. " +
                 "The percentage change was equal " +
-                getRelativeChange(first.getValue(), last.getValue()) + "% in " + startDate +
+                getRelativeChange(first, last) + "% in " + startDate +
                 " comparing to " + endDate + ". ";
     }
 
@@ -67,7 +71,7 @@ public class TotallAssetsAnalyze extends OutcomeBase {
         return "It can be noticed from Table 1 that there was a " +
                 "tendency to decrease in the total value of the assets. " +
                 "The percentage change was equal " +
-                getRelativeChange(first.getValue(), last.getValue()) + "% in " + startDate +
+                getRelativeChange(first, last) + "% in " + startDate +
                 " comparing to " + endDate + ". ";
     }
 
@@ -78,7 +82,7 @@ public class TotallAssetsAnalyze extends OutcomeBase {
     }
 
     private String consequence() {
-        return "The value of the assets totalled " + last.getValue() +
+        return "The value of the assets totalled " + last +
                 " at the end of " + endDate + ". ";
     }
 }

@@ -1,4 +1,4 @@
-package interpreter.AssetsReport.Outcomes;
+package interpreter.ReusableComponents;
 
 import database.setting.DbSettingHandler;
 import entities.Item;
@@ -17,13 +17,13 @@ import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import java.util.ArrayList;
 
 
-public class AssetsReportTable extends ItemsTable implements JsCalcHelper {
+public class IndexChangeTable extends ItemsTable implements JsCalcHelper {
     private DbSettingHandler dbSettingHandler = new DbSettingHandler();
     private Periods periods;
     private int rootId;
     private ObservableList<Item> items;
 
-    public AssetsReportTable(
+    public IndexChangeTable(
             ObservableList<Item> items,
             Periods periods,
             int rootId

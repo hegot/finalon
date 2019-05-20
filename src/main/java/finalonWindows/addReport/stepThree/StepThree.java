@@ -25,13 +25,18 @@ public class StepThree extends SceneBase {
     public VBox show() {
         this.companyName = settings.get("company") + "'s";
         this.periods = new Periods(settings);
+        Label label = new Label("1. The Common-Size Analysis of the Assets, Liabilities and Shareholders' Equity ");
+        label.getStyleClass().add("assets-label");
+        label.setWrapText(true);
         Interprter interprter = new Interprter(settings, items);
         TabPane tabs = new TabPane();
         tabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         Tab tab1 = new Tab("Assets report");
         tab1.setContent(interprter.assetReport());
-        Tab tab2 = new Tab("Formula Calculation");
-        tab2.setContent(interprter.formulaList());
+        Tab tab2 = new Tab("Liabilities report");
+        tab2.setContent(interprter.liabilitiesReport());
+        Tab tab3 = new Tab("Formula Calculation");
+        tab3.setContent(interprter.formulaList());
 
         tabs.getTabs().addAll(tab1, tab2);
         VBox vBox = new VBox(5);
@@ -39,6 +44,7 @@ public class StepThree extends SceneBase {
         vBox.getChildren().addAll(
                 getTitle(),
                 getDescText(),
+                label,
                 tabs);
         return vBox;
     }

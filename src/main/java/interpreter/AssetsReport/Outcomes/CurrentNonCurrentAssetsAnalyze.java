@@ -1,6 +1,7 @@
 package interpreter.AssetsReport.Outcomes;
 
 import entities.Item;
+import interpreter.ReusableComponents.OutcomeBase;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
