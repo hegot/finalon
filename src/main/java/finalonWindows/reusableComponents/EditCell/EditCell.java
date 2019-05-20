@@ -1,4 +1,4 @@
-package finalonWindows.addReport.stepTwo;
+package finalonWindows.reusableComponents.EditCell;
 
 import finalonWindows.reusableComponents.NumField;
 import javafx.event.Event;
@@ -13,6 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EditCell<S, T> extends TreeTableCell<S, T> {
+    /**
+     * Convenience method for creating an EditCell for a String value.
+     *
+     * @return the edit cell
+     */
+    public static <S> EditCell<S, String> createStringEditCell(String type) {
+        return new EditCell<S, String>(IDENTITY_CONVERTER, type);
+    }
+
     /**
      * Convenience converter that does nothing (converts Strings to themselves and vice-versa...).
      */
@@ -29,8 +38,8 @@ public class EditCell<S, T> extends TreeTableCell<S, T> {
         }
 
     };
-    private final NumField textField = new NumField();
-    // Converter for converting the text in the text field to the user type, and vice-versa:
+
+    private final TextField textField;
     private final StringConverter<T> converter;
 
     /**
@@ -38,8 +47,14 @@ public class EditCell<S, T> extends TreeTableCell<S, T> {
      *
      * @param converter the converter to convert from and to strings
      */
-    public EditCell(StringConverter<T> converter) {
+    public EditCell(StringConverter<T> converter, String type) {
         this.converter = converter;
+
+        if (type.equals("integer")) {
+            this.textField = new NumField();
+        } else {
+            this.textField = new TextField();
+        }
 
         itemProperty().addListener((obx, oldItem, newItem) -> {
             setText(newItem != null ? this.converter.toString(newItem) : null);
@@ -77,22 +92,13 @@ public class EditCell<S, T> extends TreeTableCell<S, T> {
             }
         });
         this.addEventHandler(MouseEvent.ANY, event -> {
-            if (event.getClickCount() == 2 && event.getButton().equals(MouseButton.PRIMARY)) {
-                this.getTreeTableRow().getTreeItem().setExpanded(true);
+            if (event.getClickCount() == 1 && event.getButton().equals(MouseButton.PRIMARY)) {
+                getTreeTableView().edit(getTreeTableRow().getIndex(), getTableColumn());
             }
         });
     }
 
-    /**
-     * Convenience method for creating an EditCell for a String value.
-     *
-     * @return the edit cell
-     */
-    public static <S> EditCell<S, String> createStringEditCell() {
-        return new EditCell<S, String>(IDENTITY_CONVERTER);
-    }
 
-    // set the text of the text field and display the graphic
     @Override
     public void startEdit() {
         super.startEdit();
@@ -101,19 +107,14 @@ public class EditCell<S, T> extends TreeTableCell<S, T> {
         this.textField.requestFocus();
     }
 
-    // revert to text display
     @Override
     public void cancelEdit() {
         super.cancelEdit();
         setContentDisplay(ContentDisplay.TEXT_ONLY);
     }
 
-    // commits the edit. Update property if possible and revert to text display
     @Override
     public void commitEdit(T item) {
-        // This block is necessary to support commit on losing focus, because the baked-in mechanism
-        // sets our editing state to false before we can intercept the loss of focus.
-        // The default commitEdit(...) method simply bails if we are not editing...
         if (!isEditing() && !item.equals(getItem())) {
             TreeTableView<S> table = getTreeTableView();
             if (table != null) {

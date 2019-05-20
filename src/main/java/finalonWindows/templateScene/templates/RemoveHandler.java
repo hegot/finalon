@@ -1,4 +1,4 @@
-package finalonWindows.templateScene.templates.eventHandlers;
+package finalonWindows.templateScene.templates;
 
 import entities.Item;
 import finalonWindows.reusableComponents.ImageButton;

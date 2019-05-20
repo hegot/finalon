@@ -2,6 +2,7 @@ package finalonWindows.addReport.stepTwo;
 
 import database.setting.DbSettingHandler;
 import entities.Item;
+import finalonWindows.reusableComponents.EditCell.EditCell;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.TreeItem;
@@ -29,6 +30,7 @@ class Columns {
     TreeTableColumn getNameCol() {
         TreeTableColumn<Item, String> col = new TreeTableColumn<Item, String>("Indicator");
         col.setMinWidth(350);
+        col.setEditable(false);
         col.setCellValueFactory(new TreeItemPropertyValueFactory<Item, String>("name"));
         col.setCellFactory(TextFieldTreeTableCell.<Item>forTreeTableColumn());
         return col;
@@ -38,6 +40,7 @@ class Columns {
     TreeTableColumn getCodeCol() {
         TreeTableColumn<Item, String> col = new TreeTableColumn<Item, String>("Indicator Code");
         col.setMinWidth(100);
+        col.setEditable(false);
         col.setCellValueFactory(new TreeItemPropertyValueFactory<Item, String>("shortName"));
         col.setCellFactory(TextFieldTreeTableCell.<Item>forTreeTableColumn());
         return col;
@@ -47,7 +50,7 @@ class Columns {
     TreeTableColumn getPeriodCol(String colname) {
         TreeTableColumn<Item, String> col = new TreeTableColumn<Item, String>(colname);
         col.setMinWidth(100);
-        col.setCellFactory(column -> EditCell.createStringEditCell());
+        col.setCellFactory(column -> EditCell.createStringEditCell("integer"));
         textEditHandler.setColumnEventHandlers(col, colname);
         col.setCellValueFactory(cellData -> {
             TreeItem treeItem = cellData.getValue();

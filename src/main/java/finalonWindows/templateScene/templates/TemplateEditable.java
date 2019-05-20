@@ -1,8 +1,6 @@
 package finalonWindows.templateScene.templates;
 
 import entities.Item;
-import finalonWindows.templateScene.templates.eventHandlers.RemoveHandler;
-import finalonWindows.templateScene.templates.eventHandlers.TextEditHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Rectangle2D;
@@ -47,9 +45,8 @@ public class TemplateEditable {
         table.setEditable(true);
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         table.setMinHeight(primaryScreenBounds.getHeight() - 150);
-        TextEditHandler texthandler = new TextEditHandler();
         RemoveHandler removeHandler = new RemoveHandler();
-        Columns cols = new Columns(texthandler, removeHandler);
+        Columns cols = new Columns(removeHandler);
         if (SheetName.equals("Statement of Financial Position \n (Balance Sheet)") || SheetName.equals("Other Data")) {
             table.getColumns().addAll(cols.getNameCol(), cols.getCodeCol(), cols.isPositiveCol(), cols.buttonCol());
         } else {
