@@ -6,8 +6,6 @@ import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-import java.util.Map;
-
 public class TotallAssetsAnalyze extends OutcomeBase {
 
     private Double first;

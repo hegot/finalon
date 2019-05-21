@@ -31,14 +31,19 @@ public class StepThree extends SceneBase {
         Interprter interprter = new Interprter(settings, items);
         TabPane tabs = new TabPane();
         tabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-        Tab tab1 = new Tab("Assets report");
-        tab1.setContent(interprter.assetReport());
-        Tab tab2 = new Tab("Liabilities report");
-        tab2.setContent(interprter.liabilitiesReport());
-        Tab tab3 = new Tab("Formula Calculation");
-        tab3.setContent(interprter.formulaList());
+        Tab tab1 = new Tab("Assets trend Analysis");
+        tab1.setContent(interprter.assetTrend());
 
-        tabs.getTabs().addAll(tab1, tab2);
+        Tab tab2 = new Tab("Liabilities trend Analysis");
+        tab2.setContent(interprter.liabilitiesReport());
+
+        Tab tab3 = new Tab("Assets Structure Analysis");
+        tab3.setContent(interprter.assetStructure());
+
+        Tab tab4 = new Tab("Formula Calculation");
+        tab4.setContent(interprter.formulaList());
+
+        tabs.getTabs().addAll(tab1, tab2, tab3, tab4);
         VBox vBox = new VBox(5);
         vBox.getStyleClass().add("generated-report");
         vBox.getChildren().addAll(

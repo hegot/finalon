@@ -60,7 +60,7 @@ public class IndexChangeTable extends ItemsTable implements JsCalcHelper {
         return table;
     }
 
-    TreeTableColumn getNameCol() {
+    protected TreeTableColumn getNameCol() {
         TreeTableColumn<Item, String> col = new TreeTableColumn<Item, String>("Indicator");
         col.setMinWidth(350);
         col.setCellValueFactory(new TreeItemPropertyValueFactory<Item, String>("name"));
@@ -89,7 +89,7 @@ public class IndexChangeTable extends ItemsTable implements JsCalcHelper {
     }
 
 
-    TreeTableColumn getAbsoluteComparisonCol(String colStart, String colEnd) {
+    protected TreeTableColumn getAbsoluteComparisonCol(String colStart, String colEnd) {
         String colname = "Absolute Change\n" + formatDate(colEnd) + " to \n" + formatDate(colStart);
         TreeTableColumn<Item, String> col = new TreeTableColumn<Item, String>(colname);
         col.setMinWidth(150);
@@ -108,7 +108,7 @@ public class IndexChangeTable extends ItemsTable implements JsCalcHelper {
         return col;
     }
 
-    TreeTableColumn getRelativeComparisonCol(String colStart, String colEnd) {
+    protected TreeTableColumn getRelativeComparisonCol(String colStart, String colEnd) {
         String colname = "Percentage change\n" + formatDate(colEnd) + " to \n" + formatDate(colStart);
         TreeTableColumn<Item, String> col = new TreeTableColumn<Item, String>(colname);
         col.setMinWidth(150);
@@ -128,7 +128,7 @@ public class IndexChangeTable extends ItemsTable implements JsCalcHelper {
     }
 
 
-    TreeTableColumn getPeriodCol(String colname) {
+    protected TreeTableColumn getPeriodCol(String colname) {
         TreeTableColumn<Item, String> col = new TreeTableColumn<Item, String>(formatDate(colname));
         col.setMinWidth(100);
         col.setCellValueFactory(cellData -> {

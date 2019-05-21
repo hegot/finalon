@@ -1,10 +1,12 @@
-package interpreter.LiabilitiesReport;
+package interpreter.LiabilitiesTrend;
 
 import entities.Item;
 import finalonWindows.reusableComponents.ItemsTable.Periods;
-import interpreter.LiabilitiesReport.Outcomes.TotallLiabilitiesAnalyze;
+import interpreter.LiabilitiesTrend.Outcomes.LiabilitiesCharts;
+import interpreter.LiabilitiesTrend.Outcomes.TotallLiabilitiesAnalyze;
 import interpreter.ReportHelper;
 import interpreter.ReusableComponents.IndexChangeTable;
+import interpreter.ReusableComponents.RelativeItemsChange;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
@@ -34,18 +36,45 @@ public class LiabilitiesReport extends ReportHelper {
         tableName.setWrapText(true);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
-        Item currentAssets = getItemByCode("GeneralCurrentAssets");
-        Item nonCurrentAssets = getItemByCode("NonCurrentAssets");
+        Item equityGeneral = getItemByCode("EquityGeneral");
+        Item liabilitiesGeneral = getItemByCode("LiabilitiesGeneral");
+        Item liabilitiesCurent = getItemByCode("CurrentLiabilities");
+        Item liabilitiesNonCurrent = getItemByCode("NonCurrentLiabilities");
         String start = periods.getStart();
         String end = periods.getEnd();
         box.getChildren().addAll(
                 tableName,
-                new IndexChangeTable(items, periods, rootId).get(),
+                new IndexChangeTable(
+                        items,
+                        periods,
+                        rootId
+                ).get(),
                 new TotallLiabilitiesAnalyze(
                         settings,
                         getItemByCode("EquityAndLiabilities"),
                         start,
                         end
+                ).get(),
+                new RelativeItemsChange(
+                        equityGeneral,
+                        getItems(equityGeneral.getId()),
+                        start,
+                        end,
+                        "sources"
+                ).get(),
+                new RelativeItemsChange(
+                        liabilitiesGeneral,
+                        getItemsDeep(liabilitiesGeneral.getId()),
+                        start,
+                        end,
+                        "sources"
+                ).get(),
+                new LiabilitiesCharts(
+                        settings,
+                        periods,
+                        liabilitiesCurent,
+                        liabilitiesNonCurrent,
+                        equityGeneral
                 ).get()
         );
         return box;

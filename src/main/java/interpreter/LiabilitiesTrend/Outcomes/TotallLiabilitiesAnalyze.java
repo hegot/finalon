@@ -1,4 +1,4 @@
-package interpreter.LiabilitiesReport.Outcomes;
+package interpreter.LiabilitiesTrend.Outcomes;
 
 import entities.Item;
 import interpreter.ReusableComponents.OutcomeBase;
@@ -39,11 +39,29 @@ public class TotallLiabilitiesAnalyze extends OutcomeBase {
     public VBox get() {
         VBox hbox = new VBox(10);
         if (first != null && last != null) {
-            String output = output();
+            String output = preOutput();
             Label text1 = new Label(output);
             text1.getStyleClass().add("report-text-small");
             text1.setWrapText(true);
-            hbox.getChildren().addAll(text1);
+            if (last > first) {
+                output = increase();
+            }
+            if (last < first) {
+                output = decrease();
+            }
+            if (last == first) {
+                output = equal();
+            }
+
+            if (last <= 0) {
+                output = bankrupt();
+            }
+
+            Label text2 = new Label(output);
+            text2.getStyleClass().add("report-text-small");
+            text2.setWrapText(true);
+
+            hbox.getChildren().addAll(text1, text2);
         }
         return hbox;
     }
@@ -71,13 +89,41 @@ public class TotallLiabilitiesAnalyze extends OutcomeBase {
     }
 
 
-    private String output() {
+    private String preOutput() {
         return prefix() + "to the value of total assets, the liabilities and equity value" +
-                " amounted to " +  settings.get("defaultCurrency") + " " + last + " " + settings.get("amount") + " in "
+                " amounted to " +  settings.get("defaultCurrency") + " "
+                + last + " " + settings.get("amount") + " in "
                 + endDate + ", " +
                 getRelativeChange(first, last) + "% " + suffix() + " than in " +
                 endDate + ".";
     }
 
+    private String increase() {
+        return  "There was a stable growth of the stockholders' equity value in " +
+                startDate + " - " + endDate +
+                ", which indicates that the company's assets would worth more " +
+                "after all claims upon those assets were paid. This means that " +
+                settings.get("company") +
+                " was expanding.";
+    }
+
+    private String decrease() {
+        return "There was a stable decline in the stockholders' equity value in " +
+                startDate + " - " + endDate +
+                ", which indicates that the company's assets would worth less " +
+                "after all claims upon those assets were paid. This means that " +
+                settings.get("company") +
+                " was degrading.";
+    }
+
+    private String equal() {
+        return "Stockholders' equity value in" +
+                startDate + " - " + endDate +
+                ", was stable";
+    }
+
+    private String bankrupt(){
+        return "The stockholders' equity value equals zero or less, meaning that the company may go bankrupt.";
+    }
 
 }

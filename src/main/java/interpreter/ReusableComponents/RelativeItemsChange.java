@@ -1,7 +1,6 @@
-package interpreter.AssetsReport.Outcomes;
+package interpreter.ReusableComponents;
 
 import entities.Item;
-import interpreter.ReusableComponents.OutcomeBase;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
@@ -9,20 +8,23 @@ import javafx.scene.layout.VBox;
 
 import java.util.Map;
 
-public class RelativeAssetsChange extends OutcomeBase {
+public class RelativeItemsChange extends OutcomeBase {
     private Item parent;
     private ObservableList<Item> items;
     private String startDate;
     private String endDate;
+    private String text;
 
-    public RelativeAssetsChange(Item parent,
-                                ObservableList<Item> items,
-                                String startDate,
-                                String endDate) {
+    public RelativeItemsChange(Item parent,
+                               ObservableList<Item> items,
+                               String startDate,
+                               String endDate,
+                               String text) {
         this.parent = parent;
         this.startDate = startDate;
         this.endDate = endDate;
         this.items = items;
+        this.text = text;
     }
 
 
@@ -71,7 +73,9 @@ public class RelativeAssetsChange extends OutcomeBase {
     private Label message() {
         Label label = new Label("The change of the " + parent.getName() + " value in " +
                 startDate + "-" + endDate + " was connected with a " +
-                riseOrFall() + "change of the following assets:");
+                riseOrFall() + " change of the following " + text + ":");
+        label.getStyleClass().add("report-text-small");
+        label.setWrapText(true);
         return label;
 
     }

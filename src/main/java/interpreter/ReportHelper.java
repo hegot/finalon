@@ -29,4 +29,19 @@ public class ReportHelper {
         }
         return Items;
     }
+
+    protected ObservableList<Item> getItemsDeep(int id) {
+        ObservableList<Item> Items = FXCollections.observableArrayList();
+        for (Item item : items) {
+            if (item.getParent() == id) {
+                int deepId = item.getId();
+                for (Item itemDeep : items) {
+                    if (itemDeep.getParent() == deepId) {
+                        Items.add(itemDeep);
+                    }
+                }
+            }
+        }
+        return Items;
+    }
 }
