@@ -1,13 +1,14 @@
 package interpreter.AssetsReport.Outcomes;
 
 import entities.Item;
+import interpreter.ReusableComponents.LabelWrap;
 import interpreter.ReusableComponents.OutcomeBase;
 import interpreter.ReusableComponents.SrtuctureItemsLoop;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-public class AssetStructureAnalyseEnd extends OutcomeBase implements SrtuctureItemsLoop {
+public class AssetStructureAnalyseEnd extends OutcomeBase implements SrtuctureItemsLoop, LabelWrap {
     private Item parent;
     private String period;
     private Double totalVal;
@@ -24,7 +25,6 @@ public class AssetStructureAnalyseEnd extends OutcomeBase implements SrtuctureIt
             ObservableList<Item> nonCurrentItems,
             String period
     ) {
-
         this.parent = parent;
         this.period = period;
         this.currentItems = currentItems;
@@ -34,15 +34,11 @@ public class AssetStructureAnalyseEnd extends OutcomeBase implements SrtuctureIt
         this.nonCurrentVal = getVal(nonCurrent, period);
     }
 
-
-    private Boolean assetsChanged(){
+    private Boolean assetsChanged() {
         Double assetsStart = getFirstVal(parent.getValues());
         Double assetsEnd = getLastVal(parent.getValues());
         return !assetsStart.equals(assetsEnd);
     }
-
-
-
 
     public VBox get() {
         VBox vBox = new VBox(10);
@@ -72,19 +68,19 @@ public class AssetStructureAnalyseEnd extends OutcomeBase implements SrtuctureIt
 
     private Label firstMessage() {
         String str = "";
-        if(assetsChanged()){
-            str = "Over the period under review the assets structure changed. ";
+        if (totalVal != null && totalVal != 0) {
+            if (assetsChanged()) {
+                str = "Over the period under review the assets structure changed. ";
+            }
+            str = str + "At the end of " + formatDate(period) + " the assets consisted of ";
+
+            if (nonCurrentVal != null) {
+                str = str + partStr(nonCurrentVal, totalVal) + " non-current assets";
+            }
+            if (currentVal != null) {
+                str = str + " and " + partStr(currentVal, totalVal) + " of current assets.";
+            }
         }
-        str = str + "At the end of " + formatDate(period) + " the assets consisted of ";
-        if (nonCurrentVal != null) {
-            str = str + partStr(nonCurrentVal, totalVal) + " non-current assets";
-        }
-        if (currentVal != null) {
-            str = str + " and " + partStr(currentVal, totalVal) + " of current assets.";
-        }
-        Label label = new Label(str);
-        label.getStyleClass().add("report-text-small");
-        label.setWrapText(true);
-        return label;
+        return labelWrap(str);
     }
 }

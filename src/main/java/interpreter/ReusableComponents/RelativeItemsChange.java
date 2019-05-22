@@ -8,7 +8,7 @@ import javafx.scene.layout.VBox;
 
 import java.util.Map;
 
-public class RelativeItemsChange extends OutcomeBase {
+public class RelativeItemsChange extends OutcomeBase implements LabelWrap {
     private Item parent;
     private ObservableList<Item> items;
     private String startDate;
@@ -71,12 +71,9 @@ public class RelativeItemsChange extends OutcomeBase {
     }
 
     private Label message() {
-        Label label = new Label("The change of the " + parent.getName() + " value in " +
-                startDate + "-" + endDate + " was connected with a " +
-                riseOrFall() + " change of the following " + text + ":");
-        label.getStyleClass().add("report-text-small");
-        label.setWrapText(true);
-        return label;
-
+        return labelWrap(
+                "The change of the " + parent.getName() + " value in " +
+                        startDate + "-" + endDate + " was connected with a " +
+                        riseOrFall() + " change of the following " + text + ":");
     }
 }

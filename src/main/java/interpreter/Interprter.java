@@ -3,7 +3,7 @@ package interpreter;
 import entities.Item;
 import interpreter.AssetsReport.AssetsReport;
 import interpreter.FormulaList.FormulaList;
-import interpreter.LiabilitiesTrend.LiabilitiesReport;
+import interpreter.LiabilitiesReport.LiabilitiesReport;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.layout.VBox;
@@ -32,8 +32,12 @@ public class Interprter {
     }
 
 
-    public VBox liabilitiesReport() {
-        return new LiabilitiesReport(this.items, this.settings).get();
+    public VBox liabilitiesTrend() {
+        return new LiabilitiesReport(this.items, this.settings).getTrend();
+    }
+
+    public VBox liabilitiesStructure() {
+        return new LiabilitiesReport(this.items, this.settings).getStructure();
     }
 
     public VBox formulaList() {

@@ -1,4 +1,4 @@
-package interpreter.LiabilitiesTrend.Outcomes;
+package interpreter.LiabilitiesReport.Outcomes;
 
 import entities.Item;
 import finalonWindows.reusableComponents.ItemsTable.Periods;

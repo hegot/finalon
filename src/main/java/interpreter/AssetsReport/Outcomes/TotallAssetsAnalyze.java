@@ -1,18 +1,17 @@
 package interpreter.AssetsReport.Outcomes;
 
 import entities.Item;
+import interpreter.ReusableComponents.LabelWrap;
 import interpreter.ReusableComponents.OutcomeBase;
 import javafx.collections.ObservableMap;
-import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-public class TotallAssetsAnalyze extends OutcomeBase {
+public class TotallAssetsAnalyze extends OutcomeBase implements LabelWrap {
 
     private Double first;
     private Double last;
     private String startDate;
     private String endDate;
-    private ObservableMap<String, String> settings;
 
     public TotallAssetsAnalyze(
             ObservableMap<String, String> settings,
@@ -20,7 +19,6 @@ public class TotallAssetsAnalyze extends OutcomeBase {
             String startDate,
             String endDate
     ) {
-        this.settings = settings;
         this.startDate = startDate;
         this.endDate = endDate;
         ObservableMap<String, Double> values = item.getValues();
@@ -29,7 +27,6 @@ public class TotallAssetsAnalyze extends OutcomeBase {
             this.last = getLastVal(values);
             settings.put("assetsDifference", Double.toString(last - first));
         }
-
     }
 
     public VBox get() {
@@ -45,13 +42,10 @@ public class TotallAssetsAnalyze extends OutcomeBase {
             if (last == first) {
                 output = equal();
             }
-            Label text1 = new Label(output);
-            text1.getStyleClass().add("report-text-small");
-            text1.setWrapText(true);
-            Label text2 = new Label(consequence());
-            text2.getStyleClass().add("report-text-small");
-            text2.setWrapText(true);
-            hbox.getChildren().addAll(text1, text2);
+            hbox.getChildren().addAll(
+                    labelWrap(output),
+                    labelWrap(consequence())
+            );
         }
         return hbox;
     }

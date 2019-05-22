@@ -34,16 +34,24 @@ public class AssetStructureChart implements GetVal {
     }
 
     public PieChart get() {
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-        if (currentVal != null) {
-            pieChartData.add(new PieChart.Data(current.getName(), part(currentVal, totalVal)));
+        final PieChart chart = new PieChart();
+        if (totalVal != null && totalVal != 0) {
+            ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+            if (currentVal != null) {
+                pieChartData.add(new PieChart.Data(
+                        current.getName(),
+                        part(currentVal, totalVal)
+                ));
+            }
+            if (nonCurrentVal != null) {
+                pieChartData.add(new PieChart.Data(
+                        nonCurrent.getName(),
+                        part(nonCurrentVal, totalVal)
+                ));
+            }
+            chart.setData(pieChartData);
+            chart.setTitle("Chart 3. " + settings.get("company") + " Assets structure in " + period);
         }
-        if (nonCurrentVal != null) {
-            pieChartData.add(new PieChart.Data(nonCurrent.getName(), part(nonCurrentVal, totalVal)));
-        }
-
-        final PieChart chart = new PieChart(pieChartData);
-        chart.setTitle("Chart 3. " + settings.get("company") + " Assets structure in " + period);
         return chart;
     }
 }

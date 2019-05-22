@@ -31,19 +31,29 @@ public class StepThree extends SceneBase {
         Interprter interprter = new Interprter(settings, items);
         TabPane tabs = new TabPane();
         tabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-        Tab tab1 = new Tab("Assets trend Analysis");
-        tab1.setContent(interprter.assetTrend());
+        String periods = settings.get("periods");
+        if (periods != null) {
+            int periodsAmount = Integer.parseInt(periods);
+            if (periodsAmount > 1) {
+                Tab tab1 = new Tab("Assets trend Analysis");
+                tab1.setContent(interprter.assetTrend());
 
-        Tab tab2 = new Tab("Liabilities trend Analysis");
-        tab2.setContent(interprter.liabilitiesReport());
+                Tab tab2 = new Tab("Liabilities trend Analysis");
+                tab2.setContent(interprter.liabilitiesTrend());
+                tabs.getTabs().addAll(tab1, tab2);
+            }
+        }
 
         Tab tab3 = new Tab("Assets Structure Analysis");
         tab3.setContent(interprter.assetStructure());
 
-        Tab tab4 = new Tab("Formula Calculation");
+        Tab tab4 = new Tab("Liabilities Structure Analysis");
+        tab3.setContent(interprter.liabilitiesStructure());
+
+        Tab tab5 = new Tab("Formula Calculation");
         tab4.setContent(interprter.formulaList());
 
-        tabs.getTabs().addAll(tab1, tab2, tab3, tab4);
+        tabs.getTabs().addAll(tab3, tab4, tab5);
         VBox vBox = new VBox(5);
         vBox.getStyleClass().add("generated-report");
         vBox.getChildren().addAll(

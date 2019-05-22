@@ -82,13 +82,5 @@ public class TextEditHandler {
                     }
                 }
         );
-        column.setOnEditCancel(
-                new EventHandler<TreeTableColumn.CellEditEvent<Item, String>>() {
-                    @Override
-                    public void handle(TreeTableColumn.CellEditEvent<Item, String> t) {
-
-                    }
-                }
-        );
     }
 }

@@ -1,13 +1,13 @@
-package interpreter.LiabilitiesTrend.Outcomes;
+package interpreter.LiabilitiesReport.Outcomes;
 
 import entities.Item;
+import interpreter.ReusableComponents.LabelWrap;
 import interpreter.ReusableComponents.OutcomeBase;
 import javafx.collections.ObservableMap;
-import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 
-public class TotallLiabilitiesAnalyze extends OutcomeBase {
+public class TotallLiabilitiesAnalyze extends OutcomeBase implements LabelWrap {
 
     private Double first;
     private Double last;
@@ -39,10 +39,7 @@ public class TotallLiabilitiesAnalyze extends OutcomeBase {
     public VBox get() {
         VBox hbox = new VBox(10);
         if (first != null && last != null) {
-            String output = preOutput();
-            Label text1 = new Label(output);
-            text1.getStyleClass().add("report-text-small");
-            text1.setWrapText(true);
+            String output = "";
             if (last > first) {
                 output = increase();
             }
@@ -52,16 +49,10 @@ public class TotallLiabilitiesAnalyze extends OutcomeBase {
             if (last == first) {
                 output = equal();
             }
-
             if (last <= 0) {
                 output = bankrupt();
             }
-
-            Label text2 = new Label(output);
-            text2.getStyleClass().add("report-text-small");
-            text2.setWrapText(true);
-
-            hbox.getChildren().addAll(text1, text2);
+            hbox.getChildren().addAll(labelWrap(preOutput()), labelWrap(output));
         }
         return hbox;
     }

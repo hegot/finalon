@@ -5,6 +5,7 @@ import finalonWindows.SceneBase;
 import finalonWindows.addReport.stepOne.StepOne;
 import finalonWindows.addReport.stepThree.StepThree;
 import finalonWindows.addReport.stepTwo.StepTwo;
+import finalonWindows.reusableComponents.ItemsTable.Periods;
 import finalonWindows.reusableComponents.SettingsMenu;
 import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
@@ -15,6 +16,8 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
+import java.util.ArrayList;
 
 public class AddReportScene extends SceneBase {
     private ObservableMap<String, String> settings;
@@ -77,11 +80,29 @@ public class AddReportScene extends SceneBase {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
+                populateEmptyValues();
                 settings.put("step", "three");
             }
         });
         return button;
     }
+
+    private void populateEmptyValues() {
+        int periods = Integer.parseInt(settings.get("periods"));
+        Periods Periods = new Periods(settings);
+        ArrayList<String> periodsArr = Periods.getPeriodArr();
+        for (Item item : items) {
+            if (item.getValues().size() > 0) {
+                ObservableMap<String, Double> values = item.getValues();
+                if (values.size() != periods) {
+                    for (String period : periodsArr) {
+                        values.putIfAbsent(period, 0.0);
+                    }
+                }
+            }
+        }
+    }
+
 
     Button backSettingsButton() {
         Button button = new Button("Report Settings");
