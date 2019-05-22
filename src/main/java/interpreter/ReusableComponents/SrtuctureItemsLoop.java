@@ -27,7 +27,7 @@ public interface SrtuctureItemsLoop extends JsCalcHelper, GetVal, LabelWrap {
         StringBuilder result = new StringBuilder("");
         for (Map.Entry<Double, String> entry : treeMap.entrySet()) {
             Double key = entry.getKey();
-            result.append(entry.getValue() + " (" + format(key) + " of total assets), ");
+            result.append(entry.getValue() + " (" + format(key) + "), ");
         }
         return labelWrap(start + result + end);
     }

@@ -6,6 +6,7 @@ import interpreter.AssetsReport.Outcomes.*;
 import interpreter.ReusableComponents.IndexChangeTable;
 import interpreter.ReusableComponents.RelativeItemsChange;
 import interpreter.ReusableComponents.ReportHelper;
+import interpreter.ReusableComponents.StructureTable;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
@@ -105,7 +106,7 @@ public class AssetsReport extends ReportHelper {
         String endKey = periodArr.get(periodArr.size() - 1);
         box.getChildren().addAll(
                 tableName,
-                new AssetStructureTable(
+                new StructureTable(
                         items,
                         periods,
                         rootId

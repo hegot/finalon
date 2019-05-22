@@ -5,12 +5,11 @@ import finalonWindows.reusableComponents.ItemsTable.Periods;
 import interpreter.AssetsReport.Outcomes.AssetStructureAnalyseEnd;
 import interpreter.AssetsReport.Outcomes.AssetStructureAnalyzeStart;
 import interpreter.AssetsReport.Outcomes.AssetStructureChart;
-import interpreter.AssetsReport.Outcomes.AssetStructureTable;
-import interpreter.LiabilitiesReport.Outcomes.LiabilitiesCharts;
-import interpreter.LiabilitiesReport.Outcomes.TotallLiabilitiesAnalyze;
+import interpreter.LiabilitiesReport.Outcomes.*;
 import interpreter.ReusableComponents.IndexChangeTable;
 import interpreter.ReusableComponents.RelativeItemsChange;
 import interpreter.ReusableComponents.ReportHelper;
+import interpreter.ReusableComponents.StructureTable;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
@@ -87,46 +86,54 @@ public class LiabilitiesReport extends ReportHelper {
     }
 
     public VBox getStructure() {
-        Label tableName = new Label("Table 3. Assets Structure Analysis");
+        Label tableName = new Label("Table 4. Equity and Liabilities Structure Analysis");
         tableName.getStyleClass().add("assets-table-name");
         tableName.setWrapText(true);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
-        Item assetsGeneral = getItemByCode("AssetsGeneral");
-        Item currentAssets = getItemByCode("GeneralCurrentAssets");
-        Item nonCurrentAssets = getItemByCode("NonCurrentAssets");
+        Item equityAndLiabilities = getItemByCode("EquityAndLiabilities");
+        Item equityGeneral = getItemByCode("EquityGeneral");
+        Item nonCurrentLiabilities = getItemByCode("NonCurrentLiabilities");
+        Item currentLiabilities = getItemByCode("CurrentLiabilities");
         ArrayList<String> periodArr = periods.getPeriodArr();
         String startKey = periodArr.get(0);
         String endKey = periodArr.get(periodArr.size() - 1);
         box.getChildren().addAll(
                 tableName,
-                new AssetStructureTable(
+                new StructureTable(
                         items,
                         periods,
                         rootId
                 ).get(),
-                new AssetStructureAnalyzeStart(
-                        assetsGeneral,
-                        currentAssets,
-                        nonCurrentAssets,
-                        getItems(currentAssets.getId()),
-                        getItems(nonCurrentAssets.getId()),
+                new LiabilitiesStructureAnalyzeStart(
+                        settings,
+                        equityAndLiabilities,
+                        equityGeneral,
+                        nonCurrentLiabilities,
+                        currentLiabilities,
+                        getItems(equityGeneral.getId()),
+                        getItems(nonCurrentLiabilities.getId()),
+                        getItems(currentLiabilities.getId()),
                         startKey
                 ).get(),
-                new AssetStructureChart(
+                new LiabilitiesStructureChart(
                         settings,
-                        assetsGeneral,
-                        currentAssets,
-                        nonCurrentAssets,
+                        equityAndLiabilities,
+                        equityGeneral,
+                        nonCurrentLiabilities,
+                        currentLiabilities,
                         endKey
                 ).get(),
-                new AssetStructureAnalyseEnd(
-                        assetsGeneral,
-                        currentAssets,
-                        nonCurrentAssets,
-                        getItems(currentAssets.getId()),
-                        getItems(nonCurrentAssets.getId()),
-                        endKey
+                new LiabilitiesStructureAnalyzeEnd(
+                        settings,
+                        equityAndLiabilities,
+                        equityGeneral,
+                        nonCurrentLiabilities,
+                        currentLiabilities,
+                        getItems(equityGeneral.getId()),
+                        getItems(nonCurrentLiabilities.getId()),
+                        getItems(currentLiabilities.getId()),
+                        startKey
                 ).get()
         );
         return box;

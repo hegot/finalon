@@ -1,18 +1,17 @@
-package interpreter.AssetsReport.Outcomes;
+package interpreter.ReusableComponents;
 
 import entities.Item;
 import finalonWindows.reusableComponents.ItemsTable.Periods;
-import interpreter.ReusableComponents.IndexChangeTable;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeTableView;
 
 import java.util.ArrayList;
 
-public class AssetStructureTable extends IndexChangeTable {
+public class StructureTable extends IndexChangeTable {
     private Periods periods;
     private int rootId;
 
-    public AssetStructureTable(
+    public StructureTable(
             ObservableList<Item> items,
             Periods periods,
             int rootId

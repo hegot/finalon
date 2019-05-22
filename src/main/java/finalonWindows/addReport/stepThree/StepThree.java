@@ -48,10 +48,10 @@ public class StepThree extends SceneBase {
         tab3.setContent(interprter.assetStructure());
 
         Tab tab4 = new Tab("Liabilities Structure Analysis");
-        tab3.setContent(interprter.liabilitiesStructure());
+        tab4.setContent(interprter.liabilitiesStructure());
 
         Tab tab5 = new Tab("Formula Calculation");
-        tab4.setContent(interprter.formulaList());
+        tab5.setContent(interprter.formulaList());
 
         tabs.getTabs().addAll(tab3, tab4, tab5);
         VBox vBox = new VBox(5);

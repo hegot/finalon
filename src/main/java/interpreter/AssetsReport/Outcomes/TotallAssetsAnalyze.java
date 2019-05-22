@@ -26,6 +26,8 @@ public class TotallAssetsAnalyze extends OutcomeBase implements LabelWrap {
             this.first = getFirstVal(values);
             this.last = getLastVal(values);
             settings.put("assetsDifference", Double.toString(last - first));
+            settings.put("assetsStartValue", Double.toString(first));
+            settings.put("assetsEndValue", Double.toString(last));
         }
     }
 
