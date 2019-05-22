@@ -1,4 +1,4 @@
-package interpreter;
+package interpreter.ReusableComponents;
 
 import entities.Item;
 import javafx.collections.FXCollections;

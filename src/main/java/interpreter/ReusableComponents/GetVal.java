@@ -3,8 +3,8 @@ package interpreter.ReusableComponents;
 import entities.Item;
 import javafx.collections.ObservableMap;
 
-public class GetVal {
-    protected Double getVal(Item item, String period) {
+public interface GetVal {
+    default Double getVal(Item item, String period) {
         ObservableMap<String, Double> values = item.getValues();
         Double val = null;
         if (values.size() > 0) {
@@ -13,15 +13,15 @@ public class GetVal {
         return val;
     }
 
-    protected String partStr(Double val, Double total) {
+    default String partStr(Double val, Double total) {
         return format(part(val, total));
     }
 
-    protected String format(Double input) {
+    default String format(Double input) {
         return String.format("%.2f", input) + '%';
     }
 
-    protected Double part(Double val, Double total) {
+    default Double part(Double val, Double total) {
         return (val / total) * 100;
     }
 }

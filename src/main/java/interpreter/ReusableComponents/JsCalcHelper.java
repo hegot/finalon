@@ -1,4 +1,4 @@
-package interpreter;
+package interpreter.ReusableComponents;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;

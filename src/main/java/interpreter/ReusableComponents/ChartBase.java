@@ -32,8 +32,9 @@ public class ChartBase extends OutcomeBase {
         if (values.size() > 1) {
             for (String period : periodsArr) {
                 String date = formatDate(period);
-                if(values.get(period) != null){
-                    series.getData().add(new XYChart.Data(date, values.get(period)));                }
+                if (values.get(period) != null) {
+                    series.getData().add(new XYChart.Data(date, values.get(period)));
+                }
 
             }
         }

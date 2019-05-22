@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.chart.PieChart;
 
-public class AssetStructureChart extends GetVal {
+public class AssetStructureChart implements GetVal {
 
     private Item current;
     private Item nonCurrent;
@@ -34,13 +34,16 @@ public class AssetStructureChart extends GetVal {
     }
 
     public PieChart get() {
-        ObservableList<PieChart.Data> pieChartData =
-        FXCollections.observableArrayList(
-                new PieChart.Data(current.getName(), part(currentVal, totalVal)),
-                new PieChart.Data(nonCurrent.getName(), part(nonCurrentVal, totalVal))
-        );
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        if (currentVal != null) {
+            pieChartData.add(new PieChart.Data(current.getName(), part(currentVal, totalVal)));
+        }
+        if (nonCurrentVal != null) {
+            pieChartData.add(new PieChart.Data(nonCurrent.getName(), part(nonCurrentVal, totalVal)));
+        }
+
         final PieChart chart = new PieChart(pieChartData);
-        chart.setTitle("Chart 3. " + settings.get("company") + "Assets structure in " + period);
+        chart.setTitle("Chart 3. " + settings.get("company") + " Assets structure in " + period);
         return chart;
     }
 }

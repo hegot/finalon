@@ -1,6 +1,5 @@
 package interpreter.ReusableComponents;
 
-import interpreter.JsCalcHelper;
 import javafx.collections.ObservableMap;
 
 import java.util.AbstractMap;
@@ -17,17 +16,17 @@ public class OutcomeBase implements JsCalcHelper {
         return last;
     }
 
-    public Double getLastVal(ObservableMap<String, Double> values){
+    public Double getLastVal(ObservableMap<String, Double> values) {
         Map.Entry<String, Double> last = getLast(values);
-        if(last != null){
+        if (last != null) {
             return last.getValue();
         }
         return null;
     }
 
-    public Double getFirstVal(ObservableMap<String, Double> values){
+    public Double getFirstVal(ObservableMap<String, Double> values) {
         Map.Entry<String, Double> first = getFirst(values);
-        if(first != null){
+        if (first != null) {
             return first.getValue();
         }
         return null;

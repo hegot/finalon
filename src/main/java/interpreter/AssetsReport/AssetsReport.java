@@ -3,13 +3,15 @@ package interpreter.AssetsReport;
 import entities.Item;
 import finalonWindows.reusableComponents.ItemsTable.Periods;
 import interpreter.AssetsReport.Outcomes.*;
-import interpreter.ReportHelper;
 import interpreter.ReusableComponents.IndexChangeTable;
 import interpreter.ReusableComponents.RelativeItemsChange;
+import interpreter.ReusableComponents.ReportHelper;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+
+import java.util.ArrayList;
 
 public class AssetsReport extends ReportHelper {
 
@@ -33,7 +35,7 @@ public class AssetsReport extends ReportHelper {
         this.currentAssets = getItemByCode("GeneralCurrentAssets");
         this.nonCurrentAssets = getItemByCode("NonCurrentAssets");
         this.start = periods.getStart();
-        this.end =  periods.getEnd();
+        this.end = periods.getEnd();
         this.assetsGeneral = getItemByCode("AssetsGeneral");
     }
 
@@ -98,7 +100,9 @@ public class AssetsReport extends ReportHelper {
         Item assetsGeneral = getItemByCode("AssetsGeneral");
         Item currentAssets = getItemByCode("GeneralCurrentAssets");
         Item nonCurrentAssets = getItemByCode("NonCurrentAssets");
-        String startKey = periods.getPeriodArr().get(0);
+        ArrayList<String> periodArr = periods.getPeriodArr();
+        String startKey = periodArr.get(0);
+        String endKey = periodArr.get(periodArr.size() - 1);
         box.getChildren().addAll(
                 tableName,
                 new AssetStructureTable(
@@ -106,7 +110,7 @@ public class AssetsReport extends ReportHelper {
                         periods,
                         rootId
                 ).get(),
-                new AssetStructureAnalyze(
+                new AssetStructureAnalyzeStart(
                         assetsGeneral,
                         currentAssets,
                         nonCurrentAssets,
@@ -119,7 +123,15 @@ public class AssetsReport extends ReportHelper {
                         assetsGeneral,
                         currentAssets,
                         nonCurrentAssets,
-                        startKey
+                        endKey
+                ).get(),
+                new AssetStructureAnalyseEnd(
+                        assetsGeneral,
+                        currentAssets,
+                        nonCurrentAssets,
+                        getItems(currentAssets.getId()),
+                        getItems(nonCurrentAssets.getId()),
+                        endKey
                 ).get()
         );
         return box;

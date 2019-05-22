@@ -33,7 +33,7 @@ public class TotallLiabilitiesAnalyze extends OutcomeBase {
             this.liabilitiesDifference = last - first;
         }
         String assetDiffrence = settings.get("assetsDifference");
-        this.assetDiffrence = (assetDiffrence != null) ?  Double.parseDouble(assetDiffrence) : 0;
+        this.assetDiffrence = (assetDiffrence != null) ? Double.parseDouble(assetDiffrence) : 0;
     }
 
     public VBox get() {
@@ -66,23 +66,22 @@ public class TotallLiabilitiesAnalyze extends OutcomeBase {
         return hbox;
     }
 
-    private String suffix(){
-        if(liabilitiesDifference > 0){
+    private String suffix() {
+        if (liabilitiesDifference > 0) {
             return "more";
-        } else if(liabilitiesDifference < 0){
+        } else if (liabilitiesDifference < 0) {
             return "less";
-        }else{
+        } else {
             return "";
         }
     }
 
 
-
-    private String prefix(){
+    private String prefix() {
         String res = "Differently ";
-        if(liabilitiesDifference > 0 && assetDiffrence > 0 ||
+        if (liabilitiesDifference > 0 && assetDiffrence > 0 ||
                 liabilitiesDifference < 0 && assetDiffrence < 0 ||
-                liabilitiesDifference == 0 && assetDiffrence == 0){
+                liabilitiesDifference == 0 && assetDiffrence == 0) {
             res = "Similar ";
         }
         return res;
@@ -91,7 +90,7 @@ public class TotallLiabilitiesAnalyze extends OutcomeBase {
 
     private String preOutput() {
         return prefix() + "to the value of total assets, the liabilities and equity value" +
-                " amounted to " +  settings.get("defaultCurrency") + " "
+                " amounted to " + settings.get("defaultCurrency") + " "
                 + last + " " + settings.get("amount") + " in "
                 + endDate + ", " +
                 getRelativeChange(first, last) + "% " + suffix() + " than in " +
@@ -99,7 +98,7 @@ public class TotallLiabilitiesAnalyze extends OutcomeBase {
     }
 
     private String increase() {
-        return  "There was a stable growth of the stockholders' equity value in " +
+        return "There was a stable growth of the stockholders' equity value in " +
                 startDate + " - " + endDate +
                 ", which indicates that the company's assets would worth more " +
                 "after all claims upon those assets were paid. This means that " +
@@ -122,7 +121,7 @@ public class TotallLiabilitiesAnalyze extends OutcomeBase {
                 ", was stable";
     }
 
-    private String bankrupt(){
+    private String bankrupt() {
         return "The stockholders' equity value equals zero or less, meaning that the company may go bankrupt.";
     }
 

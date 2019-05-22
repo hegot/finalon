@@ -4,7 +4,6 @@ import database.setting.DbSettingHandler;
 import entities.Item;
 import finalonWindows.reusableComponents.ItemsTable.ItemsTable;
 import finalonWindows.reusableComponents.ItemsTable.Periods;
-import interpreter.JsCalcHelper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
