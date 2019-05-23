@@ -1,6 +1,7 @@
 package reportGeneration.interpreter.AssetsReport;
 
 import entities.Item;
+import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import reportGeneration.Periods;
@@ -29,8 +30,9 @@ public class AssetsReport extends ReportHelper {
     }
 
     public VBox getTrend() {
+        ObservableMap<String, String> settings = SettingsStorage.getSettings();
         Label tableName = new Label("Table 1. Assets Trend Analysis, in "
-                + SettingsStorage.getSettings().get("amount") + " " + SettingsStorage.getSettings().get("defaultCurrency")
+                + settings.get("amount") + " " + settings.get("defaultCurrency")
         );
         tableName.getStyleClass().add("assets-table-name");
         tableName.setWrapText(true);
