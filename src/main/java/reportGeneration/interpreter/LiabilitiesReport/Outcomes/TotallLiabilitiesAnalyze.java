@@ -3,6 +3,7 @@ package reportGeneration.interpreter.LiabilitiesReport.Outcomes;
 import entities.Item;
 import javafx.collections.ObservableMap;
 import javafx.scene.layout.VBox;
+import reportGeneration.Periods;
 import reportGeneration.SettingsStorage;
 import reportGeneration.interpreter.ReusableComponents.OutcomeBase;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
@@ -19,13 +20,11 @@ public class TotallLiabilitiesAnalyze extends OutcomeBase implements LabelWrap {
     private ObservableMap<String, String> settings;
 
     public TotallLiabilitiesAnalyze(
-            Item liabilities,
-            String startDate,
-            String endDate
+            Item liabilities
     ) {
         this.settings = SettingsStorage.getSettings();
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.startDate = Periods.getInstance().getStart();
+        this.endDate = Periods.getInstance().getEnd();
         ObservableMap<String, Double> values = liabilities.getValues();
         if (values.size() > 1) {
             this.first = getFirstVal(values);

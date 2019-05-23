@@ -17,12 +17,10 @@ import java.util.ArrayList;
 public class LiabilitiesReport extends ReportHelper {
 
     private int rootId;
-    private Periods periods;
 
     public LiabilitiesReport() {
         Item root = getItemByCode("EquityAndLiabilities");
         this.rootId = (root != null) ? root.getId() : 0;
-        this.periods = new Periods();
     }
 
     public VBox getTrend() {
@@ -38,35 +36,25 @@ public class LiabilitiesReport extends ReportHelper {
         Item liabilitiesGeneral = getItemByCode("LiabilitiesGeneral");
         Item liabilitiesCurent = getItemByCode("CurrentLiabilities");
         Item liabilitiesNonCurrent = getItemByCode("NonCurrentLiabilities");
-        String start = periods.getStart();
-        String end = periods.getEnd();
         box.getChildren().addAll(
                 tableName,
                 new IndexChangeTable(
-                        periods,
                         rootId
                 ).get(),
                 new TotallLiabilitiesAnalyze(
-                        getItemByCode("EquityAndLiabilities"),
-                        start,
-                        end
+                        getItemByCode("EquityAndLiabilities")
                 ).get(),
                 new RelativeItemsChange(
                         equityGeneral,
                         getItems(equityGeneral.getId()),
-                        start,
-                        end,
                         "sources"
                 ).get(),
                 new RelativeItemsChange(
                         liabilitiesGeneral,
                         getItemsDeep(liabilitiesGeneral.getId()),
-                        start,
-                        end,
                         "sources"
                 ).get(),
                 new LiabilitiesCharts(
-                        periods,
                         liabilitiesCurent,
                         liabilitiesNonCurrent,
                         equityGeneral
@@ -85,13 +73,12 @@ public class LiabilitiesReport extends ReportHelper {
         Item equityGeneral = getItemByCode("EquityGeneral");
         Item nonCurrentLiabilities = getItemByCode("NonCurrentLiabilities");
         Item currentLiabilities = getItemByCode("CurrentLiabilities");
-        ArrayList<String> periodArr = periods.getPeriodArr();
+        ArrayList<String> periodArr = Periods.getInstance().getPeriodArr();
         String startKey = periodArr.get(0);
         String endKey = periodArr.get(periodArr.size() - 1);
         box.getChildren().addAll(
                 tableName,
                 new StructureTable(
-                        periods,
                         rootId
                 ).get(),
                 new LiabilitiesStructureAnalyzeStart(

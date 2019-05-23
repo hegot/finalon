@@ -5,15 +5,10 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-
-import java.util.ArrayList;
+import reportGeneration.Periods;
 
 public class ChartBase extends OutcomeBase {
-    private ArrayList<String> periodsArr;
 
-    public ChartBase(ArrayList<String> periodsArr) {
-        this.periodsArr = periodsArr;
-    }
 
     protected BarChart<String, Number> getChart(String title) {
         final NumberAxis yAxis = new NumberAxis();
@@ -30,7 +25,7 @@ public class ChartBase extends OutcomeBase {
         XYChart.Series series = new XYChart.Series();
         series.setName(label);
         if (values.size() > 1) {
-            for (String period : periodsArr) {
+            for (String period : Periods.getInstance().getPeriodArr()) {
                 String date = formatDate(period);
                 if (values.get(period) != null) {
                     series.getData().add(new XYChart.Data(date, values.get(period)));

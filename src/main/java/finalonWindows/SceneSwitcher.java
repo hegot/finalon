@@ -2,7 +2,6 @@ package finalonWindows;
 
 import defaultData.DefaultTemplate;
 import entities.Item;
-import reportGeneration.AddReportScene;
 import finalonWindows.formulaScene.FormulaScene;
 import finalonWindows.mainScene.MainScene;
 import finalonWindows.settingsScene.SettingsScene;
@@ -11,6 +10,7 @@ import finalonWindows.templateScene.TemplatesScene;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.VBox;
+import reportGeneration.AddReportScene;
 
 import java.util.HashMap;
 import java.util.Map;

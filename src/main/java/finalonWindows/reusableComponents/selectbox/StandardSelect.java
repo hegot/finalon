@@ -7,7 +7,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.ComboBox;
-import reportGeneration.SettingsStorage;
 
 public class StandardSelect extends Choices {
     public static ComboBox get(ObservableMap<String, String> settings) {

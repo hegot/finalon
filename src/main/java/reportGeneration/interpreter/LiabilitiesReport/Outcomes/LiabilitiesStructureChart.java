@@ -3,7 +3,6 @@ package reportGeneration.interpreter.LiabilitiesReport.Outcomes;
 import entities.Item;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.scene.chart.PieChart;
 import reportGeneration.SettingsStorage;
 import reportGeneration.interpreter.ReusableComponents.interfaces.GetVal;

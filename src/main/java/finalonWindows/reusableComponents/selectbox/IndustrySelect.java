@@ -7,10 +7,9 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.ComboBox;
-import reportGeneration.SettingsStorage;
 
 public class IndustrySelect extends Choices {
-    public static ComboBox<Formula> get(String defaultStandard,  ObservableMap<String, String> settings) {
+    public static ComboBox<Formula> get(String defaultStandard, ObservableMap<String, String> settings) {
         ComboBox<Formula> industryBox = new ComboBox<Formula>();
         industryBox.setConverter(
                 new FormulaConverter()

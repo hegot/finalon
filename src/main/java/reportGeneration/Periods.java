@@ -17,13 +17,44 @@ public class Periods {
     private DateTimeFormatter formatM = DateTimeFormatter.ofPattern("MM");
     private DateTimeFormatter formatY = DateTimeFormatter.ofPattern("yyyy");
     private int month;
+    private boolean initalized = false;
 
     public Periods() {
+        if (!initalized) {
+            try {
+                init();
+            } catch (Exception e) {
+                System.out.println("Could not init");
+            }
+            initalized = true;
+        }
+    }
+
+    private void init() {
         this.settings = SettingsStorage.getSettings();
         this.endYear = Integer.parseInt(settings.get("year"));
         this.periods = Integer.parseInt(settings.get("periods"));
         setMonthDay();
     }
+
+    public void reInit() {
+        initalized = false;
+        new SingletonHolder().reInit();
+    }
+
+    public static Periods getInstance() {
+        return Periods.SingletonHolder.INSTANCE;
+    }
+
+
+    private static class SingletonHolder {
+        static Periods INSTANCE = new Periods();
+
+        void reInit() {
+            INSTANCE = new Periods();
+        }
+    }
+
 
     private void setMonthDay() {
         String date = settings.get("date");
@@ -81,7 +112,6 @@ public class Periods {
 
     public String getStart() {
         LocalDateTime time = getStartTime().plusMonths(month);
-        ;
         return time.format(formatM) + "/" + time.format(formatY);
     }
 

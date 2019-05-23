@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import reportGeneration.Periods;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
 
 import java.util.Map;
@@ -18,12 +19,10 @@ public class RelativeItemsChange extends OutcomeBase implements LabelWrap {
 
     public RelativeItemsChange(Item parent,
                                ObservableList<Item> items,
-                               String startDate,
-                               String endDate,
                                String text) {
         this.parent = parent;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.startDate = Periods.getInstance().getStart();
+        this.endDate = Periods.getInstance().getEnd();
         this.items = items;
         this.text = text;
     }

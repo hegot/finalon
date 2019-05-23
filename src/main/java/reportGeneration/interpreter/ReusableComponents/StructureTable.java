@@ -3,19 +3,15 @@ package reportGeneration.interpreter.ReusableComponents;
 import entities.Item;
 import javafx.scene.control.TreeTableView;
 import reportGeneration.Periods;
-
 import java.util.ArrayList;
 
 public class StructureTable extends IndexChangeTable {
-    private Periods periods;
     private int rootId;
 
     public StructureTable(
-            Periods periods,
             int rootId
     ) {
-        super(periods, rootId);
-        this.periods = periods;
+        super(rootId);
         this.rootId = rootId;
     }
 
@@ -23,7 +19,7 @@ public class StructureTable extends IndexChangeTable {
         TreeTableView<Item> table = getTable(rootId);
         table.getStyleClass().add("assets-report");
         table.getColumns().addAll(getNameCol());
-        ArrayList<String> arr = periods.getPeriodArr();
+        ArrayList<String> arr = Periods.getInstance().getPeriodArr();
         for (String col : arr) {
             table.getColumns().add(getPeriodCol(col));
         }

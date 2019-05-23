@@ -2,7 +2,6 @@ package reportGeneration.interpreter.LiabilitiesReport.Outcomes;
 
 import entities.Item;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import reportGeneration.SettingsStorage;

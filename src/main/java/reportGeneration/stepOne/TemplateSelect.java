@@ -13,8 +13,6 @@ import javafx.scene.control.ComboBox;
 import reportGeneration.ItemsStorage;
 import reportGeneration.SettingsStorage;
 
-import java.util.PrimitiveIterator;
-
 public class TemplateSelect {
 
     public static ComboBox get() {
@@ -24,11 +22,11 @@ public class TemplateSelect {
         ObservableList<Item> items = getTpls();
         templatesBox.setItems(items);
         Item item = getDefaultTemplate(items);
-        if(item != null){
+        if (item != null) {
             templatesBox.setValue(item);
-        }else{
+        } else {
             templatesBox.getSelectionModel().selectFirst();
-        }   
+        }
 
         templatesBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Item>() {
             @Override
@@ -49,18 +47,18 @@ public class TemplateSelect {
         return templatesBox;
     }
 
-    private static ObservableList<Item> getTpls(){
+    private static ObservableList<Item> getTpls() {
         DbItemHandler dbItem = new DbItemHandler();
         return dbItem.getTemplates();
     }
 
-    private static Item getDefaultTemplate(ObservableList<Item> items){
+    private static Item getDefaultTemplate(ObservableList<Item> items) {
         DbItemHandler dbItem = new DbItemHandler();
         ObservableMap<String, String> settings = SettingsStorage.getSettings();
         String val = settings.get("template");
         if (val != null) {
             Item item = dbItem.getItem(Integer.parseInt(val));
-            if(item!=null){
+            if (item != null) {
                 return item;
             }
         } else {
@@ -70,7 +68,7 @@ public class TemplateSelect {
 
             } else {
                 settings.put("template", "1");
-                Item item =new Item(1, "Default Template", "DefaultTemplate", true, false, 0, 0);
+                Item item = new Item(1, "Default Template", "DefaultTemplate", true, false, 0, 0);
                 items.add(item);
                 return item;
             }

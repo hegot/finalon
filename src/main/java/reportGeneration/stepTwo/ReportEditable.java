@@ -52,8 +52,7 @@ public class ReportEditable extends ItemsTable {
         TextEditHandler texthandler = new TextEditHandler();
         Columns cols = new Columns(texthandler);
         table.getColumns().addAll(cols.getNameCol(), cols.getCodeCol());
-        Periods periods = new Periods();
-        ArrayList<String> arr = periods.getPeriodArr();
+        ArrayList<String> arr = Periods.getInstance().getPeriodArr();
         for (String col : arr) {
             table.getColumns().add(cols.getPeriodCol(col));
         }

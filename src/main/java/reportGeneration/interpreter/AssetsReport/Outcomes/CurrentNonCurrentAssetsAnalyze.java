@@ -4,6 +4,7 @@ import entities.Item;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import reportGeneration.Periods;
 import reportGeneration.interpreter.ReusableComponents.OutcomeBase;
 
 import java.util.Map;
@@ -19,12 +20,10 @@ public class CurrentNonCurrentAssetsAnalyze extends OutcomeBase {
 
     public CurrentNonCurrentAssetsAnalyze(
             Item current,
-            Item nonCurrent,
-            String startDate,
-            String endDate
+            Item nonCurrent
     ) {
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.startDate = Periods.getInstance().getStart();
+        this.endDate = Periods.getInstance().getEnd();
         ObservableMap<String, Double> valuesCurrent = current.getValues();
         ObservableMap<String, Double> valuesNonCurrent = nonCurrent.getValues();
         if (valuesCurrent.size() > 1) {

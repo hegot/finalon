@@ -16,21 +16,15 @@ import java.util.ArrayList;
 public class AssetsReport extends ReportHelper {
 
     private int rootId;
-    private Periods periods;
     private Item currentAssets;
     private Item nonCurrentAssets;
-    private String start;
-    private String end;
     private Item assetsGeneral;
 
     public AssetsReport() {
         Item root = getItemByCode("AssetsGeneral");
         this.rootId = (root != null) ? root.getId() : 0;
-        this.periods = new Periods();
         this.currentAssets = getItemByCode("GeneralCurrentAssets");
         this.nonCurrentAssets = getItemByCode("NonCurrentAssets");
-        this.start = periods.getStart();
-        this.end = periods.getEnd();
         this.assetsGeneral = getItemByCode("AssetsGeneral");
     }
 
@@ -45,37 +39,27 @@ public class AssetsReport extends ReportHelper {
         box.getChildren().addAll(
                 tableName,
                 new IndexChangeTable(
-                        periods,
                         rootId
                 ).get(),
                 new TotallAssetsAnalyze(
-                        assetsGeneral,
-                        start,
-                        end
+                        assetsGeneral
                 ).get(),
                 new CurrentNonCurrentAssetsAnalyze(
                         currentAssets,
-                        nonCurrentAssets,
-                        start,
-                        end
+                        nonCurrentAssets
                 ).get(),
                 new AssetsCharts(
-                        periods,
                         currentAssets,
                         nonCurrentAssets
                 ).get(),
                 new RelativeItemsChange(
                         nonCurrentAssets,
                         getItems(nonCurrentAssets.getId()),
-                        start,
-                        end,
                         "assets"
                 ).get(),
                 new RelativeItemsChange(
                         currentAssets,
                         getItems(currentAssets.getId()),
-                        start,
-                        end,
                         "assets"
                 ).get()
 
@@ -89,13 +73,12 @@ public class AssetsReport extends ReportHelper {
         tableName.setWrapText(true);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
-        ArrayList<String> periodArr = periods.getPeriodArr();
+        ArrayList<String> periodArr = Periods.getInstance().getPeriodArr();
         String startKey = periodArr.get(0);
         String endKey = periodArr.get(periodArr.size() - 1);
         box.getChildren().addAll(
                 tableName,
                 new StructureTable(
-                        periods,
                         rootId
                 ).get(),
                 new AssetStructureAnalyzeStart(

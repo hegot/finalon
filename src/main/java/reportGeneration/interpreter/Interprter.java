@@ -1,6 +1,5 @@
 package reportGeneration.interpreter;
 
-import javafx.collections.ObservableMap;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.AssetsReport.AssetsReport;
 import reportGeneration.interpreter.FormulaList.FormulaList;

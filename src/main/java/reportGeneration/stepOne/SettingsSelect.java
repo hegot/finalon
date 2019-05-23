@@ -5,6 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.ComboBox;
+import reportGeneration.Periods;
 import reportGeneration.SettingsStorage;
 
 public class SettingsSelect {
@@ -27,6 +28,7 @@ public class SettingsSelect {
             public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
                 if (arg2 != null) {
                     settings.replace(key, arg2);
+                    new Periods().reInit();
                 }
             }
         });

@@ -3,6 +3,7 @@ package reportGeneration.interpreter.AssetsReport.Outcomes;
 import entities.Item;
 import javafx.collections.ObservableMap;
 import javafx.scene.layout.VBox;
+import reportGeneration.Periods;
 import reportGeneration.SettingsStorage;
 import reportGeneration.interpreter.ReusableComponents.OutcomeBase;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
@@ -15,12 +16,10 @@ public class TotallAssetsAnalyze extends OutcomeBase implements LabelWrap {
     private String endDate;
 
     public TotallAssetsAnalyze(
-            Item item,
-            String startDate,
-            String endDate
+            Item item
     ) {
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.startDate = Periods.getInstance().getStart();
+        this.endDate = Periods.getInstance().getEnd();
         ObservableMap<String, Double> values = item.getValues();
         if (values.size() > 1) {
             this.first = getFirstVal(values);

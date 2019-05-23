@@ -27,7 +27,7 @@ public class FormulaList {
     private DbFormulaHandler dbFormula = new DbFormulaHandler();
 
     public FormulaList() {
-        this.periods = new Periods().getPeriodArr();
+        this.periods = Periods.getInstance().getPeriodArr();
         this.formulas = getFormulas();
     }
 

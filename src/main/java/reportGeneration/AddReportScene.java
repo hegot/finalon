@@ -3,7 +3,6 @@ package reportGeneration;
 import entities.Item;
 import finalonWindows.SceneBase;
 import finalonWindows.reusableComponents.SettingsMenu;
-import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 
 public class AddReportScene extends SceneBase {
 
-    public AddReportScene(){
+    public AddReportScene() {
         ItemsStorage.getInstance();
         SettingsStorage.getInstance();
     }
@@ -86,8 +85,7 @@ public class AddReportScene extends SceneBase {
 
     private void populateEmptyValues() {
         int periods = Integer.parseInt(SettingsStorage.getSettings().get("periods"));
-        Periods Periods = new Periods();
-        ArrayList<String> periodsArr = Periods.getPeriodArr();
+        ArrayList<String> periodsArr = Periods.getInstance().getPeriodArr();
         for (Item item : ItemsStorage.getItems()) {
             if (item.getValues().size() > 0) {
                 ObservableMap<String, Double> values = item.getValues();

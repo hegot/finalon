@@ -14,15 +14,6 @@ import java.util.List;
 
 public class EditCell<S, T> extends TreeTableCell<S, T> {
     /**
-     * Convenience method for creating an EditCell for a String value.
-     *
-     * @return the edit cell
-     */
-    public static <S> EditCell<S, String> createStringEditCell(String type) {
-        return new EditCell<S, String>(IDENTITY_CONVERTER, type);
-    }
-
-    /**
      * Convenience converter that does nothing (converts Strings to themselves and vice-versa...).
      */
     public static final StringConverter<String> IDENTITY_CONVERTER = new StringConverter<String>() {
@@ -38,10 +29,8 @@ public class EditCell<S, T> extends TreeTableCell<S, T> {
         }
 
     };
-
     private final TextField textField;
     private final StringConverter<T> converter;
-
     /**
      * Creates and initializes an edit cell object.
      *
@@ -98,6 +87,14 @@ public class EditCell<S, T> extends TreeTableCell<S, T> {
         });
     }
 
+    /**
+     * Convenience method for creating an EditCell for a String value.
+     *
+     * @return the edit cell
+     */
+    public static <S> EditCell<S, String> createStringEditCell(String type) {
+        return new EditCell<S, String>(IDENTITY_CONVERTER, type);
+    }
 
     @Override
     public void startEdit() {

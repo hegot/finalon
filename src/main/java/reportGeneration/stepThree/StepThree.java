@@ -18,7 +18,7 @@ public class StepThree extends SceneBase {
     public VBox show() {
         ObservableMap<String, String> settings = SettingsStorage.getSettings();
         this.companyName = settings.get("company") + "'s";
-        this.periods = new Periods();
+        this.periods = Periods.getInstance();
         Label label = new Label("1. The Common-Size Analysis of the Assets, Liabilities and Shareholders' Equity ");
         label.getStyleClass().add("assets-label");
         label.setWrapText(true);

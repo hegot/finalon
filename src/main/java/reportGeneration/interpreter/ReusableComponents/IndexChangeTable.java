@@ -19,15 +19,12 @@ import java.util.ArrayList;
 
 public class IndexChangeTable extends ItemsTable implements JsCalcHelper {
     private DbSettingHandler dbSettingHandler = new DbSettingHandler();
-    private Periods periods;
     private int rootId;
 
     public IndexChangeTable(
-            Periods periods,
             int rootId
     ) {
         super(ItemsStorage.getItems());
-        this.periods = periods;
         this.rootId = rootId;
     }
 
@@ -36,7 +33,7 @@ public class IndexChangeTable extends ItemsTable implements JsCalcHelper {
         table.getStyleClass().add("assets-report");
         table.setPrefWidth(880);
         table.getColumns().addAll(getNameCol());
-        ArrayList<String> arr = periods.getPeriodArr();
+        ArrayList<String> arr = Periods.getInstance().getPeriodArr();
         for (String col : arr) {
             table.getColumns().add(getPeriodCol(col));
         }
