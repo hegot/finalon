@@ -4,6 +4,7 @@ import entities.Item;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import reportGeneration.IndexesStorage;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.SrtuctureItemsLoop;
 
@@ -17,14 +18,13 @@ public class AssetStructureAnalyzeStart implements SrtuctureItemsLoop, LabelWrap
     private ObservableList<Item> nonCurrentItems;
 
     public AssetStructureAnalyzeStart(
-            Item parent,
-            Item current,
-            Item nonCurrent,
             ObservableList<Item> currentItems,
             ObservableList<Item> nonCurrentItems,
             String period
     ) {
-        this.parent = parent;
+        Item current = IndexesStorage.get("GeneralCurrentAssets");
+        Item nonCurrent = IndexesStorage.get("NonCurrentAssets");
+        this.parent = IndexesStorage.get("AssetsGeneral");
         this.period = period;
         this.currentItems = currentItems;
         this.nonCurrentItems = nonCurrentItems;

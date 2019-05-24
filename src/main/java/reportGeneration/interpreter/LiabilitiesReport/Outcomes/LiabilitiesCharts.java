@@ -1,9 +1,9 @@
 package reportGeneration.interpreter.LiabilitiesReport.Outcomes;
 
-import entities.Item;
 import javafx.collections.ObservableMap;
 import javafx.scene.chart.BarChart;
 import javafx.scene.layout.VBox;
+import reportGeneration.IndexesStorage;
 import reportGeneration.Periods;
 import reportGeneration.SettingsStorage;
 import reportGeneration.interpreter.ReusableComponents.ChartBase;
@@ -13,14 +13,10 @@ public class LiabilitiesCharts extends ChartBase {
     private ObservableMap<String, Double> valuesNonCurrent;
     private ObservableMap<String, Double> valuesEquity;
 
-    public LiabilitiesCharts(
-            Item current,
-            Item nonCurrent,
-            Item equity
-    ) {
-        this.valuesCurrent = current.getValues();
-        this.valuesNonCurrent = nonCurrent.getValues();
-        this.valuesEquity = equity.getValues();
+    public LiabilitiesCharts() {
+        this.valuesCurrent = IndexesStorage.get("CurrentLiabilities").getValues();
+        this.valuesNonCurrent = IndexesStorage.get("NonCurrentLiabilities").getValues();
+        this.valuesEquity = IndexesStorage.get("EquityGeneral").getValues();
     }
 
     private String chartTitle() {

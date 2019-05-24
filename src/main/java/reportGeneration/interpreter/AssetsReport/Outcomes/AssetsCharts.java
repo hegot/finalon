@@ -4,6 +4,7 @@ import entities.Item;
 import javafx.collections.ObservableMap;
 import javafx.scene.chart.BarChart;
 import javafx.scene.layout.VBox;
+import reportGeneration.IndexesStorage;
 import reportGeneration.Periods;
 import reportGeneration.SettingsStorage;
 import reportGeneration.interpreter.ReusableComponents.ChartBase;
@@ -12,10 +13,9 @@ public class AssetsCharts extends ChartBase {
     private ObservableMap<String, Double> valuesCurrent;
     private ObservableMap<String, Double> valuesNonCurrent;
 
-    public AssetsCharts(
-            Item current,
-            Item nonCurrent
-    ) {
+    public AssetsCharts() {
+        Item current = IndexesStorage.get("GeneralCurrentAssets");
+        Item nonCurrent = IndexesStorage.get("NonCurrentAssets");
         this.valuesCurrent = current.getValues();
         this.valuesNonCurrent = nonCurrent.getValues();
     }

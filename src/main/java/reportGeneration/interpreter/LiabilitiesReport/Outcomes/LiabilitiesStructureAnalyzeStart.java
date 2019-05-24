@@ -4,12 +4,14 @@ import entities.Item;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import reportGeneration.IndexesStorage;
 import reportGeneration.SettingsStorage;
+import reportGeneration.interpreter.ReusableComponents.ReportHelper;
 import reportGeneration.interpreter.ReusableComponents.interfaces.EquityShareAnalyze;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.SrtuctureItemsLoop;
 
-public class LiabilitiesStructureAnalyzeStart implements SrtuctureItemsLoop, LabelWrap, EquityShareAnalyze {
+public class LiabilitiesStructureAnalyzeStart extends ReportHelper implements SrtuctureItemsLoop, LabelWrap, EquityShareAnalyze {
     private Item parent;
     private String period;
     private Double totalVal;
@@ -22,24 +24,20 @@ public class LiabilitiesStructureAnalyzeStart implements SrtuctureItemsLoop, Lab
     private Double assetsTotal;
 
     public LiabilitiesStructureAnalyzeStart(
-            Item parent,
-            Item equity,
-            Item current,
-            Item nonCurrent,
-            ObservableList<Item> equityItems,
-            ObservableList<Item> currentItems,
-            ObservableList<Item> nonCurrentItems,
             String period
     ) {
-        this.parent = parent;
+        Item EquityGeneral = IndexesStorage.get("EquityGeneral");
+        Item CurrentLiabilities = IndexesStorage.get("CurrentLiabilities");
+        Item NonCurrentLiabilities = IndexesStorage.get("NonCurrentLiabilities");
+        this.parent = IndexesStorage.get("EquityAndLiabilities");
         this.period = period;
-        this.equityItems = equityItems;
-        this.currentItems = currentItems;
-        this.nonCurrentItems = nonCurrentItems;
+        this.equityItems = getItems(EquityGeneral.getId());
+        this.currentItems = getItems(CurrentLiabilities.getId());
+        this.nonCurrentItems = getItems(NonCurrentLiabilities.getId());
         this.totalVal = getVal(parent, period);
-        this.equityVal = getVal(equity, period);
-        this.currentVal = getVal(current, period);
-        this.nonCurrentVal = getVal(nonCurrent, period);
+        this.equityVal = getVal(EquityGeneral, period);
+        this.currentVal = getVal(CurrentLiabilities, period);
+        this.nonCurrentVal = getVal(NonCurrentLiabilities, period);
         this.assetsTotal = Double.parseDouble(
                 SettingsStorage.getSettings().get("assetsStartValue")
         );

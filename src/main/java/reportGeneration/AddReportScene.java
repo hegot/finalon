@@ -21,6 +21,7 @@ public class AddReportScene extends SceneBase {
     public AddReportScene() {
         ItemsStorage.getInstance();
         SettingsStorage.getInstance();
+        IndexesStorage.getInstance();
     }
 
     public VBox getScene() {

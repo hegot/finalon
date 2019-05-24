@@ -4,6 +4,7 @@ import entities.Item;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import reportGeneration.IndexesStorage;
 import reportGeneration.Periods;
 import reportGeneration.SettingsStorage;
 import reportGeneration.interpreter.LiabilitiesReport.Outcomes.*;
@@ -21,6 +22,11 @@ public class LiabilitiesReport extends ReportHelper {
     public LiabilitiesReport() {
         Item root = getItemByCode("EquityAndLiabilities");
         this.rootId = (root != null) ? root.getId() : 0;
+        IndexesStorage.put("EquityAndLiabilities", getItemByCode("EquityAndLiabilities"));
+        IndexesStorage.put("EquityGeneral", getItemByCode("EquityGeneral"));
+        IndexesStorage.put("LiabilitiesGeneral", getItemByCode("LiabilitiesGeneral"));
+        IndexesStorage.put("NonCurrentLiabilities", getItemByCode("NonCurrentLiabilities"));
+        IndexesStorage.put("CurrentLiabilities", getItemByCode("CurrentLiabilities"));
     }
 
     public VBox getTrend() {
@@ -32,18 +38,12 @@ public class LiabilitiesReport extends ReportHelper {
         tableName.setWrapText(true);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
-        Item equityGeneral = getItemByCode("EquityGeneral");
-        Item liabilitiesGeneral = getItemByCode("LiabilitiesGeneral");
-        Item liabilitiesCurent = getItemByCode("CurrentLiabilities");
-        Item liabilitiesNonCurrent = getItemByCode("NonCurrentLiabilities");
+        Item equityGeneral = IndexesStorage.get("EquityGeneral");
+        Item liabilitiesGeneral = IndexesStorage.get("LiabilitiesGeneral");
         box.getChildren().addAll(
                 tableName,
-                new IndexChangeTable(
-                        rootId
-                ).get(),
-                new TotallLiabilitiesAnalyze(
-                        getItemByCode("EquityAndLiabilities")
-                ).get(),
+                new IndexChangeTable(rootId).get(),
+                new TotallLiabilitiesAnalyze().get(),
                 new RelativeItemsChange(
                         equityGeneral,
                         getItems(equityGeneral.getId()),
@@ -54,11 +54,7 @@ public class LiabilitiesReport extends ReportHelper {
                         getItemsDeep(liabilitiesGeneral.getId()),
                         "sources"
                 ).get(),
-                new LiabilitiesCharts(
-                        liabilitiesCurent,
-                        liabilitiesNonCurrent,
-                        equityGeneral
-                ).get()
+                new LiabilitiesCharts().get()
         );
         return box;
     }
@@ -69,45 +65,15 @@ public class LiabilitiesReport extends ReportHelper {
         tableName.setWrapText(true);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
-        Item equityAndLiabilities = getItemByCode("EquityAndLiabilities");
-        Item equityGeneral = getItemByCode("EquityGeneral");
-        Item nonCurrentLiabilities = getItemByCode("NonCurrentLiabilities");
-        Item currentLiabilities = getItemByCode("CurrentLiabilities");
         ArrayList<String> periodArr = Periods.getInstance().getPeriodArr();
         String startKey = periodArr.get(0);
         String endKey = periodArr.get(periodArr.size() - 1);
         box.getChildren().addAll(
                 tableName,
-                new StructureTable(
-                        rootId
-                ).get(),
-                new LiabilitiesStructureAnalyzeStart(
-                        equityAndLiabilities,
-                        equityGeneral,
-                        nonCurrentLiabilities,
-                        currentLiabilities,
-                        getItems(equityGeneral.getId()),
-                        getItems(nonCurrentLiabilities.getId()),
-                        getItems(currentLiabilities.getId()),
-                        startKey
-                ).get(),
-                new LiabilitiesStructureChart(
-                        equityAndLiabilities,
-                        equityGeneral,
-                        nonCurrentLiabilities,
-                        currentLiabilities,
-                        endKey
-                ).get(),
-                new LiabilitiesStructureAnalyzeEnd(
-                        equityAndLiabilities,
-                        equityGeneral,
-                        nonCurrentLiabilities,
-                        currentLiabilities,
-                        getItems(equityGeneral.getId()),
-                        getItems(nonCurrentLiabilities.getId()),
-                        getItems(currentLiabilities.getId()),
-                        startKey
-                ).get()
+                new StructureTable(rootId).get(),
+                new LiabilitiesStructureAnalyzeStart(startKey).get(),
+                new LiabilitiesStructureChart(endKey).get(),
+                new LiabilitiesStructureAnalyzeEnd(startKey).get()
         );
         return box;
     }

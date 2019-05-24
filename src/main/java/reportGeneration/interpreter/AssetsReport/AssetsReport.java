@@ -4,6 +4,7 @@ import entities.Item;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import reportGeneration.IndexesStorage;
 import reportGeneration.Periods;
 import reportGeneration.SettingsStorage;
 import reportGeneration.interpreter.AssetsReport.Outcomes.*;
@@ -17,16 +18,13 @@ import java.util.ArrayList;
 public class AssetsReport extends ReportHelper {
 
     private int rootId;
-    private Item currentAssets;
-    private Item nonCurrentAssets;
-    private Item assetsGeneral;
 
     public AssetsReport() {
         Item root = getItemByCode("AssetsGeneral");
         this.rootId = (root != null) ? root.getId() : 0;
-        this.currentAssets = getItemByCode("GeneralCurrentAssets");
-        this.nonCurrentAssets = getItemByCode("NonCurrentAssets");
-        this.assetsGeneral = getItemByCode("AssetsGeneral");
+        IndexesStorage.put("GeneralCurrentAssets", getItemByCode("GeneralCurrentAssets"));
+        IndexesStorage.put("NonCurrentAssets", getItemByCode("NonCurrentAssets"));
+        IndexesStorage.put("AssetsGeneral", getItemByCode("AssetsGeneral"));
     }
 
     public VBox getTrend() {
@@ -38,22 +36,14 @@ public class AssetsReport extends ReportHelper {
         tableName.setWrapText(true);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
+        Item nonCurrentAssets = IndexesStorage.get("NonCurrentAssets");
+        Item currentAssets = IndexesStorage.get("GeneralCurrentAssets");
         box.getChildren().addAll(
                 tableName,
-                new IndexChangeTable(
-                        rootId
-                ).get(),
-                new TotallAssetsAnalyze(
-                        assetsGeneral
-                ).get(),
-                new CurrentNonCurrentAssetsAnalyze(
-                        currentAssets,
-                        nonCurrentAssets
-                ).get(),
-                new AssetsCharts(
-                        currentAssets,
-                        nonCurrentAssets
-                ).get(),
+                new IndexChangeTable(rootId).get(),
+                new TotallAssetsAnalyze().get(),
+                new CurrentNonCurrentAssetsAnalyze().get(),
+                new AssetsCharts().get(),
                 new RelativeItemsChange(
                         nonCurrentAssets,
                         getItems(nonCurrentAssets.getId()),
@@ -64,7 +54,6 @@ public class AssetsReport extends ReportHelper {
                         getItems(currentAssets.getId()),
                         "assets"
                 ).get()
-
         );
         return box;
     }
@@ -78,29 +67,18 @@ public class AssetsReport extends ReportHelper {
         ArrayList<String> periodArr = Periods.getInstance().getPeriodArr();
         String startKey = periodArr.get(0);
         String endKey = periodArr.get(periodArr.size() - 1);
+        Item nonCurrentAssets = IndexesStorage.get("NonCurrentAssets");
+        Item currentAssets = IndexesStorage.get("GeneralCurrentAssets");
         box.getChildren().addAll(
                 tableName,
-                new StructureTable(
-                        rootId
-                ).get(),
+                new StructureTable(rootId).get(),
                 new AssetStructureAnalyzeStart(
-                        assetsGeneral,
-                        currentAssets,
-                        nonCurrentAssets,
                         getItems(currentAssets.getId()),
                         getItems(nonCurrentAssets.getId()),
                         startKey
                 ).get(),
-                new AssetStructureChart(
-                        assetsGeneral,
-                        currentAssets,
-                        nonCurrentAssets,
-                        endKey
-                ).get(),
+                new AssetStructureChart(endKey).get(),
                 new AssetStructureAnalyseEnd(
-                        assetsGeneral,
-                        currentAssets,
-                        nonCurrentAssets,
                         getItems(currentAssets.getId()),
                         getItems(nonCurrentAssets.getId()),
                         endKey

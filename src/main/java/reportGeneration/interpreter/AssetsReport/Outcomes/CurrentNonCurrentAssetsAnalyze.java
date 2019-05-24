@@ -4,6 +4,7 @@ import entities.Item;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import reportGeneration.IndexesStorage;
 import reportGeneration.Periods;
 import reportGeneration.interpreter.ReusableComponents.OutcomeBase;
 
@@ -11,82 +12,88 @@ import java.util.Map;
 
 public class CurrentNonCurrentAssetsAnalyze extends OutcomeBase {
 
-    private Map.Entry<String, Double> firstCurent;
-    private Map.Entry<String, Double> lastCurent;
-    private Map.Entry<String, Double> firstNonCurent;
-    private Map.Entry<String, Double> lastNonCurent;
+    private Double firstCurentVal;
+    private Double lastCurentVal;
+    private Double firstNonCurentVal;
+    private Double lastNonCurentVal;
     private String startDate;
     private String endDate;
+    private String currentAssetsChange;
+    private String nonCurrentAssetsChange;
 
-    public CurrentNonCurrentAssetsAnalyze(
-            Item current,
-            Item nonCurrent
-    ) {
+    public CurrentNonCurrentAssetsAnalyze() {
+        Item current = IndexesStorage.get("GeneralCurrentAssets");
+        Item nonCurrent = IndexesStorage.get("NonCurrentAssets");
         this.startDate = Periods.getInstance().getStart();
         this.endDate = Periods.getInstance().getEnd();
         ObservableMap<String, Double> valuesCurrent = current.getValues();
         ObservableMap<String, Double> valuesNonCurrent = nonCurrent.getValues();
         if (valuesCurrent.size() > 1) {
-            this.firstCurent = getFirst(valuesCurrent);
-            this.lastCurent = getLast(valuesCurrent);
-            if (valuesNonCurrent.size() == 0) {
-                this.firstNonCurent = nullEntry(firstCurent.getKey());
-                this.lastNonCurent = nullEntry(lastCurent.getKey());
-            }
+            this.firstCurentVal = getFirstValue(valuesCurrent);
+            this.lastCurentVal = getLastValue(valuesCurrent);
         }
         if (valuesNonCurrent.size() > 1) {
-            this.firstNonCurent = getFirst(valuesNonCurrent);
-            this.lastNonCurent = getLast(valuesNonCurrent);
-            if (valuesCurrent.size() == 0) {
-                this.firstCurent = nullEntry(firstNonCurent.getKey());
-                this.lastCurent = nullEntry(lastNonCurent.getKey());
-            }
+            this.firstNonCurentVal = getFirstValue(valuesNonCurrent);
+            this.lastNonCurentVal = getLastValue(valuesNonCurrent);
+        }
+        this.currentAssetsChange =  getRelativeChange(firstCurentVal, lastCurentVal);
+        this.nonCurrentAssetsChange =  getRelativeChange(firstNonCurentVal, lastNonCurentVal);
+    }
+
+    private Double getFirstValue(ObservableMap<String, Double> values){
+        Map.Entry<String, Double> firstCurent = getFirst(values);
+        if(firstCurent != null){
+           return firstCurent.getValue();
+        }else{
+            return 0.0;
         }
     }
 
+    private Double getLastValue(ObservableMap<String, Double> values){
+        Map.Entry<String, Double> firstCurent = getLast(values);
+        if(firstCurent != null){
+            return firstCurent.getValue();
+        }else{
+            return 0.0;
+        }
+    }
+    
     public VBox get() {
         VBox vbox = new VBox(10);
         vbox.setPrefWidth(600);
         String output = "";
-        if (firstCurent != null && lastCurent != null && firstNonCurent != null && lastNonCurent != null) {
-            Double firstCurentVal = firstCurent.getValue();
-            Double lastCurentVal = lastCurent.getValue();
-            Double firstNonCurentVal = firstNonCurent.getValue();
-            Double lastNonCurentVal = lastNonCurent.getValue();
-            Double AssetsOverall = (lastCurentVal - firstCurentVal) + (lastNonCurentVal - firstNonCurentVal);
-            if (lastCurentVal > firstCurentVal && lastNonCurentVal > firstNonCurentVal) {
-                output = increasedAll();
+        Double AssetsOverall = (lastCurentVal - firstCurentVal) + (lastNonCurentVal - firstNonCurentVal);
+        if (lastCurentVal > firstCurentVal && lastNonCurentVal > firstNonCurentVal) {
+            output = increasedAll();
+        }
+        if (lastCurentVal < firstCurentVal && lastNonCurentVal < firstNonCurentVal) {
+            output = decreaseAll();
+        }
+        if (AssetsOverall > 0) {
+            if (lastCurentVal < firstCurentVal && lastNonCurentVal > firstNonCurentVal) {
+                output = totalIncreaseCurrentDecrease();
             }
-            if (lastCurentVal < firstCurentVal && lastNonCurentVal < firstNonCurentVal) {
-                output = decreaseAll();
+            if (lastCurentVal.equals(firstCurentVal) && lastNonCurentVal > firstNonCurentVal) {
+                output = totalIncreaseCurrentStable();
             }
-
-            if (AssetsOverall > 0) {
-                if (lastCurentVal < firstCurentVal && lastNonCurentVal > firstNonCurentVal) {
-                    output = totalIncreaseCurrentDecrease();
-                }
-                if (lastCurentVal.equals(firstCurentVal) && lastNonCurentVal > firstNonCurentVal) {
-                    output = totalIncreaseCurrentStable();
-                }
-                if (lastCurentVal > firstCurentVal && lastNonCurentVal < firstNonCurentVal) {
-                    output = totalIncreaseNonCurrentDecrease();
-                }
-                if (lastCurentVal > firstCurentVal && lastNonCurentVal.equals(firstNonCurentVal)) {
-                    output = totalIncreaseNonCurrentStable();
-                }
-            } else {
-                if (lastCurentVal > firstCurentVal && lastNonCurentVal < firstNonCurentVal) {
-                    output = totalDecreaseCurrentIncrease();
-                }
-                if (lastCurentVal.equals(firstCurentVal) && lastNonCurentVal < firstNonCurentVal) {
-                    output = totalDecreaseCurrentStable();
-                }
-                if (lastCurentVal < firstCurentVal && lastNonCurentVal > firstNonCurentVal) {
-                    output = totalDecreaseNonCurrentIncrease();
-                }
-                if (lastCurentVal < firstCurentVal && lastNonCurentVal.equals(firstNonCurentVal)) {
-                    output = totalDecreaseNonCurrentStable();
-                }
+            if (lastCurentVal > firstCurentVal && lastNonCurentVal < firstNonCurentVal) {
+                output = totalIncreaseNonCurrentDecrease();
+            }
+            if (lastCurentVal > firstCurentVal && lastNonCurentVal.equals(firstNonCurentVal)) {
+                output = totalIncreaseNonCurrentStable();
+            }
+        } else {
+            if (lastCurentVal > firstCurentVal && lastNonCurentVal < firstNonCurentVal) {
+                output = totalDecreaseCurrentIncrease();
+            }
+            if (lastCurentVal.equals(firstCurentVal) && lastNonCurentVal < firstNonCurentVal) {
+                output = totalDecreaseCurrentStable();
+            }
+            if (lastCurentVal < firstCurentVal && lastNonCurentVal > firstNonCurentVal) {
+                output = totalDecreaseNonCurrentIncrease();
+            }
+            if (lastCurentVal < firstCurentVal && lastNonCurentVal.equals(firstNonCurentVal)) {
+                output = totalDecreaseNonCurrentStable();
             }
         }
         Label text1 = new Label(output);
@@ -110,69 +117,57 @@ public class CurrentNonCurrentAssetsAnalyze extends OutcomeBase {
 
     private String increasedAll() {
         return "The overall increase of the assets reflects both a growth in the non-current assets by " +
-                getRelativeChange(firstNonCurent.getValue(), lastNonCurent.getValue()) +
-                "% and a growth in the current assets by " +
-                getRelativeChange(firstCurent.getValue(), lastCurent.getValue()) + "%" + endString();
+                nonCurrentAssetsChange + "% and a growth in the current assets by " +
+                currentAssetsChange + "%" + endString();
     }
 
     private String decreaseAll() {
         return "The overall decrease of the assets reflects both a reduction in the non-current assets by " +
-                getRelativeChange(firstNonCurent.getValue(), lastNonCurent.getValue()) +
-                "% and a reduction in the current assets by" +
-                getRelativeChange(firstCurent.getValue(), lastCurent.getValue()) +
-                "%" + endString();
+                nonCurrentAssetsChange + "% and a reduction in the current assets by" +
+                currentAssetsChange + "%" + endString();
     }
 
-
     private String totalIncreaseCurrentDecrease() {
-        return incStr() + "non-current assets by " +
-                getRelativeChange(firstNonCurent.getValue(), lastNonCurent.getValue()) +
+        return incStr() + "non-current assets by " + nonCurrentAssetsChange +
                 "%, while the value of the current assets dropped by " +
-                getRelativeChange(firstCurent.getValue(), lastCurent.getValue()) + "%" + endString();
+                currentAssetsChange + "%" + endString();
     }
 
     private String totalIncreaseCurrentStable() {
-        return incStr() + "non-current assets by " +
-                getRelativeChange(firstNonCurent.getValue(), lastNonCurent.getValue()) +
+        return incStr() + "non-current assets by " + nonCurrentAssetsChange +
                 "%, while the value of the current assets not changed";
     }
 
     private String totalIncreaseNonCurrentDecrease() {
-        return incStr() + "current assets by " +
-                getRelativeChange(firstCurent.getValue(), lastCurent.getValue()) +
+        return incStr() + "current assets by " + currentAssetsChange +
                 "% while the value of the non-current assets dropped by " +
-                getRelativeChange(firstNonCurent.getValue(), lastNonCurent.getValue()) + "%" + endString();
+                nonCurrentAssetsChange + "%" + endString();
     }
 
     private String totalIncreaseNonCurrentStable() {
-        return incStr() + "current assets by " +
-                getRelativeChange(firstCurent.getValue(), lastCurent.getValue()) +
+        return incStr() + "current assets by " + currentAssetsChange +
                 "% while the value of the non-current assets not changed";
     }
 
     private String totalDecreaseCurrentIncrease() {
-        return decStr() + "non-current assets by " +
-                getRelativeChange(firstNonCurent.getValue(), lastNonCurent.getValue()) +
+        return decStr() + "non-current assets by " + nonCurrentAssetsChange +
                 "%, while the value of the current assets increased by " +
-                getRelativeChange(firstCurent.getValue(), lastCurent.getValue()) + "%" + endString();
+                currentAssetsChange + "%" + endString();
     }
 
     private String totalDecreaseCurrentStable() {
-        return decStr() + "non-current assets by " +
-                getRelativeChange(firstNonCurent.getValue(), lastNonCurent.getValue()) +
+        return decStr() + "non-current assets by " + nonCurrentAssetsChange +
                 "%, while the value of the current assets not changed";
     }
 
     private String totalDecreaseNonCurrentIncrease() {
-        return decStr() + "current assets by " +
-                getRelativeChange(firstCurent.getValue(), lastCurent.getValue()) +
+        return decStr() + "current assets by " + currentAssetsChange +
                 "% while the value of the non-current assets increased by " +
-                getRelativeChange(firstNonCurent.getValue(), lastNonCurent.getValue()) + "%" + endString();
+                nonCurrentAssetsChange + "%" + endString();
     }
 
     private String totalDecreaseNonCurrentStable() {
-        return decStr() + "current assets by " +
-                getRelativeChange(firstCurent.getValue(), lastCurent.getValue()) +
+        return decStr() + "current assets by " + currentAssetsChange +
                 "% while the value of the non-current assets was stable";
     }
 }

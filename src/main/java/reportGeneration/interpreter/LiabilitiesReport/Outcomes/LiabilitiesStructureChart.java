@@ -4,6 +4,7 @@ import entities.Item;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
+import reportGeneration.IndexesStorage;
 import reportGeneration.SettingsStorage;
 import reportGeneration.interpreter.ReusableComponents.interfaces.GetVal;
 
@@ -18,15 +19,12 @@ public class LiabilitiesStructureChart implements GetVal {
     private Double nonCurrentVal;
 
     public LiabilitiesStructureChart(
-            Item parent,
-            Item equity,
-            Item current,
-            Item nonCurrent,
             String period
     ) {
-        this.equity = equity;
-        this.nonCurrent = nonCurrent;
-        this.current = current;
+        Item parent = IndexesStorage.get("EquityAndLiabilities");
+        this.equity = IndexesStorage.get("EquityGeneral");
+        this.nonCurrent = IndexesStorage.get("NonCurrentLiabilities");
+        this.current = IndexesStorage.get("CurrentLiabilities");
         this.period = period;
         this.totalVal = getVal(parent, period);
         this.equityVal = getVal(equity, period);
@@ -40,24 +38,25 @@ public class LiabilitiesStructureChart implements GetVal {
             ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
             if (currentVal != null) {
                 pieChartData.add(new PieChart.Data(
-                        current.getName(),
-                        part(currentVal, totalVal)
+                    current.getName(),
+                    part(currentVal, totalVal)
                 ));
             }
             if (nonCurrentVal != null) {
                 pieChartData.add(new PieChart.Data(
-                        nonCurrent.getName(),
-                        part(nonCurrentVal, totalVal)
+                    nonCurrent.getName(),
+                    part(nonCurrentVal, totalVal)
                 ));
             }
             if (equityVal != null) {
                 pieChartData.add(new PieChart.Data(
-                        equity.getName(),
-                        part(equityVal, totalVal)
+                    equity.getName(),
+                    part(equityVal, totalVal)
                 ));
             }
             chart.setData(pieChartData);
-            chart.setTitle("Chart 4. " + SettingsStorage.getSettings().get("company") + " Source of Finance structure in " + period);
+            chart.setTitle("Chart 4. " + SettingsStorage.getSettings().get("company") +
+                    " Source of Finance structure in " + period);
         }
         return chart;
     }
