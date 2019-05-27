@@ -4,9 +4,9 @@ import entities.Item;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
-import reportGeneration.IndexesStorage;
-import reportGeneration.SettingsStorage;
 import reportGeneration.interpreter.ReusableComponents.interfaces.GetVal;
+import reportGeneration.storage.IndexesStorage;
+import reportGeneration.storage.SettingsStorage;
 
 public class LiabilitiesStructureChart implements GetVal {
     private Item equity;
@@ -38,20 +38,20 @@ public class LiabilitiesStructureChart implements GetVal {
             ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
             if (currentVal != null) {
                 pieChartData.add(new PieChart.Data(
-                    current.getName(),
-                    part(currentVal, totalVal)
+                        current.getName(),
+                        part(currentVal, totalVal)
                 ));
             }
             if (nonCurrentVal != null) {
                 pieChartData.add(new PieChart.Data(
-                    nonCurrent.getName(),
-                    part(nonCurrentVal, totalVal)
+                        nonCurrent.getName(),
+                        part(nonCurrentVal, totalVal)
                 ));
             }
             if (equityVal != null) {
                 pieChartData.add(new PieChart.Data(
-                    equity.getName(),
-                    part(equityVal, totalVal)
+                        equity.getName(),
+                        part(equityVal, totalVal)
                 ));
             }
             chart.setData(pieChartData);

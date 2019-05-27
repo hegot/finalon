@@ -7,13 +7,15 @@ import finalonWindows.SceneBase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TabPane;
-import reportGeneration.ItemsStorage;
-import reportGeneration.SettingsStorage;
+import reportGeneration.storage.ItemsStorage;
+import reportGeneration.storage.Periods;
+import reportGeneration.storage.SettingsStorage;
 
 public class StepTwo extends SceneBase {
     private ObservableList<Item> items;
 
     public StepTwo() {
+        Periods.getInstance();
         this.items = ItemsStorage.getItems();
     }
 

@@ -1,4 +1,4 @@
-package reportGeneration;
+package reportGeneration.storage;
 
 import entities.Item;
 import javafx.collections.FXCollections;
@@ -23,7 +23,7 @@ public class IndexesStorage {
         return IndexesStorage.SingletonHolder.INSTANCE;
     }
 
-    public static  Item get(String key) {
+    public static Item get(String key) {
         return indexes.get(key);
     }
 

@@ -31,6 +31,7 @@ public class EditCell<S, T> extends TreeTableCell<S, T> {
     };
     private final TextField textField;
     private final StringConverter<T> converter;
+
     /**
      * Creates and initializes an edit cell object.
      *

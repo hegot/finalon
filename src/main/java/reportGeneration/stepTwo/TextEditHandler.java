@@ -6,7 +6,7 @@ import javafx.collections.ObservableMap;
 import javafx.event.EventHandler;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
-import reportGeneration.ItemsStorage;
+import reportGeneration.storage.ItemsStorage;
 
 class TextEditHandler {
 

@@ -13,6 +13,10 @@ import javafx.scene.layout.VBox;
 import reportGeneration.stepOne.StepOne;
 import reportGeneration.stepThree.StepThree;
 import reportGeneration.stepTwo.StepTwo;
+import reportGeneration.storage.IndexesStorage;
+import reportGeneration.storage.ItemsStorage;
+import reportGeneration.storage.Periods;
+import reportGeneration.storage.SettingsStorage;
 
 import java.util.ArrayList;
 
@@ -85,14 +89,18 @@ public class AddReportScene extends SceneBase {
     }
 
     private void populateEmptyValues() {
-        int periods = Integer.parseInt(SettingsStorage.getSettings().get("periods"));
-        ArrayList<String> periodsArr = Periods.getInstance().getPeriodArr();
-        for (Item item : ItemsStorage.getItems()) {
-            if (item.getValues().size() > 0) {
-                ObservableMap<String, Double> values = item.getValues();
-                if (values.size() != periods) {
-                    for (String period : periodsArr) {
-                        values.putIfAbsent(period, 0.0);
+        String perStr = SettingsStorage.getSettings().get("periods");
+        if (perStr != null) {
+            Integer periods = Integer.parseInt(perStr);
+            Periods periodsObj = new Periods();
+            ArrayList<String> periodsArr = periodsObj.getPeriodArr();
+            for (Item item : ItemsStorage.getItems()) {
+                if (item.getValues().size() > 0) {
+                    ObservableMap<String, Double> values = item.getValues();
+                    if (values.size() != periods) {
+                        for (String period : periodsArr) {
+                            values.putIfAbsent(period, 0.0);
+                        }
                     }
                 }
             }

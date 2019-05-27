@@ -2,11 +2,15 @@ package reportGeneration.interpreter;
 
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.AssetsReport.AssetsReport;
+import reportGeneration.interpreter.FinancialSustainability.FinancialSustainabilityReport;
+import reportGeneration.interpreter.FormulaCalculation.FormulaCalculation;
 import reportGeneration.interpreter.FormulaList.FormulaList;
 import reportGeneration.interpreter.LiabilitiesReport.LiabilitiesReport;
 
 public class Interprter {
     public VBox getReport(String type) {
+        FormulaCalculation calc = new FormulaCalculation();
+        calc.setFormulaValues();
         VBox vbox = new VBox();
         switch (type) {
             case "assetTrend":
@@ -23,6 +27,9 @@ public class Interprter {
                 break;
             case "formulaList":
                 vbox = new FormulaList().get();
+                break;
+            case "financialSustainability":
+                vbox = new FinancialSustainabilityReport().get();
                 break;
         }
         return vbox;

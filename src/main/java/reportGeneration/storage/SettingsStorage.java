@@ -1,4 +1,4 @@
-package reportGeneration;
+package reportGeneration.storage;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;

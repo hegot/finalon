@@ -5,25 +5,28 @@ import javax.script.ScriptEngineManager;
 
 public interface JsCalcHelper {
     default String getRelativeChange(Double start, Double end) {
-        ScriptEngineManager mgr = new ScriptEngineManager();
-        ScriptEngine engine = mgr.getEngineByName("JavaScript");
-        String formula = "(("
-                + Double.toString(end)
-                + "-"
-                + Double.toString(start)
-                + ")/"
-                + Double.toString(start)
-                + ") * 100";
-        String val = "";
-        try {
-            String result = engine.eval(formula).toString();
-            if (result != null && result.length() > 0) {
-                Double doubleInt = Double.parseDouble(result);
-                val = String.format("%.1f", doubleInt);
-                if (val.equals("NaN")) val = "";
+        String val = "0";
+        if (start != null && end != null) {
+            ScriptEngineManager mgr = new ScriptEngineManager();
+            ScriptEngine engine = mgr.getEngineByName("JavaScript");
+            String formula = "(("
+                    + Double.toString(end)
+                    + "-"
+                    + Double.toString(start)
+                    + ")/"
+                    + Double.toString(start)
+                    + ") * 100";
+            val = "";
+            try {
+                String result = engine.eval(formula).toString();
+                if (result != null && result.length() > 0) {
+                    Double doubleInt = Double.parseDouble(result);
+                    val = String.format("%.1f", doubleInt);
+                    if (val.equals("NaN")) val = "";
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         return val;
     }

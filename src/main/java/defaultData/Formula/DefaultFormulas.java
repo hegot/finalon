@@ -78,7 +78,7 @@ public class DefaultFormulas {
         counter++;
         //Financial Sustainability
         Formulas.addAll(TimesInterestEarned.get(FSiD, counter));
-        counter = counter + 4;
+        counter = counter + 6;
         Formulas.addAll(DebtRatio.get(FSiD, counter));
         counter = counter + 4;
         Formulas.addAll(LongTermDebtRatio.get(FSiD, counter));

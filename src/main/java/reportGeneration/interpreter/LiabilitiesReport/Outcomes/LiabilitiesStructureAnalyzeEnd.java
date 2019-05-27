@@ -4,13 +4,12 @@ import entities.Item;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import reportGeneration.IndexesStorage;
-import reportGeneration.SettingsStorage;
-import reportGeneration.interpreter.ReusableComponents.OutcomeBase;
 import reportGeneration.interpreter.ReusableComponents.ReportHelper;
 import reportGeneration.interpreter.ReusableComponents.interfaces.EquityShareAnalyze;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.SrtuctureItemsLoop;
+import reportGeneration.storage.IndexesStorage;
+import reportGeneration.storage.SettingsStorage;
 
 public class LiabilitiesStructureAnalyzeEnd extends ReportHelper implements SrtuctureItemsLoop, LabelWrap, EquityShareAnalyze {
     private Item parent;
@@ -37,9 +36,10 @@ public class LiabilitiesStructureAnalyzeEnd extends ReportHelper implements Srtu
         this.equityVal = getVal(EquityGeneral, period);
         this.currentVal = getVal(CurrentLiabilities, period);
         this.nonCurrentVal = getVal(NonCurrentLiabilities, period);
-        this.assetsTotal = Double.parseDouble(
-                SettingsStorage.getSettings().get("assetsStartValue")
-        );
+        String assetsStartValue = SettingsStorage.getSettings().get("assetsStartValue");
+        if (assetsStartValue != null) {
+            this.assetsTotal = Double.parseDouble(assetsStartValue);
+        }
     }
 
 

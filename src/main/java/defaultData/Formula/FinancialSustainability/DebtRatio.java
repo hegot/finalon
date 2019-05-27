@@ -1,5 +1,6 @@
 package defaultData.Formula.FinancialSustainability;
 
+import defaultData.EvaluationTypes;
 import entities.Formula;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,7 +13,7 @@ public class DebtRatio {
                 "Debt Ratio",
                 "DebtRatio",
                 "(NonCurrentAssets+CurrentLiabilities)/AssetsGeneral",
-                "",
+                EvaluationTypes.EVALUATE_END_ONLY.toString(),
                 "formula",
                 "",
                 parent));
@@ -22,7 +23,7 @@ public class DebtRatio {
                 "excellent",
                 "<=",
                 "0.4",
-                "",
+                "The debt ratio was low at the end of the period, meaning that there was a small financial and credit risk.",
                 "",
                 "",
                 DebtRatio));
@@ -31,7 +32,7 @@ public class DebtRatio {
         Formulas.add(new Formula(DebtRatiogood,
                 "good", "<",
                 "0.4",
-                "",
+                "The debt ratio lies in the area of critical values (from 0.4 to 0.6) at the end of the period, meaning that there was an acceptable financial and credit risk. ",
                 "<=",
                 "0.6",
                 DebtRatio));
@@ -41,7 +42,7 @@ public class DebtRatio {
                 "bad",
                 ">",
                 "0.6",
-                "",
+                "The debt ratio was in the 'distress' zone (above 0.6) at the end of the period, meaning that there was a high financial and credit risk.",
                 "",
                 "",
                 DebtRatio));

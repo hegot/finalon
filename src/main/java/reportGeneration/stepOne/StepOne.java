@@ -20,7 +20,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import reportGeneration.SettingsStorage;
+import reportGeneration.storage.SettingsStorage;
 
 public class StepOne {
     private final String defaultStandard = "1";

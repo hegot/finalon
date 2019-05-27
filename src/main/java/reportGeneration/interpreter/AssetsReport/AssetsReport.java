@@ -4,14 +4,14 @@ import entities.Item;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import reportGeneration.IndexesStorage;
-import reportGeneration.Periods;
-import reportGeneration.SettingsStorage;
 import reportGeneration.interpreter.AssetsReport.Outcomes.*;
 import reportGeneration.interpreter.ReusableComponents.IndexChangeTable;
 import reportGeneration.interpreter.ReusableComponents.RelativeItemsChange;
 import reportGeneration.interpreter.ReusableComponents.ReportHelper;
 import reportGeneration.interpreter.ReusableComponents.StructureTable;
+import reportGeneration.storage.IndexesStorage;
+import reportGeneration.storage.Periods;
+import reportGeneration.storage.SettingsStorage;
 
 import java.util.ArrayList;
 
@@ -64,7 +64,8 @@ public class AssetsReport extends ReportHelper {
         tableName.setWrapText(true);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
-        ArrayList<String> periodArr = Periods.getInstance().getPeriodArr();
+        Periods per = Periods.getInstance();
+        ArrayList<String> periodArr = per.getPeriodArr();
         String startKey = periodArr.get(0);
         String endKey = periodArr.get(periodArr.size() - 1);
         Item nonCurrentAssets = IndexesStorage.get("NonCurrentAssets");

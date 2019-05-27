@@ -4,9 +4,9 @@ import entities.Item;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import reportGeneration.IndexesStorage;
-import reportGeneration.Periods;
 import reportGeneration.interpreter.ReusableComponents.OutcomeBase;
+import reportGeneration.storage.IndexesStorage;
+import reportGeneration.storage.Periods;
 
 import java.util.Map;
 
@@ -36,64 +36,66 @@ public class CurrentNonCurrentAssetsAnalyze extends OutcomeBase {
             this.firstNonCurentVal = getFirstValue(valuesNonCurrent);
             this.lastNonCurentVal = getLastValue(valuesNonCurrent);
         }
-        this.currentAssetsChange =  getRelativeChange(firstCurentVal, lastCurentVal);
-        this.nonCurrentAssetsChange =  getRelativeChange(firstNonCurentVal, lastNonCurentVal);
+        this.currentAssetsChange = getRelativeChange(firstCurentVal, lastCurentVal);
+        this.nonCurrentAssetsChange = getRelativeChange(firstNonCurentVal, lastNonCurentVal);
     }
 
-    private Double getFirstValue(ObservableMap<String, Double> values){
+    private Double getFirstValue(ObservableMap<String, Double> values) {
         Map.Entry<String, Double> firstCurent = getFirst(values);
-        if(firstCurent != null){
-           return firstCurent.getValue();
-        }else{
+        if (firstCurent != null) {
+            return firstCurent.getValue();
+        } else {
             return 0.0;
         }
     }
 
-    private Double getLastValue(ObservableMap<String, Double> values){
+    private Double getLastValue(ObservableMap<String, Double> values) {
         Map.Entry<String, Double> firstCurent = getLast(values);
-        if(firstCurent != null){
+        if (firstCurent != null) {
             return firstCurent.getValue();
-        }else{
+        } else {
             return 0.0;
         }
     }
-    
+
     public VBox get() {
         VBox vbox = new VBox(10);
         vbox.setPrefWidth(600);
         String output = "";
-        Double AssetsOverall = (lastCurentVal - firstCurentVal) + (lastNonCurentVal - firstNonCurentVal);
-        if (lastCurentVal > firstCurentVal && lastNonCurentVal > firstNonCurentVal) {
-            output = increasedAll();
-        }
-        if (lastCurentVal < firstCurentVal && lastNonCurentVal < firstNonCurentVal) {
-            output = decreaseAll();
-        }
-        if (AssetsOverall > 0) {
-            if (lastCurentVal < firstCurentVal && lastNonCurentVal > firstNonCurentVal) {
-                output = totalIncreaseCurrentDecrease();
+        if (lastCurentVal != null && firstCurentVal != null && lastNonCurentVal != null && firstNonCurentVal != null) {
+            Double AssetsOverall = (lastCurentVal - firstCurentVal) + (lastNonCurentVal - firstNonCurentVal);
+            if (lastCurentVal > firstCurentVal && lastNonCurentVal > firstNonCurentVal) {
+                output = increasedAll();
             }
-            if (lastCurentVal.equals(firstCurentVal) && lastNonCurentVal > firstNonCurentVal) {
-                output = totalIncreaseCurrentStable();
+            if (lastCurentVal < firstCurentVal && lastNonCurentVal < firstNonCurentVal) {
+                output = decreaseAll();
             }
-            if (lastCurentVal > firstCurentVal && lastNonCurentVal < firstNonCurentVal) {
-                output = totalIncreaseNonCurrentDecrease();
-            }
-            if (lastCurentVal > firstCurentVal && lastNonCurentVal.equals(firstNonCurentVal)) {
-                output = totalIncreaseNonCurrentStable();
-            }
-        } else {
-            if (lastCurentVal > firstCurentVal && lastNonCurentVal < firstNonCurentVal) {
-                output = totalDecreaseCurrentIncrease();
-            }
-            if (lastCurentVal.equals(firstCurentVal) && lastNonCurentVal < firstNonCurentVal) {
-                output = totalDecreaseCurrentStable();
-            }
-            if (lastCurentVal < firstCurentVal && lastNonCurentVal > firstNonCurentVal) {
-                output = totalDecreaseNonCurrentIncrease();
-            }
-            if (lastCurentVal < firstCurentVal && lastNonCurentVal.equals(firstNonCurentVal)) {
-                output = totalDecreaseNonCurrentStable();
+            if (AssetsOverall > 0) {
+                if (lastCurentVal < firstCurentVal && lastNonCurentVal > firstNonCurentVal) {
+                    output = totalIncreaseCurrentDecrease();
+                }
+                if (lastCurentVal.equals(firstCurentVal) && lastNonCurentVal > firstNonCurentVal) {
+                    output = totalIncreaseCurrentStable();
+                }
+                if (lastCurentVal > firstCurentVal && lastNonCurentVal < firstNonCurentVal) {
+                    output = totalIncreaseNonCurrentDecrease();
+                }
+                if (lastCurentVal > firstCurentVal && lastNonCurentVal.equals(firstNonCurentVal)) {
+                    output = totalIncreaseNonCurrentStable();
+                }
+            } else {
+                if (lastCurentVal > firstCurentVal && lastNonCurentVal < firstNonCurentVal) {
+                    output = totalDecreaseCurrentIncrease();
+                }
+                if (lastCurentVal.equals(firstCurentVal) && lastNonCurentVal < firstNonCurentVal) {
+                    output = totalDecreaseCurrentStable();
+                }
+                if (lastCurentVal < firstCurentVal && lastNonCurentVal > firstNonCurentVal) {
+                    output = totalDecreaseNonCurrentIncrease();
+                }
+                if (lastCurentVal < firstCurentVal && lastNonCurentVal.equals(firstNonCurentVal)) {
+                    output = totalDecreaseNonCurrentStable();
+                }
             }
         }
         Label text1 = new Label(output);

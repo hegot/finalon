@@ -2,7 +2,8 @@ package reportGeneration.interpreter.ReusableComponents;
 
 import entities.Item;
 import javafx.scene.control.TreeTableView;
-import reportGeneration.Periods;
+import reportGeneration.storage.Periods;
+
 import java.util.ArrayList;
 
 public class StructureTable extends IndexChangeTable {

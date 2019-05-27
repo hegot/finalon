@@ -3,11 +3,11 @@ package reportGeneration.interpreter.LiabilitiesReport.Outcomes;
 import entities.Item;
 import javafx.collections.ObservableMap;
 import javafx.scene.layout.VBox;
-import reportGeneration.IndexesStorage;
-import reportGeneration.Periods;
-import reportGeneration.SettingsStorage;
 import reportGeneration.interpreter.ReusableComponents.OutcomeBase;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
+import reportGeneration.storage.IndexesStorage;
+import reportGeneration.storage.Periods;
+import reportGeneration.storage.SettingsStorage;
 
 
 public class TotallLiabilitiesAnalyze extends OutcomeBase implements LabelWrap {

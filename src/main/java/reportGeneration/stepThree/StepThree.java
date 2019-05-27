@@ -6,23 +6,48 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
-import reportGeneration.Periods;
-import reportGeneration.SettingsStorage;
 import reportGeneration.interpreter.Interprter;
+import reportGeneration.storage.Periods;
+import reportGeneration.storage.SettingsStorage;
 
 public class StepThree extends SceneBase {
     private String companyName;
     private Periods periods;
+    private ObservableMap<String, String> settings;
+    private Interprter interprter;
+
+    public StepThree() {
+        this.settings = SettingsStorage.getSettings();
+        this.companyName = settings.get("company") + "'s";
+        this.periods = Periods.getInstance();
+        this.interprter = new Interprter();
+    }
 
 
     public VBox show() {
-        ObservableMap<String, String> settings = SettingsStorage.getSettings();
-        this.companyName = settings.get("company") + "'s";
-        this.periods = Periods.getInstance();
-        Label label = new Label("1. The Common-Size Analysis of the Assets, Liabilities and Shareholders' Equity ");
-        label.getStyleClass().add("assets-label");
-        label.setWrapText(true);
-        Interprter interprter = new Interprter();
+
+
+        TabPane tabs = new TabPane();
+        Tab tab1 = new Tab("1. The Common-Size Analysis of the Assets, Liabilities and Shareholders' Equity");
+        tab1.setContent(getCommonSizeAnalis());
+        Tab tab2 = new Tab("2. Financial Sustainability and Long-Term Debt-Paying Ability");
+        tab2.setContent(
+                interprter.getReport("financialSustainability")
+        );
+        tabs.getTabs().addAll(tab1, tab2);
+
+        VBox vBox = new VBox(5);
+        vBox.getStyleClass().add("generated-report");
+        vBox.getChildren().addAll(
+                getTitle(),
+                getDescText(),
+                tabs
+        );
+        return vBox;
+    }
+
+
+    private TabPane getCommonSizeAnalis() {
         TabPane tabs = new TabPane();
         tabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         String periods = settings.get("periods");
@@ -37,7 +62,6 @@ public class StepThree extends SceneBase {
                 tabs.getTabs().addAll(tab1, tab2);
             }
         }
-
         Tab tab3 = new Tab("Assets Structure Analysis");
         tab3.setContent(interprter.getReport("assetStructure"));
 
@@ -48,15 +72,9 @@ public class StepThree extends SceneBase {
         tab5.setContent(interprter.getReport("formulaList"));
 
         tabs.getTabs().addAll(tab3, tab4, tab5);
-        VBox vBox = new VBox(5);
-        vBox.getStyleClass().add("generated-report");
-        vBox.getChildren().addAll(
-                getTitle(),
-                getDescText(),
-                label,
-                tabs);
-        return vBox;
+        return tabs;
     }
+
 
     private Label getDescText() {
         Label text = new Label("This report analyzes the balance sheets and income statements of " + companyName

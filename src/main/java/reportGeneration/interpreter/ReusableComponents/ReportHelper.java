@@ -3,7 +3,7 @@ package reportGeneration.interpreter.ReusableComponents;
 import entities.Item;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import reportGeneration.ItemsStorage;
+import reportGeneration.storage.ItemsStorage;
 
 public class ReportHelper {
 

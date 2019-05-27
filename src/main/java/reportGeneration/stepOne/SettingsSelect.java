@@ -5,8 +5,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.ComboBox;
-import reportGeneration.Periods;
-import reportGeneration.SettingsStorage;
+import reportGeneration.storage.Periods;
+import reportGeneration.storage.SettingsStorage;
 
 public class SettingsSelect {
     public static ComboBox get(ObservableList<String> items,

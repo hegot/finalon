@@ -5,9 +5,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.chart.PieChart;
-import reportGeneration.IndexesStorage;
-import reportGeneration.SettingsStorage;
 import reportGeneration.interpreter.ReusableComponents.interfaces.GetVal;
+import reportGeneration.storage.IndexesStorage;
+import reportGeneration.storage.SettingsStorage;
 
 public class AssetStructureChart implements GetVal {
 

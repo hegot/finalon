@@ -8,8 +8,8 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TreeTableView;
 import javafx.stage.Screen;
-import reportGeneration.ItemsStorage;
-import reportGeneration.Periods;
+import reportGeneration.storage.ItemsStorage;
+import reportGeneration.storage.Periods;
 
 import java.util.ArrayList;
 
@@ -52,7 +52,8 @@ public class ReportEditable extends ItemsTable {
         TextEditHandler texthandler = new TextEditHandler();
         Columns cols = new Columns(texthandler);
         table.getColumns().addAll(cols.getNameCol(), cols.getCodeCol());
-        ArrayList<String> arr = Periods.getInstance().getPeriodArr();
+        Periods periods = new Periods();
+        ArrayList<String> arr = periods.getPeriodArr();
         for (String col : arr) {
             table.getColumns().add(cols.getPeriodCol(col));
         }

@@ -10,9 +10,9 @@ import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.TextFieldTreeTableCell;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
-import reportGeneration.ItemsStorage;
-import reportGeneration.Periods;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
+import reportGeneration.storage.ItemsStorage;
+import reportGeneration.storage.Periods;
 
 import java.util.ArrayList;
 

@@ -9,7 +9,7 @@ import java.util.Map;
 public class OutcomeBase implements JsCalcHelper {
 
 
-    public Map.Entry<String, Double> getLast(ObservableMap<String, Double> values) {
+    protected Map.Entry<String, Double> getLast(ObservableMap<String, Double> values) {
         Map.Entry<String, Double> last = null;
         for (Map.Entry<String, Double> entry : values.entrySet()) {
             last = entry;
@@ -17,7 +17,7 @@ public class OutcomeBase implements JsCalcHelper {
         return last;
     }
 
-    public Double getLastVal(ObservableMap<String, Double> values) {
+    protected Double getLastVal(ObservableMap<String, Double> values) {
         Map.Entry<String, Double> last = getLast(values);
         if (last != null) {
             return last.getValue();
@@ -25,7 +25,7 @@ public class OutcomeBase implements JsCalcHelper {
         return null;
     }
 
-    public Double getFirstVal(ObservableMap<String, Double> values) {
+    protected Double getFirstVal(ObservableMap<String, Double> values) {
         Map.Entry<String, Double> first = getFirst(values);
         if (first != null) {
             return first.getValue();
@@ -33,7 +33,7 @@ public class OutcomeBase implements JsCalcHelper {
         return null;
     }
 
-    public Map.Entry<String, Double> getFirst(ObservableMap<String, Double> values) {
+    protected Map.Entry<String, Double> getFirst(ObservableMap<String, Double> values) {
         return values.entrySet().iterator().next();
     }
 

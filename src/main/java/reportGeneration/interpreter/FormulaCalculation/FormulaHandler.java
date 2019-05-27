@@ -1,4 +1,4 @@
-package reportGeneration.interpreter.FormulaList;
+package reportGeneration.interpreter.FormulaCalculation;
 
 import entities.Formula;
 import finalonWindows.reusableComponents.autocomplete.ParserBase;
@@ -109,8 +109,8 @@ class FormulaHandler {
             if (res != null && res.length() > 0) {
                 Double doubleInt = Double.parseDouble(res);
                 String val = String.format("%.2f", doubleInt);
-                res = value + " = " + val;
-                if (val.equals("NaN")) res = "";
+                res = val;
+                if (val.equals("NaN") || val.equals("Infinity")) res = "";
             }
         } catch (Exception e) {
             e.printStackTrace();

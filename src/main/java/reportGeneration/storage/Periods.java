@@ -1,11 +1,10 @@
-package reportGeneration;
+package reportGeneration.storage;
 
 import javafx.collections.ObservableMap;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Periods {
 
@@ -24,10 +23,14 @@ public class Periods {
             try {
                 init();
             } catch (Exception e) {
-                System.out.println("Could not init");
+                System.out.println("Could not init Periods");
             }
             initalized = true;
         }
+    }
+
+    public static Periods getInstance() {
+        return Periods.SingletonHolder.INSTANCE;
     }
 
     private void init() {
@@ -41,20 +44,6 @@ public class Periods {
         initalized = false;
         new SingletonHolder().reInit();
     }
-
-    public static Periods getInstance() {
-        return Periods.SingletonHolder.INSTANCE;
-    }
-
-
-    private static class SingletonHolder {
-        static Periods INSTANCE = new Periods();
-
-        void reInit() {
-            INSTANCE = new Periods();
-        }
-    }
-
 
     private void setMonthDay() {
         String date = settings.get("date");
@@ -103,10 +92,9 @@ public class Periods {
     }
 
     public LocalDateTime getEndTime() {
-        Date date = new Date();
-        date.setMonth(endMonth);
-        date.setYear(endYear);
-        date.setDate(endDay);
+        if (endMonth == 0) endMonth = 1;
+        if (endDay == 0) endDay = 1;
+        if (endYear == 0) endYear = 2000;
         return LocalDateTime.of(endYear, endMonth, endDay, 0, 0);
     }
 
@@ -118,5 +106,13 @@ public class Periods {
     public String getEnd() {
         LocalDateTime time = getEndTime();
         return time.format(formatM) + "/" + time.format(formatY);
+    }
+
+    private static class SingletonHolder {
+        static Periods INSTANCE = new Periods();
+
+        void reInit() {
+            INSTANCE = new Periods();
+        }
     }
 }

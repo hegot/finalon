@@ -1,4 +1,4 @@
-package reportGeneration;
+package reportGeneration.storage;
 
 import entities.Item;
 import javafx.collections.FXCollections;
@@ -13,7 +13,7 @@ public class ItemsStorage {
             try {
                 init();
             } catch (Exception e) {
-                System.out.println("Could not init");
+                System.out.println("Could not init ItemsStorage");
             }
             initalized = true;
         }

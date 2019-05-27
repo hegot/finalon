@@ -10,8 +10,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.ComboBox;
-import reportGeneration.ItemsStorage;
-import reportGeneration.SettingsStorage;
+import reportGeneration.storage.ItemsStorage;
+import reportGeneration.storage.SettingsStorage;
 
 public class TemplateSelect {
 
