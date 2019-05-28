@@ -192,9 +192,16 @@ public class DbFormulaHandler extends DbHandlerBase {
         return null;
     }
 
-    public void clearTable() throws SQLException {
+    public void deleteTable() throws ClassNotFoundException, SQLException {
         try (PreparedStatement statement = this.connection.prepareStatement(
-                "DELETE FROM " + tableName + ";"
+                "delete from " + tableName + ";"
+        )) {
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try (PreparedStatement statement = this.connection.prepareStatement(
+                "delete from sqlite_sequence where name='" + tableName + "';"
         )) {
             statement.executeUpdate();
         } catch (SQLException e) {

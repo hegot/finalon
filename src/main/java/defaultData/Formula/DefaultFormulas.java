@@ -15,6 +15,10 @@ public class DefaultFormulas {
 
     private static int counter = 1;
 
+    public void resetCounter(){
+        counter = 1;
+    }
+
     public static ObservableList<Formula> getFormulas() {
         ObservableList<Formula> Formulas = FXCollections.observableArrayList();
 

@@ -12,7 +12,9 @@ public class FormulaCreator {
     private DbFormulaHandler formulaDbHandler = new DbFormulaHandler();
 
     public FormulaCreator() {
-        this.formulas = FXCollections.observableArrayList(DefaultFormulas.getFormulas());
+        DefaultFormulas formulasClass = new DefaultFormulas();
+        formulasClass.resetCounter();
+        this.formulas = FXCollections.observableArrayList(formulasClass.getFormulas());
     }
 
     public FormulaCreator(int standard, String Industry) {
