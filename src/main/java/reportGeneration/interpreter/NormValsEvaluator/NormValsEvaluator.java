@@ -3,8 +3,9 @@ package reportGeneration.interpreter.NormValsEvaluator;
 import entities.Formula;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
 
-public class NormValsEvaluator {
+public class NormValsEvaluator implements JsCalcHelper {
     private Formula parent;
     private ObservableList<Formula> childs;
     private ObservableMap<String, String> vals;
@@ -21,7 +22,15 @@ public class NormValsEvaluator {
         String outcome = "";
         if (vals.size() > 0) {
             Double val = getVal();
-            outcome += loopNormatives(val);
+            outcome += strReplace(loopNormatives(val));
+        }
+        return outcome;
+    }
+
+    public String strReplace(String outcome) {
+        outcome = outcome.replace("CURRENTPERIOD", formatDate(period));
+        if (getVal() != null) {
+            outcome = outcome.replace("CURRENTVALUE", Double.toString(getVal()));
         }
         return outcome;
     }
@@ -38,15 +47,19 @@ public class NormValsEvaluator {
 
     private String loopNormatives(Double value) {
         for (Formula normative : childs) {
-            Double valueToCompare = normative.getValue().length() > 0 ? Double.parseDouble(normative.getValue()) : null;
-            Boolean match = matches(
-                    normative.getShortName(),
-                    normative.getCategory(),
-                    value,
-                    valueToCompare
-            );
-            if (match) {
-                return normative.getDescription();
+            try {
+                Double valueToCompare = normative.getValue().length() > 0 ? Double.parseDouble(normative.getValue()) : null;
+                Boolean match = matches(
+                        normative.getShortName(),
+                        normative.getCategory(),
+                        value,
+                        valueToCompare
+                );
+                if (match) {
+                    return normative.getDescription();
+                }
+            } catch (NumberFormatException e) {
+
             }
         }
         return "";

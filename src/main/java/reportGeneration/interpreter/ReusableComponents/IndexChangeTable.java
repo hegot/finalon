@@ -31,7 +31,6 @@ public class IndexChangeTable extends ItemsTable implements JsCalcHelper {
     public TreeTableView<Item> get() {
         TreeTableView<Item> table = getTable(rootId);
         table.getStyleClass().add("assets-report");
-        table.setPrefWidth(880);
         table.getColumns().addAll(getNameCol());
         ArrayList<String> arr = Periods.getInstance().getPeriodArr();
         for (String col : arr) {

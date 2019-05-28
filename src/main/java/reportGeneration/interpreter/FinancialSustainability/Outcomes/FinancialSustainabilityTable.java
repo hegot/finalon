@@ -26,9 +26,8 @@ public class FinancialSustainabilityTable extends FormulaTable implements JsCalc
 
     public VBox get() {
         TableView<Formula> table = new TableView<Formula>();
-        table.setEditable(true);
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        table.setMinHeight(primaryScreenBounds.getHeight() - 150);
+        table.getStyleClass().add("assets-report");
+        table.setEditable(false);
         table.getColumns().add(getNameCol());
         for (String col : periods) {
             table.getColumns().add(getPeriodCol(col));
@@ -69,7 +68,7 @@ public class FinancialSustainabilityTable extends FormulaTable implements JsCalc
                 Double colStartVAl = Double.parseDouble(values.get(colStart));
                 Double colEndVAl = Double.parseDouble(values.get(colEnd));
                 if (colStartVAl != null && colEndVAl != null) {
-                    String absolute = Double.toString(colEndVAl - colStartVAl);
+                    String absolute = String.format("%.2f", colEndVAl - colStartVAl);
                     return new SimpleStringProperty(absolute);
                 }
             }

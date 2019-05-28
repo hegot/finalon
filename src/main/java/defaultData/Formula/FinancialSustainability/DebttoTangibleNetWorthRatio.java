@@ -1,5 +1,6 @@
 package defaultData.Formula.FinancialSustainability;
 
+import defaultData.EvaluationTypes;
 import entities.Formula;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,7 +13,7 @@ public class DebttoTangibleNetWorthRatio {
                 "Debt to Tangible Net Worth Ratio",
                 "DebttoTangibleNetWorthRatio",
                 "(NonCurrentAssets+CurrentLiabilities)/(EquityGeneral-IntangibleAssetsOtherThanGoodwill-GoodwillGeneral)",
-                "",
+                EvaluationTypes.EVALUATE_END_ONLY.toString(),
                 "formula",
                 "",
                 parent));
@@ -22,7 +23,7 @@ public class DebttoTangibleNetWorthRatio {
                 "excellent",
                 ">=",
                 "0.6",
-                "",
+                "Company`s Debt to Tangible Net Worth Ratio was excellent in the end period (>= 0.6). ",
                 "",
                 "",
                 DebttoTangibleNetWorthRatio));
@@ -32,7 +33,7 @@ public class DebttoTangibleNetWorthRatio {
                 "satisfactory",
                 "<=",
                 "0.4",
-                "",
+                "Company`s Debt to Tangible Net Worth Ratio was satisfactory in the end period (<0.6 , <=0.4). ",
                 "<",
                 "0.6",
                 DebttoTangibleNetWorthRatio));
@@ -42,10 +43,45 @@ public class DebttoTangibleNetWorthRatio {
                 "bad",
                 "<",
                 "0.4",
-                "",
+                "Company`s Debt to Tangible Net Worth Ratio was unsatisfactory in the end period (< 0.4). ",
                 "",
                 "",
                 DebttoTangibleNetWorthRatio));
+
+        counter++;
+        int DebttoTangibleNetWorthRatioIncrease = counter;
+        Formulas.add(new Formula(DebttoTangibleNetWorthRatioIncrease,
+                "periodComparison",
+                "",
+                "increase",
+                "The table 5 shows that the ratio changed from STARTVALUE in STARTDATE to LASTVALUE in ENDDATE. " +
+                        "This shows that the creditors' protection was getting better. ",
+                "",
+                "",
+                DebttoTangibleNetWorthRatio));
+        counter++;
+        int DebttoTangibleNetWorthRatioDecrease = counter;
+        Formulas.add(new Formula(DebttoTangibleNetWorthRatioDecrease,
+                "periodComparison",
+                "",
+                "decrease",
+                "The table 5 shows that the ratio changed from STARTVALUE in STARTDATE to LASTVALUE in ENDDATE. " +
+                        "This shows that the creditors' protection was getting worse. ",
+                "",
+                "",
+                DebttoTangibleNetWorthRatio));
+        counter++;
+        int DebttoTangibleNetWorthRatioPrefix = counter;
+        Formulas.add(new Formula(DebttoTangibleNetWorthRatioPrefix,
+                "general",
+                "",
+                "The debt to tangible net worth ratio is a more conservative ratio than the debt/equity ratio. " +
+                        "It eliminates intangible assets because they do not provide resources to pay creditors. ",
+                EvaluationTypes.PREFIX.toString(),
+                "",
+                "",
+                DebttoTangibleNetWorthRatio));
+        counter++;
         return Formulas;
     }
 }

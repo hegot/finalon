@@ -1,5 +1,6 @@
 package defaultData.Formula.FinancialSustainability;
 
+import defaultData.EvaluationTypes;
 import entities.Formula;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,7 +13,7 @@ public class LongTermDebttoEquity {
                 "Long-Term Debt to Equity",
                 "LongTermDebttoEquity",
                 "NonCurrentAssets/(IssuedCapital+SharePremium)",
-                "",
+                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
                 "formula",
                 "",
                 parent));
@@ -22,7 +23,7 @@ public class LongTermDebttoEquity {
                 "excellent",
                 ">=",
                 "1",
-                "",
+                "CURRENTVALUE in CURRENTPERIOD (excellent - more than 1), ",
                 "",
                 "",
                 LongTermDebttoEquity));
@@ -32,7 +33,7 @@ public class LongTermDebttoEquity {
                 "satisfactory",
                 "<=",
                 "0.5",
-                "",
+                "CURRENTVALUE in CURRENTPERIOD (satisfactory - between o.5 and 1), ",
                 "<",
                 "1",
                 LongTermDebttoEquity));
@@ -42,10 +43,21 @@ public class LongTermDebttoEquity {
                 "bad",
                 "<",
                 "0.5",
-                "",
+                "CURRENTVALUE in CURRENTPERIOD (bad - less than 0.5), ",
                 "",
                 "",
                 LongTermDebttoEquity));
+        counter++;
+        int LongTermDebttoEquityPrefix = counter;
+        Formulas.add(new Formula(LongTermDebttoEquityPrefix,
+                "general",
+                "",
+                "The value of the long-term debt to equity ratio was ",
+                EvaluationTypes.PREFIX.toString(),
+                "",
+                "",
+                LongTermDebttoEquity));
+        counter++;
         return Formulas;
     }
 }

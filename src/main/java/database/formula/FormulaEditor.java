@@ -13,7 +13,6 @@ public class FormulaEditor extends FormulaBase {
     public FormulaEditor(
             ObservableList<Formula> formulas
     ) {
-        super(formulas);
         this.formulas = formulas;
         this.formulasHandler = new DbFormulaHandler();
         setRoot();

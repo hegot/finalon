@@ -82,15 +82,15 @@ public class DefaultFormulas {
         Formulas.addAll(DebtRatio.get(FSiD, counter));
         counter = counter + 4;
         Formulas.addAll(LongTermDebtRatio.get(FSiD, counter));
-        counter = counter + 4;
+        counter = counter + 6;
         Formulas.addAll(TheLongTermDebttoTotalCapitalizationRatio.get(FSiD, counter));
-        counter = counter + 4;
+        counter = counter + 6;
         Formulas.addAll(DebtEquityRatio.get(FSiD, counter));
-        counter = counter + 1;
+        counter = counter + 4;
         Formulas.addAll(DebttoTangibleNetWorthRatio.get(FSiD, counter));
-        counter = counter + 4;
+        counter = counter + 7;
         Formulas.addAll(LongTermDebttoEquity.get(FSiD, counter));
-        counter = counter + 4;
+        counter = counter + 5;
         //Liquidity
         Formulas.addAll(CurrentRatio.get(LiD, counter));
         counter = counter + 5;

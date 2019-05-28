@@ -192,4 +192,14 @@ public class DbFormulaHandler extends DbHandlerBase {
         return null;
     }
 
+    public void clearTable() throws SQLException {
+        try (PreparedStatement statement = this.connection.prepareStatement(
+                "DELETE FROM " + tableName + ";"
+        )) {
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

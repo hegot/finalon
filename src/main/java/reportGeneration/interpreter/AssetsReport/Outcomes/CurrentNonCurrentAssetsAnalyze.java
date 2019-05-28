@@ -8,8 +8,6 @@ import reportGeneration.interpreter.ReusableComponents.OutcomeBase;
 import reportGeneration.storage.IndexesStorage;
 import reportGeneration.storage.Periods;
 
-import java.util.Map;
-
 public class CurrentNonCurrentAssetsAnalyze extends OutcomeBase {
 
     private Double firstCurentVal;
@@ -29,34 +27,17 @@ public class CurrentNonCurrentAssetsAnalyze extends OutcomeBase {
         ObservableMap<String, Double> valuesCurrent = current.getValues();
         ObservableMap<String, Double> valuesNonCurrent = nonCurrent.getValues();
         if (valuesCurrent.size() > 1) {
-            this.firstCurentVal = getFirstValue(valuesCurrent);
-            this.lastCurentVal = getLastValue(valuesCurrent);
+            this.firstCurentVal = getFirstVal(valuesCurrent);
+            this.lastCurentVal = getLastVal(valuesCurrent);
         }
         if (valuesNonCurrent.size() > 1) {
-            this.firstNonCurentVal = getFirstValue(valuesNonCurrent);
-            this.lastNonCurentVal = getLastValue(valuesNonCurrent);
+            this.firstNonCurentVal = getFirstVal(valuesNonCurrent);
+            this.lastNonCurentVal = getLastVal(valuesNonCurrent);
         }
         this.currentAssetsChange = getRelativeChange(firstCurentVal, lastCurentVal);
         this.nonCurrentAssetsChange = getRelativeChange(firstNonCurentVal, lastNonCurentVal);
     }
 
-    private Double getFirstValue(ObservableMap<String, Double> values) {
-        Map.Entry<String, Double> firstCurent = getFirst(values);
-        if (firstCurent != null) {
-            return firstCurent.getValue();
-        } else {
-            return 0.0;
-        }
-    }
-
-    private Double getLastValue(ObservableMap<String, Double> values) {
-        Map.Entry<String, Double> firstCurent = getLast(values);
-        if (firstCurent != null) {
-            return firstCurent.getValue();
-        } else {
-            return 0.0;
-        }
-    }
 
     public VBox get() {
         VBox vbox = new VBox(10);

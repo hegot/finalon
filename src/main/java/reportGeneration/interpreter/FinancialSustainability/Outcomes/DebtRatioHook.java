@@ -12,53 +12,63 @@ public class DebtRatioHook implements JsCalcHelper {
     private TreeMap<String, String> vals;
     private ObservableMap<String, String> settings;
     private String currency;
+    private String company;
 
     public DebtRatioHook(Formula formula) {
         this.vals = new TreeMap<>(formula.getPeriods());
         this.settings = SettingsStorage.getSettings();
         this.currency = settings.get("defaultCurrency");
+        this.company = settings.get("company");
     }
 
     public String getResult() {
-        String output = "";
+        StringBuilder output = new StringBuilder();
         if (vals.size() > 0) {
 
             String[][] values = new String[3][3];
             int counter = 0;
+            Boolean allnull = true;
             for (Map.Entry<String, String> entry : vals.entrySet()) {
                 String key = formatDate(entry.getKey());
                 String val = entry.getValue();
-                if (counter == 0) output += first(key,val);
-                if (counter == 1) output += second(key,val);
-                if (counter == 2) output += third(key,val);
-                if (counter == 3) output += second(key,val);
-                if (counter == 4) output += third(key,val);
+                if (Double.parseDouble(val) != 0) {
+                    allnull = false;
+                }
+                if (counter == 0) output.append(first(key, val));
+                if (counter == 1) output.append(second(key, val));
+                if (counter == 2) output.append(third(key, val));
+                if (counter == 3) output.append(second(key, val));
+                if (counter == 4) output.append(third(key, val));
                 counter++;
+            }
+            if (allnull) {
+                output.append(company + " was not using debt to finance its assets. " +
+                        "As a result, company was sustainable in the long term run.");
             }
         }
 
-        return output;
+        return output.toString();
     }
 
     private String first(String date, String val) {
         return "The debt ratio tells us that in " + date +
                 " each " + currency + " 1.00 of the assets was financed by "
-                + val + "% of debt (and " + getPart(val) + "% of equity). ";
+                + val + " of debt (and " + getPart(val) + " of equity). ";
     }
 
     private String second(String date, String val) {
         return "In " + date + " " + val +
-                "% of the sources of finance were liabilities. ";
+                " of the sources of finance were liabilities. ";
     }
 
     private String third(String date, String val) {
         return "For every " + currency + " 1.00 of the assets there were " +
-                val + "% of liabilities in " + date + " ";
+                val + " of liabilities in " + date + " ";
     }
 
     private String getPart(String val) {
         Double valInt = Double.parseDouble(val);
-        return Double.toString(1 - valInt);
+        return String.format("%.2f", 1 - valInt);
     }
 
 }

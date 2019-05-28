@@ -8,8 +8,6 @@ import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
 import reportGeneration.storage.Periods;
 
-import java.util.Map;
-
 public class RelativeItemsChange extends OutcomeBase implements LabelWrap {
     private Item parent;
     private ObservableList<Item> items;
@@ -32,10 +30,8 @@ public class RelativeItemsChange extends OutcomeBase implements LabelWrap {
         for (Item item : items) {
             if (item.getValues().size() > 1) {
                 ObservableMap<String, Double> values = item.getValues();
-                Map.Entry<String, Double> first = getFirst(values);
-                Map.Entry<String, Double> last = getLast(values);
-                Double firstVal = first.getValue();
-                Double lastVal = last.getValue();
+                Double firstVal = getFirstVal(values);
+                Double lastVal = getLastVal(values);
                 if (firstVal != null && lastVal != null) {
                     String change = getRelativeChange(firstVal, lastVal);
                     Label label = new Label("- " + item.getName() + " (" + change + "%)");
@@ -59,12 +55,10 @@ public class RelativeItemsChange extends OutcomeBase implements LabelWrap {
     private String riseOrFall() {
         if (this.parent.getValues().size() > 1) {
             ObservableMap<String, Double> values = this.parent.getValues();
-            Map.Entry<String, Double> first = getFirst(values);
-            Map.Entry<String, Double> last = getLast(values);
-            Double firstVal = first.getValue();
-            Double lastVal = last.getValue();
+            Double firstVal = getFirstVal(values);
+            Double lastVal = getLastVal(values);
             if (firstVal != null && lastVal != null) {
-                return (lastVal > first.getValue()) ? "positive" : "negative";
+                return (lastVal > firstVal) ? "positive" : "negative";
             }
         }
         return "";

@@ -6,8 +6,10 @@ import entities.Formula;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.layout.VBox;
+import reportGeneration.interpreter.NormValsEvaluator.GeneralRenderer;
 import reportGeneration.interpreter.NormValsEvaluator.NormValsEvaluator;
 import reportGeneration.interpreter.NormValsEvaluator.PeriodComparisonEvaluator;
+import reportGeneration.interpreter.NormValsEvaluator.StrReplacer;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.SettingsStorage;
@@ -31,20 +33,16 @@ public class FormulaEvaluation implements LabelWrap {
         for (Formula formula : formulas) {
             setFormulaChilds(formula);
             outcome += switchType(formula);
-            PeriodComparisonEvaluator periodsComparison = new PeriodComparisonEvaluator(formula);
-            outcome += periodsComparison.getResult();
+            if(outcome.length() > 0){
+                StrReplacer replacer = new StrReplacer(outcome, formula);
+                outcome = replacer.substitute();
+            }
         }
-        outcome = substitute(outcome);
         VBox vbox = new VBox();
         vbox.getChildren().add(labelWrap(outcome));
         return vbox;
     }
 
-    private String substitute(String outcome) {
-        outcome = outcome.replace("ENDDATE", periods.getEnd());
-        outcome = outcome.replace("STARTDATE", periods.getStart());
-        return outcome.replace("COMPANYNAME", settings.get("company"));
-    }
 
     private void setFormulaChilds(Formula formula) {
         DbFormulaHandler dbFormula = new DbFormulaHandler();
@@ -54,20 +52,38 @@ public class FormulaEvaluation implements LabelWrap {
 
 
     private String switchType(Formula formula) {
-        String output = "";
+        StringBuilder output  = new StringBuilder();
         String type = formula.getDescription();
         String code = formula.getShortName();
         if (code.equals("DebtRatio")) {
             DebtRatioHook debtRatio = new DebtRatioHook(formula);
-            output += "\n" + debtRatio.getResult();
+            output.append(debtRatio.getResult());
         }
+        GeneralRenderer generalRenderer = new GeneralRenderer(formula);
+        output.append(generalRenderer.get(EvaluationTypes.PREFIX));
+
+        output.append(generalRenderer.get(EvaluationTypes.GENERAL));
         if (type.equals(EvaluationTypes.EVALUATE_END_ONLY.toString())) {
             ArrayList<String> periodsarr = periods.getPeriodArr();
             String end = periodsarr.get(periodsarr.size() - 1);
             NormValsEvaluator eval = new NormValsEvaluator(formula, end);
-            output += "\n" + eval.getResult();
+            output.append(eval.getResult());
         }
-        return output;
+
+        if (type.equals(EvaluationTypes.EVALUATE_EACH_PERIOD.toString())) {
+            ArrayList<String> periodsarr = periods.getPeriodArr();
+            for (String period : periodsarr) {
+                NormValsEvaluator eval = new NormValsEvaluator(formula, period);
+                output.append(eval.getResult());
+            }
+        }
+
+
+        PeriodComparisonEvaluator periodsComparison = new PeriodComparisonEvaluator(formula);
+        output.append(periodsComparison.getResult());
+
+        output.append(generalRenderer.get(EvaluationTypes.SUFFIX));
+        return output.toString() + "\n";
     }
 
 

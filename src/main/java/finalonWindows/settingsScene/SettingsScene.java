@@ -43,7 +43,7 @@ public class SettingsScene extends SceneBase {
         ShowAllBlock showAllBlock = new ShowAllBlock(settings);
         HBox hbox = new HBox(20);
         hbox.getChildren().addAll(yearsOrderBlock.get(), currencyBlock.get());
-        vboxInner.getChildren().addAll(mainLabel, hbox, numberFormat.get(), showAllBlock.get(), submitBtn());
+        vboxInner.getChildren().addAll(mainLabel, hbox, numberFormat.get(), showAllBlock.get(), submitBtn(), resetFormulaBtn());
         vbox.getChildren().addAll(new SettingsMenu().getMenu(), vboxInner);
         return vbox;
     }
@@ -76,6 +76,35 @@ public class SettingsScene extends SceneBase {
         });
         hbox.getChildren().addAll(btn, label);
         return hbox;
+    }
+
+    private VBox resetFormulaBtn() {
+        VBox vBox = new VBox(20);
+        vBox.getStyleClass().add("vbox-row");
+        Label label = new Label("You can reset Formulas to default state - before you made changes (all added industries and changes will be dropped!)");
+        label.getStyleClass().add("sub-label");
+        label.setWrapText(true);
+        label.getStyleClass().add("confirm-label");
+        Button btn = new Button("Reset Formulas");
+        btn.getStyleClass().add("blue-btn");
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                try {
+                    ResetFormulas.reset();
+                    label.setText("Formulas were reseted to default state");
+                    Timeline timeline = new Timeline(new KeyFrame(
+                            Duration.millis(2500),
+                            ae -> label.setText("")));
+                    timeline.play();
+
+                } catch (Exception exception) {
+                    System.out.println("Error while saving settings");
+                }
+            }
+        });
+        vBox.getChildren().addAll(label, btn);
+        return vBox;
     }
 
 }
