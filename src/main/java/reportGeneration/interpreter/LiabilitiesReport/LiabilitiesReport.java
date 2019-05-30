@@ -5,10 +5,10 @@ import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.LiabilitiesReport.Outcomes.*;
-import reportGeneration.interpreter.ReusableComponents.IndexChangeTable;
 import reportGeneration.interpreter.ReusableComponents.RelativeItemsChange;
 import reportGeneration.interpreter.ReusableComponents.ReportHelper;
-import reportGeneration.interpreter.ReusableComponents.StructureTable;
+import reportGeneration.interpreter.ReusableComponents.tables.IndexChangeTable;
+import reportGeneration.interpreter.ReusableComponents.tables.StructureTable;
 import reportGeneration.storage.IndexesStorage;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.SettingsStorage;
@@ -73,7 +73,7 @@ public class LiabilitiesReport extends ReportHelper {
                 new StructureTable(rootId).get(),
                 new LiabilitiesStructureAnalyzeStart(startKey).get(),
                 new LiabilitiesStructureChart(endKey).get(),
-                new LiabilitiesStructureAnalyzeEnd(startKey).get()
+                new LiabilitiesStructureAnalyzeEnd(endKey).get()
         );
         return box;
     }

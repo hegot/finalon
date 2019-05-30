@@ -91,7 +91,7 @@ public class SettingsScene extends SceneBase {
             @Override
             public void handle(ActionEvent e) {
                 try {
-                    ResetFormulas.reset();
+                    new ResetFormulas().reset();
                     label.setText("Formulas were reseted to default state");
                     Timeline timeline = new Timeline(new KeyFrame(
                             Duration.millis(2500),

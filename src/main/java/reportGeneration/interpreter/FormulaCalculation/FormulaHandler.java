@@ -3,36 +3,29 @@ package reportGeneration.interpreter.FormulaCalculation;
 import entities.Formula;
 import finalonWindows.reusableComponents.autocomplete.ParserBase;
 import javafx.collections.ObservableMap;
+import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import java.util.Arrays;
 import java.util.Map;
 
-class FormulaHandler {
+class FormulaHandler implements ParseDouble {
     private Formula formula;
     private Map<String, ObservableMap<String, Double>> values;
     private String period;
-    private String Fperiod = "[0]";
-    private String Speriod = "[1]";
-    private String[] indexes;
 
-    public FormulaHandler(Formula formula, Map<String, ObservableMap<String, Double>> values, String period) {
+    FormulaHandler(Formula formula, Map<String, ObservableMap<String, Double>> values, String period) {
         this.formula = formula;
         this.values = values;
         this.period = period;
     }
 
-    public static boolean isNumeric(String str) {
-        try {
-            Double.parseDouble(str);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
+    private boolean isNumeric(String str) {
+        return parseDouble(str) != null;
     }
 
-    public String getResult() {
+    String getResult() {
         String formulaUpdated = getValuesInPlace();
         if (formulaUpdated != null) {
             if (formulaUpdated.contains("/0.0")) return null;
@@ -42,10 +35,9 @@ class FormulaHandler {
         }
     }
 
-    public String getValuesInPlace() {
+    private String getValuesInPlace() {
         String formulaVal = formula.getValue();
         String[] indexes = getIndexes();
-        this.indexes = indexes;
         for (String index : indexes) {
             if (!isNumeric(index)) {
                 Double val = searchInValues(index);
@@ -62,12 +54,14 @@ class FormulaHandler {
 
     private Double searchInValues(String index) {
         boolean prevIndex = false;
-        if (index.indexOf(Fperiod) > -1) {
-            index = index.replace(Fperiod, "");
+        String fperiod = "[0]";
+        if (index.contains(fperiod)) {
+            index = index.replace(fperiod, "");
             prevIndex = true;
         }
-        if (index.indexOf(Speriod) > -1) {
-            index = index.replace(Speriod, "");
+        String speriod = "[1]";
+        if (speriod.contains(index)) {
+            index = index.replace(speriod, "");
         }
         ObservableMap<String, Double> map = values.get(index);
         if (map != null) {
@@ -96,8 +90,7 @@ class FormulaHandler {
 
     private String[] getIndexes() {
         String formulaVal = formula.getValue();
-        String[] chunks = new ParserBase().getChunks(formulaVal, true);
-        return chunks;
+        return new ParserBase().getChunks(formulaVal, true);
     }
 
     private String evaluateFormula(String value) {
@@ -107,7 +100,7 @@ class FormulaHandler {
         try {
             res = engine.eval(value).toString();
             if (res != null && res.length() > 0) {
-                Double doubleInt = Double.parseDouble(res);
+                Double doubleInt = parseDouble(res);
                 String val = String.format("%.2f", doubleInt);
                 res = val;
                 if (val.equals("NaN") || val.equals("Infinity")) res = "";

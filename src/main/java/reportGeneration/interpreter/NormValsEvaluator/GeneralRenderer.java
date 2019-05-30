@@ -15,10 +15,10 @@ public class GeneralRenderer {
     public String get(EvaluationTypes type) {
         ObservableList<Formula> childs = formula.getChilds();
         ObservableMap<String, String> periods = formula.getPeriods();
-        if(periods.size() > 1){
+        if (periods.size() > 1) {
             for (Formula child : childs) {
-                if (child.getDescription().equals(type.toString())) {
-                    return child.getValue();
+                if (child.getName().equals(type.toString())) {
+                    return child.getDescription();
                 }
             }
         }

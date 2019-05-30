@@ -3,12 +3,13 @@ package reportGeneration.interpreter.FinancialSustainability.Outcomes;
 import entities.Formula;
 import javafx.collections.ObservableMap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
+import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 import reportGeneration.storage.SettingsStorage;
 
 import java.util.Map;
 import java.util.TreeMap;
 
-public class DebtRatioHook implements JsCalcHelper {
+public class DebtRatioHook implements JsCalcHelper, ParseDouble {
     private TreeMap<String, String> vals;
     private ObservableMap<String, String> settings;
     private String currency;
@@ -31,7 +32,7 @@ public class DebtRatioHook implements JsCalcHelper {
             for (Map.Entry<String, String> entry : vals.entrySet()) {
                 String key = formatDate(entry.getKey());
                 String val = entry.getValue();
-                if (Double.parseDouble(val) != 0) {
+                if (parseDouble(val) != 0) {
                     allnull = false;
                 }
                 if (counter == 0) output.append(first(key, val));
@@ -67,8 +68,7 @@ public class DebtRatioHook implements JsCalcHelper {
     }
 
     private String getPart(String val) {
-        Double valInt = Double.parseDouble(val);
-        return String.format("%.2f", 1 - valInt);
+        return String.format("%.2f", 1 - parseDouble(val));
     }
 
 }

@@ -1,14 +1,16 @@
 package reportGeneration.interpreter.NormValsEvaluator;
 
+import defaultData.EvaluationTypes;
 import entities.Formula;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 import reportGeneration.storage.Periods;
 
 import java.util.ArrayList;
 
 
-public class PeriodComparisonEvaluator {
+public class PeriodComparisonEvaluator implements ParseDouble {
     private ObservableList<Formula> childs;
     private ObservableMap<String, String> vals;
     private Double startVal;
@@ -28,7 +30,7 @@ public class PeriodComparisonEvaluator {
     private Double getVal(String period) {
         String val = vals.get(period);
         if (val != null) {
-            return Double.parseDouble(val);
+            return parseDouble(val);
         }
         return null;
     }
@@ -37,18 +39,18 @@ public class PeriodComparisonEvaluator {
         String outcome = "";
         if (vals.size() > 1) {
             if (endVal > startVal) {
-                outcome += getOutcome("increase");
+                outcome += getOutcome(EvaluationTypes.PERIOD_COMPARISON_INCREASE);
             }
             if (endVal < startVal) {
-                outcome += getOutcome("decrease");
+                outcome += getOutcome(EvaluationTypes.PERIOD_COMPARISON_DECREASE);
             }
         }
         return outcome;
     }
 
-    private String getOutcome(String type) {
+    private String getOutcome(EvaluationTypes type) {
         for (Formula formula : childs) {
-            if (formula.getValue().equals(type)) {
+            if (formula.getName().equals(type.toString())) {
                 return formula.getDescription();
             }
         }

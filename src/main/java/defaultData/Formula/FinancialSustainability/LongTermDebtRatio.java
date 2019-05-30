@@ -50,9 +50,9 @@ public class LongTermDebtRatio {
         counter++;
         int LongTermDebtRatioIncrease = counter;
         Formulas.add(new Formula(LongTermDebtRatioIncrease,
-                "periodComparison",
+                EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString(),
                 "",
-                "increase",
+                "",
                 "The share of the long-term debt was unstable in STARTDATE-ENDDATE. " +
                         "An increase in the long-term debt ratio suggests that the company was progressively " +
                         "becoming more dependent on debt to grow a business. ",
@@ -62,9 +62,9 @@ public class LongTermDebtRatio {
         counter++;
         int LongTermDebtRatioDecrease = counter;
         Formulas.add(new Formula(LongTermDebtRatioDecrease,
-                "periodComparison",
+                EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString(),
                 "",
-                "decrease",
+                "",
                 "The share of the long-term debt was unstable in STARTDATE-ENDDATE. " +
                         "A decrease in the long-term debt ratio suggests that the company was progressively " +
                         "becoming less dependent on debt to grow a business. ",

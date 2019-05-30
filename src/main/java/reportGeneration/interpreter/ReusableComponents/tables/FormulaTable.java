@@ -1,4 +1,4 @@
-package reportGeneration.interpreter.ReusableComponents;
+package reportGeneration.interpreter.ReusableComponents.tables;
 
 import entities.Formula;
 import javafx.beans.property.SimpleStringProperty;

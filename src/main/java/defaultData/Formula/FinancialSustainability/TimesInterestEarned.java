@@ -50,9 +50,9 @@ public class TimesInterestEarned {
         counter++;
         int TimesInterestEarnedIncrease = counter;
         Formulas.add(new Formula(TimesInterestEarnedIncrease,
-                "periodComparison",
+                EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString(),
                 "",
-                "increase",
+                "",
                 "COMPANYNAME's ability to pay interest on debt was better in ENDDATE comparing to STARTDATE. ",
                 "",
                 "",
@@ -60,9 +60,9 @@ public class TimesInterestEarned {
         counter++;
         int TimesInterestEarnedDecline = counter;
         Formulas.add(new Formula(TimesInterestEarnedDecline,
-                "periodComparison",
+                EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString(),
                 "",
-                "decrease",
+                "",
                 "COMPANYNAME's ability to pay interest on debt was worse in ENDDATE comparing to STARTDATE.",
                 "",
                 "",

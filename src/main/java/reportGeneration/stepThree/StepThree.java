@@ -34,7 +34,11 @@ public class StepThree extends SceneBase {
         tab2.setContent(
                 interprter.getReport("financialSustainability")
         );
-        tabs.getTabs().addAll(tab1, tab2);
+        Tab tab3 = new Tab("3. Liquidity of Short-Term Assets");
+        tab3.setContent(
+                interprter.getReport("liquidity")
+        );
+        tabs.getTabs().addAll(tab1, tab2, tab3);
 
         VBox vBox = new VBox(5);
         vBox.getStyleClass().add("generated-report");

@@ -1,17 +1,18 @@
 package reportGeneration.interpreter.NormValsEvaluator;
 
+import defaultData.EvaluationTypes;
 import entities.Formula;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
 
-public class NormValsEvaluator extends ValsEvaluator implements JsCalcHelper {
+public class SuffixEvaluator extends ValsEvaluator implements JsCalcHelper {
     private Formula parent;
     private ObservableList<Formula> childs;
     private ObservableMap<String, String> vals;
     private String period;
 
-    public NormValsEvaluator(Formula formula, String period) {
+    public SuffixEvaluator(Formula formula, String period) {
         this.parent = formula;
         this.childs = formula.getChilds();
         this.period = period;
@@ -22,15 +23,7 @@ public class NormValsEvaluator extends ValsEvaluator implements JsCalcHelper {
         String outcome = "";
         if (vals.size() > 0) {
             Double val = getVal();
-            outcome += strReplace(loopNormatives(val));
-        }
-        return outcome;
-    }
-
-    public String strReplace(String outcome) {
-        outcome = outcome.replace("CURRENTPERIOD", formatDate(period));
-        if (getVal() != null) {
-            outcome = outcome.replace("CURRENTVALUE", Double.toString(getVal()));
+            outcome += loopNormatives(val);
         }
         return outcome;
     }
@@ -47,24 +40,24 @@ public class NormValsEvaluator extends ValsEvaluator implements JsCalcHelper {
 
     private String loopNormatives(Double value) {
         for (Formula normative : childs) {
-            try {
-                Double valueToCompare = normative.getValue().length() > 0 ? parseDouble(normative.getValue()) : null;
-                Boolean match = matches(
-                        normative.getShortName(),
-                        normative.getCategory(),
-                        value,
-                        valueToCompare
-                );
-                if (match) {
-                    return normative.getDescription();
-                }
-            } catch (NumberFormatException e) {
+            if(normative.getName().equals(EvaluationTypes.SUFFIX.toString())){
+                try {
+                    Double valueToCompare = normative.getUnit().length() > 0 ? parseDouble(normative.getUnit()) : null;
+                    Boolean match = matches(
+                            normative.getShortName(),
+                            normative.getCategory(),
+                            value,
+                            valueToCompare
+                    );
+                    if (match) {
+                        return normative.getDescription();
+                    }
+                } catch (NumberFormatException e) {
 
+                }
             }
         }
         return "";
     }
-
-
 
 }

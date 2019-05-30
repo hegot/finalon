@@ -1,4 +1,4 @@
-package reportGeneration.interpreter.ReusableComponents;
+package reportGeneration.interpreter.ReusableComponents.tables;
 
 import database.setting.DbSettingHandler;
 import entities.Item;

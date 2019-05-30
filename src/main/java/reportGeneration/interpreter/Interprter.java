@@ -6,6 +6,7 @@ import reportGeneration.interpreter.FinancialSustainability.FinancialSustainabil
 import reportGeneration.interpreter.FormulaCalculation.FormulaCalculation;
 import reportGeneration.interpreter.FormulaList.FormulaList;
 import reportGeneration.interpreter.LiabilitiesReport.LiabilitiesReport;
+import reportGeneration.interpreter.Liquidity.LiquidityReport;
 
 public class Interprter {
     public VBox getReport(String type) {
@@ -30,6 +31,9 @@ public class Interprter {
                 break;
             case "financialSustainability":
                 vbox = new FinancialSustainabilityReport().get();
+                break;
+            case "liquidity":
+                vbox = new LiquidityReport().get();
                 break;
         }
         return vbox;

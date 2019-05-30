@@ -1,32 +1,29 @@
-package reportGeneration.interpreter.FinancialSustainability.Outcomes;
+package reportGeneration.interpreter.ReusableComponents.tables;
 
 import entities.Formula;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
-import javafx.stage.Screen;
-import reportGeneration.interpreter.ReusableComponents.FormulaTable;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
+import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 import reportGeneration.storage.Periods;
 
 import java.util.ArrayList;
 
-public class FinancialSustainabilityTable extends FormulaTable implements JsCalcHelper {
+public class RatiosTable extends FormulaTable implements JsCalcHelper, ParseDouble {
     private ObservableList<Formula> formulas;
     private ArrayList<String> periods;
 
-    public FinancialSustainabilityTable(ObservableList<Formula> formulas) {
+    public RatiosTable(ObservableList<Formula> formulas) {
         this.periods = Periods.getInstance().getPeriodArr();
         this.formulas = formulas;
     }
 
     public VBox get() {
         TableView<Formula> table = new TableView<Formula>();
-        table.getStyleClass().add("assets-report");
         table.setEditable(false);
         table.getColumns().add(getNameCol());
         for (String col : periods) {
@@ -57,7 +54,6 @@ public class FinancialSustainabilityTable extends FormulaTable implements JsCalc
         return null;
     }
 
-
     TableColumn getAbsoluteComparisonCol(String colStart, String colEnd) {
         String colname = "Absolute Change\n" + formatDate(colEnd) + " to \n" + formatDate(colStart);
         TableColumn<Formula, String> col = new TableColumn<Formula, String>(colname);
@@ -65,8 +61,8 @@ public class FinancialSustainabilityTable extends FormulaTable implements JsCalc
         col.setCellValueFactory(cellData -> {
             ObservableMap<String, String> values = getValues(cellData);
             if (values != null) {
-                Double colStartVAl = Double.parseDouble(values.get(colStart));
-                Double colEndVAl = Double.parseDouble(values.get(colEnd));
+                Double colStartVAl = parseDouble(values.get(colStart));
+                Double colEndVAl =  parseDouble(values.get(colEnd));
                 if (colStartVAl != null && colEndVAl != null) {
                     String absolute = String.format("%.2f", colEndVAl - colStartVAl);
                     return new SimpleStringProperty(absolute);
@@ -76,4 +72,5 @@ public class FinancialSustainabilityTable extends FormulaTable implements JsCalc
         });
         return col;
     }
+
 }

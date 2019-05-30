@@ -6,7 +6,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
-import reportGeneration.interpreter.ReusableComponents.FormulaTable;
+import reportGeneration.interpreter.ReusableComponents.tables.FormulaTable;
 import reportGeneration.storage.FormulaStorage;
 import reportGeneration.storage.Periods;
 

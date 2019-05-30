@@ -15,10 +15,6 @@ public class DefaultFormulas {
 
     private static int counter = 1;
 
-    public void resetCounter(){
-        counter = 1;
-    }
-
     public static ObservableList<Formula> getFormulas() {
         ObservableList<Formula> Formulas = FXCollections.observableArrayList();
 
@@ -54,7 +50,6 @@ public class DefaultFormulas {
         Formulas.addAll(childFormulas);
         return Formulas;
     }
-
 
     private static ObservableList<Formula> getIndustryChilds(int parent) {
         ObservableList<Formula> Formulas = FXCollections.observableArrayList();
@@ -97,15 +92,15 @@ public class DefaultFormulas {
         counter = counter + 5;
         //Liquidity
         Formulas.addAll(CurrentRatio.get(LiD, counter));
-        counter = counter + 5;
+        counter = counter + 8;
         Formulas.addAll(QuickRatio.get(LiD, counter));
-        counter = counter + 3;
+        counter = counter + 5;
         Formulas.addAll(CashRatio.get(LiD, counter));
-        counter = counter + 4;
+        counter = counter + 5;
         Formulas.addAll(NetWorkingCapital.get(LiD, counter));
-        counter = counter + 4;
+        counter = counter + 7;
         Formulas.addAll(SalestoNetWorkingCapital.get(LiD, counter));
-        counter = counter + 4;
+        counter = counter + 6;
         //Profitability and Performance
         Formulas.addAll(NetProfitMargin.get(PaPiD, counter));
         counter = counter + 1;
@@ -171,6 +166,10 @@ public class DefaultFormulas {
         counter = counter + 1;
 
         return Formulas;
+    }
+
+    public void resetCounter() {
+        counter = 1;
     }
 
 }

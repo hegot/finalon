@@ -1,28 +1,28 @@
-package reportGeneration.interpreter.FinancialSustainability;
+package reportGeneration.interpreter.Liquidity;
 
 import entities.Formula;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import reportGeneration.interpreter.FinancialSustainability.Outcomes.FormulaEvaluation;
+import reportGeneration.interpreter.Liquidity.Outcomes.FormulaEvaluation;
 import reportGeneration.interpreter.ReusableComponents.tables.RatiosTable;
 import reportGeneration.storage.FormulaStorage;
 
-public class FinancialSustainabilityReport {
+public class LiquidityReport {
     private ObservableList<Formula> formulas;
 
-    public FinancialSustainabilityReport() {
+    public LiquidityReport() {
         FormulaStorage storage = FormulaStorage.getInstance();
-        Formula FS = storage.getItemByCode("FS");
-        if (FS != null) {
-            this.formulas = storage.getItems(FS.getId());
+        Formula L = storage.getItemByCode("L");
+        if (L != null) {
+            this.formulas = storage.getItems(L.getId());
         }
     }
 
     public VBox get() {
         VBox box = new VBox(8);
         RatiosTable sustainabilityTable = new RatiosTable(formulas);
-        Label tableName = new Label("Table 5. Key ratios of the company's financial sustainability");
+        Label tableName = new Label("Table 6. Liquidity Ratios");
         tableName.getStyleClass().add("assets-table-name");
         tableName.setWrapText(true);
 
@@ -35,5 +35,4 @@ public class FinancialSustainabilityReport {
         );
         return box;
     }
-
 }

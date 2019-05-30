@@ -50,20 +50,20 @@ public class TheLongTermDebttoTotalCapitalizationRatio {
         counter++;
         int TheLongTermDebttoTotalCapitalizationRatioPrefix = counter;
         Formulas.add(new Formula(TheLongTermDebttoTotalCapitalizationRatioPrefix,
-                "general",
+                EvaluationTypes.PREFIX.toString(),
+                "",
                 "",
                 "The value of the long-term debt to total capitalization ratio was ",
-                EvaluationTypes.PREFIX.toString(),
                 "",
                 "",
                 TheLongTermDebttoTotalCapitalizationRatio));
         counter++;
         int TheLongTermDebttoTotalCapitalizationRatioSuffix = counter;
         Formulas.add(new Formula(TheLongTermDebttoTotalCapitalizationRatioSuffix,
-                "general",
+                EvaluationTypes.SUFFIX.toString(),
+                "",
                 "",
                 "Total capitalization consists of the long-term debt, preferred stock, and common stockholders' equity. Lower ratio shows lower risk.",
-                EvaluationTypes.SUFFIX.toString(),
                 "",
                 "",
                 TheLongTermDebttoTotalCapitalizationRatio));

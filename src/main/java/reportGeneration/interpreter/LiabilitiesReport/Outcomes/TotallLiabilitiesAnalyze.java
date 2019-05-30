@@ -5,12 +5,13 @@ import javafx.collections.ObservableMap;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.OutcomeBase;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
+import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 import reportGeneration.storage.IndexesStorage;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.SettingsStorage;
 
 
-public class TotallLiabilitiesAnalyze extends OutcomeBase implements LabelWrap {
+public class TotallLiabilitiesAnalyze extends OutcomeBase implements LabelWrap, ParseDouble {
 
     private Double first;
     private Double last;
@@ -32,7 +33,7 @@ public class TotallLiabilitiesAnalyze extends OutcomeBase implements LabelWrap {
             this.liabilitiesDifference = last - first;
         }
         String assetDiffrence = settings.get("assetsDifference");
-        this.assetDiffrence = (assetDiffrence != null) ? Double.parseDouble(assetDiffrence) : 0;
+        this.assetDiffrence = parseDouble(assetDiffrence);
     }
 
     public VBox get() {

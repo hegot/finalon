@@ -51,9 +51,9 @@ public class DebttoTangibleNetWorthRatio {
         counter++;
         int DebttoTangibleNetWorthRatioIncrease = counter;
         Formulas.add(new Formula(DebttoTangibleNetWorthRatioIncrease,
-                "periodComparison",
+                EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString(),
                 "",
-                "increase",
+               "",
                 "The table 5 shows that the ratio changed from STARTVALUE in STARTDATE to LASTVALUE in ENDDATE. " +
                         "This shows that the creditors' protection was getting better. ",
                 "",
@@ -62,9 +62,9 @@ public class DebttoTangibleNetWorthRatio {
         counter++;
         int DebttoTangibleNetWorthRatioDecrease = counter;
         Formulas.add(new Formula(DebttoTangibleNetWorthRatioDecrease,
-                "periodComparison",
+                EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString(),
                 "",
-                "decrease",
+                "",
                 "The table 5 shows that the ratio changed from STARTVALUE in STARTDATE to LASTVALUE in ENDDATE. " +
                         "This shows that the creditors' protection was getting worse. ",
                 "",
@@ -73,11 +73,11 @@ public class DebttoTangibleNetWorthRatio {
         counter++;
         int DebttoTangibleNetWorthRatioPrefix = counter;
         Formulas.add(new Formula(DebttoTangibleNetWorthRatioPrefix,
-                "general",
+                EvaluationTypes.PREFIX.toString(),
+                "",
                 "",
                 "The debt to tangible net worth ratio is a more conservative ratio than the debt/equity ratio. " +
                         "It eliminates intangible assets because they do not provide resources to pay creditors. ",
-                EvaluationTypes.PREFIX.toString(),
                 "",
                 "",
                 DebttoTangibleNetWorthRatio));

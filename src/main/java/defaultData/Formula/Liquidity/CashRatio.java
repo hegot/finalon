@@ -1,5 +1,6 @@
 package defaultData.Formula.Liquidity;
 
+import defaultData.EvaluationTypes;
 import entities.Formula;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,7 +13,7 @@ public class CashRatio {
                 "Cash Ratio",
                 "CashRatio",
                 "CashAndCashEquivalents/CurrentLiabilities",
-                "",
+                EvaluationTypes.EVALUATE_END_ONLY.toString(),
                 "formula",
                 "",
                 parent));
@@ -46,6 +47,17 @@ public class CashRatio {
                 "",
                 "",
                 CashRatio));
+        counter++;
+        int CashRatioPrefix = counter;
+        Formulas.add(new Formula(CashRatioPrefix,
+                EvaluationTypes.PREFIX.toString(),
+                "",
+                "",
+                "The cash ratio shows that the company was able to pay off LASTVALUEPERCENT% of its debt immediately as for the end of ENDDATE. ",
+                "",
+                "",
+                CashRatio));
+        counter++;
         return Formulas;
     }
 }

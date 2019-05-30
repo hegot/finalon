@@ -1,4 +1,4 @@
-package reportGeneration.interpreter.FinancialSustainability.Outcomes;
+package reportGeneration.interpreter.Liquidity.Outcomes;
 
 import database.formula.DbFormulaHandler;
 import defaultData.EvaluationTypes;
@@ -6,10 +6,8 @@ import entities.Formula;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.layout.VBox;
-import reportGeneration.interpreter.NormValsEvaluator.GeneralRenderer;
-import reportGeneration.interpreter.NormValsEvaluator.NormValsEvaluator;
-import reportGeneration.interpreter.NormValsEvaluator.PeriodComparisonEvaluator;
-import reportGeneration.interpreter.NormValsEvaluator.StrReplacer;
+import reportGeneration.interpreter.FinancialSustainability.Outcomes.DebtRatioHook;
+import reportGeneration.interpreter.NormValsEvaluator.*;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.SettingsStorage;
@@ -53,6 +51,8 @@ public class FormulaEvaluation implements LabelWrap {
 
     private String switchType(Formula formula) {
         StringBuilder output = new StringBuilder();
+        ArrayList<String> periodsarr = periods.getPeriodArr();
+        String end = periodsarr.get(periodsarr.size() - 1);
         String type = formula.getDescription();
         String code = formula.getShortName();
         if (code.equals("DebtRatio")) {
@@ -60,18 +60,16 @@ public class FormulaEvaluation implements LabelWrap {
             output.append(debtRatio.getResult());
         }
         GeneralRenderer generalRenderer = new GeneralRenderer(formula);
-        output.append(generalRenderer.get(EvaluationTypes.PREFIX));
+        String prefix = generalRenderer.get(EvaluationTypes.PREFIX);
+        output.append(prefix);
 
         output.append(generalRenderer.get(EvaluationTypes.GENERAL));
         if (type.equals(EvaluationTypes.EVALUATE_END_ONLY.toString())) {
-            ArrayList<String> periodsarr = periods.getPeriodArr();
-            String end = periodsarr.get(periodsarr.size() - 1);
             NormValsEvaluator eval = new NormValsEvaluator(formula, end);
             output.append(eval.getResult());
         }
 
         if (type.equals(EvaluationTypes.EVALUATE_EACH_PERIOD.toString())) {
-            ArrayList<String> periodsarr = periods.getPeriodArr();
             for (String period : periodsarr) {
                 NormValsEvaluator eval = new NormValsEvaluator(formula, period);
                 output.append(eval.getResult());
@@ -80,10 +78,10 @@ public class FormulaEvaluation implements LabelWrap {
 
         PeriodComparisonEvaluator periodsComparison = new PeriodComparisonEvaluator(formula);
         output.append(periodsComparison.getResult());
-
-        output.append(generalRenderer.get(EvaluationTypes.SUFFIX));
+        SuffixEvaluator suffixEval = new SuffixEvaluator(formula, end);
+        output.append(suffixEval.getResult());
+        String suffix = generalRenderer.get(EvaluationTypes.SUFFIX);
+        output.append(suffix);
         return output.toString();
     }
-
-
 }

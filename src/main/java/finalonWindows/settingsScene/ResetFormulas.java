@@ -2,45 +2,56 @@ package finalonWindows.settingsScene;
 
 import database.formula.DbFormulaHandler;
 import database.formula.FormulaCreator;
+import globalReusables.BaseRun;
+import globalReusables.ThreadWrapper;
 
 import java.sql.SQLException;
 
 class ResetFormulas {
-    static void reset() {
-        DbFormulaHandler dbFormula = new DbFormulaHandler();
-        Thread thread1 = new Thread(new Runnable() {
-            public void run() {
-                try {
-                    dbFormula.deleteTable();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        thread1.start();
+    void reset() {
+        ThreadWrapper threadWrapper = new ThreadWrapper(new DeleteFormulas());
+        threadWrapper.go();
+        ThreadWrapper threadWrapper2 = new ThreadWrapper(new CreateFormulas());
+        threadWrapper2.go();
+    }
+}
+
+class CreateFormulas implements BaseRun {
+    private static volatile DbFormulaHandler dbFormula = new DbFormulaHandler();
+
+    public void runThread() {
+        FormulaCreator formulaCreator = new FormulaCreator();
         try {
-            thread1.join();
-        } catch (InterruptedException e) {
+            dbFormula.createTable();
+            if (dbFormula.isEmpty()) {
+                formulaCreator.createFormulas();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
 
-        Thread thread2 = new Thread(new Runnable() {
-            public void run() {
-                FormulaCreator formulaCreator = new FormulaCreator();
-                try {
-                    dbFormula.createTable();
-                    if (dbFormula.isEmpty()) {
-                        formulaCreator.createFormulas();
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        thread2.start();
+    public Boolean shouldWait() {
+        return false;
+    }
+}
+
+class DeleteFormulas implements BaseRun {
+    private static volatile DbFormulaHandler dbFormula = new DbFormulaHandler();
+
+    public void runThread() {
+        try {
+            dbFormula.deleteTable();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Boolean shouldWait() {
+        return true;
     }
 }

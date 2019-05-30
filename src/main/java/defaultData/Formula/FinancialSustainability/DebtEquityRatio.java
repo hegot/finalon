@@ -20,12 +20,12 @@ public class DebtEquityRatio {
         counter++;
         int DebtEquityRatioPrefix = counter;
         Formulas.add(new Formula(DebtEquityRatioPrefix,
-                "general",
+                EvaluationTypes.PREFIX.toString(),
+                "",
                 "",
                 "The debt/equity ratio is another computation that determines " +
                         "the entity's long-term debt-paying ability. " +
                         "At the end of ENDDATE this ratio was LASTVALUE%, ",
-                EvaluationTypes.PREFIX.toString(),
                 "",
                 "",
                 DebtEquityRatio));

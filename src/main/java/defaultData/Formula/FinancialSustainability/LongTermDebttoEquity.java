@@ -33,7 +33,7 @@ public class LongTermDebttoEquity {
                 "satisfactory",
                 "<=",
                 "0.5",
-                "CURRENTVALUE in CURRENTPERIOD (satisfactory - between o.5 and 1), ",
+                "CURRENTVALUE in CURRENTPERIOD (satisfactory - between 0.5 and 1), ",
                 "<",
                 "1",
                 LongTermDebttoEquity));
@@ -50,10 +50,10 @@ public class LongTermDebttoEquity {
         counter++;
         int LongTermDebttoEquityPrefix = counter;
         Formulas.add(new Formula(LongTermDebttoEquityPrefix,
-                "general",
+                EvaluationTypes.PREFIX.toString(),
+                "",
                 "",
                 "The value of the long-term debt to equity ratio was ",
-                EvaluationTypes.PREFIX.toString(),
                 "",
                 "",
                 LongTermDebttoEquity));

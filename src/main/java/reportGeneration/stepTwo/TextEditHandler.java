@@ -6,23 +6,15 @@ import javafx.collections.ObservableMap;
 import javafx.event.EventHandler;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
+import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 import reportGeneration.storage.ItemsStorage;
 
-class TextEditHandler {
+class TextEditHandler implements ParseDouble {
 
     private ObservableList<Item> items;
 
     TextEditHandler() {
         this.items = ItemsStorage.getItems();
-    }
-
-    private static boolean isNumeric(String str) {
-        try {
-            Double.parseDouble(str);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
     }
 
     private void updateCell(TreeTableColumn.CellEditEvent<Item, String> t, String param) {
@@ -39,8 +31,8 @@ class TextEditHandler {
     }
 
     private void updateItem(Item item, ObservableMap<String, Double> values, String value, String param) {
-        if (value.length() > 0 && isNumeric(value)) {
-            values.put(param, Double.parseDouble(value));
+        if (value.length() > 0) {
+            values.put(param, parseDouble(value));
         } else {
             values.remove(param);
         }

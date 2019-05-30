@@ -1,5 +1,6 @@
 package defaultData.Formula.Liquidity;
 
+import defaultData.EvaluationTypes;
 import entities.Formula;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,7 +14,7 @@ public class QuickRatio {
                 "Quick Ratio (Acid Test Ratio)",
                 "QuickRatio",
                 "(CashAndCashEquivalents+TradeAndOtherCurrentReceivables)/CurrentLiabilities",
-                "",
+                EvaluationTypes.EVALUATE_END_ONLY.toString(),
                 "formula",
                 "",
                 parent));
@@ -23,7 +24,7 @@ public class QuickRatio {
                 "excellent",
                 ">=",
                 "1",
-                "The company's quick liquidity was satisfactory at the end of the period.",
+                "The company's quick liquidity was satisfactory at the end of the period. ",
                 "",
                 "",
                 QuickRatio));
@@ -33,10 +34,31 @@ public class QuickRatio {
                 "good",
                 "<",
                 "1",
-                "The company's quick liquidity was unsatisfactory at the end of the period.",
+                "The company's quick liquidity was unsatisfactory at the end of the period. ",
                 "<=",
                 "0",
                 QuickRatio));
+        counter++;
+        int CurrentRatioPrefix = counter;
+        Formulas.add(new Formula(CurrentRatioPrefix,
+                EvaluationTypes.PREFIX.toString(),
+                "",
+                "",
+                "The quick ratio for STARTDATE was STARTVALUE, showing there were STARTVALUE of the quick assets for every USD 1.00 of the current liabilities. ",
+                "",
+                "",
+                QuickRatio));
+        counter++;
+        int CurrentRatioSuffix1 = counter;
+        Formulas.add(new Formula(CurrentRatioSuffix1,
+                EvaluationTypes.SUFFIX.toString(),
+                "",
+                "",
+                "The ratio for ENDDATE from Table 6 shows LASTVALUE of the quick assets were available for every USD 1.00 of the current liabilities. ",
+                "",
+                "",
+                QuickRatio));
+        counter++;
         return Formulas;
     }
 }

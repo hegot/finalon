@@ -3,7 +3,7 @@ package reportGeneration.interpreter.ReusableComponents.interfaces;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
-public interface JsCalcHelper {
+public interface JsCalcHelper extends ParseDouble{
     default String getRelativeChange(Double start, Double end) {
         String val = "0";
         if (start != null && end != null) {
@@ -20,8 +20,7 @@ public interface JsCalcHelper {
             try {
                 String result = engine.eval(formula).toString();
                 if (result != null && result.length() > 0) {
-                    Double doubleInt = Double.parseDouble(result);
-                    val = String.format("%.1f", doubleInt);
+                    val = String.format("%.1f", parseDouble(result));
                     if (val.equals("NaN")) val = "";
                 }
             } catch (Exception e) {

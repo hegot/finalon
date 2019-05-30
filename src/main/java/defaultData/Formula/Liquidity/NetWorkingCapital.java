@@ -1,5 +1,6 @@
 package defaultData.Formula.Liquidity;
 
+import defaultData.EvaluationTypes;
 import entities.Formula;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,9 +13,9 @@ public class NetWorkingCapital {
                 "Net Working Capital",
                 "NetWorkingCapital",
                 "GeneralCurrentAssets-CurrentLiabilities",
-                "",
+                EvaluationTypes.EVALUATE_END_ONLY.toString(),
                 "formula",
-                "money (tousand dollar)",
+                "money (to us and dollar)",
                 parent));
         counter++;
         int NetWorkingCapitalExcellent = counter;
@@ -22,7 +23,9 @@ public class NetWorkingCapital {
                 "good",
                 ">",
                 "0",
-                "The working capital value was positive at the end of the period under review, meaning greater flexibility, since current assets may be modified easily as the sales volume changes. ",
+                "There were CURRENCY LASTVALUE AMOUNT in the working capital in ENDDATE. " +
+                        "The working capital value was positive at the end of the period under review, " +
+                        "meaning greater flexibility, since current assets may be modified easily as the sales volume changes. ",
                 "",
                 "",
                 NetWorkingCapital));
@@ -32,7 +35,8 @@ public class NetWorkingCapital {
                 "satisfactory",
                 "=",
                 "0",
-                "There was no working capital at the end of the period under review, meaning low flexibility, since noncurrent assets may not be modified easily as the sales volume changes.",
+                "There was no working capital at the end of the period under review, " +
+                        "meaning low flexibility, since non-current assets may not be modified easily as the sales volume changes. ",
                 "",
                 "",
                 NetWorkingCapital));
@@ -42,7 +46,39 @@ public class NetWorkingCapital {
                 "bad",
                 "<",
                 "0",
-                "The working capital value was negative at the end of the period under review, meaning low flexibility, since noncurrent assets may not be modified easily as the sales volume changes.",
+                "There were CURRENCY LASTVALUE AMOUNT in the working capital in ENDDATE. " +
+                        "The working capital value was negative at the end of the period under review, " +
+                        "meaning low flexibility, since non-current assets may not be modified easily as the sales volume changes. ",
+                "",
+                "",
+                NetWorkingCapital));
+        counter++;
+        int NetWorkingCapitalPrefix = counter;
+        Formulas.add(new Formula(NetWorkingCapitalPrefix,
+                EvaluationTypes.PREFIX.toString(),
+                "",
+                "",
+                "TechStandard had CURRENCY STARTVALUE AMOUNT in the working capital in STARTDATE. ",
+                "",
+                "",
+                NetWorkingCapital));
+        counter++;
+        int NetWorkingCapitalIncrease = counter;
+        Formulas.add(new Formula(NetWorkingCapitalIncrease,
+                EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString(),
+                "",
+                "",
+                "Overall, the value of the working capital had increased over STARTDATE-ENDDATE. ",
+                "",
+                "",
+                NetWorkingCapital));
+        counter++;
+        int NetWorkingCapitalDecrease = counter;
+        Formulas.add(new Formula(NetWorkingCapitalDecrease,
+                EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString(),
+                "",
+                "",
+                "Overall, the value of the working capital had dropped over STARTDATE-ENDDATE. ",
                 "",
                 "",
                 NetWorkingCapital));
