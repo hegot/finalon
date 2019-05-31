@@ -66,5 +66,4 @@ public class NormValsEvaluator extends ValsEvaluator implements JsCalcHelper {
     }
 
 
-
 }

@@ -17,6 +17,7 @@ public class Periods {
     private DateTimeFormatter formatY = DateTimeFormatter.ofPattern("yyyy");
     private int month;
     private boolean initalized = false;
+    private ArrayList<String> periodArr;
 
     public Periods() {
         if (!initalized) {
@@ -27,6 +28,7 @@ public class Periods {
             }
             initalized = true;
         }
+        this.periodArr = new ArrayList<>();
     }
 
     public static Periods getInstance() {
@@ -74,24 +76,29 @@ public class Periods {
     }
 
     public ArrayList<String> getPeriodArr() {
-        ArrayList<String> arr = new ArrayList<>();
-        LocalDateTime time = getStartTime();
-        for (int j = 0; j < periods; j++) {
-            String str = time.format(formatM) + "/" + time.format(formatY) + "-";
-            time = time.plusMonths(month);
-            str += "\n" + time.format(formatM) + "/" + time.format(formatY);
-            arr.add(str);
+        if (periodArr.size() > 0) {
+            return periodArr;
+        } else {
+            ArrayList<String> arr = new ArrayList<>();
+            LocalDateTime time = getStartTime();
+            for (int j = 0; j < periods; j++) {
+                String str = time.format(formatM) + "/" + time.format(formatY) + "-";
+                time = time.plusMonths(month);
+                str += "\n" + time.format(formatM) + "/" + time.format(formatY);
+                arr.add(str);
+            }
+            this.periodArr = arr;
+            return arr;
         }
-        return arr;
     }
 
-    public LocalDateTime getStartTime() {
+    private LocalDateTime getStartTime() {
         int totall = periods * month;
         LocalDateTime time = getEndTime();
         return time.minusMonths(totall);
     }
 
-    public LocalDateTime getEndTime() {
+    private LocalDateTime getEndTime() {
         if (endMonth == 0) endMonth = 1;
         if (endDay == 0) endDay = 1;
         if (endYear == 0) endYear = 2000;

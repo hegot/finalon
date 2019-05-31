@@ -37,7 +37,7 @@ public class PeriodComparisonEvaluator implements ParseDouble {
 
     public String getResult() {
         String outcome = "";
-        if (vals.size() > 1) {
+        if (vals.size() > 1 && endVal != null && startVal != null) {
             if (endVal > startVal) {
                 outcome += getOutcome(EvaluationTypes.PERIOD_COMPARISON_INCREASE);
             }

@@ -6,27 +6,28 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.LiabilitiesReport.Outcomes.*;
 import reportGeneration.interpreter.ReusableComponents.RelativeItemsChange;
-import reportGeneration.interpreter.ReusableComponents.ReportHelper;
 import reportGeneration.interpreter.ReusableComponents.tables.IndexChangeTable;
 import reportGeneration.interpreter.ReusableComponents.tables.StructureTable;
 import reportGeneration.storage.IndexesStorage;
+import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.SettingsStorage;
 
 import java.util.ArrayList;
 
-public class LiabilitiesReport extends ReportHelper {
+public class LiabilitiesReport {
 
     private int rootId;
+    private ItemsStorage stor = ItemsStorage.getInstance();
 
     public LiabilitiesReport() {
-        Item root = getItemByCode("EquityAndLiabilities");
+        Item root = stor.getItemByCode("EquityAndLiabilities");
         this.rootId = (root != null) ? root.getId() : 0;
-        IndexesStorage.put("EquityAndLiabilities", getItemByCode("EquityAndLiabilities"));
-        IndexesStorage.put("EquityGeneral", getItemByCode("EquityGeneral"));
-        IndexesStorage.put("LiabilitiesGeneral", getItemByCode("LiabilitiesGeneral"));
-        IndexesStorage.put("NonCurrentLiabilities", getItemByCode("NonCurrentLiabilities"));
-        IndexesStorage.put("CurrentLiabilities", getItemByCode("CurrentLiabilities"));
+        IndexesStorage.put("EquityAndLiabilities", stor.getItemByCode("EquityAndLiabilities"));
+        IndexesStorage.put("EquityGeneral", stor.getItemByCode("EquityGeneral"));
+        IndexesStorage.put("LiabilitiesGeneral", stor.getItemByCode("LiabilitiesGeneral"));
+        IndexesStorage.put("NonCurrentLiabilities", stor.getItemByCode("NonCurrentLiabilities"));
+        IndexesStorage.put("CurrentLiabilities", stor.getItemByCode("CurrentLiabilities"));
     }
 
     public VBox getTrend() {
@@ -34,7 +35,7 @@ public class LiabilitiesReport extends ReportHelper {
         Label tableName = new Label("Table 2. Sources of Finance (Equity and Liabilities) Trend Analysis, in "
                 + settings.get("amount") + " " + settings.get("defaultCurrency")
         );
-        tableName.getStyleClass().add("assets-table-name");
+        tableName.getStyleClass().add("table-name");
         tableName.setWrapText(true);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
@@ -46,12 +47,12 @@ public class LiabilitiesReport extends ReportHelper {
                 new TotallLiabilitiesAnalyze().get(),
                 new RelativeItemsChange(
                         equityGeneral,
-                        getItems(equityGeneral.getId()),
+                        stor.getItems(equityGeneral.getId()),
                         "sources"
                 ).get(),
                 new RelativeItemsChange(
                         liabilitiesGeneral,
-                        getItemsDeep(liabilitiesGeneral.getId()),
+                        stor.getItemsDeep(liabilitiesGeneral.getId()),
                         "sources"
                 ).get(),
                 new LiabilitiesCharts().get()
@@ -61,7 +62,7 @@ public class LiabilitiesReport extends ReportHelper {
 
     public VBox getStructure() {
         Label tableName = new Label("Table 4. Equity and Liabilities Structure Analysis");
-        tableName.getStyleClass().add("assets-table-name");
+        tableName.getStyleClass().add("table-name");
         tableName.setWrapText(true);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");

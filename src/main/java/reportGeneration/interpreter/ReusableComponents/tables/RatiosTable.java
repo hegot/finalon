@@ -9,11 +9,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
 import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
+import reportGeneration.interpreter.ReusableComponents.interfaces.Round;
 import reportGeneration.storage.Periods;
 
 import java.util.ArrayList;
 
-public class RatiosTable extends FormulaTable implements JsCalcHelper, ParseDouble {
+public class RatiosTable extends FormulaTable implements JsCalcHelper, ParseDouble, Round {
     private ObservableList<Formula> formulas;
     private ArrayList<String> periods;
 
@@ -24,6 +25,7 @@ public class RatiosTable extends FormulaTable implements JsCalcHelper, ParseDoub
 
     public VBox get() {
         TableView<Formula> table = new TableView<Formula>();
+        table.getStyleClass().add("report-table");
         table.setEditable(false);
         table.getColumns().add(getNameCol());
         for (String col : periods) {
@@ -62,9 +64,9 @@ public class RatiosTable extends FormulaTable implements JsCalcHelper, ParseDoub
             ObservableMap<String, String> values = getValues(cellData);
             if (values != null) {
                 Double colStartVAl = parseDouble(values.get(colStart));
-                Double colEndVAl =  parseDouble(values.get(colEnd));
+                Double colEndVAl = parseDouble(values.get(colEnd));
                 if (colStartVAl != null && colEndVAl != null) {
-                    String absolute = String.format("%.2f", colEndVAl - colStartVAl);
+                    String absolute = round(colEndVAl - colStartVAl);
                     return new SimpleStringProperty(absolute);
                 }
             }

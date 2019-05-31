@@ -6,25 +6,26 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.AssetsReport.Outcomes.*;
 import reportGeneration.interpreter.ReusableComponents.RelativeItemsChange;
-import reportGeneration.interpreter.ReusableComponents.ReportHelper;
 import reportGeneration.interpreter.ReusableComponents.tables.IndexChangeTable;
 import reportGeneration.interpreter.ReusableComponents.tables.StructureTable;
 import reportGeneration.storage.IndexesStorage;
+import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.SettingsStorage;
 
 import java.util.ArrayList;
 
-public class AssetsReport extends ReportHelper {
+public class AssetsReport {
 
     private int rootId;
+    private ItemsStorage stor = ItemsStorage.getInstance();
 
     public AssetsReport() {
-        Item root = getItemByCode("AssetsGeneral");
+        Item root = stor.getItemByCode("AssetsGeneral");
         this.rootId = (root != null) ? root.getId() : 0;
-        IndexesStorage.put("GeneralCurrentAssets", getItemByCode("GeneralCurrentAssets"));
-        IndexesStorage.put("NonCurrentAssets", getItemByCode("NonCurrentAssets"));
-        IndexesStorage.put("AssetsGeneral", getItemByCode("AssetsGeneral"));
+        IndexesStorage.put("GeneralCurrentAssets", stor.getItemByCode("GeneralCurrentAssets"));
+        IndexesStorage.put("NonCurrentAssets", stor.getItemByCode("NonCurrentAssets"));
+        IndexesStorage.put("AssetsGeneral", stor.getItemByCode("AssetsGeneral"));
     }
 
     public VBox getTrend() {
@@ -32,7 +33,7 @@ public class AssetsReport extends ReportHelper {
         Label tableName = new Label("Table 1. Assets Trend Analysis, in "
                 + settings.get("amount") + " " + settings.get("defaultCurrency")
         );
-        tableName.getStyleClass().add("assets-table-name");
+        tableName.getStyleClass().add("table-name");
         tableName.setWrapText(true);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
@@ -46,12 +47,12 @@ public class AssetsReport extends ReportHelper {
                 new AssetsCharts().get(),
                 new RelativeItemsChange(
                         nonCurrentAssets,
-                        getItems(nonCurrentAssets.getId()),
+                        stor.getItems(nonCurrentAssets.getId()),
                         "assets"
                 ).get(),
                 new RelativeItemsChange(
                         currentAssets,
-                        getItems(currentAssets.getId()),
+                        stor.getItems(currentAssets.getId()),
                         "assets"
                 ).get()
         );
@@ -60,7 +61,7 @@ public class AssetsReport extends ReportHelper {
 
     public VBox getStructure() {
         Label tableName = new Label("Table 3. Assets Structure Analysis");
-        tableName.getStyleClass().add("assets-table-name");
+        tableName.getStyleClass().add("table-name");
         tableName.setWrapText(true);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
@@ -74,14 +75,14 @@ public class AssetsReport extends ReportHelper {
                 tableName,
                 new StructureTable(rootId).get(),
                 new AssetStructureAnalyzeStart(
-                        getItems(currentAssets.getId()),
-                        getItems(nonCurrentAssets.getId()),
+                        stor.getItems(currentAssets.getId()),
+                        stor.getItems(nonCurrentAssets.getId()),
                         startKey
                 ).get(),
                 new AssetStructureChart(endKey).get(),
                 new AssetStructureAnalyseEnd(
-                        getItems(currentAssets.getId()),
-                        getItems(nonCurrentAssets.getId()),
+                        stor.getItems(currentAssets.getId()),
+                        stor.getItems(nonCurrentAssets.getId()),
                         endKey
                 ).get()
         );

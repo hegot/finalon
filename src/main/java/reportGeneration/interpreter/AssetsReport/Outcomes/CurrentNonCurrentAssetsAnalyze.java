@@ -4,11 +4,12 @@ import entities.Item;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import reportGeneration.interpreter.ReusableComponents.OutcomeBase;
+import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
+import reportGeneration.interpreter.ReusableComponents.interfaces.OutcomeBase;
 import reportGeneration.storage.IndexesStorage;
 import reportGeneration.storage.Periods;
 
-public class CurrentNonCurrentAssetsAnalyze extends OutcomeBase {
+public class CurrentNonCurrentAssetsAnalyze implements OutcomeBase, JsCalcHelper {
 
     private Double firstCurentVal;
     private Double lastCurentVal;

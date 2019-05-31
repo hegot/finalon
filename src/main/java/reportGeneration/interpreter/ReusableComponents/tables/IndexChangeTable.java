@@ -30,7 +30,7 @@ public class IndexChangeTable extends ItemsTable implements JsCalcHelper {
 
     public TreeTableView<Item> get() {
         TreeTableView<Item> table = getTable(rootId);
-        table.getStyleClass().add("assets-report");
+        table.getStyleClass().add("report-table");
         table.getColumns().addAll(getNameCol());
         ArrayList<String> arr = Periods.getInstance().getPeriodArr();
         for (String col : arr) {
@@ -53,7 +53,7 @@ public class IndexChangeTable extends ItemsTable implements JsCalcHelper {
         return table;
     }
 
-    TreeTableColumn getNameCol() {
+    protected TreeTableColumn getNameCol() {
         TreeTableColumn<Item, String> col = new TreeTableColumn<Item, String>("Indicator");
         col.setMinWidth(350);
         col.setCellValueFactory(new TreeItemPropertyValueFactory<Item, String>("name"));
@@ -61,7 +61,7 @@ public class IndexChangeTable extends ItemsTable implements JsCalcHelper {
         return col;
     }
 
-    private ObservableMap<String, Double> getValues(TreeTableColumn.CellDataFeatures<Item, String> cellData) {
+    protected ObservableMap<String, Double> getValues(TreeTableColumn.CellDataFeatures<Item, String> cellData) {
         TreeItem treeItem = cellData.getValue();
         if (treeItem != null) {
             Item item = (Item) treeItem.getValue();
@@ -74,7 +74,7 @@ public class IndexChangeTable extends ItemsTable implements JsCalcHelper {
         return null;
     }
 
-    private String commaFormat(String value) {
+    protected String commaFormat(String value) {
         if (dbSettingHandler.getSetting("numberFormat").equals("comma")) {
             value = value.replace('.', ',');
         }
@@ -101,7 +101,7 @@ public class IndexChangeTable extends ItemsTable implements JsCalcHelper {
         return col;
     }
 
-    private TreeTableColumn getRelativeComparisonCol(String colStart, String colEnd) {
+    protected TreeTableColumn getRelativeComparisonCol(String colStart, String colEnd) {
         String colname = "Percentage change\n" + formatDate(colEnd) + " to \n" + formatDate(colStart);
         TreeTableColumn<Item, String> col = new TreeTableColumn<Item, String>(colname);
         col.setMinWidth(150);

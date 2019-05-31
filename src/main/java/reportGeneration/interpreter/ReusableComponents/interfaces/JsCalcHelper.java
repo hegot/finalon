@@ -3,7 +3,7 @@ package reportGeneration.interpreter.ReusableComponents.interfaces;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
-public interface JsCalcHelper extends ParseDouble{
+public interface JsCalcHelper extends ParseDouble {
     default String getRelativeChange(Double start, Double end) {
         String val = "0";
         if (start != null && end != null) {

@@ -23,7 +23,7 @@ public class FinancialSustainabilityReport {
         VBox box = new VBox(8);
         RatiosTable sustainabilityTable = new RatiosTable(formulas);
         Label tableName = new Label("Table 5. Key ratios of the company's financial sustainability");
-        tableName.getStyleClass().add("assets-table-name");
+        tableName.getStyleClass().add("table-name");
         tableName.setWrapText(true);
 
         FormulaEvaluation formulaEvaluation = new FormulaEvaluation(formulas);

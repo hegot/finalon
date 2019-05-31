@@ -4,15 +4,15 @@ import entities.Item;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import reportGeneration.interpreter.ReusableComponents.ReportHelper;
 import reportGeneration.interpreter.ReusableComponents.interfaces.EquityShareAnalyze;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 import reportGeneration.interpreter.ReusableComponents.interfaces.SrtuctureItemsLoop;
 import reportGeneration.storage.IndexesStorage;
+import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.SettingsStorage;
 
-public class LiabilitiesStructureAnalyzeStart extends ReportHelper implements SrtuctureItemsLoop, LabelWrap, EquityShareAnalyze, ParseDouble {
+public class LiabilitiesStructureAnalyzeStart implements SrtuctureItemsLoop, LabelWrap, EquityShareAnalyze, ParseDouble {
     private Item parent;
     private String period;
     private Double totalVal;
@@ -32,9 +32,9 @@ public class LiabilitiesStructureAnalyzeStart extends ReportHelper implements Sr
         Item NonCurrentLiabilities = IndexesStorage.get("NonCurrentLiabilities");
         this.parent = IndexesStorage.get("EquityAndLiabilities");
         this.period = period;
-        this.equityItems = getItems(EquityGeneral.getId());
-        this.currentItems = getItems(CurrentLiabilities.getId());
-        this.nonCurrentItems = getItems(NonCurrentLiabilities.getId());
+        this.equityItems = ItemsStorage.getInstance().getItems(EquityGeneral.getId());
+        this.currentItems = ItemsStorage.getInstance().getItems(CurrentLiabilities.getId());
+        this.nonCurrentItems = ItemsStorage.getInstance().getItems(NonCurrentLiabilities.getId());
         this.totalVal = getVal(parent, period);
         this.equityVal = getVal(EquityGeneral, period);
         this.currentVal = getVal(CurrentLiabilities, period);

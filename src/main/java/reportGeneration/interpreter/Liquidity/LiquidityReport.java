@@ -23,7 +23,7 @@ public class LiquidityReport {
         VBox box = new VBox(8);
         RatiosTable sustainabilityTable = new RatiosTable(formulas);
         Label tableName = new Label("Table 6. Liquidity Ratios");
-        tableName.getStyleClass().add("assets-table-name");
+        tableName.getStyleClass().add("table-name");
         tableName.setWrapText(true);
 
         FormulaEvaluation formulaEvaluation = new FormulaEvaluation(formulas);

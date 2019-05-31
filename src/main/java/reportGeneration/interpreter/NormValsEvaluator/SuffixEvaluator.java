@@ -40,7 +40,7 @@ public class SuffixEvaluator extends ValsEvaluator implements JsCalcHelper {
 
     private String loopNormatives(Double value) {
         for (Formula normative : childs) {
-            if(normative.getName().equals(EvaluationTypes.SUFFIX.toString())){
+            if (normative.getName().equals(EvaluationTypes.SUFFIX.toString())) {
                 try {
                     Double valueToCompare = normative.getUnit().length() > 0 ? parseDouble(normative.getUnit()) : null;
                     Boolean match = matches(

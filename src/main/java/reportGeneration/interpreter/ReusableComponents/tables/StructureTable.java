@@ -18,7 +18,7 @@ public class StructureTable extends IndexChangeTable {
 
     public TreeTableView<Item> get() {
         TreeTableView<Item> table = getTable(rootId);
-        table.getStyleClass().add("assets-report");
+        table.getStyleClass().add("report-table");
         table.getColumns().addAll(getNameCol());
         ArrayList<String> arr = Periods.getInstance().getPeriodArr();
         for (String col : arr) {

@@ -3,13 +3,14 @@ package reportGeneration.interpreter.AssetsReport.Outcomes;
 import entities.Item;
 import javafx.collections.ObservableMap;
 import javafx.scene.layout.VBox;
-import reportGeneration.interpreter.ReusableComponents.OutcomeBase;
+import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
+import reportGeneration.interpreter.ReusableComponents.interfaces.OutcomeBase;
 import reportGeneration.storage.IndexesStorage;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.SettingsStorage;
 
-public class TotallAssetsAnalyze extends OutcomeBase implements LabelWrap {
+public class TotallAssetsAnalyze implements OutcomeBase, LabelWrap, JsCalcHelper {
 
     private Double first;
     private Double last;

@@ -4,12 +4,12 @@ import entities.Item;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import reportGeneration.interpreter.ReusableComponents.OutcomeBase;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
+import reportGeneration.interpreter.ReusableComponents.interfaces.OutcomeBase;
 import reportGeneration.interpreter.ReusableComponents.interfaces.SrtuctureItemsLoop;
 import reportGeneration.storage.IndexesStorage;
 
-public class AssetStructureAnalyseEnd extends OutcomeBase implements SrtuctureItemsLoop, LabelWrap {
+public class AssetStructureAnalyseEnd implements SrtuctureItemsLoop, OutcomeBase, LabelWrap {
     private Item parent;
     private String period;
     private Double totalVal;

@@ -3,15 +3,16 @@ package reportGeneration.interpreter.LiabilitiesReport.Outcomes;
 import entities.Item;
 import javafx.collections.ObservableMap;
 import javafx.scene.layout.VBox;
-import reportGeneration.interpreter.ReusableComponents.OutcomeBase;
+import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
+import reportGeneration.interpreter.ReusableComponents.interfaces.OutcomeBase;
 import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 import reportGeneration.storage.IndexesStorage;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.SettingsStorage;
 
 
-public class TotallLiabilitiesAnalyze extends OutcomeBase implements LabelWrap, ParseDouble {
+public class TotallLiabilitiesAnalyze implements LabelWrap, ParseDouble, OutcomeBase, JsCalcHelper {
 
     private Double first;
     private Double last;

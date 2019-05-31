@@ -3,7 +3,7 @@ package reportGeneration.interpreter.ReusableComponents.interfaces;
 import entities.Item;
 import javafx.collections.ObservableMap;
 
-public interface GetVal {
+public interface GetVal extends Round {
     default Double getVal(Item item, String period) {
         ObservableMap<String, Double> values = item.getValues();
         Double val = null;
@@ -18,7 +18,7 @@ public interface GetVal {
     }
 
     default String format(Double input) {
-        return String.format("%.2f", input) + '%';
+        return round(input) + '%';
     }
 
     default Double part(Double val, Double total) {

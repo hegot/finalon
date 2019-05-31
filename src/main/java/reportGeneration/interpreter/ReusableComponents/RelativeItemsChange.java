@@ -5,10 +5,12 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
+import reportGeneration.interpreter.ReusableComponents.interfaces.OutcomeBase;
 import reportGeneration.storage.Periods;
 
-public class RelativeItemsChange extends OutcomeBase implements LabelWrap {
+public class RelativeItemsChange implements LabelWrap, OutcomeBase, JsCalcHelper {
     private Item parent;
     private ObservableList<Item> items;
     private String startDate;

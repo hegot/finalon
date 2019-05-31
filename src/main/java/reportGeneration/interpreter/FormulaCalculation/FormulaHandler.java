@@ -4,13 +4,14 @@ import entities.Formula;
 import finalonWindows.reusableComponents.autocomplete.ParserBase;
 import javafx.collections.ObservableMap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
+import reportGeneration.interpreter.ReusableComponents.interfaces.Round;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import java.util.Arrays;
 import java.util.Map;
 
-class FormulaHandler implements ParseDouble {
+class FormulaHandler implements ParseDouble, Round {
     private Formula formula;
     private Map<String, ObservableMap<String, Double>> values;
     private String period;
@@ -101,7 +102,7 @@ class FormulaHandler implements ParseDouble {
             res = engine.eval(value).toString();
             if (res != null && res.length() > 0) {
                 Double doubleInt = parseDouble(res);
-                String val = String.format("%.2f", doubleInt);
+                String val = round(doubleInt);
                 res = val;
                 if (val.equals("NaN") || val.equals("Infinity")) res = "";
             }

@@ -23,7 +23,7 @@ public class TheLongTermDebttoTotalCapitalizationRatio {
                 "excellent",
                 ">=",
                 "0.6",
-                "CURRENTVALUE in CURRENTPERIOD (excellent - more than 0.6), ",
+                "CURRENTVALUE in CURRENTPERIOD (unsatisfactory - more than 0.6), ",
                 "",
                 "",
                 TheLongTermDebttoTotalCapitalizationRatio));
@@ -43,7 +43,7 @@ public class TheLongTermDebttoTotalCapitalizationRatio {
                 "bad",
                 "<",
                 "0.4",
-                "CURRENTVALUE in CURRENTPERIOD (unsatisfactory - less than 0.4), ",
+                "CURRENTVALUE in CURRENTPERIOD (excellent - less than 0.4), ",
                 "",
                 "",
                 TheLongTermDebttoTotalCapitalizationRatio));

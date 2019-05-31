@@ -22,7 +22,7 @@ public class SalestoNetWorkingCapital {
         Formulas.add(new Formula(SalestoNetWorkingCapitalexcellent,
                 "excellent",
                 "<",
-                "3
+                "3",
                 "Sales to Net Working Capital presented excellent results in ENDDATE. ",
                 "<",
                 "3",

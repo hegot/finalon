@@ -53,7 +53,7 @@ public class DebttoTangibleNetWorthRatio {
         Formulas.add(new Formula(DebttoTangibleNetWorthRatioIncrease,
                 EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString(),
                 "",
-               "",
+                "",
                 "The table 5 shows that the ratio changed from STARTVALUE in STARTDATE to LASTVALUE in ENDDATE. " +
                         "This shows that the creditors' protection was getting better. ",
                 "",

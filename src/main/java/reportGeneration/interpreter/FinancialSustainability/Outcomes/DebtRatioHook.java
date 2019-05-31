@@ -4,12 +4,13 @@ import entities.Formula;
 import javafx.collections.ObservableMap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
 import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
+import reportGeneration.interpreter.ReusableComponents.interfaces.Round;
 import reportGeneration.storage.SettingsStorage;
 
 import java.util.Map;
 import java.util.TreeMap;
 
-public class DebtRatioHook implements JsCalcHelper, ParseDouble {
+public class DebtRatioHook implements JsCalcHelper, ParseDouble, Round {
     private TreeMap<String, String> vals;
     private ObservableMap<String, String> settings;
     private String currency;
@@ -68,7 +69,7 @@ public class DebtRatioHook implements JsCalcHelper, ParseDouble {
     }
 
     private String getPart(String val) {
-        return String.format("%.2f", 1 - parseDouble(val));
+        return round(1 - parseDouble(val));
     }
 
 }

@@ -31,7 +31,7 @@ public class CashRatio {
         int CashRatiogood = counter;
         Formulas.add(new Formula(CashRatiogood,
                 "good",
-                "<=",
+                ">=",
                 "0.1",
                 "The value of the ratio lies in the area of critical values.",
                 "<",

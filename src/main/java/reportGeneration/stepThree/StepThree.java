@@ -28,17 +28,21 @@ public class StepThree extends SceneBase {
 
 
         TabPane tabs = new TabPane();
-        Tab tab1 = new Tab("1. The Common-Size Analysis of the Assets, Liabilities and Shareholders' Equity");
+        Tab tab1 = new Tab("1. The Common-Size  Analysis \n of the Assets, Liabilities \n and Shareholders' Equity");
         tab1.setContent(getCommonSizeAnalis());
-        Tab tab2 = new Tab("2. Financial Sustainability and Long-Term Debt-Paying Ability");
+        Tab tab2 = new Tab("2. Financial Sustainability \n and Long-Term Debt-Paying Ability");
         tab2.setContent(
                 interprter.getReport("financialSustainability")
         );
-        Tab tab3 = new Tab("3. Liquidity of Short-Term Assets");
+        Tab tab3 = new Tab("3. Liquidity of \n Short-Term Assets");
         tab3.setContent(
                 interprter.getReport("liquidity")
         );
-        tabs.getTabs().addAll(tab1, tab2, tab3);
+        Tab tab4 = new Tab("4. Overview of the \n Financial Results");
+        tab4.setContent(
+                interprter.getReport("financialResultsTrend")
+        );
+        tabs.getTabs().addAll(tab1, tab2, tab3, tab4);
 
         VBox vBox = new VBox(5);
         vBox.getStyleClass().add("generated-report");

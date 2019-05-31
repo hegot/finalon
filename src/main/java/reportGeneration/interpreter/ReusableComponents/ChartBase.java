@@ -5,9 +5,11 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
+import reportGeneration.interpreter.ReusableComponents.interfaces.OutcomeBase;
 import reportGeneration.storage.Periods;
 
-public class ChartBase extends OutcomeBase {
+public class ChartBase implements OutcomeBase, JsCalcHelper {
 
 
     protected BarChart<String, Number> getChart(String title) {

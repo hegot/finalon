@@ -24,6 +24,7 @@ public class FormulaList extends FormulaTable {
 
     public VBox get() {
         TableView<Formula> table = new TableView<Formula>();
+        table.getStyleClass().add("report-table");
         table.setEditable(true);
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         table.setMinHeight(primaryScreenBounds.getHeight() - 150);
