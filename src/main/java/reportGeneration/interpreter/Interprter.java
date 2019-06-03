@@ -8,6 +8,7 @@ import reportGeneration.interpreter.FormulaCalculation.FormulaCalculation;
 import reportGeneration.interpreter.FormulaList.FormulaList;
 import reportGeneration.interpreter.LiabilitiesReport.LiabilitiesReport;
 import reportGeneration.interpreter.Liquidity.LiquidityReport;
+import reportGeneration.interpreter.ProfitabilityRatios.ProfitabilityRatios;
 
 public class Interprter {
     public VBox getReport(String type) {
@@ -38,6 +39,9 @@ public class Interprter {
                 break;
             case "financialResultsTrend":
                 vbox = new FinancialResultsReport().getTrend();
+                break;
+            case "profitabilityRatios":
+                vbox = new ProfitabilityRatios().get();
                 break;
         }
         return vbox;

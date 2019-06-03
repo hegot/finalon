@@ -4,7 +4,6 @@ import entities.Item;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import javafx.scene.chart.BarChart;
-import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.ChartBase;
 import reportGeneration.interpreter.ReusableComponents.interfaces.GetVal;
@@ -49,13 +48,18 @@ public class FinancialResultsChart extends ChartBase implements GetVal, OutcomeB
 
     private ObservableMap<String, Double> getUpdatedValues(ObservableMap<String, Double> values) {
         ObservableMap<String, Double> outputVals = FXCollections.observableHashMap();
-
-        for (String period : periodsArr) {
-            Double originalVal = values.get(period);
-            Double toCompare = getVal(RevenueGeneral, period);
-            DecimalFormat df = new DecimalFormat("#.##");
-            Double part = Double.valueOf(df.format(originalVal / toCompare * 100));
-            outputVals.put(period, part);
+        if (values != null && values.size() > 0) {
+            for (String period : periodsArr) {
+                Double originalVal = values.get(period);
+                Double toCompare = getVal(RevenueGeneral, period);
+                DecimalFormat df = new DecimalFormat("#.##");
+                if (originalVal != null && toCompare != null) {
+                    String out = df.format(originalVal / toCompare * 100);
+                    if (out != null) {
+                        outputVals.put(period, Double.valueOf(out));
+                    }
+                }
+            }
         }
         return outputVals;
     }
@@ -75,100 +79,103 @@ public class FinancialResultsChart extends ChartBase implements GetVal, OutcomeB
         );
         VBox vBox = new VBox(20);
         if (periodsArr.size() > 1) {
-            vBox.getChildren().addAll(bc,
-                    getGrossProfitEvaluation(),
-                    getEbitEvaluation(),
-                    getComprehensiveIncomeEvaluation()
-            );
+            getGrossProfitEvaluation(vBox);
+            getEbitEvaluation(vBox);
+            getComprehensiveIncomeEvaluation(vBox);
         }
         return vBox;
     }
 
-    private Label getGrossProfitEvaluation() {
-
-        Double fisrt = getFirstVal(valuesGrossProfit);
-        Double last = getLastVal(valuesGrossProfit);
-        Double change = last - fisrt;
-        String chRes = "";
-        if (change > 0) {
-            chRes = "increased";
-        }
-        if (change < 0) {
-            chRes = "decreased";
-        }
-        String out = "The chart above shows that the gross profit to net sales ratio " +
-                chRes + " in " + periods.getEnd() + " by "
-                + round(last - fisrt) + "% comparing to " + periods.getStart();
-        if (change != 0) {
-            out += " The dynamics of the gross profit to net sales ratio over the period" +
-                    " of " + periods.getStart() + "-" + periods.getEnd() + " demonstrates that the company's manufacturing or distribution" +
-                    " process management efficiency was changing from period to period, being better" +
-                    " during the periods with higher values of the ratio.";
-        }
-        return labelWrap(out);
-    }
-
-    private Label getEbitEvaluation() {
-
-        Double fisrt = getFirstVal(valuesEBIT);
-        String out = "";
-        Double last = getLastVal(valuesEBIT);
-        Double change = last - fisrt;
-        if (periodsArr.size() > 2) {
-            String middelPreiod = periodsArr.get(1);
-            Double middle = valuesEBIT.get(middelPreiod);
-            if (middle - fisrt != 0) {
-                String chRes = "decreased";
-                if (middle - fisrt > 0) {
-                    chRes = "increased";
-                }
-                out = formatDate(middelPreiod) + "also witnessed the " +
-                        chRes + " of the company's EBIT to sales ratio comparing to "
-                        + formatDate(periodsArr.get(0)) + ". ";
-            }
-        } else {
+    private void getGrossProfitEvaluation(VBox vBox) {
+        if (valuesGrossProfit.size() > 2) {
+            Double fisrt = getFirstVal(valuesGrossProfit);
+            Double last = getLastVal(valuesGrossProfit);
+            Double change = last - fisrt;
             String chRes = "";
             if (change > 0) {
-                chRes = "increase";
+                chRes = "increased";
             }
             if (change < 0) {
-                chRes = "decrease";
+                chRes = "decreased";
             }
-            out += periods.getEnd() + " also witnessed the " + chRes + " of the company's EBIT " +
-                    "to sales ratio comparing to " + periods.getStart() + ". ";
+            String out = "The chart above shows that the gross profit to net sales ratio " +
+                    chRes + " in " + periods.getEnd() + " by "
+                    + round(last - fisrt) + "% comparing to " + periods.getStart();
+            if (change != 0) {
+                out += " The dynamics of the gross profit to net sales ratio over the period" +
+                        " of " + periods.getStart() + "-" + periods.getEnd() + " demonstrates that the company's manufacturing or distribution" +
+                        " process management efficiency was changing from period to period, being better" +
+                        " during the periods with higher values of the ratio.";
+            }
+            vBox.getChildren().add(labelWrap(out));
         }
-
-        if (change != 0) {
-            out += "Changes in dynamics of the company's EBIT to net sales ratio over the period of "
-                    + periods.getStart() + "-" + periods.getEnd() +
-                    " confirm the variability of its cost management efficiency and earning ability." +
-                    " Periods with higher values of this ratio witness better performance " +
-                    "of a company in terms of profitability and cost management. ";
-        }
-
-        return labelWrap(out);
     }
 
-    private Label getComprehensiveIncomeEvaluation() {
-        Double fisrt = getFirstVal(valuesComprehensiveIncome);
-        String out = "";
-        Double last = getLastVal(valuesComprehensiveIncome);
-        Double change = last - fisrt;
-        String chRes = "";
-        if (change > 0) {
-            chRes = "increased";
+    private void getEbitEvaluation(VBox vBox) {
+
+        if (valuesEBIT.size() > 2) {
+            Double fisrt = getFirstVal(valuesEBIT);
+            String out = "";
+            Double last = getLastVal(valuesEBIT);
+            Double change = last - fisrt;
+            if (periodsArr.size() > 2) {
+                String middelPreiod = periodsArr.get(1);
+                Double middle = valuesEBIT.get(middelPreiod);
+                if (middle - fisrt != 0) {
+                    String chRes = "decreased";
+                    if (middle - fisrt > 0) {
+                        chRes = "increased";
+                    }
+                    out = formatDate(middelPreiod) + "also witnessed the " +
+                            chRes + " of the company's EBIT to sales ratio comparing to "
+                            + formatDate(periodsArr.get(0)) + ". ";
+                }
+            } else {
+                String chRes = "";
+                if (change > 0) {
+                    chRes = "increase";
+                }
+                if (change < 0) {
+                    chRes = "decrease";
+                }
+                out += periods.getEnd() + " also witnessed the " + chRes + " of the company's EBIT " +
+                        "to sales ratio comparing to " + periods.getStart() + ". ";
+            }
+
+            if (change != 0) {
+                out += "Changes in dynamics of the company's EBIT to net sales ratio over the period of "
+                        + periods.getStart() + "-" + periods.getEnd() +
+                        " confirm the variability of its cost management efficiency and earning ability." +
+                        " Periods with higher values of this ratio witness better performance " +
+                        "of a company in terms of profitability and cost management. ";
+            }
+
+            vBox.getChildren().add(labelWrap(out));
         }
-        if (change < 0) {
-            chRes = "decreased";
+    }
+
+    private void getComprehensiveIncomeEvaluation(VBox vBox) {
+        if (valuesComprehensiveIncome.size() > 2) {
+            Double fisrt = getFirstVal(valuesComprehensiveIncome);
+            String out = "";
+            Double last = getLastVal(valuesComprehensiveIncome);
+            Double change = last - fisrt;
+            String chRes = "";
+            if (change > 0) {
+                chRes = "increased";
+            }
+            if (change < 0) {
+                chRes = "decreased";
+            }
+            if (change != 0) {
+                out += "The share of the comprehensive income in the company's net sales "
+                        + chRes + " in " + periods.getEnd() + " by " + round(last - fisrt) + "%. ";
+            } else {
+                out += "The share of the comprehensive income in the company's net sales " +
+                        "did not change during " + periods.getStart() + "-" + periods.getEnd() + ". ";
+            }
+            vBox.getChildren().add(labelWrap(out));
         }
-        if (change != 0) {
-            out += "The share of the comprehensive income in the company's net sales "
-                    + chRes + " in " + periods.getEnd() + " by " + round(last - fisrt) + "%. ";
-        } else {
-            out += "The share of the comprehensive income in the company's net sales " +
-                    "did not change during " + periods.getStart() + "-" + periods.getEnd() + ". ";
-        }
-        return labelWrap(out);
     }
 
 

@@ -104,7 +104,7 @@ class FormulaHandler implements ParseDouble, Round {
                 Double doubleInt = parseDouble(res);
                 String val = round(doubleInt);
                 res = val;
-                if (val.equals("NaN") || val.equals("Infinity")) res = "";
+                if (val.equals("NaN") || val.equals("Infinity") || val.equals("-Infinity")) res = "";
             }
         } catch (Exception e) {
             e.printStackTrace();

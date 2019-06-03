@@ -103,15 +103,15 @@ public class DefaultFormulas {
         counter = counter + 6;
         //Profitability and Performance
         Formulas.addAll(NetProfitMargin.get(PaPiD, counter));
-        counter = counter + 1;
+        counter = counter + 6;
         Formulas.addAll(OperatingIncomeMargin.get(PaPiD, counter));
-        counter = counter + 1;
-        Formulas.addAll(GrossProfitMargin.get(PaPiD, counter));
         counter = counter + 3;
+        Formulas.addAll(GrossProfitMargin.get(PaPiD, counter));
+        counter = counter + 6;
         Formulas.addAll(ReturnOnCurrentAssets.get(PaPiD, counter));
-        counter = counter + 1;
+        counter = counter + 4;
         Formulas.addAll(ReturnonOperatingAssets.get(PaPiD, counter));
-        counter = counter + 1;
+        counter = counter + 4;
         Formulas.addAll(ReturnonInvestment.get(PaPiD, counter));
         counter = counter + 5;
         Formulas.addAll(ReturnonEquityafterTax.get(PaPiD, counter));

@@ -1,5 +1,6 @@
 package defaultData.Formula.ProfitabilityAndPerformance;
 
+import defaultData.EvaluationTypes;
 import entities.Formula;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,7 +13,7 @@ public class GrossProfitMargin {
                 "Gross Profit Margin",
                 "GrossProfitMargin",
                 "GrossProfit/RevenueGeneral",
-                "",
+                EvaluationTypes.EVALUATE_END_ONLY.toString(),
                 "formula",
                 "%",
                 parent));
@@ -22,7 +23,17 @@ public class GrossProfitMargin {
                 "good",
                 ">",
                 "0",
+                "Gross profit margin shows that the company earned CURRENCY LASTVALUE of the gross profit per CURRENCY of sales in ENDDATE. ",
                 "",
+                "",
+                GrossProfitMargin));
+        counter++;
+        int GrossProfitMarginNull = counter;
+        Formulas.add(new Formula(GrossProfitMarginNull,
+                "satisfactory",
+                "<",
+                "0",
+                "Gross profit margin was negatively affected by the high cost of goods sold. COMPANYNAME earned $0 of gross profit in ENDDATE.",
                 "",
                 "",
                 GrossProfitMargin));
@@ -32,7 +43,27 @@ public class GrossProfitMargin {
                 "unsatisfactory",
                 "<=",
                 "0",
+                "Gross profit margin was negatively affected by the high cost of goods sold. COMPANYNAME lost CURRENCY LASTVALUE of sales in ENDDATE. ",
                 "",
+                "",
+                GrossProfitMargin));
+        counter++;
+        int GrossProfitMarginIncrease = counter;
+        Formulas.add(new Formula(GrossProfitMarginIncrease,
+                EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString(),
+                "",
+                "",
+                "Sales increased much more than the cost of goods sold, resulting in a higher gross margin in ENDDATE comparing to STARTDATE. ",
+                "",
+                "",
+                GrossProfitMargin));
+        counter++;
+        int GrossProfitMarginDecrease = counter;
+        Formulas.add(new Formula(GrossProfitMarginDecrease,
+                EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString(),
+                "",
+                "",
+                "Cost of goods sold increased much more than sales, resulting in a lower gross margin in ENDDATE comparing to STARTDATE. ",
                 "",
                 "",
                 GrossProfitMargin));

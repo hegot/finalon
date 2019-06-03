@@ -1,5 +1,6 @@
 package defaultData.Formula.ProfitabilityAndPerformance;
 
+import defaultData.EvaluationTypes;
 import entities.Formula;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +17,37 @@ public class ReturnonOperatingAssets {
                 "formula",
                 "%",
                 parent));
+        counter++;
+        int ReturnonOperatingAssetsPrefix = counter;
+        Formulas.add(new Formula(ReturnonOperatingAssetsPrefix,
+                EvaluationTypes.PREFIX.toString(),
+                "",
+                "",
+                "The operating assets were yielding LASTVALUEPERCENT% return in ENDDATE. ",
+                "",
+                "",
+                ReturnonOperatingAssets));
+        counter++;
+        int ReturnonOperatingAssetsIncrease = counter;
+        Formulas.add(new Formula(ReturnonOperatingAssetsIncrease,
+                EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString(),
+                "",
+                "",
+                "This ratio was CHANGEPERCENT% higher at the end of ENDDATE. ",
+                "",
+                "",
+                ReturnonOperatingAssets));
+        counter++;
+        int ReturnonOperatingAssetsDecrease = counter;
+        Formulas.add(new Formula(ReturnonOperatingAssetsDecrease,
+                EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString(),
+                "",
+                "",
+                "This ratio was CHANGEPERCENT% higher at the end of ENDDATE. ",
+                "",
+                "",
+                ReturnonOperatingAssets));
+        counter++;
         return Formulas;
     }
 }

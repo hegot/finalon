@@ -1,6 +1,6 @@
 package reportGeneration.interpreter.ReusableComponents.interfaces;
 
-public interface ParseDouble {
+public interface ParseDouble extends Round{
     default Double parseDouble(String str) {
         if (str == null) return null;
         try {
@@ -9,4 +9,9 @@ public interface ParseDouble {
             return null;
         }
     }
+
+    default String toString(Double dob){
+        return round(dob);
+    }
+
 }

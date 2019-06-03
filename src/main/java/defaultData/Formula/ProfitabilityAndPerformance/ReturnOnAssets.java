@@ -1,5 +1,6 @@
 package defaultData.Formula.ProfitabilityAndPerformance;
 
+import defaultData.EvaluationTypes;
 import entities.Formula;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,7 +13,7 @@ public class ReturnOnAssets {
                 "Return on Assets",
                 "ReturnoNonAssets",
                 "(ProfitLossBeforeTax-IncomeTaxExpenseContinuingOperations)/(AssetsGeneral[0]/2+AssetsGeneral[1]/2)",
-                "",
+                EvaluationTypes.EVALUATE_END_ONLY.toString(),
                 "formula",
                 "%",
                 parent));
@@ -21,18 +22,8 @@ public class ReturnOnAssets {
         Formulas.add(new Formula(ReturnoNonAssetsexcellent,
                 "excellent",
                 ">",
-                "5",
-                "",
-                "",
-                "",
-                ReturnoNonAssets));
-        counter++;
-        int ReturnoNonAssetsgood = counter;
-        Formulas.add(new Formula(ReturnoNonAssetsgood,
-                "good",
-                ">",
-                "3",
-                "",
+                "0",
+                "For COMPANYNAME the ROA shows that the company was earning a profit of about LASTVALUE cents per CURRENCY of the asset value in ENDDATE",
                 "",
                 "",
                 ReturnoNonAssets));
@@ -40,9 +31,9 @@ public class ReturnOnAssets {
         int ReturnoNonAssetssatisfactory = counter;
         Formulas.add(new Formula(ReturnoNonAssetssatisfactory,
                 "satisfactory",
-                ">",
+                "==",
                 "0",
-                "",
+                "For COMPANYNAME the ROA shows that the company's profitability was 0%. After taking into account inflation, this ratio indicates actual decrease in company value in ENDDATE.",
                 "",
                 "",
                 ReturnoNonAssets));
@@ -50,9 +41,9 @@ public class ReturnOnAssets {
         int ReturnoNonAssetsunsatisfactory = counter;
         Formulas.add(new Formula(ReturnoNonAssetsunsatisfactory,
                 "unsatisfactory",
-                "<=",
+                "<",
                 "0",
-                "",
+                "For COMPANYNAME the ROA shows that the company was losing about LASTVALUE cents per CURRENCY of the asset value in ENDDATE.",
                 "",
                 "",
                 ReturnoNonAssets));

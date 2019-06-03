@@ -51,9 +51,9 @@ public class CostOfGoods implements LabelWrap, OutcomeBase, JsCalcHelper, Round 
 
             if (itemInterpreter.trend().equals("INCREASED")) {
                 output += increase(itemInterpreter.getChange());
-            } else if(itemInterpreter.trend().equals("DECREASED")) {
+            } else if (itemInterpreter.trend().equals("DECREASED")) {
                 output += decrease(itemInterpreter.getChange());
-            }else{
+            } else {
                 output += stable();
             }
             hbox.getChildren().add(labelWrap(output));
@@ -77,7 +77,7 @@ public class CostOfGoods implements LabelWrap, OutcomeBase, JsCalcHelper, Round 
             Double val1 = getVal(start);
             Double val2 = getVal(end);
             Double change = ((val2 - val1) / val1) * 100;
-            String inner =  change > 0 ? "more" : "less";
+            String inner = change > 0 ? "more" : "less";
             if (val1 != null && val2 != null) {
                 out.append("The cost of goods and services totalled "
                         + currency + " " + val2 + " " + amount + " in "
