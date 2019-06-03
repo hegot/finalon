@@ -21,20 +21,17 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper, OutcomeB
 
     private ObservableList<Item> items;
     private ArrayList<String> periods;
-    private Item profitLossBeforeTax;
-    private Item financeCosts;
     private Item grossProfit;
     private Item itemEbit;
     private Item comprehensiveIncome;
     private ItemsStorage storage = ItemsStorage.getInstance();
     private ObservableMap<String, String> settings = SettingsStorage.getSettings();
+    private ItemsGetter itemsGetter = new ItemsGetter();
 
     public FinancialResultTable() {
         this.periods = new Periods().getPeriodArr();
-        this.profitLossBeforeTax = storage.getItemByCode("ProfitLossBeforeTax");
-        this.financeCosts = storage.getItemByCode("FinanceCosts");
         this.grossProfit = storage.getItemByCode("GrossProfit");
-        this.itemEbit = new Item(48, "EBIT", "EBIT", true, false, 12, 0);
+        this.itemEbit = itemsGetter.getEbit();
         this.comprehensiveIncome = storage.getItemByCode("ComprehensiveIncomeGeneral");
         this.items = getItems();
     }
@@ -44,46 +41,17 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper, OutcomeB
         items.add(storage.getItemByCode("RevenueGeneral"));
         items.add(storage.getItemByCode("CostOfSales"));
         items.add(grossProfit);
-        Item itemOtherIncome = new Item(48,
-                "Other income and expenses from continuing operations, " +
-                        "except finance costs and income tax expense",
-                "OIEFCOEFCAITE",
-                true,
-                false,
-                0,
-                0);
-        ObservableMap<String, Double> profitLossBeforeTaxValues = profitLossBeforeTax.getValues();
-        ObservableMap<String, Double> financeCostsValues = financeCosts.getValues();
-        ObservableMap<String, Double> grossProfitValues = grossProfit.getValues();
-        ObservableMap<String, Double> valuesEbit = FXCollections.observableHashMap();
-        ObservableMap<String, Double> valuesOtherIncome = FXCollections.observableHashMap();
-        for (String period : periods) {
-            Double val1 = profitLossBeforeTaxValues.get(period);
-            Double val2 = financeCostsValues.get(period);
-            Double val3 = grossProfitValues.get(period);
-            if (val1 == null) val1 = 0.0;
-            if (val2 == null) val2 = 0.0;
-            if (val3 == null) val3 = 0.0;
-            Double otherIncomeVal = val1 + val2 - val3;
-            valuesOtherIncome.put(period, otherIncomeVal);
-
-            Double EbitVal = val1 + val2;
-            valuesEbit.put(period, EbitVal);
-        }
-        itemOtherIncome.setValues(valuesOtherIncome);
-        items.add(itemOtherIncome);
-        itemEbit.setValues(valuesEbit);
+        items.add(itemsGetter.getOtherIncome());
         items.add(itemEbit);
-        items.add(financeCosts);
-        storage.addItem(itemEbit);
-        storage.addItem(itemOtherIncome);
+        items.add(storage.getItemByCode("FinanceCosts"));
         items.add(storage.getItemByCode("IncomeTaxExpenseContinuingOperations"));
+        items.add(itemsGetter.getIncomeLossFromContinuingOperations());
         items.add(comprehensiveIncome);
         return items;
     }
 
-    public Label analyseEbit() {
 
+    public Label analyseEbit() {
         String out = "";
         Double first = getFirstVal(itemEbit.getValues());
         Double last = getLastVal(itemEbit.getValues());
@@ -96,9 +64,11 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper, OutcomeB
         Double change = last - first;
         String growth = round(change / first * 100);
         if (change > 0) {
-            out += "The EBIT growth was " + growth + " during " + startDate + "-" + endDate + ".";
-        } else {
-            out += "The EBIT declined " + growth + " during " + startDate + "-" + endDate + ".";
+            out += "The EBIT growth was " + growth + "% during " + startDate + "-" + endDate + ".";
+        } else if(change < 0) {
+            out += "The EBIT declined " + growth + "% during " + startDate + "-" + endDate + ".";
+        } else{
+            out += "The EBIT was stable during " + startDate + "-" + endDate + ".";
         }
         out += comprehensiveIncome();
         return labelWrap(out);
@@ -197,5 +167,103 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper, OutcomeB
             return null;
         });
         return col;
+    }
+}
+
+
+
+class ItemsGetter{
+    private ObservableMap<String, Double> profitLossBeforeTaxValues;
+    private ObservableMap<String, Double> financeCostsValues;
+    private ObservableMap<String, Double> grossProfitValues;
+    private ObservableMap<String, Double> incomeTaxExpenseValues;
+    private ItemsStorage storage = ItemsStorage.getInstance();
+    private ArrayList<String> periods;
+
+    ItemsGetter() {
+        this.periods = new Periods().getPeriodArr();
+        this.profitLossBeforeTaxValues = getVals("ProfitLossBeforeTax");
+        this.financeCostsValues = getVals("FinanceCosts");
+        this.grossProfitValues = getVals("GrossProfit");
+        this.incomeTaxExpenseValues = getVals("IncomeTaxExpenseContinuingOperations");
+    }
+
+    Item getEbit(){
+        Item itemEbit = new Item(0,
+                "EBIT",
+                "EBIT",
+                true,
+                false,
+                0,
+                0);
+        ObservableMap<String, Double> valuesEbit = FXCollections.observableHashMap();
+        for (String period : periods) {
+            Double val1 = getVal(profitLossBeforeTaxValues, period);
+            Double val2 = getVal(financeCostsValues, period);
+            Double EbitVal = val1 + val2;
+            valuesEbit.put(period, EbitVal);
+        }
+        itemEbit.setValues(valuesEbit);
+        storage.addItem(itemEbit);
+
+        return itemEbit;
+    }
+
+    Item getOtherIncome(){
+        Item itemOtherIncome = new Item(0,
+                "Other income and expenses from continuing operations, " +
+                        "except finance costs and income tax expense",
+                "OIEFCOEFCAITE",
+                true,
+                false,
+                0,
+                0);
+        ObservableMap<String, Double> valuesItemOtherIncome = FXCollections.observableHashMap();
+        for (String period : periods) {
+            Double val1 = getVal(profitLossBeforeTaxValues, period);
+            Double val2 = getVal(financeCostsValues, period);
+            Double val3 = getVal(grossProfitValues, period);
+            Double otherIncomeVal = val1 + val2 - val3;
+            valuesItemOtherIncome.put(period, otherIncomeVal);
+        }
+        itemOtherIncome.setValues(valuesItemOtherIncome);
+        storage.addItem(itemOtherIncome);
+        return itemOtherIncome;
+    }
+
+    public Item getIncomeLossFromContinuingOperations(){
+        Item IncomeLossFromContinuingOperations = new Item(0,
+                "Income (loss) from continuing operations",
+                "IncomeLossFromContinuingOperations",
+                true,
+                false,
+                0,
+                0);
+        ObservableMap<String, Double> valuesIncomeLossFromContinuingOperations = FXCollections.observableHashMap();
+        for (String period : periods) {
+            Double val1 = getVal(profitLossBeforeTaxValues, period);
+            Double val4 = getVal(incomeTaxExpenseValues, period);
+            Double IncomeLossFromContinuingOperationsVal = val1 - val4;
+            valuesIncomeLossFromContinuingOperations.put(period, IncomeLossFromContinuingOperationsVal);
+        }
+        IncomeLossFromContinuingOperations.setValues(valuesIncomeLossFromContinuingOperations);
+        return IncomeLossFromContinuingOperations;
+    }
+
+
+
+    private ObservableMap<String, Double> getVals(String key){
+        Item item = storage.getItemByCode(key);
+        ObservableMap<String, Double> values = FXCollections.observableHashMap();
+        if(item != null){
+            values = item.getValues();
+        }
+        return values;
+    }
+
+    private Double getVal(ObservableMap<String, Double> vals, String period){
+        Double val = vals.get(period);
+        if (val == null) val = 0.0;
+        return val;
     }
 }

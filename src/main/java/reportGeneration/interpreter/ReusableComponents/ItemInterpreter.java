@@ -40,11 +40,19 @@ public class ItemInterpreter implements OutcomeBase {
         return null;
     }
 
-    public Boolean increased() {
+    public String trend() {
         if (last != null && first != null) {
-            return (last - first) > 0;
+            if ((last - first) > 0) {
+                return "INCREASED";
+            }
+            if ((last - first) < 0) {
+                return "DECREASED";
+            }
+            if ((last - first) == 0) {
+                return "STABLE";
+            }
         }
-        return false;
+        return "STABLE";
     }
 
 

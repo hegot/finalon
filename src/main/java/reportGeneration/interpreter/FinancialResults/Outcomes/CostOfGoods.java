@@ -49,10 +49,12 @@ public class CostOfGoods implements LabelWrap, OutcomeBase, JsCalcHelper, Round 
             Item grossProfit = stor.getItemByCode("GrossProfit");
             ItemInterpreter itemInterpreter = new ItemInterpreter(grossProfit);
 
-            if (itemInterpreter.increased()) {
+            if (itemInterpreter.trend().equals("INCREASED")) {
                 output += increase(itemInterpreter.getChange());
-            } else {
+            } else if(itemInterpreter.trend().equals("DECREASED")) {
                 output += decrease(itemInterpreter.getChange());
+            }else{
+                output += stable();
             }
             hbox.getChildren().add(labelWrap(output));
         }
@@ -75,10 +77,11 @@ public class CostOfGoods implements LabelWrap, OutcomeBase, JsCalcHelper, Round 
             Double val1 = getVal(start);
             Double val2 = getVal(end);
             Double change = ((val2 - val1) / val1) * 100;
+            String inner =  change > 0 ? "more" : "less";
             if (val1 != null && val2 != null) {
                 out.append("The cost of goods and services totalled "
                         + currency + " " + val2 + " " + amount + " in "
-                        + formatDate(end) + ", " + round(change) + "% more than in " + formatDate(start) + ". ");
+                        + formatDate(end) + ", " + round(change) + "% " + inner + " than in " + formatDate(start) + ". ");
             }
         }
         return out.toString();
@@ -96,4 +99,7 @@ public class CostOfGoods implements LabelWrap, OutcomeBase, JsCalcHelper, Round 
         return "This has resulted in decrease in the gross profit by " + round(change) + "%.";
     }
 
+    private String stable() {
+        return "This has resulted in stable gross profit during evaluation period";
+    }
 }
