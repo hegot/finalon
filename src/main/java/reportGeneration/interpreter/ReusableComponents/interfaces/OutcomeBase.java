@@ -36,8 +36,8 @@ public interface OutcomeBase extends ParseDouble {
     default Double getFirstValStr(ObservableMap<String, String> values) {
         ArrayList<String> arr = Periods.getInstance().getPeriodArr();
         String key = arr.get(0);
-        if (key != null && values.get(key) != null) {
-            if(values.get(key).length() == 0){
+        if (key != null ) {
+            if(values.get(key) == null){
                 key = arr.get(1);
                 if (key != null) {
                     return parseDouble(values.get(key));

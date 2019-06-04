@@ -107,17 +107,18 @@ public class DefaultFormulas {
         Formulas.addAll(OperatingIncomeMargin.get(PaPiD, counter));
         counter = counter + 3;
         Formulas.addAll(GrossProfitMargin.get(PaPiD, counter));
-        counter = counter + 6;
+        counter = counter + 7;
+        Formulas.addAll(ReturnOnAssets.get(PaPiD, counter));
+        counter = counter + 5;
         Formulas.addAll(ReturnOnCurrentAssets.get(PaPiD, counter));
         counter = counter + 4;
         Formulas.addAll(ReturnonOperatingAssets.get(PaPiD, counter));
         counter = counter + 4;
         Formulas.addAll(ReturnonInvestment.get(PaPiD, counter));
-        counter = counter + 5;
+        counter = counter + 7;
         Formulas.addAll(ReturnonEquityafterTax.get(PaPiD, counter));
-        counter = counter + 5;
-        Formulas.addAll(ReturnOnAssets.get(PaPiD, counter));
-        counter = counter + 5;
+        counter = counter + 7;
+
         //Turnover
         Formulas.addAll(TotalAssetTurnover.get(TiD, counter));
         counter = counter + 3;

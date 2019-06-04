@@ -11,7 +11,10 @@ public interface ParseDouble extends Round{
     }
 
     default String toString(Double dob){
-        return round(dob);
+        if(dob != null){
+            return round(dob);
+        }
+        return null;
     }
 
 }

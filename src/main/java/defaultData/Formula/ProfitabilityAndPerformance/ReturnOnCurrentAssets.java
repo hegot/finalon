@@ -9,8 +9,8 @@ public class ReturnOnCurrentAssets {
         ObservableList<Formula> Formulas = FXCollections.observableArrayList();
         int ReturnoNonCurrentAssets = counter;
         Formulas.add(new Formula(ReturnoNonCurrentAssets,
-                "Return on Assets",
-                "ReturnoNonCurrentAssets",
+                "Return on Non-current Assets",
+                "ReturnOnNonCurrentAssets",
                 "(ProfitLossBeforeTax-IncomeTaxExpenseContinuingOperations)/(AssetsGeneral[1]/2+AssetsGeneral[0]/2)",
                 "",
                 "formula",

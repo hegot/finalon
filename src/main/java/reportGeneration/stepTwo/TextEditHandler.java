@@ -43,8 +43,13 @@ class TextEditHandler implements ParseDouble {
         for (Item parent : items) {
             if (child.getParent() == parent.getId()) {
                 ObservableMap<String, Double> values = parent.getValues();
-                values.put(param, getChildVals(parent.getId(), param));
-                updateParent(parent, param);
+                Double childVals = getChildVals(parent.getId(), param);
+                if(childVals != 0.0){
+                    values.put(param, childVals);
+                    if(parent.getParent() > 0) {
+                        updateParent(parent, param);
+                    }
+                }
             }
         }
     }

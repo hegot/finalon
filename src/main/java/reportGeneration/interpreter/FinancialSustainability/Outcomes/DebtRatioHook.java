@@ -27,7 +27,6 @@ public class DebtRatioHook implements JsCalcHelper, ParseDouble, Round {
         StringBuilder output = new StringBuilder();
         if (vals.size() > 0) {
 
-            String[][] values = new String[3][3];
             int counter = 0;
             Boolean allnull = true;
             for (Map.Entry<String, String> entry : vals.entrySet()) {

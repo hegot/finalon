@@ -33,7 +33,7 @@ public class ReturnonOperatingAssets {
                 EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString(),
                 "",
                 "",
-                "This ratio was CHANGEPERCENT% higher at the end of ENDDATE. ",
+                "This ratio was CHANGE higher at the end of ENDDATE comparing to STARTDATE. ",
                 "",
                 "",
                 ReturnonOperatingAssets));
@@ -43,7 +43,7 @@ public class ReturnonOperatingAssets {
                 EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString(),
                 "",
                 "",
-                "This ratio was CHANGEPERCENT% higher at the end of ENDDATE. ",
+                "This ratio was CHANGE higher at the end of ENDDATE comparing to STARTDATE. ",
                 "",
                 "",
                 ReturnonOperatingAssets));

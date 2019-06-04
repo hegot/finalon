@@ -1,5 +1,6 @@
 package defaultData.Formula.ProfitabilityAndPerformance;
 
+import defaultData.EvaluationTypes;
 import entities.Formula;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,7 +13,7 @@ public class ReturnonInvestment {
                 "Return on Investment",
                 "ReturnonInvestment",
                 "(ProfitLossBeforeTax-IncomeTaxExpenseContinuingOperations+FinanceCosts)/(EquityGeneral[0]/2+EquityGeneral[1]/2+NonCurrentAssets[0]/2+NonCurrentAssets[1]/2)",
-                "",
+                EvaluationTypes.EVALUATE_END_ONLY.toString(),
                 "formula",
                 "%",
                 parent));
@@ -22,7 +23,7 @@ public class ReturnonInvestment {
                 "excellent",
                 ">",
                 "4",
-                "",
+                "Higher ROIs suggest better performance. At the end of evaluation period index provided excellent results ( > 4 ). ",
                 "",
                 "",
                 ReturnonInvestment));
@@ -32,7 +33,7 @@ public class ReturnonInvestment {
                 "good",
                 ">",
                 "3,5",
-                "",
+                "Higher ROIs suggest better performance.  At the end of evaluation period index provided good results ( > 3.5 ). ",
                 "",
                 "",
                 ReturnonInvestment));
@@ -42,7 +43,7 @@ public class ReturnonInvestment {
                 "satisfactory",
                 ">",
                 "0",
-                "",
+                "Higher ROIs suggest better performance.  At the end of evaluation period index provided satisfactory results ( > 0 ). ",
                 "",
                 "%",
                 ReturnonInvestment));
@@ -52,9 +53,29 @@ public class ReturnonInvestment {
                 "unsatisfactory",
                 "<=",
                 "0",
-                "",
+                "Higher ROIs suggest better performance.  At the end of evaluation period index was unsatisfactory ( <= 0 ). ",
                 "",
                 "%",
+                ReturnonInvestment));
+        counter++;
+        int ReturnonInvestmentIncrease = counter;
+        Formulas.add(new Formula(ReturnonInvestmentIncrease,
+                EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString(),
+                "",
+                "",
+                "Overall, ROI improved from STARTVALUEPERCENT% in STARTDATE to LASTVALUEPERCENT% in ENDDATE. ",
+                "",
+                "",
+                ReturnonInvestment));
+        counter++;
+        int ReturnonInvestmentDecrease = counter;
+        Formulas.add(new Formula(ReturnonInvestmentDecrease,
+                EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString(),
+                "",
+                "",
+                "Overall, ROI declined from STARTVALUEPERCENT% in STARTDATE to LASTVALUEPERCENT% in ENDDATE. ",
+                "",
+                "",
                 ReturnonInvestment));
         return Formulas;
     }

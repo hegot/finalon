@@ -43,7 +43,7 @@ public class NetProfitMargin {
                 EvaluationTypes.EACH_PERIOD_MULTIVARIATE.toString(),
                 "",
                 "",
-                "This amount reached CURRENTVALUE (CURRENTVALUEPERCENT%) in CURRENTPERIOD ",
+                "This amount reached CURRENTVALUE (CURRENTVALUEPERCENT%) in CURRENTPERIOD. ",
                 "",
                 "",
                 NetProfitMargin));

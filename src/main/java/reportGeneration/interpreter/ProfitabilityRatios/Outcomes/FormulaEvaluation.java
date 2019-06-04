@@ -57,6 +57,13 @@ public class FormulaEvaluation implements LabelWrap {
         GeneralRenderer generalRenderer = new GeneralRenderer(formula);
 
         output.append(generalRenderer.get(EvaluationTypes.PREFIX));
+        String code = formula.getShortName();
+
+        if (code.equals("ReturnonEquityafterTax")) {
+            ReturnonEquityafterTaxHook returnonEquityafterTax = new ReturnonEquityafterTaxHook(formula);
+            output.append(returnonEquityafterTax.getResult());
+        }
+
 
         if (type.equals(EvaluationTypes.EACH_PERIOD_MULTIVARIATE.toString())) {
             EachPeriodMultivariate multivariate = new EachPeriodMultivariate(formula);

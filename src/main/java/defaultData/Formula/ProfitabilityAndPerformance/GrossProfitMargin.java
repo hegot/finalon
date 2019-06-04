@@ -38,10 +38,20 @@ public class GrossProfitMargin {
                 "",
                 GrossProfitMargin));
         counter++;
+        int GrossProfitMarginBad = counter;
+        Formulas.add(new Formula(GrossProfitMarginBad,
+                "bad",
+                "=",
+                "0",
+                "Gross profit margin was negatively affected by the high cost of goods sold. ",
+                "",
+                "",
+                GrossProfitMargin));
+        counter++;
         int GrossProfitMarginunsatisfactory = counter;
         Formulas.add(new Formula(GrossProfitMarginunsatisfactory,
                 "unsatisfactory",
-                "<=",
+                "<",
                 "0",
                 "Gross profit margin was negatively affected by the high cost of goods sold. COMPANYNAME lost CURRENCY LASTVALUE of sales in ENDDATE. ",
                 "",
