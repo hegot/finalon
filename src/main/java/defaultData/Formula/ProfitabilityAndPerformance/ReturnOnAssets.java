@@ -11,7 +11,7 @@ public class ReturnOnAssets {
         int ReturnoNonAssets = counter;
         Formulas.add(new Formula(ReturnoNonAssets,
                 "Return on Assets",
-                "ReturnoNonAssets",
+                "ReturnOnAssets",
                 "(ProfitLossBeforeTax-IncomeTaxExpenseContinuingOperations)/(AssetsGeneral[0]/2+AssetsGeneral[1]/2)",
                 EvaluationTypes.EVALUATE_END_ONLY.toString(),
                 "formula",

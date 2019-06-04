@@ -2,6 +2,7 @@ package reportGeneration.interpreter;
 
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.AssetsReport.AssetsReport;
+import reportGeneration.interpreter.DupontAnalysis.DupontAnalysis;
 import reportGeneration.interpreter.FinancialResults.FinancialResultsReport;
 import reportGeneration.interpreter.FinancialSustainability.FinancialSustainabilityReport;
 import reportGeneration.interpreter.FormulaCalculation.FormulaCalculation;
@@ -43,6 +44,8 @@ public class Interprter {
             case "profitabilityRatios":
                 vbox = new ProfitabilityRatios().get();
                 break;
+            case "dupontAnalysis":
+                vbox =  new DupontAnalysis().get();
         }
         return vbox;
     }

@@ -46,7 +46,11 @@ public class StepThree extends SceneBase {
         tab5.setContent(
                 interprter.getReport("profitabilityRatios")
         );
-        tabs.getTabs().addAll(tab1, tab2, tab3, tab4, tab5);
+        Tab tab6 = new Tab("6. Dupont Analysis");
+        tab6.setContent(
+                interprter.getReport("dupontAnalysis")
+        );
+        tabs.getTabs().addAll(tab1, tab2, tab3, tab4, tab5, tab6);
 
         VBox vBox = new VBox(5);
         vBox.getStyleClass().add("generated-report");
