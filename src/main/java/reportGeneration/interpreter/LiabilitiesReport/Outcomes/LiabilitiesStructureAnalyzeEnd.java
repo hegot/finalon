@@ -33,10 +33,10 @@ public class LiabilitiesStructureAnalyzeEnd implements SrtuctureItemsLoop, Label
         this.equityItems = ItemsStorage.getInstance().getItems(EquityGeneral.getId());
         this.currentItems = ItemsStorage.getInstance().getItems(CurrentLiabilities.getId());
         this.nonCurrentItems = ItemsStorage.getInstance().getItems(NonCurrentLiabilities.getId());
-        this.totalVal = getVal(parent, period);
-        this.equityVal = getVal(EquityGeneral, period);
-        this.currentVal = getVal(CurrentLiabilities, period);
-        this.nonCurrentVal = getVal(NonCurrentLiabilities, period);
+        this.totalVal = parent.getVal(period);
+        this.equityVal = EquityGeneral.getVal(period);
+        this.currentVal = CurrentLiabilities.getVal(period);
+        this.nonCurrentVal = NonCurrentLiabilities.getVal(period);
         String assetsStartValue = SettingsStorage.getSettings().get("assetsStartValue");
         this.assetsTotal = parseDouble(assetsStartValue);
     }

@@ -5,11 +5,10 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
-import reportGeneration.interpreter.ReusableComponents.interfaces.OutcomeBase;
 import reportGeneration.interpreter.ReusableComponents.interfaces.SrtuctureItemsLoop;
 import reportGeneration.storage.IndexesStorage;
 
-public class AssetStructureAnalyseEnd implements SrtuctureItemsLoop, OutcomeBase, LabelWrap {
+public class AssetStructureAnalyseEnd implements SrtuctureItemsLoop, LabelWrap {
     private Item parent;
     private String period;
     private Double totalVal;
@@ -29,14 +28,14 @@ public class AssetStructureAnalyseEnd implements SrtuctureItemsLoop, OutcomeBase
         this.period = period;
         this.currentItems = currentItems;
         this.nonCurrentItems = nonCurrentItems;
-        this.totalVal = getVal(parent, period);
-        this.currentVal = getVal(current, period);
-        this.nonCurrentVal = getVal(nonCurrent, period);
+        this.totalVal = parent.getVal(period);
+        this.currentVal = current.getVal(period);
+        this.nonCurrentVal = nonCurrent.getVal(period);
     }
 
     private Boolean assetsChanged() {
-        Double assetsStart = getFirstVal(parent.getValues());
-        Double assetsEnd = getLastVal(parent.getValues());
+        Double assetsStart = parent.getFirstVal();
+        Double assetsEnd = parent.getLastVal();
         return !assetsStart.equals(assetsEnd);
     }
 

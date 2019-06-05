@@ -3,7 +3,6 @@ package reportGeneration.interpreter.ReusableComponents.tables;
 import entities.Formula;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
@@ -46,25 +45,16 @@ public class RatiosTable extends FormulaTable implements JsCalcHelper, ParseDoub
         return vbox;
     }
 
-    private ObservableMap<String, String> getValues(TableColumn.CellDataFeatures<Formula, String> cellData) {
-        Formula formula = (Formula) cellData.getValue();
-        if (formula != null) {
-            if (formula.getPeriods().size() > 0) {
-                return formula.getPeriods();
-            }
-        }
-        return null;
-    }
 
     TableColumn getAbsoluteComparisonCol(String colStart, String colEnd) {
         String colname = "Absolute Change\n" + formatDate(colEnd) + " to \n" + formatDate(colStart);
         TableColumn<Formula, String> col = new TableColumn<Formula, String>(colname);
         col.setMinWidth(150);
         col.setCellValueFactory(cellData -> {
-            ObservableMap<String, String> values = getValues(cellData);
-            if (values != null) {
-                Double colStartVAl = parseDouble(values.get(colStart));
-                Double colEndVAl = parseDouble(values.get(colEnd));
+            Formula formula = (Formula) cellData.getValue();
+            if (formula != null) {
+                Double colStartVAl = formula.getFirstVal();
+                Double colEndVAl = formula.getLastVal();
                 if (colStartVAl != null && colEndVAl != null) {
                     String absolute = round(colEndVAl - colStartVAl);
                     return new SimpleStringProperty(absolute);

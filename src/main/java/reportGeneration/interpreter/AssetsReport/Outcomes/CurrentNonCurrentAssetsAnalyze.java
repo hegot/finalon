@@ -1,15 +1,13 @@
 package reportGeneration.interpreter.AssetsReport.Outcomes;
 
 import entities.Item;
-import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
-import reportGeneration.interpreter.ReusableComponents.interfaces.OutcomeBase;
 import reportGeneration.storage.IndexesStorage;
 import reportGeneration.storage.Periods;
 
-public class CurrentNonCurrentAssetsAnalyze implements OutcomeBase, JsCalcHelper {
+public class CurrentNonCurrentAssetsAnalyze implements JsCalcHelper {
 
     private Double firstCurentVal;
     private Double lastCurentVal;
@@ -19,24 +17,24 @@ public class CurrentNonCurrentAssetsAnalyze implements OutcomeBase, JsCalcHelper
     private String endDate;
     private String currentAssetsChange;
     private String nonCurrentAssetsChange;
+    private Double AssetsOverall;
 
     public CurrentNonCurrentAssetsAnalyze() {
         Item current = IndexesStorage.get("GeneralCurrentAssets");
         Item nonCurrent = IndexesStorage.get("NonCurrentAssets");
         this.startDate = Periods.getInstance().getStart();
         this.endDate = Periods.getInstance().getEnd();
-        ObservableMap<String, Double> valuesCurrent = current.getValues();
-        ObservableMap<String, Double> valuesNonCurrent = nonCurrent.getValues();
-        if (valuesCurrent.size() > 1) {
-            this.firstCurentVal = getFirstVal(valuesCurrent);
-            this.lastCurentVal = getLastVal(valuesCurrent);
+        this.firstCurentVal = current.getFirstVal();
+        this.lastCurentVal = current.getLastVal();
+        this.firstNonCurentVal = nonCurrent.getFirstVal();
+        this.lastNonCurentVal = nonCurrent.getLastVal();
+        if (firstCurentVal != null && lastCurentVal != null) {
+            this.currentAssetsChange = getRelativeChange(firstCurentVal, lastCurentVal);
         }
-        if (valuesNonCurrent.size() > 1) {
-            this.firstNonCurentVal = getFirstVal(valuesNonCurrent);
-            this.lastNonCurentVal = getLastVal(valuesNonCurrent);
+        if (firstNonCurentVal != null && lastNonCurentVal != null) {
+            this.nonCurrentAssetsChange = getRelativeChange(firstNonCurentVal, lastNonCurentVal);
         }
-        this.currentAssetsChange = getRelativeChange(firstCurentVal, lastCurentVal);
-        this.nonCurrentAssetsChange = getRelativeChange(firstNonCurentVal, lastNonCurentVal);
+        this.AssetsOverall = (lastCurentVal - firstCurentVal) + (lastNonCurentVal - firstNonCurentVal);
     }
 
 
@@ -45,7 +43,7 @@ public class CurrentNonCurrentAssetsAnalyze implements OutcomeBase, JsCalcHelper
         vbox.setPrefWidth(600);
         String output = "";
         if (lastCurentVal != null && firstCurentVal != null && lastNonCurentVal != null && firstNonCurentVal != null) {
-            Double AssetsOverall = (lastCurentVal - firstCurentVal) + (lastNonCurentVal - firstNonCurentVal);
+
             if (lastCurentVal > firstCurentVal && lastNonCurentVal > firstNonCurentVal) {
                 output = increasedAll();
             }
@@ -96,7 +94,12 @@ public class CurrentNonCurrentAssetsAnalyze implements OutcomeBase, JsCalcHelper
     }
 
     private String decStr() {
-        return "The overall decrease of the assets reflects a reduction in the ";
+
+        if (AssetsOverall != 0) {
+            return "The overall decrease of the assets reflects a reduction in the ";
+        } else {
+            return "Overall assets did not changed. However there was a reduction in the ";
+        }
     }
 
     private String increasedAll() {

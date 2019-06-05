@@ -1,27 +1,24 @@
 package reportGeneration.interpreter.FinancialResults.Outcomes;
 
 import entities.Item;
-import javafx.collections.ObservableMap;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
-import reportGeneration.interpreter.ReusableComponents.interfaces.OutcomeBase;
 import reportGeneration.interpreter.ReusableComponents.interfaces.Round;
 import reportGeneration.storage.ItemsStorage;
 
-public class NetSalesAnalyze implements LabelWrap, OutcomeBase, Round {
+public class NetSalesAnalyze implements LabelWrap, Round {
 
     private Double first;
     private Double last;
     private Double change;
-    private ItemsStorage stor = ItemsStorage.getInstance();
 
     public NetSalesAnalyze() {
+        ItemsStorage stor = ItemsStorage.getInstance();
         Item item = stor.getItemByCode("RevenueGeneral");
-        ObservableMap<String, Double> values = item.getValues();
-        if (values.size() > 1) {
-            this.first = getFirstVal(values);
-            this.last = getLastVal(values);
-            this.change = ((last - first) / first) * 100;
+        if (item.getValues().size() > 1) {
+            this.first = item.getFirstVal();
+            this.last = item.getLastVal();
+            this.change = item.getChange();
         }
     }
 

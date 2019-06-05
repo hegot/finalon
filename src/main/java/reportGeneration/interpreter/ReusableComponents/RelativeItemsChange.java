@@ -2,15 +2,13 @@ package reportGeneration.interpreter.ReusableComponents;
 
 import entities.Item;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
-import reportGeneration.interpreter.ReusableComponents.interfaces.OutcomeBase;
 import reportGeneration.storage.Periods;
 
-public class RelativeItemsChange implements LabelWrap, OutcomeBase, JsCalcHelper {
+public class RelativeItemsChange implements LabelWrap, JsCalcHelper {
     private Item parent;
     private ObservableList<Item> items;
     private String startDate;
@@ -31,9 +29,8 @@ public class RelativeItemsChange implements LabelWrap, OutcomeBase, JsCalcHelper
     private void attachRowsEvaluation(VBox vBox) {
         for (Item item : items) {
             if (item.getValues().size() > 1) {
-                ObservableMap<String, Double> values = item.getValues();
-                Double firstVal = getFirstVal(values);
-                Double lastVal = getLastVal(values);
+                Double firstVal = item.getFirstVal();
+                Double lastVal = item.getLastVal();
                 if (firstVal != null && lastVal != null) {
                     String change = getRelativeChange(firstVal, lastVal);
                     Label label = new Label("- " + item.getName() + " (" + change + "%)");
@@ -56,9 +53,8 @@ public class RelativeItemsChange implements LabelWrap, OutcomeBase, JsCalcHelper
 
     private String riseOrFall() {
         if (this.parent.getValues().size() > 1) {
-            ObservableMap<String, Double> values = this.parent.getValues();
-            Double firstVal = getFirstVal(values);
-            Double lastVal = getLastVal(values);
+            Double firstVal = parent.getFirstVal();
+            Double lastVal = parent.getLastVal();
             if (firstVal != null && lastVal != null) {
                 return (lastVal > firstVal) ? "positive" : "negative";
             }

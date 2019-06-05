@@ -46,9 +46,9 @@ public class StepThree extends SceneBase {
         tab5.setContent(
                 interprter.getReport("profitabilityRatios")
         );
-        Tab tab6 = new Tab("6. Dupont Analysis");
+        Tab tab6 = new Tab("6. Activity Ratios (Turnover Ratios)");
         tab6.setContent(
-                interprter.getReport("dupontAnalysis")
+                interprter.getReport("turnoverRatios")
         );
         tabs.getTabs().addAll(tab1, tab2, tab3, tab4, tab5, tab6);
 

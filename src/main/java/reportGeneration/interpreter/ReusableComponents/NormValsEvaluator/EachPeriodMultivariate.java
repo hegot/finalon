@@ -1,9 +1,8 @@
-package reportGeneration.interpreter.NormValsEvaluator;
+package reportGeneration.interpreter.ReusableComponents.NormValsEvaluator;
 
 import defaultData.EvaluationTypes;
 import entities.Formula;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
 import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 import reportGeneration.storage.Periods;
@@ -13,12 +12,12 @@ import java.util.Random;
 
 public class EachPeriodMultivariate implements JsCalcHelper, ParseDouble {
     private ObservableList<Formula> childs;
-    private ObservableMap<String, String> vals;
+    private Formula formula;
     private ArrayList<String> periods;
 
     public EachPeriodMultivariate(Formula formula) {
         this.childs = formula.getChilds();
-        this.vals = formula.getPeriods();
+        this.formula = formula;
         this.periods = Periods.getInstance().getPeriodArr();
     }
 
@@ -64,11 +63,11 @@ public class EachPeriodMultivariate implements JsCalcHelper, ParseDouble {
 
     private String strReplace(String outcome, String period) {
         outcome = outcome.replace("CURRENTPERIOD", formatDate(period));
-        String val = vals.get(period);
+        Double val = formula.getVal(period);
         if (val != null) {
-            Double valDob = parseDouble(val) * 100;
+            Double valDob = val * 100;
             outcome = outcome.replace("CURRENTVALUEPERCENT", toString(valDob));
-            outcome = outcome.replace("CURRENTVALUE", val);
+            outcome = outcome.replace("CURRENTVALUE", toString(val));
         }
         return outcome;
     }

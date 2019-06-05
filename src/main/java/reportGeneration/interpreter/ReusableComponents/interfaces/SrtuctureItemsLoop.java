@@ -18,7 +18,7 @@ public interface SrtuctureItemsLoop extends JsCalcHelper, GetVal, LabelWrap {
     ) {
         TreeMap<Double, String> treeMap = new TreeMap<>(Collections.reverseOrder());
         for (Item item : items) {
-            Double val = getVal(item, period);
+            Double val = item.getVal(period);
             if (val != null) {
                 Double part = part(val, totall);
                 treeMap.put(part, item.getName());

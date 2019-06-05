@@ -4,6 +4,9 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
+import reportGeneration.storage.Periods;
+
+import java.util.ArrayList;
 
 public class Item {
     private int id;
@@ -121,5 +124,57 @@ public class Item {
 
     public BooleanProperty isPositive() {
         return new SimpleBooleanProperty(this, "isPositive", isPositive);
+    }
+
+
+    public Double getLastVal() {
+        ArrayList<String> arr = Periods.getInstance().getPeriodArr();
+        String key = arr.get(arr.size() - 1);
+        if (key != null) {
+            return values.get(key);
+        }
+        return null;
+    }
+
+    public Double getFirstVal() {
+        ArrayList<String> arr = Periods.getInstance().getPeriodArr();
+        if (arr.get(0) != null) {
+            return values.get(arr.get(0));
+        }
+        return null;
+    }
+
+    public Double getVal(String period) {
+        Double val = null;
+        if (values.size() > 0) {
+            val = values.get(period);
+        }
+        return val;
+    }
+
+    public Double getChange() {
+        Double last = getLastVal();
+        Double first = getFirstVal();
+        if (last != null && first != null) {
+            return ((last - first) / first) * 100;
+        }
+        return null;
+    }
+
+    public String trend() {
+        Double last = getLastVal();
+        Double first = getFirstVal();
+        if (last != null && first != null) {
+            if ((last - first) > 0) {
+                return "INCREASED";
+            }
+            if ((last - first) < 0) {
+                return "DECREASED";
+            }
+            if ((last - first) == 0) {
+                return "STABLE";
+            }
+        }
+        return "STABLE";
     }
 }

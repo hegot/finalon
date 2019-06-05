@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class DebtRatioHook implements JsCalcHelper, ParseDouble, Round {
-    private TreeMap<String, String> vals;
+    private TreeMap<String, Double> vals;
     private ObservableMap<String, String> settings;
     private String currency;
     private String company;
@@ -29,10 +29,10 @@ public class DebtRatioHook implements JsCalcHelper, ParseDouble, Round {
 
             int counter = 0;
             Boolean allnull = true;
-            for (Map.Entry<String, String> entry : vals.entrySet()) {
+            for (Map.Entry<String, Double> entry : vals.entrySet()) {
                 String key = formatDate(entry.getKey());
-                String val = entry.getValue();
-                if (parseDouble(val) != 0) {
+                Double val = entry.getValue();
+                if (val != 0) {
                     allnull = false;
                 }
                 if (counter == 0) output.append(first(key, val));
@@ -51,24 +51,24 @@ public class DebtRatioHook implements JsCalcHelper, ParseDouble, Round {
         return output.toString();
     }
 
-    private String first(String date, String val) {
+    private String first(String date, Double val) {
         return "The debt ratio tells us that in " + date +
                 " each " + currency + " 1.00 of the assets was financed by "
                 + val + " of debt (and " + getPart(val) + " of equity). ";
     }
 
-    private String second(String date, String val) {
+    private String second(String date, Double val) {
         return "In " + date + " " + val +
                 " of the sources of finance were liabilities. ";
     }
 
-    private String third(String date, String val) {
+    private String third(String date, Double val) {
         return "For every " + currency + " 1.00 of the assets there were " +
                 val + " of liabilities in " + date + " ";
     }
 
-    private String getPart(String val) {
-        return round(1 - parseDouble(val));
+    private String getPart(Double val) {
+        return round(1 - val);
     }
 
 }

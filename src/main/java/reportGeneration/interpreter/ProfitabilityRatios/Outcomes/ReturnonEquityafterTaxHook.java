@@ -2,18 +2,17 @@ package reportGeneration.interpreter.ProfitabilityRatios.Outcomes;
 
 import entities.Formula;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
-import reportGeneration.interpreter.ReusableComponents.interfaces.OutcomeBase;
 import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 import reportGeneration.interpreter.ReusableComponents.interfaces.Round;
 
-public class ReturnonEquityafterTaxHook implements JsCalcHelper, ParseDouble, Round, OutcomeBase {
+public class ReturnonEquityafterTaxHook implements JsCalcHelper, ParseDouble, Round {
 
     private Double firstVal;
     private Double lastVal;
 
     ReturnonEquityafterTaxHook(Formula formula) {
-        this.firstVal = getFirstValStr(formula.getPeriods());
-        this.lastVal = getLastValStr(formula.getPeriods());
+        this.firstVal = formula.getFirstVal();
+        this.lastVal = formula.getLastVal();
     }
 
     public String getResult() {

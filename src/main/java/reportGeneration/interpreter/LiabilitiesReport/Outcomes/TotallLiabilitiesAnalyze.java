@@ -5,14 +5,13 @@ import javafx.collections.ObservableMap;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
-import reportGeneration.interpreter.ReusableComponents.interfaces.OutcomeBase;
 import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 import reportGeneration.storage.IndexesStorage;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.SettingsStorage;
 
 
-public class TotallLiabilitiesAnalyze implements LabelWrap, ParseDouble, OutcomeBase, JsCalcHelper {
+public class TotallLiabilitiesAnalyze implements LabelWrap, ParseDouble, JsCalcHelper {
 
     private Double first;
     private Double last;
@@ -27,10 +26,9 @@ public class TotallLiabilitiesAnalyze implements LabelWrap, ParseDouble, Outcome
         this.settings = SettingsStorage.getSettings();
         this.startDate = Periods.getInstance().getStart();
         this.endDate = Periods.getInstance().getEnd();
-        ObservableMap<String, Double> values = liabilities.getValues();
-        if (values.size() > 1) {
-            this.first = getFirstVal(values);
-            this.last = getLastVal(values);
+        if (liabilities.getValues().size() > 1) {
+            this.first = liabilities.getFirstVal();
+            this.last = liabilities.getLastVal();
             this.liabilitiesDifference = last - first;
         }
         String assetDiffrence = settings.get("assetsDifference");

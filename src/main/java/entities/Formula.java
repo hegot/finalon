@@ -3,6 +3,9 @@ package entities;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import reportGeneration.storage.Periods;
+
+import java.util.ArrayList;
 
 public class Formula {
     private int id;
@@ -14,7 +17,7 @@ public class Formula {
     private String unit;
     private int parent;
     private ObservableList<Formula> childs;
-    private ObservableMap<String, String> periods;
+    private ObservableMap<String, Double> periods;
 
     public Formula(
             int id,
@@ -70,7 +73,7 @@ public class Formula {
             String category,
             String unit,
             int parent,
-            ObservableMap<String, String> periods
+            ObservableMap<String, Double> periods
     ) {
         this.id = id;
         this.name = name;
@@ -162,11 +165,42 @@ public class Formula {
         this.childs = childs;
     }
 
-    public ObservableMap<String, String> getPeriods() {
+    public ObservableMap<String, Double> getPeriods() {
         return this.periods;
     }
 
-    public void setPeriods(ObservableMap<String, String> periods) {
+    public void setPeriods(ObservableMap<String, Double> periods) {
         this.periods = periods;
+    }
+
+    public Double getLastVal() {
+        ArrayList<String> arr = Periods.getInstance().getPeriodArr();
+        String key = arr.get(arr.size() - 1);
+        if (key != null) {
+            return periods.get(key);
+        }
+        return null;
+    }
+
+    public Double getFirstVal() {
+        ArrayList<String> arr = Periods.getInstance().getPeriodArr();
+        if (arr.get(0) != null) {
+            Double val = periods.get(arr.get(0));
+            if(val == null){
+                if (arr.get(1) != null) {
+                    val = periods.get(arr.get(1));
+                }
+            }
+            return val;
+        }
+        return null;
+    }
+
+    public Double getVal(String period) {
+        Double val = null;
+        if (periods.size() > 0) {
+            val = periods.get(period);
+        }
+        return val;
     }
 }

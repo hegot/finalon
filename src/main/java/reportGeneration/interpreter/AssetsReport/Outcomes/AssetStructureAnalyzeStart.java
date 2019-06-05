@@ -28,9 +28,9 @@ public class AssetStructureAnalyzeStart implements SrtuctureItemsLoop, LabelWrap
         this.period = period;
         this.currentItems = currentItems;
         this.nonCurrentItems = nonCurrentItems;
-        this.totalVal = getVal(parent, period);
-        this.currentVal = getVal(current, period);
-        this.nonCurrentVal = getVal(nonCurrent, period);
+        this.totalVal = parent.getVal(period);
+        this.currentVal = current.getVal(period);
+        this.nonCurrentVal = nonCurrent.getVal(period);
     }
 
 

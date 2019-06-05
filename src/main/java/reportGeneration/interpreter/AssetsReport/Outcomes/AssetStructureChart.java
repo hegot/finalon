@@ -24,9 +24,9 @@ public class AssetStructureChart implements GetVal {
         this.nonCurrent = IndexesStorage.get("NonCurrentAssets");
         this.current = IndexesStorage.get("GeneralCurrentAssets");
         this.period = period;
-        this.totalVal = getVal(IndexesStorage.get("AssetsGeneral"), period);
-        this.currentVal = getVal(current, period);
-        this.nonCurrentVal = getVal(nonCurrent, period);
+        this.totalVal = IndexesStorage.get("AssetsGeneral").getVal(period);
+        this.currentVal = current.getVal(period);
+        this.nonCurrentVal = nonCurrent.getVal(period);
     }
 
     public PieChart get() {

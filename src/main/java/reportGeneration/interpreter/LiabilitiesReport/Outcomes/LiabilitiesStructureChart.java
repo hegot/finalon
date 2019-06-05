@@ -26,10 +26,10 @@ public class LiabilitiesStructureChart implements GetVal {
         this.nonCurrent = IndexesStorage.get("NonCurrentLiabilities");
         this.current = IndexesStorage.get("CurrentLiabilities");
         this.period = period;
-        this.totalVal = getVal(parent, period);
-        this.equityVal = getVal(equity, period);
-        this.currentVal = getVal(current, period);
-        this.nonCurrentVal = getVal(nonCurrent, period);
+        this.totalVal = parent.getVal(period);
+        this.equityVal = equity.getVal(period);
+        this.currentVal = current.getVal(period);
+        this.nonCurrentVal = nonCurrent.getVal(period);
     }
 
     public PieChart get() {

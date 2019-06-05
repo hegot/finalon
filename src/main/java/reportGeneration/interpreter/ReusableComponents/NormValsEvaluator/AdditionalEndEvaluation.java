@@ -1,52 +1,38 @@
-package reportGeneration.interpreter.NormValsEvaluator;
+package reportGeneration.interpreter.ReusableComponents.NormValsEvaluator;
 
 import defaultData.EvaluationTypes;
 import entities.Formula;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
 
-public class SuffixEvaluator extends ValsEvaluator implements JsCalcHelper {
-    private Formula parent;
+public class AdditionalEndEvaluation extends ValsEvaluator implements JsCalcHelper {
+    private Formula formula;
     private ObservableList<Formula> childs;
-    private ObservableMap<String, String> vals;
     private String period;
 
-    public SuffixEvaluator(Formula formula, String period) {
-        this.parent = formula;
+    public AdditionalEndEvaluation(Formula formula, String period) {
+        this.formula = formula;
         this.childs = formula.getChilds();
         this.period = period;
-        this.vals = parent.getPeriods();
     }
 
     public String getResult() {
         String outcome = "";
-        if (vals.size() > 0) {
-            Double val = getVal();
-            outcome += loopNormatives(val);
+        if (formula.getPeriods().size() > 0) {
+            outcome += loopNormatives();
         }
         return outcome;
     }
 
-
-    private Double getVal() {
-        String val = vals.get(period);
-        if (val != null) {
-            return parseDouble(val);
-        }
-        return null;
-    }
-
-
-    private String loopNormatives(Double value) {
+    private String loopNormatives() {
         for (Formula normative : childs) {
-            if (normative.getName().equals(EvaluationTypes.SUFFIX.toString())) {
+            if (normative.getName().equals(EvaluationTypes.ADDITIONAL_END_EVALUATION.toString())) {
                 try {
                     Double valueToCompare = normative.getUnit().length() > 0 ? parseDouble(normative.getUnit()) : null;
                     Boolean match = matches(
                             normative.getShortName(),
                             normative.getCategory(),
-                            value,
+                            formula.getVal(period),
                             valueToCompare
                     );
                     if (match) {

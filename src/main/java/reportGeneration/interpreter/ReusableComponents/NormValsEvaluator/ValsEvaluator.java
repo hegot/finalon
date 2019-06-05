@@ -1,4 +1,4 @@
-package reportGeneration.interpreter.NormValsEvaluator;
+package reportGeneration.interpreter.ReusableComponents.NormValsEvaluator;
 
 class ValsEvaluator {
     Boolean matches(String firstComparator, String secondComparator, Double value, Double valueToCompare) {

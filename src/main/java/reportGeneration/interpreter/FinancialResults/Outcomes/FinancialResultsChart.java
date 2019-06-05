@@ -8,7 +8,6 @@ import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.ChartBase;
 import reportGeneration.interpreter.ReusableComponents.interfaces.GetVal;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
-import reportGeneration.interpreter.ReusableComponents.interfaces.OutcomeBase;
 import reportGeneration.interpreter.ReusableComponents.interfaces.Round;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
@@ -16,7 +15,7 @@ import reportGeneration.storage.Periods;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class FinancialResultsChart extends ChartBase implements GetVal, OutcomeBase, Round, LabelWrap {
+public class FinancialResultsChart extends ChartBase implements GetVal, Round, LabelWrap {
     private ObservableMap<String, Double> valuesEBIT;
     private ObservableMap<String, Double> valuesRevenueGeneral;
     private ObservableMap<String, Double> valuesGrossProfit;
@@ -51,7 +50,7 @@ public class FinancialResultsChart extends ChartBase implements GetVal, OutcomeB
         if (values != null && values.size() > 0) {
             for (String period : periodsArr) {
                 Double originalVal = values.get(period);
-                Double toCompare = getVal(RevenueGeneral, period);
+                Double toCompare = RevenueGeneral.getVal(period);
                 DecimalFormat df = new DecimalFormat("#.##");
                 if (originalVal != null && toCompare != null) {
                     String out = df.format(originalVal / toCompare * 100);
@@ -178,5 +177,21 @@ public class FinancialResultsChart extends ChartBase implements GetVal, OutcomeB
         }
     }
 
+    private Double getLastVal(ObservableMap<String, Double> values) {
+        ArrayList<String> arr = Periods.getInstance().getPeriodArr();
+        String key = arr.get(arr.size() - 1);
+        if (key != null) {
+            return values.get(key);
+        }
+        return null;
+    }
+
+    private Double getFirstVal(ObservableMap<String, Double> values) {
+        ArrayList<String> arr = Periods.getInstance().getPeriodArr();
+        if (arr.get(0) != null) {
+            return values.get(arr.get(0));
+        }
+        return null;
+    }
 
 }

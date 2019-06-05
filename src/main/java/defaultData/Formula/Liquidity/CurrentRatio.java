@@ -24,7 +24,7 @@ public class CurrentRatio {
                 "excellent",
                 ">",
                 "3",
-                "In CURRENTPERIOD the value of the ratio lies high below the area of critical values (from 1.5 to 2).",
+                "For the CURRENTPERIOD period the value of the ratio is higher than 3 that means excellent results.",
                 "",
                 "",
                 CurrentRatio));
@@ -34,7 +34,7 @@ public class CurrentRatio {
                 "good",
                 "<",
                 "2",
-                "In CURRENTPERIOD the value (CURRENTVALUE) of the ratio lies above the area of critical values (from 1.5 to 2). ",
+                "Current Ratio in CURRENTPERIOD equals to CURRENTVALUE that fits good results range (from 2 to 3). ",
                 "<=",
                 "3",
                 CurrentRatio));
@@ -71,7 +71,7 @@ public class CurrentRatio {
         counter++;
         int CurrentRatioSuffix1 = counter;
         Formulas.add(new Formula(CurrentRatioSuffix1,
-                EvaluationTypes.SUFFIX.toString(),
+                EvaluationTypes.ADDITIONAL_END_EVALUATION.toString(),
                 "",
                 "",
                 "The value of the ratio was acceptable at the end of the period under review. This means that COMPANYNAME was able to pay off debt in due time. ",
@@ -81,7 +81,7 @@ public class CurrentRatio {
         counter++;
         int CurrentRatioSuffix2 = counter;
         Formulas.add(new Formula(CurrentRatioSuffix2,
-                EvaluationTypes.SUFFIX.toString(),
+                EvaluationTypes.ADDITIONAL_END_EVALUATION.toString(),
                 "",
                 "",
                 "The value of the ratio was unacceptable at the end of the period under review. This means that COMPANYNAME had problems with paying its suppliers and creditors in due time. ",

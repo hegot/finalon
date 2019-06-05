@@ -1,4 +1,4 @@
-package reportGeneration.interpreter.DupontAnalysis;
+package reportGeneration.interpreter.ProfitabilityRatios.Outcomes;
 
 import entities.Formula;
 import javafx.collections.FXCollections;
@@ -7,7 +7,6 @@ import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
-import reportGeneration.interpreter.ReusableComponents.interfaces.OutcomeBase;
 import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 import reportGeneration.interpreter.ReusableComponents.tables.RatiosTable;
 import reportGeneration.storage.FormulaStorage;
@@ -41,8 +40,6 @@ public class DupontAnalysis implements LabelWrap, ParseDouble {
                 netProfitMargin,
                 totalAssetTurnover
         );
-
-
         box.getChildren().addAll(
                 tableName,
                 new RatiosTable(formulas).get(),
@@ -52,35 +49,35 @@ public class DupontAnalysis implements LabelWrap, ParseDouble {
     }
 
     private String valToPercent(Double val) {
-        val = val * 100;
-        return round(val);
+        if(val != null){
+            val = val * 100;
+            return round(val);
+        }
+        return "";
     }
 
     private String evaluate() {
         Periods periods = new Periods();
-        ArrayList<String> periodsArr =  periods.getPeriodArr();
+        ArrayList<String> periodsArr = periods.getPeriodArr();
         ObservableMap<String, String> settings = SettingsStorage.getSettings();
         String company = settings.get("company");
         String currency = settings.get("defaultCurrency");
         String start = periods.getStart();
         String end = periods.getEnd();
-        ObservableMap<String, String> returnOnAssetsValues = returnOnAssets.getPeriods();
-        ObservableMap<String, String> netProfitMarginValues = netProfitMargin.getPeriods();
-        ObservableMap<String, String> totalAssetTurnoverValues = totalAssetTurnover.getPeriods();
-        if (periodsArr.size() > 2 && returnOnAssetsValues.size() > 0 && netProfitMarginValues.size() > 0 && totalAssetTurnoverValues.size() > 0) {
-            Double returnOnAssetsFirst = getFirstValStr(returnOnAssetsValues);
+        if (periodsArr.size() > 2) {
+            Double returnOnAssetsFirst = returnOnAssets.getFirstVal();
             String returnOnAssetsFirstStr = valToPercent(returnOnAssetsFirst);
-            Double returnOnAssetsLast = getLastValStr(returnOnAssetsValues);
+            Double returnOnAssetsLast = returnOnAssets.getLastVal();
             String returnOnAssetsLastStr = valToPercent(returnOnAssetsLast);
 
-            Double netProfitMarginFirst = getFirstValStr(netProfitMarginValues);
+            Double netProfitMarginFirst = netProfitMargin.getFirstVal();
             String netProfitMarginFirstStr = valToPercent(netProfitMarginFirst);
-            Double netProfitMarginLast = getLastValStr(netProfitMarginValues);
+            Double netProfitMarginLast = netProfitMargin.getLastVal();
             String netProfitMarginLastStr = valToPercent(netProfitMarginLast);
 
-            Double totalAssetTurnoverFirst = getFirstValStr(totalAssetTurnoverValues);
+            Double totalAssetTurnoverFirst = totalAssetTurnover.getFirstVal();
             String totalAssetTurnoverFirstStr = valToPercent(totalAssetTurnoverFirst);
-            Double totalAssetTurnoverLast = getLastValStr(totalAssetTurnoverValues);
+            Double totalAssetTurnoverLast = totalAssetTurnover.getLastVal();
             String totalAssetTurnoverLastStr = valToPercent(totalAssetTurnoverLast);
 
             if (returnOnAssetsFirst != null && returnOnAssetsLast != null &&
@@ -125,9 +122,7 @@ public class DupontAnalysis implements LabelWrap, ParseDouble {
                                 "turning them over more frequently. ";
                     }
                 }
-
             }
-
 
             if (returnOnAssetsLast < returnOnAssetsFirst) {
                 String prefix = "Company's return on assets decreased from " + returnOnAssetsFirstStr +
@@ -164,27 +159,9 @@ public class DupontAnalysis implements LabelWrap, ParseDouble {
                             "that even good trends in " + company + "'s ability to generate the net income from sales " +
                             "didn't cause the return on assets increase in " + end;
                 }
+
             }
         }
         return "";
-    }
-
-
-    private Double getLastValStr(ObservableMap<String, String> values) {
-        ArrayList<String> arr = Periods.getInstance().getPeriodArr();
-        String key = arr.get(arr.size() - 1);
-        if (key != null) {
-            return parseDouble(values.get(key));
-        }
-        return null;
-    }
-
-    private Double getFirstValStr(ObservableMap<String, String> values) {
-        ArrayList<String> arr = Periods.getInstance().getPeriodArr();
-        String key = arr.get(1);
-        if (key != null ) {
-            return parseDouble(values.get(key));
-        }
-        return null;
     }
 }

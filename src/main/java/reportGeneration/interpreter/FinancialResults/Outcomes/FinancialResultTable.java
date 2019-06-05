@@ -10,14 +10,17 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
-import reportGeneration.interpreter.ReusableComponents.interfaces.*;
+import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
+import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
+import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
+import reportGeneration.interpreter.ReusableComponents.interfaces.Round;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.SettingsStorage;
 
 import java.util.ArrayList;
 
-public class FinancialResultTable implements ParseDouble, JsCalcHelper, OutcomeBase, LabelWrap, Round {
+public class FinancialResultTable implements ParseDouble, JsCalcHelper, LabelWrap, Round {
 
     private ObservableList<Item> items;
     private ArrayList<String> periods;
@@ -53,8 +56,8 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper, OutcomeB
 
     public Label analyseEbit() {
         String out = "";
-        Double first = getFirstVal(itemEbit.getValues());
-        Double last = getLastVal(itemEbit.getValues());
+        Double first = itemEbit.getFirstVal();
+        Double last = itemEbit.getLastVal();
         String startDate = Periods.getInstance().getStart();
         String endDate = Periods.getInstance().getEnd();
 
@@ -77,7 +80,7 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper, OutcomeB
 
     private String comprehensiveIncome() {
         String endDate = Periods.getInstance().getEnd();
-        Double last = getLastVal(comprehensiveIncome.getValues());
+        Double last = comprehensiveIncome.getLastVal();
         String output = "";
         if (last != null) {
             if (last <= 0) {
@@ -172,19 +175,19 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper, OutcomeB
 
 
 class ItemsGetter {
-    private ObservableMap<String, Double> profitLossBeforeTaxValues;
-    private ObservableMap<String, Double> financeCostsValues;
-    private ObservableMap<String, Double> grossProfitValues;
-    private ObservableMap<String, Double> incomeTaxExpenseValues;
+    private Item profitLossBeforeTax;
+    private Item financeCosts;
+    private Item grossProfit;
+    private Item incomeTaxExpense;
     private ItemsStorage storage = ItemsStorage.getInstance();
     private ArrayList<String> periods;
 
     ItemsGetter() {
         this.periods = new Periods().getPeriodArr();
-        this.profitLossBeforeTaxValues = getVals("ProfitLossBeforeTax");
-        this.financeCostsValues = getVals("FinanceCosts");
-        this.grossProfitValues = getVals("GrossProfit");
-        this.incomeTaxExpenseValues = getVals("IncomeTaxExpenseContinuingOperations");
+        this.profitLossBeforeTax = storage.getItemByCode("ProfitLossBeforeTax");
+        this.financeCosts = storage.getItemByCode("FinanceCosts");
+        this.grossProfit = storage.getItemByCode("GrossProfit");
+        this.incomeTaxExpense = storage.getItemByCode("IncomeTaxExpenseContinuingOperations");
     }
 
     Item getEbit() {
@@ -197,14 +200,15 @@ class ItemsGetter {
                 0);
         ObservableMap<String, Double> valuesEbit = FXCollections.observableHashMap();
         for (String period : periods) {
-            Double val1 = getVal(profitLossBeforeTaxValues, period);
-            Double val2 = getVal(financeCostsValues, period);
+            Double val1 = profitLossBeforeTax.getVal(period);
+            Double val2 = financeCosts.getVal(period);
+            if (val1 == null) val1 = 0.0;
+            if (val2 == null) val2 = 0.0;
             Double EbitVal = val1 + val2;
             valuesEbit.put(period, EbitVal);
         }
         itemEbit.setValues(valuesEbit);
         storage.addItem(itemEbit);
-
         return itemEbit;
     }
 
@@ -219,9 +223,12 @@ class ItemsGetter {
                 0);
         ObservableMap<String, Double> valuesItemOtherIncome = FXCollections.observableHashMap();
         for (String period : periods) {
-            Double val1 = getVal(profitLossBeforeTaxValues, period);
-            Double val2 = getVal(financeCostsValues, period);
-            Double val3 = getVal(grossProfitValues, period);
+            Double val1 = profitLossBeforeTax.getVal(period);
+            Double val2 = financeCosts.getVal(period);
+            Double val3 = grossProfit.getVal(period);
+            if (val1 == null) val1 = 0.0;
+            if (val2 == null) val2 = 0.0;
+            if (val3 == null) val3 = 0.0;
             Double otherIncomeVal = val1 + val2 - val3;
             valuesItemOtherIncome.put(period, otherIncomeVal);
         }
@@ -240,28 +247,14 @@ class ItemsGetter {
                 0);
         ObservableMap<String, Double> valuesIncomeLossFromContinuingOperations = FXCollections.observableHashMap();
         for (String period : periods) {
-            Double val1 = getVal(profitLossBeforeTaxValues, period);
-            Double val4 = getVal(incomeTaxExpenseValues, period);
+            Double val1 = profitLossBeforeTax.getVal(period);
+            Double val4 = incomeTaxExpense.getVal(period);
+            if (val1 == null) val1 = 0.0;
+            if (val4 == null) val4 = 0.0;
             Double IncomeLossFromContinuingOperationsVal = val1 - val4;
             valuesIncomeLossFromContinuingOperations.put(period, IncomeLossFromContinuingOperationsVal);
         }
         IncomeLossFromContinuingOperations.setValues(valuesIncomeLossFromContinuingOperations);
         return IncomeLossFromContinuingOperations;
-    }
-
-
-    private ObservableMap<String, Double> getVals(String key) {
-        Item item = storage.getItemByCode(key);
-        ObservableMap<String, Double> values = FXCollections.observableHashMap();
-        if (item != null) {
-            values = item.getValues();
-        }
-        return values;
-    }
-
-    private Double getVal(ObservableMap<String, Double> vals, String period) {
-        Double val = vals.get(period);
-        if (val == null) val = 0.0;
-        return val;
     }
 }

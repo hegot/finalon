@@ -4,6 +4,7 @@ import entities.Formula;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import reportGeneration.interpreter.ProfitabilityRatios.Outcomes.DupontAnalysis;
 import reportGeneration.interpreter.ProfitabilityRatios.Outcomes.FormulaEvaluation;
 import reportGeneration.interpreter.ReusableComponents.tables.RatiosTable;
 import reportGeneration.storage.FormulaStorage;
@@ -24,13 +25,13 @@ public class ProfitabilityRatios {
         Label tableName = new Label("Table 8. Profitability Ratios, %");
         tableName.getStyleClass().add("table-name");
         tableName.setWrapText(true);
-
         FormulaEvaluation formulaEvaluation = new FormulaEvaluation(formulas);
 
         box.getChildren().addAll(
                 tableName,
                 new RatiosTable(formulas).get(),
-                formulaEvaluation.get()
+                formulaEvaluation.get(),
+                new DupontAnalysis().get()
         );
         return box;
     }

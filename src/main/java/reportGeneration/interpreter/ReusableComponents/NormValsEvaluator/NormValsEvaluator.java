@@ -1,58 +1,45 @@
-package reportGeneration.interpreter.NormValsEvaluator;
+package reportGeneration.interpreter.ReusableComponents.NormValsEvaluator;
 
 import entities.Formula;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
+import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 
-public class NormValsEvaluator extends ValsEvaluator implements JsCalcHelper {
-    private Formula parent;
+public class NormValsEvaluator extends ValsEvaluator implements JsCalcHelper, ParseDouble {
+    private Formula formula;
     private ObservableList<Formula> childs;
-    private ObservableMap<String, String> vals;
     private String period;
 
     public NormValsEvaluator(Formula formula, String period) {
-        this.parent = formula;
+        this.formula = formula;
         this.childs = formula.getChilds();
         this.period = period;
-        this.vals = parent.getPeriods();
     }
 
     public String getResult() {
         String outcome = "";
-        if (vals.size() > 0) {
-            Double val = getVal();
-            outcome += strReplace(loopNormatives(val));
+        if (formula.getPeriods().size() > 0) {
+            outcome += strReplace(loopNormatives());
         }
         return outcome;
     }
 
     public String strReplace(String outcome) {
         outcome = outcome.replace("CURRENTPERIOD", formatDate(period));
-        if (getVal() != null) {
-            outcome = outcome.replace("CURRENTVALUE", Double.toString(getVal()));
+        if (formula.getVal(period) != null) {
+            outcome = outcome.replace("CURRENTVALUE", toString(formula.getVal(period)));
         }
         return outcome;
     }
 
-
-    private Double getVal() {
-        String val = vals.get(period);
-        if (val != null) {
-            return parseDouble(val);
-        }
-        return null;
-    }
-
-
-    private String loopNormatives(Double value) {
+    private String loopNormatives() {
         for (Formula normative : childs) {
             try {
                 Double valueToCompare = normative.getValue().length() > 0 ? parseDouble(normative.getValue()) : null;
                 Boolean match = matches(
                         normative.getShortName(),
                         normative.getCategory(),
-                        value,
+                        formula.getVal(period),
                         valueToCompare
                 );
                 if (match) {

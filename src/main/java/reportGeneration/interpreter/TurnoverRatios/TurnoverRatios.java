@@ -1,28 +1,28 @@
-package reportGeneration.interpreter.Liquidity;
+package reportGeneration.interpreter.TurnoverRatios;
 
 import entities.Formula;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import reportGeneration.interpreter.Liquidity.Outcomes.FormulaEvaluation;
 import reportGeneration.interpreter.ReusableComponents.tables.RatiosTable;
+import reportGeneration.interpreter.TurnoverRatios.Outcomes.FormulaEvaluation;
 import reportGeneration.storage.FormulaStorage;
 
-public class LiquidityReport {
+public class TurnoverRatios {
     private ObservableList<Formula> formulas;
 
-    public LiquidityReport() {
+    public TurnoverRatios() {
         FormulaStorage storage = FormulaStorage.getInstance();
-        Formula L = storage.getItemByCode("L");
-        if (L != null) {
-            this.formulas = storage.getItems(L.getId());
+        Formula FS = storage.getItemByCode("T");
+        if (FS != null) {
+            this.formulas = storage.getItems(FS.getId());
         }
     }
 
     public VBox get() {
         VBox box = new VBox(8);
-        RatiosTable liquidityTable = new RatiosTable(formulas);
-        Label tableName = new Label("Table 6. Liquidity Ratios");
+        RatiosTable turnoverTable = new RatiosTable(formulas);
+        Label tableName = new Label("Table 10. Activity Ratios (Turnover Ratios)");
         tableName.getStyleClass().add("table-name");
         tableName.setWrapText(true);
 
@@ -30,7 +30,7 @@ public class LiquidityReport {
 
         box.getChildren().addAll(
                 tableName,
-                liquidityTable.get(),
+                turnoverTable.get(),
                 formulaEvaluation.get()
         );
         return box;

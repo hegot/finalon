@@ -1,19 +1,13 @@
-package reportGeneration.interpreter.NormValsEvaluator;
+package reportGeneration.interpreter.ReusableComponents.NormValsEvaluator;
 
 import defaultData.EvaluationTypes;
 import entities.Formula;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
-import reportGeneration.interpreter.ReusableComponents.interfaces.OutcomeBase;
 import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
-import reportGeneration.storage.Periods;
-
-import java.util.ArrayList;
 
 
-public class PeriodComparisonEvaluator implements ParseDouble, OutcomeBase {
+public class PeriodComparisonEvaluator implements ParseDouble {
     private ObservableList<Formula> childs;
-    private ObservableMap<String, String> vals;
     private Double startVal;
     private Double endVal;
     private Double changePercent;
@@ -21,18 +15,14 @@ public class PeriodComparisonEvaluator implements ParseDouble, OutcomeBase {
 
     public PeriodComparisonEvaluator(Formula formula) {
         this.childs = formula.getChilds();
-        ArrayList<String> periods = Periods.getInstance().getPeriodArr();
-        this.vals = formula.getPeriods();
-        if (periods.size() > 1 && vals.size() > 1) {
-            this.startVal = getFirstValStr(vals);
-            this.endVal = getLastValStr(vals);
-        }
+        this.startVal = formula.getFirstVal();
+        this.endVal = formula.getLastVal();
     }
 
 
     public String getResult() {
         String outcome = "";
-        if (vals.size() > 1 && endVal != null && startVal != null) {
+        if (endVal != null && startVal != null) {
             this.change = endVal - startVal;
             this.changePercent = change * 100;
             if (endVal > startVal) {
