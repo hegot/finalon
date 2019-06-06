@@ -49,7 +49,8 @@ public class EachPeriodMultivariate implements JsCalcHelper, ParseDouble {
         for (int i = 0; i < periods.size(); i++) {
             String period = periods.get(i);
             int randomIndex = rand.nextInt(consequences.size());
-            if (consequences.get(randomIndex) != null) {
+            if (consequences.get(randomIndex) != null
+                    && formula.getVal(period) != null) {
                 outcome.append(
                         strReplace(consequences.get(randomIndex), period)
                 );

@@ -1,5 +1,6 @@
 package defaultData.Formula.Turnover;
 
+import defaultData.EvaluationTypes;
 import entities.Formula;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,6 +34,26 @@ public class InventoryTurnoverinDays {
                 ">=",
                 "60",
                 "",
+                "",
+                "",
+                InventoryTurnoverinDays));
+        counter++;
+        int InventoryTurnoverinDaysIncrease = counter;
+        Formulas.add(new Formula(InventoryTurnoverinDaysIncrease,
+                EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString(),
+                "",
+                "",
+                "The company was holding the inventory almost a CHANGE day(s) more in ENDDATE than in AFTERSTART. ",
+                "",
+                "",
+                InventoryTurnoverinDays));
+        counter++;
+        int InventoryTurnoverinDaysDecrease = counter;
+        Formulas.add(new Formula(InventoryTurnoverinDaysDecrease,
+                EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString(),
+                "",
+                "",
+                "The company was holding the inventory almost a CHANGE day(s) less in ENDDATE than in AFTERSTART. ",
                 "",
                 "",
                 InventoryTurnoverinDays));

@@ -1,5 +1,6 @@
 package defaultData.Formula.Turnover;
 
+import defaultData.EvaluationTypes;
 import entities.Formula;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,7 +13,7 @@ public class WorkingCapitalTurnover {
                 "Working Capital Turnover",
                 "WorkingCapitalTurnover",
                 "RevenueGeneral/((GeneralCurrentAssets[1]-CurrentLiabilities[1]+GeneralCurrentAssets[0]-CurrentLiabilities[0])/2)",
-                "",
+                 EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
                 "formula",
                 "times",
                 parent));
@@ -22,7 +23,7 @@ public class WorkingCapitalTurnover {
                 "good",
                 ">",
                 "5",
-                "",
+                "good (more than 0.6) CURRENTVALUE in CURRENTPERIOD, ",
                 "",
                 "",
                 WorkingCapitalTurnover));
@@ -32,11 +33,21 @@ public class WorkingCapitalTurnover {
                 "unsatisfactory",
                 "<=",
                 "5",
-                "",
+                "CURRENTVALUE in CURRENTPERIOD (unsatisfactory <= 5), ",
                 "",
                 "",
                 WorkingCapitalTurnover));
-
+        counter++;
+        int WorkingCapitalTurnoverPrefix = counter;
+        Formulas.add(new Formula(WorkingCapitalTurnoverPrefix,
+                EvaluationTypes.PREFIX.toString(),
+                "",
+                "",
+                "It can be seen that the working capital turnover was ",
+                "",
+                "",
+                WorkingCapitalTurnover));
+        counter++;
         return Formulas;
     }
 }

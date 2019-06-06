@@ -1,5 +1,6 @@
 package defaultData.Formula.Turnover;
 
+import defaultData.EvaluationTypes;
 import entities.Formula;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,7 +14,7 @@ public class AccountsPayableTurnover {
                 "Accounts Payable Turnover",
                 "AccountsPayableTurnover",
                 "CostOfSales/(((TradeAndOtherCurrentPayables[0]+TradeAndOtherCurrentPayables[1])/2))",
-                "",
+                EvaluationTypes.EVALUATE_END_ONLY.toString(),
                 "formula",
                 "times",
                 parent));
@@ -23,7 +24,7 @@ public class AccountsPayableTurnover {
                 "good",
                 ">",
                 "6",
-                "",
+                "(good > 6).",
                 "",
                 "",
                 AccountsPayableTurnover));
@@ -33,7 +34,19 @@ public class AccountsPayableTurnover {
                 "unsatisfactory",
                 "<=",
                 "6",
+                "(unsatisfactory <= 6).",
                 "",
+                "",
+                AccountsPayableTurnover));
+
+        counter++;
+        int AccountsPayableTurnoverPrefix = counter;
+        Formulas.add(new Formula(AccountsPayableTurnoverPrefix,
+                EvaluationTypes.PREFIX.toString(),
+                "",
+                "",
+                "The accounts payable turned over STARTVALUE " +
+                        "times in AFTERSTART and LASTVALUE times in ENDDATE ",
                 "",
                 "",
                 AccountsPayableTurnover));

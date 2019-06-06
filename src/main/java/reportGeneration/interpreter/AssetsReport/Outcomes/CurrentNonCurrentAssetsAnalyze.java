@@ -28,13 +28,11 @@ public class CurrentNonCurrentAssetsAnalyze implements JsCalcHelper {
         this.lastCurentVal = current.getLastVal();
         this.firstNonCurentVal = nonCurrent.getFirstVal();
         this.lastNonCurentVal = nonCurrent.getLastVal();
-        if (firstCurentVal != null && lastCurentVal != null) {
+        if (firstCurentVal != null && lastCurentVal != null && firstNonCurentVal != null && lastNonCurentVal != null) {
             this.currentAssetsChange = getRelativeChange(firstCurentVal, lastCurentVal);
-        }
-        if (firstNonCurentVal != null && lastNonCurentVal != null) {
             this.nonCurrentAssetsChange = getRelativeChange(firstNonCurentVal, lastNonCurentVal);
+            this.AssetsOverall = (lastCurentVal - firstCurentVal) + (lastNonCurentVal - firstNonCurentVal);
         }
-        this.AssetsOverall = (lastCurentVal - firstCurentVal) + (lastNonCurentVal - firstNonCurentVal);
     }
 
 

@@ -46,6 +46,21 @@ public class FormulaEvaluateBase {
         return "";
     }
 
+    public String startAndEnd() {
+        if (type.equals(EvaluationTypes.EVALUATE_START_END_ONLY.toString())) {
+            StringBuilder output = new StringBuilder();
+
+            NormValsEvaluator eval1 = new NormValsEvaluator(formula, formula.getFormulaStart());
+            output.append(eval1.getResult());
+
+            NormValsEvaluator eval2 = new NormValsEvaluator(formula, end);
+            output.append(eval2.getResult());
+
+            return output.toString();
+        }
+        return "";
+    }
+
     public String evaluateEach() {
         if (type.equals(EvaluationTypes.EVALUATE_EACH_PERIOD.toString())) {
             StringBuilder output = new StringBuilder();

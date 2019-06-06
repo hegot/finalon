@@ -49,6 +49,7 @@ public class FormulaEvaluation implements LabelWrap, AttachChilds {
         output.append(evaluator.multivariate());
         output.append(evaluator.endOnly());
         output.append(evaluator.evaluateEach());
+        output.append(evaluator.startAndEnd());
         output.append(evaluator.periodsComparison());
         output.append(evaluator.eachPeriodTrue());
         output.append(evaluator.endEvaluation());

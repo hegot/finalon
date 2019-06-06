@@ -3,6 +3,7 @@ package defaultData;
 public enum EvaluationTypes {
     EVALUATE_END_ONLY,
     EVALUATE_EACH_PERIOD,
+    EVALUATE_START_END_ONLY,
     GENERAL,
     PREFIX,
     SUFFIX,

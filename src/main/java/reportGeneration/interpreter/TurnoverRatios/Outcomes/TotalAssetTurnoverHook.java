@@ -72,33 +72,33 @@ public class TotalAssetTurnoverHook {
                 if (revenueChange > 0 && assetsChange > 0) {
                     output.append("The total asset turnover ratio was higher at the end " +
                             "of the period under review because the net sales " +
-                            "of the enterprise increased in STARTDATE-ENDDATE. ");
+                            "of the enterprise increased during STARTDATE-ENDDATE. ");
                 }
                 if (revenueChange > 0 && assetsChange < 0) {
                     output.append("The total asset turnover ratio was higher at the end " +
                             "of the period under review because the net sales of the enterprise " +
-                            "increased and the average total assets decreased in STARTDATE-ENDDATE. ");
+                            "increased and the average total assets decreased during STARTDATE-ENDDATE. ");
                 }
                 if (revenueChange < 0 && assetsChange < 0) {
                     output.append("The total asset turnover ratio was higher at the end " +
                             "of the period under review because the average " +
-                            "total assets decreased in STARTDATE-ENDDATE. ");
+                            "total assets decreased during STARTDATE-ENDDATE. ");
                 }
             } else {
                 if (revenueChange > 0 && assetsChange > 0) {
                     output.append("The total asset turnover ratio was lower at the end " +
                             "of the period under review because the average " +
-                            "total assets increased in STARTDATE-ENDDATE. ");
+                            "total assets increased during STARTDATE-ENDDATE. ");
                 }
                 if (revenueChange < 0 && assetsChange > 0) {
                     output.append("The total asset turnover ratio was lower at the end " +
                             "of the period under review because the average total assets " +
-                            "increased and the net sales of the enterprise decreased in STARTDATE-ENDDATE. ");
+                            "increased and the net sales of the enterprise decreased during STARTDATE-ENDDATE. ");
                 }
                 if (revenueChange < 0 && assetsChange < 0) {
                     output.append("The total asset turnover ratio was lower at the end " +
                             "of the period under review because the net sales of the enterprise " +
-                            "decreased in  STARTDATE-ENDDATE. ");
+                            "decreased during  STARTDATE-ENDDATE. ");
                 }
             }
         }

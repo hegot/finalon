@@ -38,6 +38,7 @@ public class FormulaEvaluation implements LabelWrap, AttachChilds {
         output.append(evaluator.multivariate());
         output.append(evaluator.endOnly());
         output.append(evaluator.evaluateEach());
+        output.append(evaluator.startAndEnd());
         output.append(evaluator.periodsComparison());
         if (code.equals("TotalAssetTurnover")) {
             TotalAssetTurnoverHook totalAssetTurnover = new TotalAssetTurnoverHook(formula);
@@ -46,6 +47,11 @@ public class FormulaEvaluation implements LabelWrap, AttachChilds {
         output.append(evaluator.eachPeriodTrue());
         output.append(evaluator.endEvaluation());
         output.append(evaluator.suffix());
+
+        if (code.equals("AccountsPayableTurnover")) {
+            RecivablePayableAccountsComparison recivablePayable = new RecivablePayableAccountsComparison();
+            output.append(recivablePayable.getResult());
+        }
         return output.toString();
     }
 }

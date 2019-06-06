@@ -186,7 +186,7 @@ public class Formula {
         ArrayList<String> arr = Periods.getInstance().getPeriodArr();
         if (arr.get(0) != null) {
             Double val = periods.get(arr.get(0));
-            if(val == null){
+            if (val == null) {
                 if (arr.get(1) != null) {
                     val = periods.get(arr.get(1));
                 }
@@ -203,4 +203,18 @@ public class Formula {
         }
         return val;
     }
+
+    public String getFormulaStart(){
+        ArrayList<String> arr = Periods.getInstance().getPeriodArr();
+        if (arr.get(0) != null) {
+            Double val = periods.get(arr.get(0));
+            if (val == null) {
+                if (arr.get(1) != null) {
+                    return arr.get(1);
+                }
+            }
+        }
+        return arr.get(0);
+    }
+
 }

@@ -1,5 +1,6 @@
 package defaultData.Formula.Turnover;
 
+import defaultData.EvaluationTypes;
 import entities.Formula;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,7 +13,7 @@ public class CashTurnover {
                 "Cash Turnover",
                 "CashTurnover",
                 "RevenueGeneral/((CashAndCashEquivalents[0]+CashAndCashEquivalents[1])/2)",
-                "",
+                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
                 "formula",
                 "times",
                 parent));
@@ -22,7 +23,7 @@ public class CashTurnover {
                 "good",
                 ">",
                 "12",
-                "",
+                "CURRENTVALUE in CURRENTPERIOD (good - more than 12),",
                 "",
                 "",
                 CashTurnover));
@@ -32,7 +33,17 @@ public class CashTurnover {
                 "unsatisfactory",
                 "<=",
                 "12",
+                "CURRENTVALUE in CURRENTPERIOD (unsatisfactory - less than 12),",
                 "",
+                "",
+                CashTurnover));
+        counter++;
+        int CashTurnoverPrefix = counter;
+        Formulas.add(new Formula(CashTurnoverPrefix,
+                EvaluationTypes.PREFIX.toString(),
+                "",
+                "",
+                "The cash turnover ratio was ",
                 "",
                 "",
                 CashTurnover));

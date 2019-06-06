@@ -101,6 +101,7 @@ public class DefaultFormulas {
         counter = counter + 7;
         Formulas.addAll(SalestoNetWorkingCapital.get(LiD, counter));
         counter = counter + 6;
+
         //Profitability and Performance
         Formulas.addAll(NetProfitMargin.get(PaPiD, counter));
         counter = counter + 6;
@@ -121,34 +122,36 @@ public class DefaultFormulas {
 
         //Turnover
         Formulas.addAll(TotalAssetTurnover.get(TiD, counter));
-        counter = counter + 3;
+        counter = counter + 4;
         Formulas.addAll(SalestoFixedAssets.get(TiD, counter));
-        counter = counter + 3;
+        counter = counter + 5;
         Formulas.addAll(CurrentAssetTurnover.get(TiD, counter));
         counter = counter + 3;
         Formulas.addAll(WorkingCapitalTurnover.get(TiD, counter));
-        counter = counter + 3;
+        counter = counter + 4;
         Formulas.addAll(AccountsReceivableTurnover.get(TiD, counter));
-        counter = counter + 3;
+        counter = counter + 4;
         Formulas.addAll(AverageCollectionPeriod.get(TiD, counter));
-        counter = counter + 3;
+        counter = counter + 6;
         Formulas.addAll(AccountsPayableTurnover.get(TiD, counter));
-        counter = counter + 3;
+        counter = counter + 4;
         Formulas.addAll(DaysPayableOutstanding.get(TiD, counter));
-        counter = counter + 3;
+        counter = counter + 5;
         Formulas.addAll(InventoryTurnover.get(TiD, counter));
-        counter = counter + 3;
+        counter = counter + 5;
         Formulas.addAll(InventoryTurnoverinDays.get(TiD, counter));
-        counter = counter + 3;
+        counter = counter + 5;
         Formulas.addAll(CashTurnover.get(TiD, counter));
-        counter = counter + 3;
+        counter = counter + 4;
         Formulas.addAll(OperatingCycle.get(TiD, counter));
-        counter = counter + 3;
+        counter = counter + 4;
         Formulas.addAll(CashConversionCycle.get(TiD, counter));
-        counter = counter + 3;
+        counter = counter + 4;
+
         //Investment analysis
         Formulas.addAll(NetAssets.get(IAiD, counter));
         counter = counter + 1;
+
         //Altman Z-score
         Formulas.addAll(X1.get(AZSiD, counter));
         counter = counter + 1;
@@ -162,6 +165,7 @@ public class DefaultFormulas {
         counter = counter + 1;
         Formulas.addAll(Z.get(AZSiD, counter));
         counter = counter + 1;
+
         //Other
         Formulas.addAll(LaborProductivity.get(OIiD, counter));
         counter = counter + 1;

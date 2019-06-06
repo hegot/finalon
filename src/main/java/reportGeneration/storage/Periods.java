@@ -1,12 +1,13 @@
 package reportGeneration.storage;
 
 import javafx.collections.ObservableMap;
+import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class Periods {
+public class Periods implements JsCalcHelper {
 
     private ObservableMap<String, String> settings;
     private int periods;
@@ -108,6 +109,14 @@ public class Periods {
     public String getStart() {
         LocalDateTime time = getStartTime().plusMonths(month);
         return time.format(formatM) + "/" + time.format(formatY);
+    }
+
+    public String getAfterStart() {
+        ArrayList<String>  arr = getPeriodArr();
+        if(arr.get(1) != null){
+            return formatDate(arr.get(1));
+        }
+        return formatDate(arr.get(0));
     }
 
     public String getEnd() {

@@ -1,5 +1,6 @@
 package defaultData.Formula.Turnover;
 
+import defaultData.EvaluationTypes;
 import entities.Formula;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,7 +14,7 @@ public class InventoryTurnover {
                 "Inventory Turnover  (Days Inventory Outstanding)",
                 "InventoryTurnover",
                 "CostOfSales/((Inventories[1]+Inventories[0])/2)",
-                "",
+                EvaluationTypes.EVALUATE_END_ONLY.toString(),
                 "formula",
                 "days",
                 parent));
@@ -23,7 +24,7 @@ public class InventoryTurnover {
                 "good",
                 ">",
                 "6",
-                "",
+                "Inventory Turnover index comes into 'good' range ( > 6) at the end of the period. ",
                 "",
                 "",
                 InventoryTurnover));
@@ -33,7 +34,27 @@ public class InventoryTurnover {
                 "unsatisfactory",
                 "<=",
                 "6",
+                "Inventory Turnover index comes into 'unsatisfactory' range ( <= 6) at the end of the period. ",
                 "",
+                "",
+                InventoryTurnover));
+        counter++;
+        int DaysPayableOutstandingIncrease = counter;
+        Formulas.add(new Formula(DaysPayableOutstandingIncrease,
+                EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString(),
+                "",
+                "",
+                "COMPANYNAME inventory was more active in ENDDATE than in AFTERSTART. ",
+                "",
+                "",
+                InventoryTurnover));
+        counter++;
+        int DaysPayableOutstandingDecrease = counter;
+        Formulas.add(new Formula(DaysPayableOutstandingDecrease,
+                EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString(),
+                "",
+                "",
+                "COMPANYNAME inventory was more active in AFTERSTART than in ENDDATE. ",
                 "",
                 "",
                 InventoryTurnover));

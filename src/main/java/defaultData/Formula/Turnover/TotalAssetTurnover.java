@@ -38,8 +38,8 @@ public class TotalAssetTurnover {
                 "",
                 TotalAssetTurnover));
         counter++;
-        int TheLongTermDebttoTotalCapitalizationRatioSuffix = counter;
-        Formulas.add(new Formula(TheLongTermDebttoTotalCapitalizationRatioSuffix,
+        int TotalAssetTurnoverPrefix = counter;
+        Formulas.add(new Formula(TotalAssetTurnoverPrefix,
                 EvaluationTypes.PREFIX.toString(),
                 "",
                 "",
