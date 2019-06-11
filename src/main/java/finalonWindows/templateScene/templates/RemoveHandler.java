@@ -3,55 +3,51 @@ package finalonWindows.templateScene.templates;
 import entities.Item;
 import finalonWindows.reusableComponents.ImageButton;
 import javafx.event.ActionEvent;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableCell;
-import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
 public class RemoveHandler {
 
 
-    public Callback<TreeTableColumn<Item, Void>, TreeTableCell<Item, Void>> getRemoveFactory() {
-        return new Callback<TreeTableColumn<Item, Void>, TreeTableCell<Item, Void>>() {
+    public Callback<TableColumn<Item, Void>, TableCell<Item, Void>> getRemoveFactory() {
+        return new Callback<TableColumn<Item, Void>, TableCell<Item, Void>>() {
             @Override
-            public TreeTableCell<Item, Void> call(final TreeTableColumn<Item, Void> param) {
-                final TreeTableCell<Item, Void> cell = new TreeTableCell<Item, Void>() {
+            public TableCell<Item, Void> call(final TableColumn<Item, Void> param) {
+                final TableCell<Item, Void> cell = new TableCell<Item, Void>() {
 
                     private ImageButton removeBtn() {
                         ImageButton btn = new ImageButton("image/remove.png", 16);
                         btn.getStyleClass().add("img-btn");
-                        TreeItem treeItem = this.getTreeTableRow().getTreeItem();
-                        if (treeItem != null) {
-                            TreeItem parentTreeItem = treeItem.getParent();
-                            if (parentTreeItem != null) {
-                                btn.setOnAction((ActionEvent event) -> {
-                                    parentTreeItem.getChildren().remove(treeItem);
-                                });
-                            }
-                        }
+                        TableView table = this.getTableView();
+                        Item selectedItem = (Item) table.getSelectionModel().getSelectedItem();
+                        table.getItems().remove(selectedItem);
                         return btn;
                     }
 
-                    private ImageButton addBtn() {
+                    /*private ImageButton addBtn() {
                         ImageButton btn = new ImageButton("image/add-plus-button.png", 16);
                         btn.getStyleClass().add("img-btn");
-                        TreeItem treeItem = this.getTreeTableRow().getTreeItem();
-                        if (treeItem != null) {
+                        Item item = (Item) this.getTableRow().getItem();
+                        if (item != null) {
                             btn.setOnAction((ActionEvent event) -> {
-                                Item node = (Item) treeItem.getValue();
-                                Item itemNew = new Item(-1, "Set value here", "Set value here", true, false, node.getId(), -1);
+                                Item itemNew = new Item(-1, "Set value here", "Set value here", true, false, item.getId(), -1);
                                 TreeItem treeItemNew = new TreeItem<Item>(itemNew);
                                 treeItemNew.setExpanded(true);
-                                treeItem.getChildren().add(treeItemNew);
+                                item.getChildren().add(treeItemNew);
                             });
                         }
                         return btn;
-                    }
+                    }*/
 
                     private HBox container() {
                         HBox hBox = new HBox(10);
-                        hBox.getChildren().addAll(addBtn(), removeBtn());
+                        hBox.getChildren().addAll(
+                                //addBtn(),
+                                removeBtn());
                         return hBox;
                     }
 

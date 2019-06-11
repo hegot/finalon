@@ -33,7 +33,6 @@ public class EditTemplate extends TemplateBase {
                 if ((templateName.getText() != null && !templateName.getText().isEmpty())) {
                     Item rootItem = getRoot();
                     rootItem.setName(templateName.getText());
-                    ObservableList<Item> items = templateEditable.getItems();
                     items.add(rootItem);
                     TemplateEditor updater = new TemplateEditor(templateName.getText(), items);
                     updater.updateTpl();

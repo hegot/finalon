@@ -17,6 +17,7 @@ public class Item {
     private int parent;
     private int parentSheet;
     private ObservableMap<String, Double> values;
+    private Integer level;
 
     public Item(
             int id,
@@ -25,7 +26,8 @@ public class Item {
             Boolean isPositive,
             Boolean finResult,
             int parent,
-            int parentSheet
+            int parentSheet,
+            Integer level
     ) {
         this.id = id;
         this.name = name;
@@ -35,6 +37,7 @@ public class Item {
         this.parent = parent;
         this.parentSheet = parentSheet;
         this.values = FXCollections.observableHashMap();
+        this.level = level;
     }
 
     public Item(
@@ -45,7 +48,8 @@ public class Item {
             Boolean finResult,
             int parent,
             int parentSheet,
-            ObservableMap<String, Double> values
+            ObservableMap<String, Double> values,
+            Integer level
     ) {
         this.id = id;
         this.name = name;
@@ -55,6 +59,7 @@ public class Item {
         this.parent = parent;
         this.parentSheet = parentSheet;
         this.values = values;
+        this.level = level;
     }
 
     public int getId() {
@@ -96,6 +101,14 @@ public class Item {
 
     public void setIsPositive(Boolean isPositive) {
         this.isPositive = isPositive;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 
     public int getParent() {
@@ -150,6 +163,10 @@ public class Item {
             val = values.get(period);
         }
         return val;
+    }
+
+    public void setVal(String period, Double val) {
+        values.put(period, val);
     }
 
     public Double getChange() {

@@ -30,7 +30,8 @@ public class DbItemHandler extends DbHandlerBase {
                 "`isPositive` INTEGER," +
                 "`finResult` INTEGER," +
                 "`parent` INTEGER," +
-                "`parentSheet` INTEGER" +
+                "`parentSheet` INTEGER," +
+                "`level` INTEGER" +
                 ");");
 
         System.out.println("Table " + tableName + " created");
@@ -59,7 +60,7 @@ public class DbItemHandler extends DbHandlerBase {
     public ObservableList<Item> getItems(int parent) {
         ObservableList<Item> Items = FXCollections.observableArrayList();
         try (Statement statement = this.connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName,  isPositive, finResult, parent, parentSheet FROM "
+            ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName,  isPositive, finResult, parent, parentSheet, level FROM "
                     + tableName + " WHERE parentSheet = " + parent);
             while (resultSet.next()) {
                 Items.add(
@@ -70,7 +71,8 @@ public class DbItemHandler extends DbHandlerBase {
                                 resultSet.getBoolean("isPositive"),
                                 resultSet.getBoolean("finResult"),
                                 resultSet.getInt("parent"),
-                                resultSet.getInt("parentSheet")
+                                resultSet.getInt("parentSheet"),
+                                resultSet.getInt("level")
                         )
                 );
             }
@@ -81,9 +83,9 @@ public class DbItemHandler extends DbHandlerBase {
     }
 
     public Item getItem(int id) {
-        Item item = new Item(0, "", "", false, false, 0, 0);
+        Item item = new Item(0, "", "", false, false, 0, 0, 0);
         try (Statement statement = this.connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName,  isPositive, finResult, parent, parentSheet FROM "
+            ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName,  isPositive, finResult, parent, parentSheet, level FROM "
                     + tableName + " WHERE id = " + id);
             while (resultSet.next()) {
                 item = new Item(
@@ -93,7 +95,8 @@ public class DbItemHandler extends DbHandlerBase {
                         resultSet.getBoolean("isPositive"),
                         resultSet.getBoolean("finResult"),
                         resultSet.getInt("parent"),
-                        resultSet.getInt("parentSheet")
+                        resultSet.getInt("parentSheet"),
+                        resultSet.getInt("level")
                 );
             }
         } catch (SQLException e) {
@@ -106,7 +109,7 @@ public class DbItemHandler extends DbHandlerBase {
     public ObservableList<Item> getTemplates() {
         ObservableList<Item> Items = FXCollections.observableArrayList();
         try (Statement statement = this.connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName,  isPositive, finResult, parent, parentSheet FROM "
+            ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName,  isPositive, finResult, parent, parentSheet, level FROM "
                     + tableName + " WHERE parent = 0");
             while (resultSet.next()) {
                 Items.add(
@@ -117,7 +120,8 @@ public class DbItemHandler extends DbHandlerBase {
                                 resultSet.getBoolean("isPositive"),
                                 resultSet.getBoolean("finResult"),
                                 resultSet.getInt("parent"),
-                                resultSet.getInt("parentSheet")
+                                resultSet.getInt("parentSheet"),
+                                resultSet.getInt("level")
                         )
                 );
             }
@@ -130,8 +134,8 @@ public class DbItemHandler extends DbHandlerBase {
     int addItem(Item Item) throws ClassNotFoundException, SQLException {
         try {
             String[] returnId = {"id"};
-            String sql = "INSERT INTO " + tableName + " (`id`, `name`, `shortName`,  `isPositive`, `finResult`, `parent`, `parentSheet`) " +
-                    "VALUES(NULL, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO " + tableName + " (`id`, `name`, `shortName`,  `isPositive`, `finResult`, `parent`, `parentSheet`, `level`) " +
+                    "VALUES(NULL, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = this.connection.prepareStatement(sql, returnId);
             statement.setObject(1, Item.getName());
             statement.setObject(2, Item.getShortName());
@@ -139,6 +143,7 @@ public class DbItemHandler extends DbHandlerBase {
             statement.setObject(4, Item.getFinResult());
             statement.setObject(5, Item.getParent());
             statement.setObject(6, Item.getParentSheet());
+            statement.setObject(7, Item.getLevel());
             int affectedRows = statement.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException("Creating item failed, no rows affected.");
@@ -158,7 +163,7 @@ public class DbItemHandler extends DbHandlerBase {
 
     void updateItem(Item Item) throws ClassNotFoundException, SQLException {
         try (PreparedStatement statement = this.connection.prepareStatement(
-                "UPDATE " + tableName + " SET `name` = ?,  `shortName` = ?, `isPositive` = ?, `finResult` = ?, `parent` = ?, `parentSheet` = ? WHERE `id` = " + Item.getId()
+                "UPDATE " + tableName + " SET `name` = ?,  `shortName` = ?, `isPositive` = ?, `finResult` = ?, `parent` = ?, `parentSheet` = ?, `level` = ? WHERE `id` = " + Item.getId()
         )) {
             statement.setObject(1, Item.getName());
             statement.setObject(2, Item.getShortName());
@@ -166,6 +171,7 @@ public class DbItemHandler extends DbHandlerBase {
             statement.setObject(4, Item.getFinResult());
             statement.setObject(5, Item.getParent());
             statement.setObject(6, Item.getParentSheet());
+            statement.setObject(7, Item.getLevel());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

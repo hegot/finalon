@@ -4,10 +4,7 @@ import entities.Item;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableView;
+import javafx.scene.control.*;
 import javafx.stage.Screen;
 
 import java.util.ArrayList;
@@ -33,18 +30,16 @@ public class TemplateEditable {
             Tab tab = new Tab();
             Item sheet = Sheet;
             tab.setText(sheet.getName());
-            TreeTableView<Item> table = getSingleTable(sheet.getId(), sheet.getName());
-            tab.setContent(table);
+            tab.setContent(getSingleTable(sheet.getId(), sheet.getName()));
             tabs.getTabs().add(tab);
         }
         return tabs;
     }
 
-    private TreeTableView<Item> getSingleTable(int Id, String SheetName) {
-        TreeTableView<Item> table = new TreeTableView<>();
+    private TableView<Item> getSingleTable(int Id, String SheetName) {
+        TableView<Item> table = new TableView<>();
         table.setEditable(true);
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        table.setMinHeight(primaryScreenBounds.getHeight() - 150);
+        table.setPrefSize( 300, 1900 );
         RemoveHandler removeHandler = new RemoveHandler();
         Columns cols = new Columns(removeHandler);
         if (SheetName.equals("Statement of Financial Position \n (Balance Sheet)") || SheetName.equals("Other Data")) {
@@ -52,10 +47,10 @@ public class TemplateEditable {
         } else {
             table.getColumns().addAll(cols.getNameCol(), cols.getCodeCol(), cols.isPositiveCol(), cols.finResultCol(), cols.buttonCol());
         }
-        TreeBuilder treeBuilder = new TreeBuilder(Id, this.items);
-        TreeItem rootNode = treeBuilder.getTree();
-        table.setRoot(rootNode);
-        roots.add(rootNode);
+        ItemsGetter itemsGetter = new ItemsGetter(Id, this.items);
+        table.getItems().addAll(itemsGetter.getItems());
+
+
         return table;
     }
 

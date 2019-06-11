@@ -1,17 +1,14 @@
 package finalonWindows.templateScene.templates;
 
 import entities.Item;
-import finalonWindows.reusableComponents.EditCell.EditCell;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.cell.CheckBoxTreeTableCell;
-import javafx.scene.control.cell.TextFieldTreeTableCell;
-import javafx.scene.control.cell.TreeItemPropertyValueFactory;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 
 class Columns {
     private RemoveHandler removeHandler;
@@ -20,50 +17,49 @@ class Columns {
         this.removeHandler = removeHandler;
     }
 
-    TreeTableColumn buttonCol() {
-        TreeTableColumn<Item, Void> col = new TreeTableColumn<>("");
+    TableColumn buttonCol() {
+        TableColumn<Item, Void> col = new TableColumn<>("");
         col.setMinWidth(50);
         col.setCellFactory(removeHandler.getRemoveFactory());
         return col;
     }
 
-    TreeTableColumn getNameCol() {
-        TreeTableColumn<Item, String> col = new TreeTableColumn<Item, String>("Indicator");
+    TableColumn getNameCol() {
+        TableColumn<Item, String> col = new TableColumn<Item, String>("Indicator");
         col.setMinWidth(450);
-        col.setCellFactory(column -> EditCell.createStringEditCell("string"));
-        col.setCellValueFactory(new TreeItemPropertyValueFactory<Item, String>("name"));
+
+
+        col.setCellFactory( column -> new EditCell());
+        col.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
         col.setOnEditCommit(
-                new EventHandler<TreeTableColumn.CellEditEvent<Item, String>>() {
-                    @Override
-                    public void handle(TreeTableColumn.CellEditEvent<Item, String> t) {
-                        String value = t.getNewValue();
-                        TreeItem<Item> treeItem = t.getRowValue();
-                        Item item = treeItem.getValue();
-                        item.setName(value);
+                (TableColumn.CellEditEvent<Item, String> t) -> {
+                    if(t.getTableView() != null){
+                        ((Item) t.getTableView().getItems()
+                                .get(t.getTablePosition().getRow()))
+                                .setName(t.getNewValue());
                     }
-                }
-        );
+                });
         return col;
     }
 
-    TreeTableColumn getCodeCol() {
-        TreeTableColumn<Item, String> col = new TreeTableColumn<Item, String>("Indicator Code");
+    TableColumn getCodeCol() {
+        TableColumn<Item, String> col = new TableColumn<Item, String>("Indicator Code");
         col.setMinWidth(200);
         col.setEditable(false);
-        col.setCellValueFactory(new TreeItemPropertyValueFactory<Item, String>("shortName"));
-        col.setCellFactory(TextFieldTreeTableCell.<Item>forTreeTableColumn());
+        col.setCellValueFactory(new PropertyValueFactory<Item, String>("shortName"));
+        col.setCellFactory(TextFieldTableCell.<Item>forTableColumn());
         return col;
     }
 
-    TreeTableColumn isPositiveCol() {
-        TreeTableColumn<Item, Boolean> col = new TreeTableColumn<>("Positive");
+    TableColumn isPositiveCol() {
+        TableColumn<Item, Boolean> col = new TableColumn<>("Positive");
         col.setMinWidth(90);
-        col.setCellValueFactory((TreeTableColumn.CellDataFeatures<Item, Boolean> param) -> {
-            Item item = param.getValue().getValue();
+        col.setCellValueFactory((TableColumn.CellDataFeatures<Item, Boolean> param) -> {
+            Item item = param.getValue();
             return item.isPositive();
         });
-        col.setCellValueFactory((TreeTableColumn.CellDataFeatures<Item, Boolean> param) -> {
-            Item item = param.getValue().getValue();
+        col.setCellValueFactory((TableColumn.CellDataFeatures<Item, Boolean> param) -> {
+            Item item = param.getValue();
             SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(item.getIsPositive());
             booleanProp.addListener(new ChangeListener<Boolean>() {
                 @Override
@@ -77,11 +73,11 @@ class Columns {
         return col;
     }
 
-    TreeTableColumn finResultCol() {
-        TreeTableColumn<Item, Boolean> col = new TreeTableColumn<>("Result");
+    TableColumn finResultCol() {
+        TableColumn<Item, Boolean> col = new TableColumn<>("Result");
         col.setMinWidth(80);
-        col.setCellValueFactory((TreeTableColumn.CellDataFeatures<Item, Boolean> param) -> {
-            Item item = param.getValue().getValue();
+        col.setCellValueFactory((TableColumn.CellDataFeatures<Item, Boolean> param) -> {
+            Item item = param.getValue();
             SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(item.getFinResult());
             booleanProp.addListener(new ChangeListener<Boolean>() {
                 @Override
@@ -95,12 +91,12 @@ class Columns {
         return col;
     }
 
-    private void setCellFactory(TreeTableColumn col) {
+    private void setCellFactory(TableColumn col) {
         col.setCellFactory(column -> {
-            CheckBoxTreeTableCell<Item, Boolean> checkBoxTreeTableCell = new CheckBoxTreeTableCell<>();
-            checkBoxTreeTableCell.setEditable(true);
-            checkBoxTreeTableCell.setAlignment(Pos.CENTER);
-            return checkBoxTreeTableCell;
+            CheckBoxTableCell<Item, Boolean> checkBoxTableCell = new CheckBoxTableCell<>();
+            checkBoxTableCell.setEditable(true);
+            checkBoxTableCell.setAlignment(Pos.CENTER);
+            return checkBoxTableCell;
         });
     }
 }

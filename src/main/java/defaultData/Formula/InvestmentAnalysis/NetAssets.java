@@ -10,7 +10,7 @@ public class NetAssets {
         Formulas.add(new Formula(counter,
                 "Net assets (Net worth)",
                 "NetAssets",
-                "AssetsGeneral-NonCurrentAssets-GeneralCurrentAssets",
+                "EquityAndLiabilities-LiabilitiesGeneral",
                 "",
                 "formula",
                 "money",

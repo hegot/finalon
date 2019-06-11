@@ -55,9 +55,6 @@ public class TemplatePreview {
         col2.setCellFactory(TextFieldTreeTableCell.<Item>forTreeTableColumn());
 
         table.getColumns().addAll(col1, col2);
-        TreeBuilder treeBuilder = new TreeBuilder(Id, this.items);
-        TreeItem rootNode = treeBuilder.getTree();
-        table.setRoot(rootNode);
         return table;
     }
 

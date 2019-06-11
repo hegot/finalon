@@ -19,14 +19,15 @@ public class TemplateCreator extends TemplateBase {
 
 
     public void createTpl() {
-        int templateId = 0;
         for (Item item : items) {
             if (item.getParent() == 0) {
                 item.setName(tplName);
-                templateId = createItem(item);
+                int templateId = createItem(item);
                 updateChilds(item.getId(), templateId);
                 setParentTpl(templateId);
+                break;
             }
+
         }
         for (Item item : items) {
             if (item.getParent() != 0) {
