@@ -2,11 +2,9 @@ package finalonWindows.templateScene.templates;
 
 import entities.Item;
 import finalonWindows.reusableComponents.ImageButton;
-import javafx.event.ActionEvent;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TreeItem;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 

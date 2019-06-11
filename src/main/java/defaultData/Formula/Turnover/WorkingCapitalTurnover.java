@@ -13,7 +13,7 @@ public class WorkingCapitalTurnover {
                 "Working Capital Turnover",
                 "WorkingCapitalTurnover",
                 "RevenueGeneral/((GeneralCurrentAssets[1]-CurrentLiabilities[1]+GeneralCurrentAssets[0]-CurrentLiabilities[0])/2)",
-                 EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
+                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
                 "formula",
                 "times",
                 parent));

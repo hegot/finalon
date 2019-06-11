@@ -68,7 +68,7 @@ public class TemplateSelect {
 
             } else {
                 settings.put("template", "1");
-                Item item = new Item(1, "Default Template", "DefaultTemplate", true, false, 0, 0);
+                Item item = new Item(1, "Default Template", "DefaultTemplate", true, false, 0, 0, 0);
                 items.add(item);
                 return item;
             }

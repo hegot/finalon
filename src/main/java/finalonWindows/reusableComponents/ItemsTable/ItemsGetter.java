@@ -1,4 +1,4 @@
-package finalonWindows.templateScene.templates;
+package finalonWindows.reusableComponents.ItemsTable;
 
 import entities.Item;
 import javafx.collections.FXCollections;

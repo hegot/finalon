@@ -6,6 +6,7 @@ import reportGeneration.interpreter.FinancialResults.FinancialResultsReport;
 import reportGeneration.interpreter.FinancialSustainability.FinancialSustainabilityReport;
 import reportGeneration.interpreter.FormulaCalculation.FormulaCalculation;
 import reportGeneration.interpreter.FormulaList.FormulaList;
+import reportGeneration.interpreter.InvestorAnalysis.InvestorAnalysis;
 import reportGeneration.interpreter.LiabilitiesReport.LiabilitiesReport;
 import reportGeneration.interpreter.Liquidity.LiquidityReport;
 import reportGeneration.interpreter.ProfitabilityRatios.ProfitabilityRatios;
@@ -46,6 +47,9 @@ public class Interprter {
                 break;
             case "turnoverRatios":
                 vbox = new TurnoverRatios().get();
+                break;
+            case "otherIndicators":
+                vbox = new InvestorAnalysis().get();
                 break;
         }
         return vbox;

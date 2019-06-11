@@ -17,6 +17,7 @@ import reportGeneration.storage.IndexesStorage;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.SettingsStorage;
+import reportGeneration.validator.Validator;
 
 import java.util.ArrayList;
 
@@ -53,7 +54,6 @@ public class AddReportScene extends SceneBase {
                 }
             }
         });
-
         vbox.getChildren().addAll(
                 settingsMenu.getMenu(),
                 stepOne.show()
@@ -81,8 +81,14 @@ public class AddReportScene extends SceneBase {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                populateEmptyValues();
-                SettingsStorage.getSettings().put("step", "three");
+                Validator validator = new Validator();
+                String errors = validator.validate();
+                if (errors.length() > 0) {
+                    validator.showValidation(errors);
+                } else {
+                    populateEmptyValues();
+                    SettingsStorage.getSettings().put("step", "three");
+                }
             }
         });
         return button;

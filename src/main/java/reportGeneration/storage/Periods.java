@@ -112,8 +112,8 @@ public class Periods implements JsCalcHelper {
     }
 
     public String getAfterStart() {
-        ArrayList<String>  arr = getPeriodArr();
-        if(arr.get(1) != null){
+        ArrayList<String> arr = getPeriodArr();
+        if (arr.get(1) != null) {
             return formatDate(arr.get(1));
         }
         return formatDate(arr.get(0));

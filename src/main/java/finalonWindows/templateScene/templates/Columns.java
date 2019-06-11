@@ -29,11 +29,11 @@ class Columns {
         col.setMinWidth(450);
 
 
-        col.setCellFactory( column -> new EditCell());
+        col.setCellFactory(column -> new EditCell("string"));
         col.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
         col.setOnEditCommit(
                 (TableColumn.CellEditEvent<Item, String> t) -> {
-                    if(t.getTableView() != null){
+                    if (t.getTableView() != null) {
                         ((Item) t.getTableView().getItems()
                                 .get(t.getTablePosition().getRow()))
                                 .setName(t.getNewValue());

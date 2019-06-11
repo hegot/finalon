@@ -197,7 +197,7 @@ class ItemsGetter {
                 true,
                 false,
                 0,
-                0);
+                0, 0);
         ObservableMap<String, Double> valuesEbit = FXCollections.observableHashMap();
         for (String period : periods) {
             Double val1 = profitLossBeforeTax.getVal(period);
@@ -220,7 +220,7 @@ class ItemsGetter {
                 true,
                 false,
                 0,
-                0);
+                0, 0);
         ObservableMap<String, Double> valuesItemOtherIncome = FXCollections.observableHashMap();
         for (String period : periods) {
             Double val1 = profitLossBeforeTax.getVal(period);
@@ -244,7 +244,7 @@ class ItemsGetter {
                 true,
                 false,
                 0,
-                0);
+                0, 0);
         ObservableMap<String, Double> valuesIncomeLossFromContinuingOperations = FXCollections.observableHashMap();
         for (String period : periods) {
             Double val1 = profitLossBeforeTax.getVal(period);

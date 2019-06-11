@@ -204,7 +204,7 @@ public class Formula {
         return val;
     }
 
-    public String getFormulaStart(){
+    public String getFormulaStart() {
         ArrayList<String> arr = Periods.getInstance().getPeriodArr();
         if (arr.get(0) != null) {
             Double val = periods.get(arr.get(0));

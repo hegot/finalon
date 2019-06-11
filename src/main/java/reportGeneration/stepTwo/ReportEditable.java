@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TreeTableView;
+import javafx.scene.control.TableView;
 import javafx.stage.Screen;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
@@ -35,22 +35,21 @@ public class ReportEditable extends ItemsTable {
             Tab tab = new Tab();
             Item sheet = Sheet;
             tab.setText(sheet.getName());
-            TreeTableView<Item> table = getSingleTable(sheet.getId());
+            TableView<Item> table = getSingleTable(sheet.getId());
             tab.setContent(table);
             tabs.getTabs().add(tab);
         }
         return tabs;
     }
 
-    private TreeTableView<Item> getSingleTable(int Id) {
-        TreeTableView<Item> table = getTable(Id);
+    private TableView<Item> getSingleTable(int Id) {
+        TableView<Item> table = getTable(Id);
         table.getStyleClass().add("report-input");
         table.setEditable(true);
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         table.setMinHeight(primaryScreenBounds.getHeight() - 150);
         table.setPrefWidth(880);
-        TextEditHandler texthandler = new TextEditHandler();
-        Columns cols = new Columns(texthandler);
+        Columns cols = new Columns();
         table.getColumns().addAll(cols.getNameCol(), cols.getCodeCol());
         Periods periods = new Periods();
         ArrayList<String> arr = periods.getPeriodArr();

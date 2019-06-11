@@ -17,7 +17,7 @@ public class RecivablePayableAccountsComparison {
     public String getResult() {
         Double accountPayableLast = accountPayable.getLastVal();
         Double accountRecivableLast = accountRecivable.getLastVal();
-        if(accountPayableLast != null && accountRecivableLast != null){
+        if (accountPayableLast != null && accountRecivableLast != null) {
             if (accountPayableLast > accountRecivableLast) {
                 return "By comparing the turnover data of the accounts receivable and accounts payable during " +
                         "ENDDATE it can be seen the accounts receivable were turned over faster than the accounts payable.";
@@ -29,7 +29,7 @@ public class RecivablePayableAccountsComparison {
             return "By comparing the turnover data of the accounts receivable and accounts payable during " +
                     "ENDDATE it can be seen the accounts receivable turned over as fast as the accounts payable.";
         }
-       return "";
+        return "";
     }
 
 }

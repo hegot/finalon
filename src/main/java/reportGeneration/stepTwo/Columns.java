@@ -2,77 +2,90 @@ package reportGeneration.stepTwo;
 
 import database.setting.DbSettingHandler;
 import entities.Item;
-import finalonWindows.reusableComponents.EditCell.EditCell;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.cell.TextFieldTreeTableCell;
-import javafx.scene.control.cell.TreeItemPropertyValueFactory;
-
-import java.util.Arrays;
-
-
-class Columns {
-
-    private TextEditHandler textEditHandler;
-
-    public Columns(
-            TextEditHandler textEditHandler
-    ) {
-        this.textEditHandler = textEditHandler;
-    }
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
+import reportGeneration.stepTwo.hooks.UpdateParentHook;
+import reportGeneration.storage.ItemsStorage;
 
 
-    TreeTableColumn getNameCol() {
-        TreeTableColumn<Item, String> col = new TreeTableColumn<Item, String>("Indicator");
+class Columns implements ParseDouble {
+
+    TableColumn getNameCol() {
+        TableColumn<Item, String> col = new TableColumn<Item, String>("Indicator");
         col.setMinWidth(350);
         col.setEditable(false);
-        col.setCellValueFactory(new TreeItemPropertyValueFactory<Item, String>("name"));
-        col.setCellFactory(TextFieldTreeTableCell.<Item>forTreeTableColumn());
+        col.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
+        col.setCellFactory(TextFieldTableCell.<Item>forTableColumn());
         return col;
     }
 
 
-    TreeTableColumn getCodeCol() {
-        TreeTableColumn<Item, String> col = new TreeTableColumn<Item, String>("Indicator Code");
+    TableColumn getCodeCol() {
+        TableColumn<Item, String> col = new TableColumn<Item, String>("Indicator Code");
         col.setMinWidth(100);
         col.setEditable(false);
-        col.setCellValueFactory(new TreeItemPropertyValueFactory<Item, String>("shortName"));
-        col.setCellFactory(TextFieldTreeTableCell.<Item>forTreeTableColumn());
+        col.setCellValueFactory(new PropertyValueFactory<Item, String>("shortName"));
+        col.setCellFactory(TextFieldTableCell.<Item>forTableColumn());
         return col;
     }
 
 
-    TreeTableColumn getPeriodCol(String colname) {
-        TreeTableColumn<Item, String> col = new TreeTableColumn<Item, String>(colname);
+    TableColumn getPeriodCol(String colname) {
+        ObservableList<Item> items = ItemsStorage.getItems();
+        TableColumn<Item, String> col = new TableColumn<Item, String>(colname);
         col.setMinWidth(100);
-        col.setCellFactory(column -> EditCell.createStringEditCell("integer"));
-        textEditHandler.setColumnEventHandlers(col, colname);
-        col.setCellValueFactory(cellData -> {
-            TreeItem treeItem = cellData.getValue();
-            if (treeItem != null) {
-                Item item = (Item) treeItem.getValue();
-                if (item != null) {
-                    String[] arr = {"StatementOfFinancialPosition", "StatementOfComprehensiveIncome", "CashFlowStatement", "OtherData"};
-                    if (Arrays.asList(arr).contains(item.getShortName())) {
-                        return null;
-                    }
-                    if (item.getValues().size() > 0) {
-                        Double dob = item.getValues().get(colname);
-                        if (dob != null) {
-                            String val = Double.toString(dob);
-                            DbSettingHandler dbSettingHandler = new DbSettingHandler();
-                            if (dbSettingHandler.getSetting("numberFormat").equals("comma")) {
-                                val = val.replace('.', ',');
+        col.setCellFactory(column -> new EditCell("integer"));
+        col.setOnEditCommit(
+                (TableColumn.CellEditEvent<Item, String> t) -> {
+                    if (t != null && t.getTableView() != null) {
+                        String value = t.getNewValue().replace(',', '.');
+                        if (value != null) {
+                            Item item = t.getRowValue();
+                            if (item != null) {
+                                ObservableMap<String, Double> values = item.getValues();
+                                updateItem(item, values, value, colname);
+                                UpdateParentHook parentHook = new UpdateParentHook(items);
+                                parentHook.run(item, colname);
+                                t.getTableView().refresh();
                             }
-                            return new SimpleStringProperty(val);
                         }
+                    }
+                });
+
+
+        col.setCellValueFactory(cellData -> {
+            Item item = (Item) cellData.getValue();
+            if (item != null) {
+                if (item.getValues().size() > 0) {
+                    Double dob = item.getValues().get(colname);
+                    if (dob != null) {
+                        String val = Double.toString(dob);
+                        DbSettingHandler dbSettingHandler = new DbSettingHandler();
+                        if (dbSettingHandler.getSetting("numberFormat").equals("comma")) {
+                            val = val.replace('.', ',');
+                        }
+                        return new SimpleStringProperty(val);
                     }
                 }
             }
             return null;
         });
         return col;
+    }
+
+
+    private void updateItem(Item item, ObservableMap<String, Double> values, String value, String param) {
+        if (value.length() > 0) {
+            values.put(param, parseDouble(value));
+        } else {
+            values.remove(param);
+        }
+        item.setValues(values);
     }
 
 }

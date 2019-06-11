@@ -1,11 +1,13 @@
 package finalonWindows.templateScene.templates;
 
 import entities.Item;
+import finalonWindows.reusableComponents.ItemsTable.ItemsGetter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.control.*;
-import javafx.stage.Screen;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TreeItem;
 
 import java.util.ArrayList;
 
@@ -39,7 +41,7 @@ public class TemplateEditable {
     private TableView<Item> getSingleTable(int Id, String SheetName) {
         TableView<Item> table = new TableView<>();
         table.setEditable(true);
-        table.setPrefSize( 300, 1900 );
+        table.setPrefSize(300, 1900);
         RemoveHandler removeHandler = new RemoveHandler();
         Columns cols = new Columns(removeHandler);
         if (SheetName.equals("Statement of Financial Position \n (Balance Sheet)") || SheetName.equals("Other Data")) {
@@ -52,20 +54,6 @@ public class TemplateEditable {
 
 
         return table;
-    }
-
-    private void populateList(TreeItem<Item> item, ObservableList<Item> items) {
-
-        if (item.getChildren().size() > 0) {
-            Item node = (Item) item.getValue();
-            items.add(node);
-            for (TreeItem<Item> subItem : item.getChildren()) {
-                populateList(subItem, items);
-            }
-        } else {
-            Item node = (Item) item.getValue();
-            items.add(node);
-        }
     }
 
 
@@ -88,13 +76,6 @@ public class TemplateEditable {
         return Items;
     }
 
-    public ObservableList<Item> getItems() {
-        ObservableList<Item> Items = FXCollections.observableArrayList();
-        for (TreeItem rootNode : this.roots) {
-            populateList(rootNode, Items);
-        }
-        return Items;
-    }
 
 }
 

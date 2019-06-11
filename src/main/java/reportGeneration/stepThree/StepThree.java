@@ -50,7 +50,11 @@ public class StepThree extends SceneBase {
         tab6.setContent(
                 interprter.getReport("turnoverRatios")
         );
-        tabs.getTabs().addAll(tab1, tab2, tab3, tab4, tab5, tab6);
+        Tab tab7 = new Tab("7. Other Indicators");
+        tab7.setContent(
+                interprter.getReport("otherIndicators")
+        );
+        tabs.getTabs().addAll(tab1, tab2, tab3, tab4, tab5, tab6, tab7);
 
         VBox vBox = new VBox(5);
         vBox.getStyleClass().add("generated-report");

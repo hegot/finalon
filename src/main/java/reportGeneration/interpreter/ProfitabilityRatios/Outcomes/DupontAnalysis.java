@@ -64,7 +64,7 @@ public class DupontAnalysis implements LabelWrap, ParseDouble {
         String currency = settings.get("defaultCurrency");
         String start = periods.getStart();
         String end = periods.getEnd();
-        if (periodsArr.size() > 2 && returnOnAssets != null && netProfitMargin != null && totalAssetTurnover != null){
+        if (periodsArr.size() > 2 && returnOnAssets != null && netProfitMargin != null && totalAssetTurnover != null) {
             Double returnOnAssetsFirst = returnOnAssets.getFirstVal();
             String returnOnAssetsFirstStr = valToPercent(returnOnAssetsFirst);
             Double returnOnAssetsLast = returnOnAssets.getLastVal();

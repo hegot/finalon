@@ -61,12 +61,12 @@ public class StrReplacer implements ParseDouble, Round {
         ArrayList<String> arr = periods.getPeriodArr();
         for (String period : arr) {
             Double val = vals.get(period);
-            if(val != null){
+            if (val != null) {
                 sum += val;
             }
         }
         int size = arr.size() - 1;
-        return round(sum/size);
+        return round(sum / size);
     }
 
 

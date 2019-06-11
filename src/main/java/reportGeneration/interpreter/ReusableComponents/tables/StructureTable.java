@@ -1,7 +1,7 @@
 package reportGeneration.interpreter.ReusableComponents.tables;
 
 import entities.Item;
-import javafx.scene.control.TreeTableView;
+import javafx.scene.control.TableView;
 import reportGeneration.storage.Periods;
 
 import java.util.ArrayList;
@@ -16,8 +16,8 @@ public class StructureTable extends IndexChangeTable {
         this.rootId = rootId;
     }
 
-    public TreeTableView<Item> get() {
-        TreeTableView<Item> table = getTable(rootId);
+    public TableView<Item> get() {
+        TableView<Item> table = getTable(rootId);
         table.getStyleClass().add("report-table");
         table.getColumns().addAll(getNameCol());
         ArrayList<String> arr = Periods.getInstance().getPeriodArr();
