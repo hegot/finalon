@@ -1,4 +1,4 @@
-package reportGeneration.stepTwo;
+package globalReusables;
 
 import entities.Item;
 import finalonWindows.reusableComponents.NumField;
@@ -7,12 +7,12 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
-public class EditCell extends TableCell<Item, String> {
+public class EditCellBase extends TableCell<Item, String> {
 
     private TextField textField;
     private String type;
 
-    public EditCell(String type) {
+    public EditCellBase(String type) {
         this.type = type;
         this.addEventHandler(MouseEvent.ANY, event -> {
             if (event.getClickCount() == 1 && event.getButton().equals(MouseButton.PRIMARY)) {
@@ -82,7 +82,7 @@ public class EditCell extends TableCell<Item, String> {
         }
     }
 
-    private void createTextField() {
+    protected void createTextField() {
         if (type.equals("string")) {
             textField = new TextField();
         } else {
@@ -105,7 +105,7 @@ public class EditCell extends TableCell<Item, String> {
         });
     }
 
-    private String getString() {
+    protected String getString() {
         return getItem() == null ? "" : getItem();
     }
 }

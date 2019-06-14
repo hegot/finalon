@@ -23,7 +23,7 @@ public class IndexChangeTable extends ItemsTable implements JsCalcHelper {
     public IndexChangeTable(
             int rootId
     ) {
-        super(ItemsStorage.getItems());
+        super(ItemsStorage.getInstance().getItems());
         this.rootId = rootId;
     }
 

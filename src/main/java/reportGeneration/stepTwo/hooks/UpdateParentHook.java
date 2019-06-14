@@ -16,7 +16,7 @@ public class UpdateParentHook {
         for (Item parent : items) {
             if (child.getParent() == parent.getId()) {
                 Double childVals = getChildVals(parent.getId(), param);
-                if (childVals != 0.0) {
+                if (childVals != null) {
                     parent.getValues().put(param, childVals);
                     if (parent.getParent() > 0) {
                         run(parent, param);
@@ -31,10 +31,11 @@ public class UpdateParentHook {
         for (Item item : items) {
             if (item.getParent() == id) {
                 ObservableMap<String, Double> values = item.getValues();
+                Boolean isPositive = item.getIsPositive();
                 if (values.size() > 0) {
                     Double value = values.get(param);
                     if (value != null) {
-                        val += value;
+                        val += isPositive ? value : value * -1;
                     }
                 }
             }

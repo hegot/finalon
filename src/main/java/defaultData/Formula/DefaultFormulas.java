@@ -150,7 +150,7 @@ public class DefaultFormulas {
 
         //Investment analysis
         Formulas.addAll(NetAssets.get(IAiD, counter));
-        counter = counter + 1;
+        counter = counter + 5;
 
         //Altman Z-score
         Formulas.addAll(X1.get(AZSiD, counter));

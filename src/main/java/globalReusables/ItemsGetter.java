@@ -1,4 +1,4 @@
-package finalonWindows.reusableComponents.ItemsTable;
+package globalReusables;
 
 import entities.Item;
 import javafx.collections.FXCollections;
@@ -20,8 +20,7 @@ public class ItemsGetter {
 
     private void loopItems(int parentId) {
         for (Item item : items) {
-            int par = item.getParent();
-            if (par == parentId) {
+            if (item.getParent() == parentId) {
                 loopItems(item.getId());
                 outputItems.add(item);
             }

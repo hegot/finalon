@@ -30,7 +30,8 @@ public class DebtRatio {
         counter++;
         int DebtRatiogood = counter;
         Formulas.add(new Formula(DebtRatiogood,
-                "good", "<",
+                "good",
+                "<",
                 "0.4",
                 "The debt ratio lies in the area of critical values (from 0.4 to 0.6) at the end of the period, meaning that there was an acceptable financial and credit risk. ",
                 "<=",

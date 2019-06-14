@@ -88,4 +88,9 @@ public class FormulaEvaluateBase {
         return additionalEndEvaluation.getResult();
     }
 
+    public String substituteEvaluator(){
+        SubstituteComparator substituteComparator = new SubstituteComparator(formula);
+        return substituteComparator.getResult();
+    }
+
 }

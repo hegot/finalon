@@ -2,9 +2,11 @@ package reportGeneration.stepTwo;
 
 import database.setting.DbSettingHandler;
 import entities.Item;
+import globalReusables.EditCellBase;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -20,7 +22,25 @@ class Columns implements ParseDouble {
         col.setMinWidth(350);
         col.setEditable(false);
         col.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
-        col.setCellFactory(TextFieldTableCell.<Item>forTableColumn());
+        col.setCellFactory(column -> {
+            return new TableCell<Item, String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || empty) {
+                        setText(null);
+                        setStyle("");
+                    } else {
+                        setText(item);
+                        Item index = getTableView().getItems().get(getTableRow().getIndex());
+                        Integer level = index.getLevel();
+                        if (level.equals(1) || level.equals(2) || level.equals(3)) {
+                            setStyle("-fx-padding: 5 0 5 50; -fx-font-weight: bold;");
+                        }
+                    }
+                }
+            };
+        });
         return col;
     }
 
@@ -39,7 +59,7 @@ class Columns implements ParseDouble {
         ObservableList<Item> items = ItemsStorage.getItems();
         TableColumn<Item, String> col = new TableColumn<Item, String>(colname);
         col.setMinWidth(100);
-        col.setCellFactory(column -> new EditCell("integer"));
+        col.setCellFactory(column -> new EditCellBase("integer"));
         col.setOnEditCommit(
                 (TableColumn.CellEditEvent<Item, String> t) -> {
                     if (t != null && t.getTableView() != null) {

@@ -1,33 +1,27 @@
 package finalonWindows.templateScene.templates;
 
 import entities.Item;
-import finalonWindows.reusableComponents.ItemsTable.ItemsGetter;
-import javafx.collections.FXCollections;
+import globalReusables.ItemsGetter;
+import globalReusables.SheetsGetter;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TreeItem;
-
-import java.util.ArrayList;
 
 
 public class TemplateEditable {
 
     private ObservableList<Item> items;
-    private int rootId;
-    private ArrayList<TreeItem> roots;
 
     public TemplateEditable(ObservableList<Item> items) {
         this.items = items;
-        this.roots = new ArrayList<>();
-        setRoot();
     }
 
     public TabPane getTemplateEditable() {
         TabPane tabs = new TabPane();
         tabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-        ObservableList<Item> Sheets = getChildren(rootId);
+        SheetsGetter sheetsGetter = new SheetsGetter(items);
+        ObservableList<Item> Sheets = sheetsGetter.getSheets();
         for (Item Sheet : Sheets) {
             Tab tab = new Tab();
             Item sheet = Sheet;
@@ -41,7 +35,7 @@ public class TemplateEditable {
     private TableView<Item> getSingleTable(int Id, String SheetName) {
         TableView<Item> table = new TableView<>();
         table.setEditable(true);
-        table.setPrefSize(300, 1900);
+        table.setPrefHeight(1900);
         RemoveHandler removeHandler = new RemoveHandler();
         Columns cols = new Columns(removeHandler);
         if (SheetName.equals("Statement of Financial Position \n (Balance Sheet)") || SheetName.equals("Other Data")) {
@@ -51,30 +45,10 @@ public class TemplateEditable {
         }
         ItemsGetter itemsGetter = new ItemsGetter(Id, this.items);
         table.getItems().addAll(itemsGetter.getItems());
-
-
         return table;
     }
 
 
-    public void setRoot() {
-        for (Item item : this.items) {
-            if (item.getParent() == 0) {
-                this.rootId = item.getId();
-            }
-        }
-    }
-
-
-    private ObservableList<Item> getChildren(int id) {
-        ObservableList<Item> Items = FXCollections.observableArrayList();
-        for (Item item : items) {
-            if (item.getParent() == id) {
-                Items.add(item);
-            }
-        }
-        return Items;
-    }
 
 
 }

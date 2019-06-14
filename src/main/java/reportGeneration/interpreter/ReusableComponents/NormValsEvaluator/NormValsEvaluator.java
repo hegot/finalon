@@ -46,7 +46,7 @@ public class NormValsEvaluator extends ValsEvaluator implements JsCalcHelper, Pa
                     return normative.getDescription();
                 }
             } catch (NumberFormatException e) {
-
+                System.out.println(e.getMessage());
             }
         }
         return "";
