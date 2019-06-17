@@ -10,11 +10,11 @@ public interface JsCalcHelper extends ParseDouble {
             ScriptEngineManager mgr = new ScriptEngineManager();
             ScriptEngine engine = mgr.getEngineByName("JavaScript");
             String formula = "(("
-                    + Double.toString(end)
+                    + "(" + Double.toString(end) + ")"
                     + "-"
                     + Double.toString(start)
                     + ")/"
-                    + Double.toString(start)
+                    + "(" + Double.toString(start) + ")"
                     + ") * 100";
             val = "";
             try {
@@ -31,8 +31,11 @@ public interface JsCalcHelper extends ParseDouble {
     }
 
     default String formatDate(String input) {
-        input = input.replace("\n", "");
-        String[] parts = input.split("-");
-        return (parts[1] != null) ? parts[1] : "";
+        if (input != null) {
+            input = input.replace("\n", "");
+            String[] parts = input.split("-");
+            return (parts[1] != null) ? parts[1] : "";
+        }
+        return "";
     }
 }

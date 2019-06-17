@@ -9,7 +9,7 @@ public class X5 {
         ObservableList<Formula> Formulas = FXCollections.observableArrayList();
         int X5 = counter;
         Formulas.add(new Formula(X5,
-                "Altman Z-score X5",
+                "Altman Z-score X5 (Sales/Total Assets)",
                 "X5",
                 "RevenueGeneral/AssetsGeneral",
                 "",

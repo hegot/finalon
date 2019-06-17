@@ -11,11 +11,13 @@ public class FormulaEvaluateBase {
     private ArrayList<String> periodsarr = Periods.getInstance().getPeriodArr();
     private Formula formula;
     private String end;
+    private String start;
     private String type;
 
     public FormulaEvaluateBase(Formula formula) {
         this.formula = formula;
         this.end = periodsarr.get(periodsarr.size() - 1);
+        this.start = periodsarr.get(0);
         this.type = formula.getDescription();
     }
 
@@ -40,6 +42,14 @@ public class FormulaEvaluateBase {
 
     public String endOnly() {
         if (type.equals(EvaluationTypes.EVALUATE_END_ONLY.toString())) {
+            NormValsEvaluator eval = new NormValsEvaluator(formula, end);
+            return eval.getResult();
+        }
+        return "";
+    }
+
+    public String startOnly() {
+        if (type.equals(EvaluationTypes.EVALUATE_START_ONLY.toString())) {
             NormValsEvaluator eval = new NormValsEvaluator(formula, end);
             return eval.getResult();
         }
@@ -88,7 +98,7 @@ public class FormulaEvaluateBase {
         return additionalEndEvaluation.getResult();
     }
 
-    public String substituteEvaluator(){
+    public String substituteEvaluator() {
         SubstituteComparator substituteComparator = new SubstituteComparator(formula);
         return substituteComparator.getResult();
     }

@@ -37,7 +37,7 @@ public class AddReportScene extends SceneBase {
         StepOne stepOne = new StepOne();
         StepTwo stepTwo = new StepTwo();
         StepThree stepThree = new StepThree();
-        settings.put("step", "second");
+        settings.put("step", "one");
         settings.addListener(new MapChangeListener() {
             @Override
             public void onChanged(MapChangeListener.Change change) {

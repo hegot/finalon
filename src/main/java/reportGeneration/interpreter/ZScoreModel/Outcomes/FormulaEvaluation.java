@@ -1,4 +1,4 @@
-package reportGeneration.interpreter.InvestorAnalysis.Outcomes;
+package reportGeneration.interpreter.ZScoreModel.Outcomes;
 
 import entities.Formula;
 import javafx.collections.ObservableList;
@@ -34,21 +34,21 @@ public class FormulaEvaluation implements LabelWrap, AttachChilds {
         StringBuilder output = new StringBuilder();
         FormulaEvaluateBase evaluator = new FormulaEvaluateBase(formula);
         output.append(evaluator.prefix());
+        String code = formula.getShortName();
+        if (code.equals("TotalAssetTurnover")) {
+            ZIndexHook ZIndexHook = new ZIndexHook(formula);
+            output.append(ZIndexHook.getResult());
+        }
         output.append(evaluator.multivariate());
+        output.append(evaluator.startOnly());
         output.append(evaluator.endOnly());
         output.append(evaluator.evaluateEach());
         output.append(evaluator.startAndEnd());
-        String code = formula.getShortName();
-        if (code.equals("DegreeOfFinancialLeverage")) {
-            FinancialLeverageHook debtRatio = new FinancialLeverageHook(formula);
-            output.append(debtRatio.getResult());
-        }
-        output.append(evaluator.substituteEvaluator());
         output.append(evaluator.periodsComparison());
         output.append(evaluator.eachPeriodTrue());
         output.append(evaluator.endEvaluation());
         output.append(evaluator.suffix());
+
         return output.toString();
     }
 }
-

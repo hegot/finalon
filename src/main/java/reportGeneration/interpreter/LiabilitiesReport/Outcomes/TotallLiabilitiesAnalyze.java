@@ -69,10 +69,13 @@ public class TotallLiabilitiesAnalyze implements LabelWrap, ParseDouble, JsCalcH
 
     private String prefix() {
         String res = "Differently ";
-        if (liabilitiesDifference > 0 && assetDiffrence > 0 ||
-                liabilitiesDifference < 0 && assetDiffrence < 0 ||
-                liabilitiesDifference == 0 && assetDiffrence == 0) {
-            res = "Similar ";
+        if (liabilitiesDifference != null && assetDiffrence != null) {
+            if (liabilitiesDifference > 0 && assetDiffrence > 0 ||
+                    liabilitiesDifference < 0 && assetDiffrence < 0 ||
+                    liabilitiesDifference == 0 && assetDiffrence == 0) {
+                res = "Similar ";
+            }
+
         }
         return res;
     }

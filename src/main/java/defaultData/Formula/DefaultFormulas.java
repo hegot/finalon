@@ -2,6 +2,7 @@ package defaultData.Formula;
 
 import defaultData.Formula.AltmanZScore.*;
 import defaultData.Formula.FinancialSustainability.*;
+import defaultData.Formula.InvestmentAnalysis.DegreeOfFinancialLeverage;
 import defaultData.Formula.InvestmentAnalysis.NetAssets;
 import defaultData.Formula.Liquidity.*;
 import defaultData.Formula.Other.LaborProductivity;
@@ -150,7 +151,10 @@ public class DefaultFormulas {
 
         //Investment analysis
         Formulas.addAll(NetAssets.get(IAiD, counter));
-        counter = counter + 5;
+        counter = counter + 7;
+        Formulas.addAll(DegreeOfFinancialLeverage.get(IAiD, counter));
+        counter = counter + 2;
+
 
         //Altman Z-score
         Formulas.addAll(X1.get(AZSiD, counter));
@@ -164,11 +168,11 @@ public class DefaultFormulas {
         Formulas.addAll(X5.get(AZSiD, counter));
         counter = counter + 1;
         Formulas.addAll(Z.get(AZSiD, counter));
-        counter = counter + 1;
+        counter = counter + 9;
 
         //Other
         Formulas.addAll(LaborProductivity.get(OIiD, counter));
-        counter = counter + 1;
+        counter = counter + 4;
 
         return Formulas;
     }

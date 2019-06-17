@@ -3,7 +3,6 @@ package reportGeneration.stepTwo;
 import database.template.DbItemHandler;
 import defaultData.DefaultTemplate;
 import entities.Item;
-import finalonWindows.SceneBase;
 import finalonWindows.reusableComponents.ItemsTable.ItemsTable;
 import globalReusables.SheetsGetter;
 import javafx.collections.FXCollections;

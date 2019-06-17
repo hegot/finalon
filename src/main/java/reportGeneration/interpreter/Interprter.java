@@ -7,10 +7,12 @@ import reportGeneration.interpreter.FinancialSustainability.FinancialSustainabil
 import reportGeneration.interpreter.FormulaCalculation.FormulaCalculation;
 import reportGeneration.interpreter.FormulaList.FormulaList;
 import reportGeneration.interpreter.InvestorAnalysis.InvestorAnalysis;
+import reportGeneration.interpreter.LaborProductivity.LaborProductivity;
 import reportGeneration.interpreter.LiabilitiesReport.LiabilitiesReport;
 import reportGeneration.interpreter.Liquidity.LiquidityReport;
 import reportGeneration.interpreter.ProfitabilityRatios.ProfitabilityRatios;
 import reportGeneration.interpreter.TurnoverRatios.TurnoverRatios;
+import reportGeneration.interpreter.ZScoreModel.ZScoreModel;
 
 public class Interprter {
     public VBox getReport(String type) {
@@ -48,8 +50,14 @@ public class Interprter {
             case "turnoverRatios":
                 vbox = new TurnoverRatios().get();
                 break;
-            case "otherIndicators":
+            case "investorAnalysis":
                 vbox = new InvestorAnalysis().get();
+                break;
+            case "zScoreModel":
+                vbox = new ZScoreModel().get();
+                break;
+            case "laborProductivity":
+                vbox = new LaborProductivity().get();
                 break;
         }
         return vbox;

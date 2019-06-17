@@ -36,9 +36,16 @@ public class SubstituteComparator extends ValsEvaluator implements JsCalcHelper,
     }
 
     private String strReplace(String text) {
-        String lastValChange = Double.toString(formula.getLastVal() - getPreLastVal());
-        text = text.replace("LASTVALUECHANGE", lastValChange);
-        text = text.replace("PREENDDATE", formatDate(getPreEndDate()));
+        Double preLast = getPreLastVal();
+        Double last = formula.getLastVal();
+        if (last != null && preLast != null) {
+            String lastValChange = Double.toString(last - preLast);
+            text = text.replace("LASTVALUECHANGE", lastValChange);
+        }
+        String preEndDate = getPreEndDate();
+        if (preEndDate != null) {
+            text = text.replace("PREENDDATE", formatDate(preEndDate));
+        }
         return text;
     }
 
@@ -81,8 +88,8 @@ public class SubstituteComparator extends ValsEvaluator implements JsCalcHelper,
         return null;
     }
 
-    private String getPreEndDate(){
-        if (periodsArr.size() > 2) {
+    private String getPreEndDate() {
+        if (periodsArr.size() > 1) {
             return periodsArr.get(periodsArr.size() - 2);
         }
         return null;
