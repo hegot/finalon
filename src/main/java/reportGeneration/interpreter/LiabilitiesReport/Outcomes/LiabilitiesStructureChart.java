@@ -55,7 +55,7 @@ public class LiabilitiesStructureChart implements GetVal {
                 ));
             }
             chart.setData(pieChartData);
-            chart.setTitle("Chart 4. " + SettingsStorage.getSettings().get("company") +
+            chart.setTitle("Chart 4. " + SettingsStorage.getInstance().getSettings().get("company") +
                     " Source of Finance structure in " + period);
         }
         return chart;

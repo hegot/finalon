@@ -12,7 +12,7 @@ import reportGeneration.storage.SettingsStorage;
 public class FinancialResultsReport {
 
     public VBox getTrend() {
-        ObservableMap<String, String> settings = SettingsStorage.getSettings();
+        ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
         Label tableName = new Label("Table 7. Financial Results Trend Analysis, in "
                 + settings.get("amount") + " " + settings.get("defaultCurrency")
         );

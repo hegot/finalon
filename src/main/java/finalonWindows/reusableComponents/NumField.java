@@ -5,7 +5,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
 public class NumField extends TextField {
-    public NumField() {
+    public NumField(String text) {
+        setText(text);
         this.addEventFilter(KeyEvent.KEY_TYPED, new EventHandler<KeyEvent>() {
             public void handle(KeyEvent t) {
                 char ar[] = t.getCharacter().toCharArray();

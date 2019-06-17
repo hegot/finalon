@@ -1,4 +1,4 @@
-package globalReusables;
+package reportGeneration.stepTwo;
 
 import entities.Item;
 import finalonWindows.reusableComponents.NumField;
@@ -7,31 +7,59 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
-public class EditCellBase extends TableCell<Item, String> {
+public class EditCell extends TableCell<Item, String> {
 
     private TextField textField;
-    private String type;
+    private TablePosition<Item, ?> tablePos = null;
 
-    public EditCellBase(String type) {
-        this.type = type;
+    public EditCell() {
         this.addEventHandler(MouseEvent.ANY, event -> {
             if (event.getClickCount() == 1 && event.getButton().equals(MouseButton.PRIMARY)) {
                 getTableView().edit(getTableRow().getIndex(), getTableColumn());
-
             }
         });
     }
 
     @Override
     public void startEdit() {
-        if (!isEmpty()) {
-            super.startEdit();
-            createTextField();
-            setText(null);
-            setGraphic(textField);
-            textField.selectAll();
-            textField.requestFocus();
+        if (!isEditable() || !getTableView().isEditable() || !getTableColumn().isEditable()) {
+            return;
         }
+        super.startEdit();
+        if (isEditing()) {
+            if (textField == null) {
+                textField = getTextField();
+            }
+            if (textField != null) {
+                textField.setText(getItem());
+                setText(null);
+                setGraphic(textField);
+                textField.selectAll();
+                textField.requestFocus();
+            }
+        }
+    }
+
+    private TextField getTextField() {
+        final TextField textField = new NumField(getItem());
+        textField.setOnAction(event -> {
+            this.commitEdit(textField.getText());
+            event.consume();
+        });
+
+        textField.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (!isNowFocused) {
+                this.getTableView().refresh();
+                String val = this.textField.getText();
+                if (val != null && val.length() > 0) {
+                    commitEdit(textField.getText());
+                } else {
+                    commitEdit("");
+                }
+            }
+        });
+        return textField;
+
     }
 
     @Override
@@ -80,29 +108,6 @@ public class EditCellBase extends TableCell<Item, String> {
             }
             super.commitEdit(item);
         }
-    }
-
-    protected void createTextField() {
-        if (type.equals("string")) {
-            textField = new TextField();
-        } else {
-            textField = new NumField();
-        }
-        textField.setText(getString());
-        textField.getStyleClass().add("textField");
-        textField.setMinWidth(this.getWidth() - this.getGraphicTextGap() * 2);
-        textField.setOnAction((e) -> commitEdit(textField.getText()));
-        this.textField.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
-            if (!isNowFocused) {
-                this.getTableView().refresh();
-                String val = this.textField.getText();
-                if (val != null && val.length() > 0) {
-                    commitEdit(textField.getText());
-                } else {
-                    commitEdit("");
-                }
-            }
-        });
     }
 
     protected String getString() {

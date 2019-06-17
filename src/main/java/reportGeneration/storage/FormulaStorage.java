@@ -54,7 +54,7 @@ public class FormulaStorage {
     }
 
     private ObservableList<Formula> getFormulas() {
-        int rootIndustry = Integer.parseInt(SettingsStorage.getSettings().get("industry"));
+        int rootIndustry = Integer.parseInt(SettingsStorage.getInstance().getSettings().get("industry"));
         ObservableList<Formula> myFormulas = FXCollections.observableArrayList();
         ObservableList<Formula> parents = dbFormula.getFormulas(rootIndustry);
         for (Formula child : parents) {

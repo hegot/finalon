@@ -18,7 +18,7 @@ public class DebtRatioHook implements JsCalcHelper, ParseDouble, Round {
 
     public DebtRatioHook(Formula formula) {
         this.vals = new TreeMap<>(formula.getPeriods());
-        this.settings = SettingsStorage.getSettings();
+        this.settings = SettingsStorage.getInstance().getSettings();
         this.currency = settings.get("defaultCurrency");
         this.company = settings.get("company");
     }

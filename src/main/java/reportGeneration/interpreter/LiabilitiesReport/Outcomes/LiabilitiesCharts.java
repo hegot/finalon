@@ -21,7 +21,7 @@ public class LiabilitiesCharts extends ChartBase {
 
     private String chartTitle() {
         Periods periods = Periods.getInstance();
-        ObservableMap<String, String> settings = SettingsStorage.getSettings();
+        ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
         return "Chart 2. " + settings.get("company") +
                 " Source of finance between " +
                 periods.getStart() + " - " + periods.getEnd() +

@@ -23,11 +23,11 @@ public class SettingsStorage {
         return SettingsStorage.SingletonHolder.INSTANCE;
     }
 
-    public static ObservableMap<String, String> getSettings() {
+    public ObservableMap<String, String> getSettings() {
         return settings;
     }
 
-    public static void setSettings(ObservableMap<String, String> settingsMap) {
+    public void setSettings(ObservableMap<String, String> settingsMap) {
         settings = settingsMap;
     }
 

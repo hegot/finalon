@@ -23,7 +23,7 @@ public class TotallLiabilitiesAnalyze implements LabelWrap, ParseDouble, JsCalcH
 
     public TotallLiabilitiesAnalyze() {
         Item liabilities = IndexesStorage.get("EquityAndLiabilities");
-        this.settings = SettingsStorage.getSettings();
+        this.settings = SettingsStorage.getInstance().getSettings();
         this.startDate = Periods.getInstance().getStart();
         this.endDate = Periods.getInstance().getEnd();
         if (liabilities.getValues().size() > 1) {

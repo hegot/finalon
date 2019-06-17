@@ -28,7 +28,7 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper, LabelWra
     private Item itemEbit;
     private Item comprehensiveIncome;
     private ItemsStorage storage = ItemsStorage.getInstance();
-    private ObservableMap<String, String> settings = SettingsStorage.getSettings();
+    private ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
     private ItemsGetter itemsGetter = new ItemsGetter();
 
     public FinancialResultTable() {

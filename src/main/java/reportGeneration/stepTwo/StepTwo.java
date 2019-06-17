@@ -32,7 +32,7 @@ public class StepTwo extends ItemsTable {
 
     private void setItems() {
         if (items.size() == 0) {
-            int tpl = Integer.parseInt(SettingsStorage.getSettings().get("template"));
+            int tpl = Integer.parseInt(SettingsStorage.getInstance().getSettings().get("template"));
             DbItemHandler itemsHandler = new DbItemHandler();
             ObservableList<Item> dbItems = itemsHandler.getItems(tpl);
             if (dbItems.size() == 0) {

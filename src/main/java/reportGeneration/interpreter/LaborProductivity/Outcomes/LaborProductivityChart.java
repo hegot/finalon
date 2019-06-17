@@ -17,7 +17,7 @@ public class LaborProductivityChart extends ChartBase {
     }
 
     private String chartTitle() {
-        ObservableMap<String, String> settings = SettingsStorage.getSettings();
+        ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
         Periods periods = Periods.getInstance();
         return "Chart 6. " + settings.get("company") +
                 " Labor productivity between " +

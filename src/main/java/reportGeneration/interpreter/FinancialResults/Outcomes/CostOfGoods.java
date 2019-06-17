@@ -26,7 +26,7 @@ public class CostOfGoods implements LabelWrap, JsCalcHelper, Round {
         this.last = costOfSales.getLastVal();
         this.endDate = Periods.getInstance().getEnd();
         this.periodsArr = Periods.getInstance().getPeriodArr();
-        ObservableMap<String, String> settings = SettingsStorage.getSettings();
+        ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
         this.currency = settings.get("defaultCurrency");
         this.amount = settings.get("amount");
     }

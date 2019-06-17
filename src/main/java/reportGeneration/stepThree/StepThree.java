@@ -18,13 +18,11 @@ public class StepThree extends SceneBase {
     private String companyName;
     private Periods periods;
     private ObservableMap<String, String> settings;
-    private Interprter interprter;
 
     public StepThree() {
-        this.settings = SettingsStorage.getSettings();
+        this.settings = SettingsStorage.getInstance().getSettings();
         this.companyName = settings.get("company") + "'s";
         this.periods = Periods.getInstance();
-        this.interprter = new Interprter();
     }
 
 
@@ -36,20 +34,15 @@ public class StepThree extends SceneBase {
         Tab tab1 = new Tab("1. The Common-Size  Analysis \n of the Assets, Liabilities \n and Shareholders' Equity");
 
         TabPane tabs2 = new TabPane();
-        tabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-        String periods = settings.get("periods");
-        if (periods != null) {
-            int periodsAmount = Integer.parseInt(periods);
-            if (periodsAmount > 1) {
-
+        tabs2.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+        if (periods.getPeriodArr().size() > 2) {
                 Tab tab01 = new Tab("Assets trend Analysis");
                 tabsArr.put("assetTrend", tab01);
 
                 Tab tab02 = new Tab("Liabilities trend Analysis");
                 tabsArr.put("liabilitiesTrend", tab02);
 
-                tabs.getTabs().addAll(tab01, tab02);
-            }
+                tabs2.getTabs().addAll(tab01, tab02);
         }
         Tab tab03 = new Tab("Assets Structure Analysis");
         tabsArr.put("assetStructure", tab03);
@@ -60,7 +53,7 @@ public class StepThree extends SceneBase {
         Tab tab05 = new Tab("Formula Calculation");
         tabsArr.put("formulaList", tab05);
 
-        tabs.getTabs().addAll(tab03, tab04, tab05);
+        tabs2.getTabs().addAll(tab03, tab04, tab05);
 
         tab1.setContent(tabs2);
 

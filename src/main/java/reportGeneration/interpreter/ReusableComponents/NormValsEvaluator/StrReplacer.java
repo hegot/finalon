@@ -18,7 +18,7 @@ public class StrReplacer implements ParseDouble, Round {
 
     public StrReplacer(String text, Formula formula) {
         this.periods = Periods.getInstance();
-        this.settings = SettingsStorage.getSettings();
+        this.settings = SettingsStorage.getInstance().getSettings();
         this.text = text;
         this.formula = formula;
     }

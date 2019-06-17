@@ -39,7 +39,7 @@ public class LiabilitiesStructureAnalyzeStart implements SrtuctureItemsLoop, Lab
         this.equityVal = EquityGeneral.getVal(period);
         this.currentVal = CurrentLiabilities.getVal(period);
         this.nonCurrentVal = NonCurrentLiabilities.getVal(period);
-        String assetsStartValue = SettingsStorage.getSettings().get("assetsStartValue");
+        String assetsStartValue = SettingsStorage.getInstance().getSettings().get("assetsStartValue");
         this.assetsTotal = parseDouble(assetsStartValue);
     }
 

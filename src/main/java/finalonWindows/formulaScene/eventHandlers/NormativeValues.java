@@ -1,5 +1,6 @@
 package finalonWindows.formulaScene.eventHandlers;
 
+import defaultData.EvaluationTypes;
 import entities.Formula;
 import finalonWindows.reusableComponents.ImageButton;
 import finalonWindows.reusableComponents.NumField;
@@ -41,24 +42,40 @@ class NormativeValues {
         vBox.setPadding(new Insets(10, 2, 10, 2));
         vBox.setPrefWidth(450.00);
         for (Formula item : parent.getChilds()) {
-            HBox hbox = new HBox(10);
-            VBox vBoxIn = new VBox(3);
-            vBoxIn.getStyleClass().add("normative-container");
-            hbox.getChildren().addAll(
-                    value(item),
-                    comparator(item),
-                    name(item),
-                    comparator2(item),
-                    value2(item),
-                    removeButton(item.getId())
-            );
-            vBoxIn.getChildren().addAll(hbox, conclusions(item));
-            vBox.getChildren().add(vBoxIn);
+            if(filter(item.getName())){
+                HBox hbox = new HBox(10);
+                VBox vBoxIn = new VBox(3);
+                vBoxIn.getStyleClass().add("normative-container");
+                hbox.getChildren().addAll(
+                        value(item),
+                        comparator(item),
+                        name(item),
+                        comparator2(item),
+                        value2(item),
+                        removeButton(item.getId())
+                );
+                vBoxIn.getChildren().addAll(hbox, conclusions(item));
+                vBox.getChildren().add(vBoxIn);
+            }
         }
         scrollPane.setContent(vBox);
         vBoxOuter.getChildren().addAll(scrollPane, addButton());
         return vBoxOuter;
     }
+
+    private Boolean filter(String name){
+        if(!name.equals(EvaluationTypes.PREFIX.toString()) ||
+                !name.equals(EvaluationTypes.ADDITIONAL_END_EVALUATION.toString()) ||
+                !name.equals(EvaluationTypes.SUFFIX.toString()) ||
+                !name.equals(EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString()) ||
+                !name.equals(EvaluationTypes.PERIOD_COMPARISON_NOCHANGE.toString()) ||
+                !name.equals(EvaluationTypes.SUBSTITUTE_COMPARATOR.toString()) ||
+                !name.equals(EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString())){
+            return true;
+        }
+        return false;
+    }
+
 
     private Button addButton() {
         Button btn = new Button("+ Add");
@@ -157,9 +174,8 @@ class NormativeValues {
 
 
     private TextField textfield(String value, Double width, String prompt) {
-        TextField textfield = new NumField();
+        TextField textfield = new NumField(value);
         textfield.setMaxWidth(width);
-        textfield.setText(value);
         textfield.setPromptText(prompt);
         return textfield;
     }

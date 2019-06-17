@@ -19,7 +19,7 @@ public class FormulaEvaluation implements LabelWrap, AttachChilds {
     public FormulaEvaluation(ObservableList<Formula> formulas) {
         this.periods = Periods.getInstance();
         this.formulas = formulas;
-        this.settings = SettingsStorage.getSettings();
+        this.settings = SettingsStorage.getInstance().getSettings();
     }
 
     public VBox get() {

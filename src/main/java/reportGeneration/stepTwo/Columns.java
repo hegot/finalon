@@ -2,7 +2,6 @@ package reportGeneration.stepTwo;
 
 import database.setting.DbSettingHandler;
 import entities.Item;
-import globalReusables.EditCellBase;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -56,16 +55,19 @@ class Columns implements ParseDouble {
 
 
     TableColumn getPeriodCol(String colname) {
+        DbSettingHandler dbSettingHandler = new DbSettingHandler();
+        String numberFormat = dbSettingHandler.getSetting("numberFormat");
         ObservableList<Item> items = ItemsStorage.getItems();
         TableColumn<Item, String> col = new TableColumn<Item, String>(colname);
         col.setMinWidth(100);
-        col.setCellFactory(column -> new EditCellBase("integer"));
+        col.setCellFactory(column -> new EditCell());
         col.setOnEditCommit(
                 (TableColumn.CellEditEvent<Item, String> t) -> {
                     if (t != null && t.getTableView() != null) {
                         String value = t.getNewValue().replace(',', '.');
                         if (value != null) {
-                            Item item = t.getRowValue();
+                            Item item =  ((Item) t.getTableView().getItems()
+                                    .get(t.getTablePosition().getRow()));
                             if (item != null) {
                                 ObservableMap<String, Double> values = item.getValues();
                                 updateItem(item, values, value, colname);
@@ -85,8 +87,8 @@ class Columns implements ParseDouble {
                     Double dob = item.getValues().get(colname);
                     if (dob != null) {
                         String val = Double.toString(dob);
-                        DbSettingHandler dbSettingHandler = new DbSettingHandler();
-                        if (dbSettingHandler.getSetting("numberFormat").equals("comma")) {
+
+                        if (numberFormat.equals("comma")) {
                             val = val.replace('.', ',');
                         }
                         return new SimpleStringProperty(val);

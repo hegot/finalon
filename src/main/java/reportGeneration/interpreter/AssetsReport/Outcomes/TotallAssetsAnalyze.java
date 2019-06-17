@@ -23,7 +23,7 @@ public class TotallAssetsAnalyze implements LabelWrap, JsCalcHelper {
         if (item.getValues().size() > 1) {
             this.first = item.getFirstVal();
             this.last = item.getLastVal();
-            ObservableMap<String, String> settings = SettingsStorage.getSettings();
+            ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
             settings.put("assetsDifference", Double.toString(last - first));
             settings.put("assetsStartValue", Double.toString(first));
             settings.put("assetsEndValue", Double.toString(last));

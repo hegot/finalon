@@ -22,21 +22,20 @@ import reportGeneration.validator.Validator;
 import java.util.ArrayList;
 
 public class AddReportScene extends SceneBase {
+    private SettingsStorage stor;
 
     public AddReportScene() {
         ItemsStorage.getInstance();
-        SettingsStorage.getInstance();
+        this.stor = SettingsStorage.getInstance();
         IndexesStorage.getInstance();
     }
 
     public VBox getScene() {
-        ObservableMap<String, String> settings = SettingsStorage.getSettings();
+        ObservableMap<String, String> settings = stor.getSettings();
         VBox vbox = new VBox(0);
         vbox.getStyleClass().add("add-company");
         SettingsMenu settingsMenu = new SettingsMenu();
         StepOne stepOne = new StepOne();
-        StepTwo stepTwo = new StepTwo();
-        StepThree stepThree = new StepThree();
         settings.put("step", "one");
         settings.addListener(new MapChangeListener() {
             @Override
@@ -47,8 +46,10 @@ public class AddReportScene extends SceneBase {
                     if (newStep.equals("one")) {
                         vbox.getChildren().addAll(settingsMenu.getMenu(), stepOne.show());
                     } else if (newStep.equals("two")) {
+                        StepTwo stepTwo = new StepTwo();
                         vbox.getChildren().addAll(headerMenu(), stepTwo.show());
                     } else if (newStep.equals("three")) {
+                        StepThree stepThree = new StepThree();
                         vbox.getChildren().addAll(headerMenu(), stepThree.show());
                     }
                 }
@@ -64,7 +65,7 @@ public class AddReportScene extends SceneBase {
 
     HBox headerMenu() {
         HBox hbox = new HBox(20);
-        String step = SettingsStorage.getSettings().get("step");
+        String step = stor.getSettings().get("step");
         if (step.equals("two")) {
             hbox.getChildren().addAll(backSettingsButton(), generateButton());
         }
@@ -87,7 +88,7 @@ public class AddReportScene extends SceneBase {
                     validator.showValidation(errors);
                 } else {
                     populateEmptyValues();
-                    SettingsStorage.getSettings().put("step", "three");
+                    stor.getSettings().put("step", "three");
                 }
             }
         });
@@ -95,7 +96,7 @@ public class AddReportScene extends SceneBase {
     }
 
     private void populateEmptyValues() {
-        String perStr = SettingsStorage.getSettings().get("periods");
+        String perStr = stor.getSettings().get("periods");
         if (perStr != null) {
             Integer periods = Integer.parseInt(perStr);
             Periods periodsObj = new Periods();
@@ -120,7 +121,7 @@ public class AddReportScene extends SceneBase {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                SettingsStorage.getSettings().put("step", "one");
+                stor.getSettings().put("step", "one");
             }
         });
         return button;
@@ -132,7 +133,7 @@ public class AddReportScene extends SceneBase {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                SettingsStorage.getSettings().put("step", "two");
+                stor.getSettings().put("step", "two");
             }
         });
         return button;

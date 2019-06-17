@@ -12,11 +12,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DateSelect {
-    private ObservableMap<String, String> settings;
 
-    DateSelect() {
-        this.settings = SettingsStorage.getSettings();
-    }
 
     public HBox get() {
         HBox hBox = new HBox(20);

@@ -21,7 +21,7 @@ public class AssetsCharts extends ChartBase {
     }
 
     private String chartTitle() {
-        ObservableMap<String, String> settings = SettingsStorage.getSettings();
+        ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
         Periods periods = Periods.getInstance();
         return "Chart 1. " + settings.get("company") +
                 " Non-current and Current Assets between " +

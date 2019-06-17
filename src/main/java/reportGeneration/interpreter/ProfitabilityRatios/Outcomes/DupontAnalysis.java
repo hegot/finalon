@@ -59,7 +59,7 @@ public class DupontAnalysis implements LabelWrap, ParseDouble {
     private String evaluate() {
         Periods periods = new Periods();
         ArrayList<String> periodsArr = periods.getPeriodArr();
-        ObservableMap<String, String> settings = SettingsStorage.getSettings();
+        ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
         String company = settings.get("company");
         String currency = settings.get("defaultCurrency");
         String start = periods.getStart();

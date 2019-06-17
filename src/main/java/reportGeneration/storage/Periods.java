@@ -25,9 +25,8 @@ public class Periods implements JsCalcHelper {
             try {
                 init();
             } catch (Exception e) {
-                System.out.println("Could not init Periods");
+                System.out.println(e.getMessage() + " Could not init Periods");
             }
-            initalized = true;
         }
         this.periodArr = new ArrayList<>();
     }
@@ -37,10 +36,15 @@ public class Periods implements JsCalcHelper {
     }
 
     private void init() {
-        this.settings = SettingsStorage.getSettings();
-        this.endYear = Integer.parseInt(settings.get("year"));
-        this.periods = Integer.parseInt(settings.get("periods"));
-        setMonthDay();
+        this.settings = SettingsStorage.getInstance().getSettings();
+        String year = settings.get("year");
+        String periods = settings.get("periods");
+        if(year != null && periods != null){
+            this.endYear = Integer.parseInt(year);
+            this.periods = Integer.parseInt(periods);
+            setMonthDay();
+            initalized = true;
+        }
     }
 
     public void reInit() {

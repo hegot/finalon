@@ -9,6 +9,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.converter.DefaultStringConverter;
 
 class Columns {
     private RemoveHandler removeHandler;
@@ -29,7 +30,7 @@ class Columns {
         col.setMinWidth(450);
 
 
-        col.setCellFactory(column -> new EditCell("string"));
+        col.setCellFactory(column -> new EditCell(new DefaultStringConverter()));
         col.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
         col.setOnEditCommit(
                 (TableColumn.CellEditEvent<Item, String> t) -> {

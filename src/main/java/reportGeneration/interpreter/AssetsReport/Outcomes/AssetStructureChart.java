@@ -30,7 +30,7 @@ public class AssetStructureChart implements GetVal {
     }
 
     public PieChart get() {
-        ObservableMap<String, String> settings = SettingsStorage.getSettings();
+        ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
         final PieChart chart = new PieChart();
         if (totalVal != null && totalVal != 0) {
             ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();

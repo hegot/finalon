@@ -8,7 +8,7 @@ import reportGeneration.storage.SettingsStorage;
 
 public class ReportName {
     public static HBox get() {
-        ObservableMap<String, String> settings = SettingsStorage.getSettings();
+        ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
         Label label = new Label("Company name: ");
         HBox hBox = new HBox(20);
         hBox.getStyleClass().add("hbox-row");
