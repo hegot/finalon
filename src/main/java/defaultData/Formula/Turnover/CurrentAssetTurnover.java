@@ -1,5 +1,6 @@
 package defaultData.Formula.Turnover;
 
+import defaultData.EvaluationTypes;
 import entities.Formula;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,7 +20,7 @@ public class CurrentAssetTurnover {
         counter++;
         int CurrentAssetTurnovergood = counter;
         Formulas.add(new Formula(CurrentAssetTurnovergood,
-                "good",
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">",
                 "10",
                 "",
@@ -29,7 +30,7 @@ public class CurrentAssetTurnover {
         counter++;
         int CurrentAssetTurnoverunsatisfactory = counter;
         Formulas.add(new Formula(CurrentAssetTurnoverunsatisfactory,
-                "unsatisfactory",
+                EvaluationTypes.EVALUATE_END.toString(),
                 "<=",
                 "10",
                 "",

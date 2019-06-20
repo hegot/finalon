@@ -20,7 +20,7 @@ public class DaysPayableOutstanding {
         counter++;
         int DaysPayableOutstandinggood = counter;
         Formulas.add(new Formula(DaysPayableOutstandinggood,
-                "good",
+                EvaluationTypes.EVALUATE_END.toString(),
                 "<",
                 "60",
                 "",
@@ -30,7 +30,7 @@ public class DaysPayableOutstanding {
         counter++;
         int DaysPayableOutstandingsatisfactory = counter;
         Formulas.add(new Formula(DaysPayableOutstandingsatisfactory,
-                "unsatisfactory",
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">=",
                 "60",
                 "",

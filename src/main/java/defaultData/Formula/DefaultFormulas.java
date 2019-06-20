@@ -119,7 +119,7 @@ public class DefaultFormulas {
         Formulas.addAll(ReturnonInvestment.get(PaPiD, counter));
         counter = counter + 7;
         Formulas.addAll(ReturnonEquityafterTax.get(PaPiD, counter));
-        counter = counter + 7;
+        counter = counter + 8;
 
         //Turnover
         Formulas.addAll(TotalAssetTurnover.get(TiD, counter));

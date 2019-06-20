@@ -20,7 +20,7 @@ public class InventoryTurnoverinDays {
         counter++;
         int InventoryTurnoverinDaysgood = counter;
         Formulas.add(new Formula(InventoryTurnoverinDaysgood,
-                "good",
+                EvaluationTypes.EVALUATE_END.toString(),
                 "<",
                 "60",
                 "",
@@ -30,7 +30,7 @@ public class InventoryTurnoverinDays {
         counter++;
         int InventoryTurnoverinDayssatisfactory = counter;
         Formulas.add(new Formula(InventoryTurnoverinDayssatisfactory,
-                "unsatisfactory",
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">=",
                 "60",
                 "",
