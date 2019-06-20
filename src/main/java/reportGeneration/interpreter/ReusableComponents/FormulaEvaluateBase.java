@@ -41,46 +41,56 @@ public class FormulaEvaluateBase {
 
 
     public String endOnly() {
-        if (type.equals(EvaluationTypes.EVALUATE_END_ONLY.toString())) {
-            NormValsEvaluator eval = new NormValsEvaluator(formula, end);
-            return eval.getResult();
-        }
-        return "";
+        NormValsEvaluator eval = new NormValsEvaluator(
+                formula,
+                end,
+                EvaluationTypes.EVALUATE_END
+        );
+        return eval.getResult();
     }
 
     public String startOnly() {
-        if (type.equals(EvaluationTypes.EVALUATE_START_ONLY.toString())) {
-            NormValsEvaluator eval = new NormValsEvaluator(formula, end);
-            return eval.getResult();
-        }
-        return "";
+        NormValsEvaluator eval = new NormValsEvaluator(
+                formula,
+                end,
+                EvaluationTypes.EVALUATE_START
+        );
+        return eval.getResult();
     }
 
     public String startAndEnd() {
-        if (type.equals(EvaluationTypes.EVALUATE_START_END_ONLY.toString())) {
-            StringBuilder output = new StringBuilder();
 
-            NormValsEvaluator eval1 = new NormValsEvaluator(formula, formula.getFormulaStart());
-            output.append(eval1.getResult());
+        StringBuilder output = new StringBuilder();
 
-            NormValsEvaluator eval2 = new NormValsEvaluator(formula, end);
-            output.append(eval2.getResult());
+        NormValsEvaluator eval1 = new NormValsEvaluator(
+                formula,
+                formula.getFormulaStart(),
+                EvaluationTypes.EVALUATE_START
+        );
+        output.append(eval1.getResult());
 
-            return output.toString();
-        }
-        return "";
+        NormValsEvaluator eval2 = new NormValsEvaluator(
+                formula,
+                end,
+                EvaluationTypes.EVALUATE_END
+        );
+        output.append(eval2.getResult());
+
+        return output.toString();
+
     }
 
     public String evaluateEach() {
-        if (type.equals(EvaluationTypes.EVALUATE_EACH_PERIOD.toString())) {
-            StringBuilder output = new StringBuilder();
-            for (String period : periodsarr) {
-                NormValsEvaluator eval = new NormValsEvaluator(formula, period);
-                output.append(eval.getResult());
-            }
-            return output.toString();
+        StringBuilder output = new StringBuilder();
+        for (String period : periodsarr) {
+            NormValsEvaluator eval = new NormValsEvaluator(
+                    formula,
+                    period,
+                    EvaluationTypes.EVALUATE_EACH_PERIOD
+            );
+            output.append(eval.getResult());
         }
-        return "";
+        return output.toString();
     }
 
     public String periodsComparison() {

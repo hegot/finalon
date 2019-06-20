@@ -7,17 +7,16 @@ import reportGeneration.interpreter.FinancialResults.Outcomes.CostOfGoods;
 import reportGeneration.interpreter.FinancialResults.Outcomes.FinancialResultTable;
 import reportGeneration.interpreter.FinancialResults.Outcomes.FinancialResultsChart;
 import reportGeneration.interpreter.FinancialResults.Outcomes.NetSalesAnalyze;
+import reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
 import reportGeneration.storage.SettingsStorage;
 
-public class FinancialResultsReport {
+public class FinancialResultsReport implements TableName{
 
     public VBox getTrend() {
         ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
-        Label tableName = new Label("Table 7. Financial Results Trend Analysis, in "
+        Label tableName = tableName("Table 7. Financial Results Trend Analysis, in "
                 + settings.get("amount") + " " + settings.get("defaultCurrency")
         );
-        tableName.getStyleClass().add("table-name");
-        tableName.setWrapText(true);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
         FinancialResultTable financialResultTable = new FinancialResultTable();

@@ -2,11 +2,8 @@ package finalonWindows.reusableComponents.ItemsTable;
 
 import entities.Item;
 import globalReusables.ItemsGetter;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
-
-import java.util.ArrayList;
 
 public class ItemsTable {
     private ObservableList<Item> items;

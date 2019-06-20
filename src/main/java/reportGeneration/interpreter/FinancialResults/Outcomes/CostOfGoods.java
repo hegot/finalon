@@ -22,7 +22,7 @@ public class CostOfGoods implements LabelWrap, JsCalcHelper, Round {
     private Item costOfSales;
 
     public CostOfGoods() {
-        this.costOfSales = stor.getItemByCode("CostOfSales");
+        this.costOfSales = stor.get("CostOfSales");
         this.last = costOfSales.getLastVal();
         this.endDate = Periods.getInstance().getEnd();
         this.periodsArr = Periods.getInstance().getPeriodArr();
@@ -37,18 +37,18 @@ public class CostOfGoods implements LabelWrap, JsCalcHelper, Round {
             String output = "";
 
             output += compareEach();
-            output += atTheEnd();
-
-            Item grossProfit = stor.getItemByCode("GrossProfit");
+            Item grossProfit = stor.get("GrossProfit");
 
             String trend = grossProfit.trend();
             Double change = grossProfit.getChange();
-            if (trend.equals("INCREASED")) {
-                output += increase(change);
-            } else if (trend.equals("DECREASED")) {
-                output += decrease(change);
-            } else {
-                output += stable();
+            if(change != null){
+                if (trend.equals("INCREASED")) {
+                    output += increase(change);
+                } else if (trend.equals("DECREASED")) {
+                    output += decrease(change);
+                } else {
+                    output += stable();
+                }
             }
             hbox.getChildren().add(labelWrap(output));
         }
@@ -79,11 +79,11 @@ public class CostOfGoods implements LabelWrap, JsCalcHelper, Round {
     }
 
     private String increase(Double change) {
-        return "This has resulted in an increase in the gross profit by " + round(change) + "%.";
+        return atTheEnd() + "This has resulted in an increase in the gross profit by " + round(change) + "%.";
     }
 
     private String decrease(Double change) {
-        return "This has resulted in decrease in the gross profit by " + round(change) + "%.";
+        return  atTheEnd() + "This has resulted in decrease in the gross profit by " + round(change) + "%.";
     }
 
     private String stable() {

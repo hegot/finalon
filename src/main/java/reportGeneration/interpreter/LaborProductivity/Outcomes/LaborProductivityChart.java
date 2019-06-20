@@ -13,7 +13,7 @@ public class LaborProductivityChart extends ChartBase {
     private Formula laborProductivity;
 
     public LaborProductivityChart() {
-        this.laborProductivity = FormulaStorage.getInstance().getItemByCode("LaborProductivity");
+        this.laborProductivity = FormulaStorage.getInstance().get("LaborProductivity");
     }
 
     private String chartTitle() {

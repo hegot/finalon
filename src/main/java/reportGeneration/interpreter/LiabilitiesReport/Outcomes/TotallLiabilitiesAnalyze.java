@@ -6,7 +6,7 @@ import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
-import reportGeneration.storage.IndexesStorage;
+import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.SettingsStorage;
 
@@ -15,14 +15,14 @@ public class TotallLiabilitiesAnalyze implements LabelWrap, ParseDouble, JsCalcH
 
     private Double first;
     private Double last;
-    private Double assetDiffrence;
     private Double liabilitiesDifference;
     private String startDate;
     private String endDate;
     private ObservableMap<String, String> settings;
 
     public TotallLiabilitiesAnalyze() {
-        Item liabilities = IndexesStorage.get("EquityAndLiabilities");
+        ItemsStorage stor = ItemsStorage.getInstance();
+        Item liabilities = stor.get("EquityAndLiabilities");
         this.settings = SettingsStorage.getInstance().getSettings();
         this.startDate = Periods.getInstance().getStart();
         this.endDate = Periods.getInstance().getEnd();
@@ -31,8 +31,6 @@ public class TotallLiabilitiesAnalyze implements LabelWrap, ParseDouble, JsCalcH
             this.last = liabilities.getLastVal();
             this.liabilitiesDifference = last - first;
         }
-        String assetDiffrence = settings.get("assetsDifference");
-        this.assetDiffrence = parseDouble(assetDiffrence);
     }
 
     public VBox get() {
@@ -67,22 +65,8 @@ public class TotallLiabilitiesAnalyze implements LabelWrap, ParseDouble, JsCalcH
     }
 
 
-    private String prefix() {
-        String res = "Differently ";
-        if (liabilitiesDifference != null && assetDiffrence != null) {
-            if (liabilitiesDifference > 0 && assetDiffrence > 0 ||
-                    liabilitiesDifference < 0 && assetDiffrence < 0 ||
-                    liabilitiesDifference == 0 && assetDiffrence == 0) {
-                res = "Similar ";
-            }
-
-        }
-        return res;
-    }
-
-
     private String preOutput() {
-        return prefix() + "to the value of total assets, the liabilities and equity value" +
+        return "The liabilities and equity value" +
                 " amounted to " + settings.get("defaultCurrency") + " "
                 + last + " " + settings.get("amount") + " in "
                 + endDate + ", " +

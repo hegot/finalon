@@ -13,14 +13,14 @@ public class NetAssets {
                 "Net assets (Net worth)",
                 "NetAssets",
                 "EquityAndLiabilities-LiabilitiesGeneral",
-                EvaluationTypes.EVALUATE_END_ONLY.toString(),
+                "",
                 "formula",
                 "money",
                 parent));
         counter++;
         int NetAssetsNull = counter;
         Formulas.add(new Formula(NetAssetsNull,
-                "zero",
+                EvaluationTypes.EVALUATE_END.toString(),
                 "=",
                 "0.0",
                 " The net worth equals zero at the end of evaluation period, meaning that the company may go bankrupt. ",

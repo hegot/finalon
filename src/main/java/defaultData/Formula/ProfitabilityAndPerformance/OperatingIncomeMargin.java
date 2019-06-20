@@ -13,14 +13,14 @@ public class OperatingIncomeMargin {
                 "Operating Income Margin",
                 "OperatingIncomeMargin",
                 "ProfitLossFromOperatingActivities/RevenueGeneral",
-                EvaluationTypes.EVALUATE_END_ONLY.toString(),
+                "",
                 "formula",
                 "%",
                 parent));
         counter++;
         int OperatingIncomeMarginGood = counter;
         Formulas.add(new Formula(OperatingIncomeMarginGood,
-                "good",
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">",
                 "0",
                 "The COMPANYNAME's operating performance was robust in ENDDATE. For every CURRENCY of the net sales the company earned LASTVALUE in the operating income.",
@@ -30,7 +30,7 @@ public class OperatingIncomeMargin {
         counter++;
         int OperatingIncomeMarginBad = counter;
         Formulas.add(new Formula(OperatingIncomeMarginBad,
-                "bad",
+                EvaluationTypes.EVALUATE_END.toString(),
                 "<=",
                 "0",
                 "The COMPANYNAME's operating performance was weak in ENDDATE. For every CURRENCY of the net sales the company had LASTVALUE in the operating loss.",

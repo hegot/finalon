@@ -14,7 +14,7 @@ public class NetSalesAnalyze implements LabelWrap, Round {
 
     public NetSalesAnalyze() {
         ItemsStorage stor = ItemsStorage.getInstance();
-        Item item = stor.getItemByCode("RevenueGeneral");
+        Item item = stor.get("RevenueGeneral");
         if (item.getValues().size() > 1) {
             this.first = item.getFirstVal();
             this.last = item.getLastVal();

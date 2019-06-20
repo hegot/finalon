@@ -13,14 +13,14 @@ public class AccountsReceivableTurnover {
                 "Accounts Receivable Turnover (Times)",
                 "AccountsReceivableTurnover",
                 "RevenueGeneral/((TradeAndOtherCurrentReceivables[0]+TradeAndOtherCurrentReceivables[1])/2)",
-                EvaluationTypes.EVALUATE_END_ONLY.toString(),
+                "",
                 "formula",
                 "times",
                 parent));
         counter++;
         int AccountsReceivableTurnovergood = counter;
         Formulas.add(new Formula(AccountsReceivableTurnovergood,
-                "good",
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">",
                 "6",
                 "Accounts Receivable Turnover comes into range 'good' ( > 6) in ENDDATE. " +
@@ -31,7 +31,7 @@ public class AccountsReceivableTurnover {
         counter++;
         int AccountsReceivableTurnoversatisfactory = counter;
         Formulas.add(new Formula(AccountsReceivableTurnoversatisfactory,
-                "unsatisfactory",
+                EvaluationTypes.EVALUATE_END.toString(),
                 "<=",
                 "6",
                 "Accounts Receivable Turnover comes into range 'unsatisfactory' ( <= 6) in ENDDATE. " +

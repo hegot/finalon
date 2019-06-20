@@ -13,7 +13,7 @@ public class Z {
                 "Altman Z-score Z",
                 "Z",
                 "0.717*(GeneralCurrentAssets-CurrentLiabilities)/AssetsGeneral+0.847*RetainedEarnings/AssetsGeneral+3.107*(ProfitLossBeforeTax+FinanceCosts)/AssetsGeneral+0.42*EquityGeneral/(NonCurrentAssets+CurrentLiabilities)+0.998*RevenueGeneral/AssetsGeneral",
-                EvaluationTypes.EVALUATE_START_ONLY.toString(),
+                "",
                 "formula",
                 "",
                 parent));
@@ -21,7 +21,7 @@ public class Z {
         counter++;
         int ZScoreexcellent = counter;
         Formulas.add(new Formula(ZScoreexcellent,
-                "excellent",
+                EvaluationTypes.EVALUATE_START.toString(),
                 ">=",
                 "2.9",
                 "COMPANYNAME's Z-score was above the gray area of 1.20 to " +
@@ -32,7 +32,7 @@ public class Z {
         counter++;
         int ZScoregood = counter;
         Formulas.add(new Formula(ZScoregood,
-                "good",
+                EvaluationTypes.EVALUATE_START.toString(),
                 ">=",
                 "1.2",
                 "COMPANYNAME's Z-score was in " +
@@ -43,7 +43,7 @@ public class Z {
         counter++;
         int ZScorebad = counter;
         Formulas.add(new Formula(ZScorebad,
-                "bad",
+                EvaluationTypes.EVALUATE_START.toString(),
                 "<",
                 "1.2",
                 "COMPANYNAME's Z-score was under 1.2 " +
@@ -78,9 +78,6 @@ public class Z {
                 "",
                 ZScore));
         counter++;
-
-
-
 
 
         int ZScoreEndexcellent = counter;

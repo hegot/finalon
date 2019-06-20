@@ -13,14 +13,14 @@ public class ReturnonInvestment {
                 "Return on Investment",
                 "ReturnonInvestment",
                 "(ProfitLossBeforeTax-IncomeTaxExpenseContinuingOperations+FinanceCosts)/(EquityGeneral[0]/2+EquityGeneral[1]/2+NonCurrentAssets[0]/2+NonCurrentAssets[1]/2)",
-                EvaluationTypes.EVALUATE_END_ONLY.toString(),
+                "",
                 "formula",
                 "%",
                 parent));
         counter++;
         int ReturnonInvestmentexcellent = counter;
         Formulas.add(new Formula(ReturnonInvestmentexcellent,
-                "excellent",
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">",
                 "4",
                 "Higher ROIs suggest better performance. At the end of evaluation period index provided excellent results ( > 4 ). ",
@@ -30,7 +30,7 @@ public class ReturnonInvestment {
         counter++;
         int ReturnonInvestmentgood = counter;
         Formulas.add(new Formula(ReturnonInvestmentgood,
-                "good",
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">",
                 "3,5",
                 "Higher ROIs suggest better performance.  At the end of evaluation period index provided good results ( > 3.5 ). ",
@@ -40,7 +40,7 @@ public class ReturnonInvestment {
         counter++;
         int ReturnonInvestmentsatisfactory = counter;
         Formulas.add(new Formula(ReturnonInvestmentsatisfactory,
-                "satisfactory",
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">",
                 "0",
                 "Higher ROIs suggest better performance.  At the end of evaluation period index provided satisfactory results ( > 0 ). ",
@@ -50,7 +50,7 @@ public class ReturnonInvestment {
         counter++;
         int ReturnonInvestmentunsatisfactory = counter;
         Formulas.add(new Formula(ReturnonInvestmentunsatisfactory,
-                "unsatisfactory",
+                EvaluationTypes.EVALUATE_END.toString(),
                 "<=",
                 "0",
                 "Higher ROIs suggest better performance.  At the end of evaluation period index was unsatisfactory ( <= 0 ). ",

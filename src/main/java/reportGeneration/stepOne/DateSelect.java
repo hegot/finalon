@@ -2,11 +2,9 @@ package reportGeneration.stepOne;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import reportGeneration.storage.SettingsStorage;
 
 import java.util.Calendar;
 import java.util.Date;

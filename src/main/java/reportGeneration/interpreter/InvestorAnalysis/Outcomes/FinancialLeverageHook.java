@@ -21,7 +21,7 @@ public class FinancialLeverageHook {
 
 
     private Double getLastVal(String code) {
-        Item item = stor.getItemByCode(code);
+        Item item = stor.get(code);
         if (item != null) {
             Double val = item.getLastVal();
             if (val != null) {
@@ -32,7 +32,7 @@ public class FinancialLeverageHook {
     }
 
     public String getResult() {
-        if(lastVal != null){
+        if (lastVal != null) {
             StringBuilder output = new StringBuilder();
             Double sum = financeCostsVal + profitLossFromOperatingActivitiesVal + financeIncomeVal;
             if (lastVal > 0 && financeCostsVal != 0) {
@@ -48,6 +48,6 @@ public class FinancialLeverageHook {
             }
             return output.toString();
         }
-        return  "";
+        return "";
     }
 }

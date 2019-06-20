@@ -172,7 +172,7 @@ public class Item {
     public Double getChange() {
         Double last = getLastVal();
         Double first = getFirstVal();
-        if (last != null && first != null) {
+        if (last != null && first != null && first != 0) {
             return ((last - first) / first) * 100;
         }
         return null;

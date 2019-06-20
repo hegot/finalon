@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.chart.PieChart;
 import reportGeneration.interpreter.ReusableComponents.interfaces.GetVal;
-import reportGeneration.storage.IndexesStorage;
+import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.SettingsStorage;
 
 public class AssetStructureChart implements GetVal {
@@ -21,10 +21,11 @@ public class AssetStructureChart implements GetVal {
     public AssetStructureChart(
             String period
     ) {
-        this.nonCurrent = IndexesStorage.get("NonCurrentAssets");
-        this.current = IndexesStorage.get("GeneralCurrentAssets");
+        ItemsStorage stor = ItemsStorage.getInstance();
+        this.nonCurrent = stor.get("NonCurrentAssets");
+        this.current = stor.get("GeneralCurrentAssets");
         this.period = period;
-        this.totalVal = IndexesStorage.get("AssetsGeneral").getVal(period);
+        this.totalVal = stor.get("AssetsGeneral").getVal(period);
         this.currentVal = current.getVal(period);
         this.nonCurrentVal = nonCurrent.getVal(period);
     }

@@ -33,21 +33,21 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper, LabelWra
 
     public FinancialResultTable() {
         this.periods = new Periods().getPeriodArr();
-        this.grossProfit = storage.getItemByCode("GrossProfit");
+        this.grossProfit = storage.get("GrossProfit");
         this.itemEbit = itemsGetter.getEbit();
-        this.comprehensiveIncome = storage.getItemByCode("ComprehensiveIncomeGeneral");
+        this.comprehensiveIncome = storage.get("ComprehensiveIncomeGeneral");
         this.items = getItems();
     }
 
     private ObservableList<Item> getItems() {
         ObservableList<Item> items = FXCollections.observableArrayList();
-        items.add(storage.getItemByCode("RevenueGeneral"));
-        items.add(storage.getItemByCode("CostOfSales"));
+        items.add(storage.get("RevenueGeneral"));
+        items.add(storage.get("CostOfSales"));
         items.add(grossProfit);
         items.add(itemsGetter.getOtherIncome());
         items.add(itemEbit);
-        items.add(storage.getItemByCode("FinanceCosts"));
-        items.add(storage.getItemByCode("IncomeTaxExpenseContinuingOperations"));
+        items.add(storage.get("FinanceCosts"));
+        items.add(storage.get("IncomeTaxExpenseContinuingOperations"));
         items.add(itemsGetter.getIncomeLossFromContinuingOperations());
         items.add(comprehensiveIncome);
         return items;
@@ -62,16 +62,17 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper, LabelWra
         String endDate = Periods.getInstance().getEnd();
 
         String positive = (first > 0) ? "positive" : "negative";
+        if(first == 0) positive = "equal to 0";
         out += "EBIT was " + positive + " at " + settings.get("defaultCurrency") +
-                " " + last + " " + settings.get("amount") + " in " + endDate + ".";
+                " " + last + " " + settings.get("amount") + " in " + endDate + ". ";
         Double change = last - first;
         String growth = round(change / first * 100);
         if (change > 0) {
-            out += "The EBIT growth was " + growth + "% during " + startDate + "-" + endDate + ".";
+            out += "The EBIT growth was " + growth + "% during " + startDate + "-" + endDate + ". ";
         } else if (change < 0) {
-            out += "The EBIT declined " + growth + "% during " + startDate + "-" + endDate + ".";
+            out += "The EBIT declined " + growth + "% during " + startDate + "-" + endDate + ". ";
         } else {
-            out += "The EBIT was stable during " + startDate + "-" + endDate + ".";
+            out += "The EBIT was stable during " + startDate + "-" + endDate + ". ";
         }
         out += comprehensiveIncome();
         return labelWrap(out);
@@ -184,10 +185,10 @@ class ItemsGetter {
 
     ItemsGetter() {
         this.periods = new Periods().getPeriodArr();
-        this.profitLossBeforeTax = storage.getItemByCode("ProfitLossBeforeTax");
-        this.financeCosts = storage.getItemByCode("FinanceCosts");
-        this.grossProfit = storage.getItemByCode("GrossProfit");
-        this.incomeTaxExpense = storage.getItemByCode("IncomeTaxExpenseContinuingOperations");
+        this.profitLossBeforeTax = storage.get("ProfitLossBeforeTax");
+        this.financeCosts = storage.get("FinanceCosts");
+        this.grossProfit = storage.get("GrossProfit");
+        this.incomeTaxExpense = storage.get("IncomeTaxExpenseContinuingOperations");
     }
 
     Item getEbit() {
@@ -237,7 +238,7 @@ class ItemsGetter {
         return itemOtherIncome;
     }
 
-    public Item getIncomeLossFromContinuingOperations() {
+    Item getIncomeLossFromContinuingOperations() {
         Item IncomeLossFromContinuingOperations = new Item(0,
                 "Income (loss) from continuing operations",
                 "IncomeLossFromContinuingOperations",

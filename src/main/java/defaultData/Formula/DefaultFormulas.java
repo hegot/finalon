@@ -88,7 +88,7 @@ public class DefaultFormulas {
         Formulas.addAll(DebtEquityRatio.get(FSiD, counter));
         counter = counter + 4;
         Formulas.addAll(DebttoTangibleNetWorthRatio.get(FSiD, counter));
-        counter = counter + 7;
+        counter = counter + 8;
         Formulas.addAll(LongTermDebttoEquity.get(FSiD, counter));
         counter = counter + 5;
         //Liquidity
@@ -147,7 +147,7 @@ public class DefaultFormulas {
         Formulas.addAll(OperatingCycle.get(TiD, counter));
         counter = counter + 4;
         Formulas.addAll(CashConversionCycle.get(TiD, counter));
-        counter = counter + 4;
+        counter = counter + 6;
 
         //Investment analysis
         Formulas.addAll(NetAssets.get(IAiD, counter));

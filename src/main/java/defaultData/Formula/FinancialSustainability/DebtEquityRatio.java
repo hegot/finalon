@@ -13,7 +13,7 @@ public class DebtEquityRatio {
                 "Debt/Equity Ratio",
                 "DebtEquityRatio",
                 "(NonCurrentAssets+CurrentLiabilities)/EquityGeneral",
-                EvaluationTypes.EVALUATE_END_ONLY.toString(),
+               "",
                 "formula",
                 "",
                 parent));
@@ -32,7 +32,7 @@ public class DebtEquityRatio {
         counter++;
         int DebtEquityRatioGood = counter;
         Formulas.add(new Formula(DebtEquityRatioGood,
-                "good",
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">=",
                 "1.5",
                 "meaning that creditors were protected in case of insolvency. ",
@@ -42,7 +42,7 @@ public class DebtEquityRatio {
         counter++;
         int DebtEquityRatioBad = counter;
         Formulas.add(new Formula(DebtEquityRatioBad,
-                "bad",
+                EvaluationTypes.EVALUATE_END.toString(),
                 "<",
                 "1.5",
                 "meaning that creditors were not protected in case of insolvency. ",

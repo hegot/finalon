@@ -13,14 +13,14 @@ public class DebttoTangibleNetWorthRatio {
                 "Debt to Tangible Net Worth Ratio",
                 "DebttoTangibleNetWorthRatio",
                 "(NonCurrentAssets+CurrentLiabilities)/(EquityGeneral-IntangibleAssetsOtherThanGoodwill-GoodwillGeneral)",
-                EvaluationTypes.EVALUATE_END_ONLY.toString(),
+                "",
                 "formula",
                 "",
                 parent));
         counter++;
         int DebttoTangibleNetWorthRatioexcellent = counter;
         Formulas.add(new Formula(DebttoTangibleNetWorthRatioexcellent,
-                "excellent",
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">=",
                 "0.6",
                 "Company`s Debt to Tangible Net Worth Ratio was excellent in the end period (>= 0.6). ",
@@ -30,17 +30,17 @@ public class DebttoTangibleNetWorthRatio {
         counter++;
         int DebttoTangibleNetWorthRatiosatisfactory = counter;
         Formulas.add(new Formula(DebttoTangibleNetWorthRatiosatisfactory,
-                "satisfactory",
-                "<=",
+                EvaluationTypes.EVALUATE_END.toString(),
+                ">=",
                 "0.4",
-                "Company`s Debt to Tangible Net Worth Ratio was satisfactory in the end period (<0.6 , <=0.4). ",
+                "Company`s Debt to Tangible Net Worth Ratio was satisfactory in the end period (<0.6 , >=0.4). ",
                 "<",
                 "0.6",
                 DebttoTangibleNetWorthRatio));
         counter++;
         int DebttoTangibleNetWorthRatiobad = counter;
         Formulas.add(new Formula(DebttoTangibleNetWorthRatiobad,
-                "bad",
+                EvaluationTypes.EVALUATE_END.toString(),
                 "<",
                 "0.4",
                 "Company`s Debt to Tangible Net Worth Ratio was unsatisfactory in the end period (< 0.4). ",
@@ -67,6 +67,16 @@ public class DebttoTangibleNetWorthRatio {
                 "",
                 "The table 5 shows that the ratio changed from STARTVALUE in STARTDATE to LASTVALUE in ENDDATE. " +
                         "This shows that the creditors' protection was getting worse. ",
+                "",
+                "",
+                DebttoTangibleNetWorthRatio));
+        counter++;
+        int DebttoTangibleNetWorthRatioNoChange = counter;
+        Formulas.add(new Formula(DebttoTangibleNetWorthRatioNoChange,
+                EvaluationTypes.PERIOD_COMPARISON_NOCHANGE.toString(),
+                "",
+                "",
+                "The table 5 shows that the ratio had not changed during STARTDATE-ENDDATE. ",
                 "",
                 "",
                 DebttoTangibleNetWorthRatio));

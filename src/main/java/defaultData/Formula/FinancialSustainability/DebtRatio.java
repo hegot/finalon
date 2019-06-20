@@ -13,14 +13,14 @@ public class DebtRatio {
                 "Debt Ratio",
                 "DebtRatio",
                 "(NonCurrentAssets+CurrentLiabilities)/AssetsGeneral",
-                EvaluationTypes.EVALUATE_END_ONLY.toString(),
+                "",
                 "formula",
                 "",
                 parent));
         counter++;
         int DebtRatioexcellent = counter;
         Formulas.add(new Formula(DebtRatioexcellent,
-                "excellent",
+                EvaluationTypes.EVALUATE_END.toString(),
                 "<=",
                 "0.4",
                 "The debt ratio was low at the end of the period, meaning that there was a small financial and credit risk.",
@@ -30,7 +30,7 @@ public class DebtRatio {
         counter++;
         int DebtRatiogood = counter;
         Formulas.add(new Formula(DebtRatiogood,
-                "good",
+                EvaluationTypes.EVALUATE_END.toString(),
                 "<",
                 "0.4",
                 "The debt ratio lies in the area of critical values (from 0.4 to 0.6) at the end of the period, meaning that there was an acceptable financial and credit risk. ",
@@ -40,7 +40,7 @@ public class DebtRatio {
         counter++;
         int DebtRatiobad = counter;
         Formulas.add(new Formula(DebtRatiobad,
-                "bad",
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">",
                 "0.6",
                 "The debt ratio was in the 'distress' zone (above 0.6) at the end of the period, meaning that there was a high financial and credit risk.",

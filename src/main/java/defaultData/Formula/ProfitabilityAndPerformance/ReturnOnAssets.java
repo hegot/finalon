@@ -13,14 +13,14 @@ public class ReturnOnAssets {
                 "Return on Assets",
                 "ReturnOnAssets",
                 "(ProfitLossBeforeTax-IncomeTaxExpenseContinuingOperations)/(AssetsGeneral[0]/2+AssetsGeneral[1]/2)",
-                EvaluationTypes.EVALUATE_END_ONLY.toString(),
+                "",
                 "formula",
                 "%",
                 parent));
         counter++;
         int ReturnoNonAssetsexcellent = counter;
         Formulas.add(new Formula(ReturnoNonAssetsexcellent,
-                "excellent",
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">",
                 "0",
                 "For COMPANYNAME the ROA shows that the company was earning a profit of about LASTVALUE cents per CURRENCY of the asset value in ENDDATE",
@@ -30,7 +30,7 @@ public class ReturnOnAssets {
         counter++;
         int ReturnoNonAssetssatisfactory = counter;
         Formulas.add(new Formula(ReturnoNonAssetssatisfactory,
-                "satisfactory",
+                EvaluationTypes.EVALUATE_END.toString(),
                 "==",
                 "0",
                 "For COMPANYNAME the ROA shows that the company's profitability was 0%. After taking into account inflation, this ratio indicates actual decrease in company value in ENDDATE.",
@@ -40,7 +40,7 @@ public class ReturnOnAssets {
         counter++;
         int ReturnoNonAssetsunsatisfactory = counter;
         Formulas.add(new Formula(ReturnoNonAssetsunsatisfactory,
-                "unsatisfactory",
+                EvaluationTypes.EVALUATE_END.toString(),
                 "<",
                 "0",
                 "For COMPANYNAME the ROA shows that the company was losing about LASTVALUE cents per CURRENCY of the asset value in ENDDATE.",

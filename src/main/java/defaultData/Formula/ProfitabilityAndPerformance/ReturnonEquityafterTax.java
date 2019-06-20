@@ -13,47 +13,67 @@ public class ReturnonEquityafterTax {
                 "Return on Equity after Tax",
                 "ReturnonEquityafterTax",
                 "(ProfitLossBeforeTax-IncomeTaxExpenseContinuingOperations)/(EquityGeneral[0]/2+EquityGeneral[1]/2)",
-                EvaluationTypes.EVALUATE_END_ONLY.toString(),
+                EvaluationTypes.EVALUATE_END.toString(),
                 "formula",
                 "%",
                 parent));
         counter++;
         int ReturnonEquityafterTaxexcellent = counter;
         Formulas.add(new Formula(ReturnonEquityafterTaxexcellent,
-                "excellent",
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">",
                 "7",
-                "The ROE value had excellent results (> 7) at the end of the ENDDATE. ",
+                "The ROE value had excellent results (> 7) at the end of the ENDDATE. " +
+                        "It shows that the company  was earning a profit of about LASTVALUE cents " +
+                        "per CURRENCY of investment by stockholders. ",
                 "",
                 "",
                 ReturnonEquityafterTax));
         counter++;
         int ReturnonEquityafterTaxgood = counter;
         Formulas.add(new Formula(ReturnonEquityafterTaxgood,
-                "good",
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">",
                 "4",
-                "The ROE value had good results (> 4) at the end of the ENDDATE. ",
-                "",
-                "",
+                "The ROE value had good results (> 4) at the end of the ENDDATE. " +
+                        "It shows that the company  was earning a profit of about LASTVALUE cents " +
+                        "per CURRENCY of investment by stockholders. ",
+                "<=",
+                "7",
                 ReturnonEquityafterTax));
         counter++;
         int ReturnonEquityafterTaxsatisfactory = counter;
         Formulas.add(new Formula(ReturnonEquityafterTaxsatisfactory,
-                "satisfactory",
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">",
                 "0",
-                "The ROE value had satisfactory results (> 0) at the end of the ENDDATE. ",
+                "The ROE value had satisfactory results (> 0) at the end of the ENDDATE. " +
+                        "It shows that the company  was earning a profit of about LASTVALUE cents " +
+                        "per CURRENCY of investment by stockholders",
+                "<=",
+                "4",
+                ReturnonEquityafterTax));
+        counter++;
+        int ReturnonEquityafterTaxNull = counter;
+        Formulas.add(new Formula(ReturnonEquityafterTaxNull,
+                EvaluationTypes.EVALUATE_END.toString(),
+                "=",
+                "0",
+                "The ROE value was unsatisfactory (= 0) at the end of the ENDDATE. " +
+                        "It shows that the company was having no loss and no profit " +
+                        "per CURRENCY of investment by stockholders",
                 "",
-                "",
+                "%",
                 ReturnonEquityafterTax));
         counter++;
         int ReturnonEquityafterTaxunsatisfactory = counter;
         Formulas.add(new Formula(ReturnonEquityafterTaxunsatisfactory,
-                "unsatisfactory",
-                "<=",
+                EvaluationTypes.EVALUATE_END.toString(),
+                "<",
                 "0",
-                "The ROE value was unsatisfactory (<= 0) at the end of the ENDDATE. ",
+                "The ROE value was unsatisfactory (< 0) at the end of the ENDDATE. " +
+                        "It shows that the company was having loss of about LASTVALUE cents " +
+                        "per CURRENCY of investment by stockholders",
                 "",
                 "%",
                 ReturnonEquityafterTax));

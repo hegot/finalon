@@ -13,14 +13,14 @@ public class CashRatio {
                 "Cash Ratio",
                 "CashRatio",
                 "CashAndCashEquivalents/CurrentLiabilities",
-                EvaluationTypes.EVALUATE_END_ONLY.toString(),
+                "",
                 "formula",
                 "",
                 parent));
         counter++;
         int CashRatioexcellent = counter;
         Formulas.add(new Formula(CashRatioexcellent,
-                "excellent",
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">=",
                 "0.2",
                 "The value of the ratio lies above the area of critical values.",
@@ -30,7 +30,7 @@ public class CashRatio {
         counter++;
         int CashRatiogood = counter;
         Formulas.add(new Formula(CashRatiogood,
-                "good",
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">=",
                 "0.1",
                 "The value of the ratio lies in the area of critical values.",
@@ -40,7 +40,7 @@ public class CashRatio {
         counter++;
         int CashRatiobad = counter;
         Formulas.add(new Formula(CashRatiobad,
-                "bad",
+                EvaluationTypes.EVALUATE_END.toString(),
                 "<",
                 "0.1",
                 "It indicates an immediate problem with paying bills.",

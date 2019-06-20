@@ -14,14 +14,14 @@ public class QuickRatio {
                 "Quick Ratio (Acid Test Ratio)",
                 "QuickRatio",
                 "(CashAndCashEquivalents+TradeAndOtherCurrentReceivables)/CurrentLiabilities",
-                EvaluationTypes.EVALUATE_END_ONLY.toString(),
+                "",
                 "formula",
                 "",
                 parent));
         counter++;
         int CurrentRatiosatisfactory = counter;
         Formulas.add(new Formula(CurrentRatiosatisfactory,
-                "excellent",
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">=",
                 "1",
                 "The company's quick liquidity was satisfactory at the end of the period. ",
@@ -31,7 +31,7 @@ public class QuickRatio {
         counter++;
         int CurrentRatioexcellent = counter;
         Formulas.add(new Formula(CurrentRatioexcellent,
-                "good",
+                EvaluationTypes.EVALUATE_END.toString(),
                 "<",
                 "1",
                 "The company's quick liquidity was unsatisfactory at the end of the period. ",

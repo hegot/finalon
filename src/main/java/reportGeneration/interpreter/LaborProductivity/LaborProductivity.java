@@ -12,7 +12,7 @@ public class LaborProductivity {
 
     public LaborProductivity() {
         FormulaStorage storage = FormulaStorage.getInstance();
-        Formula OI = storage.getItemByCode("OI");
+        Formula OI = storage.get("OI");
         if (OI != null) {
             this.formulas = storage.getItems(OI.getId());
         }

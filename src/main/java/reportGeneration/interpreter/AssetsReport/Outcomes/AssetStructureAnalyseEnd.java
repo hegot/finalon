@@ -6,7 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.SrtuctureItemsLoop;
-import reportGeneration.storage.IndexesStorage;
+import reportGeneration.storage.ItemsStorage;
+import reportGeneration.storage.Periods;
 
 public class AssetStructureAnalyseEnd implements SrtuctureItemsLoop, LabelWrap {
     private Item parent;
@@ -19,13 +20,14 @@ public class AssetStructureAnalyseEnd implements SrtuctureItemsLoop, LabelWrap {
 
     public AssetStructureAnalyseEnd(
             ObservableList<Item> currentItems,
-            ObservableList<Item> nonCurrentItems,
-            String period
+            ObservableList<Item> nonCurrentItems
     ) {
-        Item current = IndexesStorage.get("GeneralCurrentAssets");
-        Item nonCurrent = IndexesStorage.get("NonCurrentAssets");
-        this.parent = IndexesStorage.get("AssetsGeneral");
-        this.period = period;
+        Periods p = Periods.getInstance();
+        ItemsStorage stor = ItemsStorage.getInstance();
+        Item current = stor.get("GeneralCurrentAssets");
+        Item nonCurrent = stor.get("NonCurrentAssets");
+        this.parent = stor.get("AssetsGeneral");
+        this.period = p.endKey();
         this.currentItems = currentItems;
         this.nonCurrentItems = nonCurrentItems;
         this.totalVal = parent.getVal(period);

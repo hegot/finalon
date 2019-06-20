@@ -13,13 +13,9 @@ import reportGeneration.storage.SettingsStorage;
 
 public class FormulaEvaluation implements LabelWrap, AttachChilds {
     private ObservableList<Formula> formulas;
-    private Periods periods;
-    private ObservableMap<String, String> settings;
 
     public FormulaEvaluation(ObservableList<Formula> formulas) {
-        this.periods = Periods.getInstance();
         this.formulas = formulas;
-        this.settings = SettingsStorage.getInstance().getSettings();
     }
 
     public VBox get() {

@@ -13,14 +13,14 @@ public class WorkingCapitalTurnover {
                 "Working Capital Turnover",
                 "WorkingCapitalTurnover",
                 "RevenueGeneral/((GeneralCurrentAssets[1]-CurrentLiabilities[1]+GeneralCurrentAssets[0]-CurrentLiabilities[0])/2)",
-                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
+                "",
                 "formula",
                 "times",
                 parent));
         counter++;
         int WorkingCapitalTurnovergood = counter;
         Formulas.add(new Formula(WorkingCapitalTurnovergood,
-                "good",
+                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
                 ">",
                 "5",
                 "good (more than 0.6) CURRENTVALUE in CURRENTPERIOD, ",
@@ -30,7 +30,7 @@ public class WorkingCapitalTurnover {
         counter++;
         int WorkingCapitalTurnoversatisfactory = counter;
         Formulas.add(new Formula(WorkingCapitalTurnoversatisfactory,
-                "unsatisfactory",
+                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
                 "<=",
                 "5",
                 "CURRENTVALUE in CURRENTPERIOD (unsatisfactory <= 5), ",

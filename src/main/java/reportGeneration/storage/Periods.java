@@ -39,7 +39,7 @@ public class Periods implements JsCalcHelper {
         this.settings = SettingsStorage.getInstance().getSettings();
         String year = settings.get("year");
         String periods = settings.get("periods");
-        if(year != null && periods != null){
+        if (year != null && periods != null) {
             this.endYear = Integer.parseInt(year);
             this.periods = Integer.parseInt(periods);
             setMonthDay();
@@ -95,6 +95,16 @@ public class Periods implements JsCalcHelper {
             this.periodArr = arr;
             return arr;
         }
+    }
+
+    public String startKey() {
+        ArrayList<String> periodArr = getPeriodArr();
+        return periodArr.get(0);
+    }
+
+    public String endKey() {
+        ArrayList<String> periodArr = getPeriodArr();
+        return periodArr.get(periodArr.size() - 1);
     }
 
     private LocalDateTime getStartTime() {

@@ -13,14 +13,14 @@ public class NetWorkingCapital {
                 "Net Working Capital",
                 "NetWorkingCapital",
                 "GeneralCurrentAssets-CurrentLiabilities",
-                EvaluationTypes.EVALUATE_END_ONLY.toString(),
+                "",
                 "formula",
                 "money (to us and dollar)",
                 parent));
         counter++;
         int NetWorkingCapitalExcellent = counter;
         Formulas.add(new Formula(NetWorkingCapitalExcellent,
-                "good",
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">",
                 "0",
                 "There were CURRENCY LASTVALUE AMOUNT in the working capital in ENDDATE. " +
@@ -32,7 +32,7 @@ public class NetWorkingCapital {
         counter++;
         int NetWorkingCapitalSatisfactory = counter;
         Formulas.add(new Formula(NetWorkingCapitalSatisfactory,
-                "satisfactory",
+                EvaluationTypes.EVALUATE_END.toString(),
                 "=",
                 "0",
                 "There was no working capital at the end of the period under review, " +
@@ -43,7 +43,7 @@ public class NetWorkingCapital {
         counter++;
         int NetWorkingCapitalBad = counter;
         Formulas.add(new Formula(NetWorkingCapitalBad,
-                "bad",
+                EvaluationTypes.EVALUATE_END.toString(),
                 "<",
                 "0",
                 "There were CURRENCY LASTVALUE AMOUNT in the working capital in ENDDATE. " +

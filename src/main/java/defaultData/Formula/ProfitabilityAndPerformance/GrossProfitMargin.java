@@ -13,14 +13,14 @@ public class GrossProfitMargin {
                 "Gross Profit Margin",
                 "GrossProfitMargin",
                 "GrossProfit/RevenueGeneral",
-                EvaluationTypes.EVALUATE_END_ONLY.toString(),
+                "",
                 "formula",
                 "%",
                 parent));
         counter++;
         int GrossProfitMargingood = counter;
         Formulas.add(new Formula(GrossProfitMargingood,
-                "good",
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">",
                 "0",
                 "Gross profit margin shows that the company earned CURRENCY LASTVALUE of the gross profit per CURRENCY of sales in ENDDATE. ",
@@ -30,7 +30,7 @@ public class GrossProfitMargin {
         counter++;
         int GrossProfitMarginNull = counter;
         Formulas.add(new Formula(GrossProfitMarginNull,
-                "satisfactory",
+                EvaluationTypes.EVALUATE_END.toString(),
                 "<",
                 "0",
                 "Gross profit margin was negatively affected by the high cost of goods sold. COMPANYNAME earned $0 of gross profit in ENDDATE.",
@@ -40,7 +40,7 @@ public class GrossProfitMargin {
         counter++;
         int GrossProfitMarginBad = counter;
         Formulas.add(new Formula(GrossProfitMarginBad,
-                "bad",
+                EvaluationTypes.EVALUATE_END.toString(),
                 "=",
                 "0",
                 "Gross profit margin was negatively affected by the high cost of goods sold. ",
@@ -50,7 +50,7 @@ public class GrossProfitMargin {
         counter++;
         int GrossProfitMarginunsatisfactory = counter;
         Formulas.add(new Formula(GrossProfitMarginunsatisfactory,
-                "unsatisfactory",
+                EvaluationTypes.EVALUATE_END.toString(),
                 "<",
                 "0",
                 "Gross profit margin was negatively affected by the high cost of goods sold. COMPANYNAME lost CURRENCY LASTVALUE of sales in ENDDATE. ",

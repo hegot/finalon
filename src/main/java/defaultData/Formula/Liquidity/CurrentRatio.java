@@ -14,14 +14,14 @@ public class CurrentRatio {
                 "Current Ratio",
                 "CurrentRatio",
                 "GeneralCurrentAssets/CurrentLiabilities",
-                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
+               "",
                 "formula",
                 "",
                 parent));
         counter++;
         int CurrentRatiosatisfactory = counter;
         Formulas.add(new Formula(CurrentRatiosatisfactory,
-                "excellent",
+                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
                 ">",
                 "3",
                 "For the CURRENTPERIOD period the value of the ratio is higher than 3 that means excellent results.",
@@ -31,7 +31,7 @@ public class CurrentRatio {
         counter++;
         int CurrentRatioexcellent = counter;
         Formulas.add(new Formula(CurrentRatioexcellent,
-                "good",
+                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
                 "<",
                 "2",
                 "Current Ratio in CURRENTPERIOD equals to CURRENTVALUE that fits good results range (from 2 to 3). ",
@@ -41,7 +41,7 @@ public class CurrentRatio {
         counter++;
         int CurrentRatiogood = counter;
         Formulas.add(new Formula(CurrentRatiogood,
-                "normal",
+                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
                 "<=",
                 "1.5",
                 "In CURRENTPERIOD the value (CURRENTVALUE) of the ratio lies in the area of critical values (from 1.5 to 2). ",
@@ -51,7 +51,7 @@ public class CurrentRatio {
         counter++;
         int CurrentRatiobad = counter;
         Formulas.add(new Formula(CurrentRatiobad,
-                "bad",
+                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
                 "<",
                 "1,5",
                 "In CURRENTPERIOD the value (CURRENTVALUE) of the ratio lies above the area of critical values. ",

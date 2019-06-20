@@ -9,10 +9,10 @@ public interface EquityShareAnalyze extends GetVal, JsCalcHelper {
                     "be able to pay interest and repay the " +
                     "principal on the amount borrowed.";
         } else if (share >= 40) {
-            str = str + "Average share of the equity (" + format(share) + ") in " + period +
+            str = str + "Average share of the equity (" + format(share) + ") in " + formatDate(period) +
                     " means the financial risk level was acceptable.";
         } else {
-            str = str + "Low share of the equity (" + format(share) + ") in " + period +
+            str = str + "Low share of the equity (" + format(share) + ") in " + formatDate(period) +
                     " increases the risk that the firm will not " +
                     "be able to pay interest and repay the " +
                     "principal on the amount borrowed.";

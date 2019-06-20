@@ -4,7 +4,7 @@ import javafx.collections.ObservableMap;
 import javafx.scene.chart.BarChart;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.ChartBase;
-import reportGeneration.storage.IndexesStorage;
+import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.SettingsStorage;
 
@@ -14,9 +14,10 @@ public class LiabilitiesCharts extends ChartBase {
     private ObservableMap<String, Double> valuesEquity;
 
     public LiabilitiesCharts() {
-        this.valuesCurrent = IndexesStorage.get("CurrentLiabilities").getValues();
-        this.valuesNonCurrent = IndexesStorage.get("NonCurrentLiabilities").getValues();
-        this.valuesEquity = IndexesStorage.get("EquityGeneral").getValues();
+        ItemsStorage stor = ItemsStorage.getInstance();
+        this.valuesCurrent = stor.get("CurrentLiabilities").getValues();
+        this.valuesNonCurrent = stor.get("NonCurrentLiabilities").getValues();
+        this.valuesEquity = stor.get("EquityGeneral").getValues();
     }
 
     private String chartTitle() {
@@ -30,13 +31,13 @@ public class LiabilitiesCharts extends ChartBase {
 
     public VBox get() {
         BarChart<String, Number> bc = getChart(chartTitle());
-        if (valuesEquity != null) bc.getData().add(
+        if (valuesEquity.size() > 0) bc.getData().add(
                 getSeries("Equity", valuesEquity)
         );
-        if (valuesCurrent != null) bc.getData().add(
+        if (valuesCurrent.size() > 0) bc.getData().add(
                 getSeries("Non Current Liabilities", valuesNonCurrent)
         );
-        if (valuesNonCurrent != null) bc.getData().add(
+        if (valuesNonCurrent.size() > 0) bc.getData().add(
                 getSeries("Current Liabilities", valuesCurrent)
         );
         VBox vBox = new VBox(20);

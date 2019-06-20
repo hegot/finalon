@@ -4,7 +4,7 @@ import entities.Item;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
-import reportGeneration.storage.IndexesStorage;
+import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
 
 public class CurrentNonCurrentAssetsAnalyze implements JsCalcHelper {
@@ -20,8 +20,9 @@ public class CurrentNonCurrentAssetsAnalyze implements JsCalcHelper {
     private Double AssetsOverall;
 
     public CurrentNonCurrentAssetsAnalyze() {
-        Item current = IndexesStorage.get("GeneralCurrentAssets");
-        Item nonCurrent = IndexesStorage.get("NonCurrentAssets");
+        ItemsStorage stor = ItemsStorage.getInstance();
+        Item current = stor.get("GeneralCurrentAssets");
+        Item nonCurrent = stor.get("NonCurrentAssets");
         this.startDate = Periods.getInstance().getStart();
         this.endDate = Periods.getInstance().getEnd();
         this.firstCurentVal = current.getFirstVal();

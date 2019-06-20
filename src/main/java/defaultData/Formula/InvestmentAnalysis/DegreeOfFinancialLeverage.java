@@ -13,14 +13,14 @@ public class DegreeOfFinancialLeverage {
                 "Degree of Financial Leverage",
                 "DegreeOfFinancialLeverage",
                 "(ProfitLossBeforeTax-FinanceCosts)/ProfitLossBeforeTax",
-                EvaluationTypes.EVALUATE_END_ONLY.toString(),
+                "",
                 "formula",
                 "money",
                 parent));
         counter++;
         int NetAssetsNull = counter;
         Formulas.add(new Formula(NetAssetsNull,
-                "zero",
+                EvaluationTypes.EVALUATE_END.toString(),
                 "=",
                 "1",
                 "The degree of financial leverage equal to 1 in ENDDATE " +

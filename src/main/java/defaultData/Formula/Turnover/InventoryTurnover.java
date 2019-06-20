@@ -14,14 +14,14 @@ public class InventoryTurnover {
                 "Inventory Turnover  (Days Inventory Outstanding)",
                 "InventoryTurnover",
                 "CostOfSales/((Inventories[1]+Inventories[0])/2)",
-                EvaluationTypes.EVALUATE_END_ONLY.toString(),
+                "",
                 "formula",
                 "days",
                 parent));
         counter++;
         int InventoryTurnovergood = counter;
         Formulas.add(new Formula(InventoryTurnovergood,
-                "good",
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">",
                 "6",
                 "Inventory Turnover index comes into 'good' range ( > 6) at the end of the period. ",
@@ -31,7 +31,7 @@ public class InventoryTurnover {
         counter++;
         int InventoryTurnoversatisfactory = counter;
         Formulas.add(new Formula(InventoryTurnoversatisfactory,
-                "unsatisfactory",
+                EvaluationTypes.EVALUATE_END.toString(),
                 "<=",
                 "6",
                 "Inventory Turnover index comes into 'unsatisfactory' range ( <= 6) at the end of the period. ",

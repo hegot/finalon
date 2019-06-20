@@ -21,8 +21,8 @@ public class Validator implements JsCalcHelper, LabelWrap {
     public Validator() {
         ItemsStorage stor = ItemsStorage.getInstance();
         this.periodsArr = Periods.getInstance().getPeriodArr();
-        this.AssetsGeneral = stor.getItemByCode("AssetsGeneral");
-        this.EquityAndLiabilities = stor.getItemByCode("EquityAndLiabilities");
+        this.AssetsGeneral = stor.get("AssetsGeneral");
+        this.EquityAndLiabilities = stor.get("EquityAndLiabilities");
     }
 
     public String validate() {

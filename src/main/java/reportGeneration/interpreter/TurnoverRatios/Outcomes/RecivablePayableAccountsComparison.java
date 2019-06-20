@@ -10,8 +10,8 @@ public class RecivablePayableAccountsComparison {
 
     public RecivablePayableAccountsComparison() {
         FormulaStorage storage = FormulaStorage.getInstance();
-        this.accountPayable = storage.getItemByCode("AccountsPayableTurnover");
-        this.accountRecivable = storage.getItemByCode("AccountsReceivableTurnover");
+        this.accountPayable = storage.get("AccountsPayableTurnover");
+        this.accountRecivable = storage.get("AccountsReceivableTurnover");
     }
 
     public String getResult() {

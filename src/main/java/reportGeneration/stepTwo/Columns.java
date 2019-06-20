@@ -66,7 +66,7 @@ class Columns implements ParseDouble {
                     if (t != null && t.getTableView() != null) {
                         String value = t.getNewValue().replace(',', '.');
                         if (value != null) {
-                            Item item =  ((Item) t.getTableView().getItems()
+                            Item item = ((Item) t.getTableView().getItems()
                                     .get(t.getTablePosition().getRow()));
                             if (item != null) {
                                 ObservableMap<String, Double> values = item.getValues();

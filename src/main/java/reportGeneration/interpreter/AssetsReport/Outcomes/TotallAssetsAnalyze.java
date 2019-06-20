@@ -5,7 +5,7 @@ import javafx.collections.ObservableMap;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
-import reportGeneration.storage.IndexesStorage;
+import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.SettingsStorage;
 
@@ -19,14 +19,14 @@ public class TotallAssetsAnalyze implements LabelWrap, JsCalcHelper {
     public TotallAssetsAnalyze() {
         this.startDate = Periods.getInstance().getStart();
         this.endDate = Periods.getInstance().getEnd();
-        Item item = IndexesStorage.get("AssetsGeneral");
+        ItemsStorage stor = ItemsStorage.getInstance();
+        Item item = stor.get("AssetsGeneral");
         if (item.getValues().size() > 1) {
             this.first = item.getFirstVal();
             this.last = item.getLastVal();
             ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
             settings.put("assetsDifference", Double.toString(last - first));
             settings.put("assetsStartValue", Double.toString(first));
-            settings.put("assetsEndValue", Double.toString(last));
         }
     }
 

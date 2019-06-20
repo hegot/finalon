@@ -13,14 +13,14 @@ public class TotalAssetTurnover {
                 "Total Asset Turnover",
                 "TotalAssetTurnover",
                 "RevenueGeneral/(AssetsGeneral[0]/2+AssetsGeneral[1]/2)",
-                EvaluationTypes.EVALUATE_END_ONLY.toString(),
+                "",
                 "formula",
                 "times",
                 parent));
         counter++;
         int TotalAssetTurnovergood = counter;
         Formulas.add(new Formula(TotalAssetTurnovergood,
-                "good",
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">",
                 "6",
                 "At the end of the period index demonstrated good results ( > 6 ). ",
@@ -30,7 +30,7 @@ public class TotalAssetTurnover {
         counter++;
         int TotalAssetTurnoverunsatisfactory = counter;
         Formulas.add(new Formula(TotalAssetTurnoverunsatisfactory,
-                "unsatisfactory",
+                EvaluationTypes.EVALUATE_END.toString(),
                 "<=",
                 "6",
                 "At the end of the period index demonstrated unsatisfactory results ( <= 6 ). ",

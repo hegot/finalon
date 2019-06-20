@@ -3,9 +3,11 @@ package reportGeneration.storage;
 import entities.Item;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 
 public class ItemsStorage {
     private static ObservableList<Item> items;
+    private static ObservableMap<String, Item> indexes;
     private boolean initalized = false;
 
     private ItemsStorage() {
@@ -37,13 +39,20 @@ public class ItemsStorage {
 
     private void init() {
         items = FXCollections.observableArrayList();
+        indexes = FXCollections.observableHashMap();
         System.out.println("Items Storage added!");
     }
 
-    public Item getItemByCode(String code) {
-        for (Item item : getItems()) {
-            if (item.getShortName().equals(code)) {
-                return item;
+    public Item get(String code) {
+        Item index = indexes.get(code);
+        if (index != null) {
+            return index;
+        } else {
+            for (Item item : getItems()) {
+                if (item.getShortName().equals(code)) {
+                    indexes.put(item.getShortName(), item);
+                    return item;
+                }
             }
         }
         return null;

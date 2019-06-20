@@ -6,39 +6,34 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.AssetsReport.Outcomes.*;
 import reportGeneration.interpreter.ReusableComponents.RelativeItemsChange;
+import reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
 import reportGeneration.interpreter.ReusableComponents.tables.IndexChangeTable;
 import reportGeneration.interpreter.ReusableComponents.tables.StructureTable;
-import reportGeneration.storage.IndexesStorage;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.SettingsStorage;
 
-import java.util.ArrayList;
-
-public class AssetsReport {
+public class AssetsReport implements TableName {
 
     private int rootId;
     private ItemsStorage stor = ItemsStorage.getInstance();
+    private Item NonCurrentAssets;
+    private Item GeneralCurrentAssets;
 
     public AssetsReport() {
-        Item root = stor.getItemByCode("AssetsGeneral");
+        Item root = stor.get("AssetsGeneral");
         this.rootId = (root != null) ? root.getId() : 0;
-        IndexesStorage.put("GeneralCurrentAssets", stor.getItemByCode("GeneralCurrentAssets"));
-        IndexesStorage.put("NonCurrentAssets", stor.getItemByCode("NonCurrentAssets"));
-        IndexesStorage.put("AssetsGeneral", stor.getItemByCode("AssetsGeneral"));
+        this.NonCurrentAssets = stor.get("NonCurrentAssets");
+        this.GeneralCurrentAssets = stor.get("GeneralCurrentAssets");
     }
 
     public VBox getTrend() {
         ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
-        Label tableName = new Label("Table 1. Assets Trend Analysis, in "
+        Label tableName = tableName("Table 1. Assets Trend Analysis, in "
                 + settings.get("amount") + " " + settings.get("defaultCurrency")
         );
-        tableName.getStyleClass().add("table-name");
-        tableName.setWrapText(true);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
-        Item nonCurrentAssets = IndexesStorage.get("NonCurrentAssets");
-        Item currentAssets = IndexesStorage.get("GeneralCurrentAssets");
         box.getChildren().addAll(
                 tableName,
                 new IndexChangeTable(rootId).get(),
@@ -46,13 +41,13 @@ public class AssetsReport {
                 new CurrentNonCurrentAssetsAnalyze().get(),
                 new AssetsCharts().get(),
                 new RelativeItemsChange(
-                        nonCurrentAssets,
-                        stor.getItems(nonCurrentAssets.getId()),
+                        NonCurrentAssets,
+                        stor.getItems(NonCurrentAssets.getId()),
                         "assets"
                 ).get(),
                 new RelativeItemsChange(
-                        currentAssets,
-                        stor.getItems(currentAssets.getId()),
+                        GeneralCurrentAssets,
+                        stor.getItems(GeneralCurrentAssets.getId()),
                         "assets"
                 ).get()
         );
@@ -60,30 +55,21 @@ public class AssetsReport {
     }
 
     public VBox getStructure() {
-        Label tableName = new Label("Table 3. Assets Structure Analysis");
-        tableName.getStyleClass().add("table-name");
-        tableName.setWrapText(true);
+        Label tableName = tableName("Table 3. Assets Structure Analysis");
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
-        Periods per = Periods.getInstance();
-        ArrayList<String> periodArr = per.getPeriodArr();
-        String startKey = periodArr.get(0);
-        String endKey = periodArr.get(periodArr.size() - 1);
-        Item nonCurrentAssets = IndexesStorage.get("NonCurrentAssets");
-        Item currentAssets = IndexesStorage.get("GeneralCurrentAssets");
+        Periods p = Periods.getInstance();
         box.getChildren().addAll(
                 tableName,
                 new StructureTable(rootId).get(),
                 new AssetStructureAnalyzeStart(
-                        stor.getItems(currentAssets.getId()),
-                        stor.getItems(nonCurrentAssets.getId()),
-                        startKey
+                        stor.getItems(GeneralCurrentAssets.getId()),
+                        stor.getItems(NonCurrentAssets.getId())
                 ).get(),
-                new AssetStructureChart(endKey).get(),
+                new AssetStructureChart(p.endKey()).get(),
                 new AssetStructureAnalyseEnd(
-                        stor.getItems(currentAssets.getId()),
-                        stor.getItems(nonCurrentAssets.getId()),
-                        endKey
+                        stor.getItems(GeneralCurrentAssets.getId()),
+                        stor.getItems(NonCurrentAssets.getId())
                 ).get()
         );
         return box;

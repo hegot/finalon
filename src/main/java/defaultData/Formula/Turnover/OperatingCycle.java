@@ -13,14 +13,14 @@ public class OperatingCycle {
                 "Operating Cycle",
                 "OperatingCycle",
                 "360*((Inventories[1]+Inventories[0])/2)/CostOfSales+360*((TradeAndOtherCurrentReceivables[0]+TradeAndOtherCurrentReceivables[1])/2)/RevenueGeneral",
-                EvaluationTypes.EVALUATE_END_ONLY.toString(),
+                "",
                 "formula",
                 "days",
                 parent));
         counter++;
         int OperatingCyclegood = counter;
         Formulas.add(new Formula(OperatingCyclegood,
-                "good",
+                EvaluationTypes.EVALUATE_END.toString(),
                 "<",
                 "90",
                 "The operating cycle was LASTVALUE (good < 90) in ENDDATE. " +
@@ -31,7 +31,7 @@ public class OperatingCycle {
         counter++;
         int OperatingCyclesatisfactory = counter;
         Formulas.add(new Formula(OperatingCyclesatisfactory,
-                "unsatisfactory",
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">=",
                 "90",
                 "The operating cycle was LASTVALUE (unsatisfactory >= 90) in ENDDATE. " +

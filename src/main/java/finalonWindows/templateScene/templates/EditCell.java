@@ -37,7 +37,7 @@ public class EditCell<S, T> extends TextFieldTableCell<S, T> {
         return forTableColumn(new DefaultStringConverter());
     }
 
-    public static <S, T> Callback<TableColumn<S, T>,   TableCell<S, T>> forTableColumn(
+    public static <S, T> Callback<TableColumn<S, T>, TableCell<S, T>> forTableColumn(
             final StringConverter<T> converter) {
         return list -> new EditCell<S, T>(converter);
     }
@@ -146,7 +146,7 @@ public class EditCell<S, T> extends TextFieldTableCell<S, T> {
 
         textField.setOnKeyReleased(t -> {
             if (t.getCode() == KeyCode.ESCAPE) {
-                throw new IllegalArgumentException( "did not expect esc key releases here.");
+                throw new IllegalArgumentException("did not expect esc key releases here.");
             }
         });
 
@@ -155,7 +155,7 @@ public class EditCell<S, T> extends TextFieldTableCell<S, T> {
                 textField.setText(getConverter().toString(getItem()));
                 cancelEdit();
                 event.consume();
-            } else if (event.getCode() == KeyCode.RIGHT ||  event.getCode() == KeyCode.TAB) {
+            } else if (event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.TAB) {
                 getTableView().getSelectionModel().selectNext();
                 event.consume();
             } else if (event.getCode() == KeyCode.LEFT) {

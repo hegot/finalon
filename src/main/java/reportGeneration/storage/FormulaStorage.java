@@ -4,11 +4,13 @@ import database.formula.DbFormulaHandler;
 import entities.Formula;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 
 public class FormulaStorage {
     private static ObservableList<Formula> formulas;
     private boolean initalized = false;
     private DbFormulaHandler dbFormula = new DbFormulaHandler();
+    private static ObservableMap<String, Formula> indexes;
 
     private FormulaStorage() {
         if (!initalized) {
@@ -39,12 +41,19 @@ public class FormulaStorage {
         return Formulas;
     }
 
-    public Formula getItemByCode(String code) {
-        for (Formula formula : formulas) {
-            if (formula.getShortName().equals(code)) {
-                return formula;
+    public Formula get(String code) {
+        Formula index = indexes.get(code);
+        if (index != null) {
+            return index;
+        } else {
+            for (Formula formula : formulas) {
+                if (formula.getShortName().equals(code)) {
+                    indexes.put(formula.getShortName(), formula);
+                    return formula;
+                }
             }
         }
+
         return null;
     }
 
@@ -64,6 +73,7 @@ public class FormulaStorage {
                 myFormulas.add(child2);
             }
         }
+        indexes = FXCollections.observableHashMap();
         return myFormulas;
     }
 

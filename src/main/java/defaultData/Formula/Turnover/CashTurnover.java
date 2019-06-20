@@ -13,14 +13,14 @@ public class CashTurnover {
                 "Cash Turnover",
                 "CashTurnover",
                 "RevenueGeneral/((CashAndCashEquivalents[0]+CashAndCashEquivalents[1])/2)",
-                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
+               "",
                 "formula",
                 "times",
                 parent));
         counter++;
         int CashTurnovergood = counter;
         Formulas.add(new Formula(CashTurnovergood,
-                "good",
+                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
                 ">",
                 "12",
                 "CURRENTVALUE in CURRENTPERIOD (good - more than 12),",
@@ -30,7 +30,7 @@ public class CashTurnover {
         counter++;
         int CashTurnoversatisfactory = counter;
         Formulas.add(new Formula(CashTurnoversatisfactory,
-                "unsatisfactory",
+                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
                 "<=",
                 "12",
                 "CURRENTVALUE in CURRENTPERIOD (unsatisfactory - less than 12),",

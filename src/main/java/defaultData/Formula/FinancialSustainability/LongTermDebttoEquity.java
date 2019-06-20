@@ -13,14 +13,14 @@ public class LongTermDebttoEquity {
                 "Long-Term Debt to Equity",
                 "LongTermDebttoEquity",
                 "NonCurrentAssets/(IssuedCapital+SharePremium)",
-                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
+                "",
                 "formula",
                 "",
                 parent));
         counter++;
         int LongTermDebttoEquityexcellent = counter;
         Formulas.add(new Formula(LongTermDebttoEquityexcellent,
-                "excellent",
+                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
                 ">=",
                 "1",
                 "CURRENTVALUE in CURRENTPERIOD (excellent - more than 1), ",
@@ -30,8 +30,8 @@ public class LongTermDebttoEquity {
         counter++;
         int LongTermDebttoEquitysatisfactory = counter;
         Formulas.add(new Formula(LongTermDebttoEquitysatisfactory,
-                "satisfactory",
-                "<=",
+                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
+                ">=",
                 "0.5",
                 "CURRENTVALUE in CURRENTPERIOD (satisfactory - between 0.5 and 1), ",
                 "<",
@@ -40,7 +40,7 @@ public class LongTermDebttoEquity {
         counter++;
         int LongTermDebttoEquitybad = counter;
         Formulas.add(new Formula(LongTermDebttoEquitybad,
-                "bad",
+                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
                 "<",
                 "0.5",
                 "CURRENTVALUE in CURRENTPERIOD (bad - less than 0.5), ",

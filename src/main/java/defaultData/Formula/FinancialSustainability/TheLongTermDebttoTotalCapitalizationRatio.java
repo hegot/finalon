@@ -13,14 +13,14 @@ public class TheLongTermDebttoTotalCapitalizationRatio {
                 "The Long-Term Debt to Total Capitalization Ratio",
                 "TheLongTermDebttoTotalCapitalizationRatio",
                 "(NonCurrentAssets)/(NonCurrentAssets+IssuedCapital+SharePremium)",
-                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
+               "",
                 "formula",
                 "",
                 parent));
         counter++;
         int TheLongTermDebttoTotalCapitalizationRatioexcellent = counter;
         Formulas.add(new Formula(TheLongTermDebttoTotalCapitalizationRatioexcellent,
-                "excellent",
+                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
                 ">=",
                 "0.6",
                 "CURRENTVALUE in CURRENTPERIOD (unsatisfactory - more than 0.6), ",
@@ -30,7 +30,7 @@ public class TheLongTermDebttoTotalCapitalizationRatio {
         counter++;
         int TheLongTermDebttoTotalCapitalizationRatiosatisfactory = counter;
         Formulas.add(new Formula(TheLongTermDebttoTotalCapitalizationRatiosatisfactory,
-                "satisfactory",
+                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
                 "<=",
                 "0.4",
                 "CURRENTVALUE in CURRENTPERIOD (satisfactory - more than 0.4 and less than 0.6), ",
@@ -40,7 +40,7 @@ public class TheLongTermDebttoTotalCapitalizationRatio {
         counter++;
         int TheLongTermDebttoTotalCapitalizationRatiobad = counter;
         Formulas.add(new Formula(TheLongTermDebttoTotalCapitalizationRatiobad,
-                "bad",
+                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
                 "<",
                 "0.4",
                 "CURRENTVALUE in CURRENTPERIOD (excellent - less than 0.4), ",

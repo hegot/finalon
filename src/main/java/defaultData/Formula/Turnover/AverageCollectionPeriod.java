@@ -13,14 +13,14 @@ public class AverageCollectionPeriod {
                 "Average Collection Period (Accounts Receivable Turnover in Days)",
                 "AverageCollectionPeriod",
                 "360*((TradeAndOtherCurrentReceivables[0]+TradeAndOtherCurrentReceivables[1])/2)/RevenueGeneral",
-                EvaluationTypes.EVALUATE_END_ONLY.toString(),
+                "",
                 "formula",
                 "days",
                 parent));
         counter++;
         int AverageCollectionPeriodgood = counter;
         Formulas.add(new Formula(AverageCollectionPeriodgood,
-                "good",
+                EvaluationTypes.EVALUATE_END.toString(),
                 "<",
                 "60",
                 "Average Collection Period index comes into 'good' (< 60) range. ",
@@ -30,7 +30,7 @@ public class AverageCollectionPeriod {
         counter++;
         int AverageCollectionPeriodsatisfactory = counter;
         Formulas.add(new Formula(AverageCollectionPeriodsatisfactory,
-                "unsatisfactory",
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">=",
                 "60",
                 "Average Collection Period index comes into 'unsatisfactory' (>= 60) range. ",

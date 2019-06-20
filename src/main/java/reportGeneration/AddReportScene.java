@@ -13,7 +13,6 @@ import javafx.scene.layout.VBox;
 import reportGeneration.stepOne.StepOne;
 import reportGeneration.stepThree.StepThree;
 import reportGeneration.stepTwo.StepTwo;
-import reportGeneration.storage.IndexesStorage;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.SettingsStorage;
@@ -27,7 +26,6 @@ public class AddReportScene extends SceneBase {
     public AddReportScene() {
         ItemsStorage.getInstance();
         this.stor = SettingsStorage.getInstance();
-        IndexesStorage.getInstance();
     }
 
     public VBox getScene() {

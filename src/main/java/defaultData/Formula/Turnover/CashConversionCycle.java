@@ -13,14 +13,14 @@ public class CashConversionCycle {
                 "Cash Conversion Cycle",
                 "CashConversionCycle",
                 "360*((Inventories[1]+Inventories[0])/2)/CostOfSales+360*((TradeAndOtherCurrentReceivables[0]+TradeAndOtherCurrentReceivables[1])/2)/RevenueGeneral-(((TradeAndOtherCurrentPayables[0]+TradeAndOtherCurrentPayables[1])/2)*360)/CostOfSales",
-                EvaluationTypes.EVALUATE_START_END_ONLY.toString(),
+                "",
                 "formula",
                 "days",
                 parent));
         counter++;
-        int CashConversionCyclegood = counter;
-        Formulas.add(new Formula(CashConversionCyclegood,
-                "good",
+        int CashConversionCycleStart1 = counter;
+        Formulas.add(new Formula(CashConversionCycleStart1,
+                EvaluationTypes.EVALUATE_START.toString(),
                 ">",
                 "0",
                 "According to the data it can be seen that the cash conversion cycle was CURRENTVALUE in CURRENTPERIOD. ",
@@ -28,13 +28,36 @@ public class CashConversionCycle {
                 "",
                 CashConversionCycle));
         counter++;
-        int CashConversionCyclesatisfactory = counter;
-        Formulas.add(new Formula(CashConversionCyclesatisfactory,
-                "unsatisfactory",
+        int CashConversionCycleStart2 = counter;
+        Formulas.add(new Formula(CashConversionCycleStart2,
+                EvaluationTypes.EVALUATE_START.toString(),
                 "<=",
                 "0",
-                "The negative value of the index (CURRENTVALUE) in CURRENTPERIOD. " +
+                "According to the data it can be seen that the cash conversion cycle was CURRENTVALUE in CURRENTPERIOD. " +
+                        "The negative value of the index (CURRENTVALUE) in CURRENTPERIOD. " +
                         "demonstrates problems in paying off debt to suppliers in CURRENTPERIOD.",
+                "",
+                "",
+                CashConversionCycle));
+        counter++;
+        int CashConversionCycleEnd1 = counter;
+        Formulas.add(new Formula(CashConversionCycleEnd1,
+                EvaluationTypes.EVALUATE_END.toString(),
+                ">",
+                "0",
+                "Positive Cash conversion cycle (CURRENTVALUE) " +
+                        "in CURRENTPERIOD demonstrates good ability paying off debt to suppliers. ",
+                "",
+                "",
+                CashConversionCycle));
+        counter++;
+        int CashConversionCycleEnd2 = counter;
+        Formulas.add(new Formula(CashConversionCycleEnd2,
+                EvaluationTypes.EVALUATE_END.toString(),
+                "<=",
+                "0",
+                "Negative Cash conversion cycle (CURRENTVALUE) " +
+                        "in CURRENTPERIOD demonstrates poor ability paying off debt to suppliers.",
                 "",
                 "",
                 CashConversionCycle));

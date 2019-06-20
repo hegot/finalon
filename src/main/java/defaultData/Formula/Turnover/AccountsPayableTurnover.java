@@ -14,14 +14,14 @@ public class AccountsPayableTurnover {
                 "Accounts Payable Turnover",
                 "AccountsPayableTurnover",
                 "CostOfSales/(((TradeAndOtherCurrentPayables[0]+TradeAndOtherCurrentPayables[1])/2))",
-                EvaluationTypes.EVALUATE_END_ONLY.toString(),
+                "",
                 "formula",
                 "times",
                 parent));
         counter++;
         int AccountsPayableTurnovergood = counter;
         Formulas.add(new Formula(AccountsPayableTurnovergood,
-                "good",
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">",
                 "6",
                 "(good > 6).",
@@ -31,7 +31,7 @@ public class AccountsPayableTurnover {
         counter++;
         int AccountsPayableTurnoversatisfactory = counter;
         Formulas.add(new Formula(AccountsPayableTurnoversatisfactory,
-                "unsatisfactory",
+                EvaluationTypes.EVALUATE_END.toString(),
                 "<=",
                 "6",
                 "(unsatisfactory <= 6).",

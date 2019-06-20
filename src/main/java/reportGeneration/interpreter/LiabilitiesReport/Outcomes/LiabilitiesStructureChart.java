@@ -5,7 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import reportGeneration.interpreter.ReusableComponents.interfaces.GetVal;
-import reportGeneration.storage.IndexesStorage;
+import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.SettingsStorage;
 
 public class LiabilitiesStructureChart implements GetVal {
@@ -21,10 +21,11 @@ public class LiabilitiesStructureChart implements GetVal {
     public LiabilitiesStructureChart(
             String period
     ) {
-        Item parent = IndexesStorage.get("EquityAndLiabilities");
-        this.equity = IndexesStorage.get("EquityGeneral");
-        this.nonCurrent = IndexesStorage.get("NonCurrentLiabilities");
-        this.current = IndexesStorage.get("CurrentLiabilities");
+        ItemsStorage stor = ItemsStorage.getInstance();
+        Item parent = stor.get("EquityAndLiabilities");
+        this.equity = stor.get("EquityGeneral");
+        this.nonCurrent = stor.get("NonCurrentLiabilities");
+        this.current = stor.get("CurrentLiabilities");
         this.period = period;
         this.totalVal = parent.getVal(period);
         this.equityVal = equity.getVal(period);

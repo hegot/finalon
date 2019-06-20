@@ -1,5 +1,6 @@
 package reportGeneration.interpreter.ReusableComponents.NormValsEvaluator;
 
+import defaultData.EvaluationTypes;
 import entities.Formula;
 import javafx.collections.ObservableList;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
@@ -9,11 +10,13 @@ public class NormValsEvaluator extends ValsEvaluator implements JsCalcHelper, Pa
     private Formula formula;
     private ObservableList<Formula> childs;
     private String period;
+    private EvaluationTypes type;
 
-    public NormValsEvaluator(Formula formula, String period) {
+    public NormValsEvaluator(Formula formula, String period, EvaluationTypes type) {
         this.formula = formula;
         this.childs = formula.getChilds();
         this.period = period;
+        this.type = type;
     }
 
     public String getResult() {
@@ -35,15 +38,18 @@ public class NormValsEvaluator extends ValsEvaluator implements JsCalcHelper, Pa
     private String loopNormatives() {
         for (Formula normative : childs) {
             try {
-                Double valueToCompare = normative.getValue().length() > 0 ? parseDouble(normative.getValue()) : null;
-                Boolean match = matches(
-                        normative.getShortName(),
-                        normative.getCategory(),
-                        formula.getVal(period),
-                        valueToCompare
-                );
-                if (match) {
-                    return normative.getDescription();
+                EvaluationTypes formulaType = EvaluationTypes.valueOf(normative.getName());
+                if(formulaType.equals(type)){
+                    Double valueToCompare = normative.getValue().length() > 0 ? parseDouble(normative.getValue()) : null;
+                    Boolean match = matches(
+                            normative.getShortName(),
+                            normative.getCategory(),
+                            formula.getVal(period),
+                            valueToCompare
+                    );
+                    if (match) {
+                        return normative.getDescription();
+                    }
                 }
             } catch (NumberFormatException e) {
                 System.out.println(e.getMessage());

@@ -13,34 +13,34 @@ public class SalestoNetWorkingCapital {
                 "Sales to Net Working Capital",
                 "SalestoNetWorkingCapital",
                 "RevenueGeneral/((GeneralCurrentAssets[1]-CurrentLiabilities[1]+GeneralCurrentAssets[0]-CurrentLiabilities[0])/2)",
-                EvaluationTypes.EVALUATE_END_ONLY.toString(),
+                "",
                 "formula",
                 "",
                 parent));
         counter++;
         int SalestoNetWorkingCapitalexcellent = counter;
         Formulas.add(new Formula(SalestoNetWorkingCapitalexcellent,
-                "excellent",
-                "<",
+                EvaluationTypes.EVALUATE_END.toString(),
+                ">",
                 "3",
                 "Sales to Net Working Capital presented excellent results in ENDDATE. ",
-                "<",
-                "3",
+                "",
+                "",
                 SalestoNetWorkingCapital));
         counter++;
         int SalestoNetWorkingCapitalsatisfactory = counter;
         Formulas.add(new Formula(SalestoNetWorkingCapitalsatisfactory,
-                "satisfactory",
+                EvaluationTypes.EVALUATE_END.toString(),
                 "<",
                 "3",
                 "Sales to Net Working Capital was satisfactory in ENDDATE. ",
-                "",
-                "",
+                ">",
+                "0",
                 SalestoNetWorkingCapital));
         counter++;
         int SalestoNetWorkingCapitalunsatisfactory = counter;
         Formulas.add(new Formula(SalestoNetWorkingCapitalunsatisfactory,
-                "unsatisfactory",
+                EvaluationTypes.EVALUATE_END.toString(),
                 "<=",
                 "0",
                 "Sales to Net Working Capital was unsatisfactory (less than 0) in ENDDATE. ",
@@ -53,7 +53,7 @@ public class SalestoNetWorkingCapital {
                 EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString(),
                 "",
                 "",
-                "This index increased from STARTDATE to ENDDATE. " +
+                "This index increased by CHANGE from STARTDATE to ENDDATE. " +
                         "This indicates a more profitable use of the working capital in ENDDATE in relation to STARTDATE. ",
                 "",
                 "",
@@ -64,7 +64,7 @@ public class SalestoNetWorkingCapital {
                 EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString(),
                 "",
                 "",
-                "This index decreased from STARTDATE to ENDDATE. " +
+                "This index decreased by CHANGE from STARTDATE to ENDDATE. " +
                         "This indicates a less profitable use of the working capital in ENDDATE in relation to STARTDATE. ",
                 "",
                 "",

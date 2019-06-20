@@ -12,7 +12,7 @@ public interface JsCalcHelper extends ParseDouble {
             String formula = "(("
                     + "(" + Double.toString(end) + ")"
                     + "-"
-                    + Double.toString(start)
+                    + "(" + Double.toString(start) + ")"
                     + ")/"
                     + "(" + Double.toString(start) + ")"
                     + ") * 100";

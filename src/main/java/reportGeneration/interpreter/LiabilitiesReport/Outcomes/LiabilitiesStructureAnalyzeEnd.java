@@ -8,8 +8,8 @@ import reportGeneration.interpreter.ReusableComponents.interfaces.EquityShareAna
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 import reportGeneration.interpreter.ReusableComponents.interfaces.SrtuctureItemsLoop;
-import reportGeneration.storage.IndexesStorage;
 import reportGeneration.storage.ItemsStorage;
+import reportGeneration.storage.Periods;
 import reportGeneration.storage.SettingsStorage;
 
 public class LiabilitiesStructureAnalyzeEnd implements SrtuctureItemsLoop, LabelWrap, EquityShareAnalyze, ParseDouble {
@@ -24,15 +24,17 @@ public class LiabilitiesStructureAnalyzeEnd implements SrtuctureItemsLoop, Label
     private ObservableList<Item> nonCurrentItems;
     private Double assetsTotal;
 
-    public LiabilitiesStructureAnalyzeEnd(String period) {
-        Item EquityGeneral = IndexesStorage.get("EquityGeneral");
-        Item CurrentLiabilities = IndexesStorage.get("CurrentLiabilities");
-        Item NonCurrentLiabilities = IndexesStorage.get("NonCurrentLiabilities");
-        this.parent = IndexesStorage.get("EquityAndLiabilities");
-        this.period = period;
-        this.equityItems = ItemsStorage.getInstance().getItems(EquityGeneral.getId());
-        this.currentItems = ItemsStorage.getInstance().getItems(CurrentLiabilities.getId());
-        this.nonCurrentItems = ItemsStorage.getInstance().getItems(NonCurrentLiabilities.getId());
+    public LiabilitiesStructureAnalyzeEnd() {
+        Periods p = Periods.getInstance();
+        ItemsStorage stor = ItemsStorage.getInstance();
+        Item EquityGeneral = stor.get("EquityGeneral");
+        Item CurrentLiabilities = stor.get("CurrentLiabilities");
+        Item NonCurrentLiabilities = stor.get("NonCurrentLiabilities");
+        this.parent = stor.get("EquityAndLiabilities");
+        this.period = p.endKey();
+        this.equityItems = stor.getItems(EquityGeneral.getId());
+        this.currentItems = stor.getItems(CurrentLiabilities.getId());
+        this.nonCurrentItems = stor.getItems(NonCurrentLiabilities.getId());
         this.totalVal = parent.getVal(period);
         this.equityVal = EquityGeneral.getVal(period);
         this.currentVal = CurrentLiabilities.getVal(period);
@@ -88,8 +90,8 @@ public class LiabilitiesStructureAnalyzeEnd implements SrtuctureItemsLoop, Label
         if (currentVal != null) {
             str = str + " and " + partStr(currentVal, totalVal) + " current liabilities. ";
         }
-        if (assetsTotal != null) {
-            Double share = (totalVal / assetsTotal) * 100;
+        if (assetsTotal != null && equityVal != null) {
+            Double share = (equityVal / assetsTotal) * 100;
             str = str + equityShareAnalyse(share, period);
         }
         return labelWrap(str);

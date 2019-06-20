@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
+import reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
 import reportGeneration.interpreter.ReusableComponents.tables.RatiosTable;
 import reportGeneration.storage.FormulaStorage;
 import reportGeneration.storage.Periods;
@@ -15,24 +16,22 @@ import reportGeneration.storage.SettingsStorage;
 
 import java.util.ArrayList;
 
-public class DupontAnalysis implements LabelWrap, ParseDouble {
+public class DupontAnalysis implements LabelWrap, ParseDouble, TableName {
     private Formula returnOnAssets;
     private Formula netProfitMargin;
     private Formula totalAssetTurnover;
 
     public DupontAnalysis() {
         FormulaStorage storage = FormulaStorage.getInstance();
-        this.returnOnAssets = storage.getItemByCode("ReturnoNonAssets");
-        this.netProfitMargin = storage.getItemByCode("NetProfitMargin");
-        this.totalAssetTurnover = storage.getItemByCode("TotalAssetTurnover");
+        this.returnOnAssets = storage.get("ReturnoNonAssets");
+        this.netProfitMargin = storage.get("NetProfitMargin");
+        this.totalAssetTurnover = storage.get("TotalAssetTurnover");
 
     }
 
     public VBox get() {
         VBox box = new VBox(8);
-        Label tableName = new Label("Table 9. Dupont Analysis");
-        tableName.getStyleClass().add("table-name");
-        tableName.setWrapText(true);
+        Label tableName = tableName("Table 9. Dupont Analysis");
 
         ObservableList<Formula> formulas = FXCollections.observableArrayList();
         formulas.addAll(

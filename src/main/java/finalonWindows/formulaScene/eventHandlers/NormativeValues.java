@@ -42,7 +42,7 @@ class NormativeValues {
         vBox.setPadding(new Insets(10, 2, 10, 2));
         vBox.setPrefWidth(450.00);
         for (Formula item : parent.getChilds()) {
-            if(filter(item.getName())){
+            if (filter(item.getName())) {
                 HBox hbox = new HBox(10);
                 VBox vBoxIn = new VBox(3);
                 vBoxIn.getStyleClass().add("normative-container");
@@ -63,14 +63,14 @@ class NormativeValues {
         return vBoxOuter;
     }
 
-    private Boolean filter(String name){
-        if(!name.equals(EvaluationTypes.PREFIX.toString()) ||
-                !name.equals(EvaluationTypes.ADDITIONAL_END_EVALUATION.toString()) ||
-                !name.equals(EvaluationTypes.SUFFIX.toString()) ||
-                !name.equals(EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString()) ||
-                !name.equals(EvaluationTypes.PERIOD_COMPARISON_NOCHANGE.toString()) ||
-                !name.equals(EvaluationTypes.SUBSTITUTE_COMPARATOR.toString()) ||
-                !name.equals(EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString())){
+    private Boolean filter(String name) {
+        if (!name.equals(EvaluationTypes.PREFIX.toString()) &&
+                !name.equals(EvaluationTypes.ADDITIONAL_END_EVALUATION.toString()) &&
+                !name.equals(EvaluationTypes.SUFFIX.toString()) &&
+                !name.equals(EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString()) &&
+                !name.equals(EvaluationTypes.PERIOD_COMPARISON_NOCHANGE.toString()) &&
+                !name.equals(EvaluationTypes.SUBSTITUTE_COMPARATOR.toString()) &&
+                !name.equals(EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString())) {
             return true;
         }
         return false;

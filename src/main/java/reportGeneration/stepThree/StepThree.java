@@ -1,6 +1,7 @@
 package reportGeneration.stepThree;
 
 import finalonWindows.SceneBase;
+import javafx.application.Platform;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
@@ -12,16 +13,17 @@ import reportGeneration.storage.SettingsStorage;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.*;
 
 public class StepThree extends SceneBase {
     private String companyName;
     private Periods periods;
     private ObservableMap<String, String> settings;
+    private Interprter interprter;
 
     public StepThree() {
         this.settings = SettingsStorage.getInstance().getSettings();
         this.companyName = settings.get("company") + "'s";
+        this.interprter = new Interprter();
         this.periods = Periods.getInstance();
     }
 
@@ -35,14 +37,14 @@ public class StepThree extends SceneBase {
 
         TabPane tabs2 = new TabPane();
         tabs2.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-        if (periods.getPeriodArr().size() > 2) {
-                Tab tab01 = new Tab("Assets trend Analysis");
-                tabsArr.put("assetTrend", tab01);
+        if (periods.getPeriodArr().size() > 1) {
+            Tab tab01 = new Tab("Assets trend Analysis");
+            tabsArr.put("assetTrend", tab01);
 
-                Tab tab02 = new Tab("Liabilities trend Analysis");
-                tabsArr.put("liabilitiesTrend", tab02);
+            Tab tab02 = new Tab("Liabilities trend Analysis");
+            tabsArr.put("liabilitiesTrend", tab02);
 
-                tabs2.getTabs().addAll(tab01, tab02);
+            tabs2.getTabs().addAll(tab01, tab02);
         }
         Tab tab03 = new Tab("Assets Structure Analysis");
         tabsArr.put("assetStructure", tab03);
@@ -56,8 +58,6 @@ public class StepThree extends SceneBase {
         tabs2.getTabs().addAll(tab03, tab04, tab05);
 
         tab1.setContent(tabs2);
-
-
 
 
         Tab tab2 = new Tab("2. Financial Sustainability \n and Long-Term Debt-Paying Ability");
@@ -99,24 +99,23 @@ public class StepThree extends SceneBase {
     }
 
     private void populateInThread(Map<String, Tab> tabs, int n) {
-        ExecutorService pool = Executors.newFixedThreadPool(n);
         for (Map.Entry<String, Tab> entry : tabs.entrySet()) {
-            Future<VBox> result = pool.submit(new Runer(entry.getKey()));
-            try {
-                if (result != null) {
-                    Tab tab = entry.getValue();
-                    VBox vbox = result.get();
-                    if (vbox != null) {
-                        tab.setContent(vbox);
+            Runnable updater = new Runnable() {
+
+                @Override
+                public void run() {
+                    VBox vBox = interprter.getReport(entry.getKey());
+
+                    if (vBox != null) {
+                        entry.getValue().setContent(vBox);
                     }
                 }
-
-            } catch (InterruptedException | ExecutionException ex) {
-                ex.printStackTrace();
-            }
+            };
+            Platform.runLater(updater);
         }
-        pool.shutdown();
+
     }
+
 
     private Label getDescText() {
         Label text = new Label("This report analyzes the balance sheets and income statements of " + companyName
@@ -140,20 +139,3 @@ public class StepThree extends SceneBase {
     }
 }
 
-class Runer implements Callable<VBox> {
-    private String key;
-    private Interprter interprter;
-
-    public Runer(String key) {
-        this.key = key;
-        this.interprter = new Interprter();
-    }
-
-    public VBox call() {
-        VBox vBox = interprter.getReport(key);
-        if(vBox != null){
-            return vBox;
-        }
-        return new VBox();
-    }
-}

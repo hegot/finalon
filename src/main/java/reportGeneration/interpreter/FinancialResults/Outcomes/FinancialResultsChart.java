@@ -6,16 +6,13 @@ import javafx.collections.ObservableMap;
 import javafx.scene.chart.BarChart;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.ChartBase;
-import reportGeneration.interpreter.ReusableComponents.interfaces.GetVal;
-import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
-import reportGeneration.interpreter.ReusableComponents.interfaces.Round;
+import reportGeneration.interpreter.ReusableComponents.interfaces.*;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class FinancialResultsChart extends ChartBase implements GetVal, Round, LabelWrap {
+public class FinancialResultsChart extends ChartBase implements GetVal, Round, LabelWrap, JsCalcHelper, ParseDouble {
     private ObservableMap<String, Double> valuesEBIT;
     private ObservableMap<String, Double> valuesRevenueGeneral;
     private ObservableMap<String, Double> valuesGrossProfit;
@@ -26,11 +23,11 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
 
     public FinancialResultsChart() {
         ItemsStorage stor = ItemsStorage.getInstance();
-        this.RevenueGeneral = stor.getItemByCode("RevenueGeneral");
-        Item EBIT = stor.getItemByCode("EBIT");
+        this.RevenueGeneral = stor.get("RevenueGeneral");
+        Item EBIT = stor.get("EBIT");
 
-        Item GrossProfit = stor.getItemByCode("GrossProfit");
-        Item ComprehensiveIncome = stor.getItemByCode("ComprehensiveIncomeGeneral");
+        Item GrossProfit = stor.get("GrossProfit");
+        Item ComprehensiveIncome = stor.get("ComprehensiveIncomeGeneral");
         this.valuesEBIT = getUpdatedValues(EBIT.getValues());
         this.valuesRevenueGeneral = getMaxiVals();
         this.valuesGrossProfit = getUpdatedValues(GrossProfit.getValues());
@@ -51,11 +48,10 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
             for (String period : periodsArr) {
                 Double originalVal = values.get(period);
                 Double toCompare = RevenueGeneral.getVal(period);
-                DecimalFormat df = new DecimalFormat("#.##");
                 if (originalVal != null && toCompare != null) {
-                    String out = df.format(originalVal / toCompare * 100);
-                    if (out != null) {
-                        outputVals.put(period, Double.valueOf(out));
+                    Double part = (originalVal / toCompare) * 100;
+                    if (part != null) {
+                        outputVals.put(period, parseDouble(round(part)));
                     }
                 }
             }
@@ -77,6 +73,7 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
                 getSeries("Comprehensive Income", valuesComprehensiveIncome)
         );
         VBox vBox = new VBox(20);
+        vBox.getChildren().add(bc);
         if (periodsArr.size() > 1) {
             getGrossProfitEvaluation(vBox);
             getEbitEvaluation(vBox);
@@ -97,9 +94,14 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
             if (change < 0) {
                 chRes = "decreased";
             }
-            String out = "The chart above shows that the gross profit to net sales ratio " +
-                    chRes + " in " + periods.getEnd() + " by "
-                    + round(last - fisrt) + "% comparing to " + periods.getStart();
+            if (change == 0) {
+                chRes = "was stable";
+            }
+            String out = "The chart above shows that the gross profit to net sales ratio " + chRes + " in " + periods.getEnd();
+            if (change != 0) {
+                out +=  " by "   + round(change) + "% ";
+            }
+            out +=   " comparing to " + periods.getStart() + ". ";
             if (change != 0) {
                 out += " The dynamics of the gross profit to net sales ratio over the period" +
                         " of " + periods.getStart() + "-" + periods.getEnd() + " demonstrates that the company's manufacturing or distribution" +
@@ -125,7 +127,7 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
                     if (middle - fisrt > 0) {
                         chRes = "increased";
                     }
-                    out = formatDate(middelPreiod) + "also witnessed the " +
+                    out = formatDate(middelPreiod) + " also witnessed the " +
                             chRes + " of the company's EBIT to sales ratio comparing to "
                             + formatDate(periodsArr.get(0)) + ". ";
                 }
