@@ -2,14 +2,11 @@ package reportGeneration.interpreter.Liquidity.Outcomes;
 
 import entities.Formula;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.FormulaEvaluateBase;
 import reportGeneration.interpreter.ReusableComponents.NormValsEvaluator.StrReplacer;
 import reportGeneration.interpreter.ReusableComponents.interfaces.AttachChilds;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
-import reportGeneration.storage.Periods;
-import reportGeneration.storage.SettingsStorage;
 
 public class FormulaEvaluation implements LabelWrap, AttachChilds {
     private ObservableList<Formula> formulas;

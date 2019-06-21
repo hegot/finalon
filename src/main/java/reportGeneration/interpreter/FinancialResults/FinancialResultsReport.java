@@ -10,7 +10,7 @@ import reportGeneration.interpreter.FinancialResults.Outcomes.NetSalesAnalyze;
 import reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
 import reportGeneration.storage.SettingsStorage;
 
-public class FinancialResultsReport implements TableName{
+public class FinancialResultsReport implements TableName {
 
     public VBox getTrend() {
         ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();

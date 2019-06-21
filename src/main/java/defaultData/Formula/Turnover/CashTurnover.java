@@ -13,7 +13,7 @@ public class CashTurnover {
                 "Cash Turnover",
                 "CashTurnover",
                 "RevenueGeneral/((CashAndCashEquivalents[0]+CashAndCashEquivalents[1])/2)",
-               "",
+                "",
                 "formula",
                 "times",
                 parent));

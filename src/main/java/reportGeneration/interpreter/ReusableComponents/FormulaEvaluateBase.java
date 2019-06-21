@@ -59,25 +59,24 @@ public class FormulaEvaluateBase {
     }
 
     public String startAndEnd() {
+        if (type.equals(EvaluationTypes.EVALUATE_START_AND_END.toString())) {
+            StringBuilder output = new StringBuilder();
+            NormValsEvaluator eval1 = new NormValsEvaluator(
+                    formula,
+                    formula.getFormulaStart(),
+                    EvaluationTypes.EVALUATE_START
+            );
+            output.append(eval1.getResult());
 
-        StringBuilder output = new StringBuilder();
-
-        NormValsEvaluator eval1 = new NormValsEvaluator(
-                formula,
-                formula.getFormulaStart(),
-                EvaluationTypes.EVALUATE_START
-        );
-        output.append(eval1.getResult());
-
-        NormValsEvaluator eval2 = new NormValsEvaluator(
-                formula,
-                end,
-                EvaluationTypes.EVALUATE_END
-        );
-        output.append(eval2.getResult());
-
-        return output.toString();
-
+            NormValsEvaluator eval2 = new NormValsEvaluator(
+                    formula,
+                    end,
+                    EvaluationTypes.EVALUATE_END
+            );
+            output.append(eval2.getResult());
+            return output.toString();
+        }
+        return "";
     }
 
     public String evaluateEach() {

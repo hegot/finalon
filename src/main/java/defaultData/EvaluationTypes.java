@@ -4,6 +4,7 @@ public enum EvaluationTypes {
     EVALUATE_END,
     EVALUATE_START,
     EVALUATE_EACH_PERIOD,
+    EVALUATE_START_AND_END,
     GENERAL,
     PREFIX,
     SUFFIX,

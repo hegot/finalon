@@ -41,7 +41,7 @@ public class CostOfGoods implements LabelWrap, JsCalcHelper, Round {
 
             String trend = grossProfit.trend();
             Double change = grossProfit.getChange();
-            if(change != null){
+            if (change != null) {
                 if (trend.equals("INCREASED")) {
                     output += increase(change);
                 } else if (trend.equals("DECREASED")) {
@@ -83,7 +83,7 @@ public class CostOfGoods implements LabelWrap, JsCalcHelper, Round {
     }
 
     private String decrease(Double change) {
-        return  atTheEnd() + "This has resulted in decrease in the gross profit by " + round(change) + "%.";
+        return atTheEnd() + "This has resulted in decrease in the gross profit by " + round(change) + "%.";
     }
 
     private String stable() {

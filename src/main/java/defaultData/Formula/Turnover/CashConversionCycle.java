@@ -13,7 +13,7 @@ public class CashConversionCycle {
                 "Cash Conversion Cycle",
                 "CashConversionCycle",
                 "360*((Inventories[1]+Inventories[0])/2)/CostOfSales+360*((TradeAndOtherCurrentReceivables[0]+TradeAndOtherCurrentReceivables[1])/2)/RevenueGeneral-(((TradeAndOtherCurrentPayables[0]+TradeAndOtherCurrentPayables[1])/2)*360)/CostOfSales",
-                "",
+                EvaluationTypes.EVALUATE_START_AND_END.toString(),
                 "formula",
                 "days",
                 parent));

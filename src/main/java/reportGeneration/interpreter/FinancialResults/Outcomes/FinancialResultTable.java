@@ -62,7 +62,7 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper, LabelWra
         String endDate = Periods.getInstance().getEnd();
 
         String positive = (first > 0) ? "positive" : "negative";
-        if(first == 0) positive = "equal to 0";
+        if (first == 0) positive = "equal to 0";
         out += "EBIT was " + positive + " at " + settings.get("defaultCurrency") +
                 " " + last + " " + settings.get("amount") + " in " + endDate + ". ";
         Double change = last - first;

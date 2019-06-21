@@ -35,12 +35,12 @@ public class QuickRatio {
                 "<",
                 "1",
                 "The company's quick liquidity was unsatisfactory at the end of the period. ",
-                "<=",
+                ">=",
                 "0",
                 QuickRatio));
         counter++;
-        int CurrentRatioPrefix = counter;
-        Formulas.add(new Formula(CurrentRatioPrefix,
+        int QuickRatioPrefix = counter;
+        Formulas.add(new Formula(QuickRatioPrefix,
                 EvaluationTypes.PREFIX.toString(),
                 "",
                 "",
@@ -49,8 +49,8 @@ public class QuickRatio {
                 "",
                 QuickRatio));
         counter++;
-        int CurrentRatioSuffix1 = counter;
-        Formulas.add(new Formula(CurrentRatioSuffix1,
+        int QuickRatioSuffix = counter;
+        Formulas.add(new Formula(QuickRatioSuffix,
                 EvaluationTypes.SUFFIX.toString(),
                 "",
                 "",
@@ -59,6 +59,25 @@ public class QuickRatio {
                 "",
                 QuickRatio));
         counter++;
+        int QuickRatioIncrease = counter;
+        Formulas.add(new Formula(QuickRatioIncrease,
+                EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString(),
+                "",
+                "",
+                "The increase in the quick ratio from STARTDATE-ENDDATE indicates that the company was improving its ability to pay its short-term debt. ",
+                "",
+                "",
+                QuickRatio));
+        counter++;
+        int QuickRatioDecrease = counter;
+        Formulas.add(new Formula(QuickRatioDecrease,
+                EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString(),
+                "",
+                "",
+                "The decrease in the quick ratio from STARTDATE-ENDDATE indicates that the company was losing its ability to pay its short-term debt. ",
+                "",
+                "",
+                QuickRatio));
         return Formulas;
     }
 }

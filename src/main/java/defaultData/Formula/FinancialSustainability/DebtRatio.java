@@ -47,6 +47,16 @@ public class DebtRatio {
                 "",
                 "",
                 DebtRatio));
+        counter++;
+        int DebtRatioNull = counter;
+        Formulas.add(new Formula(DebtRatioNull,
+                EvaluationTypes.EACH_PERIOD_TRUE.toString(),
+                "=",
+                "0",
+                "During  STARTDATE-ENDDAT COMPANYNAME was not using debt to finance its assets. As a result, company was sustainable in the long term run.  ",
+                "",
+                "",
+                DebtRatio));
         return Formulas;
     }
 }

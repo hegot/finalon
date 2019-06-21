@@ -9,7 +9,7 @@ import reportGeneration.interpreter.ReusableComponents.tables.RatiosTable;
 import reportGeneration.interpreter.TurnoverRatios.Outcomes.FormulaEvaluation;
 import reportGeneration.storage.FormulaStorage;
 
-public class TurnoverRatios implements TableName{
+public class TurnoverRatios implements TableName {
     private ObservableList<Formula> formulas;
 
     public TurnoverRatios() {

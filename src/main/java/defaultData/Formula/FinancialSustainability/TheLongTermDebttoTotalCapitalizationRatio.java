@@ -13,7 +13,7 @@ public class TheLongTermDebttoTotalCapitalizationRatio {
                 "The Long-Term Debt to Total Capitalization Ratio",
                 "TheLongTermDebttoTotalCapitalizationRatio",
                 "(NonCurrentAssets)/(NonCurrentAssets+IssuedCapital+SharePremium)",
-               "",
+                "",
                 "formula",
                 "",
                 parent));

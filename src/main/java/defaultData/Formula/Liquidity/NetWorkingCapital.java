@@ -58,7 +58,7 @@ public class NetWorkingCapital {
                 EvaluationTypes.PREFIX.toString(),
                 "",
                 "",
-                "TechStandard had CURRENCY STARTVALUE AMOUNT in the working capital in STARTDATE. ",
+                "COMPANYNAME had CURRENCY STARTVALUE AMOUNT in the working capital in STARTDATE. ",
                 "",
                 "",
                 NetWorkingCapital));
@@ -82,7 +82,6 @@ public class NetWorkingCapital {
                 "",
                 "",
                 NetWorkingCapital));
-        counter++;
         return Formulas;
     }
 }

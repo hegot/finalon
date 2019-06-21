@@ -99,9 +99,9 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
             }
             String out = "The chart above shows that the gross profit to net sales ratio " + chRes + " in " + periods.getEnd();
             if (change != 0) {
-                out +=  " by "   + round(change) + "% ";
+                out += " by " + round(change) + "% ";
             }
-            out +=   " comparing to " + periods.getStart() + ". ";
+            out += " comparing to " + periods.getStart() + ". ";
             if (change != 0) {
                 out += " The dynamics of the gross profit to net sales ratio over the period" +
                         " of " + periods.getStart() + "-" + periods.getEnd() + " demonstrates that the company's manufacturing or distribution" +

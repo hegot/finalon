@@ -39,7 +39,7 @@ public class NormValsEvaluator extends ValsEvaluator implements JsCalcHelper, Pa
         for (Formula normative : childs) {
             try {
                 EvaluationTypes formulaType = EvaluationTypes.valueOf(normative.getName());
-                if(formulaType.equals(type)){
+                if (formulaType.equals(type)) {
                     Double valueToCompare = normative.getValue().length() > 0 ? parseDouble(normative.getValue()) : null;
                     Boolean match = matches(
                             normative.getShortName(),

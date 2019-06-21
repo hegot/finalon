@@ -13,7 +13,7 @@ public class DebtEquityRatio {
                 "Debt/Equity Ratio",
                 "DebtEquityRatio",
                 "(NonCurrentAssets+CurrentLiabilities)/EquityGeneral",
-               "",
+                "",
                 "formula",
                 "",
                 parent));
@@ -25,7 +25,7 @@ public class DebtEquityRatio {
                 "",
                 "The debt/equity ratio is another computation that determines " +
                         "the entity's long-term debt-paying ability. " +
-                        "At the end of ENDDATE this ratio was LASTVALUE%, ",
+                        "At the end of ENDDATE this ratio was LASTVALUEPERCENT%, ",
                 "",
                 "",
                 DebtEquityRatio));
@@ -49,7 +49,6 @@ public class DebtEquityRatio {
                 "",
                 "",
                 DebtEquityRatio));
-        counter++;
         return Formulas;
     }
 }
