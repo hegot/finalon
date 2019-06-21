@@ -30,36 +30,32 @@ public class StepThree extends SceneBase {
 
     public VBox show() {
         TabPane tabs = new TabPane();
-
-        Map<String, Tab> tabsArr = new HashMap<>();
-
         Tab tab1 = new Tab("1. The Common-Size  Analysis \n of the Assets, Liabilities \n and Shareholders' Equity");
 
         TabPane tabs2 = new TabPane();
         tabs2.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         if (periods.getPeriodArr().size() > 1) {
             Tab tab01 = new Tab("Assets trend Analysis");
-            tabsArr.put("assetTrend", tab01);
+            tab01.setContent(interprter.getReport("assetTrend"));
 
             Tab tab02 = new Tab("Liabilities trend Analysis");
-            tabsArr.put("liabilitiesTrend", tab02);
+            tab02.setContent(interprter.getReport("liabilitiesTrend"));
 
             tabs2.getTabs().addAll(tab01, tab02);
         }
         Tab tab03 = new Tab("Assets Structure Analysis");
-        tabsArr.put("assetStructure", tab03);
+        tab03.setContent(interprter.getReport("assetStructure"));
+
 
         Tab tab04 = new Tab("Liabilities Structure Analysis");
-        tabsArr.put("liabilitiesStructure", tab04);
+        tab04.setContent(interprter.getReport("liabilitiesStructure"));
 
         Tab tab05 = new Tab("Formula Calculation");
-        tabsArr.put("formulaList", tab05);
-
+        tab05.setContent(interprter.getReport("formulaList"));
         tabs2.getTabs().addAll(tab03, tab04, tab05);
-
         tab1.setContent(tabs2);
 
-
+        Map<String, Tab> tabsArr = new HashMap<>();
         Tab tab2 = new Tab("2. Financial Sustainability \n and Long-Term Debt-Paying Ability");
         tabsArr.put("financialSustainability", tab2);
 

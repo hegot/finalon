@@ -31,7 +31,7 @@ public class TimesInterestEarned {
         int TimesInterestEarnedsatisfactory = counter;
         Formulas.add(new Formula(TimesInterestEarnedsatisfactory,
                 EvaluationTypes.EVALUATE_END.toString(),
-                "<=",
+                ">=",
                 "1",
                 "The times interest earned ratio close to 1 indicates COMPANYNAME having difficulty generating enough cash flow to pay interest on its debt at the end of ENDDATE. Ideally, a ratio should be over 1.5. ",
                 "<",
