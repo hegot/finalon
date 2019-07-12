@@ -7,6 +7,7 @@ import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
+import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
 
 public class TotallAssetsAnalyze implements LabelWrap, JsCalcHelper {
@@ -43,10 +44,13 @@ public class TotallAssetsAnalyze implements LabelWrap, JsCalcHelper {
             if (last == first) {
                 output = equal();
             }
+            String consequence = consequence();
             hbox.getChildren().addAll(
                     labelWrap(output),
-                    labelWrap(consequence())
+                    labelWrap(consequence)
             );
+
+            ResultsStorage.getInstance().add("TotallAssetsAnalyze", output + consequence);
         }
         return hbox;
     }

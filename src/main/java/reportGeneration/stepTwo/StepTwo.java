@@ -12,6 +12,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableView;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
+import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class StepTwo extends ItemsTable {
         super(ItemsStorage.getItems());
         Periods.getInstance();
         this.items = ItemsStorage.getItems();
+        ResultsStorage.getInstance();
     }
 
     public TabPane show() {

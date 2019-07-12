@@ -18,26 +18,28 @@ public class TotalAssetTurnoverHook {
     TotalAssetTurnoverHook(Formula formula) {
         Periods periods = new Periods();
         this.periodsArr = periods.getPeriodArr();
-        ItemsStorage storage = ItemsStorage.getInstance();
+        if(periodsArr.size() > 1){
+            ItemsStorage storage = ItemsStorage.getInstance();
 
-        this.firstVal = formula.getFirstVal();
-        this.lastVal = formula.getLastVal();
+            this.firstVal = formula.getFirstVal();
+            this.lastVal = formula.getLastVal();
 
-        Item RevenueGeneral = storage.get("RevenueGeneral");
-        Double firstRevenueVal = getSecondFirstVal(RevenueGeneral.getValues());
-        Double lastRevenueVal = RevenueGeneral.getLastVal();
-        if (firstRevenueVal != null && lastRevenueVal != null) {
-            this.revenueChange = lastRevenueVal - firstRevenueVal;
-        }
+            Item RevenueGeneral = storage.get("RevenueGeneral");
+            Double firstRevenueVal = getSecondFirstVal(RevenueGeneral.getValues());
+            Double lastRevenueVal = RevenueGeneral.getLastVal();
+            if (firstRevenueVal != null && lastRevenueVal != null) {
+                this.revenueChange = lastRevenueVal - firstRevenueVal;
+            }
 
-        Item AssetsGeneral = storage.get("AssetsGeneral");
-        Double firstAssetsGeneralVal1 = AssetsGeneral.getFirstVal();
-        Double firstAssetsGeneralVal2 = getSecondFirstVal(AssetsGeneral.getValues());
-        Double lastAssetsGeneralVal1 = AssetsGeneral.getLastVal();
-        Double lastAssetsGeneralVal2 = getSecondLastVal(AssetsGeneral.getValues());
-        if (firstAssetsGeneralVal1 != null && lastAssetsGeneralVal1 != null) {
-            this.assetsChange = (lastAssetsGeneralVal1 + lastAssetsGeneralVal2) / 2
-                    - (firstAssetsGeneralVal1 + firstAssetsGeneralVal2) / 2;
+            Item AssetsGeneral = storage.get("AssetsGeneral");
+            Double firstAssetsGeneralVal1 = AssetsGeneral.getFirstVal();
+            Double firstAssetsGeneralVal2 = getSecondFirstVal(AssetsGeneral.getValues());
+            Double lastAssetsGeneralVal1 = AssetsGeneral.getLastVal();
+            Double lastAssetsGeneralVal2 = getSecondLastVal(AssetsGeneral.getValues());
+            if (firstAssetsGeneralVal1 != null && lastAssetsGeneralVal1 != null) {
+                this.assetsChange = (lastAssetsGeneralVal1 + lastAssetsGeneralVal2) / 2
+                        - (firstAssetsGeneralVal1 + firstAssetsGeneralVal2) / 2;
+            }
         }
     }
 
@@ -62,7 +64,9 @@ public class TotalAssetTurnoverHook {
 
     public String getResult() {
         StringBuilder output = new StringBuilder();
-        if (firstVal != null
+        if (
+                periodsArr.size() > 1
+                && firstVal != null
                 && lastVal != null
                 && revenueChange != null
                 && assetsChange != null

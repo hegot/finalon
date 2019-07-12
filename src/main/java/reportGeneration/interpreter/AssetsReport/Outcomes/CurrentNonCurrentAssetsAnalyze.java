@@ -6,6 +6,7 @@ import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
+import reportGeneration.storage.ResultsStorage;
 
 public class CurrentNonCurrentAssetsAnalyze implements JsCalcHelper {
 
@@ -81,6 +82,7 @@ public class CurrentNonCurrentAssetsAnalyze implements JsCalcHelper {
         text1.getStyleClass().add("report-text-small");
         text1.setWrapText(true);
         vbox.getChildren().addAll(text1);
+        ResultsStorage.getInstance().add("CurrentNonCurrentAssetsAnalyze", output);
         return vbox;
     }
 
