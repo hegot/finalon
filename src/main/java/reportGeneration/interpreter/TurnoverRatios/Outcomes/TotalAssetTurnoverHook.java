@@ -18,7 +18,7 @@ public class TotalAssetTurnoverHook {
     TotalAssetTurnoverHook(Formula formula) {
         Periods periods = new Periods();
         this.periodsArr = periods.getPeriodArr();
-        if(periodsArr.size() > 1){
+        if (periodsArr.size() > 1) {
             ItemsStorage storage = ItemsStorage.getInstance();
 
             this.firstVal = formula.getFirstVal();
@@ -66,11 +66,11 @@ public class TotalAssetTurnoverHook {
         StringBuilder output = new StringBuilder();
         if (
                 periodsArr.size() > 1
-                && firstVal != null
-                && lastVal != null
-                && revenueChange != null
-                && assetsChange != null
-                && periodsArr.size() > 2
+                        && firstVal != null
+                        && lastVal != null
+                        && revenueChange != null
+                        && assetsChange != null
+                        && periodsArr.size() > 2
         ) {
             if (lastVal > firstVal) {
                 if (revenueChange > 0 && assetsChange > 0) {

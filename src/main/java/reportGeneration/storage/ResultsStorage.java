@@ -4,8 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 
 public class ResultsStorage {
+    private static ObservableMap<String, ResultItem> items;
     private boolean initalized = false;
-    private static ObservableMap<String, String> items;
 
     private ResultsStorage() {
         if (!initalized) {
@@ -22,13 +22,19 @@ public class ResultsStorage {
         return ResultsStorage.SingletonHolder.INSTANCE;
     }
 
-    public static ObservableMap<String, String> getItems() {
+    public static ObservableMap<String, ResultItem> getItems() {
         return items;
     }
 
 
-    public static void add(String key, String val){
-        items.put(key, val);
+    public static void addStr(String type, String key, String val) {
+        ResultItem<String> item = new ResultItem<>(val, type);
+        items.put(key, item);
+    }
+
+    public static void addTable(String key, TwoDList val) {
+        ResultItem<TwoDList> item = new ResultItem<TwoDList>(val, "table");
+        items.put(key, item);
     }
 
     private void init() {
@@ -40,3 +46,5 @@ public class ResultsStorage {
         public static final ResultsStorage INSTANCE = new ResultsStorage();
     }
 }
+
+

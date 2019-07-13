@@ -50,7 +50,7 @@ public class TotallAssetsAnalyze implements LabelWrap, JsCalcHelper {
                     labelWrap(consequence)
             );
 
-            ResultsStorage.getInstance().add("TotallAssetsAnalyze", output + consequence);
+            ResultsStorage.addStr("text", "TotallAssetsAnalyze", output + consequence);
         }
         return hbox;
     }

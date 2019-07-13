@@ -13,9 +13,7 @@ import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.SettingsStorage;
 
-import java.util.ArrayList;
-
-public class LiabilitiesReport  implements TableName {
+public class LiabilitiesReport implements TableName {
 
     private int rootId;
     private ItemsStorage stor = ItemsStorage.getInstance();
@@ -27,7 +25,7 @@ public class LiabilitiesReport  implements TableName {
 
     public VBox getTrend() {
         ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
-        Label tableName =  tableName("Table 2. Sources of Finance (Equity and Liabilities) Trend Analysis, in "
+        Label tableName = tableName("Table 2. Sources of Finance (Equity and Liabilities) Trend Analysis, in "
                 + settings.get("amount") + " " + settings.get("defaultCurrency")
         );
         VBox box = new VBox(8);

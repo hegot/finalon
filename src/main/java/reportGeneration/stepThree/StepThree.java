@@ -37,8 +37,18 @@ public class StepThree extends SceneBase {
         TabPane tabs = new TabPane();
 
         Map<String, Tab> tabsArr = new HashMap<>();
+        String t1 = "1. The Common-Size  Analysis \n of the Assets, Liabilities \n and Shareholders' Equity";
+        ResultsStorage.addStr("h2", "coverTex", t1);
 
-        Tab tab1 = new Tab("1. The Common-Size  Analysis \n of the Assets, Liabilities \n and Shareholders' Equity");
+        VBox vBox = new VBox(5);
+        vBox.getStyleClass().add("generated-report");
+        vBox.getChildren().addAll(
+                getTitle(),
+                getDescText(),
+                exportBtn()
+        );
+
+        Tab tab1 = new Tab(t1);
 
         TabPane tabs2 = new TabPane();
         tabs2.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
@@ -93,14 +103,7 @@ public class StepThree extends SceneBase {
         populateInThread(tabsArr, 13);
         tabs.getTabs().addAll(tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9);
 
-        VBox vBox = new VBox(5);
-        vBox.getStyleClass().add("generated-report");
-        vBox.getChildren().addAll(
-                getTitle(),
-                getDescText(),
-                exportBtn(),
-                tabs
-        );
+        vBox.getChildren().add(tabs);
         return vBox;
     }
 
@@ -129,14 +132,14 @@ public class StepThree extends SceneBase {
                 "to understand the financial position and financial effectiveness of the company. " +
                 "The report studied the " + periods.getStart() + " - " + periods.getEnd() + " period.";
         Label label = new Label(text);
-        ResultsStorage.add("coverText", text);
+        ResultsStorage.addStr("h3", "coverText", text);
         label.getStyleClass().add("report-text");
         label.setWrapText(true);
         return label;
     }
 
 
-    private Button exportBtn(){
+    private Button exportBtn() {
         Button btn = new Button("Export Doc");
         btn.getStyleClass().add("blue-btn");
         btn.setOnAction(new EventHandler<ActionEvent>() {
@@ -154,11 +157,12 @@ public class StepThree extends SceneBase {
     }
 
     private Label getTitle() {
-        Label title = new Label(
-                "Analysis of " + companyName
-                        + " financial statements for the period from "
-                        + periods.getStart() + " to "
-                        + periods.getEnd());
+        String t1 = "Analysis of " + companyName
+                + " financial statements for the period from "
+                + periods.getStart() + " to "
+                + periods.getEnd();
+        ResultsStorage.addStr("h1", "coverText", t1);
+        Label title = new Label(t1);
         title.getStyleClass().add("report-title");
         title.setWrapText(true);
         return title;

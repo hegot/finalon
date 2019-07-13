@@ -2,45 +2,42 @@ package reportGeneration.wordExport;
 
 import javafx.collections.ObservableMap;
 import javafx.stage.DirectoryChooser;
-import org.docx4j.jaxb.Context;
-import org.docx4j.model.structure.PageDimensions;
+import javafx.stage.Stage;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
-import javafx.stage.Stage;
-import org.docx4j.wml.Body;
-import org.docx4j.wml.ObjectFactory;
-import org.docx4j.wml.SectPr;
+import reportGeneration.storage.ResultItem;
 import reportGeneration.storage.ResultsStorage;
+import reportGeneration.storage.TwoDList;
 
-import java.awt.*;
 import java.io.File;
-import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.Map;
 
 public class WordExport {
 
     private WordprocessingMLPackage wordPackage;
+
     public WordExport() throws Docx4JException {
         this.wordPackage = WordprocessingMLPackage.createPackage();
     }
 
 
-
-
-
-    public void exportDoc() throws Docx4JException{
-        ObservableMap<String, String> items = ResultsStorage.getItems();
-        if(items.size() > 0){
-            for (Map.Entry<String, String> entry : items.entrySet()) {
-                wordPackage.getMainDocumentPart().addParagraphOfText(entry.getValue());
+    public void exportDoc() throws Docx4JException {
+        ObservableMap<String, ResultItem> items = ResultsStorage.getItems();
+        if (items.size() > 0) {
+            for (Map.Entry<String, ResultItem> entry : items.entrySet()) {
+                ResultItem item = entry.getValue();
+                Object obj = item.get();
+                if (obj.getClass() == String.class) {
+                    wordPackage.getMainDocumentPart().addParagraphOfText((String) obj);
+                } else {
+                    createTable((TwoDList) obj);
+                }
             }
         }
         final DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Select Directory to save the file");
         directoryChooser.setInitialDirectory(new File(System.getProperty("user.home")));
         File dir = directoryChooser.showDialog(new Stage());
-        createTable();
         if (dir != null) {
             String path = dir.getAbsolutePath() + "/financialAnalysis.docx";
             wordPackage.save(new java.io.File(path));
@@ -48,29 +45,19 @@ public class WordExport {
     }
 
 
-
-
-
-
-
-    public ArrayList<String[]> getDemo() {
-        ArrayList<String[]> outerArr = new ArrayList<String[]>();
-        String[] myString1 = {"hey", "hey", "hey", "hey"};
-        outerArr.add(myString1);
-        String[] myString2 = {"you2", "you2", "you2", "you2"};
-        outerArr.add(myString2);
-        String[] myString3 = {"you3", "you3", "you3", "you3"};
-        outerArr.add(myString3);
-        return outerArr;
-    }
-
-
-    private void createTable(){
+    private void createTable(TwoDList data) {
+        int colsN = data.get(0).size();
+        Double[] cols = new Double[colsN];
+        int restCols = colsN - 1;
+        cols[0] = 0.3;
+        for (int j = 1; j < colsN; j++) {
+            cols[j] = 0.7 / restCols;
+        }
 
         int writableWidthTwips = wordPackage.getDocumentModel()
                 .getSections().get(0).getPageDimensions().getWritableWidthTwips();
-        Double[] cols = {0.4, 0.4, 0.1, 0.1} ;
-        TblConstructor constructor = new TblConstructor(getDemo(), writableWidthTwips, cols);
+
+        TblConstructor constructor = new TblConstructor(data, writableWidthTwips, cols);
 
         wordPackage.getMainDocumentPart().addObject(constructor.getTable());
     }

@@ -8,9 +8,9 @@ import javafx.collections.ObservableMap;
 
 public class FormulaStorage {
     private static ObservableList<Formula> formulas;
+    private static ObservableMap<String, Formula> indexes;
     private boolean initalized = false;
     private DbFormulaHandler dbFormula = new DbFormulaHandler();
-    private static ObservableMap<String, Formula> indexes;
 
     private FormulaStorage() {
         if (!initalized) {

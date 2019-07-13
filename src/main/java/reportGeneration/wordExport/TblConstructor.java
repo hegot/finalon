@@ -14,17 +14,17 @@ public class TblConstructor {
     private int tableWidth;
     private ObjectFactory factory;
     private Double[] colWidth;
-    private ArrayList<String[]> data;
+    private ArrayList<ArrayList<String>> data;
     private int rows;
     private int cols;
 
-    public TblConstructor(ArrayList<String[]> data, int tableWidth, Double[] colWidth) {
+    public TblConstructor(ArrayList<ArrayList<String>> data, int tableWidth, Double[] colWidth) {
         this.data = data;
         this.factory = Context.getWmlObjectFactory();
         this.tableWidth = tableWidth;
         this.colWidth = colWidth;
         this.rows = data.size();
-        this.cols = data.get(0).length;
+        this.cols = data.get(0).size();
     }
 
     private int getColWidth(int key) {
@@ -78,7 +78,11 @@ public class TblConstructor {
     private String getCellContent(int key1, int key2) {
         key1 = key1 - 1;
         key2 = key2 - 1;
-        String content = data.get(key1)[key2];
+        ArrayList<String> row = data.get(key1);
+        String content = "";
+        if (row != null) {
+            content = row.get(key2);
+        }
         return content;
     }
 
@@ -91,6 +95,7 @@ public class TblConstructor {
         Text text = factory.createText();
         text.setValue(content);
         R run = factory.createR();
+        setFontSize(run, "20");
         run.getContent().add(text);
         paragraph.getContent().add(run);
         tc.getContent().add(paragraph);
@@ -103,12 +108,32 @@ public class TblConstructor {
             tc.setTcPr(tcPr);
             TblWidth cellWidth = Context.getWmlObjectFactory().createTblWidth();
             tcPr.setTcW(cellWidth);
+
+            //margins
+            TcMar margins = new TcMar();
+            TblWidth tW = new TblWidth();
+            tW.setType("dxa");
+            tW.setW(BigInteger.valueOf(0));
+            margins.setTop(tW);
+            tcPr.setTcMar(margins);
+
+            //valign
+            CTVerticalJc valign = new CTVerticalJc();
+            valign.setVal(STVerticalJc.TOP);
+            tcPr.setVAlign(valign);
+
             cellWidth.setType("dxa");
             cellWidth.setW(BigInteger.valueOf(width));
-            tc.getEGBlockLevelElts().add(
-                    Context.getWmlObjectFactory().createP()
-            );
         }
+    }
+
+    private void setFontSize(R run, String fontSize) {
+        RPr runProperties = factory.createRPr();
+        HpsMeasure size = new HpsMeasure();
+        size.setVal(new BigInteger(fontSize));
+        runProperties.setSz(size);
+        runProperties.setSzCs(size);
+        run.setRPr(runProperties);
     }
 
 }

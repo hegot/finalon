@@ -9,7 +9,7 @@ import reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
 import reportGeneration.interpreter.ReusableComponents.tables.RatiosTable;
 import reportGeneration.storage.FormulaStorage;
 
-public class InvestorAnalysis  implements TableName {
+public class InvestorAnalysis implements TableName {
     private ObservableList<Formula> formulas;
 
     public InvestorAnalysis() {
