@@ -8,6 +8,7 @@ import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
+import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
 
 
@@ -49,7 +50,9 @@ public class TotallLiabilitiesAnalyze implements LabelWrap, ParseDouble, JsCalcH
             if (last <= 0) {
                 output = bankrupt();
             }
-            hbox.getChildren().addAll(labelWrap(preOutput()), labelWrap(output));
+            String preOutput = preOutput();
+            ResultsStorage.addStr(21, "text", preOutput + output);
+            hbox.getChildren().addAll(labelWrap(preOutput), labelWrap(output));
         }
         return hbox;
     }

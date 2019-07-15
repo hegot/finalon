@@ -7,6 +7,7 @@ import javafx.collections.ObservableMap;
 import javafx.scene.chart.PieChart;
 import reportGeneration.interpreter.ReusableComponents.interfaces.GetVal;
 import reportGeneration.storage.ItemsStorage;
+import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
 
 public class AssetStructureChart implements GetVal {
@@ -48,7 +49,10 @@ public class AssetStructureChart implements GetVal {
                 ));
             }
             chart.setData(pieChartData);
-            chart.setTitle("Chart 3. " + settings.get("company") + " Assets structure in " + period);
+            String title = "Chart 3. " + settings.get("company") + " Assets structure in " + period;
+            chart.setTitle(title);
+            ResultsStorage.addStr(15, "h2", title);
+            ResultsStorage.addPieChart(16, chart);
         }
         return chart;
     }

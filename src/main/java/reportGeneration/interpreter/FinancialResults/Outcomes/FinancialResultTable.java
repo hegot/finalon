@@ -9,13 +9,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 import reportGeneration.interpreter.ReusableComponents.interfaces.Round;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
+import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
 
 import java.util.ArrayList;
@@ -75,6 +75,7 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper, LabelWra
             out += "The EBIT was stable during " + startDate + "-" + endDate + ". ";
         }
         out += comprehensiveIncome();
+        ResultsStorage.addStr(44, "text", out);
         return labelWrap(out);
     }
 
@@ -98,7 +99,7 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper, LabelWra
     }
 
 
-    public VBox get() {
+    public TableView get() {
         TableView<Item> table = new TableView<Item>();
         table.setEditable(false);
         table.getStyleClass().add("report-table");
@@ -116,9 +117,7 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper, LabelWra
             }
         }
         table.setItems(items);
-        VBox vbox = new VBox();
-        vbox.getChildren().add(table);
-        return vbox;
+        return table;
     }
 
     protected TableColumn getNameCol() {

@@ -6,6 +6,7 @@ import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.ChartBase;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
+import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
 
 public class LiabilitiesCharts extends ChartBase {
@@ -42,6 +43,7 @@ public class LiabilitiesCharts extends ChartBase {
         );
         VBox vBox = new VBox(20);
         vBox.getChildren().addAll(bc);
+        ResultsStorage.addBarChart(25, bc);
         return vBox;
     }
 

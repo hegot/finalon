@@ -9,6 +9,7 @@ import reportGeneration.interpreter.ReusableComponents.NormValsEvaluator.StrRepl
 import reportGeneration.interpreter.ReusableComponents.interfaces.AttachChilds;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
 import reportGeneration.storage.Periods;
+import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
 
 public class FormulaEvaluation implements LabelWrap, AttachChilds {
@@ -34,6 +35,7 @@ public class FormulaEvaluation implements LabelWrap, AttachChilds {
         }
         VBox vbox = new VBox();
         vbox.getChildren().add(labelWrap(outcome));
+        ResultsStorage.addStr(36, "test", outcome);
         return vbox;
     }
 

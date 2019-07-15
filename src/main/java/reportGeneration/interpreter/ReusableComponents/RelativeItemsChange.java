@@ -7,6 +7,7 @@ import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
 import reportGeneration.storage.Periods;
+import reportGeneration.storage.ResultsStorage;
 
 public class RelativeItemsChange implements LabelWrap, JsCalcHelper {
     private Item parent;
@@ -26,28 +27,32 @@ public class RelativeItemsChange implements LabelWrap, JsCalcHelper {
     }
 
 
-    private void attachRowsEvaluation(VBox vBox) {
+    private String getRowsEvaluation() {
+        String output = "";
         for (Item item : items) {
             if (item.getValues().size() > 1) {
                 Double firstVal = item.getFirstVal();
                 Double lastVal = item.getLastVal();
                 if (firstVal != null && lastVal != null) {
                     String change = getRelativeChange(firstVal, lastVal);
-                    Label label = new Label("- " + item.getName() + " (" + change + "%)");
-                    vBox.getChildren().addAll(label);
+                    output += "- " + item.getName() + " (" + change + "%) \n";
                 }
 
             }
         }
+        return output;
     }
 
-    public VBox get() {
+    public VBox get(int id) {
         VBox vBox = new VBox(10);
-
         if (this.parent.getValues().size() > 1) {
-            vBox.getChildren().add(message());
+            String mess = message();
+            vBox.getChildren().add(labelWrap(mess));
+            String rowsEval = getRowsEvaluation();
+            Label label = new Label(rowsEval);
+            vBox.getChildren().addAll(label);
+            ResultsStorage.addStr(id, "text", mess + rowsEval);
         }
-        attachRowsEvaluation(vBox);
         return vBox;
     }
 
@@ -62,10 +67,9 @@ public class RelativeItemsChange implements LabelWrap, JsCalcHelper {
         return "";
     }
 
-    private Label message() {
-        return labelWrap(
-                "The change of the " + parent.getName() + " value in " +
-                        startDate + "-" + endDate + " was connected with a " +
-                        riseOrFall() + " change of the following " + text + ":");
+    private String message() {
+        return "The change of the " + parent.getName() + " value in " +
+                startDate + "-" + endDate + " was connected with a " +
+                riseOrFall() + " change of the following " + text + ":";
     }
 }

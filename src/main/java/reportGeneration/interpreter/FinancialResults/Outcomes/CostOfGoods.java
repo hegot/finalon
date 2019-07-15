@@ -8,6 +8,7 @@ import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.Round;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
+import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
 
 import java.util.ArrayList;
@@ -51,6 +52,7 @@ public class CostOfGoods implements LabelWrap, JsCalcHelper, Round {
                 }
             }
             hbox.getChildren().add(labelWrap(output));
+            ResultsStorage.addStr(43, "text", output);
         }
         return hbox;
     }

@@ -50,7 +50,7 @@ public class TotallAssetsAnalyze implements LabelWrap, JsCalcHelper {
                     labelWrap(consequence)
             );
 
-            ResultsStorage.addStr("text", "TotallAssetsAnalyze", output + consequence);
+            ResultsStorage.addStr(5, "text", output + consequence);
         }
         return hbox;
     }
@@ -79,7 +79,7 @@ public class TotallAssetsAnalyze implements LabelWrap, JsCalcHelper {
     }
 
     private String consequence() {
-        return "The value of the assets totalled " + last +
+        return "The value of the assets totaled " + last +
                 " at the end of " + endDate + ". ";
     }
 }

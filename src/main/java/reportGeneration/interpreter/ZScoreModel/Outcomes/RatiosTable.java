@@ -3,7 +3,6 @@ package reportGeneration.interpreter.ZScoreModel.Outcomes;
 import entities.Formula;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.tables.FormulaTable;
 import reportGeneration.storage.Periods;
 
@@ -18,7 +17,7 @@ public class RatiosTable extends FormulaTable {
         this.formulas = formulas;
     }
 
-    public VBox get() {
+    public TableView get() {
         TableView<Formula> table = new TableView<Formula>();
         table.getStyleClass().add("report-table");
         table.setEditable(false);
@@ -27,9 +26,7 @@ public class RatiosTable extends FormulaTable {
             table.getColumns().add(getPeriodCol(col));
         }
         table.setItems(formulas);
-        VBox vbox = new VBox();
-        vbox.getChildren().add(table);
-        return vbox;
+        return table;
     }
 
 

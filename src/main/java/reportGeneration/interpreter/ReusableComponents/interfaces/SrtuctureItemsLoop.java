@@ -2,14 +2,13 @@ package reportGeneration.interpreter.ReusableComponents.interfaces;
 
 import entities.Item;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Label;
 
 import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 
 public interface SrtuctureItemsLoop extends JsCalcHelper, GetVal, LabelWrap {
-    default Label loopItems(
+    default String loopItems(
             ObservableList<Item> items,
             Double totall,
             String start,
@@ -29,6 +28,6 @@ public interface SrtuctureItemsLoop extends JsCalcHelper, GetVal, LabelWrap {
             Double key = entry.getKey();
             result.append(entry.getValue() + " (" + format(key) + "), ");
         }
-        return labelWrap(start + result + end);
+        return start + result + end;
     }
 }

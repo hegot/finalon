@@ -3,8 +3,8 @@ package reportGeneration.interpreter.LaborProductivity;
 import entities.Formula;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.VBox;
+import reportGeneration.interpreter.LaborProductivity.Outcomes.FormulaEvaluation;
 import reportGeneration.interpreter.LaborProductivity.Outcomes.LaborProductivityChart;
-import reportGeneration.interpreter.TurnoverRatios.Outcomes.FormulaEvaluation;
 import reportGeneration.storage.FormulaStorage;
 
 public class LaborProductivity {

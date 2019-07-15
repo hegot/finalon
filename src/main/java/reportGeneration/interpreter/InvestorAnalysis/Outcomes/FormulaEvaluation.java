@@ -7,6 +7,7 @@ import reportGeneration.interpreter.ReusableComponents.FormulaEvaluateBase;
 import reportGeneration.interpreter.ReusableComponents.NormValsEvaluator.StrReplacer;
 import reportGeneration.interpreter.ReusableComponents.interfaces.AttachChilds;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
+import reportGeneration.storage.ResultsStorage;
 
 public class FormulaEvaluation implements LabelWrap, AttachChilds {
     private ObservableList<Formula> formulas;
@@ -27,6 +28,7 @@ public class FormulaEvaluation implements LabelWrap, AttachChilds {
         }
         VBox vbox = new VBox();
         vbox.getChildren().add(labelWrap(outcome));
+        ResultsStorage.addStr(62, "text", outcome);
         return vbox;
     }
 

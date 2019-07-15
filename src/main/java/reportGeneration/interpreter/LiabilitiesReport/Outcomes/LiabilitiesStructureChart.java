@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import reportGeneration.interpreter.ReusableComponents.interfaces.GetVal;
 import reportGeneration.storage.ItemsStorage;
+import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
 
 public class LiabilitiesStructureChart implements GetVal {
@@ -56,8 +57,11 @@ public class LiabilitiesStructureChart implements GetVal {
                 ));
             }
             chart.setData(pieChartData);
-            chart.setTitle("Chart 4. " + SettingsStorage.getInstance().getSettings().get("company") +
-                    " Source of Finance structure in " + period);
+            String title = "Chart 4. " + SettingsStorage.getInstance().getSettings().get("company") +
+                    " Source of Finance structure in " + period;
+            chart.setTitle(title);
+            ResultsStorage.addStr(30, "text", title);
+            ResultsStorage.addPieChart(31, chart);
         }
         return chart;
     }

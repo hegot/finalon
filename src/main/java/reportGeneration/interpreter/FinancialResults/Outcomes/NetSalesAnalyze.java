@@ -5,6 +5,7 @@ import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.Round;
 import reportGeneration.storage.ItemsStorage;
+import reportGeneration.storage.ResultsStorage;
 
 public class NetSalesAnalyze implements LabelWrap, Round {
 
@@ -36,6 +37,7 @@ public class NetSalesAnalyze implements LabelWrap, Round {
                 output = equal();
             }
             hbox.getChildren().add(labelWrap(output));
+            ResultsStorage.addStr(42, "text", output);
         }
         return hbox;
     }

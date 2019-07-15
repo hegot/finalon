@@ -38,7 +38,7 @@ public class StepThree extends SceneBase {
 
         Map<String, Tab> tabsArr = new HashMap<>();
         String t1 = "1. The Common-Size  Analysis \n of the Assets, Liabilities \n and Shareholders' Equity";
-        ResultsStorage.addStr("h2", "coverTex", t1);
+        ResultsStorage.addStr(2, "h2", t1);
 
         VBox vBox = new VBox(5);
         vBox.getStyleClass().add("generated-report");
@@ -132,7 +132,7 @@ public class StepThree extends SceneBase {
                 "to understand the financial position and financial effectiveness of the company. " +
                 "The report studied the " + periods.getStart() + " - " + periods.getEnd() + " period.";
         Label label = new Label(text);
-        ResultsStorage.addStr("h3", "coverText", text);
+        ResultsStorage.addStr(1, "h3", text);
         label.getStyleClass().add("report-text");
         label.setWrapText(true);
         return label;
@@ -161,7 +161,7 @@ public class StepThree extends SceneBase {
                 + " financial statements for the period from "
                 + periods.getStart() + " to "
                 + periods.getEnd();
-        ResultsStorage.addStr("h1", "coverText", t1);
+        ResultsStorage.addStr(0, "h1", t1);
         Label title = new Label(t1);
         title.getStyleClass().add("report-title");
         title.setWrapText(true);

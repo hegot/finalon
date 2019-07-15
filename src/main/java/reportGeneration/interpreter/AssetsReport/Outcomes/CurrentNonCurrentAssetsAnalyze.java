@@ -82,7 +82,7 @@ public class CurrentNonCurrentAssetsAnalyze implements JsCalcHelper {
         text1.getStyleClass().add("report-text-small");
         text1.setWrapText(true);
         vbox.getChildren().addAll(text1);
-        ResultsStorage.addStr("text", "CurrentNonCurrentAssetsAnalyze", output);
+        ResultsStorage.addStr(6, "text", output);
         return vbox;
     }
 

@@ -7,6 +7,7 @@ import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.ChartBase;
 import reportGeneration.storage.FormulaStorage;
 import reportGeneration.storage.Periods;
+import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
 
 public class LaborProductivityChart extends ChartBase {
@@ -22,7 +23,7 @@ public class LaborProductivityChart extends ChartBase {
         return "Chart 6. " + settings.get("company") +
                 " Labor productivity between " +
                 periods.getStart() + " - " + periods.getEnd() +
-                " in " + settings.get("defaultCurrency") + " per person. ";
+                " in " + settings.get("defaultCurrency") + " per person.";
     }
 
     public VBox get() {
@@ -30,9 +31,10 @@ public class LaborProductivityChart extends ChartBase {
         if (laborProductivity != null && laborProductivity.getPeriods().size() > 0) {
             BarChart<String, Number> bc = getChart(chartTitle());
             bc.getData().addAll(
-                    getSeries("Current Assets", laborProductivity.getPeriods())
+                    getSeries("Labor Productivity", laborProductivity.getPeriods())
             );
             vBox.getChildren().addAll(bc);
+            ResultsStorage.addBarChart(67, bc);
         }
         return vBox;
     }
