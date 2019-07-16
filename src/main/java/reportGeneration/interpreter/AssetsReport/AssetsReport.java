@@ -30,7 +30,7 @@ public class AssetsReport implements TableName {
         ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
         String tblName = "Table 1. Assets Trend Analysis, in "
                 + settings.get("amount") + " " + settings.get("defaultCurrency");
-        ResultsStorage.addStr(3, "h2", tblName);
+        ResultsStorage.addStr(3, "tableName", tblName);
         Label tableName = tableName(tblName);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
@@ -62,7 +62,7 @@ public class AssetsReport implements TableName {
     public VBox getStructure() {
         String tblName = "Table 3. Assets Structure Analysis";
         Label tableName = tableName(tblName);
-        ResultsStorage.addStr(11, "h2", tblName);
+        ResultsStorage.addStr(11, "tableName", tblName);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
         Periods p = Periods.getInstance();

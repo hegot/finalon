@@ -34,7 +34,7 @@ public class LaborProductivityChart extends ChartBase {
                     getSeries("Labor Productivity", laborProductivity.getPeriods())
             );
             vBox.getChildren().addAll(bc);
-            ResultsStorage.addBarChart(67, bc);
+            ResultsStorage.addBarChart(111, bc);
         }
         return vBox;
     }

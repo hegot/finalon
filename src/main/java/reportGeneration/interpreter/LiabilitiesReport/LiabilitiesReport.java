@@ -27,7 +27,7 @@ public class LiabilitiesReport implements TableName {
         String tblName = "Table 2. Sources of Finance (Equity and Liabilities) Trend Analysis, in "
                 + settings.get("amount") + " " + settings.get("defaultCurrency");
         Label tableName = tableName(tblName);
-        ResultsStorage.addStr(19, "h2", tblName);
+        ResultsStorage.addStr(19, "tableName", tblName);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
         ItemsStorage stor = ItemsStorage.getInstance();
@@ -60,7 +60,7 @@ public class LiabilitiesReport implements TableName {
     public VBox getStructure() {
         String title = "Table 4. Equity and Liabilities Structure Analysis";
         Label tableName = tableName(title);
-        ResultsStorage.addStr(26, "h2", title);
+        ResultsStorage.addStr(26, "tableName", title);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
         Periods p = Periods.getInstance();

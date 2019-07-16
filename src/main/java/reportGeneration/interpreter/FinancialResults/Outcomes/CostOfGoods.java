@@ -52,7 +52,7 @@ public class CostOfGoods implements LabelWrap, JsCalcHelper, Round {
                 }
             }
             hbox.getChildren().add(labelWrap(output));
-            ResultsStorage.addStr(43, "text", output);
+            ResultsStorage.addStr(64, "text", output);
         }
         return hbox;
     }
@@ -68,7 +68,7 @@ public class CostOfGoods implements LabelWrap, JsCalcHelper, Round {
             Double change = ((val2 - val1) / val1) * 100;
             String inner = change > 0 ? "more" : "less";
             if (val1 != null && val2 != null) {
-                out.append("The cost of goods and services totalled "
+                out.append("The cost of goods and services totaled "
                         + currency + " " + val2 + " " + amount + " in "
                         + formatDate(end) + ", " + round(change) + "% " + inner + " than in " + formatDate(start) + ". ");
             }
@@ -77,7 +77,7 @@ public class CostOfGoods implements LabelWrap, JsCalcHelper, Round {
     }
 
     private String atTheEnd() {
-        return "At the end of " + endDate + " the cost of goods and services totalled " + currency + " " + last + " " + amount + ". ";
+        return "At the end of " + endDate + " the cost of goods and services totaled " + currency + " " + last + " " + amount + ". ";
     }
 
     private String increase(Double change) {

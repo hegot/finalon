@@ -28,12 +28,12 @@ public class LiquidityReport implements TableName {
 
         String title = "Table 6. Liquidity Ratios";
         Label tableName = tableName(title);
-        ResultsStorage.addStr(37, "h2", title);
+        ResultsStorage.addStr(51, "tableName", title);
 
         RatiosTable liquidityTable = new RatiosTable(formulas);
         TableView tbl = liquidityTable.get();
         TwoDList items = getTableViewValues(tbl);
-        ResultsStorage.addTable(38, items);
+        ResultsStorage.addTable(52, items);
 
         FormulaEvaluation formulaEvaluation = new FormulaEvaluation(formulas);
 

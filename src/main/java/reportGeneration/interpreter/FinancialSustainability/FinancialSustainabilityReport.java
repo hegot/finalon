@@ -28,14 +28,14 @@ public class FinancialSustainabilityReport implements TableName {
 
         String title = "Table 5. Key ratios of the company's financial sustainability";
         Label tableName = tableName(title);
-        ResultsStorage.addStr(34, "h2", title);
+        ResultsStorage.addStr(41, "tableName", title);
         FormulaEvaluation formulaEvaluation = new FormulaEvaluation(formulas);
 
 
         RatiosTable sustainabilityTable = new RatiosTable(formulas);
         TableView tbl = sustainabilityTable.get();
         TwoDList items = getTableViewValues(tbl);
-        ResultsStorage.addTable(35, items);
+        ResultsStorage.addTable(41, items);
 
         box.getChildren().addAll(
                 tableName,

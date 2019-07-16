@@ -75,7 +75,7 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper, LabelWra
             out += "The EBIT was stable during " + startDate + "-" + endDate + ". ";
         }
         out += comprehensiveIncome();
-        ResultsStorage.addStr(44, "text", out);
+        ResultsStorage.addStr(65, "text", out);
         return labelWrap(out);
     }
 

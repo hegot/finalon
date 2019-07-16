@@ -36,7 +36,7 @@ public class FinancialLeverageHook {
             StringBuilder output = new StringBuilder();
             Double sum = financeCostsVal + profitLossFromOperatingActivitiesVal + financeIncomeVal;
             if (lastVal > 0 && financeCostsVal != 0) {
-                output.append("If earnings before interest increase, the financial leverage will be favourable. " +
+                output.append("If earnings before interest increase, the financial leverage will be favorable. " +
                         "The degree of financial leverage was " + lastVal + " in ENDDATE. " +
                         "This means that any change in the EBIT will be accompanied by " + lastVal + " times that change in the net income. ");
             }

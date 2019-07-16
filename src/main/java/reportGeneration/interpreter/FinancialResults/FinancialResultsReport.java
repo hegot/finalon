@@ -20,17 +20,17 @@ public class FinancialResultsReport implements TableName {
         String title = "Table 7. Financial Results Trend Analysis, in "
                 + settings.get("amount") + " " + settings.get("defaultCurrency");
         Label tableName = tableName(title);
-        ResultsStorage.addStr(40, "h2", title);
+        ResultsStorage.addStr(61, "tableName", title);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
         FinancialResultTable financialResultTable = new FinancialResultTable();
         TableView tbl = financialResultTable.get();
         TwoDList items = getTableViewValues(tbl);
-        ResultsStorage.addTable(41, items);
+        ResultsStorage.addTable(62, items);
 
         box.getChildren().addAll(
                 tableName,
-                financialResultTable.get(),
+                tbl,
                 new NetSalesAnalyze().get(),
                 new CostOfGoods().get(),
                 financialResultTable.analyseEbit(),

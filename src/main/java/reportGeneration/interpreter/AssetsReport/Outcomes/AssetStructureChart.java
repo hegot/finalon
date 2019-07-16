@@ -49,9 +49,7 @@ public class AssetStructureChart implements GetVal {
                 ));
             }
             chart.setData(pieChartData);
-            String title = "Chart 3. " + settings.get("company") + " Assets structure in " + period;
-            chart.setTitle(title);
-            ResultsStorage.addStr(15, "h2", title);
+            chart.setTitle("Chart 3. " + settings.get("company") + " Assets structure in " + period);
             ResultsStorage.addPieChart(16, chart);
         }
         return chart;

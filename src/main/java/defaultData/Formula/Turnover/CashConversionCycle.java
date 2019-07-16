@@ -57,7 +57,7 @@ public class CashConversionCycle {
                 "<=",
                 "0",
                 "Negative Cash conversion cycle (CURRENTVALUE) " +
-                        "in CURRENTPERIOD demonstrates poor ability paying off debt to suppliers.",
+                        "in CURRENTPERIOD demonstrates poor ability paying off debt to suppliers. ",
                 "",
                 "",
                 CashConversionCycle));

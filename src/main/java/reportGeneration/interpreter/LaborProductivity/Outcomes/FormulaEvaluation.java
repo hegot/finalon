@@ -28,7 +28,7 @@ public class FormulaEvaluation implements LabelWrap, AttachChilds {
         }
         VBox vbox = new VBox();
         vbox.getChildren().add(labelWrap(outcome));
-        ResultsStorage.addStr(68, "text", outcome);
+        ResultsStorage.addStr(112, "text", outcome);
         return vbox;
     }
 

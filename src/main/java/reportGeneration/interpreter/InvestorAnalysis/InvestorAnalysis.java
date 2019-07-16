@@ -25,12 +25,12 @@ public class InvestorAnalysis implements TableName {
     public VBox get() {
         VBox box = new VBox(8);
         String title = "Table 11. Investor Analysis";
-        ResultsStorage.addStr(60, "h2", title);
+        ResultsStorage.addStr(91, "tableName", title);
         FormulaEvaluation formulaEvaluation = new FormulaEvaluation(formulas);
 
         TableView tbl = new RatiosTable(formulas).get();
         TwoDList items = getTableViewValues(tbl);
-        ResultsStorage.addTable(61, items);
+        ResultsStorage.addTable(92, items);
 
         box.getChildren().addAll(
                 tableName(title),

@@ -11,10 +11,14 @@ public class AddText {
 
     private ObjectFactory factory;
     private RPr runProperties;
+    private String type;
+    private String text;
 
-    public AddText() throws Docx4JException {
+    public AddText(ResultItem item) throws Docx4JException {
         this.factory = Context.getWmlObjectFactory();
         this.runProperties = factory.createRPr();
+        this.type = item.getType();
+        this.text = (String) item.get();
     }
 
     private void setFontSize(String fontSize) {
@@ -35,9 +39,13 @@ public class AddText {
         runProperties.setB(booleandefaulttrue);
     }
 
-    private R createRun(String text) {
+    private R createRun() {
         Text t = factory.createText();
-        t.setValue(text.trim());
+        if (type.equals("sectionTitle")) {
+            t.setValue(text.replace("\n", ""));
+        } else {
+            t.setValue(text.trim().replaceAll("[\r\n]+", "\n"));
+        }
         org.docx4j.wml.R run = factory.createR();
         run.getContent().add(t);
         run.setRPr(runProperties);
@@ -45,30 +53,38 @@ public class AddText {
     }
 
 
-    public P getStyledText(ResultItem item) {
+    public P getStyledText() {
         P para = factory.createP();
-        R run = createRun((String) item.get());
+        R run = createRun();
         para.getContent().add(run);
-
-        String type = item.getType();
         switch (type) {
             case "h1":
-                setBold();
-                setColor("6A6C6F");
+                setColor("#2c3e50");
                 setFontSize("40");
+                setBold();
                 break;
             case "h2":
                 setBold();
-                setColor("6A6C6F");
+                setColor("000000");
                 setFontSize("30");
                 break;
             case "h3":
-                setFontSize("25");
+                setFontSize("22");
                 setColor("black");
+                break;
+            case "tableName":
+                setBold();
+                setFontSize("20");
+                setColor("000000");
                 break;
             case "text":
                 setFontSize("20");
                 setColor("black");
+                break;
+            case "sectionTitle":
+                setBold();
+                setColor("000000");
+                setFontSize("30");
                 break;
         }
 
