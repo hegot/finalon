@@ -61,6 +61,8 @@ public class StepThree extends SceneBase {
         ResultsStorage.addStr(100, "sectionTitle", t12);
         String t13 = "9. Labor Productivity";
         ResultsStorage.addStr(110, "sectionTitle", t13);
+        String t14 = "10. Financial Rating";
+        ResultsStorage.addStr(110, "sectionTitle", t14);
 
         VBox vBox = new VBox(5);
         vBox.getStyleClass().add("generated-report");
@@ -120,8 +122,12 @@ public class StepThree extends SceneBase {
         Tab tab9 = new Tab(t13);
         tabsArr.put("laborProductivity", tab9);
 
+        Tab tab10 = new Tab(t14);
+        tabsArr.put("financialRating", tab10);
+
+
         populateInThread(tabsArr, 13);
-        tabs.getTabs().addAll(tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9);
+        tabs.getTabs().addAll(tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10);
 
         vBox.getChildren().add(tabs);
         return vBox;

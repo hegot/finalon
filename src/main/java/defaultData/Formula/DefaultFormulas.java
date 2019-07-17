@@ -120,6 +120,11 @@ public class DefaultFormulas {
         counter = counter + 7;
         Formulas.addAll(ReturnonEquityafterTax.get(PaPiD, counter));
         counter = counter + 8;
+        Formulas.addAll(NetSalesChange.get(parent, counter));
+        counter = counter + 1;
+        Formulas.addAll(EquityChange.get(parent, counter));
+        counter = counter + 1;
+
 
         //Turnover
         Formulas.addAll(TotalAssetTurnover.get(TiD, counter));

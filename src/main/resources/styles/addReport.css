@@ -29,6 +29,7 @@
     -fx-font-size: 13px;
     -fx-font-weight: normal;
     -fx-min-height: 100px;
+    -fx-alignment:  baseline-left;
 }
 
 

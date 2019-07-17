@@ -19,12 +19,29 @@ public interface TableName {
     default TwoDList getTableViewValues(TableView tableView) {
         TwoDList values = new TwoDList();
 
+
         ObservableList<TableColumn> columns = tableView.getColumns();
+
+        //save headers
+        ArrayList<String> headers = new ArrayList<>();
+        for (TableColumn column : columns) {
+            headers.add(column.getText());
+        }
+        values.addList(headers);
+
+        //save rows
         for (Object row : tableView.getItems()) {
             ArrayList<String> rowVals = new ArrayList<>();
             for (TableColumn column : columns) {
                 if (column.getCellObservableValue(row) != null) {
-                    rowVals.add((String) column.getCellObservableValue(row).getValue());
+                    Object obj = column.getCellObservableValue(row).getValue();
+                    if(obj != null){
+                        if (obj.getClass() == Double.class) {
+                            rowVals.add(Double.toString((Double) obj) );
+                        } else if(obj.getClass() == String.class) {
+                            rowVals.add((String) obj);
+                        }
+                    }
                 } else {
                     rowVals.add("");
                 }

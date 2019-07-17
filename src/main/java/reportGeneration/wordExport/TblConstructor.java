@@ -61,18 +61,29 @@ public class TblConstructor {
             ));
             tblGrid.getGridCol().add(gridCol);
         }
-        for (int j = 1; j <= rows; j++) {
-            Tr tr = Context.getWmlObjectFactory().createTr();
-            tbl.getEGContentRowContent().add(tr);
-            for (int i = 1; i <= cols; i++) {
-                addTableCell(
-                        tr,
-                        getCellContent(j, i),
-                        getColWidth(i)
-                );
-            }
+
+        //add Header
+        addRow(tbl, 1, "34495E", "FFFFFF");
+
+        //adding Rows
+        for (int j = 2; j <= rows; j++) {
+            addRow(tbl, j, "", "");
         }
         return tbl;
+    }
+
+    private void addRow(Tbl tbl, int rowId, String background, String color){
+        Tr tr = Context.getWmlObjectFactory().createTr();
+        tbl.getEGContentRowContent().add(tr);
+        for (int i = 1; i <= cols; i++) {
+            addTableCell(
+                    tr,
+                    getCellContent(rowId, i),
+                    getColWidth(i),
+                    background,
+                    color
+            );
+        }
     }
 
     private String getCellContent(int key1, int key2) {
@@ -80,60 +91,15 @@ public class TblConstructor {
         key2 = key2 - 1;
         ArrayList<String> row = data.get(key1);
         String content = "";
-        if (row != null) {
+        if (row != null && row.size() > key2) {
             content = row.get(key2);
         }
         return content;
     }
 
-
-    private void addTableCell(Tr tr, String content, int width) {
-        Tc tc = Context.getWmlObjectFactory().createTc();
+    private void addTableCell(Tr tr, String content, int width, String background, String color) {
+        CellCorstructor con = new CellCorstructor(content, width, "20", background, color);
+        Tc tc = con.getCell();
         tr.getEGContentCellContent().add(tc);
-        setCellWidth(tc, width);
-        P paragraph = factory.createP();
-        Text text = factory.createText();
-        text.setValue(content);
-        R run = factory.createR();
-        setFontSize(run, "20");
-        run.getContent().add(text);
-        paragraph.getContent().add(run);
-        tc.getContent().add(paragraph);
     }
-
-
-    private void setCellWidth(Tc tc, int width) {
-        if (width > 0) {
-            TcPr tcPr = Context.getWmlObjectFactory().createTcPr();
-            tc.setTcPr(tcPr);
-            TblWidth cellWidth = Context.getWmlObjectFactory().createTblWidth();
-            tcPr.setTcW(cellWidth);
-
-            //margins
-            TcMar margins = new TcMar();
-            TblWidth tW = new TblWidth();
-            tW.setType("dxa");
-            tW.setW(BigInteger.valueOf(0));
-            margins.setTop(tW);
-            tcPr.setTcMar(margins);
-
-            //valign
-            CTVerticalJc valign = new CTVerticalJc();
-            valign.setVal(STVerticalJc.TOP);
-            tcPr.setVAlign(valign);
-
-            cellWidth.setType("dxa");
-            cellWidth.setW(BigInteger.valueOf(width));
-        }
-    }
-
-    private void setFontSize(R run, String fontSize) {
-        RPr runProperties = factory.createRPr();
-        HpsMeasure size = new HpsMeasure();
-        size.setVal(new BigInteger(fontSize));
-        runProperties.setSz(size);
-        runProperties.setSzCs(size);
-        run.setRPr(runProperties);
-    }
-
 }

@@ -2,6 +2,7 @@ package reportGeneration.interpreter;
 
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.AssetsReport.AssetsReport;
+import reportGeneration.interpreter.FinancialRating.FinancialRating;
 import reportGeneration.interpreter.FinancialResults.FinancialResultsReport;
 import reportGeneration.interpreter.FinancialSustainability.FinancialSustainabilityReport;
 import reportGeneration.interpreter.FormulaCalculation.FormulaCalculation;
@@ -58,6 +59,9 @@ public class Interprter {
                 break;
             case "laborProductivity":
                 vbox = new LaborProductivity().get();
+                break;
+            case "financialRating":
+                vbox = new FinancialRating().get();
                 break;
         }
         return vbox;

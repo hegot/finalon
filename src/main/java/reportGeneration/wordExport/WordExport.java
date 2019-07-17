@@ -68,19 +68,13 @@ public class WordExport {
     }
 
     public static P getPageBreak() {
-
         org.docx4j.wml.ObjectFactory wmlObjectFactory = new org.docx4j.wml.ObjectFactory();
-
-        // Create object for p
         P p = wmlObjectFactory.createP();
-        // Create object for r
         R r = wmlObjectFactory.createR();
         p.getContent().add(r);
-        // Create object for br
         Br br = wmlObjectFactory.createBr();
         r.getContent().add(br);
         br.setType(org.docx4j.wml.STBrType.PAGE);
-
         return p;
     }
 
