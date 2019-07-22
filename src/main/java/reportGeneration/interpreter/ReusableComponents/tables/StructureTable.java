@@ -32,7 +32,7 @@ public class StructureTable implements JsCalcHelper, Round {
         ItemsGetter itemsGetter = new ItemsGetter(root, ItemsStorage.getItems(), true);
         this.items = itemsGetter.getItems();
         this.periodsArr = Periods.getInstance().getPeriodArr();
-        this.totalVals = getTotals();
+        this.totalVals = getTotals(root);
     }
 
 
@@ -45,14 +45,10 @@ public class StructureTable implements JsCalcHelper, Round {
         return StructureItems;
     }
 
-    private Map<String, Double> getTotals() {
+    private Map<String, Double> getTotals(Item root) {
         Map<String, Double> totalVals = new HashMap<>();
         for (String col : periodsArr) {
-            Double sum = 0.0;
-            for (Item item : items) {
-                sum += item.getVal(col);
-            }
-            totalVals.put(col, sum);
+            totalVals.put(col, root.getVal(col));
         }
         return totalVals;
     }
@@ -72,10 +68,28 @@ public class StructureTable implements JsCalcHelper, Round {
             for (int j = 0; j < count; j++) {
                 String colStart = periodsArr.get(j);
                 String colEnd = periodsArr.get(j + 1);
-
+                table.getColumns().add(absoluteChangeCol(colStart, colEnd));
             }
         }
         return table;
+    }
+
+    private TableColumn absoluteChangeCol(String colStart, String colEnd){
+        String colname = "Absolute Change\n" + formatDate(colEnd) + " to \n" + formatDate(colStart);
+        TableColumn<StructureItem, String> column = new TableColumn<StructureItem, String>(colname);
+        column.setMinWidth(150);
+        column.setCellValueFactory(cellData -> {
+            ObservableMap<String, Double> values = getValues(cellData);
+            if (values != null) {
+                Double colEndVAl = values.get(colEnd);
+                Double colStartVAl = values.get(colStart);
+                if (colEndVAl != null && colStartVAl != null) {
+                    return new SimpleStringProperty(commaFormat(colEndVAl - colStartVAl));
+                }
+            }
+            return null;
+        });
+        return column;
     }
 
     protected TableColumn getNameCol() {
