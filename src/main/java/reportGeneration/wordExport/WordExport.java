@@ -7,13 +7,11 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.image.WritableImage;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
-import org.docx4j.jaxb.Context;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.wml.Br;
 import org.docx4j.wml.P;
 import org.docx4j.wml.R;
-import org.docx4j.wml.STBrType;
 import reportGeneration.storage.ResultItem;
 import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.TwoDList;
@@ -28,6 +26,17 @@ public class WordExport {
 
     public WordExport() throws Docx4JException {
         this.wordPackage = WordprocessingMLPackage.createPackage();
+    }
+
+    public static P getPageBreak() {
+        org.docx4j.wml.ObjectFactory wmlObjectFactory = new org.docx4j.wml.ObjectFactory();
+        P p = wmlObjectFactory.createP();
+        R r = wmlObjectFactory.createR();
+        p.getContent().add(r);
+        Br br = wmlObjectFactory.createBr();
+        r.getContent().add(br);
+        br.setType(org.docx4j.wml.STBrType.PAGE);
+        return p;
     }
 
     public void exportDoc() throws Docx4JException, Exception {
@@ -65,17 +74,6 @@ public class WordExport {
             String path = dir.getAbsolutePath() + "/finReport_" + System.currentTimeMillis() + ".docx";
             wordPackage.save(new java.io.File(path));
         }
-    }
-
-    public static P getPageBreak() {
-        org.docx4j.wml.ObjectFactory wmlObjectFactory = new org.docx4j.wml.ObjectFactory();
-        P p = wmlObjectFactory.createP();
-        R r = wmlObjectFactory.createR();
-        p.getContent().add(r);
-        Br br = wmlObjectFactory.createBr();
-        r.getContent().add(br);
-        br.setType(org.docx4j.wml.STBrType.PAGE);
-        return p;
     }
 
     private void createTable(TwoDList data) {

@@ -31,7 +31,7 @@ public class ScoreItem implements RatingWeight {
         this.per2 = periods.endKey();
         this.code = formula.getShortName();
         this.df = new DecimalFormat("#.##");
-        if(formula.getShortName().length() > 0){
+        if (formula.getShortName().length() > 0) {
             this.weight = getWeight(code);
             this.score1 = calcScore1();
             this.score2 = calcScore2();
@@ -51,7 +51,7 @@ public class ScoreItem implements RatingWeight {
         Double res = score2;
         if (score1 != null && score2 != null) {
             res = score1 * 0.35 + score2 * 0.65;
-            if(res != null){
+            if (res != null) {
                 res = Double.valueOf(df.format(res));
             }
         }
@@ -74,12 +74,12 @@ public class ScoreItem implements RatingWeight {
         return null;
     }
 
-    public void setWeightedScore(Double weightedScore) {
-        this.weightedScore = weightedScore;
-    }
-
     public Double getWeightedScore() {
         return this.weightedScore;
+    }
+
+    public void setWeightedScore(Double weightedScore) {
+        this.weightedScore = weightedScore;
     }
 
     public Double getAverageScore() {

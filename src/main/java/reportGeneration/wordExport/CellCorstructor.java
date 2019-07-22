@@ -14,7 +14,7 @@ public class CellCorstructor {
     private TcPr tcPr;
     private ObjectFactory factory;
 
-    public CellCorstructor(String content, int width, String fontSize, String background, String color){
+    public CellCorstructor(String content, int width, String fontSize, String background, String color) {
         this.content = content;
         this.width = width;
         this.fontSize = fontSize;
@@ -29,7 +29,7 @@ public class CellCorstructor {
         setCellWidth();
         setCellValign();
         setCellMargins();
-        if(background.length() > 0){
+        if (background.length() > 0) {
             setBackground();
         }
         tc.getContent().add(createPar());
@@ -37,7 +37,7 @@ public class CellCorstructor {
         return tc;
     }
 
-    private P createPar(){
+    private P createPar() {
         P paragraph = factory.createP();
         Text text = factory.createText();
         text.setValue(content);
@@ -49,18 +49,18 @@ public class CellCorstructor {
     }
 
 
-    private void setBackground(){
+    private void setBackground() {
         CTShd shd = factory.createCTShd();
         shd.setVal(org.docx4j.wml.STShd.CLEAR);
         shd.setColor("auto");
         shd.setFill(background);
         shd.setThemeFill(org.docx4j.wml.STThemeColor.ACCENT_1);
-        shd.setThemeFillTint( "66");
+        shd.setThemeFillTint("66");
         tcPr.setShd(shd);
     }
 
 
-    private void setCellWidth(){
+    private void setCellWidth() {
         if (width > 0) {
             TblWidth cellWidth = Context.getWmlObjectFactory().createTblWidth();
             tcPr.setTcW(cellWidth);
@@ -69,14 +69,14 @@ public class CellCorstructor {
         }
     }
 
-    private void setCellValign(){
+    private void setCellValign() {
         CTVerticalJc valign = new CTVerticalJc();
         valign.setVal(STVerticalJc.CENTER);
         tcPr.setVAlign(valign);
     }
 
 
-    private void setCellMargins(){
+    private void setCellMargins() {
         TcMar margins = new TcMar();
         TblWidth tW = new TblWidth();
         tW.setType("dxa");

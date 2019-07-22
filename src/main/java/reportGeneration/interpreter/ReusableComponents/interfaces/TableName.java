@@ -35,10 +35,10 @@ public interface TableName {
             for (TableColumn column : columns) {
                 if (column.getCellObservableValue(row) != null) {
                     Object obj = column.getCellObservableValue(row).getValue();
-                    if(obj != null){
+                    if (obj != null) {
                         if (obj.getClass() == Double.class) {
-                            rowVals.add(Double.toString((Double) obj) );
-                        } else if(obj.getClass() == String.class) {
+                            rowVals.add(Double.toString((Double) obj));
+                        } else if (obj.getClass() == String.class) {
                             rowVals.add((String) obj);
                         }
                     }

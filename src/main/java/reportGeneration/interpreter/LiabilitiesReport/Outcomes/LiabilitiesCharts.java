@@ -4,12 +4,14 @@ import javafx.collections.ObservableMap;
 import javafx.scene.chart.BarChart;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.ChartBase;
+import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
+import reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
 
-public class LiabilitiesCharts extends ChartBase {
+public class LiabilitiesCharts extends ChartBase implements TableName {
     private ObservableMap<String, Double> valuesCurrent;
     private ObservableMap<String, Double> valuesNonCurrent;
     private ObservableMap<String, Double> valuesEquity;
@@ -31,7 +33,7 @@ public class LiabilitiesCharts extends ChartBase {
     }
 
     public VBox get() {
-        BarChart<String, Number> bc = getChart(chartTitle());
+        BarChart<String, Number> bc = getChart();
         if (valuesEquity.size() > 0) bc.getData().add(
                 getSeries("Equity", valuesEquity)
         );
@@ -42,8 +44,11 @@ public class LiabilitiesCharts extends ChartBase {
                 getSeries("Current Liabilities", valuesCurrent)
         );
         VBox vBox = new VBox(20);
-        vBox.getChildren().addAll(bc);
+        String title = chartTitle();
+        vBox.getChildren().addAll(tableName(title), bc);
+        ResultsStorage.addStr(25, "h2", title);
         ResultsStorage.addBarChart(25, bc);
+
         return vBox;
     }
 

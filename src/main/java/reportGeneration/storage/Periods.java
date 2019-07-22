@@ -109,7 +109,7 @@ public class Periods implements JsCalcHelper {
 
     public String preEndKey() {
         ArrayList<String> periodArr = getPeriodArr();
-        if(periodArr.size() > 1) {
+        if (periodArr.size() > 1) {
             return periodArr.get(periodArr.size() - 2);
         }
         return null;
@@ -117,7 +117,7 @@ public class Periods implements JsCalcHelper {
 
     public String prePreEndKey() {
         ArrayList<String> periodArr = getPeriodArr();
-        if(periodArr.size() > 2){
+        if (periodArr.size() > 2) {
             return periodArr.get(periodArr.size() - 3);
         }
         return null;

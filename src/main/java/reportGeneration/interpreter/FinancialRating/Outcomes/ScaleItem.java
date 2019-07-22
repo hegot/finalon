@@ -24,15 +24,19 @@ public class ScaleItem {
     public Double getCol1() {
         return col1;
     }
+
     public Double getCol2() {
         return col2;
     }
+
     public String getCol3() {
         return col3;
     }
+
     public String getCol4() {
         return col4;
     }
+
     public String getColor() {
         return color;
     }

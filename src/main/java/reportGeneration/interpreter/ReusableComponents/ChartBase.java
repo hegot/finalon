@@ -11,13 +11,12 @@ import reportGeneration.storage.Periods;
 public class ChartBase implements JsCalcHelper {
 
 
-    protected BarChart<String, Number> getChart(String title) {
+    protected BarChart<String, Number> getChart() {
         final NumberAxis yAxis = new NumberAxis();
         final BarChart<String, Number> bc = new BarChart<String, Number>(
                 new CategoryAxis(),
                 yAxis
         );
-        bc.setTitle(title);
         yAxis.setLabel("Value");
         return bc;
     }

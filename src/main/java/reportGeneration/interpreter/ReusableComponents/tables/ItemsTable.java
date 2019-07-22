@@ -1,4 +1,4 @@
-package finalonWindows.reusableComponents.ItemsTable;
+package reportGeneration.interpreter.ReusableComponents.tables;
 
 import entities.Item;
 import globalReusables.ItemsGetter;
@@ -14,7 +14,7 @@ public class ItemsTable {
 
     protected TableView<Item> getTable(int Id) {
         TableView<Item> table = new TableView<>();
-        ItemsGetter itemsGetter = new ItemsGetter(Id, this.items);
+        ItemsGetter itemsGetter = new ItemsGetter(Id, this.items, true);
         table.getItems().addAll(itemsGetter.getItems());
         return table;
     }

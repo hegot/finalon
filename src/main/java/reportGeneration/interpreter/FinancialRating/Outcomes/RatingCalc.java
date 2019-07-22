@@ -6,14 +6,14 @@ import reportGeneration.interpreter.ReusableComponents.interfaces.RatingWeight;
 import reportGeneration.storage.ItemsStorage;
 
 public class RatingCalc implements RatingWeight {
-    private String endPeriod;
-    private String startPeriod;
-    private String type;
     private static double BAD = -1;
     private static double UNSAT = -0.5;
     private static double NEUT = 0;
     private static double GOOD = 0.5;
     private static double EXC = 1;
+    private String endPeriod;
+    private String startPeriod;
+    private String type;
     private Double formulaVal;
 
     public RatingCalc(Formula formula, String startPeriod, String endPeriod) {

@@ -9,16 +9,18 @@ import reportGeneration.interpreter.LiabilitiesReport.Outcomes.*;
 import reportGeneration.interpreter.ReusableComponents.RelativeItemsChange;
 import reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
 import reportGeneration.interpreter.ReusableComponents.tables.IndexChangeTable;
+import reportGeneration.interpreter.ReusableComponents.tables.StructureItem;
 import reportGeneration.interpreter.ReusableComponents.tables.StructureTable;
 import reportGeneration.storage.*;
 
 public class LiabilitiesReport implements TableName {
 
     private int rootId;
+    private Item root;
     private ItemsStorage stor = ItemsStorage.getInstance();
 
     public LiabilitiesReport() {
-        Item root = stor.get("EquityAndLiabilities");
+        this.root = stor.get("EquityAndLiabilities");
         this.rootId = (root != null) ? root.getId() : 0;
     }
 
@@ -65,7 +67,7 @@ public class LiabilitiesReport implements TableName {
         box.setStyle("-fx-padding: 0 0 30px 0");
         Periods p = Periods.getInstance();
 
-        TableView<Item> tbl = new StructureTable(rootId).get();
+        TableView<StructureItem> tbl = new StructureTable(root).get();
         TwoDList items = getTableViewValues(tbl);
         ResultsStorage.addTable(27, items);
 

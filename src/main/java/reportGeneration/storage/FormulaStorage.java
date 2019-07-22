@@ -34,7 +34,7 @@ public class FormulaStorage {
     public ObservableList<Formula> getItems(int id) {
         ObservableList<Formula> Formulas = FXCollections.observableArrayList();
         for (Formula item : formulas) {
-            if (item.getParent() == id) {
+            if (item.getParent() == id && item.getPeriods().size() > 0) {
                 Formulas.add(item);
             }
         }

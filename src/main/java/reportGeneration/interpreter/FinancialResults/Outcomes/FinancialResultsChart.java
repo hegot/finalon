@@ -13,7 +13,7 @@ import reportGeneration.storage.ResultsStorage;
 
 import java.util.ArrayList;
 
-public class FinancialResultsChart extends ChartBase implements GetVal, Round, LabelWrap, JsCalcHelper, ParseDouble {
+public class FinancialResultsChart extends ChartBase implements GetVal, Round, LabelWrap, JsCalcHelper, ParseDouble, TableName{
     private ObservableMap<String, Double> valuesEBIT;
     private ObservableMap<String, Double> valuesRevenueGeneral;
     private ObservableMap<String, Double> valuesGrossProfit;
@@ -66,16 +66,18 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
     }
 
     public VBox get() {
-        BarChart<String, Number> bc = getChart(chartTitle());
+        BarChart<String, Number> bc = getChart();
         bc.getData().addAll(
                 getSeries("Net Sales", valuesRevenueGeneral),
                 getSeries("EBIT", valuesEBIT),
                 getSeries("Gross Profit", valuesGrossProfit),
                 getSeries("Comprehensive Income", valuesComprehensiveIncome)
         );
+        String title = chartTitle();
+        ResultsStorage.addStr(66, "h2", title);
         ResultsStorage.addBarChart(66, bc);
         VBox vBox = new VBox(20);
-        vBox.getChildren().add(bc);
+        vBox.getChildren().addAll(tableName(title), bc);
         if (periodsArr.size() > 1) {
             getGrossProfitEvaluation(vBox);
             getEbitEvaluation(vBox);

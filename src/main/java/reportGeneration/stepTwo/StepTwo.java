@@ -3,7 +3,7 @@ package reportGeneration.stepTwo;
 import database.template.DbItemHandler;
 import defaultData.DefaultTemplate;
 import entities.Item;
-import finalonWindows.reusableComponents.ItemsTable.ItemsTable;
+import globalReusables.ItemsGetter;
 import globalReusables.SheetsGetter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,11 +17,10 @@ import reportGeneration.storage.SettingsStorage;
 
 import java.util.ArrayList;
 
-public class StepTwo extends ItemsTable {
+public class StepTwo {
     private ObservableList<Item> items;
 
     public StepTwo() {
-        super(ItemsStorage.getItems());
         Periods.getInstance();
         this.items = ItemsStorage.getItems();
         ResultsStorage.getInstance();
@@ -81,5 +80,14 @@ public class StepTwo extends ItemsTable {
         }
         return table;
     }
+
+    private TableView<Item> getTable(int Id) {
+        TableView<Item> table = new TableView<>();
+        ItemsGetter itemsGetter = new ItemsGetter(Id, this.items);
+        ObservableList<Item> items = itemsGetter.getItems();
+        table.getItems().addAll(items);
+        return table;
+    }
+
 }
 

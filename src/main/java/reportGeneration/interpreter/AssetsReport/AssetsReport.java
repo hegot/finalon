@@ -9,18 +9,20 @@ import reportGeneration.interpreter.AssetsReport.Outcomes.*;
 import reportGeneration.interpreter.ReusableComponents.RelativeItemsChange;
 import reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
 import reportGeneration.interpreter.ReusableComponents.tables.IndexChangeTable;
+import reportGeneration.interpreter.ReusableComponents.tables.StructureItem;
 import reportGeneration.interpreter.ReusableComponents.tables.StructureTable;
 import reportGeneration.storage.*;
 
 public class AssetsReport implements TableName {
 
+    private Item root;
     private int rootId;
     private ItemsStorage stor = ItemsStorage.getInstance();
     private Item NonCurrentAssets;
     private Item GeneralCurrentAssets;
 
     public AssetsReport() {
-        Item root = stor.get("AssetsGeneral");
+        this.root = stor.get("AssetsGeneral");
         this.rootId = (root != null) ? root.getId() : 0;
         this.NonCurrentAssets = stor.get("NonCurrentAssets");
         this.GeneralCurrentAssets = stor.get("GeneralCurrentAssets");
@@ -60,13 +62,13 @@ public class AssetsReport implements TableName {
     }
 
     public VBox getStructure() {
-        String tblName = "Table 3. Assets Structure Analysis";
+        String tblName = "Table 3. Assets Structure Analysis %";
         Label tableName = tableName(tblName);
         ResultsStorage.addStr(11, "tableName", tblName);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
         Periods p = Periods.getInstance();
-        TableView<Item> tbl = new StructureTable(rootId).get();
+        TableView<StructureItem> tbl = new StructureTable(root).get();
         TwoDList items = getTableViewValues(tbl);
         ResultsStorage.addTable(12, items);
         box.getChildren().addAll(

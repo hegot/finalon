@@ -72,7 +72,7 @@ public class TblConstructor {
         return tbl;
     }
 
-    private void addRow(Tbl tbl, int rowId, String background, String color){
+    private void addRow(Tbl tbl, int rowId, String background, String color) {
         Tr tr = Context.getWmlObjectFactory().createTr();
         tbl.getEGContentRowContent().add(tr);
         for (int i = 1; i <= cols; i++) {
