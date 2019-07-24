@@ -21,7 +21,7 @@ class NormativeValues {
 
     NormativeValues(Formula parent) {
         this.parent = parent;
-        tab = new Tab("Normative values");
+        this.tab = new Tab("Normative values");
         this.scrollPane = new ScrollPane();
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         tab.setContent(normativeValues());
@@ -117,7 +117,6 @@ class NormativeValues {
 
 
     private TextField conclusions(Formula item) {
-
         TextField conclusions = new TextField();
         conclusions.setMaxWidth(550.00);
         conclusions.setText(item.getDescription());

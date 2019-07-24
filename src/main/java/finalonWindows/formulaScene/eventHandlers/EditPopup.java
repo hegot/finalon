@@ -21,6 +21,7 @@ public class EditPopup {
     private String type;
     private EditFormula editFormula;
     private NormativeValues normativeValues;
+    private PrefixSuffix prefixSuffix;
 
     public EditPopup(TreeItem treeItem, String type) {
         this.type = type;
@@ -34,6 +35,7 @@ public class EditPopup {
             formula.setChilds(getChilds());
         }
         this.normativeValues = new NormativeValues(formula);
+        this.prefixSuffix = new PrefixSuffix(formula);
     }
 
     private ObservableList<Formula> getChilds() {
@@ -58,7 +60,11 @@ public class EditPopup {
         } else {
             dialog.setTitle("Edit Formula");
             TabPane tabpane = new TabPane();
-            tabpane.getTabs().addAll(editFormula.getTab(), normativeValues.getNormativeValues());
+            tabpane.getTabs().addAll(
+                    editFormula.getTab(),
+                    normativeValues.getNormativeValues(),
+                    prefixSuffix.getPrefixSuffix()
+            );
             dialog.getDialogPane().setContent(tabpane);
         }
 
@@ -82,6 +88,7 @@ public class EditPopup {
                     treeItem.setValue(formula);
                     Formula formulaWithNormative = normativeValues.getFormulaUpdated();
                     ObservableList<Formula> childs = formulaWithNormative.getChilds();
+                    childs.addAll(prefixSuffix.getVals());
                     formula.setChilds(childs);
                     EditStorage.addItem(formula.getId(), formula);
                     dialog.close();
