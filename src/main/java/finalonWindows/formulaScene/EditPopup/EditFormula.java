@@ -1,4 +1,4 @@
-package finalonWindows.formulaScene.eventHandlers;
+package finalonWindows.formulaScene.EditPopup;
 
 import entities.Formula;
 import finalonWindows.reusableComponents.autocomplete.AutoCompleteTextArea;
@@ -17,7 +17,7 @@ import java.util.TreeSet;
 class EditFormula {
 
     private Formula formula;
-    private Row[] arr;
+    private EditRow[] arr;
     private GridPane grid;
     private AutoCompleteTextArea textArea;
 
@@ -39,7 +39,7 @@ class EditFormula {
 
     private void populateGrid() {
         for (int j = 0; j < arr.length; j++) {
-            Row row = arr[j];
+            EditRow row = arr[j];
             grid.add(new Label(row.label), 0, j);
             TextField textfield = new TextField();
             textfield.setMinWidth(350);
@@ -93,40 +93,26 @@ class EditFormula {
     }
 
 
-    Row[] getTextfields() {
+    EditRow[] getTextfields() {
         return arr;
     }
 
-    private Row[] getEditArr() {
+    private EditRow[] getEditArr() {
 
         if (formula.getCategory().equals("industry")) {
-            Row arr[] = new Row[1];
-            arr[0] = new Row("name", "Industry Name:", formula.getName(), null);
+            EditRow arr[] = new EditRow[1];
+            arr[0] = new EditRow("name", "Industry Name:", formula.getName(), null);
             return arr;
         } else {
-            Row arr[] = new Row[3];
-            arr[0] = new Row("name", "Name:", formula.getName(), null);
-            arr[1] = new Row("shortName", "Code:", formula.getShortName(), null);
-            arr[2] = new Row("unit", "Unit:", formula.getUnit(), null);
+            EditRow arr[] = new EditRow[3];
+            arr[0] = new EditRow("name", "Name:", formula.getName(), null);
+            arr[1] = new EditRow("shortName", "Code:", formula.getShortName(), null);
+            arr[2] = new EditRow("unit", "Unit:", formula.getUnit(), null);
             return arr;
         }
     }
 
     AutoCompleteTextArea getTextArea() {
         return textArea;
-    }
-}
-
-class Row {
-    String key;
-    String label;
-    String value;
-    TextField textfield;
-
-    Row(String key, String label, String value, TextField textfield) {
-        this.key = key;
-        this.label = label;
-        this.value = value;
-        this.textfield = textfield;
     }
 }

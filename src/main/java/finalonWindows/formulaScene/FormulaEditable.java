@@ -2,8 +2,7 @@ package finalonWindows.formulaScene;
 
 import database.formula.DbFormulaHandler;
 import entities.Formula;
-import finalonWindows.formulaScene.eventHandlers.EditHandler;
-import finalonWindows.formulaScene.eventHandlers.EditPopup;
+import finalonWindows.formulaScene.EditPopup.EditPopup;
 import javafx.collections.ObservableList;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.TreeItem;

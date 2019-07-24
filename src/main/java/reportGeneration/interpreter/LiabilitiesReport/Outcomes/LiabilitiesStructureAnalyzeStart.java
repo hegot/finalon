@@ -69,7 +69,7 @@ public class LiabilitiesStructureAnalyzeStart implements SrtuctureItemsLoop, Lab
         if (nonCurrentVal != null && nonCurrentVal > 0) {
             str = loopItems(nonCurrentItems,
                     nonCurrentVal,
-                    "Noncurrent liabilities included: ",
+                    "Non-current liabilities included: ",
                     " etc.",
                     period);
         }

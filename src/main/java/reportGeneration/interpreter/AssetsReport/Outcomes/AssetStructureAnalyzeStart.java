@@ -53,8 +53,8 @@ public class AssetStructureAnalyzeStart implements SrtuctureItemsLoop, LabelWrap
         if (nonCurrentVal != null && nonCurrentVal > 0) {
             str = loopItems(nonCurrentItems,
                     nonCurrentVal,
-                    "The following noncurrent assets had the highest values: ",
-                    " while the other items did not play a significant role.",
+                    "The following non-current assets had the highest values: ",
+                    " while the other items did not play a significant role. ",
                     period);
         }
         vBox.getChildren().add(labelWrap(str));
@@ -68,7 +68,7 @@ public class AssetStructureAnalyzeStart implements SrtuctureItemsLoop, LabelWrap
             str = str + partStr(nonCurrentVal, totalVal) + " non-current assets";
         }
         if (currentVal != null) {
-            str = str + " and " + partStr(currentVal, totalVal) + " of current assets.";
+            str = str + " and " + partStr(currentVal, totalVal) + " of current assets. ";
         }
         ResultsStorage.addStr(13, "text", str);
         return labelWrap(str);

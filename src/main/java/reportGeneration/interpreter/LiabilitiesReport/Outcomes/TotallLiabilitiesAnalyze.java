@@ -74,7 +74,7 @@ public class TotallLiabilitiesAnalyze implements LabelWrap, ParseDouble, JsCalcH
                 + last + " " + settings.get("amount") + " in "
                 + endDate + ", " +
                 getRelativeChange(first, last) + "% " + suffix() + " than in " +
-                endDate + ".";
+                endDate + ". ";
     }
 
     private String increase() {
@@ -83,7 +83,7 @@ public class TotallLiabilitiesAnalyze implements LabelWrap, ParseDouble, JsCalcH
                 ", which indicates that the company's assets would worth more " +
                 "after all claims upon those assets were paid. This means that " +
                 settings.get("company") +
-                " was expanding.";
+                " was expanding. ";
     }
 
     private String decrease() {
@@ -92,7 +92,7 @@ public class TotallLiabilitiesAnalyze implements LabelWrap, ParseDouble, JsCalcH
                 ", which indicates that the company's assets would worth less " +
                 "after all claims upon those assets were paid. This means that " +
                 settings.get("company") +
-                " was degrading.";
+                " was degrading. ";
     }
 
     private String equal() {
@@ -102,7 +102,7 @@ public class TotallLiabilitiesAnalyze implements LabelWrap, ParseDouble, JsCalcH
     }
 
     private String bankrupt() {
-        return "The stockholders' equity value equals zero or less, meaning that the company may go bankrupt.";
+        return "The stockholders' equity value equals zero or less, meaning that the company may go bankrupt. ";
     }
 
 }

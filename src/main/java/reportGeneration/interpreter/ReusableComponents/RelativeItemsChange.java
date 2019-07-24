@@ -70,6 +70,6 @@ public class RelativeItemsChange implements LabelWrap, JsCalcHelper {
     private String message() {
         return "The change of the " + parent.getName() + " value in " +
                 startDate + "-" + endDate + " was connected with a " +
-                riseOrFall() + " change of the following " + text + ":";
+                riseOrFall() + " change of the following " + text + ": \n";
     }
 }

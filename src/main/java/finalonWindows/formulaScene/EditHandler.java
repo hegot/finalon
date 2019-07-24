@@ -1,9 +1,10 @@
-package finalonWindows.formulaScene.eventHandlers;
+package finalonWindows.formulaScene;
 
 import database.formula.DbFormulaHandler;
 import entities.Formula;
 import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
+import finalonWindows.formulaScene.EditPopup.EditPopup;
 import finalonWindows.formulaScene.EditStorage;
 import finalonWindows.reusableComponents.ImageButton;
 import javafx.event.ActionEvent;

@@ -1,4 +1,4 @@
-package finalonWindows.formulaScene.eventHandlers;
+package finalonWindows.formulaScene.EditPopup;
 
 import database.formula.DbFormulaHandler;
 import entities.Formula;
@@ -22,13 +22,12 @@ public class EditPopup {
     private EditFormula editFormula;
     private NormativeValues normativeValues;
     private PrefixSuffix prefixSuffix;
+    private PeriodsComparison periodsComparison;
 
     public EditPopup(TreeItem treeItem, String type) {
         this.type = type;
         this.treeItem = treeItem;
         this.formula = (Formula) treeItem.getValue();
-
-
         this.editFormula = new EditFormula(formula);
         Formula formulaExtended = EditStorage.find(formula.getId());
         if (formulaExtended == null) {
@@ -36,6 +35,7 @@ public class EditPopup {
         }
         this.normativeValues = new NormativeValues(formula);
         this.prefixSuffix = new PrefixSuffix(formula);
+        this.periodsComparison = new PeriodsComparison(formula);
     }
 
     private ObservableList<Formula> getChilds() {
@@ -63,7 +63,8 @@ public class EditPopup {
             tabpane.getTabs().addAll(
                     editFormula.getTab(),
                     normativeValues.getNormativeValues(),
-                    prefixSuffix.getPrefixSuffix()
+                    prefixSuffix.getPrefixSuffix(),
+                    periodsComparison.getPeriodsComparison()
             );
             dialog.getDialogPane().setContent(tabpane);
         }
@@ -89,6 +90,7 @@ public class EditPopup {
                     Formula formulaWithNormative = normativeValues.getFormulaUpdated();
                     ObservableList<Formula> childs = formulaWithNormative.getChilds();
                     childs.addAll(prefixSuffix.getVals());
+                    childs.addAll(periodsComparison.getVals());
                     formula.setChilds(childs);
                     EditStorage.addItem(formula.getId(), formula);
                     dialog.close();
@@ -113,9 +115,9 @@ public class EditPopup {
 
 
     private void updateFormula() {
-        Row[] arr = editFormula.getTextfields();
+        EditRow[] arr = editFormula.getTextfields();
 
-        for (Row row : arr) {
+        for (EditRow row : arr) {
             String key = row.key;
             TextField textfieldget = row.textfield;
             String value = textfieldget.getText();

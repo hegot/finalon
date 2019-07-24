@@ -1,4 +1,4 @@
-package finalonWindows.formulaScene.eventHandlers;
+package finalonWindows.formulaScene.EditPopup;
 
 import defaultData.EvaluationTypes;
 import entities.Formula;
