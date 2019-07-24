@@ -23,27 +23,27 @@ public class NetAssets {
                 EvaluationTypes.EVALUATE_END.toString(),
                 "=",
                 "0.0",
-                " The net worth equals zero at the end of evaluation period, meaning that the company may go bankrupt. ",
+                "The net assets worth equals zero at the end of evaluation period, meaning that the company may go bankrupt. ",
                 "",
                 "",
                 NetAssets));
         counter++;
         int NetAssetslasPreLast1 = counter;
         Formulas.add(new Formula(NetAssetslasPreLast1,
-                EvaluationTypes.SUBSTITUTE_COMPARATOR.toString(),
-                "LASTVALUE",
-                "PRELASTVALUE",
-                "The net value of the enterprise's assets was CURRENCY LASTVALUE AMOUNT at the end of ENDDATE, about CURRENCY LASTVALUECHANGE AMOUNT more than declared at the end of PREENDDATE ",
+                EvaluationTypes.EVALUATE_END.toString(),
+                ">",
+                "0.0",
+                "The net assets worth equals LASTVALUE at the end of evaluation period, meaning that the company has less risk go bankrupt. ",
                 ">",
                 "",
                 NetAssets));
         counter++;
         int NetAssetslasPreLast2 = counter;
         Formulas.add(new Formula(NetAssetslasPreLast2,
-                EvaluationTypes.SUBSTITUTE_COMPARATOR.toString(),
-                "LASTVALUE",
-                "PRELASTVALUE",
-                "The net value of the enterprise's assets was CURRENCY LASTVALUE AMOUNT at the end of ENDDATE, about CURRENCY LASTVALUECHANGE AMOUNT less than declared at the end of PREENDDATE ",
+                EvaluationTypes.EVALUATE_END.toString(),
+                "<",
+                "0.0",
+                "The net assets worth equals LASTVALUE at the end of evaluation period, meaning that the company may go bankrupt. ",
                 "<",
                 "",
                 NetAssets));

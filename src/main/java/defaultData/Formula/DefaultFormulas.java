@@ -90,7 +90,7 @@ public class DefaultFormulas {
         Formulas.addAll(DebttoTangibleNetWorthRatio.get(FSiD, counter));
         counter = counter + 8;
         Formulas.addAll(LongTermDebttoEquity.get(FSiD, counter));
-        counter = counter + 5;
+        counter = counter + 4;
         //Liquidity
         Formulas.addAll(CurrentRatio.get(LiD, counter));
         counter = counter + 8;
@@ -109,10 +109,10 @@ public class DefaultFormulas {
         Formulas.addAll(OperatingIncomeMargin.get(PaPiD, counter));
         counter = counter + 3;
         Formulas.addAll(GrossProfitMargin.get(PaPiD, counter));
-        counter = counter + 7;
+        counter = counter + 6;
         Formulas.addAll(ReturnOnAssets.get(PaPiD, counter));
         counter = counter + 5;
-        Formulas.addAll(ReturnOnCurrentAssets.get(PaPiD, counter));
+        Formulas.addAll(ReturnOnNonCurrentAssets.get(PaPiD, counter));
         counter = counter + 4;
         Formulas.addAll(ReturnonOperatingAssets.get(PaPiD, counter));
         counter = counter + 4;
@@ -134,7 +134,7 @@ public class DefaultFormulas {
         Formulas.addAll(CurrentAssetTurnover.get(TiD, counter));
         counter = counter + 3;
         Formulas.addAll(WorkingCapitalTurnover.get(TiD, counter));
-        counter = counter + 4;
+        counter = counter + 3;
         Formulas.addAll(AccountsReceivableTurnover.get(TiD, counter));
         counter = counter + 4;
         Formulas.addAll(AverageCollectionPeriod.get(TiD, counter));
@@ -148,7 +148,7 @@ public class DefaultFormulas {
         Formulas.addAll(InventoryTurnoverinDays.get(TiD, counter));
         counter = counter + 5;
         Formulas.addAll(CashTurnover.get(TiD, counter));
-        counter = counter + 4;
+        counter = counter + 3;
         Formulas.addAll(OperatingCycle.get(TiD, counter));
         counter = counter + 4;
         Formulas.addAll(CashConversionCycle.get(TiD, counter));

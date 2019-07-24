@@ -198,7 +198,7 @@ public class Formula {
 
     public Double getVal(String period) {
         Double val = null;
-        if (periods.size() > 0) {
+        if (periods.size() > 0 && period != null) {
             val = periods.get(period);
         }
         return val;

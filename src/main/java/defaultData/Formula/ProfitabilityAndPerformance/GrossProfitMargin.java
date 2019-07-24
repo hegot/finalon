@@ -28,22 +28,12 @@ public class GrossProfitMargin {
                 "",
                 GrossProfitMargin));
         counter++;
-        int GrossProfitMarginNull = counter;
-        Formulas.add(new Formula(GrossProfitMarginNull,
-                EvaluationTypes.EVALUATE_END.toString(),
-                "<",
-                "0",
-                "Gross profit margin was negatively affected by the high cost of goods sold. COMPANYNAME earned $0 of gross profit in ENDDATE.",
-                "",
-                "",
-                GrossProfitMargin));
-        counter++;
         int GrossProfitMarginBad = counter;
         Formulas.add(new Formula(GrossProfitMarginBad,
                 EvaluationTypes.EVALUATE_END.toString(),
                 "=",
                 "0",
-                "Gross profit margin was negatively affected by the high cost of goods sold. ",
+                "Gross profit margin was negatively affected by the high cost of goods sold. COMPANYNAME earned $0 of gross profit in ENDDATE.",
                 "",
                 "",
                 GrossProfitMargin));
@@ -77,7 +67,6 @@ public class GrossProfitMargin {
                 "",
                 "",
                 GrossProfitMargin));
-        counter++;
         return Formulas;
     }
 }

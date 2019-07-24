@@ -31,11 +31,11 @@ public class DebtRatio {
         int DebtRatiogood = counter;
         Formulas.add(new Formula(DebtRatiogood,
                 EvaluationTypes.EVALUATE_END.toString(),
-                "<",
-                "0.4",
-                "The debt ratio lies in the area of critical values (from 0.4 to 0.6) at the end of the period, meaning that there was an acceptable financial and credit risk. ",
                 "<=",
                 "0.6",
+                "The debt ratio lies in the area of critical values (from 0.4 to 0.6) at the end of the period, meaning that there was an acceptable financial and credit risk. ",
+                ">",
+                "0.4",
                 DebtRatio));
         counter++;
         int DebtRatiobad = counter;

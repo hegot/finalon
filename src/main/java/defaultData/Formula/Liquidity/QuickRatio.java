@@ -35,7 +35,7 @@ public class QuickRatio {
                 "<",
                 "1",
                 "The company's quick liquidity was unsatisfactory at the end of the period. ",
-                "<=",
+                ">=",
                 "0",
                 QuickRatio));
         counter++;

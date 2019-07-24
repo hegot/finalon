@@ -41,13 +41,8 @@ public class FormulaEvaluation implements LabelWrap, AttachChilds {
             ReturnonEquityafterTaxHook returnonEquityafterTax = new ReturnonEquityafterTaxHook(formula);
             output.append(returnonEquityafterTax.getResult());
         }
-        output.append(evaluator.multivariate());
-        output.append(evaluator.endOnly());
         output.append(evaluator.startAndEnd());
-        output.append(evaluator.evaluateEach());
         output.append(evaluator.periodsComparison());
-        output.append(evaluator.eachPeriodTrue());
-        output.append(evaluator.endEvaluation());
         output.append(evaluator.suffix());
         return output.toString();
     }

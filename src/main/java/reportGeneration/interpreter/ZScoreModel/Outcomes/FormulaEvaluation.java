@@ -41,14 +41,8 @@ public class FormulaEvaluation implements LabelWrap, AttachChilds {
             ZIndexHook ZIndexHook = new ZIndexHook(formula);
             output.append(ZIndexHook.getResult());
         }
-        output.append(evaluator.multivariate());
-        output.append(evaluator.startOnly());
-        output.append(evaluator.endOnly());
-        output.append(evaluator.evaluateEach());
         output.append(evaluator.startAndEnd());
         output.append(evaluator.periodsComparison());
-        output.append(evaluator.eachPeriodTrue());
-        output.append(evaluator.endEvaluation());
         output.append(evaluator.suffix());
 
         return output.toString();

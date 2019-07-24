@@ -20,30 +20,30 @@ public class TheLongTermDebttoTotalCapitalizationRatio {
         counter++;
         int TheLongTermDebttoTotalCapitalizationRatioexcellent = counter;
         Formulas.add(new Formula(TheLongTermDebttoTotalCapitalizationRatioexcellent,
-                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">=",
                 "0.6",
-                "CURRENTVALUE in CURRENTPERIOD (unsatisfactory - more than 0.6), ",
+                "LASTVALUE in ENDDATE (unsatisfactory - more than 0.6), ",
                 "",
                 "",
                 TheLongTermDebttoTotalCapitalizationRatio));
         counter++;
         int TheLongTermDebttoTotalCapitalizationRatiosatisfactory = counter;
         Formulas.add(new Formula(TheLongTermDebttoTotalCapitalizationRatiosatisfactory,
-                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
-                "<=",
+                EvaluationTypes.EVALUATE_END.toString(),
+                ">=",
                 "0.4",
-                "CURRENTVALUE in CURRENTPERIOD (satisfactory - more than 0.4 and less than 0.6), ",
+                "LASTVALUE in ENDDATE (satisfactory - more than 0.4 and less than 0.6), ",
                 "<",
                 "0.6",
                 TheLongTermDebttoTotalCapitalizationRatio));
         counter++;
         int TheLongTermDebttoTotalCapitalizationRatiobad = counter;
         Formulas.add(new Formula(TheLongTermDebttoTotalCapitalizationRatiobad,
-                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
+                EvaluationTypes.EVALUATE_END.toString(),
                 "<",
                 "0.4",
-                "CURRENTVALUE in CURRENTPERIOD (excellent - less than 0.4), ",
+                "LASTVALUE in ENDDATE (excellent - less than 0.4), ",
                 "",
                 "",
                 TheLongTermDebttoTotalCapitalizationRatio));

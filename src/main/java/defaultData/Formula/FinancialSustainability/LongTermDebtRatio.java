@@ -31,7 +31,7 @@ public class LongTermDebtRatio {
         int LongTermDebtRatiosatisfactory = counter;
         Formulas.add(new Formula(LongTermDebtRatiosatisfactory,
                 EvaluationTypes.EVALUATE_END.toString(),
-                "<=",
+                ">=",
                 "0.1",
                 "Company had satisfactory Long-Term Debt Ratio (between 0.1 and 0.2). LASTVALUEPERCENT% of the sources of finance were a long-term debt at the end of ENDDATE. ",
                 "<",

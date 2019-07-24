@@ -20,7 +20,7 @@ public class CashConversionCycle {
         counter++;
         int CashConversionCycleStart1 = counter;
         Formulas.add(new Formula(CashConversionCycleStart1,
-                EvaluationTypes.EVALUATE_START.toString(),
+                EvaluationTypes.EVALUATE_PRE_END.toString(),
                 ">",
                 "0",
                 "According to the data it can be seen that the cash conversion cycle was CURRENTVALUE in CURRENTPERIOD. ",
@@ -30,7 +30,7 @@ public class CashConversionCycle {
         counter++;
         int CashConversionCycleStart2 = counter;
         Formulas.add(new Formula(CashConversionCycleStart2,
-                EvaluationTypes.EVALUATE_START.toString(),
+                EvaluationTypes.EVALUATE_PRE_END.toString(),
                 "<=",
                 "0",
                 "According to the data it can be seen that the cash conversion cycle was CURRENTVALUE in CURRENTPERIOD. " +
@@ -45,8 +45,8 @@ public class CashConversionCycle {
                 EvaluationTypes.EVALUATE_END.toString(),
                 ">",
                 "0",
-                "Positive Cash conversion cycle (CURRENTVALUE) " +
-                        "in CURRENTPERIOD demonstrates good ability paying off debt to suppliers. ",
+                "Positive Cash conversion cycle (LASTVALUE) " +
+                        "in ENDDATE demonstrates good ability paying off debt to suppliers. ",
                 "",
                 "",
                 CashConversionCycle));
@@ -56,8 +56,8 @@ public class CashConversionCycle {
                 EvaluationTypes.EVALUATE_END.toString(),
                 "<=",
                 "0",
-                "Negative Cash conversion cycle (CURRENTVALUE) " +
-                        "in CURRENTPERIOD demonstrates poor ability paying off debt to suppliers. ",
+                "Negative Cash conversion cycle (LASTVALUE) " +
+                        "in ENDDATE demonstrates poor ability paying off debt to suppliers. ",
                 "",
                 "",
                 CashConversionCycle));

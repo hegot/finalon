@@ -31,33 +31,6 @@ public class FormulaEvaluateBase {
         return generalRenderer.get(EvaluationTypes.SUFFIX);
     }
 
-    public String multivariate() {
-        if (type.equals(EvaluationTypes.EACH_PERIOD_MULTIVARIATE.toString())) {
-            EachPeriodMultivariate multivariate = new EachPeriodMultivariate(formula);
-            return multivariate.getResult();
-        }
-        return "";
-    }
-
-
-    public String endOnly() {
-        NormValsEvaluator eval = new NormValsEvaluator(
-                formula,
-                end,
-                EvaluationTypes.EVALUATE_END
-        );
-        return eval.getResult();
-    }
-
-    public String startOnly() {
-        NormValsEvaluator eval = new NormValsEvaluator(
-                formula,
-                end,
-                EvaluationTypes.EVALUATE_START
-        );
-        return eval.getResult();
-    }
-
     public String startAndEnd() {
 
         StringBuilder output = new StringBuilder();
@@ -65,7 +38,7 @@ public class FormulaEvaluateBase {
         NormValsEvaluator eval1 = new NormValsEvaluator(
                 formula,
                 formula.getFormulaStart(),
-                EvaluationTypes.EVALUATE_START
+                EvaluationTypes.EVALUATE_PRE_END
         );
         output.append(eval1.getResult());
 
@@ -80,37 +53,10 @@ public class FormulaEvaluateBase {
 
     }
 
-    public String evaluateEach() {
-        StringBuilder output = new StringBuilder();
-        for (String period : periodsarr) {
-            NormValsEvaluator eval = new NormValsEvaluator(
-                    formula,
-                    period,
-                    EvaluationTypes.EVALUATE_EACH_PERIOD
-            );
-            output.append(eval.getResult());
-        }
-        return output.toString();
-    }
-
     public String periodsComparison() {
         PeriodComparisonEvaluator periodsComparison = new PeriodComparisonEvaluator(formula);
         return periodsComparison.getResult();
     }
 
-    public String eachPeriodTrue() {
-        EachPeriodTrue eachPeriodTrue = new EachPeriodTrue(formula);
-        return eachPeriodTrue.getResult();
-    }
-
-    public String endEvaluation() {
-        AdditionalEndEvaluation additionalEndEvaluation = new AdditionalEndEvaluation(formula, end);
-        return additionalEndEvaluation.getResult();
-    }
-
-    public String substituteEvaluator() {
-        SubstituteComparator substituteComparator = new SubstituteComparator(formula);
-        return substituteComparator.getResult();
-    }
 
 }

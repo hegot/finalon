@@ -36,12 +36,8 @@ public class FormulaEvaluation implements LabelWrap, AttachChilds {
         StringBuilder output = new StringBuilder();
         FormulaEvaluateBase evaluator = new FormulaEvaluateBase(formula);
         output.append(evaluator.prefix());
-        output.append(evaluator.multivariate());
-        output.append(evaluator.endOnly());
-        output.append(evaluator.evaluateEach());
+        output.append(evaluator.startAndEnd());
         output.append(evaluator.periodsComparison());
-        output.append(evaluator.eachPeriodTrue());
-        output.append(evaluator.endEvaluation());
         output.append(evaluator.suffix());
         return output.toString();
     }

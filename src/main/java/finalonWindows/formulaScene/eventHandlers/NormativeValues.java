@@ -40,16 +40,20 @@ class NormativeValues {
         VBox vBoxOuter = new VBox(15);
         VBox vBox = new VBox(15);
         vBox.setPadding(new Insets(10, 2, 10, 2));
-        vBox.setPrefWidth(450.00);
+        vBox.setPrefWidth(550.00);
+
         for (Formula item : parent.getChilds()) {
             if (filter(item.getName())) {
                 HBox hbox = new HBox(10);
                 VBox vBoxIn = new VBox(3);
                 vBoxIn.getStyleClass().add("normative-container");
+                Label label = new Label("Value Is");
+                Label label2 = new Label("And");
                 hbox.getChildren().addAll(
-                        value(item),
+                        label,
                         comparator(item),
-                        name(item),
+                        value(item),
+                        label2,
                         comparator2(item),
                         value2(item),
                         removeButton(item.getId())
@@ -65,11 +69,9 @@ class NormativeValues {
 
     private Boolean filter(String name) {
         if (!name.equals(EvaluationTypes.PREFIX.toString()) &&
-                !name.equals(EvaluationTypes.ADDITIONAL_END_EVALUATION.toString()) &&
                 !name.equals(EvaluationTypes.SUFFIX.toString()) &&
                 !name.equals(EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString()) &&
                 !name.equals(EvaluationTypes.PERIOD_COMPARISON_NOCHANGE.toString()) &&
-                !name.equals(EvaluationTypes.SUBSTITUTE_COMPARATOR.toString()) &&
                 !name.equals(EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString())) {
             return true;
         }
@@ -117,7 +119,7 @@ class NormativeValues {
     private TextField conclusions(Formula item) {
 
         TextField conclusions = new TextField();
-        conclusions.setMaxWidth(400.00);
+        conclusions.setMaxWidth(550.00);
         conclusions.setText(item.getDescription());
         conclusions.setPromptText("Customize conclusions for this indicator range");
         conclusions.focusedProperty().addListener((obs, oldVal, newVal) -> {
@@ -152,15 +154,6 @@ class NormativeValues {
             item.setShortName(text);
         });
         return comparator;
-    }
-
-    private ComboBox name(Formula item) {
-        ComboBox name = choicebox(nameOp(), item.getName());
-        name.setOnAction((e) -> {
-            String text = (String) name.getSelectionModel().getSelectedItem();
-            item.setName(text);
-        });
-        return name;
     }
 
     private ComboBox comparator2(Formula item) {
@@ -198,19 +191,6 @@ class NormativeValues {
                 "<="
         );
     }
-
-    private ObservableList<String> nameOp() {
-        return FXCollections.observableArrayList(
-                " ",
-                "excellent",
-                "good",
-                "satisfactory",
-                "unsatisfactory",
-                "bad"
-        );
-    }
-
-
 }
 
 

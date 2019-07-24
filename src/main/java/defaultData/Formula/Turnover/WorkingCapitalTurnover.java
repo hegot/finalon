@@ -20,34 +20,23 @@ public class WorkingCapitalTurnover {
         counter++;
         int WorkingCapitalTurnovergood = counter;
         Formulas.add(new Formula(WorkingCapitalTurnovergood,
-                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">",
                 "5",
-                "good (more than 0.6) CURRENTVALUE in CURRENTPERIOD, ",
+                "It can be seen that the working capital turnover provided LASTVALUE in ENDDATE (good - more than 0.6). ",
                 "",
                 "",
                 WorkingCapitalTurnover));
         counter++;
         int WorkingCapitalTurnoversatisfactory = counter;
         Formulas.add(new Formula(WorkingCapitalTurnoversatisfactory,
-                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
+                EvaluationTypes.EVALUATE_END.toString(),
                 "<=",
                 "5",
-                "CURRENTVALUE in CURRENTPERIOD (unsatisfactory <= 5), ",
+                "It can be seen that the working capital turnover was LASTVALUE in ENDDATE (unsatisfactory <= 5), ",
                 "",
                 "",
                 WorkingCapitalTurnover));
-        counter++;
-        int WorkingCapitalTurnoverPrefix = counter;
-        Formulas.add(new Formula(WorkingCapitalTurnoverPrefix,
-                EvaluationTypes.PREFIX.toString(),
-                "",
-                "",
-                "It can be seen that the working capital turnover was ",
-                "",
-                "",
-                WorkingCapitalTurnover));
-        counter++;
         return Formulas;
     }
 }

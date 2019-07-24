@@ -63,7 +63,7 @@ public class ReturnonEquityafterTax {
                         "It shows that the company was having no loss and no profit " +
                         "per CURRENCY of investment by stockholders",
                 "",
-                "%",
+                "",
                 ReturnonEquityafterTax));
         counter++;
         int ReturnonEquityafterTaxunsatisfactory = counter;
@@ -75,14 +75,14 @@ public class ReturnonEquityafterTax {
                         "It shows that the company was having loss of about LASTVALUE cents " +
                         "per CURRENCY of investment by stockholders",
                 "",
-                "%",
+                "",
                 ReturnonEquityafterTax));
         counter++;
         int ReturnonEquityafterTaxPositive = counter;
         Formulas.add(new Formula(ReturnonEquityafterTaxPositive,
-                EvaluationTypes.EACH_PERIOD_TRUE.toString(),
-                ">",
-                "0",
+                EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString(),
+                "",
+                "",
                 "The ROE represents the increase in the value of the stockholders' wealth during STARTDATE-ENDDATE. ",
                 "",
                 "",
@@ -90,9 +90,9 @@ public class ReturnonEquityafterTax {
         counter++;
         int ReturnonEquityafterTaxNegative = counter;
         Formulas.add(new Formula(ReturnonEquityafterTaxNegative,
-                EvaluationTypes.EACH_PERIOD_TRUE.toString(),
-                "<",
-                "0",
+                EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString(),
+                "",
+                "",
                 "The ROE represents the decrease in the value of the stockholders' wealth during STARTDATE-ENDDATE. ",
                 "",
                 "",

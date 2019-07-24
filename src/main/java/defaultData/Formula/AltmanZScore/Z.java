@@ -21,33 +21,33 @@ public class Z {
         counter++;
         int ZScoreexcellent = counter;
         Formulas.add(new Formula(ZScoreexcellent,
-                EvaluationTypes.EVALUATE_START.toString(),
+                EvaluationTypes.EVALUATE_PRE_END.toString(),
                 ">=",
                 "2.9",
                 "COMPANYNAME's Z-score was above the gray area of 1.20 to " +
-                        "2.90 indicating a low bankruptcy risk in STARTDATE. ",
+                        "2.90 indicating a low bankruptcy risk in PRE_END_DATE. ",
                 "",
                 "",
                 ZScore));
         counter++;
         int ZScoregood = counter;
         Formulas.add(new Formula(ZScoregood,
-                EvaluationTypes.EVALUATE_START.toString(),
+                EvaluationTypes.EVALUATE_PRE_END.toString(),
                 ">=",
                 "1.2",
                 "COMPANYNAME's Z-score was in " +
-                        "the gray area between 1.20 and 2.90 in STARTDATE. ",
+                        "the gray area between 1.20 and 2.90 in PRE_END_DATE. ",
                 "<",
                 "2.9",
                 ZScore));
         counter++;
         int ZScorebad = counter;
         Formulas.add(new Formula(ZScorebad,
-                EvaluationTypes.EVALUATE_START.toString(),
+                EvaluationTypes.EVALUATE_PRE_END.toString(),
                 "<",
                 "1.2",
                 "COMPANYNAME's Z-score was under 1.2 " +
-                        "indicating a high bankruptcy risk in STARTDATE. ",
+                        "indicating a high bankruptcy risk in PRE_END_DATE. ",
                 "",
                 "",
                 ZScore));
@@ -82,7 +82,7 @@ public class Z {
 
         int ZScoreEndexcellent = counter;
         Formulas.add(new Formula(ZScoreEndexcellent,
-                EvaluationTypes.ADDITIONAL_END_EVALUATION.toString(),
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">=",
                 "2.9",
                 "At the end of ENDDATE the Altman Z-score was LASTVALUE " +
@@ -94,7 +94,7 @@ public class Z {
         counter++;
         int ZScoreEndgood = counter;
         Formulas.add(new Formula(ZScoreEndgood,
-                EvaluationTypes.ADDITIONAL_END_EVALUATION.toString(),
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">=",
                 "1.2",
                 "At the end of ENDDATE the Altman Z-score " +
@@ -105,7 +105,7 @@ public class Z {
         counter++;
         int ZScoreEndbad = counter;
         Formulas.add(new Formula(ZScoreEndbad,
-                EvaluationTypes.ADDITIONAL_END_EVALUATION.toString(),
+                EvaluationTypes.EVALUATE_END.toString(),
                 "<",
                 "1.2",
                 "At the end of ENDDATE the Altman Z-score " +
