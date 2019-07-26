@@ -1,6 +1,7 @@
 package reportGeneration.interpreter.ReusableComponents.interfaces;
 
 import entities.Item;
+import globalReusables.LabelWrap;
 import javafx.collections.ObservableList;
 
 import java.util.Collections;

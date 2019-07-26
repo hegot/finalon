@@ -1,6 +1,7 @@
 package reportGeneration.interpreter.FinancialResults.Outcomes;
 
 import entities.Item;
+import globalReusables.LabelWrap;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import javafx.scene.chart.BarChart;

@@ -1,4 +1,4 @@
-package finalonWindows.formulaScene.EditPopup;
+package finalonWindows.formulaScene.EditPopup.NormativeValues;
 
 import defaultData.EvaluationTypes;
 import entities.Formula;
@@ -14,26 +14,36 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 
-class NormativeValues {
+public class NormativeValues {
     private ScrollPane scrollPane;
-    private Formula parent;
+    private ObservableList<Formula> childs;
     private Tab tab;
+    private int id;
+    private EvaluationTypes type;
 
-    NormativeValues(Formula parent) {
-        this.parent = parent;
-        this.tab = new Tab("Normative values");
+
+    public NormativeValues(
+            ObservableList<Formula> childs,
+            int id,
+            EvaluationTypes type,
+            String tabName
+    ) {
+        this.childs = childs;
+        this.id = id;
+        this.type = type;
+        this.tab = new Tab(tabName);
         this.scrollPane = new ScrollPane();
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         tab.setContent(normativeValues());
     }
 
 
-    Tab getNormativeValues() {
+    public Tab getTab() {
         return tab;
     }
 
-    Formula getFormulaUpdated() {
-        return parent;
+    public ObservableList<Formula> getChilds() {
+        return childs;
     }
 
     private VBox normativeValues() {
@@ -42,8 +52,8 @@ class NormativeValues {
         vBox.setPadding(new Insets(10, 2, 10, 2));
         vBox.setPrefWidth(550.00);
 
-        for (Formula item : parent.getChilds()) {
-            if (filter(item.getName())) {
+        for (Formula item : childs) {
+            if (filter(item)) {
                 HBox hbox = new HBox(10);
                 VBox vBoxIn = new VBox(3);
                 vBoxIn.getStyleClass().add("normative-container");
@@ -67,14 +77,9 @@ class NormativeValues {
         return vBoxOuter;
     }
 
-    private Boolean filter(String name) {
-        if (!name.equals(EvaluationTypes.PREFIX.toString()) &&
-                !name.equals(EvaluationTypes.SUFFIX.toString()) &&
-                !name.equals(EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString()) &&
-                !name.equals(EvaluationTypes.PERIOD_COMPARISON_NOCHANGE.toString()) &&
-                !name.equals(EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString())) {
-            return true;
-        }
+    private Boolean filter(Formula item) {
+        if (item.getCategory().equals("TO_BE_DELETED")) return false;
+        if (item.getName().equals(type.toString())) return true;
         return false;
     }
 
@@ -85,8 +90,8 @@ class NormativeValues {
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                Formula item = new Formula(-1, "", "", "", "", "", "", parent.getId());
-                parent.getChilds().add(item);
+                Formula item = new Formula(-1, type.toString(), "", "", "", "", "", id);
+                childs.add(item);
                 tab.setContent(normativeValues());
                 scrollPane.setVvalue(1.0);
             }
@@ -101,14 +106,12 @@ class NormativeValues {
             @Override
             public void handle(ActionEvent e) {
                 int rem = -1;
-                ObservableList<Formula> items = parent.getChilds();
-                for (int j = 0; j < items.size(); j++) {
-                    Formula item = items.get(j);
+                for (int j = 0; j < childs.size(); j++) {
+                    Formula item = childs.get(j);
                     if (item.getId() == Id) {
-                        rem = j;
+                        item.setCategory("TO_BE_DELETED");
                     }
                 }
-                items.remove(rem);
                 tab.setContent(normativeValues());
             }
         });

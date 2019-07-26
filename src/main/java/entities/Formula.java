@@ -1,5 +1,6 @@
 package entities;
 
+import defaultData.EvaluationTypes;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -159,6 +160,16 @@ public class Formula {
 
     public ObservableList<Formula> getChilds() {
         return this.childs;
+    }
+
+    public ObservableList<Formula> getChildsOfType(EvaluationTypes type) {
+        ObservableList<Formula> returnChilds = FXCollections.observableArrayList();;
+        for (Formula child : this.childs) {
+            if(child.getName().equals(type.toString())){
+                returnChilds.add(child);
+            }
+        }
+        return returnChilds;
     }
 
     public void setChilds(ObservableList<Formula> childs) {

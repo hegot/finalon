@@ -1,7 +1,9 @@
 package finalonWindows.formulaScene.EditPopup;
 
 import database.formula.DbFormulaHandler;
+import defaultData.EvaluationTypes;
 import entities.Formula;
+import finalonWindows.formulaScene.EditPopup.NormativeValues.NormativeValues;
 import finalonWindows.formulaScene.EditStorage;
 import finalonWindows.reusableComponents.autocomplete.AutoCompleteTextArea;
 import javafx.collections.ObservableList;
@@ -20,7 +22,8 @@ public class EditPopup {
     private ButtonType closeButtonType = new ButtonType("Cancel", ButtonBar.ButtonData.NEXT_FORWARD);
     private String type;
     private EditFormula editFormula;
-    private NormativeValues normativeValues;
+    private NormativeValues normativeValuesEndPeriod;
+    private NormativeValues normativeValuesPreEndPeriod;
     private PrefixSuffix prefixSuffix;
     private PeriodsComparison periodsComparison;
 
@@ -33,7 +36,19 @@ public class EditPopup {
         if (formulaExtended == null) {
             formula.setChilds(getChilds());
         }
-        this.normativeValues = new NormativeValues(formula);
+        this.normativeValuesPreEndPeriod = new NormativeValues(
+                formula.getChildsOfType(EvaluationTypes.EVALUATE_PRE_END),
+                formula.getId(),
+                EvaluationTypes.EVALUATE_PRE_END,
+                "Pre-End Period Evaluation"
+        );
+        this.normativeValuesEndPeriod = new NormativeValues(
+                formula.getChildsOfType(EvaluationTypes.EVALUATE_END),
+                formula.getId(),
+                EvaluationTypes.EVALUATE_END,
+                "End Period Evaluation"
+        );
+
         this.prefixSuffix = new PrefixSuffix(formula);
         this.periodsComparison = new PeriodsComparison(formula);
     }
@@ -62,7 +77,8 @@ public class EditPopup {
             TabPane tabpane = new TabPane();
             tabpane.getTabs().addAll(
                     editFormula.getTab(),
-                    normativeValues.getNormativeValues(),
+                    normativeValuesEndPeriod.getTab(),
+                    normativeValuesPreEndPeriod.getTab(),
                     prefixSuffix.getPrefixSuffix(),
                     periodsComparison.getPeriodsComparison()
             );
@@ -87,8 +103,9 @@ public class EditPopup {
                 } else {
                     updateFormula();
                     treeItem.setValue(formula);
-                    Formula formulaWithNormative = normativeValues.getFormulaUpdated();
-                    ObservableList<Formula> childs = formulaWithNormative.getChilds();
+                    ObservableList<Formula> childs = normativeValuesEndPeriod.getChilds();
+                    ObservableList<Formula> childs2 = normativeValuesPreEndPeriod.getChilds();
+                    childs.addAll(childs2);
                     childs.addAll(prefixSuffix.getVals());
                     childs.addAll(periodsComparison.getVals());
                     formula.setChilds(childs);

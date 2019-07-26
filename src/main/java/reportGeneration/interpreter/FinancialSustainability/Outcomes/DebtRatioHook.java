@@ -64,7 +64,7 @@ public class DebtRatioHook implements JsCalcHelper, ParseDouble, Round {
 
     private String third(String date, Double val) {
         return "For every " + currency + " 1.00 of the assets there were " +
-                val + " of liabilities in " + date + " ";
+                val + " of liabilities in " + date + ". ";
     }
 
     private String getPart(Double val) {

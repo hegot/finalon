@@ -7,7 +7,7 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.control.ScrollPane;
 import javafx.util.Pair;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
-import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
+import globalReusables.LabelWrap;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
 

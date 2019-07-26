@@ -5,7 +5,6 @@ import javafx.collections.ObservableMap;
 import javafx.scene.chart.BarChart;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.ChartBase;
-import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
 import reportGeneration.storage.FormulaStorage;
 import reportGeneration.storage.Periods;

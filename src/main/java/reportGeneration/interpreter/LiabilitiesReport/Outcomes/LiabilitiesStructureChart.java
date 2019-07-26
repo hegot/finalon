@@ -6,7 +6,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.GetVal;
-import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.ResultsStorage;

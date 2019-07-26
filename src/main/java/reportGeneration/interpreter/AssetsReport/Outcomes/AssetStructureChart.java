@@ -1,6 +1,5 @@
 package reportGeneration.interpreter.AssetsReport.Outcomes;
 
-import com.google.common.collect.Table;
 import entities.Item;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,7 +7,6 @@ import javafx.collections.ObservableMap;
 import javafx.scene.chart.PieChart;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.GetVal;
-import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.ResultsStorage;

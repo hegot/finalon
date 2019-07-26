@@ -1,4 +1,4 @@
-package reportGeneration.interpreter.ReusableComponents.interfaces;
+package globalReusables;
 
 import javafx.scene.control.Label;
 

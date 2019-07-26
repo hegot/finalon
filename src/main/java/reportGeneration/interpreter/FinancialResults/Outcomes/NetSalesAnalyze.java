@@ -2,7 +2,7 @@ package reportGeneration.interpreter.FinancialResults.Outcomes;
 
 import entities.Item;
 import javafx.scene.layout.VBox;
-import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
+import globalReusables.LabelWrap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.Round;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.ResultsStorage;
