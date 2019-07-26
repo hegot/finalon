@@ -11,30 +11,39 @@ import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 import reportGeneration.interpreter.ReusableComponents.interfaces.RatingWeight;
 import reportGeneration.interpreter.ReusableComponents.interfaces.Round;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class FinancialRatingTable implements JsCalcHelper, ParseDouble, Round, RatingWeight {
     private ObservableList<Formula> formulas;
     private ObservableList<ScoreItem> scores;
+    private Double totalScore;
 
     public FinancialRatingTable(ObservableList<Formula> formulas) {
         this.formulas = formulas;
+        this.totalScore = 0.0;
         this.scores = getScores();
     }
 
     private ObservableList<ScoreItem> getScores() {
         ObservableList<ScoreItem> output = FXCollections.observableArrayList();
         ArrayList<Double> vals = new ArrayList<>();
+        Double sum = 0.0;
         for (Formula formula : formulas) {
             ScoreItem item = new ScoreItem(formula);
-            vals.add(item.getWeightedScore());
+            Double weightedScore = item.getWeightedScore();
+            sum += weightedScore;
+            vals.add(weightedScore);
             output.add(item);
         }
+
         Formula endRow = new Formula(0, "Total Score", "", "", "", "", "", 0);
         ScoreItem item = new ScoreItem(endRow);
         item.setWeight(1.0);
-        item.setWeightedScore(2.0);
+        sum = Double.valueOf(new DecimalFormat("#.##").format(sum));
+        item.setWeightedScore(sum);
         output.add(item);
+        this.totalScore = sum;
         return output;
     }
 
@@ -61,5 +70,9 @@ public class FinancialRatingTable implements JsCalcHelper, ParseDouble, Round, R
         TableColumn<Double, ScoreItem> column = new TableColumn<>(title);
         column.setCellValueFactory(new PropertyValueFactory<>(key));
         return column;
+    }
+
+    public Double getTotalScore(){
+        return this.totalScore;
     }
 }

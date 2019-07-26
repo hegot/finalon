@@ -15,6 +15,7 @@ public class RelativeItemsChange implements LabelWrap, JsCalcHelper {
     private String startDate;
     private String endDate;
     private String text;
+    private Boolean rize;
 
     public RelativeItemsChange(Item parent,
                                ObservableList<Item> items,
@@ -24,8 +25,19 @@ public class RelativeItemsChange implements LabelWrap, JsCalcHelper {
         this.endDate = Periods.getInstance().getEnd();
         this.items = items;
         this.text = text;
+        this.rize = riseOrFall();
     }
 
+    private Boolean riseOrFall() {
+        if (this.parent.getValues().size() > 1) {
+            Double firstVal = parent.getFirstVal();
+            Double lastVal = parent.getLastVal();
+            if (firstVal != null && lastVal != null) {
+                return lastVal > firstVal;
+            }
+        }
+        return true;
+    }
 
     private String getRowsEvaluation() {
         String output = "";
@@ -35,7 +47,15 @@ public class RelativeItemsChange implements LabelWrap, JsCalcHelper {
                 Double lastVal = item.getLastVal();
                 if (firstVal != null && lastVal != null) {
                     String change = getRelativeChange(firstVal, lastVal);
-                    output += "- " + item.getName() + " (" + change + "%) \n";
+                    if(rize){
+                        if(lastVal > firstVal){
+                            output += "- " + item.getName() + " (" + change + "%) \n";
+                        }
+                    }else{
+                        if(lastVal < firstVal){
+                            output += "- " + item.getName() + " (" + change + "%) \n";
+                        }
+                    }
                 }
 
             }
@@ -56,20 +76,10 @@ public class RelativeItemsChange implements LabelWrap, JsCalcHelper {
         return vBox;
     }
 
-    private String riseOrFall() {
-        if (this.parent.getValues().size() > 1) {
-            Double firstVal = parent.getFirstVal();
-            Double lastVal = parent.getLastVal();
-            if (firstVal != null && lastVal != null) {
-                return (lastVal > firstVal) ? "positive" : "negative";
-            }
-        }
-        return "";
-    }
-
     private String message() {
+        String change = rize ? "positive" : "negative";
         return "The change of the " + parent.getName() + " value in " +
                 startDate + "-" + endDate + " was connected with a " +
-                riseOrFall() + " change of the following " + text + ": \n";
+                change + " change of the following " + text + ": \n";
     }
 }

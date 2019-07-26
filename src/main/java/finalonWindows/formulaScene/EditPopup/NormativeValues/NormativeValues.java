@@ -13,7 +13,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-
 public class NormativeValues {
     private ScrollPane scrollPane;
     private ObservableList<Formula> childs;

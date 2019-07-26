@@ -1,18 +1,21 @@
 package reportGeneration.interpreter.FinancialRating;
 
 import entities.Formula;
+import globalReusables.LabelWrap;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.FinancialRating.Outcomes.FinConditionScaleTable;
 import reportGeneration.interpreter.FinancialRating.Outcomes.FinancialRatingTable;
+import reportGeneration.interpreter.FinancialRating.Outcomes.ScaleItem;
+import reportGeneration.interpreter.FinancialRating.Outcomes.ScoreItem;
 import reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
 import reportGeneration.storage.FormulaStorage;
 import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.TwoDList;
 
-public class FinancialRating implements TableName {
+public class FinancialRating implements TableName, LabelWrap {
 
     private ObservableList<Formula> formulas;
 
@@ -35,22 +38,41 @@ public class FinancialRating implements TableName {
         VBox box = new VBox(8);
         String title = "Table 13. Financial Rating";
         ResultsStorage.addStr(121, "tableName", title);
-        TableView tbl = new FinancialRatingTable(formulas).get();
+        FinancialRatingTable financialRatingTable = new FinancialRatingTable(formulas);
+        TableView tbl = financialRatingTable.get();
         TwoDList items = getTableViewValues(tbl);
         ResultsStorage.addTable(122, items);
 
         String title2 = "Table 14. Financial condition scale";
         ResultsStorage.addStr(123, "tableName", title2);
-        TableView tbl2 = new FinConditionScaleTable().get();
+        FinConditionScaleTable finConditionScaleTable = new FinConditionScaleTable();
+        TableView tbl2 = finConditionScaleTable.get();
         TwoDList items2 = getTableViewValues(tbl2);
         ResultsStorage.addTable(124, items2);
+        String outcome = getOutcome(
+                finConditionScaleTable.getItems(),
+                financialRatingTable.getTotalScore());
+        ResultsStorage.addStr(125, "h2", outcome);
 
         box.getChildren().addAll(
                 tableName(title),
                 tbl,
                 tableName(title2),
-                tbl2
+                tbl2,
+                labelWrap(outcome)
         );
         return box;
+    }
+
+    private String getOutcome(ObservableList<ScaleItem> scales, Double score){
+        String out = "";
+        for(ScaleItem item : scales){
+            Double start = item.getCol1();
+            Double end = item.getCol2();
+            if(score > end && score <= start){
+                out = "As a result we can confirm a " + item.getCol4() + " (" + item.getCol3() + ") financial situation.";
+            }
+        }
+        return out;
     }
 }

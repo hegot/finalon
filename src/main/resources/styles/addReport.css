@@ -149,3 +149,11 @@
     -fx-text-fill: #FF0000;
     -fx-font-size: 13px;
 }
+
+.scale-table{
+    -fx-max-height: 300px;
+}
+
+.scale-table .table-cell {
+    -fx-alignment: center;
+}

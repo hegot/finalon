@@ -64,37 +64,41 @@ public class RatingCalc implements RatingWeight {
 
     private Double calcNetProfitMargin() {
         Item item = ItemsStorage.getInstance().get("RevenueGeneral");
-        Double itemVal = (endPeriod != null) ? item.getVal(endPeriod) : -1;
         Double val = BAD;
-        if (itemVal > 0) {
-            if (formulaVal > 0.05) {
-                val = EXC;
-            } else if (formulaVal >= 0.025) {
-                val = GOOD;
-            } else if (formulaVal >= 0.01) {
-                val = NEUT;
-            } else if (formulaVal >= 0) {
-                val = UNSAT;
+        if(item != null) {
+            Double itemVal = (endPeriod != null) ? item.getVal(endPeriod) : -1;
+            if (itemVal > 0) {
+                if (formulaVal > 0.05) {
+                    val = EXC;
+                } else if (formulaVal >= 0.025) {
+                    val = GOOD;
+                } else if (formulaVal >= 0.01) {
+                    val = NEUT;
+                } else if (formulaVal >= 0) {
+                    val = UNSAT;
+                }
             }
         }
         return val;
     }
 
     private Double calcReturnOnAssets() {
-        Item item = ItemsStorage.getInstance().get("AssetsGeneral");
-        Double itemVal = (endPeriod != null) ? item.getVal(endPeriod) : -1;
-        Double itemValStart = (startPeriod != null) ? item.getVal(startPeriod) : -1;
-        double itemsSum = itemVal + itemValStart;
         double val = BAD;
-        if (itemsSum > 0) {
-            if (formulaVal > 0.2) {
-                val = EXC;
-            } else if (formulaVal >= 0.07) {
-                val = GOOD;
-            } else if (formulaVal >= 0.02) {
-                val = NEUT;
-            } else if (formulaVal >= 0) {
-                val = UNSAT;
+        Item item = ItemsStorage.getInstance().get("AssetsGeneral");
+        if(item != null) {
+            Double itemVal = (endPeriod != null) ? item.getVal(endPeriod) : -1;
+            Double itemValStart = (startPeriod != null) ? item.getVal(startPeriod) : -1;
+            double itemsSum = itemVal + itemValStart;
+            if (itemsSum > 0) {
+                if (formulaVal > 0.2) {
+                    val = EXC;
+                } else if (formulaVal >= 0.07) {
+                    val = GOOD;
+                } else if (formulaVal >= 0.02) {
+                    val = NEUT;
+                } else if (formulaVal >= 0) {
+                    val = UNSAT;
+                }
             }
         }
         return val;
@@ -117,17 +121,19 @@ public class RatingCalc implements RatingWeight {
 
     private Double calcDebtEquityRatio() {
         Item item = ItemsStorage.getInstance().get("EquityGeneral");
-        Double itemVal = (endPeriod != null) ? item.getVal(endPeriod) : -1;
         Double val = BAD;
-        if (itemVal > 0) {
-            if (formulaVal <= 0.6) {
-                val = EXC;
-            } else if (formulaVal < 0.8) {
-                val = GOOD;
-            } else if (formulaVal < 1) {
-                val = NEUT;
-            } else if (formulaVal < 1.2) {
-                val = UNSAT;
+        if(item != null) {
+            Double itemVal = (endPeriod != null) ? item.getVal(endPeriod) : -1;
+            if (itemVal > 0) {
+                if (formulaVal <= 0.6) {
+                    val = EXC;
+                } else if (formulaVal < 0.8) {
+                    val = GOOD;
+                } else if (formulaVal < 1) {
+                    val = NEUT;
+                } else if (formulaVal < 1.2) {
+                    val = UNSAT;
+                }
             }
         }
         return val;
@@ -136,18 +142,20 @@ public class RatingCalc implements RatingWeight {
 
     private Double calcNetSalesChange() {
         Item item = ItemsStorage.getInstance().get("RevenueGeneral");
-        Double itemVal = item.getVal(endPeriod);
-        double itemValStart = (startPeriod != null) ? item.getVal(startPeriod) : 0.0;
         double val = BAD;
-        if (itemVal > 0 && itemValStart > 0) {
-            if (formulaVal > 0.3) {
-                val = EXC;
-            } else if (formulaVal >= 0.1) {
-                val = GOOD;
-            } else if (formulaVal >= 0) {
-                val = NEUT;
-            } else if (formulaVal >= -0.1) {
-                val = UNSAT;
+        if(item != null) {
+            Double itemVal = item.getVal(endPeriod);
+            double itemValStart = (startPeriod != null) ? item.getVal(startPeriod) : 0.0;
+            if (itemVal > 0 && itemValStart > 0) {
+                if (formulaVal > 0.3) {
+                    val = EXC;
+                } else if (formulaVal >= 0.1) {
+                    val = GOOD;
+                } else if (formulaVal >= 0) {
+                    val = NEUT;
+                } else if (formulaVal >= -0.1) {
+                    val = UNSAT;
+                }
             }
         }
         return val;
@@ -169,18 +177,20 @@ public class RatingCalc implements RatingWeight {
 
     private Double calcEquityChange() {
         Item item = ItemsStorage.getInstance().get("EquityGeneral");
-        Double itemVal = item.getVal(endPeriod);
-        double itemValStart = (startPeriod != null) ? item.getVal(startPeriod) : 0.0;
         double val = BAD;
-        if (itemVal > 0 && itemValStart > 0) {
-            if (formulaVal > 0.1) {
-                val = EXC;
-            } else if (formulaVal >= 0.05) {
-                val = GOOD;
-            } else if (formulaVal >= 0) {
-                val = NEUT;
-            } else if (formulaVal >= -0.05) {
-                val = UNSAT;
+        if(item != null) {
+            Double itemVal = item.getVal(endPeriod);
+            double itemValStart = (startPeriod != null) ? item.getVal(startPeriod) : 0.0;
+            if (itemVal > 0 && itemValStart > 0) {
+                if (formulaVal > 0.1) {
+                    val = EXC;
+                } else if (formulaVal >= 0.05) {
+                    val = GOOD;
+                } else if (formulaVal >= 0) {
+                    val = NEUT;
+                } else if (formulaVal >= -0.05) {
+                    val = UNSAT;
+                }
             }
         }
         return val;
@@ -201,35 +211,39 @@ public class RatingCalc implements RatingWeight {
     }
 
     private Double calcDebtRatio() {
-        Item item = ItemsStorage.getInstance().get("EquityAndLiabilities");
-        Double itemVal = item.getVal(endPeriod);
         Double val = BAD;
-        if (itemVal > 0) {
-            if (formulaVal < 0.5) {
-                val = EXC;
-            } else if (formulaVal < 0.6) {
-                val = GOOD;
-            } else if (formulaVal < 0.7) {
-                val = NEUT;
-            } else if (formulaVal < 0.8) {
-                val = UNSAT;
+        Item item = ItemsStorage.getInstance().get("EquityAndLiabilities");
+        if(item != null){
+            Double itemVal = item.getVal(endPeriod);
+            if (itemVal > 0) {
+                if (formulaVal < 0.5) {
+                    val = EXC;
+                } else if (formulaVal < 0.6) {
+                    val = GOOD;
+                } else if (formulaVal < 0.7) {
+                    val = NEUT;
+                } else if (formulaVal < 0.8) {
+                    val = UNSAT;
+                }
             }
         }
         return val;
     }
 
     private Double calcTimesInterestEarned() {
-        Item item = ItemsStorage.getInstance().get("FinanceCosts");
-        Double itemVal = item.getVal(endPeriod);
         double val = BAD;
-        if (formulaVal > 3 || itemVal == 0) {
-            val = EXC;
-        } else if (formulaVal >= 2) {
-            val = GOOD;
-        } else if (formulaVal >= 1) {
-            val = NEUT;
-        } else if (formulaVal >= 0.8) {
-            val = UNSAT;
+        Item item = ItemsStorage.getInstance().get("FinanceCosts");
+        if(item != null) {
+            Double itemVal = item.getVal(endPeriod);
+            if (formulaVal > 3 || itemVal == 0) {
+                val = EXC;
+            } else if (formulaVal >= 2) {
+                val = GOOD;
+            } else if (formulaVal >= 1) {
+                val = NEUT;
+            } else if (formulaVal >= 0.8) {
+                val = UNSAT;
+            }
         }
         return val;
     }
