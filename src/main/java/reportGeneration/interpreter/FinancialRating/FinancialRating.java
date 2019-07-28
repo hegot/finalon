@@ -48,11 +48,11 @@ public class FinancialRating implements TableName, LabelWrap {
         FinConditionScaleTable finConditionScaleTable = new FinConditionScaleTable();
         TableView tbl2 = finConditionScaleTable.get();
         TwoDList items2 = getTableViewValues(tbl2);
-        ResultsStorage.addTable(124, items2);
+        ResultsStorage.addScaleTable(124, items2);
         String outcome = getOutcome(
                 finConditionScaleTable.getItems(),
                 financialRatingTable.getTotalScore());
-        ResultsStorage.addStr(125, "h2", outcome);
+        ResultsStorage.addStr(125, "text", outcome);
 
         box.getChildren().addAll(
                 tableName(title),

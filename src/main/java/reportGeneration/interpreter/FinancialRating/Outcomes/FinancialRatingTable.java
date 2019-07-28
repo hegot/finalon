@@ -32,9 +32,11 @@ public class FinancialRatingTable implements JsCalcHelper, ParseDouble, Round, R
         for (Formula formula : formulas) {
             ScoreItem item = new ScoreItem(formula);
             Double weightedScore = item.getWeightedScore();
-            sum += weightedScore;
-            vals.add(weightedScore);
-            output.add(item);
+            if(weightedScore != null){
+                sum += weightedScore;
+                vals.add(weightedScore);
+                output.add(item);
+            }
         }
 
         Formula endRow = new Formula(0, "Total Score", "", "", "", "", "", 0);
@@ -51,11 +53,14 @@ public class FinancialRatingTable implements JsCalcHelper, ParseDouble, Round, R
         TableView table = new TableView<>();
         table.getStyleClass().add("report-table");
         table.setEditable(false);
-        table.getColumns().addAll(getNameCol(), getCol("weight", "Weighting \n factor"));
-        table.getColumns().add(getCol("score1", "Score \n (Pre-end Period)"));
-        table.getColumns().add(getCol("score2", "Score \n (End Period)"));
-        table.getColumns().add(getCol("averageScore", "Average \n score"));
-        table.getColumns().add(getCol("weightedScore", "Weighted average \n score"));
+        table.getColumns().addAll(
+                getNameCol(),
+                getCol("weight", "Weighting \n factor"),
+                getCol("score1", "Score \n (Pre-end Period)"),
+                getCol("score2", "Score \n (End Period)"),
+                getCol("averageScore", "Average \n score"),
+                getCol("weightedScore", "Weighted average \n score")
+        );
         table.setItems(scores);
         return table;
     }

@@ -39,6 +39,11 @@ public class ResultsStorage {
         items.put(weight, item);
     }
 
+    public static void addScaleTable(int weight, TwoDList val) {
+        ResultItem<TwoDList> item = new ResultItem<TwoDList>(val, "scaleTable");
+        items.put(weight, item);
+    }
+
     public static void addBarChart(int weight, BarChart<String, Number> bc) {
         ResultItem<BarChart> item = new ResultItem<BarChart>(bc, "barchart");
         items.put(weight, item);

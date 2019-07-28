@@ -31,8 +31,10 @@ public class StructureItem {
         for (String col : periodsArr) {
             Double itemVal = itemValues.get(col);
             Double totalVal = totalVals.get(col);
-            Double structure = itemVal / totalVal;
-            structureValues.put(col, structure);
+            if(itemVal != null && totalVal != null){
+                Double structure = itemVal / totalVal;
+                structureValues.put(col, structure);
+            }
         }
         return structureValues;
     }

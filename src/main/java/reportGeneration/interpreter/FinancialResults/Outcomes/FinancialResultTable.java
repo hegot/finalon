@@ -1,6 +1,7 @@
 package reportGeneration.interpreter.FinancialResults.Outcomes;
 
 import entities.Item;
+import globalReusables.LabelWrap;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,7 +12,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
-import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 import reportGeneration.interpreter.ReusableComponents.interfaces.Round;
 import reportGeneration.storage.ItemsStorage;
@@ -102,7 +102,7 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper, LabelWra
     }
 
 
-    public VBox get() {
+    public TableView get() {
         TableView<Item> table = new TableView<Item>();
         table.setEditable(false);
         table.getStyleClass().add("report-table");
@@ -120,9 +120,7 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper, LabelWra
             }
         }
         table.setItems(items);
-        VBox vbox = new VBox();
-        vbox.getChildren().add(table);
-        return vbox;
+        return table;
     }
 
     protected TableColumn getNameCol() {

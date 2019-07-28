@@ -54,7 +54,11 @@ public class WordExport {
                             new AddText(item).getStyledText()
                     );
                 } else if (obj.getClass() == TwoDList.class) {
-                    createTable((TwoDList) obj);
+                    if (item.getType().equals("scaleTable")) {
+                        createTable((TwoDList) obj, "scaleTable");
+                    }else{
+                        createTable((TwoDList) obj, "table");
+                    }
                 } else if (obj.getClass() == BarChart.class) {
                     BarChart ch = (BarChart) obj;
                     WritableImage image = ch.snapshot(new SnapshotParameters(), null);
@@ -76,7 +80,7 @@ public class WordExport {
         }
     }
 
-    private void createTable(TwoDList data) {
+    private void createTable(TwoDList data, String type) {
         int colsN = data.get(0).size();
         Double[] cols = new Double[colsN];
         int restCols = colsN - 1;
@@ -86,8 +90,15 @@ public class WordExport {
         }
         int writableWidthTwips = wordPackage.getDocumentModel()
                 .getSections().get(0).getPageDimensions().getWritableWidthTwips();
-        TblConstructor constructor = new TblConstructor(data, writableWidthTwips, cols);
-        wordPackage.getMainDocumentPart().addObject(constructor.getTable());
+
+        if(type.equals("scaleTable")){
+            ScaleTblConstructor constructor = new ScaleTblConstructor(data, writableWidthTwips, cols);
+            wordPackage.getMainDocumentPart().addObject(constructor.getTable());
+        }else{
+            TblConstructor constructor = new TblConstructor(data, writableWidthTwips, cols);
+            wordPackage.getMainDocumentPart().addObject(constructor.getTable());
+        }
+
         wordPackage.getMainDocumentPart().addParagraphOfText("\n");
     }
 }

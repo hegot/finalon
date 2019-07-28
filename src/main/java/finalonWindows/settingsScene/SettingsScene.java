@@ -9,11 +9,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+
+import java.util.Optional;
 
 public class SettingsScene extends SceneBase {
 
@@ -91,13 +95,7 @@ public class SettingsScene extends SceneBase {
             @Override
             public void handle(ActionEvent e) {
                 try {
-                    new ResetFormulas().reset();
-                    label.setText("Formulas were reseted to default state");
-                    Timeline timeline = new Timeline(new KeyFrame(
-                            Duration.millis(2500),
-                            ae -> label.setText("")));
-                    timeline.play();
-
+                    resetFormulasAlert(label);
                 } catch (Exception exception) {
                     System.out.println("Error while saving settings");
                 }
@@ -106,5 +104,28 @@ public class SettingsScene extends SceneBase {
         vBox.getChildren().addAll(label, btn);
         return vBox;
     }
+
+    private void resetFormulasAlert(Label label) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Reset Formulas");
+        alert.setHeaderText("Are you sure you want " +
+                "to reset formulas to default state?");
+        alert.setContentText("This action will delete all formula " +
+                "customizations and can not be undone.");
+        Optional<ButtonType> option = alert.showAndWait();
+
+        if (option.get() == ButtonType.OK) {
+            new ResetFormulas().reset();
+            label.setText("Formulas were reseted to default state");
+            Timeline timeline = new Timeline(
+                    new KeyFrame(
+                            Duration.millis(5000),
+                            ae -> label.setText("")
+                    )
+            );
+            timeline.play();
+        }
+    }
+
 
 }
