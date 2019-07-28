@@ -33,7 +33,7 @@ public class LaborProductivity {
                 EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString(),
                 "",
                 "",
-                "The labor productivity in COMPANYNAME improved from STARTDATE to ENDDATE by CHANGEPERCENT %. ",
+                "The labor productivity in COMPANYNAME decreased from STARTDATE to ENDDATE by CHANGEPERCENT %. ",
                 "",
                 "",
                 LaborProductivity));

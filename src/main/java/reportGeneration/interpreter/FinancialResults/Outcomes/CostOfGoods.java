@@ -74,16 +74,13 @@ public class CostOfGoods implements LabelWrap, JsCalcHelper, Round {
         return out.toString();
     }
 
-    private String atTheEnd() {
-        return "At the end of " + endDate + " the cost of goods and services totalled " + currency + " " + last + " " + amount + ". ";
-    }
 
     private String increase(Double change) {
-        return atTheEnd() + "This has resulted in an increase in the gross profit by " + round(change) + "%.";
+        return "This has resulted in an increase in the gross profit by " + round(change) + "%.";
     }
 
     private String decrease(Double change) {
-        return atTheEnd() + "This has resulted in decrease in the gross profit by " + round(change) + "%.";
+        return "This has resulted in decrease in the gross profit by " + round(change) + "%.";
     }
 
     private String stable() {

@@ -62,10 +62,14 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper, LabelWra
         String endDate = Periods.getInstance().getEnd();
 
         String positive = (first > 0) ? "positive" : "negative";
-        if (first == 0) positive = "equal to 0";
-        out += "EBIT was " + positive + " at " + settings.get("defaultCurrency") +
-                " " + last + " " + settings.get("amount") + " in " + endDate + ". ";
-        Double change = last - first;
+        if (first == 0) {
+            out += "Zero EBIT indicates poor performance in " + endDate + ". ";
+        } else {
+            out += "EBIT was " + positive + " at " + settings.get("defaultCurrency") +
+                    " " + last + " " + settings.get("amount") + " in " + endDate + ". ";
+        }
+
+        double change = last - first;
         String growth = round(change / first * 100);
         if (change > 0) {
             out += "The EBIT growth was " + growth + "% during " + startDate + "-" + endDate + ". ";

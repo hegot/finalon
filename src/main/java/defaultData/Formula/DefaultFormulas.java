@@ -109,7 +109,7 @@ public class DefaultFormulas {
         Formulas.addAll(OperatingIncomeMargin.get(PaPiD, counter));
         counter = counter + 3;
         Formulas.addAll(GrossProfitMargin.get(PaPiD, counter));
-        counter = counter + 7;
+        counter = counter + 6;
         Formulas.addAll(ReturnOnAssets.get(PaPiD, counter));
         counter = counter + 5;
         Formulas.addAll(ReturnOnCurrentAssets.get(PaPiD, counter));

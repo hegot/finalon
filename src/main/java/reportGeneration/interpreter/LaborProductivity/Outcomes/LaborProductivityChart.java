@@ -30,7 +30,7 @@ public class LaborProductivityChart extends ChartBase {
         if (laborProductivity.getPeriods().size() > 0) {
             BarChart<String, Number> bc = getChart(chartTitle());
             bc.getData().addAll(
-                    getSeries("Current Assets", laborProductivity.getPeriods())
+                    getSeries("Labor Productivity", laborProductivity.getPeriods())
             );
             vBox.getChildren().addAll(bc);
         }

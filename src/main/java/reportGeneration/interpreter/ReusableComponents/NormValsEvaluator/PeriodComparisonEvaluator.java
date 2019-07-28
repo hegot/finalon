@@ -24,7 +24,7 @@ public class PeriodComparisonEvaluator implements ParseDouble {
         String outcome = "";
         if (endVal != null && startVal != null) {
             this.change = endVal - startVal;
-            this.changePercent = change * 100;
+            this.changePercent = change / startVal * 100;
             if (endVal > startVal) {
                 outcome += getOutcome(EvaluationTypes.PERIOD_COMPARISON_INCREASE);
             }
@@ -42,7 +42,11 @@ public class PeriodComparisonEvaluator implements ParseDouble {
         for (Formula formula : childs) {
             if (formula.getName().equals(type.toString())) {
                 String descr = formula.getDescription();
-                descr = descr.replace("CHANGEPERCENT", toString(changePercent));
+                if (startVal != 0) {
+                    descr = descr.replace("CHANGEPERCENT", round(changePercent));
+                } else {
+                    descr = descr.replace("CHANGEPERCENT", toString(change));
+                }
                 descr = descr.replace("CHANGE", toString(change));
                 return descr;
             }
