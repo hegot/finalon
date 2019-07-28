@@ -4,11 +4,14 @@ import entities.Item;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
+import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.GetVal;
+import reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
 import reportGeneration.storage.ItemsStorage;
+import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
 
-public class LiabilitiesStructureChart implements GetVal {
+public class LiabilitiesStructureChart implements GetVal, TableName {
     private Item equity;
     private Item current;
     private Item nonCurrent;
@@ -33,7 +36,8 @@ public class LiabilitiesStructureChart implements GetVal {
         this.nonCurrentVal = nonCurrent.getVal(period);
     }
 
-    public PieChart get() {
+    public VBox get() {
+        VBox vBox = new VBox();
         final PieChart chart = new PieChart();
         if (totalVal != null && totalVal != 0) {
             ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
@@ -56,9 +60,12 @@ public class LiabilitiesStructureChart implements GetVal {
                 ));
             }
             chart.setData(pieChartData);
-            chart.setTitle("Chart 4. " + SettingsStorage.getInstance().getSettings().get("company") +
-                    " Source of Finance structure in " + period);
+            String title = "Chart 4. " + SettingsStorage.getInstance().getSettings().get("company") +
+                    " Source of Finance structure in " + period;
+            ResultsStorage.addStr(31, "h2", title);
+            ResultsStorage.addPieChart(31, chart);
+            vBox.getChildren().addAll(tableName(title), chart);
         }
-        return chart;
+        return vBox;
     }
 }

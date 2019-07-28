@@ -31,7 +31,7 @@ public class ReturnOnAssets {
         int ReturnoNonAssetssatisfactory = counter;
         Formulas.add(new Formula(ReturnoNonAssetssatisfactory,
                 EvaluationTypes.EVALUATE_END.toString(),
-                "==",
+                "=",
                 "0",
                 "For COMPANYNAME the ROA shows that the company's profitability was 0%. After taking into account inflation, this ratio indicates actual decrease in company value in ENDDATE.",
                 "",

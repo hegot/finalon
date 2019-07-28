@@ -1,5 +1,6 @@
 package entities;
 
+import defaultData.EvaluationTypes;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -161,6 +162,16 @@ public class Formula {
         return this.childs;
     }
 
+    public ObservableList<Formula> getChildsOfType(EvaluationTypes type) {
+        ObservableList<Formula> returnChilds = FXCollections.observableArrayList();;
+        for (Formula child : this.childs) {
+            if(child.getName().equals(type.toString())){
+                returnChilds.add(child);
+            }
+        }
+        return returnChilds;
+    }
+
     public void setChilds(ObservableList<Formula> childs) {
         this.childs = childs;
     }
@@ -187,7 +198,7 @@ public class Formula {
         if (arr.get(0) != null) {
             Double val = periods.get(arr.get(0));
             if (val == null) {
-                if (arr.get(1) != null) {
+                if (arr.size() > 1 && arr.get(1) != null) {
                     val = periods.get(arr.get(1));
                 }
             }
@@ -198,7 +209,7 @@ public class Formula {
 
     public Double getVal(String period) {
         Double val = null;
-        if (periods.size() > 0) {
+        if (periods.size() > 0 && period != null) {
             val = periods.get(period);
         }
         return val;
@@ -209,7 +220,7 @@ public class Formula {
         if (arr.get(0) != null) {
             Double val = periods.get(arr.get(0));
             if (val == null) {
-                if (arr.get(1) != null) {
+                if (arr.size() > 1 && arr.get(1) != null) {
                     return arr.get(1);
                 }
             }

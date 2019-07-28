@@ -5,7 +5,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
 import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 import reportGeneration.interpreter.ReusableComponents.interfaces.Round;
@@ -22,7 +21,7 @@ public class RatiosTable extends FormulaTable implements JsCalcHelper, ParseDoub
         this.formulas = formulas;
     }
 
-    public VBox get() {
+    public TableView get() {
         TableView<Formula> table = new TableView<Formula>();
         table.getStyleClass().add("report-table");
         table.setEditable(false);
@@ -40,9 +39,7 @@ public class RatiosTable extends FormulaTable implements JsCalcHelper, ParseDoub
             }
         }
         table.setItems(formulas);
-        VBox vbox = new VBox();
-        vbox.getChildren().add(table);
-        return vbox;
+        return table;
     }
 
 

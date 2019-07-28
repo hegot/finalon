@@ -34,8 +34,8 @@ public class ReturnonInvestment {
                 ">",
                 "3,5",
                 "Higher ROIs suggest better performance.  At the end of evaluation period index provided good results ( > 3.5 ). ",
-                "",
-                "",
+                "<=",
+                "4",
                 ReturnonInvestment));
         counter++;
         int ReturnonInvestmentsatisfactory = counter;
@@ -44,8 +44,8 @@ public class ReturnonInvestment {
                 ">",
                 "0",
                 "Higher ROIs suggest better performance.  At the end of evaluation period index provided satisfactory results ( > 0 ). ",
-                "",
-                "%",
+                "<=",
+                "3,5",
                 ReturnonInvestment));
         counter++;
         int ReturnonInvestmentunsatisfactory = counter;
@@ -55,7 +55,7 @@ public class ReturnonInvestment {
                 "0",
                 "Higher ROIs suggest better performance.  At the end of evaluation period index was unsatisfactory ( <= 0 ). ",
                 "",
-                "%",
+                "",
                 ReturnonInvestment));
         counter++;
         int ReturnonInvestmentIncrease = counter;

@@ -27,6 +27,8 @@ public class StrReplacer implements ParseDouble, Round {
         text = text.replace("ENDDATE", periods.getEnd());
         text = text.replace("AFTERSTART", periods.getAfterStart());
         text = text.replace("STARTDATE", periods.getStart());
+
+
         text = text.replace("COMPANYNAME", settings.get("company"));
         text = text.replace("CURRENCY", settings.get("defaultCurrency"));
         text = text.replace("AMOUNT", settings.get("amount"));
@@ -38,6 +40,19 @@ public class StrReplacer implements ParseDouble, Round {
             }
             if (text.contains("LASTVALUE")) {
                 text = text.replace("LASTVALUE", endVal);
+            }
+        }
+        String preEndKey = periods.prePreEndKey();
+        if (preEndKey != null) {
+            if (text.contains("PRE_END_DATE")) {
+                text = text.replace("PRE_END_DATE", preEndKey);
+            }
+            if (text.contains("PRE_END_VALUE")) {
+                Double preEndValDob = formula.getVal(preEndKey);
+                if (preEndValDob != null) {
+                    String preEndVal = toString(preEndValDob);
+                    text = text.replace("PRE_END_VALUE", preEndVal);
+                }
             }
         }
 

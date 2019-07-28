@@ -1,7 +1,9 @@
-package finalonWindows.formulaScene.eventHandlers;
+package finalonWindows.formulaScene.EditPopup;
 
 import database.formula.DbFormulaHandler;
+import defaultData.EvaluationTypes;
 import entities.Formula;
+import finalonWindows.formulaScene.EditPopup.NormativeValues.NormativeValues;
 import finalonWindows.formulaScene.EditStorage;
 import finalonWindows.reusableComponents.autocomplete.AutoCompleteTextArea;
 import javafx.collections.ObservableList;
@@ -20,20 +22,35 @@ public class EditPopup {
     private ButtonType closeButtonType = new ButtonType("Cancel", ButtonBar.ButtonData.NEXT_FORWARD);
     private String type;
     private EditFormula editFormula;
-    private NormativeValues normativeValues;
+    private NormativeValues normativeValuesEndPeriod;
+    private NormativeValues normativeValuesPreEndPeriod;
+    private PrefixSuffix prefixSuffix;
+    private PeriodsComparison periodsComparison;
 
     public EditPopup(TreeItem treeItem, String type) {
         this.type = type;
         this.treeItem = treeItem;
         this.formula = (Formula) treeItem.getValue();
-
-
         this.editFormula = new EditFormula(formula);
         Formula formulaExtended = EditStorage.find(formula.getId());
         if (formulaExtended == null) {
             formula.setChilds(getChilds());
         }
-        this.normativeValues = new NormativeValues(formula);
+        this.normativeValuesPreEndPeriod = new NormativeValues(
+                formula.getChildsOfType(EvaluationTypes.EVALUATE_PRE_END),
+                formula.getId(),
+                EvaluationTypes.EVALUATE_PRE_END,
+                "Pre-End Period Evaluation"
+        );
+        this.normativeValuesEndPeriod = new NormativeValues(
+                formula.getChildsOfType(EvaluationTypes.EVALUATE_END),
+                formula.getId(),
+                EvaluationTypes.EVALUATE_END,
+                "End Period Evaluation"
+        );
+
+        this.prefixSuffix = new PrefixSuffix(formula);
+        this.periodsComparison = new PeriodsComparison(formula);
     }
 
     private ObservableList<Formula> getChilds() {
@@ -58,7 +75,13 @@ public class EditPopup {
         } else {
             dialog.setTitle("Edit Formula");
             TabPane tabpane = new TabPane();
-            tabpane.getTabs().addAll(editFormula.getTab(), normativeValues.getNormativeValues());
+            tabpane.getTabs().addAll(
+                    editFormula.getTab(),
+                    normativeValuesEndPeriod.getTab(),
+                    normativeValuesPreEndPeriod.getTab(),
+                    prefixSuffix.getPrefixSuffix(),
+                    periodsComparison.getPeriodsComparison()
+            );
             dialog.getDialogPane().setContent(tabpane);
         }
 
@@ -80,8 +103,11 @@ public class EditPopup {
                 } else {
                     updateFormula();
                     treeItem.setValue(formula);
-                    Formula formulaWithNormative = normativeValues.getFormulaUpdated();
-                    ObservableList<Formula> childs = formulaWithNormative.getChilds();
+                    ObservableList<Formula> childs = normativeValuesEndPeriod.getChilds();
+                    ObservableList<Formula> childs2 = normativeValuesPreEndPeriod.getChilds();
+                    childs.addAll(childs2);
+                    childs.addAll(prefixSuffix.getVals());
+                    childs.addAll(periodsComparison.getVals());
                     formula.setChilds(childs);
                     EditStorage.addItem(formula.getId(), formula);
                     dialog.close();
@@ -106,9 +132,9 @@ public class EditPopup {
 
 
     private void updateFormula() {
-        Row[] arr = editFormula.getTextfields();
+        EditRow[] arr = editFormula.getTextfields();
 
-        for (Row row : arr) {
+        for (EditRow row : arr) {
             String key = row.key;
             TextField textfieldget = row.textfield;
             String value = textfieldget.getText();

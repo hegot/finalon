@@ -107,6 +107,22 @@ public class Periods implements JsCalcHelper {
         return periodArr.get(periodArr.size() - 1);
     }
 
+    public String preEndKey() {
+        ArrayList<String> periodArr = getPeriodArr();
+        if (periodArr.size() > 1) {
+            return periodArr.get(periodArr.size() - 2);
+        }
+        return null;
+    }
+
+    public String prePreEndKey() {
+        ArrayList<String> periodArr = getPeriodArr();
+        if (periodArr.size() > 2) {
+            return periodArr.get(periodArr.size() - 3);
+        }
+        return null;
+    }
+
     private LocalDateTime getStartTime() {
         int totall = periods * month;
         LocalDateTime time = getEndTime();
@@ -127,7 +143,7 @@ public class Periods implements JsCalcHelper {
 
     public String getAfterStart() {
         ArrayList<String> arr = getPeriodArr();
-        if (arr.get(1) != null) {
+        if (arr.size() > 1 && arr.get(1) != null) {
             return formatDate(arr.get(1));
         }
         return formatDate(arr.get(0));

@@ -90,7 +90,7 @@ public class DefaultFormulas {
         Formulas.addAll(DebttoTangibleNetWorthRatio.get(FSiD, counter));
         counter = counter + 8;
         Formulas.addAll(LongTermDebttoEquity.get(FSiD, counter));
-        counter = counter + 5;
+        counter = counter + 4;
         //Liquidity
         Formulas.addAll(CurrentRatio.get(LiD, counter));
         counter = counter + 10;
@@ -112,7 +112,7 @@ public class DefaultFormulas {
         counter = counter + 6;
         Formulas.addAll(ReturnOnAssets.get(PaPiD, counter));
         counter = counter + 5;
-        Formulas.addAll(ReturnOnCurrentAssets.get(PaPiD, counter));
+        Formulas.addAll(ReturnOnNonCurrentAssets.get(PaPiD, counter));
         counter = counter + 4;
         Formulas.addAll(ReturnonOperatingAssets.get(PaPiD, counter));
         counter = counter + 4;
@@ -120,6 +120,11 @@ public class DefaultFormulas {
         counter = counter + 7;
         Formulas.addAll(ReturnonEquityafterTax.get(PaPiD, counter));
         counter = counter + 8;
+        Formulas.addAll(NetSalesChange.get(parent, counter));
+        counter = counter + 1;
+        Formulas.addAll(EquityChange.get(parent, counter));
+        counter = counter + 1;
+
 
         //Turnover
         Formulas.addAll(TotalAssetTurnover.get(TiD, counter));
@@ -129,7 +134,7 @@ public class DefaultFormulas {
         Formulas.addAll(CurrentAssetTurnover.get(TiD, counter));
         counter = counter + 3;
         Formulas.addAll(WorkingCapitalTurnover.get(TiD, counter));
-        counter = counter + 4;
+        counter = counter + 3;
         Formulas.addAll(AccountsReceivableTurnover.get(TiD, counter));
         counter = counter + 4;
         Formulas.addAll(AverageCollectionPeriod.get(TiD, counter));
@@ -143,7 +148,7 @@ public class DefaultFormulas {
         Formulas.addAll(InventoryTurnoverinDays.get(TiD, counter));
         counter = counter + 5;
         Formulas.addAll(CashTurnover.get(TiD, counter));
-        counter = counter + 4;
+        counter = counter + 3;
         Formulas.addAll(OperatingCycle.get(TiD, counter));
         counter = counter + 4;
         Formulas.addAll(CashConversionCycle.get(TiD, counter));

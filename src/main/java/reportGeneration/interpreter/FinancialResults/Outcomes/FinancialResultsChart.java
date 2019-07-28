@@ -1,6 +1,7 @@
 package reportGeneration.interpreter.FinancialResults.Outcomes;
 
 import entities.Item;
+import globalReusables.LabelWrap;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import javafx.scene.chart.BarChart;
@@ -9,10 +10,11 @@ import reportGeneration.interpreter.ReusableComponents.ChartBase;
 import reportGeneration.interpreter.ReusableComponents.interfaces.*;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
+import reportGeneration.storage.ResultsStorage;
 
 import java.util.ArrayList;
 
-public class FinancialResultsChart extends ChartBase implements GetVal, Round, LabelWrap, JsCalcHelper, ParseDouble {
+public class FinancialResultsChart extends ChartBase implements GetVal, Round, LabelWrap, JsCalcHelper, ParseDouble, TableName{
     private ObservableMap<String, Double> valuesEBIT;
     private ObservableMap<String, Double> valuesRevenueGeneral;
     private ObservableMap<String, Double> valuesGrossProfit;
@@ -65,15 +67,18 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
     }
 
     public VBox get() {
-        BarChart<String, Number> bc = getChart(chartTitle());
+        BarChart<String, Number> bc = getChart();
         bc.getData().addAll(
                 getSeries("Net Sales", valuesRevenueGeneral),
                 getSeries("EBIT", valuesEBIT),
                 getSeries("Gross Profit", valuesGrossProfit),
                 getSeries("Comprehensive Income", valuesComprehensiveIncome)
         );
+        String title = chartTitle();
+        ResultsStorage.addStr(66, "h2", title);
+        ResultsStorage.addBarChart(66, bc);
         VBox vBox = new VBox(20);
-        vBox.getChildren().add(bc);
+        vBox.getChildren().addAll(tableName(title), bc);
         if (periodsArr.size() > 1) {
             getGrossProfitEvaluation(vBox);
             getEbitEvaluation(vBox);
@@ -108,6 +113,7 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
                         " process management efficiency was changing from period to period, being better" +
                         " during the periods with higher values of the ratio.";
             }
+            ResultsStorage.addStr(67, "text", out);
             vBox.getChildren().add(labelWrap(out));
         }
     }
@@ -150,7 +156,7 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
                         " Periods with higher values of this ratio witness better performance " +
                         "of a company in terms of profitability and cost management. ";
             }
-
+            ResultsStorage.addStr(68, "text", out);
             vBox.getChildren().add(labelWrap(out));
         }
     }
@@ -175,6 +181,7 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
                 out += "The share of the comprehensive income in the company's net sales " +
                         "did not change during " + periods.getStart() + "-" + periods.getEnd() + ". ";
             }
+            ResultsStorage.addStr(69, "text", out);
             vBox.getChildren().add(labelWrap(out));
         }
     }

@@ -5,8 +5,9 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
-import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
+import globalReusables.LabelWrap;
 import reportGeneration.storage.Periods;
+import reportGeneration.storage.ResultsStorage;
 
 public class RelativeItemsChange implements LabelWrap, JsCalcHelper {
     private Item parent;
@@ -14,6 +15,7 @@ public class RelativeItemsChange implements LabelWrap, JsCalcHelper {
     private String startDate;
     private String endDate;
     private String text;
+    private Boolean rize;
 
     public RelativeItemsChange(Item parent,
                                ObservableList<Item> items,
@@ -23,49 +25,61 @@ public class RelativeItemsChange implements LabelWrap, JsCalcHelper {
         this.endDate = Periods.getInstance().getEnd();
         this.items = items;
         this.text = text;
+        this.rize = riseOrFall();
     }
 
+    private Boolean riseOrFall() {
+        if (this.parent.getValues().size() > 1) {
+            Double firstVal = parent.getFirstVal();
+            Double lastVal = parent.getLastVal();
+            if (firstVal != null && lastVal != null) {
+                return lastVal > firstVal;
+            }
+        }
+        return true;
+    }
 
-    private void attachRowsEvaluation(VBox vBox) {
+    private String getRowsEvaluation() {
+        String output = "";
         for (Item item : items) {
             if (item.getValues().size() > 1) {
                 Double firstVal = item.getFirstVal();
                 Double lastVal = item.getLastVal();
                 if (firstVal != null && lastVal != null) {
                     String change = getRelativeChange(firstVal, lastVal);
-                    Label label = new Label("- " + item.getName() + " (" + change + "%)");
-                    vBox.getChildren().addAll(label);
+                    if(rize){
+                        if(lastVal > firstVal){
+                            output += "- " + item.getName() + " (" + change + "%) \n";
+                        }
+                    }else{
+                        if(lastVal < firstVal){
+                            output += "- " + item.getName() + " (" + change + "%) \n";
+                        }
+                    }
                 }
 
             }
         }
+        return output;
     }
 
-    public VBox get() {
+    public VBox get(int id) {
         VBox vBox = new VBox(10);
-
         if (this.parent.getValues().size() > 1) {
-            vBox.getChildren().add(message());
+            String mess = message();
+            vBox.getChildren().add(labelWrap(mess));
+            String rowsEval = getRowsEvaluation();
+            Label label = new Label(rowsEval);
+            vBox.getChildren().addAll(label);
+            ResultsStorage.addStr(id, "text", mess + rowsEval);
         }
-        attachRowsEvaluation(vBox);
         return vBox;
     }
 
-    private String riseOrFall() {
-        if (this.parent.getValues().size() > 1) {
-            Double firstVal = parent.getFirstVal();
-            Double lastVal = parent.getLastVal();
-            if (firstVal != null && lastVal != null) {
-                return (lastVal > firstVal) ? "positive" : "negative";
-            }
-        }
-        return "";
-    }
-
-    private Label message() {
-        return labelWrap(
-                "The change of the " + parent.getName() + " value in " +
-                        startDate + "-" + endDate + " was connected with a " +
-                        riseOrFall() + " change of the following " + text + ":");
+    private String message() {
+        String change = rize ? "positive" : "negative";
+        return "The change of the " + parent.getName() + " value in " +
+                startDate + "-" + endDate + " was connected with a " +
+                change + " change of the following " + text + ": \n";
     }
 }

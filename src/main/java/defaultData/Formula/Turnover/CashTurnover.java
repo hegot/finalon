@@ -20,30 +20,20 @@ public class CashTurnover {
         counter++;
         int CashTurnovergood = counter;
         Formulas.add(new Formula(CashTurnovergood,
-                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">",
                 "12",
-                "CURRENTVALUE in CURRENTPERIOD (good - more than 12),",
+                "The cash turnover ratio was LASTVALUE in ENDDATE (good - more than 12),",
                 "",
                 "",
                 CashTurnover));
         counter++;
         int CashTurnoversatisfactory = counter;
         Formulas.add(new Formula(CashTurnoversatisfactory,
-                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
+                EvaluationTypes.EVALUATE_END.toString(),
                 "<=",
                 "12",
-                "CURRENTVALUE in CURRENTPERIOD (unsatisfactory - less than 12),",
-                "",
-                "",
-                CashTurnover));
-        counter++;
-        int CashTurnoverPrefix = counter;
-        Formulas.add(new Formula(CashTurnoverPrefix,
-                EvaluationTypes.PREFIX.toString(),
-                "",
-                "",
-                "The cash turnover ratio was ",
+                "The cash turnover ratio was LASTVALUE in ENDDATE (unsatisfactory - less than 12),",
                 "",
                 "",
                 CashTurnover));

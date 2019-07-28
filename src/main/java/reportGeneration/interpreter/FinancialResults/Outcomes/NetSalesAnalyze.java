@@ -2,9 +2,10 @@ package reportGeneration.interpreter.FinancialResults.Outcomes;
 
 import entities.Item;
 import javafx.scene.layout.VBox;
-import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
+import globalReusables.LabelWrap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.Round;
 import reportGeneration.storage.ItemsStorage;
+import reportGeneration.storage.ResultsStorage;
 
 public class NetSalesAnalyze implements LabelWrap, Round {
 
@@ -36,6 +37,7 @@ public class NetSalesAnalyze implements LabelWrap, Round {
                 output = equal();
             }
             hbox.getChildren().add(labelWrap(output));
+            ResultsStorage.addStr(63, "text", output);
         }
         return hbox;
     }

@@ -4,10 +4,11 @@ import entities.Item;
 import javafx.collections.ObservableMap;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
-import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
+import globalReusables.LabelWrap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.Round;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
+import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
 
 import java.util.ArrayList;
@@ -51,6 +52,7 @@ public class CostOfGoods implements LabelWrap, JsCalcHelper, Round {
                 }
             }
             hbox.getChildren().add(labelWrap(output));
+            ResultsStorage.addStr(64, "text", output);
         }
         return hbox;
     }
@@ -66,7 +68,7 @@ public class CostOfGoods implements LabelWrap, JsCalcHelper, Round {
             Double change = ((val2 - val1) / val1) * 100;
             String inner = change > 0 ? "more" : "less";
             if (val1 != null && val2 != null) {
-                out.append("The cost of goods and services totalled "
+                out.append("The cost of goods and services totaled "
                         + currency + " " + val2 + " " + amount + " in "
                         + formatDate(end) + ", " + round(change) + "% " + inner + " than in " + formatDate(start) + ". ");
             }
@@ -74,13 +76,16 @@ public class CostOfGoods implements LabelWrap, JsCalcHelper, Round {
         return out.toString();
     }
 
+    private String atTheEnd() {
+        return "At the end of " + endDate + " the cost of goods and services totaled " + currency + " " + last + " " + amount + ". ";
+    }
 
     private String increase(Double change) {
-        return "This has resulted in an increase in the gross profit by " + round(change) + "%.";
+        return atTheEnd() + "This has resulted in an increase in the gross profit by " + round(change) + "%.";
     }
 
     private String decrease(Double change) {
-        return "This has resulted in decrease in the gross profit by " + round(change) + "%.";
+        return atTheEnd() + "This has resulted in decrease in the gross profit by " + round(change) + "%.";
     }
 
     private String stable() {

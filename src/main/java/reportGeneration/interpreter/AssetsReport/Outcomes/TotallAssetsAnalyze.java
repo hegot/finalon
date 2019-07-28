@@ -4,9 +4,10 @@ import entities.Item;
 import javafx.collections.ObservableMap;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
-import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
+import globalReusables.LabelWrap;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
+import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
 
 public class TotallAssetsAnalyze implements LabelWrap, JsCalcHelper {
@@ -43,10 +44,13 @@ public class TotallAssetsAnalyze implements LabelWrap, JsCalcHelper {
             if (last == first) {
                 output = equal();
             }
+            String consequence = consequence();
             hbox.getChildren().addAll(
                     labelWrap(output),
-                    labelWrap(consequence())
+                    labelWrap(consequence)
             );
+
+            ResultsStorage.addStr(5, "text", output + consequence);
         }
         return hbox;
     }
@@ -75,7 +79,7 @@ public class TotallAssetsAnalyze implements LabelWrap, JsCalcHelper {
     }
 
     private String consequence() {
-        return "The value of the assets totalled " + last +
+        return "The value of the assets totaled " + last +
                 " at the end of " + endDate + ". ";
     }
 }

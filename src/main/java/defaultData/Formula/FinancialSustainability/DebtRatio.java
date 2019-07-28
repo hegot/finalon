@@ -31,11 +31,11 @@ public class DebtRatio {
         int DebtRatiogood = counter;
         Formulas.add(new Formula(DebtRatiogood,
                 EvaluationTypes.EVALUATE_END.toString(),
-                ">",
-                "0.4",
-                "The debt ratio lies in the area of critical values (from 0.4 to 0.6) at the end of the period, meaning that there was an acceptable financial and credit risk. ",
                 "<=",
                 "0.6",
+                "The debt ratio lies in the area of critical values (from 0.4 to 0.6) at the end of the period, meaning that there was an acceptable financial and credit risk. ",
+                ">",
+                "0.4",
                 DebtRatio));
         counter++;
         int DebtRatiobad = counter;
@@ -44,16 +44,6 @@ public class DebtRatio {
                 ">",
                 "0.6",
                 "The debt ratio was in the 'distress' zone (above 0.6) at the end of the period, meaning that there was a high financial and credit risk.",
-                "",
-                "",
-                DebtRatio));
-        counter++;
-        int DebtRatioNull = counter;
-        Formulas.add(new Formula(DebtRatioNull,
-                EvaluationTypes.EACH_PERIOD_TRUE.toString(),
-                "=",
-                "0",
-                "During  STARTDATE-ENDDAT COMPANYNAME was not using debt to finance its assets. As a result, company was sustainable in the long term run.  ",
                 "",
                 "",
                 DebtRatio));

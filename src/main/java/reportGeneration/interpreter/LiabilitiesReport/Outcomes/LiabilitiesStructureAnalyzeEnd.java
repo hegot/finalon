@@ -2,14 +2,14 @@ package reportGeneration.interpreter.LiabilitiesReport.Outcomes;
 
 import entities.Item;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.EquityShareAnalyze;
-import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
+import globalReusables.LabelWrap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 import reportGeneration.interpreter.ReusableComponents.interfaces.SrtuctureItemsLoop;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
+import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
 
 public class LiabilitiesStructureAnalyzeEnd implements SrtuctureItemsLoop, LabelWrap, EquityShareAnalyze, ParseDouble {
@@ -47,39 +47,38 @@ public class LiabilitiesStructureAnalyzeEnd implements SrtuctureItemsLoop, Label
     public VBox get() {
         VBox vBox = new VBox(10);
         if (this.parent.getValues().size() > 1) {
-            vBox.getChildren().add(firstMessage());
+            String mess = firstMessage();
+            vBox.getChildren().add(labelWrap(mess));
+            ResultsStorage.addStr(32, "text", mess);
         }
+        String str = "";
         if (equityVal != null && equityVal > 0) {
-            vBox.getChildren().add(
-                    loopItems(equityItems,
-                            equityVal,
-                            "The total equity consisted mostly of ",
-                            " etc.",
-                            period)
-            );
+            str = loopItems(equityItems,
+                    equityVal,
+                    "The total equity consisted mostly of ",
+                    " etc.",
+                    period);
         }
         if (currentVal != null && currentVal > 0) {
-            vBox.getChildren().add(
-                    loopItems(currentItems,
-                            currentVal,
-                            "The following current liabilities had the highest values: ",
-                            " etc.",
-                            period)
-            );
+            str = loopItems(currentItems,
+                    currentVal,
+                    "The following current liabilities had the highest values: ",
+                    " etc.",
+                    period);
         }
         if (nonCurrentVal != null && nonCurrentVal > 0) {
-            vBox.getChildren().add(
-                    loopItems(nonCurrentItems,
-                            nonCurrentVal,
-                            "Noncurrent liabilities included: ",
-                            " etc.",
-                            period)
-            );
+            str = loopItems(nonCurrentItems,
+                    nonCurrentVal,
+                    "Non-current liabilities included: ",
+                    " etc.",
+                    period);
         }
+        vBox.getChildren().add(labelWrap(str));
+        ResultsStorage.addStr(33, "text", str);
         return vBox;
     }
 
-    private Label firstMessage() {
+    private String firstMessage() {
         String str = "At the end of " + formatDate(period) + " the sources of finance comprised ";
         if (equityVal != null) {
             str = str + partStr(equityVal, totalVal) + " shareholders' equity, ";
@@ -94,6 +93,6 @@ public class LiabilitiesStructureAnalyzeEnd implements SrtuctureItemsLoop, Label
             Double share = (equityVal / assetsTotal) * 100;
             str = str + equityShareAnalyse(share, period);
         }
-        return labelWrap(str);
+        return str;
     }
 }

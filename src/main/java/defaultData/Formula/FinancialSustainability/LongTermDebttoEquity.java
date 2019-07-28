@@ -20,44 +20,33 @@ public class LongTermDebttoEquity {
         counter++;
         int LongTermDebttoEquityexcellent = counter;
         Formulas.add(new Formula(LongTermDebttoEquityexcellent,
-                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">=",
                 "1",
-                "CURRENTVALUE in CURRENTPERIOD (excellent - more than 1), ",
+                "The value of the long-term debt to equity ratio was LASTVALUE in ENDDATE (excellent - more than 1), ",
                 "",
                 "",
                 LongTermDebttoEquity));
         counter++;
         int LongTermDebttoEquitysatisfactory = counter;
         Formulas.add(new Formula(LongTermDebttoEquitysatisfactory,
-                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
+                EvaluationTypes.EVALUATE_END.toString(),
                 ">=",
                 "0.5",
-                "CURRENTVALUE in CURRENTPERIOD (satisfactory - between 0.5 and 1), ",
+                "The value of the long-term debt to equity ratio was LASTVALUE in ENDDATE (satisfactory - between 0.5 and 1), ",
                 "<",
                 "1",
                 LongTermDebttoEquity));
         counter++;
         int LongTermDebttoEquitybad = counter;
         Formulas.add(new Formula(LongTermDebttoEquitybad,
-                EvaluationTypes.EVALUATE_EACH_PERIOD.toString(),
+                EvaluationTypes.EVALUATE_END.toString(),
                 "<",
                 "0.5",
-                "CURRENTVALUE in CURRENTPERIOD (bad - less than 0.5), ",
+                "The value of the long-term debt to equity ratio was LASTVALUE in ENDDATE (bad - less than 0.5), ",
                 "",
                 "",
                 LongTermDebttoEquity));
-        counter++;
-        int LongTermDebttoEquityPrefix = counter;
-        Formulas.add(new Formula(LongTermDebttoEquityPrefix,
-                EvaluationTypes.PREFIX.toString(),
-                "",
-                "",
-                "The value of the long-term debt to equity ratio was ",
-                "",
-                "",
-                LongTermDebttoEquity));
-        counter++;
         return Formulas;
     }
 }

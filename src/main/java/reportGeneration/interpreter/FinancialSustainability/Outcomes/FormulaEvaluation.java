@@ -7,8 +7,9 @@ import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.FormulaEvaluateBase;
 import reportGeneration.interpreter.ReusableComponents.NormValsEvaluator.StrReplacer;
 import reportGeneration.interpreter.ReusableComponents.interfaces.AttachChilds;
-import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
+import globalReusables.LabelWrap;
 import reportGeneration.storage.Periods;
+import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
 
 public class FormulaEvaluation implements LabelWrap, AttachChilds {
@@ -34,6 +35,7 @@ public class FormulaEvaluation implements LabelWrap, AttachChilds {
         }
         VBox vbox = new VBox();
         vbox.getChildren().add(labelWrap(outcome));
+        ResultsStorage.addStr(43, "test", outcome);
         return vbox;
     }
 
@@ -46,13 +48,8 @@ public class FormulaEvaluation implements LabelWrap, AttachChilds {
             DebtRatioHook debtRatio = new DebtRatioHook(formula);
             output.append(debtRatio.getResult());
         }
-        output.append(evaluator.multivariate());
-        output.append(evaluator.endOnly());
-        output.append(evaluator.evaluateEach());
         output.append(evaluator.startAndEnd());
         output.append(evaluator.periodsComparison());
-        output.append(evaluator.eachPeriodTrue());
-        output.append(evaluator.endEvaluation());
         output.append(evaluator.suffix());
         return output.toString();
     }

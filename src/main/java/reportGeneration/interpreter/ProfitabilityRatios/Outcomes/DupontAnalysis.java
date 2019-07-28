@@ -5,14 +5,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
-import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
+import globalReusables.LabelWrap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 import reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
 import reportGeneration.interpreter.ReusableComponents.tables.RatiosTable;
-import reportGeneration.storage.FormulaStorage;
-import reportGeneration.storage.Periods;
-import reportGeneration.storage.SettingsStorage;
+import reportGeneration.storage.*;
 
 import java.util.ArrayList;
 
@@ -31,18 +30,25 @@ public class DupontAnalysis implements LabelWrap, ParseDouble, TableName {
 
     public VBox get() {
         VBox box = new VBox(8);
-        Label tableName = tableName("Table 9. Dupont Analysis");
-
+        String title = "Table 9. Dupont Analysis";
+        Label tableName = tableName(title);
+        ResultsStorage.addStr(74, "tableName", title);
         ObservableList<Formula> formulas = FXCollections.observableArrayList();
         formulas.addAll(
                 returnOnAssets,
                 netProfitMargin,
                 totalAssetTurnover
         );
+
+        TableView tbl = new RatiosTable(formulas).get();
+        TwoDList items = getTableViewValues(tbl);
+        ResultsStorage.addTable(75, items);
+        String evaluate = evaluate();
+        ResultsStorage.addStr(76, "text", evaluate);
         box.getChildren().addAll(
                 tableName,
-                new RatiosTable(formulas).get(),
-                labelWrap(evaluate())
+                tbl,
+                labelWrap(evaluate)
         );
         return box;
     }

@@ -50,30 +50,17 @@ public class EditStorage {
             for (Formula child : childs) {
                 if (child.getId() == -1) {
                     dbFormula.addFormula(child);
+                } else if (child.getCategory().equals("TO_BE_DELETED")) {
+                    dbFormula.deleteItem(child.getId());
                 } else {
                     dbFormula.updateFormula(child);
                 }
             }
 
-            //handle deleted items
-            ObservableList<Formula> oldChilds = dbFormula.getFormulas(ID);
-            for (Formula oldChild : oldChilds) {
-                int id = oldChild.getId();
-                Boolean found = false;
-                for (Formula child : childs) {
-                    if (child.getId() == id || child.getId() == -1) {
-                        found = true;
-                    }
-                }
-                if (!found) {
-                    dbFormula.deleteItem(id);
-                }
-            }
-
-            if (formula.getCategory() == "TO_BE_DELETED") {
+            if (formula.getCategory().equals("TO_BE_DELETED")) {
                 dbFormula.deleteItem(ID);
             }
-            if (formula.getCategory() == "TO_BE_ADDED") {
+            if (formula.getCategory().equals("TO_BE_ADDED")) {
                 dbFormula.updateFormula(formula);
             }
         }

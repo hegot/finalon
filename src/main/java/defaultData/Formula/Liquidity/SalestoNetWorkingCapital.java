@@ -31,11 +31,11 @@ public class SalestoNetWorkingCapital {
         int SalestoNetWorkingCapitalsatisfactory = counter;
         Formulas.add(new Formula(SalestoNetWorkingCapitalsatisfactory,
                 EvaluationTypes.EVALUATE_END.toString(),
-                "<",
-                "3",
-                "Sales to Net Working Capital was satisfactory in ENDDATE. ",
                 ">",
                 "0",
+                "Sales to Net Working Capital was satisfactory in ENDDATE. ",
+                "<=",
+                "3",
                 SalestoNetWorkingCapital));
         counter++;
         int SalestoNetWorkingCapitalunsatisfactory = counter;

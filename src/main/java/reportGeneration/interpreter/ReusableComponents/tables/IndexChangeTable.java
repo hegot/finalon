@@ -2,7 +2,6 @@ package reportGeneration.interpreter.ReusableComponents.tables;
 
 import database.setting.DbSettingHandler;
 import entities.Item;
-import finalonWindows.reusableComponents.ItemsTable.ItemsTable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.TableColumn;

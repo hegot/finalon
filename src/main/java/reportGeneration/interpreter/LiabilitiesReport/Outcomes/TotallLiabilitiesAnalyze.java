@@ -4,10 +4,11 @@ import entities.Item;
 import javafx.collections.ObservableMap;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
-import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
+import globalReusables.LabelWrap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
+import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
 
 
@@ -49,7 +50,9 @@ public class TotallLiabilitiesAnalyze implements LabelWrap, ParseDouble, JsCalcH
             if (last <= 0) {
                 output = bankrupt();
             }
-            hbox.getChildren().addAll(labelWrap(preOutput()), labelWrap(output));
+            String preOutput = preOutput();
+            ResultsStorage.addStr(21, "text", preOutput + output);
+            hbox.getChildren().addAll(labelWrap(preOutput), labelWrap(output));
         }
         return hbox;
     }
@@ -71,7 +74,7 @@ public class TotallLiabilitiesAnalyze implements LabelWrap, ParseDouble, JsCalcH
                 + last + " " + settings.get("amount") + " in "
                 + endDate + ", " +
                 getRelativeChange(first, last) + "% " + suffix() + " than in " +
-                endDate + ".";
+                endDate + ". ";
     }
 
     private String increase() {
@@ -80,7 +83,7 @@ public class TotallLiabilitiesAnalyze implements LabelWrap, ParseDouble, JsCalcH
                 ", which indicates that the company's assets would worth more " +
                 "after all claims upon those assets were paid. This means that " +
                 settings.get("company") +
-                " was expanding.";
+                " was expanding. ";
     }
 
     private String decrease() {
@@ -89,7 +92,7 @@ public class TotallLiabilitiesAnalyze implements LabelWrap, ParseDouble, JsCalcH
                 ", which indicates that the company's assets would worth less " +
                 "after all claims upon those assets were paid. This means that " +
                 settings.get("company") +
-                " was degrading.";
+                " was degrading. ";
     }
 
     private String equal() {
@@ -99,7 +102,7 @@ public class TotallLiabilitiesAnalyze implements LabelWrap, ParseDouble, JsCalcH
     }
 
     private String bankrupt() {
-        return "The stockholders' equity value equals zero or less, meaning that the company may go bankrupt.";
+        return "The stockholders' equity value equals zero or less, meaning that the company may go bankrupt. ";
     }
 
 }

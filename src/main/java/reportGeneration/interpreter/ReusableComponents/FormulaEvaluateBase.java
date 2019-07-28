@@ -31,65 +31,26 @@ public class FormulaEvaluateBase {
         return generalRenderer.get(EvaluationTypes.SUFFIX);
     }
 
-    public String multivariate() {
-        if (type.equals(EvaluationTypes.EACH_PERIOD_MULTIVARIATE.toString())) {
-            EachPeriodMultivariate multivariate = new EachPeriodMultivariate(formula);
-            return multivariate.getResult();
-        }
-        return "";
-    }
+    public String startAndEnd() {
 
+        StringBuilder output = new StringBuilder();
 
-    public String endOnly() {
-        NormValsEvaluator eval = new NormValsEvaluator(
+        NormValsEvaluator eval1 = new NormValsEvaluator(
+                formula,
+                formula.getFormulaStart(),
+                EvaluationTypes.EVALUATE_PRE_END
+        );
+        output.append(eval1.getResult());
+
+        NormValsEvaluator eval2 = new NormValsEvaluator(
                 formula,
                 end,
                 EvaluationTypes.EVALUATE_END
         );
-        return eval.getResult();
-    }
+        output.append(eval2.getResult());
 
-    public String startOnly() {
-        NormValsEvaluator eval = new NormValsEvaluator(
-                formula,
-                end,
-                EvaluationTypes.EVALUATE_START
-        );
-        return eval.getResult();
-    }
-
-    public String startAndEnd() {
-        if (type.equals(EvaluationTypes.EVALUATE_START_AND_END.toString())) {
-            StringBuilder output = new StringBuilder();
-            NormValsEvaluator eval1 = new NormValsEvaluator(
-                    formula,
-                    formula.getFormulaStart(),
-                    EvaluationTypes.EVALUATE_START
-            );
-            output.append(eval1.getResult());
-
-            NormValsEvaluator eval2 = new NormValsEvaluator(
-                    formula,
-                    end,
-                    EvaluationTypes.EVALUATE_END
-            );
-            output.append(eval2.getResult());
-            return output.toString();
-        }
-        return "";
-    }
-
-    public String evaluateEach() {
-        StringBuilder output = new StringBuilder();
-        for (String period : periodsarr) {
-            NormValsEvaluator eval = new NormValsEvaluator(
-                    formula,
-                    period,
-                    EvaluationTypes.EVALUATE_EACH_PERIOD
-            );
-            output.append(eval.getResult());
-        }
         return output.toString();
+
     }
 
     public String periodsComparison() {
@@ -97,19 +58,5 @@ public class FormulaEvaluateBase {
         return periodsComparison.getResult();
     }
 
-    public String eachPeriodTrue() {
-        EachPeriodTrue eachPeriodTrue = new EachPeriodTrue(formula);
-        return eachPeriodTrue.getResult();
-    }
-
-    public String endEvaluation() {
-        AdditionalEndEvaluation additionalEndEvaluation = new AdditionalEndEvaluation(formula, end);
-        return additionalEndEvaluation.getResult();
-    }
-
-    public String substituteEvaluator() {
-        SubstituteComparator substituteComparator = new SubstituteComparator(formula);
-        return substituteComparator.getResult();
-    }
 
 }

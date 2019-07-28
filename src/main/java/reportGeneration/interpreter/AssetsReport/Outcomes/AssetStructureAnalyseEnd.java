@@ -4,10 +4,11 @@ import entities.Item;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
+import globalReusables.LabelWrap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.SrtuctureItemsLoop;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
+import reportGeneration.storage.ResultsStorage;
 
 public class AssetStructureAnalyseEnd implements SrtuctureItemsLoop, LabelWrap {
     private Item parent;
@@ -46,24 +47,23 @@ public class AssetStructureAnalyseEnd implements SrtuctureItemsLoop, LabelWrap {
         if (this.parent.getValues().size() > 1) {
             vBox.getChildren().add(firstMessage());
         }
+        String str = "";
         if (currentVal != null && currentVal > 0) {
-            vBox.getChildren().add(
-                    loopItems(currentItems,
-                            currentVal,
-                            "Total Current assets composed mostly of ",
-                            " etc.",
-                            period)
-            );
+            str = loopItems(currentItems,
+                    currentVal,
+                    "Total Current assets composed mostly of ",
+                    " etc.",
+                    period);
         }
         if (nonCurrentVal != null && nonCurrentVal > 0) {
-            vBox.getChildren().add(
-                    loopItems(nonCurrentItems,
-                            nonCurrentVal,
-                            "The most significant items of the Non Current assets - ",
-                            " etc.",
-                            period)
-            );
+            str = loopItems(nonCurrentItems,
+                    nonCurrentVal,
+                    "The most significant items of the Non Current assets - ",
+                    " etc.",
+                    period);
         }
+        ResultsStorage.addStr(18, "text", str);
+        vBox.getChildren().add(labelWrap(str));
         return vBox;
     }
 
@@ -82,6 +82,7 @@ public class AssetStructureAnalyseEnd implements SrtuctureItemsLoop, LabelWrap {
                 str = str + " and " + partStr(currentVal, totalVal) + " of current assets.";
             }
         }
+        ResultsStorage.addStr(17, "text", str);
         return labelWrap(str);
     }
 }

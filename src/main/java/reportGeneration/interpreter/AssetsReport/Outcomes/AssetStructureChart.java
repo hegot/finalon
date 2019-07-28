@@ -5,11 +5,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.chart.PieChart;
+import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.GetVal;
+import reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
 import reportGeneration.storage.ItemsStorage;
+import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
 
-public class AssetStructureChart implements GetVal {
+public class AssetStructureChart implements GetVal, TableName {
 
     private Item current;
     private Item nonCurrent;
@@ -30,7 +33,8 @@ public class AssetStructureChart implements GetVal {
         this.nonCurrentVal = nonCurrent.getVal(period);
     }
 
-    public PieChart get() {
+    public VBox get() {
+        VBox vBox = new VBox();
         ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
         final PieChart chart = new PieChart();
         if (totalVal != null && totalVal != 0) {
@@ -48,8 +52,11 @@ public class AssetStructureChart implements GetVal {
                 ));
             }
             chart.setData(pieChartData);
-            chart.setTitle("Chart 3. " + settings.get("company") + " Assets structure in " + period);
+            String title = "Chart 3. " + settings.get("company") + " Assets structure in " + period;
+            ResultsStorage.addStr(16, "h2", title);
+            ResultsStorage.addPieChart(16, chart);
+            vBox.getChildren().addAll(tableName(title), chart);
         }
-        return chart;
+        return vBox;
     }
 }

@@ -2,12 +2,14 @@ package reportGeneration.interpreter.TurnoverRatios;
 
 import entities.Formula;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
 import reportGeneration.interpreter.ReusableComponents.tables.RatiosTable;
 import reportGeneration.interpreter.TurnoverRatios.Outcomes.FormulaEvaluation;
 import reportGeneration.storage.FormulaStorage;
+import reportGeneration.storage.ResultsStorage;
+import reportGeneration.storage.TwoDList;
 
 public class TurnoverRatios implements TableName {
     private ObservableList<Formula> formulas;
@@ -22,12 +24,16 @@ public class TurnoverRatios implements TableName {
 
     public VBox get() {
         VBox box = new VBox(8);
-        RatiosTable turnoverTable = new RatiosTable(formulas);
-        Label tableName = tableName("Table 10. Activity Ratios (Turnover Ratios)");
+        String title = "Table 10. Activity Ratios (Turnover Ratios)";
+        ResultsStorage.addStr(81, "tableName", title);
         FormulaEvaluation formulaEvaluation = new FormulaEvaluation(formulas);
+        TableView tbl = new RatiosTable(formulas).get();
+        TwoDList items = getTableViewValues(tbl);
+        ResultsStorage.addTable(82, items);
+
         box.getChildren().addAll(
-                tableName,
-                turnoverTable.get(),
+                tableName(title),
+                tbl,
                 formulaEvaluation.get()
         );
         return box;

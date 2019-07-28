@@ -3,25 +3,26 @@ package reportGeneration.interpreter.AssetsReport;
 import entities.Item;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.AssetsReport.Outcomes.*;
 import reportGeneration.interpreter.ReusableComponents.RelativeItemsChange;
 import reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
 import reportGeneration.interpreter.ReusableComponents.tables.IndexChangeTable;
+import reportGeneration.interpreter.ReusableComponents.tables.StructureItem;
 import reportGeneration.interpreter.ReusableComponents.tables.StructureTable;
-import reportGeneration.storage.ItemsStorage;
-import reportGeneration.storage.Periods;
-import reportGeneration.storage.SettingsStorage;
+import reportGeneration.storage.*;
 
 public class AssetsReport implements TableName {
 
+    private Item root;
     private int rootId;
     private ItemsStorage stor = ItemsStorage.getInstance();
     private Item NonCurrentAssets;
     private Item GeneralCurrentAssets;
 
     public AssetsReport() {
-        Item root = stor.get("AssetsGeneral");
+        this.root = stor.get("AssetsGeneral");
         this.rootId = (root != null) ? root.getId() : 0;
         this.NonCurrentAssets = stor.get("NonCurrentAssets");
         this.GeneralCurrentAssets = stor.get("GeneralCurrentAssets");
@@ -29,14 +30,20 @@ public class AssetsReport implements TableName {
 
     public VBox getTrend() {
         ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
-        Label tableName = tableName("Table 1. Assets Trend Analysis, in "
-                + settings.get("amount") + " " + settings.get("defaultCurrency")
-        );
+        String tblName = "Table 1. Assets Trend Analysis, in "
+                + settings.get("amount") + " " + settings.get("defaultCurrency");
+        ResultsStorage.addStr(3, "tableName", tblName);
+        Label tableName = tableName(tblName);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
+
+        TableView<Item> tbl = new IndexChangeTable(rootId).get();
+        TwoDList items = getTableViewValues(tbl);
+        ResultsStorage.addTable(4, items);
+
         box.getChildren().addAll(
                 tableName,
-                new IndexChangeTable(rootId).get(),
+                tbl,
                 new TotallAssetsAnalyze().get(),
                 new CurrentNonCurrentAssetsAnalyze().get(),
                 new AssetsCharts().get(),
@@ -44,24 +51,29 @@ public class AssetsReport implements TableName {
                         NonCurrentAssets,
                         stor.getItems(NonCurrentAssets.getId()),
                         "assets"
-                ).get(),
+                ).get(9),
                 new RelativeItemsChange(
                         GeneralCurrentAssets,
                         stor.getItems(GeneralCurrentAssets.getId()),
                         "assets"
-                ).get()
+                ).get(10)
         );
         return box;
     }
 
     public VBox getStructure() {
-        Label tableName = tableName("Table 3. Assets Structure Analysis");
+        String tblName = "Table 3. Assets Structure Analysis %";
+        Label tableName = tableName(tblName);
+        ResultsStorage.addStr(11, "tableName", tblName);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
         Periods p = Periods.getInstance();
+        TableView<StructureItem> tbl = new StructureTable(root).get();
+        TwoDList items = getTableViewValues(tbl);
+        ResultsStorage.addTable(12, items);
         box.getChildren().addAll(
                 tableName,
-                new StructureTable(rootId).get(),
+                tbl,
                 new AssetStructureAnalyzeStart(
                         stor.getItems(GeneralCurrentAssets.getId()),
                         stor.getItems(NonCurrentAssets.getId())

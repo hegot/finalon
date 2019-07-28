@@ -6,7 +6,8 @@ import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.FormulaEvaluateBase;
 import reportGeneration.interpreter.ReusableComponents.NormValsEvaluator.StrReplacer;
 import reportGeneration.interpreter.ReusableComponents.interfaces.AttachChilds;
-import reportGeneration.interpreter.ReusableComponents.interfaces.LabelWrap;
+import globalReusables.LabelWrap;
+import reportGeneration.storage.ResultsStorage;
 
 public class FormulaEvaluation implements LabelWrap, AttachChilds {
     private ObservableList<Formula> formulas;
@@ -27,6 +28,8 @@ public class FormulaEvaluation implements LabelWrap, AttachChilds {
         }
         VBox vbox = new VBox();
         vbox.getChildren().add(labelWrap(outcome));
+        ResultsStorage.addStr(83, "text", outcome);
+
         return vbox;
     }
 
@@ -34,20 +37,14 @@ public class FormulaEvaluation implements LabelWrap, AttachChilds {
         StringBuilder output = new StringBuilder();
         FormulaEvaluateBase evaluator = new FormulaEvaluateBase(formula);
         output.append(evaluator.prefix());
-        String code = formula.getShortName();
-        output.append(evaluator.multivariate());
-        output.append(evaluator.endOnly());
-        output.append(evaluator.evaluateEach());
         output.append(evaluator.startAndEnd());
         output.append(evaluator.periodsComparison());
+        String code = formula.getShortName();
         if (code.equals("TotalAssetTurnover")) {
             TotalAssetTurnoverHook totalAssetTurnover = new TotalAssetTurnoverHook(formula);
             output.append(totalAssetTurnover.getResult());
         }
-        output.append(evaluator.eachPeriodTrue());
-        output.append(evaluator.endEvaluation());
         output.append(evaluator.suffix());
-
         if (code.equals("AccountsPayableTurnover")) {
             RecivablePayableAccountsComparison recivablePayable = new RecivablePayableAccountsComparison();
             output.append(recivablePayable.getResult());
