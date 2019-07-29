@@ -18,8 +18,9 @@ public class ProfitabilityRatios implements TableName {
 
     public ProfitabilityRatios() {
         FormulaStorage storage = FormulaStorage.getInstance();
-        Formula PaP = storage.get("PaP");
+        Formula PaP = storage.get("ProfitabilityAndPerformance");
         if (PaP != null) {
+            ResultsStorage.addStr(60, "sectionTitle", PaP.getName());
             this.formulas = storage.getItems(PaP.getId());
         }
     }
@@ -28,12 +29,12 @@ public class ProfitabilityRatios implements TableName {
         VBox box = new VBox(8);
         String title = "Table 8. Profitability Ratios, %";
         Label tableName = tableName(title);
-        ResultsStorage.addStr(71, "tableName", title);
+        ResultsStorage.addStr(61, "tableName", title);
         FormulaEvaluation formulaEvaluation = new FormulaEvaluation(formulas);
 
         TableView tbl = new RatiosTable(formulas).get();
         TwoDList items = getTableViewValues(tbl);
-        ResultsStorage.addTable(72, items);
+        ResultsStorage.addTable(62, items);
 
         box.getChildren().addAll(
                 tableName,

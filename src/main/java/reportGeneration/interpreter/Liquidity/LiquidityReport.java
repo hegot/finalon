@@ -17,9 +17,10 @@ public class LiquidityReport implements TableName {
 
     public LiquidityReport() {
         FormulaStorage storage = FormulaStorage.getInstance();
-        Formula L = storage.get("L");
-        if (L != null) {
-            this.formulas = storage.getItems(L.getId());
+        Formula Liquidity = storage.get("Liquidity");
+        if (Liquidity != null) {
+            ResultsStorage.addStr(50, "sectionTitle", Liquidity.getName());
+            this.formulas = storage.getItems(Liquidity.getId());
         }
     }
 

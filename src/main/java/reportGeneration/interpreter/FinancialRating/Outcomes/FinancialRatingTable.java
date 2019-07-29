@@ -10,6 +10,7 @@ import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
 import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 import reportGeneration.interpreter.ReusableComponents.interfaces.RatingWeight;
 import reportGeneration.interpreter.ReusableComponents.interfaces.Round;
+import reportGeneration.storage.Periods;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -53,10 +54,18 @@ public class FinancialRatingTable implements JsCalcHelper, ParseDouble, Round, R
         TableView table = new TableView<>();
         table.getStyleClass().add("report-table");
         table.setEditable(false);
+        Periods periods = Periods.getInstance();
+
         table.getColumns().addAll(
                 getNameCol(),
-                getCol("weight", "Weighting \n factor"),
-                getCol("score1", "Score \n (Pre-end Period)"),
+                getCol("weight", "Weighting \n factor")
+        );
+        if(periods.getPeriodArr().size() > 2) {
+            table.getColumns().add(
+                    getCol("score1", "Score \n (Pre-end Period)")
+            );
+        }
+        table.getColumns().addAll(
                 getCol("score2", "Score \n (End Period)"),
                 getCol("averageScore", "Average \n score"),
                 getCol("weightedScore", "Weighted average \n score")

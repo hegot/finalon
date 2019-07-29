@@ -36,7 +36,7 @@ public class EditTemplate extends TemplateBase {
                     items.add(rootItem);
                     TemplateEditor updater = new TemplateEditor(templateName.getText(), items);
                     updater.updateTpl();
-                    SceneSwitcher.refresh(SceneName.TEMPLATESLIST);
+                    SceneSwitcher.goTo(SceneName.TEMPLATESLIST);
                 } else {
                     System.out.println("err");
                 }

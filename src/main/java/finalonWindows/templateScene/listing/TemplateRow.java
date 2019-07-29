@@ -74,7 +74,7 @@ public class TemplateRow extends VBox {
             TemplateEditor templateEditor = new TemplateEditor(name, items);
             templateEditor.deleteItem(id);
             System.out.println("Template " + name + " deleted successfully");
-            SceneSwitcher.refresh(SceneName.TEMPLATESLIST);
+            SceneSwitcher.goTo(SceneName.TEMPLATESLIST);
         }
     }
 

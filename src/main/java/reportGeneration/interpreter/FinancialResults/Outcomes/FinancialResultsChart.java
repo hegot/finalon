@@ -75,8 +75,8 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
                 getSeries("Comprehensive Income", valuesComprehensiveIncome)
         );
         String title = chartTitle();
-        ResultsStorage.addStr(66, "h2", title);
-        ResultsStorage.addBarChart(66, bc);
+        ResultsStorage.addStr(136, "h2", title);
+        ResultsStorage.addBarChart(136, bc);
         VBox vBox = new VBox(20);
         vBox.getChildren().addAll(tableName(title), bc);
         if (periodsArr.size() > 1) {
@@ -113,7 +113,7 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
                         " process management efficiency was changing from period to period, being better" +
                         " during the periods with higher values of the ratio.";
             }
-            ResultsStorage.addStr(67, "text", out);
+            ResultsStorage.addStr(137, "text", out);
             vBox.getChildren().add(labelWrap(out));
         }
     }
@@ -156,7 +156,7 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
                         " Periods with higher values of this ratio witness better performance " +
                         "of a company in terms of profitability and cost management. ";
             }
-            ResultsStorage.addStr(68, "text", out);
+            ResultsStorage.addStr(138, "text", out);
             vBox.getChildren().add(labelWrap(out));
         }
     }
@@ -181,7 +181,7 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
                 out += "The share of the comprehensive income in the company's net sales " +
                         "did not change during " + periods.getStart() + "-" + periods.getEnd() + ". ";
             }
-            ResultsStorage.addStr(69, "text", out);
+            ResultsStorage.addStr(139, "text", out);
             vBox.getChildren().add(labelWrap(out));
         }
     }

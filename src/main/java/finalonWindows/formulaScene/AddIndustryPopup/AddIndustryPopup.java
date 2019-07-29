@@ -52,7 +52,7 @@ public class AddIndustryPopup {
             );
             try {
                 formulaCreator.createFormulas();
-                SceneSwitcher.refresh(SceneName.FORMULA);
+                SceneSwitcher.goTo(SceneName.FORMULA);
             } catch (SQLException e) {
                 System.out.println("Username=" + industry.getText() + ", standard=" + standard.getValue().getName() + " not created");
                 e.printStackTrace();

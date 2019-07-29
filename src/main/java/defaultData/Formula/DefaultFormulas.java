@@ -56,25 +56,25 @@ public class DefaultFormulas {
         ObservableList<Formula> Formulas = FXCollections.observableArrayList();
         //IFRS CategoryLevel
         int FSiD = counter;
-        Formulas.add(new Formula(FSiD, "Financial Sustainability", "FS", "", "", "section", "", parent));
+        Formulas.add(new Formula(FSiD, "Financial Sustainability and \n Long-Term Debt-Paying Ability", "FinancialSustainability", "", "", "section", "", parent));
         counter++;
         int LiD = counter;
-        Formulas.add(new Formula(LiD, "Liquidity", "L", "", "", "section", "", parent));
+        Formulas.add(new Formula(LiD, "Liquidity of Short-Term Assets", "Liquidity", "", "", "section", "", parent));
         counter++;
         int PaPiD = counter;
-        Formulas.add(new Formula(PaPiD, "Profitability and Performance", "PaP", "", "", "section", "", parent));
+        Formulas.add(new Formula(PaPiD, "Profitability and Performance", "ProfitabilityAndPerformance", "", "", "section", "", parent));
         counter++;
         int TiD = counter;
-        Formulas.add(new Formula(TiD, "Turnover", "T", "", "", "section", "", parent));
+        Formulas.add(new Formula(TiD, "Activity Ratios \n(Turnover Ratios)", "Turnover", "", "", "section", "", parent));
         counter++;
         int IAiD = counter;
-        Formulas.add(new Formula(IAiD, "Investment analysis", "IA", "", "", "section", "", parent));
+        Formulas.add(new Formula(IAiD, "Investor Analysis", "InvestorAnalysis", "", "", "section", "", parent));
         counter++;
         int AZSiD = counter;
-        Formulas.add(new Formula(AZSiD, "Altman Z-score", "AZS", "", "", "section", "", parent));
+        Formulas.add(new Formula(AZSiD, "Forecasting Financial Failure \n (Bankruptcy Test)", "ZscoreModel", "", "", "section", "", parent));
         counter++;
         int OIiD = counter;
-        Formulas.add(new Formula(OIiD, "Other", "OI", "", "", "section", "", parent));
+        Formulas.add(new Formula(OIiD, "Labor Productivity", "LaborProductivitySection", "", "", "section", "", parent));
         counter++;
         //Financial Sustainability
         Formulas.addAll(TimesInterestEarned.get(FSiD, counter));
@@ -120,10 +120,6 @@ public class DefaultFormulas {
         counter = counter + 7;
         Formulas.addAll(ReturnonEquityafterTax.get(PaPiD, counter));
         counter = counter + 8;
-        Formulas.addAll(NetSalesChange.get(parent, counter));
-        counter = counter + 1;
-        Formulas.addAll(EquityChange.get(parent, counter));
-        counter = counter + 1;
 
 
         //Turnover

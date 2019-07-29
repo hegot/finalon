@@ -20,13 +20,13 @@ public class FinancialResultsReport implements TableName {
         String title = "Table 7. Financial Results Trend Analysis, in "
                 + settings.get("amount") + " " + settings.get("defaultCurrency");
         Label tableName = tableName(title);
-        ResultsStorage.addStr(61, "tableName", title);
+        ResultsStorage.addStr(131, "tableName", title);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
         FinancialResultTable financialResultTable = new FinancialResultTable();
         TableView tbl = financialResultTable.get();
         TwoDList items = getTableViewValues(tbl);
-        ResultsStorage.addTable(62, items);
+        ResultsStorage.addTable(132, items);
 
         box.getChildren().addAll(
                 tableName,

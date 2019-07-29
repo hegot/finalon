@@ -37,7 +37,7 @@ public class NetSalesAnalyze implements LabelWrap, Round {
                 output = equal();
             }
             hbox.getChildren().add(labelWrap(output));
-            ResultsStorage.addStr(63, "text", output);
+            ResultsStorage.addStr(133, "text", output);
         }
         return hbox;
     }

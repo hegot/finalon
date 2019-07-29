@@ -16,9 +16,10 @@ public class TurnoverRatios implements TableName {
 
     public TurnoverRatios() {
         FormulaStorage storage = FormulaStorage.getInstance();
-        Formula FS = storage.get("T");
-        if (FS != null) {
-            this.formulas = storage.getItems(FS.getId());
+        Formula Turnover = storage.get("Turnover");
+        if (Turnover != null) {
+            ResultsStorage.addStr(80, "sectionTitle", Turnover.getName());
+            this.formulas = storage.getItems(Turnover.getId());
         }
     }
 

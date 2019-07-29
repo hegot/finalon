@@ -1,7 +1,9 @@
 package reportGeneration.stepThree;
 
+import entities.Formula;
 import finalonWindows.SceneBase;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,11 +13,13 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.Interprter;
+import reportGeneration.storage.FormulaStorage;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
 import reportGeneration.wordExport.WordExport;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,56 +28,86 @@ public class StepThree extends SceneBase {
     private Periods periods;
     private ObservableMap<String, String> settings;
     private Interprter interprter;
+    private Map<String, Tab> tabsArr;
 
     public StepThree() {
         this.settings = SettingsStorage.getInstance().getSettings();
         this.companyName = settings.get("company") + "'s";
         this.interprter = new Interprter();
         this.periods = Periods.getInstance();
+        this.tabsArr = new HashMap<>();
     }
 
+
+    private ArrayList<Tab> loopSections() {
+        ArrayList<Tab> tabs = new ArrayList<Tab>();
+        ObservableList<Formula> sections = FormulaStorage.getInstance().getSections();
+        int weight = 30;
+        int number = 2;
+        for (int i = 0; i < sections.size(); i++) {
+            Formula formula = sections.get(i);
+            String name = number + ". " + formula.getName();
+            number ++;
+            weight = weight + 10;
+            Tab tab = new Tab(name);
+            tabs.add(tab);
+            tabsArr.put(formula.getShortName(), tab);
+        }
+        return tabs;
+    }
 
     public VBox show() {
         TabPane tabs = new TabPane();
 
-        Map<String, Tab> tabsArr = new HashMap<>();
+        Tab tab1 =  getStaticTab();
+
+        String t09 = "4. Overview of the \n Financial Results";
+        ResultsStorage.addStr(130, "sectionTitle", t09);
+
+        String t14 = "10. Financial Rating";
+        ResultsStorage.addStr(140, "sectionTitle", t14);
+
+        Tab tab09 = new Tab(t09);
+        tabsArr.put("financialResultsTrend", tab09);
+        Tab tab10 = new Tab(t14);
+        tabsArr.put("financialRating", tab10);
+        tabs.getTabs().add(tab1);
+        for(Tab formulaTab : loopSections()){
+            tabs.getTabs().add(formulaTab);
+        }
+        tabs.getTabs().add(tab09);
+        tabs.getTabs().add(tab10);
+        populateInThread(tabsArr, 13);
+        VBox vBox = initVbox();
+        vBox.getChildren().add(tabs);
+        return vBox;
+    }
+
+    private void populateInThread(Map<String, Tab> tabs, int n) {
+        for (Map.Entry<String, Tab> entry : tabs.entrySet()) {
+            Runnable updater = new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println(entry.getKey());
+                    VBox vBox = interprter.getReport(entry.getKey());
+                    if (vBox != null) {
+                        entry.getValue().setContent(vBox);
+                    }
+                }
+            };
+            Platform.runLater(updater);
+        }
+    }
+
+
+    private Tab getStaticTab(){
         String t1 = "1. The Common-Size  Analysis \n of the Assets, Liabilities \n and Shareholders' Equity";
         ResultsStorage.addStr(2, "sectionTitle", t1);
         String t2 = "Assets trend Analysis";
         String t3 = "Liabilities trend Analysis";
         String t4 = "Assets Structure Analysis";
         String t5 = "Liabilities Structure Analysis";
-
-
-        String t6 = "2. Financial Sustainability \n and Long-Term Debt-Paying Ability";
-        ResultsStorage.addStr(40, "sectionTitle", t6);
-        String t7 = "3. Liquidity of \n Short-Term Assets";
-        ResultsStorage.addStr(50, "sectionTitle", t7);
-        String t8 = "4. Overview of the \n Financial Results";
-        ResultsStorage.addStr(60, "sectionTitle", t8);
-        String t9 = "5. Profitability Ratios";
-        ResultsStorage.addStr(70, "sectionTitle", t9);
-        String t10 = "6. Activity Ratios (Turnover Ratios)";
-        ResultsStorage.addStr(80, "sectionTitle", t10);
-        String t11 = "7. Investor Analysis";
-        ResultsStorage.addStr(90, "sectionTitle", t11);
-        String t12 = "8. Forecasting Financial Failure  \n (Bankruptcy Test) \n (Financial Distress Prediction)";
-        ResultsStorage.addStr(100, "sectionTitle", t12);
-        String t13 = "9. Labor Productivity";
-        ResultsStorage.addStr(110, "sectionTitle", t13);
-        String t14 = "10. Financial Rating";
-        ResultsStorage.addStr(110, "sectionTitle", t14);
-
-        VBox vBox = new VBox(5);
-        vBox.getStyleClass().add("generated-report");
-        vBox.getChildren().addAll(
-                getTitle(),
-                getDescText(),
-                exportBtn()
-        );
-
         Tab tab1 = new Tab(t1);
-
         TabPane tabs2 = new TabPane();
         tabs2.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         if (periods.getPeriodArr().size() > 1) {
@@ -98,59 +132,19 @@ public class StepThree extends SceneBase {
 
         tab1.setContent(tabs2);
 
-        Tab tab2 = new Tab(t6);
-        tabsArr.put("financialSustainability", tab2);
+        return tab1;
+    }
 
-        Tab tab3 = new Tab(t7);
-        tabsArr.put("liquidity", tab3);
-
-        Tab tab4 = new Tab(t8);
-        tabsArr.put("financialResultsTrend", tab4);
-
-        Tab tab5 = new Tab(t9);
-        tabsArr.put("profitabilityRatios", tab5);
-
-        Tab tab6 = new Tab(t10);
-        tabsArr.put("turnoverRatios", tab6);
-
-        Tab tab7 = new Tab(t11);
-        tabsArr.put("investorAnalysis", tab7);
-
-        Tab tab8 = new Tab(t12);
-        tabsArr.put("zScoreModel", tab8);
-
-        Tab tab9 = new Tab(t13);
-        tabsArr.put("laborProductivity", tab9);
-
-        Tab tab10 = new Tab(t14);
-        tabsArr.put("financialRating", tab10);
-
-
-        populateInThread(tabsArr, 13);
-        tabs.getTabs().addAll(tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10);
-
-        vBox.getChildren().add(tabs);
+    private VBox initVbox(){
+        VBox vBox = new VBox(5);
+        vBox.getStyleClass().add("generated-report");
+        vBox.getChildren().addAll(
+                getTitle(),
+                getDescText(),
+                exportBtn()
+        );
         return vBox;
     }
-
-    private void populateInThread(Map<String, Tab> tabs, int n) {
-        for (Map.Entry<String, Tab> entry : tabs.entrySet()) {
-            Runnable updater = new Runnable() {
-
-                @Override
-                public void run() {
-                    VBox vBox = interprter.getReport(entry.getKey());
-
-                    if (vBox != null) {
-                        entry.getValue().setContent(vBox);
-                    }
-                }
-            };
-            Platform.runLater(updater);
-        }
-
-    }
-
 
     private Label getDescText() {
         String text = "This report analyzes the balance sheets and income statements of " + companyName

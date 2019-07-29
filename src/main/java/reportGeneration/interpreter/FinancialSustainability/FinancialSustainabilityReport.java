@@ -17,8 +17,9 @@ public class FinancialSustainabilityReport implements TableName {
 
     public FinancialSustainabilityReport() {
         FormulaStorage storage = FormulaStorage.getInstance();
-        Formula FS = storage.get("FS");
+        Formula FS = storage.get("FinancialSustainability");
         if (FS != null) {
+            ResultsStorage.addStr(40, "sectionTitle", FS.getName());
             this.formulas = storage.getItems(FS.getId());
         }
     }

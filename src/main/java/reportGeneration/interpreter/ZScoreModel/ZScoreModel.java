@@ -16,9 +16,10 @@ public class ZScoreModel implements TableName {
 
     public ZScoreModel() {
         FormulaStorage storage = FormulaStorage.getInstance();
-        Formula AZS = storage.get("AZS");
-        if (AZS != null) {
-            this.formulas = storage.getItems(AZS.getId());
+        Formula ZscoreModel = storage.get("ZscoreModel");
+        if (ZscoreModel != null) {
+            ResultsStorage.addStr(100, "sectionTitle", ZscoreModel.getName());
+            this.formulas = storage.getItems(ZscoreModel.getId());
         }
     }
 

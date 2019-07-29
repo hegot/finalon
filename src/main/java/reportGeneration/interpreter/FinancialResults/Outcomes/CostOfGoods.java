@@ -52,7 +52,7 @@ public class CostOfGoods implements LabelWrap, JsCalcHelper, Round {
                 }
             }
             hbox.getChildren().add(labelWrap(output));
-            ResultsStorage.addStr(64, "text", output);
+            ResultsStorage.addStr(134, "text", output);
         }
         return hbox;
     }

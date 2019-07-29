@@ -11,12 +11,12 @@ import javax.script.ScriptEngineManager;
 import java.util.Arrays;
 import java.util.Map;
 
-class FormulaHandler implements ParseDouble, Round {
+public class FormulaHandler implements ParseDouble, Round {
     private Formula formula;
     private Map<String, ObservableMap<String, Double>> values;
     private String period;
 
-    FormulaHandler(Formula formula, Map<String, ObservableMap<String, Double>> values, String period) {
+    public FormulaHandler(Formula formula, Map<String, ObservableMap<String, Double>> values, String period) {
         this.formula = formula;
         this.values = values;
         this.period = period;

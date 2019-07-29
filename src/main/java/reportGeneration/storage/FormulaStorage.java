@@ -8,6 +8,7 @@ import javafx.collections.ObservableMap;
 
 public class FormulaStorage {
     private static ObservableList<Formula> formulas;
+    private static ObservableList<Formula> sections;
     private static ObservableMap<String, Formula> indexes;
     private boolean initalized = false;
     private DbFormulaHandler dbFormula = new DbFormulaHandler();
@@ -57,22 +58,48 @@ public class FormulaStorage {
         return null;
     }
 
+
     private void init() {
+        this.sections = initSections();
         this.formulas = getFormulas();
         System.out.println("Formulas Storage added!");
     }
 
-    private ObservableList<Formula> getFormulas() {
+    private ObservableList<Formula> initSections() {
         int rootIndustry = Integer.parseInt(SettingsStorage.getInstance().getSettings().get("industry"));
-        ObservableList<Formula> myFormulas = FXCollections.observableArrayList();
         ObservableList<Formula> parents = dbFormula.getFormulas(rootIndustry);
-        for (Formula child : parents) {
+        return parents;
+    }
+
+    public static ObservableList<Formula> getSections() {
+        return sections;
+    }
+
+    private ObservableList<Formula> getFormulas() {
+        ObservableList<Formula> myFormulas = FXCollections.observableArrayList();
+        for (Formula child : sections) {
             myFormulas.add(child);
             ObservableList<Formula> childs2 = dbFormula.getFormulas(child.getId());
             for (Formula child2 : childs2) {
                 myFormulas.add(child2);
             }
         }
+        myFormulas.add(new Formula(-1,
+                "Net Sales Change",
+                "NetSalesChange",
+                "(RevenueGeneral[1]-(RevenueGeneral[0]))/RevenueGeneral[0]",
+                "",
+                "formula",
+                "",
+                0));
+        myFormulas.add(new Formula(-1,
+                "Equity Change",
+                "EquityChange",
+                "(EquityGeneral[1]-(EquityGeneral[0]))/EquityGeneral[0]",
+                "",
+                "formula",
+                "",
+                0));
         indexes = FXCollections.observableHashMap();
         return myFormulas;
     }

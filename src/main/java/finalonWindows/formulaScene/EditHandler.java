@@ -90,7 +90,7 @@ public class EditHandler {
 
                             if (option.get() == ButtonType.OK && parentFormula != null) {
                                 new DbFormulaHandler().deleteItem(parentFormula.getId());
-                                SceneSwitcher.refresh(SceneName.FORMULA);
+                                SceneSwitcher.goTo(SceneName.FORMULA);
                             }
                         });
                         return btn;

@@ -63,7 +63,7 @@ public class ScoreItem implements RatingWeight {
             RatingCalc ratingCalc = new RatingCalc(formula, per0, per1);
             return ratingCalc.getValue();
         }
-        return 0.0;
+        return null;
     }
 
     private Double calcScore2() {

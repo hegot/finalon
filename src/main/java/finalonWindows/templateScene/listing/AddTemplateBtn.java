@@ -25,7 +25,7 @@ public class AddTemplateBtn extends HBox {
 
     @FXML
     protected void addTemplateAction() {
-        SceneSwitcher.refresh(SceneName.ADDTEMPLATE);
+        SceneSwitcher.goTo(SceneName.ADDTEMPLATE);
     }
 
 }

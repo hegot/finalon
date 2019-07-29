@@ -33,7 +33,7 @@ public class AddTemplate extends TemplateBase {
                 if ((templateName.getText() != null && !templateName.getText().isEmpty())) {
                     TemplateCreator creator = new TemplateCreator(templateName.getText(), items);
                     creator.createTpl();
-                    SceneSwitcher.refresh(SceneName.TEMPLATESLIST);
+                    SceneSwitcher.goTo(SceneName.TEMPLATESLIST);
                 } else {
                     System.out.println("err");
                 }

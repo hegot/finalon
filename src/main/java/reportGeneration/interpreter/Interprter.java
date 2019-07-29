@@ -36,28 +36,28 @@ public class Interprter {
             case "formulaList":
                 vbox = new FormulaList().get();
                 break;
-            case "financialSustainability":
+            case "FinancialSustainability":
                 vbox = new FinancialSustainabilityReport().get();
                 break;
-            case "liquidity":
+            case "Liquidity":
                 vbox = new LiquidityReport().get();
                 break;
             case "financialResultsTrend":
                 vbox = new FinancialResultsReport().getTrend();
                 break;
-            case "profitabilityRatios":
+            case "ProfitabilityAndPerformance":
                 vbox = new ProfitabilityRatios().get();
                 break;
-            case "turnoverRatios":
+            case "Turnover":
                 vbox = new TurnoverRatios().get();
                 break;
-            case "investorAnalysis":
+            case "InvestorAnalysis":
                 vbox = new InvestorAnalysis().get();
                 break;
-            case "zScoreModel":
+            case "ZscoreModel":
                 vbox = new ZScoreModel().get();
                 break;
-            case "laborProductivity":
+            case "LaborProductivitySection":
                 vbox = new LaborProductivity().get();
                 break;
             case "financialRating":
