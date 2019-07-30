@@ -5,6 +5,7 @@ import entities.Formula;
 import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
 import finalonWindows.formulaScene.EditPopup.EditPopup;
+import finalonWindows.formulaScene.IndustryOperations.IndustryOperations;
 import finalonWindows.reusableComponents.ImageButton;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
@@ -13,7 +14,7 @@ import javafx.util.Callback;
 
 import java.util.Optional;
 
-public class EditHandler {
+public class EditHandler extends FormulaAddBase{
 
     public Callback<TreeTableColumn<Formula, Void>, TreeTableCell<Formula, Void>> getBtnFactory() {
         return new Callback<TreeTableColumn<Formula, Void>, TreeTableCell<Formula, Void>>() {
@@ -52,16 +53,6 @@ public class EditHandler {
                         return btn;
                     }
 
-                    private int biggestId() {
-                        DbFormulaHandler dbFormula = new DbFormulaHandler();
-                        int id = dbFormula.getLastId();
-                        int biggestId = EditStorage.getBiggestId();
-                        if (biggestId >= id) {
-                            id = biggestId + 1;
-                        }
-                        return id;
-                    }
-
 
                     private ImageButton removeBtn() {
                         ImageButton btn = new ImageButton("image/remove.png", 16);
@@ -78,20 +69,12 @@ public class EditHandler {
                     }
 
                     private Button removeIndustryBtn() {
-                        Button btn = new Button("delete\nindustry");
+
+                        Button btn = new Button("Industry\noperations");
                         btn.getStyleClass().add("industry-btn");
                         btn.setOnAction((ActionEvent event) -> {
-
-                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                            alert.setTitle("Delete Industry");
-                            alert.setHeaderText("Are you sure want to delete Industry");
-
-                            Optional<ButtonType> option = alert.showAndWait();
-
-                            if (option.get() == ButtonType.OK && parentFormula != null) {
-                                new DbFormulaHandler().deleteItem(parentFormula.getId());
-                                SceneSwitcher.goTo(SceneName.FORMULA);
-                            }
+                            IndustryOperations operations = new IndustryOperations(parentFormula);
+                            operations.showDialog();
                         });
                         return btn;
                     }
