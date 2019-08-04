@@ -2,8 +2,6 @@ package finalonWindows.formulaScene.AddIndustryPopup;
 
 import database.formula.FormulaCreator;
 import entities.Formula;
-import finalonWindows.SceneName;
-import finalonWindows.SceneSwitcher;
 import finalonWindows.formulaScene.Storage;
 import finalonWindows.reusableComponents.selectbox.StandardSelect;
 import javafx.collections.ObservableMap;
@@ -53,7 +51,7 @@ public class AddIndustryPopup {
             );
             try {
                 formulaCreator.createFormulas();
-                Storage.refresh();
+                Storage.refreshWithId(formulaCreator.getNewId());
             } catch (SQLException e) {
                 System.out.println("Username=" + industry.getText() + ", standard=" + standard.getValue().getName() + " not created");
                 e.printStackTrace();

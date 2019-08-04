@@ -2,8 +2,6 @@ package finalonWindows.formulaScene;
 
 import database.formula.DbFormulaHandler;
 import entities.Formula;
-import finalonWindows.SceneName;
-import finalonWindows.SceneSwitcher;
 import finalonWindows.formulaScene.EditPopup.EditPopup;
 import finalonWindows.formulaScene.IndustryOperations.IndustryOperations;
 import finalonWindows.reusableComponents.ImageButton;

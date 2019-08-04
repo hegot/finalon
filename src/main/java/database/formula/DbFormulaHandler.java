@@ -192,6 +192,28 @@ public class DbFormulaHandler extends DbHandlerBase {
         return null;
     }
 
+    public Formula findById(int id) {
+        try (Statement statement = this.connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName, value, description, category, unit, parent FROM "
+                    + tableName + " WHERE id = " + id);
+            while (resultSet.next()) {
+                return new Formula(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("shortName"),
+                        resultSet.getString("value"),
+                        resultSet.getString("description"),
+                        resultSet.getString("category"),
+                        resultSet.getString("unit"),
+                        resultSet.getInt("parent")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public void deleteTable() throws ClassNotFoundException, SQLException {
         try (PreparedStatement statement = this.connection.prepareStatement(
                 "delete from " + tableName + ";"

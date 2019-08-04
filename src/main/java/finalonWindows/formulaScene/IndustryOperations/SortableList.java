@@ -2,8 +2,6 @@ package finalonWindows.formulaScene.IndustryOperations;
 
 import database.formula.DbFormulaHandler;
 import entities.Formula;
-import finalonWindows.SceneName;
-import finalonWindows.SceneSwitcher;
 import finalonWindows.formulaScene.Storage;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,7 +21,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SortableList implements CancelBtn{
+public class SortableList implements CancelBtn {
     private ObservableList<Formula> sections;
     private ListView<Formula> list;
     private Dialog dialog;

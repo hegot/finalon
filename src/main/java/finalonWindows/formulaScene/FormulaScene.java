@@ -6,7 +6,6 @@ import finalonWindows.formulaScene.AddIndustryPopup.AddIndustryPopup;
 import finalonWindows.reusableComponents.SettingsMenu;
 import finalonWindows.reusableComponents.TextImageButton;
 import finalonWindows.reusableComponents.selectbox.Choices;
-import finalonWindows.reusableComponents.selectbox.IndustrySelect;
 import finalonWindows.reusableComponents.selectbox.StandardSelect;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -22,9 +21,9 @@ import javafx.scene.layout.VBox;
 
 public class FormulaScene extends SceneBase {
 
+    public static Formula industry;
     private ObservableMap<String, String> settings;
     private ComboBox<Formula> standardBox;
-    public static Formula industry;
 
     public FormulaScene() {
         this.settings = FXCollections.observableHashMap();
@@ -56,7 +55,6 @@ public class FormulaScene extends SceneBase {
     }
 
 
-
     private TextImageButton addIndustryBtn() {
         TextImageButton btn = new TextImageButton("Industry", "image/add-plus-button.png", 16);
         btn.setOnAction((ActionEvent event) -> {
@@ -85,7 +83,7 @@ public class FormulaScene extends SceneBase {
             }
         });
         industryBox.getStyleClass().add("industry-select");
-    return industryBox;
+        return industryBox;
     }
 
     private ComboBox<Formula> standardBox(ObservableMap<String, String> settings) {

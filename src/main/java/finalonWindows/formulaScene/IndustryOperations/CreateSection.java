@@ -2,8 +2,6 @@ package finalonWindows.formulaScene.IndustryOperations;
 
 import database.formula.DbFormulaHandler;
 import entities.Formula;
-import finalonWindows.SceneName;
-import finalonWindows.SceneSwitcher;
 import finalonWindows.formulaScene.FormulaAddBase;
 import finalonWindows.formulaScene.Storage;
 import javafx.event.ActionEvent;

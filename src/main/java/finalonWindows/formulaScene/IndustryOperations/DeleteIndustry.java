@@ -2,8 +2,6 @@ package finalonWindows.formulaScene.IndustryOperations;
 
 import database.formula.DbFormulaHandler;
 import entities.Formula;
-import finalonWindows.SceneName;
-import finalonWindows.SceneSwitcher;
 import finalonWindows.formulaScene.Storage;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -37,7 +35,6 @@ public class DeleteIndustry implements CancelBtn {
         );
         return vBox;
     }
-
 
 
     private Button deleteIndustryBtn() {

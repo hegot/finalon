@@ -1,5 +1,6 @@
 package finalonWindows.formulaScene;
 
+import database.formula.DbFormulaHandler;
 import entities.Formula;
 import finalonWindows.reusableComponents.selectbox.IndustrySelect;
 import javafx.collections.FXCollections;
@@ -8,8 +9,8 @@ import javafx.scene.control.TreeTableView;
 
 public class Storage {
 
-    public static FormulaEditable formulaEditable;
-    public static ComboBox<Formula> industryBox;
+    private static FormulaEditable formulaEditable;
+    private static ComboBox<Formula> industryBox;
     private boolean initalized = false;
 
     private Storage() {
@@ -24,24 +25,35 @@ public class Storage {
         return SingletonHolder.INSTANCE;
     }
 
-    private static class SingletonHolder {
-        static final Storage INSTANCE = new Storage();
-    }
-
-    public static  FormulaEditable getFormulaEditable(){
+    static FormulaEditable getFormulaEditable() {
         return formulaEditable;
     }
 
-
-    public static TreeTableView getTable(){
+    public static TreeTableView getTable() {
         return formulaEditable.getFormulaTable(industryBox.getValue());
     }
 
-    public static void refresh(){
+    public static void refresh() {
         formulaEditable.updateTable(industryBox.getValue());
     }
 
-    public static ComboBox<Formula> getIndustryBox(){
+    public static void refreshWithId(Integer id) {
+        Formula formula = industryBox.getValue();
+        if (id != null) {
+            DbFormulaHandler formulaDbHandler = new DbFormulaHandler();
+            formula = formulaDbHandler.findById(id);
+        }
+        formulaEditable.updateTable(formula);
+        ComboBox<Formula> newSelect = IndustrySelect.get("2", FXCollections.observableHashMap());
+        industryBox.setItems(newSelect.getItems());
+        industryBox.getSelectionModel().select(formula);
+    }
+
+    public static ComboBox<Formula> getIndustryBox() {
         return industryBox;
+    }
+
+    private static class SingletonHolder {
+        static final Storage INSTANCE = new Storage();
     }
 }

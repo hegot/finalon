@@ -42,7 +42,7 @@ public class DefaultFormulas {
     }
 
     public static ObservableList<Formula> getFormulasForIndustry(int standard, String industry, int counterStart) {
-        counter = counterStart + 1;
+        counter = counterStart;
         ObservableList<Formula> Formulas = FXCollections.observableArrayList();
         int industryId = counter;
         Formulas.add(new Formula(industryId, industry, industry, "", "", "industry", "", standard));

@@ -10,6 +10,7 @@ import java.sql.SQLException;
 public class FormulaCreator {
     private ObservableList<Formula> formulas;
     private DbFormulaHandler formulaDbHandler = new DbFormulaHandler();
+    private int newId;
 
     public FormulaCreator() {
         DefaultFormulas formulasClass = new DefaultFormulas();
@@ -18,9 +19,15 @@ public class FormulaCreator {
     }
 
     public FormulaCreator(int standard, String Industry) {
+        int lastId = formulaDbHandler.getLastId() + 1;
         this.formulas = FXCollections.observableArrayList(
-                DefaultFormulas.getFormulasForIndustry(standard, Industry, formulaDbHandler.getLastId())
+                DefaultFormulas.getFormulasForIndustry(standard, Industry, lastId)
         );
+        this.newId = lastId;
+    }
+
+    public int getNewId() {
+        return newId;
     }
 
     public void createFormulas() throws SQLException {

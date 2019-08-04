@@ -1,4 +1,4 @@
-package finalonWindows.formulaScene.EditPopup.NormativeValues;
+package finalonWindows.formulaScene.EditPopup;
 
 import defaultData.EvaluationTypes;
 import entities.Formula;
