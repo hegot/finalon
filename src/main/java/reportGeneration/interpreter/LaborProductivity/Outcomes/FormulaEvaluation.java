@@ -16,7 +16,8 @@ public class FormulaEvaluation implements LabelWrap, AttachChilds {
         this.formulas = formulas;
     }
 
-    public VBox get() {
+    public VBox get(int weight) {
+        weight++;
         String outcome = "";
         for (Formula formula : formulas) {
             setFormulaChilds(formula);
@@ -28,7 +29,7 @@ public class FormulaEvaluation implements LabelWrap, AttachChilds {
         }
         VBox vbox = new VBox();
         vbox.getChildren().add(labelWrap(outcome));
-        ResultsStorage.addStr(112, "text", outcome);
+        ResultsStorage.addStr(weight, "text", outcome);
         return vbox;
     }
 

@@ -7,6 +7,7 @@ import reportGeneration.interpreter.FinancialResults.FinancialResultsReport;
 import reportGeneration.interpreter.FinancialSustainability.FinancialSustainabilityReport;
 import reportGeneration.interpreter.FormulaCalculation.FormulaCalculation;
 import reportGeneration.interpreter.FormulaList.FormulaList;
+import reportGeneration.interpreter.GeneralAnalysis.GeneralAnalysis;
 import reportGeneration.interpreter.InvestorAnalysis.InvestorAnalysis;
 import reportGeneration.interpreter.LaborProductivity.LaborProductivity;
 import reportGeneration.interpreter.LiabilitiesReport.LiabilitiesReport;
@@ -16,7 +17,7 @@ import reportGeneration.interpreter.TurnoverRatios.TurnoverRatios;
 import reportGeneration.interpreter.ZScoreModel.ZScoreModel;
 
 public class Interprter {
-    public VBox getReport(String type) {
+    public VBox getReport(String type, int counter) {
         FormulaCalculation calc = new FormulaCalculation();
         calc.setFormulaValues();
         VBox vbox = new VBox();
@@ -37,31 +38,34 @@ public class Interprter {
                 vbox = new FormulaList().get();
                 break;
             case "FinancialSustainability":
-                vbox = new FinancialSustainabilityReport().get();
+                vbox = new FinancialSustainabilityReport(counter).get();
                 break;
             case "Liquidity":
-                vbox = new LiquidityReport().get();
+                vbox = new LiquidityReport(counter).get();
                 break;
             case "financialResultsTrend":
-                vbox = new FinancialResultsReport().getTrend();
+                vbox = new FinancialResultsReport(counter).getTrend();
                 break;
             case "ProfitabilityAndPerformance":
-                vbox = new ProfitabilityRatios().get();
+                vbox = new ProfitabilityRatios(counter).get();
                 break;
             case "Turnover":
-                vbox = new TurnoverRatios().get();
+                vbox = new TurnoverRatios(counter).get();
                 break;
             case "InvestorAnalysis":
-                vbox = new InvestorAnalysis().get();
+                vbox = new InvestorAnalysis(counter).get();
                 break;
             case "ZscoreModel":
-                vbox = new ZScoreModel().get();
+                vbox = new ZScoreModel(counter).get();
                 break;
             case "LaborProductivitySection":
-                vbox = new LaborProductivity().get();
+                vbox = new LaborProductivity(counter).get();
                 break;
             case "financialRating":
-                vbox = new FinancialRating().get();
+                vbox = new FinancialRating(counter).get();
+                break;
+            default:
+                vbox = new GeneralAnalysis(type, counter).get();
                 break;
         }
         return vbox;

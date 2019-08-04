@@ -13,12 +13,15 @@ import reportGeneration.storage.TwoDList;
 
 public class InvestorAnalysis implements TableName {
     private ObservableList<Formula> formulas;
+    private int weight;
 
-    public InvestorAnalysis() {
+    public InvestorAnalysis(int weight) {
         FormulaStorage storage = FormulaStorage.getInstance();
         Formula InvestorAnalysis = storage.get("InvestorAnalysis");
         if (InvestorAnalysis != null) {
-            ResultsStorage.addStr(90, "sectionTitle", InvestorAnalysis.getName());
+            ResultsStorage.addStr(weight, "sectionTitle", InvestorAnalysis.getName());
+            weight++;
+            this.weight = weight;
             this.formulas = storage.getItems(InvestorAnalysis.getId());
         }
     }
@@ -26,17 +29,18 @@ public class InvestorAnalysis implements TableName {
     public VBox get() {
         VBox box = new VBox(8);
         String title = "Table 11. Investor Analysis";
-        ResultsStorage.addStr(91, "tableName", title);
+        ResultsStorage.addStr(weight, "tableName", title);
+        weight++;
         FormulaEvaluation formulaEvaluation = new FormulaEvaluation(formulas);
 
         TableView tbl = new RatiosTable(formulas).get();
         TwoDList items = getTableViewValues(tbl);
-        ResultsStorage.addTable(92, items);
-
+        ResultsStorage.addTable(weight, items);
+        weight++;
         box.getChildren().addAll(
                 tableName(title),
                 tbl,
-                formulaEvaluation.get()
+                formulaEvaluation.get(weight)
         );
         return box;
     }

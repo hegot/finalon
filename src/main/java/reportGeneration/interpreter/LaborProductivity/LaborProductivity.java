@@ -10,12 +10,14 @@ import reportGeneration.storage.ResultsStorage;
 
 public class LaborProductivity {
     private ObservableList<Formula> formulas;
-
-    public LaborProductivity() {
+    private int weight;
+    public LaborProductivity(int weight) {
         FormulaStorage storage = FormulaStorage.getInstance();
         Formula LaborProductivitySection = storage.get("LaborProductivitySection");
         if (LaborProductivitySection != null) {
-            ResultsStorage.addStr(110, "sectionTitle", LaborProductivitySection.getName());
+            ResultsStorage.addStr(weight, "sectionTitle", LaborProductivitySection.getName());
+            weight++;
+            this.weight = weight;
             this.formulas = storage.getItems(LaborProductivitySection.getId());
         }
     }
@@ -25,8 +27,8 @@ public class LaborProductivity {
         LaborProductivityChart chart = new LaborProductivityChart();
         FormulaEvaluation formulaEvaluation = new FormulaEvaluation(formulas);
         box.getChildren().addAll(
-                chart.get(),
-                formulaEvaluation.get()
+                chart.get(weight),
+                formulaEvaluation.get(weight++)
         );
         return box;
     }

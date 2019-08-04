@@ -5,43 +5,34 @@ import entities.Formula;
 import finalonWindows.formulaScene.EditPopup.EditPopup;
 import javafx.collections.ObservableList;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableRow;
-import javafx.scene.control.TreeTableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTreeTableCell;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.stage.Screen;
 
-class FormulaEditable {
+public class FormulaEditable implements SortedSections {
 
-    private Formula rootIndustry;
     private TreeTableView<Formula> table = new TreeTableView<>();
 
-    FormulaEditable(Formula rootIndustry) {
-        this.rootIndustry = rootIndustry;
-    }
 
-    TreeTableView getFormulaTable() {
+    public TreeTableView getFormulaTable(Formula rootIndustry) {
         table.setEditable(false);
-        table.setMinWidth(900);
+        table.setMinWidth(880);
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        table.setMinHeight(primaryScreenBounds.getHeight() - 150);
+        table.setMinHeight(primaryScreenBounds.getHeight() - 220);
         table.getColumns().addAll(
-                getCol("Indicator", "name", 320),
-                getCol("Code", "shortName", 200),
-                getCol("Value", "value", 280),
+                getCol("Indicator", "name", 300),
+                getCol("Code", "shortName", 180),
+                getValueCol(),
                 buttonCol()
         );
         updateTable(rootIndustry);
-
         table.setRowFactory(tv -> {
             TreeTableRow<Formula> row = new TreeTableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 1 && (!row.isEmpty())) {
                     EditPopup popup = new EditPopup(row.getTreeItem(), "edit");
                     popup.getdialog();
-                    table.refresh();
                 }
             });
             return row;
@@ -49,10 +40,37 @@ class FormulaEditable {
         return table;
     }
 
-    void updateTable(Formula rootIndustry) {
+    public void updateTable(Formula rootIndustry) {
         TreeBuilder treeBuilder = new TreeBuilder(rootIndustry);
         TreeItem rootNode = treeBuilder.getTree();
         table.setRoot(rootNode);
+    }
+
+
+    TreeTableColumn getValueCol() {
+        TreeTableColumn<Formula, String> col = new TreeTableColumn<Formula, String>("Value");
+        col.setMinWidth(300);
+        col.setEditable(false);
+        col.setCellValueFactory(new TreeItemPropertyValueFactory<Formula, String>("value"));
+        col.setCellFactory(column -> {
+            return new TreeTableCell<Formula, String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || empty) {
+                        setText(null);
+                    } else {
+                        Formula formula = getTreeTableRow().getItem();
+                        if (formula != null && formula.getCategory().equals("section")) {
+                            setText(null);
+                        } else {
+                            setText(item);
+                        }
+                    }
+                }
+            };
+        });
+        return col;
     }
 
     TreeTableColumn getCol(String title, String key, double width) {
@@ -65,7 +83,7 @@ class FormulaEditable {
 
     TreeTableColumn buttonCol() {
         TreeTableColumn<Formula, Void> col = new TreeTableColumn<>("");
-        col.setMinWidth(80);
+        col.setMinWidth(100);
         EditHandler editHandler = new EditHandler();
         col.setCellFactory(editHandler.getBtnFactory());
         return col;
@@ -76,15 +94,16 @@ class FormulaEditable {
         private DbFormulaHandler dbFormula = new DbFormulaHandler();
 
         TreeBuilder(Formula rootIndustry) {
-            TreeItem<Formula> rootNode = new TreeItem<Formula>(rootIndustry);
-            rootNode.setExpanded(true);
-            this.rootNode = rootNode;
-            attachChilds(rootIndustry.getId(), rootNode);
+            if (rootIndustry != null) {
+                TreeItem<Formula> rootNode = new TreeItem<Formula>(rootIndustry);
+                rootNode.setExpanded(true);
+                this.rootNode = rootNode;
+                attachChilds(rootIndustry.getId(), rootNode);
+            }
         }
 
         private void attachChilds(int parentId, TreeItem<Formula> root) {
-
-            ObservableList<Formula> childs = dbFormula.getFormulas(parentId);
+            ObservableList<Formula> childs = getSections(parentId);
             for (Formula child : childs) {
                 TreeItem treeItem = new TreeItem<Formula>(child);
                 treeItem.setExpanded(true);
@@ -97,6 +116,7 @@ class FormulaEditable {
                 }
             }
         }
+
 
         TreeItem getTree() {
             return rootNode;

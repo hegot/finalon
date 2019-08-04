@@ -5,15 +5,17 @@ import entities.Formula;
 import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
 import finalonWindows.formulaScene.FormulaAddBase;
+import finalonWindows.formulaScene.Storage;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 
-public class CreateSection extends FormulaAddBase {
+public class CreateSection extends FormulaAddBase implements CancelBtn {
     private Formula industry;
     private TextField textField;
     private Label error;
@@ -29,12 +31,17 @@ public class CreateSection extends FormulaAddBase {
 
     public VBox getContent() {
         VBox vBox = new VBox(10);
+        HBox hBox = new HBox(60);
+        hBox.setPrefHeight(40);
+        hBox.getChildren().addAll(
+                cancelBtn(dialog),
+                createSectionBtn()
+        );
         vBox.getChildren().addAll(
                 error,
                 textField,
-                createSectionBtn()
+                hBox
         );
-
         return vBox;
     }
 
@@ -51,8 +58,8 @@ public class CreateSection extends FormulaAddBase {
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
-                SceneSwitcher.goTo(SceneName.FORMULA);
                 dialog.close();
+                Storage.refresh();
             } else {
                 error.setText("Industry name should be at least 3 characters long!");
                 error.setWrapText(true);

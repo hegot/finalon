@@ -7,6 +7,14 @@
     -fx-background-radius: 5em;
 }
 
+.industryDialog .popup-btn{
+    -fx-background-color:#3f5872;
+    -fx-font-size: 12px;
+    -fx-text-fill: #FFFFFF;
+    -fx-padding: 5 13 5 13;
+    -fx-alignment:  baseline-left;
+}
+
 .formula-edit .industry-btn{
     -fx-background-color: grey;
     -fx-font-size: 9px;
@@ -76,4 +84,12 @@
     -fx-alignment:  baseline-left;
     -fx-font-size: 13px;
     -fx-line-spacing: 5px;
+}
+
+.industry-select{
+    -fx-min-width: 200px;
+}
+
+.combo-box-popup > .list-view {
+    -fx-min-width: 200;
 }

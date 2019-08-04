@@ -27,7 +27,7 @@ public class LaborProductivityChart extends ChartBase implements TableName {
                 " in " + settings.get("defaultCurrency") + " per person.";
     }
 
-    public VBox get() {
+    public VBox get(int weight) {
         VBox vBox = new VBox(20);
         if (laborProductivity != null && laborProductivity.getPeriods().size() > 0) {
             BarChart<String, Number> bc = getChart();
@@ -36,8 +36,9 @@ public class LaborProductivityChart extends ChartBase implements TableName {
             );
             String title = chartTitle();
             vBox.getChildren().addAll(tableName(title), bc);
-            ResultsStorage.addBarChart(111, bc);
-            ResultsStorage.addStr(111, "h2",  title);
+            ResultsStorage.addBarChart(weight, bc);
+            weight++;
+            ResultsStorage.addStr(weight, "h2",  title);
 
         }
         return vBox;

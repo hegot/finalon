@@ -3,7 +3,6 @@ package finalonWindows.formulaScene.EditPopup;
 import defaultData.EvaluationTypes;
 import entities.Formula;
 import globalReusables.LabelWrap;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
@@ -24,17 +23,6 @@ public class PrefixSuffix implements LabelWrap {
         this.tab = new Tab("Prefix / Suffix");
         tab.setContent(normativeValues());
 
-    }
-
-    public ObservableList<Formula> getVals() {
-        ObservableList<Formula> vals = FXCollections.observableArrayList();
-        if (prefix.getId() != -1 || prefix.getDescription().length() > 0) {
-            vals.add(prefix);
-        }
-        if (suffix.getId() != -1 || suffix.getDescription().length() > 0) {
-            vals.add(suffix);
-        }
-        return vals;
     }
 
 
@@ -63,20 +51,25 @@ public class PrefixSuffix implements LabelWrap {
 
     private Formula getItem(EvaluationTypes type) {
         ObservableList<Formula> items = parent.getChilds();
+        Formula formula = null;
         for (Formula item : items) {
             String name = item.getName();
             if (name.equals(type.toString())) {
-                return item;
+                formula = item;
             }
         }
-        return new Formula(-1,
-                type.toString(),
-                "",
-                "",
-                "",
-                "",
-                "",
-                parent.getId());
+        if (formula == null) {
+            formula = new Formula(-1,
+                    type.toString(),
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    parent.getId());
+            parent.getChilds().add(formula);
+        }
+        return formula;
     }
 
     private TextField input(EvaluationTypes type, Formula item) {

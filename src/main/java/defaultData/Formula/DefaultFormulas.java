@@ -56,25 +56,25 @@ public class DefaultFormulas {
         ObservableList<Formula> Formulas = FXCollections.observableArrayList();
         //IFRS CategoryLevel
         int FSiD = counter;
-        Formulas.add(new Formula(FSiD, "Financial Sustainability and \n Long-Term Debt-Paying Ability", "FinancialSustainability", "", "", "section", "", parent));
+        Formulas.add(new Formula(FSiD, "Financial Sustainability and \n Long-Term Debt-Paying Ability", "FinancialSustainability", "0", "", "section", "", parent));
         counter++;
         int LiD = counter;
-        Formulas.add(new Formula(LiD, "Liquidity of Short-Term Assets", "Liquidity", "", "", "section", "", parent));
+        Formulas.add(new Formula(LiD, "Liquidity of Short-Term Assets", "Liquidity", "1", "", "section", "", parent));
         counter++;
         int PaPiD = counter;
-        Formulas.add(new Formula(PaPiD, "Profitability and Performance", "ProfitabilityAndPerformance", "", "", "section", "", parent));
+        Formulas.add(new Formula(PaPiD, "Profitability and Performance", "ProfitabilityAndPerformance", "2", "", "section", "", parent));
         counter++;
         int TiD = counter;
-        Formulas.add(new Formula(TiD, "Activity Ratios \n(Turnover Ratios)", "Turnover", "", "", "section", "", parent));
+        Formulas.add(new Formula(TiD, "Activity Ratios \n(Turnover Ratios)", "Turnover", "3", "", "section", "", parent));
         counter++;
         int IAiD = counter;
-        Formulas.add(new Formula(IAiD, "Investor Analysis", "InvestorAnalysis", "", "", "section", "", parent));
+        Formulas.add(new Formula(IAiD, "Investor Analysis", "InvestorAnalysis", "4", "", "section", "", parent));
         counter++;
         int AZSiD = counter;
-        Formulas.add(new Formula(AZSiD, "Forecasting Financial Failure \n (Bankruptcy Test)", "ZscoreModel", "", "", "section", "", parent));
+        Formulas.add(new Formula(AZSiD, "Forecasting Financial Failure \n (Bankruptcy Test)", "ZscoreModel", "5", "", "section", "", parent));
         counter++;
         int OIiD = counter;
-        Formulas.add(new Formula(OIiD, "Labor Productivity", "LaborProductivitySection", "", "", "section", "", parent));
+        Formulas.add(new Formula(OIiD, "Labor Productivity", "LaborProductivitySection", "6", "", "section", "", parent));
         counter++;
         //Financial Sustainability
         Formulas.addAll(TimesInterestEarned.get(FSiD, counter));

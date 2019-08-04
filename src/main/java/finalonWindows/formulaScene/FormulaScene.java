@@ -2,8 +2,6 @@ package finalonWindows.formulaScene;
 
 import entities.Formula;
 import finalonWindows.SceneBase;
-import finalonWindows.SceneName;
-import finalonWindows.SceneSwitcher;
 import finalonWindows.formulaScene.AddIndustryPopup.AddIndustryPopup;
 import finalonWindows.reusableComponents.SettingsMenu;
 import finalonWindows.reusableComponents.TextImageButton;
@@ -15,9 +13,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
@@ -28,16 +24,12 @@ public class FormulaScene extends SceneBase {
 
     private ObservableMap<String, String> settings;
     private ComboBox<Formula> standardBox;
-    private ComboBox<Formula> industryBox;
-    private FormulaEditable formulaEditable;
+    public static Formula industry;
 
     public FormulaScene() {
-        String defaultStandard = "2";
         this.settings = FXCollections.observableHashMap();
         this.standardBox = standardBox(settings);
-        this.industryBox = industryBox(defaultStandard, settings);
-        Formula selectedIndustry = industryBox.getValue();
-        this.formulaEditable = new FormulaEditable(selectedIndustry);
+        Storage.getInstance();
     }
 
     public VBox getScene() {
@@ -45,25 +37,24 @@ public class FormulaScene extends SceneBase {
         vbox.getStyleClass().add("formula-edit");
         VBox industryVBox = new VBox(1);
         industryVBox.getStyleClass().add("industry-box");
-        industryVBox.getChildren().addAll(
-                getChoicebox(industryBox, "Industry:", "Select the industry"),
-                addIndustryBtn()
+        industryVBox.getChildren().add(
+                getChoicebox(industryBox(), "Industry:", "Select the industry")
         );
-        HBox hBox = new HBox(40);
+        HBox hBox = new HBox(20);
         hBox.setPadding(new Insets(0, 10, 0, 10));
         hBox.getChildren().addAll(
                 getChoicebox(standardBox, "Statements GAAP:", "Select the accounting standard"),
                 industryVBox,
-                saveFormulasButton()
+                addIndustryBtn()
         );
         vbox.getChildren().addAll(
                 new SettingsMenu().getMenu(),
                 hBox,
-                formulaEditable.getFormulaTable()
+                Storage.getTable()
         );
-        EditStorage.getInstance();
         return vbox;
     }
+
 
 
     private TextImageButton addIndustryBtn() {
@@ -83,17 +74,18 @@ public class FormulaScene extends SceneBase {
         return hBox;
     }
 
-    private ComboBox<Formula> industryBox(String defaultStandard, ObservableMap<String, String> settings) {
-        ComboBox<Formula> industryBox = IndustrySelect.get(defaultStandard, settings);
+    private ComboBox<Formula> industryBox() {
+        ComboBox<Formula> industryBox = Storage.getIndustryBox();
         industryBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Formula>() {
             @Override
             public void changed(ObservableValue<? extends Formula> arg0, Formula arg1, Formula arg2) {
                 if (arg2 != null) {
-                    formulaEditable.updateTable(arg2);
+                    Storage.getFormulaEditable().updateTable(arg2);
                 }
             }
         });
-        return industryBox;
+        industryBox.getStyleClass().add("industry-select");
+    return industryBox;
     }
 
     private ComboBox<Formula> standardBox(ObservableMap<String, String> settings) {
@@ -102,29 +94,13 @@ public class FormulaScene extends SceneBase {
             @Override
             public void changed(ObservableValue<? extends Formula> arg0, Formula arg1, Formula arg2) {
                 if (arg2 != null) {
-                    industryBox.setItems(Choices.getChoices(arg2.getId()));
-                    industryBox.getSelectionModel().selectFirst();
+                    Storage.getIndustryBox().setItems(Choices.getChoices(arg2.getId()));
+                    Storage.getIndustryBox().getSelectionModel().selectFirst();
                 }
             }
         });
+        standardBox.getStyleClass().add("industry-select");
         return standardBox;
-    }
-
-    private Button saveFormulasButton() {
-        Button btn = new Button("Save Changes");
-        btn.getStyleClass().add("blue-btn");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                try {
-                    EditStorage.saveItems();
-                } catch (Exception exception) {
-                    System.out.println("Error while saving formulas map");
-                }
-                SceneSwitcher.goTo(SceneName.SETTINGSMAIN);
-            }
-        });
-        return btn;
     }
 
 }

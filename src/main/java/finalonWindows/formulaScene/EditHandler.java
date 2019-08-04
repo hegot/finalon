@@ -14,15 +14,13 @@ import javafx.util.Callback;
 
 import java.util.Optional;
 
-public class EditHandler extends FormulaAddBase{
+public class EditHandler extends FormulaAddBase {
 
     public Callback<TreeTableColumn<Formula, Void>, TreeTableCell<Formula, Void>> getBtnFactory() {
         return new Callback<TreeTableColumn<Formula, Void>, TreeTableCell<Formula, Void>>() {
             @Override
             public TreeTableCell<Formula, Void> call(final TreeTableColumn<Formula, Void> param) {
                 final TreeTableCell<Formula, Void> cell = new TreeTableCell<Formula, Void>() {
-
-
                     private TreeItem treeItem;
                     private TreeTableView<Formula> table;
                     private Formula parentFormula;
@@ -34,7 +32,6 @@ public class EditHandler extends FormulaAddBase{
                         btn.setOnAction((ActionEvent event) -> {
                             EditPopup popup = new EditPopup(treeItem, "edit");
                             popup.getdialog();
-                            table.refresh();
                         });
                         return btn;
                     }
@@ -48,7 +45,6 @@ public class EditHandler extends FormulaAddBase{
                             treeItem.getChildren().add(treeItemNew);
                             EditPopup popup = new EditPopup(treeItemNew, "add");
                             popup.getdialog();
-                            table.refresh();
                         });
                         return btn;
                     }
@@ -58,12 +54,22 @@ public class EditHandler extends FormulaAddBase{
                         ImageButton btn = new ImageButton("image/remove.png", 16);
                         btn.getStyleClass().add("formula-btn");
                         btn.setOnAction((ActionEvent event) -> {
-                            TreeItem parentTreeItem = treeItem.getParent();
-                            if (parentTreeItem != null) {
-                                parentTreeItem.getChildren().remove(treeItem);
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            String name = parentFormula.getCategory().equals("section") ? "Section" : "Formula";
+                            alert.setTitle("Delete " + name);
+                            alert.setHeaderText("Are you sure you want " +
+                                    "to delete " + name + " ?");
+                            alert.setContentText("This action can not be undone.");
+                            Optional<ButtonType> option = alert.showAndWait();
+                            try {
+                                if (option.get() == ButtonType.OK) {
+                                    DbFormulaHandler dbFormula = new DbFormulaHandler();
+                                    dbFormula.deleteItem(parentFormula.getId());
+                                    Storage.refresh();
+                                }
+                            } catch (Exception e) {
+                                System.out.println(e.getMessage());
                             }
-                            parentFormula.setCategory("TO_BE_DELETED");
-                            EditStorage.addItem(parentFormula.getId(), parentFormula);
                         });
                         return btn;
                     }
@@ -85,6 +91,7 @@ public class EditHandler extends FormulaAddBase{
                         if (parentFormula.getCategory().equals("section")) {
                             hBox.getChildren().add(editBtn());
                             hBox.getChildren().add(addBtn());
+                            hBox.getChildren().add(removeBtn());
                         }
                         if (parentFormula.getCategory().equals("formula")) {
                             hBox.getChildren().add(editBtn());

@@ -3,7 +3,6 @@ package finalonWindows.formulaScene.EditPopup;
 import defaultData.EvaluationTypes;
 import entities.Formula;
 import globalReusables.LabelWrap;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
@@ -26,20 +25,6 @@ public class PeriodsComparison implements LabelWrap {
         this.tab = new Tab("Periods Comparison");
         tab.setContent(normativeValues());
 
-    }
-
-    public ObservableList<Formula> getVals() {
-        ObservableList<Formula> vals = FXCollections.observableArrayList();
-        if (decrease.getId() != -1 || decrease.getDescription().length() > 0) {
-            vals.add(decrease);
-        }
-        if (increase.getId() != -1 || increase.getDescription().length() > 0) {
-            vals.add(increase);
-        }
-        if (nochange.getId() != -1 || nochange.getDescription().length() > 0) {
-            vals.add(nochange);
-        }
-        return vals;
     }
 
 
@@ -71,20 +56,25 @@ public class PeriodsComparison implements LabelWrap {
 
     private Formula getItem(EvaluationTypes type) {
         ObservableList<Formula> items = parent.getChilds();
+        Formula formula = null;
         for (Formula item : items) {
             String name = item.getName();
             if (name.equals(type.toString())) {
-                return item;
+                formula = item;
             }
         }
-        return new Formula(-1,
-                type.toString(),
-                "",
-                "",
-                "",
-                "",
-                "",
-                parent.getId());
+        if (formula == null) {
+            formula = new Formula(-1,
+                    type.toString(),
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    parent.getId());
+            parent.getChilds().add(formula);
+        }
+        return formula;
     }
 
     private TextField input(EvaluationTypes type, Formula item) {

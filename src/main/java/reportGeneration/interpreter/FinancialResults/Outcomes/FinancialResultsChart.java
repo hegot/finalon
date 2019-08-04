@@ -66,7 +66,7 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
                 periods.getStart() + " - " + periods.getEnd() + " %";
     }
 
-    public VBox get() {
+    public VBox get(int weight) {
         BarChart<String, Number> bc = getChart();
         bc.getData().addAll(
                 getSeries("Net Sales", valuesRevenueGeneral),
@@ -75,19 +75,22 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
                 getSeries("Comprehensive Income", valuesComprehensiveIncome)
         );
         String title = chartTitle();
-        ResultsStorage.addStr(136, "h2", title);
-        ResultsStorage.addBarChart(136, bc);
+        ResultsStorage.addStr(weight, "h2", title);
+        weight++;
+        ResultsStorage.addBarChart(weight, bc);
         VBox vBox = new VBox(20);
         vBox.getChildren().addAll(tableName(title), bc);
         if (periodsArr.size() > 1) {
-            getGrossProfitEvaluation(vBox);
-            getEbitEvaluation(vBox);
-            getComprehensiveIncomeEvaluation(vBox);
+            getGrossProfitEvaluation(vBox, weight);
+            weight++;
+            getEbitEvaluation(vBox, weight);
+            weight++;
+            getComprehensiveIncomeEvaluation(vBox, weight);
         }
         return vBox;
     }
 
-    private void getGrossProfitEvaluation(VBox vBox) {
+    private void getGrossProfitEvaluation(VBox vBox, int weight) {
         if (valuesGrossProfit.size() > 2) {
             Double fisrt = getFirstVal(valuesGrossProfit);
             Double last = getLastVal(valuesGrossProfit);
@@ -113,12 +116,12 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
                         " process management efficiency was changing from period to period, being better" +
                         " during the periods with higher values of the ratio.";
             }
-            ResultsStorage.addStr(137, "text", out);
+            ResultsStorage.addStr(weight, "text", out);
             vBox.getChildren().add(labelWrap(out));
         }
     }
 
-    private void getEbitEvaluation(VBox vBox) {
+    private void getEbitEvaluation(VBox vBox, int weight) {
 
         if (valuesEBIT.size() > 2) {
             Double fisrt = getFirstVal(valuesEBIT);
@@ -156,12 +159,12 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
                         " Periods with higher values of this ratio witness better performance " +
                         "of a company in terms of profitability and cost management. ";
             }
-            ResultsStorage.addStr(138, "text", out);
+            ResultsStorage.addStr(weight, "text", out);
             vBox.getChildren().add(labelWrap(out));
         }
     }
 
-    private void getComprehensiveIncomeEvaluation(VBox vBox) {
+    private void getComprehensiveIncomeEvaluation(VBox vBox, int weight) {
         if (valuesComprehensiveIncome.size() > 2) {
             Double fisrt = getFirstVal(valuesComprehensiveIncome);
             String out = "";
@@ -181,7 +184,7 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
                 out += "The share of the comprehensive income in the company's net sales " +
                         "did not change during " + periods.getStart() + "-" + periods.getEnd() + ". ";
             }
-            ResultsStorage.addStr(139, "text", out);
+            ResultsStorage.addStr(weight, "text", out);
             vBox.getChildren().add(labelWrap(out));
         }
     }

@@ -1,19 +1,19 @@
 package finalonWindows.formulaScene.IndustryOperations;
 
-import database.formula.DbFormulaHandler;
 import entities.Formula;
-import finalonWindows.SceneName;
-import finalonWindows.SceneSwitcher;
+import finalonWindows.formulaScene.SortedSections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 
-import java.util.Optional;
-
-public class IndustryOperations {
+public class IndustryOperations implements SortedSections {
     private Formula industry;
     private VBox container;
     private Dialog<Pair<String, String>> dialog;
@@ -26,6 +26,7 @@ public class IndustryOperations {
 
     public void showDialog() {
         dialog.setWidth(250);
+        dialog.setHeight(200);
         DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.getStylesheets().add("styles/formulaEdit.css");
         dialogPane.getStyleClass().add("industryDialog");
@@ -38,16 +39,13 @@ public class IndustryOperations {
     }
 
     private VBox getContent() {
-        VBox vBox = new VBox();
+        VBox vBox = new VBox(15);
         vBox.setPrefWidth(250);
-        vBox.setPrefHeight(100);
-        HBox hBox = new HBox(20);
-        hBox.getChildren().addAll(
+        vBox.setAlignment(Pos.CENTER);
+        vBox.getChildren().addAll(
                 createSectionBtn(),
-                removeIndustryBtn()
-        );
-        vBox.getChildren().add(
-                hBox
+                removeIndustryBtn(),
+                reorderSectionBtn()
         );
         return vBox;
     }
@@ -58,7 +56,6 @@ public class IndustryOperations {
         btn.setOnAction((ActionEvent event) -> {
             VBox newContent = new DeleteIndustry(industry, dialog).getContent();
             container.getChildren().setAll(newContent);
-
         });
         return btn;
     }
@@ -69,6 +66,18 @@ public class IndustryOperations {
         btn.getStyleClass().add("popup-btn");
         btn.setOnAction((ActionEvent event) -> {
             VBox newContent = new CreateSection(industry, dialog).getContent();
+            container.getChildren().setAll(newContent);
+        });
+        return btn;
+    }
+
+    private Button reorderSectionBtn() {
+        Button btn = new Button("Reorder Sections");
+        btn.getStyleClass().add("popup-btn");
+        btn.setOnAction((ActionEvent event) -> {
+            dialog.setHeight(310);
+            ObservableList<Formula> childs = getSections(industry.getId());
+            VBox newContent = new SortableList(childs, dialog).getContent();
             container.getChildren().setAll(newContent);
         });
         return btn;

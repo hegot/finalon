@@ -3,8 +3,10 @@ package finalonWindows.formulaScene.EditPopup;
 import database.formula.DbFormulaHandler;
 import defaultData.EvaluationTypes;
 import entities.Formula;
+import finalonWindows.SceneName;
+import finalonWindows.SceneSwitcher;
 import finalonWindows.formulaScene.EditPopup.NormativeValues.NormativeValues;
-import finalonWindows.formulaScene.EditStorage;
+import finalonWindows.formulaScene.Storage;
 import finalonWindows.reusableComponents.autocomplete.AutoCompleteTextArea;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,6 +14,8 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.util.Pair;
+
+import java.sql.SQLException;
 
 
 public class EditPopup {
@@ -32,19 +36,14 @@ public class EditPopup {
         this.treeItem = treeItem;
         this.formula = (Formula) treeItem.getValue();
         this.editFormula = new EditFormula(formula);
-        Formula formulaExtended = EditStorage.find(formula.getId());
-        if (formulaExtended == null) {
-            formula.setChilds(getChilds());
-        }
+        formula.setChilds(getChilds());
         this.normativeValuesPreEndPeriod = new NormativeValues(
-                formula.getChildsOfType(EvaluationTypes.EVALUATE_PRE_END),
-                formula.getId(),
+                formula,
                 EvaluationTypes.EVALUATE_PRE_END,
                 "Pre-End Period Evaluation"
         );
         this.normativeValuesEndPeriod = new NormativeValues(
-                formula.getChildsOfType(EvaluationTypes.EVALUATE_END),
-                formula.getId(),
+                formula,
                 EvaluationTypes.EVALUATE_END,
                 "End Period Evaluation"
         );
@@ -69,8 +68,8 @@ public class EditPopup {
         Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CLOSE);
         closeButton.managedProperty().bind(closeButton.visibleProperty());
         closeButton.setVisible(false);
-        if (formula.getCategory().equals("industry")) {
-            dialog.setTitle("Edit Industry");
+        if (formula.getCategory().equals("section")) {
+            dialog.setTitle("Edit Section");
             dialog.getDialogPane().setContent(editFormula.getGrid());
         } else {
             dialog.setTitle("Edit Formula");
@@ -95,22 +94,16 @@ public class EditPopup {
             if (formula.getCategory().equals("industry")) {
                 updateFormula();
                 treeItem.setValue(formula);
-                EditStorage.addItem(formula.getId(), formula);
+                addFormula(formula);
                 dialog.close();
+                Storage.refresh();
             } else {
                 if (editFormula.getTextArea().getErrors().size() > 0) {
                     event.consume();
                 } else {
-                    updateFormula();
-                    treeItem.setValue(formula);
-                    ObservableList<Formula> childs = normativeValuesEndPeriod.getChilds();
-                    ObservableList<Formula> childs2 = normativeValuesPreEndPeriod.getChilds();
-                    childs.addAll(childs2);
-                    childs.addAll(prefixSuffix.getVals());
-                    childs.addAll(periodsComparison.getVals());
-                    formula.setChilds(childs);
-                    EditStorage.addItem(formula.getId(), formula);
                     dialog.close();
+                    updateFormula();
+                    addFormula(formula);
                 }
             }
         };
@@ -119,15 +112,46 @@ public class EditPopup {
 
         Button cancelButton = (Button) dialog.getDialogPane().lookupButton(closeButtonType);
         EventHandler<ActionEvent> closeFilter = event -> {
-            if (type.equals("add")) {
-                TreeItem Parent = treeItem.getParent();
-                if (Parent != null) {
-                    Parent.getChildren().remove(treeItem);
-                }
-            }
             dialog.close();
         };
         cancelButton.addEventFilter(ActionEvent.ACTION, closeFilter);
+    }
+
+    private void addFormula(Formula formula) {
+        try {
+            DbFormulaHandler dbFormula = new DbFormulaHandler();
+            if (type.equals("add")) {
+                dbFormula.addFormula(formula);
+            } else {
+                dbFormula.updateFormula(formula);
+            }
+            ObservableList<Formula> childs = formula.getChilds();
+            for (Formula child : childs) {
+                if (child.getId() == -1) {
+                    String name = child.getName();
+                    if (
+                            name.equals(EvaluationTypes.PREFIX.toString()) ||
+                                    name.equals(EvaluationTypes.SUFFIX.toString()) ||
+                                    name.equals(EvaluationTypes.PERIOD_COMPARISON_NOCHANGE.toString()) ||
+                                    name.equals(EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString()) ||
+                                    name.equals(EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString())
+                    ) {
+                        if (child.getDescription().length() > 2) {
+                            dbFormula.addFormula(child);
+                        }
+                    } else {
+                        dbFormula.addFormula(child);
+                    }
+                } else if (child.getCategory().equals("TO_BE_DELETED")) {
+                    dbFormula.deleteItem(child.getId());
+                } else {
+                    dbFormula.updateFormula(child);
+                }
+            }
+            Storage.refresh();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 

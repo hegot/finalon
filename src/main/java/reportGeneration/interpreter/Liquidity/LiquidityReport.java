@@ -14,12 +14,14 @@ import reportGeneration.storage.TwoDList;
 
 public class LiquidityReport implements TableName {
     private ObservableList<Formula> formulas;
-
-    public LiquidityReport() {
+    private int weight;
+    public LiquidityReport(int weight) {
         FormulaStorage storage = FormulaStorage.getInstance();
         Formula Liquidity = storage.get("Liquidity");
         if (Liquidity != null) {
-            ResultsStorage.addStr(50, "sectionTitle", Liquidity.getName());
+            ResultsStorage.addStr(weight, "sectionTitle", Liquidity.getName());
+            weight++;
+            this.weight = weight;
             this.formulas = storage.getItems(Liquidity.getId());
         }
     }
@@ -29,19 +31,19 @@ public class LiquidityReport implements TableName {
 
         String title = "Table 6. Liquidity Ratios";
         Label tableName = tableName(title);
-        ResultsStorage.addStr(51, "tableName", title);
-
+        ResultsStorage.addStr(weight, "tableName", title);
+        weight++;
         RatiosTable liquidityTable = new RatiosTable(formulas);
         TableView tbl = liquidityTable.get();
         TwoDList items = getTableViewValues(tbl);
-        ResultsStorage.addTable(52, items);
-
+        ResultsStorage.addTable(weight, items);
+        weight++;
         FormulaEvaluation formulaEvaluation = new FormulaEvaluation(formulas);
 
         box.getChildren().addAll(
                 tableName,
                 tbl,
-                formulaEvaluation.get()
+                formulaEvaluation.get(weight)
         );
         return box;
     }

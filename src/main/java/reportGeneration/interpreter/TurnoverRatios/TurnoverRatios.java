@@ -13,12 +13,15 @@ import reportGeneration.storage.TwoDList;
 
 public class TurnoverRatios implements TableName {
     private ObservableList<Formula> formulas;
+    private int weight;
 
-    public TurnoverRatios() {
+    public TurnoverRatios(int weight) {
         FormulaStorage storage = FormulaStorage.getInstance();
         Formula Turnover = storage.get("Turnover");
         if (Turnover != null) {
-            ResultsStorage.addStr(80, "sectionTitle", Turnover.getName());
+            ResultsStorage.addStr(weight, "sectionTitle", Turnover.getName());
+            weight++;
+            this.weight = weight;
             this.formulas = storage.getItems(Turnover.getId());
         }
     }
@@ -26,16 +29,17 @@ public class TurnoverRatios implements TableName {
     public VBox get() {
         VBox box = new VBox(8);
         String title = "Table 10. Activity Ratios (Turnover Ratios)";
-        ResultsStorage.addStr(81, "tableName", title);
+        ResultsStorage.addStr(weight, "tableName", title);
+        weight++;
         FormulaEvaluation formulaEvaluation = new FormulaEvaluation(formulas);
         TableView tbl = new RatiosTable(formulas).get();
         TwoDList items = getTableViewValues(tbl);
-        ResultsStorage.addTable(82, items);
-
+        ResultsStorage.addTable(weight, items);
+        weight++;
         box.getChildren().addAll(
                 tableName(title),
                 tbl,
-                formulaEvaluation.get()
+                formulaEvaluation.get(weight)
         );
         return box;
     }

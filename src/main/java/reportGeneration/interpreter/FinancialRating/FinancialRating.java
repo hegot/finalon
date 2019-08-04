@@ -18,9 +18,11 @@ import reportGeneration.storage.TwoDList;
 public class FinancialRating implements TableName, LabelWrap {
 
     private ObservableList<Formula> formulas;
+    private int weight;
 
-    public FinancialRating() {
+    public FinancialRating(int weight) {
         this.formulas = FXCollections.observableArrayList();
+        this.weight = weight;
         FormulaStorage storage = FormulaStorage.getInstance();
         formulas.add(storage.get("NetProfitMargin"));
         formulas.add(storage.get("ReturnOnAssets"));
@@ -37,23 +39,26 @@ public class FinancialRating implements TableName, LabelWrap {
     public VBox get() {
         VBox box = new VBox(8);
         String title = "Table 13. Financial Rating";
-        ResultsStorage.addStr(141, "tableName", title);
+        ResultsStorage.addStr(weight, "tableName", title);
+        weight++;
         FinancialRatingTable financialRatingTable = new FinancialRatingTable(formulas);
         TableView tbl = financialRatingTable.get();
         TwoDList items = getTableViewValues(tbl);
-        ResultsStorage.addTable(142, items);
-
+        ResultsStorage.addTable(weight, items);
+        weight++;
         String title2 = "Table 14. Financial condition scale";
-        ResultsStorage.addStr(143, "tableName", title2);
+        ResultsStorage.addStr(weight, "tableName", title2);
+        weight++;
         FinConditionScaleTable finConditionScaleTable = new FinConditionScaleTable();
         TableView tbl2 = finConditionScaleTable.get();
         TwoDList items2 = getTableViewValues(tbl2);
-        ResultsStorage.addScaleTable(144, items2);
+        ResultsStorage.addScaleTable(weight, items2);
+        weight++;
         String outcome = getOutcome(
                 finConditionScaleTable.getItems(),
                 financialRatingTable.getTotalScore());
-        ResultsStorage.addStr(145, "text", outcome);
-
+        ResultsStorage.addStr(weight, "text", outcome);
+        weight++;
         box.getChildren().addAll(
                 tableName(title),
                 tbl,

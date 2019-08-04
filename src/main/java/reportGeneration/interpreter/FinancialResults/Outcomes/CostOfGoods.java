@@ -32,7 +32,7 @@ public class CostOfGoods implements LabelWrap, JsCalcHelper, Round {
         this.amount = settings.get("amount");
     }
 
-    public VBox get() {
+    public VBox get(int weight) {
         VBox hbox = new VBox(10);
         if (last != null) {
             String output = "";
@@ -52,7 +52,7 @@ public class CostOfGoods implements LabelWrap, JsCalcHelper, Round {
                 }
             }
             hbox.getChildren().add(labelWrap(output));
-            ResultsStorage.addStr(134, "text", output);
+            ResultsStorage.addStr(weight, "text", output);
         }
         return hbox;
     }

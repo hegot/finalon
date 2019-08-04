@@ -14,27 +14,38 @@ import reportGeneration.storage.SettingsStorage;
 import reportGeneration.storage.TwoDList;
 
 public class FinancialResultsReport implements TableName {
+    private int weight;
+    public FinancialResultsReport(int weight){
+        this.weight = weight;
+    }
 
     public VBox getTrend() {
         ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
         String title = "Table 7. Financial Results Trend Analysis, in "
                 + settings.get("amount") + " " + settings.get("defaultCurrency");
         Label tableName = tableName(title);
-        ResultsStorage.addStr(131, "tableName", title);
+        ResultsStorage.addStr(weight, "tableName", title);
+        weight++;
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
         FinancialResultTable financialResultTable = new FinancialResultTable();
         TableView tbl = financialResultTable.get();
         TwoDList items = getTableViewValues(tbl);
-        ResultsStorage.addTable(132, items);
+        ResultsStorage.addTable(weight, items);
+        VBox NetSalesAnalyze = new NetSalesAnalyze().get(weight);
+        weight++;
+        VBox CostOfGoods = new CostOfGoods().get(weight);
+        weight++;
+        VBox FinancialResultsChart = new FinancialResultsChart().get(weight);
+        weight++;
 
         box.getChildren().addAll(
                 tableName,
                 tbl,
-                new NetSalesAnalyze().get(),
-                new CostOfGoods().get(),
+                NetSalesAnalyze,
+                CostOfGoods,
                 financialResultTable.analyseEbit(),
-                new FinancialResultsChart().get()
+                FinancialResultsChart
         );
         return box;
     }

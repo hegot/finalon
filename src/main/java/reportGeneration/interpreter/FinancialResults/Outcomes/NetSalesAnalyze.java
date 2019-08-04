@@ -23,7 +23,7 @@ public class NetSalesAnalyze implements LabelWrap, Round {
         }
     }
 
-    public VBox get() {
+    public VBox get(int weight) {
         VBox hbox = new VBox(10);
         if (first != null && last != null) {
             String output = "";
@@ -37,7 +37,7 @@ public class NetSalesAnalyze implements LabelWrap, Round {
                 output = equal();
             }
             hbox.getChildren().add(labelWrap(output));
-            ResultsStorage.addStr(133, "text", output);
+            ResultsStorage.addStr(weight, "text", output);
         }
         return hbox;
     }

@@ -14,21 +14,20 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class NormativeValues {
+    private Formula formula;
     private ScrollPane scrollPane;
     private ObservableList<Formula> childs;
     private Tab tab;
-    private int id;
     private EvaluationTypes type;
 
 
     public NormativeValues(
-            ObservableList<Formula> childs,
-            int id,
+            Formula formula,
             EvaluationTypes type,
             String tabName
     ) {
-        this.childs = childs;
-        this.id = id;
+        this.childs = formula.getChildsOfType(type);
+        this.formula = formula;
         this.type = type;
         this.tab = new Tab(tabName);
         this.scrollPane = new ScrollPane();
@@ -41,9 +40,6 @@ public class NormativeValues {
         return tab;
     }
 
-    public ObservableList<Formula> getChilds() {
-        return childs;
-    }
 
     private VBox normativeValues() {
         VBox vBoxOuter = new VBox(15);
@@ -89,8 +85,9 @@ public class NormativeValues {
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                Formula item = new Formula(-1, type.toString(), "", "", "", "", "", id);
+                Formula item = new Formula(-1, type.toString(), "", "", "", "", "", formula.getId());
                 childs.add(item);
+                formula.setChilds(childs);
                 tab.setContent(normativeValues());
                 scrollPane.setVvalue(1.0);
             }
@@ -104,7 +101,6 @@ public class NormativeValues {
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                int rem = -1;
                 for (int j = 0; j < childs.size(); j++) {
                     Formula item = childs.get(j);
                     if (item.getId() == Id) {

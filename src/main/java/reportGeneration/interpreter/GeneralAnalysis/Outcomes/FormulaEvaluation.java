@@ -1,26 +1,22 @@
-package reportGeneration.interpreter.FinancialSustainability.Outcomes;
+package reportGeneration.interpreter.GeneralAnalysis.Outcomes;
 
 import entities.Formula;
+import globalReusables.LabelWrap;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.FormulaEvaluateBase;
 import reportGeneration.interpreter.ReusableComponents.NormValsEvaluator.StrReplacer;
 import reportGeneration.interpreter.ReusableComponents.interfaces.AttachChilds;
-import globalReusables.LabelWrap;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
 
 public class FormulaEvaluation implements LabelWrap, AttachChilds {
     private ObservableList<Formula> formulas;
-    private Periods periods;
-    private ObservableMap<String, String> settings;
 
     public FormulaEvaluation(ObservableList<Formula> formulas) {
-        this.periods = Periods.getInstance();
         this.formulas = formulas;
-        this.settings = SettingsStorage.getInstance().getSettings();
     }
 
     public VBox get(int weight) {
@@ -35,7 +31,7 @@ public class FormulaEvaluation implements LabelWrap, AttachChilds {
         }
         VBox vbox = new VBox();
         vbox.getChildren().add(labelWrap(outcome));
-        ResultsStorage.addStr(weight, "test", outcome);
+        ResultsStorage.addStr(weight, "text", outcome);
         return vbox;
     }
 
@@ -43,16 +39,9 @@ public class FormulaEvaluation implements LabelWrap, AttachChilds {
         StringBuilder output = new StringBuilder();
         FormulaEvaluateBase evaluator = new FormulaEvaluateBase(formula);
         output.append(evaluator.prefix());
-        String code = formula.getShortName();
-        if (code.equals("DebtRatio")) {
-            DebtRatioHook debtRatio = new DebtRatioHook(formula);
-            output.append(debtRatio.getResult());
-        }
         output.append(evaluator.startAndEnd());
         output.append(evaluator.periodsComparison());
         output.append(evaluator.suffix());
         return output.toString();
     }
-
-
 }

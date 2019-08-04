@@ -42,13 +42,11 @@ public class StepThree extends SceneBase {
     private ArrayList<Tab> loopSections() {
         ArrayList<Tab> tabs = new ArrayList<Tab>();
         ObservableList<Formula> sections = FormulaStorage.getInstance().getSections();
-        int weight = 30;
         int number = 2;
         for (int i = 0; i < sections.size(); i++) {
             Formula formula = sections.get(i);
             String name = number + ". " + formula.getName();
             number ++;
-            weight = weight + 10;
             Tab tab = new Tab(name);
             tabs.add(tab);
             tabsArr.put(formula.getShortName(), tab);
@@ -77,19 +75,22 @@ public class StepThree extends SceneBase {
         }
         tabs.getTabs().add(tab09);
         tabs.getTabs().add(tab10);
-        populateInThread(tabsArr, 13);
+        populateInThread(tabsArr);
         VBox vBox = initVbox();
         vBox.getChildren().add(tabs);
         return vBox;
     }
 
-    private void populateInThread(Map<String, Tab> tabs, int n) {
+    private void populateInThread(Map<String, Tab> tabs) {
+        int counter = 30;
         for (Map.Entry<String, Tab> entry : tabs.entrySet()) {
+            counter = counter + 10;
+            final int num = counter;
             Runnable updater = new Runnable() {
                 @Override
                 public void run() {
                     System.out.println(entry.getKey());
-                    VBox vBox = interprter.getReport(entry.getKey());
+                    VBox vBox = interprter.getReport(entry.getKey(), num);
                     if (vBox != null) {
                         entry.getValue().setContent(vBox);
                     }
