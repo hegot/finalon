@@ -4,6 +4,8 @@ import entities.Item;
 import finalonWindows.SceneBase;
 import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
+import globalReusables.CallTypes;
+import globalReusables.StatTrigger;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -66,6 +68,7 @@ public class TemplateBase extends SceneBase {
     Button saveTemplateButton() {
         Button button = new Button("Save Template");
         button.getStyleClass().add("blue-btn");
+        StatTrigger.getInstance().call(CallTypes.templates_customization_times);
         return button;
     }
 

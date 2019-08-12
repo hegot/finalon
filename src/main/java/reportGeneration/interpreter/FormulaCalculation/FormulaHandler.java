@@ -27,13 +27,14 @@ public class FormulaHandler implements ParseDouble, Round {
     }
 
     String getResult() {
-        String formulaUpdated = getValuesInPlace();
-        if (formulaUpdated != null) {
-            if (formulaUpdated.contains("/0.0")) return null;
-            return evaluateFormula(formulaUpdated);
-        } else {
-            return null;
+        if (!formula.getCategory().equals("industry") && !formula.getCategory().equals("section")) {
+            String formulaUpdated = getValuesInPlace();
+            if (formulaUpdated != null) {
+                if (formulaUpdated.contains("/0.0")) return null;
+                return evaluateFormula(formulaUpdated);
+            }
         }
+        return null;
     }
 
     private String getValuesInPlace() {

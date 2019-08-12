@@ -1,11 +1,11 @@
 package reportGeneration.interpreter.ReusableComponents;
 
 import entities.Item;
+import globalReusables.LabelWrap;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
-import globalReusables.LabelWrap;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.ResultsStorage;
 
@@ -47,12 +47,12 @@ public class RelativeItemsChange implements LabelWrap, JsCalcHelper {
                 Double lastVal = item.getLastVal();
                 if (firstVal != null && lastVal != null) {
                     String change = getRelativeChange(firstVal, lastVal);
-                    if(rize){
-                        if(lastVal > firstVal){
+                    if (rize) {
+                        if (lastVal > firstVal) {
                             output += "- " + item.getName() + " (" + change + "%) \n";
                         }
-                    }else{
-                        if(lastVal < firstVal){
+                    } else {
+                        if (lastVal < firstVal) {
                             output += "- " + item.getName() + " (" + change + "%) \n";
                         }
                     }

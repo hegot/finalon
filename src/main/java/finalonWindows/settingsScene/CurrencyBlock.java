@@ -1,6 +1,7 @@
 package finalonWindows.settingsScene;
 
 import finalonWindows.reusableComponents.selectbox.CurrencySelect;
+import globalReusables.Setting;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -10,9 +11,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 public class CurrencyBlock {
-    private ObservableMap<String, String> settings;
+    private ObservableMap<Setting, String> settings;
 
-    CurrencyBlock(ObservableMap<String, String> settings) {
+    CurrencyBlock(ObservableMap<Setting, String> settings) {
         this.settings = settings;
     }
 
@@ -32,7 +33,7 @@ public class CurrencyBlock {
             @Override
             public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
                 if (arg2 != null) {
-                    settings.replace("defaultCurrency", arg2);
+                    settings.replace(Setting.defaultCurrency, arg2);
                 }
             }
         });

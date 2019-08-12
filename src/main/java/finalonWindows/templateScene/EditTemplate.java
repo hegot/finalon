@@ -5,6 +5,8 @@ import entities.Item;
 import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
 import finalonWindows.templateScene.templates.TemplateEditable;
+import globalReusables.CallTypes;
+import globalReusables.StatTrigger;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -36,6 +38,7 @@ public class EditTemplate extends TemplateBase {
                     items.add(rootItem);
                     TemplateEditor updater = new TemplateEditor(templateName.getText(), items);
                     updater.updateTpl();
+                    StatTrigger.getInstance().call(CallTypes.templates_customization_times);
                     SceneSwitcher.goTo(SceneName.TEMPLATESLIST);
                 } else {
                     System.out.println("err");

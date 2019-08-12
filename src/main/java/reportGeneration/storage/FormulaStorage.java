@@ -32,6 +32,10 @@ public class FormulaStorage {
         return formulas;
     }
 
+    public static ObservableList<Formula> getSections() {
+        return sections;
+    }
+
     public ObservableList<Formula> getItems(int id) {
         ObservableList<Formula> Formulas = FXCollections.observableArrayList();
         for (Formula item : formulas) {
@@ -58,7 +62,6 @@ public class FormulaStorage {
         return null;
     }
 
-
     private void init() {
         this.sections = initSections();
         this.formulas = getFormulas();
@@ -69,10 +72,6 @@ public class FormulaStorage {
         int rootIndustry = Integer.parseInt(SettingsStorage.getInstance().getSettings().get("industry"));
         ObservableList<Formula> parents = dbFormula.getFormulas(rootIndustry);
         return parents;
-    }
-
-    public static ObservableList<Formula> getSections() {
-        return sections;
     }
 
     private ObservableList<Formula> getFormulas() {

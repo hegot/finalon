@@ -1,6 +1,5 @@
 package reportGeneration.interpreter.ReusableComponents.tables;
 
-import database.setting.DbSettingHandler;
 import entities.Item;
 import globalReusables.ItemsGetter;
 import javafx.beans.property.SimpleStringProperty;
@@ -11,8 +10,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import reportGeneration.interpreter.ReusableComponents.interfaces.Diff;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
-import reportGeneration.interpreter.ReusableComponents.interfaces.Round;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
 
@@ -20,8 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StructureTable implements JsCalcHelper, Round {
-    private DbSettingHandler dbSettingHandler = new DbSettingHandler();
+public class StructureTable implements JsCalcHelper, Diff {
     private Map<String, Double> totalVals;
     private ObservableList<Item> items;
     private ArrayList<String> periodsArr;
@@ -74,18 +72,17 @@ public class StructureTable implements JsCalcHelper, Round {
         return table;
     }
 
-    private TableColumn absoluteChangeCol(String colStart, String colEnd){
+    private TableColumn absoluteChangeCol(String colStart, String colEnd) {
         String colname = "Absolute Change\n" + formatDate(colEnd) + " to \n" + formatDate(colStart);
         TableColumn<StructureItem, String> column = new TableColumn<StructureItem, String>(colname);
         column.setMinWidth(150);
         column.setCellValueFactory(cellData -> {
             ObservableMap<String, Double> values = getValues(cellData);
             if (values != null) {
-                Double colEndVAl = values.get(colEnd);
-                Double colStartVAl = values.get(colStart);
-                if (colEndVAl != null && colStartVAl != null) {
-                    return new SimpleStringProperty(commaFormat(colEndVAl - colStartVAl));
-                }
+                return diff(
+                        values.get(colStart),
+                        values.get(colEnd)
+                );
             }
             return null;
         });
@@ -116,14 +113,6 @@ public class StructureTable implements JsCalcHelper, Round {
         return column;
     }
 
-
-    protected String commaFormat(Double value) {
-        String strValue = round(value * 100);
-        if (dbSettingHandler.getSetting("numberFormat").equals("comma")) {
-            strValue = strValue.replace('.', ',');
-        }
-        return strValue;
-    }
 
     protected ObservableMap<String, Double> getValues(TableColumn.CellDataFeatures<StructureItem, String> cellData) {
         StructureItem item = (StructureItem) cellData.getValue();

@@ -15,6 +15,7 @@ import reportGeneration.storage.TwoDList;
 public class LiquidityReport implements TableName {
     private ObservableList<Formula> formulas;
     private int weight;
+
     public LiquidityReport(int weight) {
         FormulaStorage storage = FormulaStorage.getInstance();
         Formula Liquidity = storage.get("Liquidity");

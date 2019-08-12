@@ -1,13 +1,13 @@
 package reportGeneration.interpreter.ProfitabilityRatios.Outcomes;
 
 import entities.Formula;
+import globalReusables.LabelWrap;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
-import globalReusables.LabelWrap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 import reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
 import reportGeneration.interpreter.ReusableComponents.tables.RatiosTable;

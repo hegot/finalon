@@ -10,17 +10,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
+import reportGeneration.interpreter.ReusableComponents.interfaces.Diff;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
 import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
-import reportGeneration.interpreter.ReusableComponents.interfaces.Round;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.SettingsStorage;
 
 import java.util.ArrayList;
 
-public class FinancialResultTable implements ParseDouble, JsCalcHelper, LabelWrap, Round {
+public class FinancialResultTable implements ParseDouble, JsCalcHelper, LabelWrap, Diff {
 
     private ObservableList<Item> items;
     private ArrayList<String> periods;
@@ -163,12 +162,10 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper, LabelWra
         col.setCellValueFactory(cellData -> {
             ObservableMap<String, Double> values = getValues(cellData);
             if (values != null) {
-                Double colStartVAl = values.get(colStart);
-                Double colEndVAl = values.get(colEnd);
-                if (colStartVAl != null && colEndVAl != null) {
-                    String absolute = round(colEndVAl - colStartVAl);
-                    return new SimpleStringProperty(absolute);
-                }
+                return diff(
+                        values.get(colStart),
+                        values.get(colEnd)
+                );
             }
             return null;
         });

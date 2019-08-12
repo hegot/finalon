@@ -1,5 +1,6 @@
 package finalonWindows.settingsScene;
 
+import globalReusables.Setting;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableMap;
@@ -12,10 +13,10 @@ import javafx.scene.layout.VBox;
 class YearsOrderBlock {
     private final String ASCENDING = "Ascending (Example: 2014-2015-1016)";
     private final String DESCENDING = "Descending (Example: 2016-2015-1014)";
-    private ObservableMap<String, String> settings;
+    private ObservableMap<Setting, String> settings;
     private ToggleGroup radioGroup;
 
-    YearsOrderBlock(ObservableMap<String, String> settings) {
+    YearsOrderBlock(ObservableMap<Setting, String> settings) {
         this.settings = settings;
         this.radioGroup = getRadioGroup();
     }
@@ -27,7 +28,7 @@ class YearsOrderBlock {
         Label label = new Label("What year-by-year order do you prefer \n (this step will influence 'Add' and 'Edit steps')");
         label.setMinHeight(40);
         label.getStyleClass().add("sub-label");
-        String defaultVal = settings.get("yearOrder");
+        String defaultVal = settings.get(Setting.yearOrder);
         RadioButton radioButton = getRadio(ASCENDING);
         RadioButton radioButton2 = getRadio(DESCENDING);
         if (defaultVal.equals("ASCENDING")) {
@@ -54,9 +55,9 @@ class YearsOrderBlock {
                 if (rb != null) {
                     String s = rb.getText();
                     if (s.equals(ASCENDING)) {
-                        settings.replace("yearOrder", "ASCENDING");
+                        settings.replace(Setting.yearOrder, "ASCENDING");
                     } else {
-                        settings.replace("yearOrder", "DESCENDING");
+                        settings.replace(Setting.yearOrder, "DESCENDING");
                     }
 
                 }

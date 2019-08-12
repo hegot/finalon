@@ -2,6 +2,8 @@ package database.setting;
 
 import database.Connect;
 import database.DbHandlerBase;
+import globalReusables.RandomString;
+import globalReusables.Setting;
 
 import java.sql.*;
 
@@ -27,6 +29,8 @@ public class DbSettingHandler extends DbHandlerBase {
         this.connection.prepareStatement(sql3).executeUpdate();
         String sql4 = "INSERT INTO " + tableName + " (`key`, `value`) VALUES('defaultCurrency', 'USD')";
         this.connection.prepareStatement(sql4).executeUpdate();
+        String sql5 = "INSERT INTO " + tableName + " (`key`, `value`) VALUES('appId', '" + RandomString.get() + "')";
+        this.connection.prepareStatement(sql5).executeUpdate();
     }
 
     public void createTable() throws ClassNotFoundException, SQLException {
@@ -38,10 +42,10 @@ public class DbSettingHandler extends DbHandlerBase {
     }
 
 
-    public String getSetting(String key) {
+    public String getSetting(Setting key) {
         String value = "";
         try (Statement statement = this.connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT key, value FROM " + tableName + " WHERE key = '" + key + "'");
+            ResultSet resultSet = statement.executeQuery("SELECT key, value FROM " + tableName + " WHERE key = '" + key.toString() + "'");
             while (resultSet.next()) {
                 value = resultSet.getString("value");
             }
@@ -51,9 +55,9 @@ public class DbSettingHandler extends DbHandlerBase {
         return value;
     }
 
-    public void updateSetting(String key, String value) throws SQLException {
+    public void updateSetting(Setting key, String value) {
         try (PreparedStatement statement = this.connection.prepareStatement(
-                "UPDATE " + tableName + " SET `value` = ? WHERE key = '" + key + "'"
+                "UPDATE " + tableName + " SET `value` = ? WHERE key = '" + key.toString() + "'"
         )) {
             statement.setObject(1, value);
             statement.executeUpdate();

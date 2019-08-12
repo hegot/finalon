@@ -3,14 +3,11 @@ package reportGeneration.interpreter.GeneralAnalysis.Outcomes;
 import entities.Formula;
 import globalReusables.LabelWrap;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.FormulaEvaluateBase;
 import reportGeneration.interpreter.ReusableComponents.NormValsEvaluator.StrReplacer;
 import reportGeneration.interpreter.ReusableComponents.interfaces.AttachChilds;
-import reportGeneration.storage.Periods;
 import reportGeneration.storage.ResultsStorage;
-import reportGeneration.storage.SettingsStorage;
 
 public class FormulaEvaluation implements LabelWrap, AttachChilds {
     private ObservableList<Formula> formulas;

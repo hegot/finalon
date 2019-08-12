@@ -33,7 +33,7 @@ public class FinancialRatingTable implements JsCalcHelper, ParseDouble, Round, R
         for (Formula formula : formulas) {
             ScoreItem item = new ScoreItem(formula);
             Double weightedScore = item.getWeightedScore();
-            if(weightedScore != null){
+            if (weightedScore != null) {
                 sum += weightedScore;
                 vals.add(weightedScore);
                 output.add(item);
@@ -60,7 +60,7 @@ public class FinancialRatingTable implements JsCalcHelper, ParseDouble, Round, R
                 getNameCol(),
                 getCol("weight", "Weighting \n factor")
         );
-        if(periods.getPeriodArr().size() > 2) {
+        if (periods.getPeriodArr().size() > 2) {
             table.getColumns().add(
                     getCol("score1", "Score \n (Pre-end Period)")
             );
@@ -86,7 +86,7 @@ public class FinancialRatingTable implements JsCalcHelper, ParseDouble, Round, R
         return column;
     }
 
-    public Double getTotalScore(){
+    public Double getTotalScore() {
         return this.totalScore;
     }
 }

@@ -1,10 +1,10 @@
 package reportGeneration.interpreter.LiabilitiesReport.Outcomes;
 
 import entities.Item;
+import globalReusables.LabelWrap;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.EquityShareAnalyze;
-import globalReusables.LabelWrap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 import reportGeneration.interpreter.ReusableComponents.interfaces.SrtuctureItemsLoop;
 import reportGeneration.storage.ItemsStorage;

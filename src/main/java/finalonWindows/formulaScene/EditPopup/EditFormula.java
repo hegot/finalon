@@ -101,13 +101,13 @@ class EditFormula {
 
         if (formula.getCategory().equals("section")) {
             EditRow arr[] = new EditRow[1];
-            arr[0] = new EditRow("name", "Section Name:", formula.getName(), null);
+            arr[0] = new EditRow("name", "Section Name:", formula.getName());
             return arr;
         } else {
             EditRow arr[] = new EditRow[3];
-            arr[0] = new EditRow("name", "Name:", formula.getName(), null);
-            arr[1] = new EditRow("shortName", "Code:", formula.getShortName(), null);
-            arr[2] = new EditRow("unit", "Unit:", formula.getUnit(), null);
+            arr[0] = new EditRow("name", "Name:", formula.getName());
+            arr[1] = new EditRow("shortName", "Code:", formula.getShortName());
+            arr[2] = new EditRow("unit", "Unit:", formula.getUnit());
             return arr;
         }
     }

@@ -1,7 +1,14 @@
 import database.AddDefaultTables;
+import database.setting.DbSettingHandler;
 import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
+import globalReusables.CallTypes;
+import globalReusables.RandomString;
+import globalReusables.Setting;
+import globalReusables.StatTrigger;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -47,8 +54,20 @@ public class Finalon extends Application {
         );
         primaryStage.setScene(scene);
         SceneSwitcher sceneSwitcher = new SceneSwitcher(mainVBox);
+        setAppId();
+        StatTrigger.getInstance().call(CallTypes.program_started_times);
         sceneSwitcher.goTo(SceneName.MAIN);
         window.show();
+    }
+
+
+    private void setAppId(){
+        DbSettingHandler dbSettingHandler = new DbSettingHandler();
+        ObservableMap<String, String> settings = FXCollections.observableHashMap();
+        String id = dbSettingHandler.getSetting(Setting.appId);
+        if(id.length() == 0){
+            dbSettingHandler.updateSetting(Setting.appId, RandomString.get());
+        }
     }
 
     protected double height() {

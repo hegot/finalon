@@ -3,6 +3,7 @@ package finalonWindows.settingsScene;
 import database.setting.DbSettingHandler;
 import finalonWindows.SceneBase;
 import finalonWindows.reusableComponents.SettingsMenu;
+import globalReusables.Setting;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -22,15 +23,15 @@ import java.util.Optional;
 public class SettingsScene extends SceneBase {
 
     private DbSettingHandler dbSettingHandler;
-    private ObservableMap<String, String> settings;
+    private ObservableMap<Setting, String> settings;
 
     public SettingsScene() {
         this.dbSettingHandler = new DbSettingHandler();
         this.settings = FXCollections.observableHashMap();
-        settings.put("numberFormat", dbSettingHandler.getSetting("numberFormat"));
-        settings.put("yearOrder", dbSettingHandler.getSetting("yearOrder"));
-        settings.put("includeAll", dbSettingHandler.getSetting("includeAll"));
-        settings.put("defaultCurrency", dbSettingHandler.getSetting("defaultCurrency"));
+        settings.put(Setting.numberFormat, dbSettingHandler.getSetting(Setting.numberFormat));
+        settings.put(Setting.yearOrder, dbSettingHandler.getSetting(Setting.yearOrder));
+        settings.put(Setting.includeAll, dbSettingHandler.getSetting(Setting.includeAll));
+        settings.put(Setting.defaultCurrency, dbSettingHandler.getSetting(Setting.defaultCurrency));
     }
 
 
@@ -63,7 +64,7 @@ public class SettingsScene extends SceneBase {
             @Override
             public void handle(ActionEvent e) {
                 try {
-                    for (String key : settings.keySet()) {
+                    for (Setting key : settings.keySet()) {
                         dbSettingHandler.updateSetting(key, settings.get(key));
                     }
                     label.setText("Your changes have been saved!");

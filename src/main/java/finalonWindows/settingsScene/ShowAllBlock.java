@@ -1,5 +1,6 @@
 package finalonWindows.settingsScene;
 
+import globalReusables.Setting;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableMap;
@@ -10,10 +11,10 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 
 public class ShowAllBlock {
-    private ObservableMap<String, String> settings;
+    private ObservableMap<Setting, String> settings;
     private ToggleGroup radioGroup;
 
-    ShowAllBlock(ObservableMap<String, String> settings) {
+    ShowAllBlock(ObservableMap<Setting, String> settings) {
         this.settings = settings;
         this.radioGroup = getRadioGroup();
     }
@@ -24,7 +25,7 @@ public class ShowAllBlock {
         Label label = new Label("Do you want to include all the elements of balance sheet to horizontal and vertical analysis tables? \n (this option influences generated Report) ");
         label.setMinHeight(40);
         label.getStyleClass().add("sub-label");
-        String defaultVal = settings.get("includeAll");
+        String defaultVal = settings.get(Setting.includeAll);
         RadioButton radioButton = getRadio("Yes");
         RadioButton radioButton2 = getRadio("No, only the main elements (current assets, non-current assets, equity, current liabilities, non-current liabilities)");
         if (defaultVal.equals("YES")) {
@@ -51,7 +52,7 @@ public class ShowAllBlock {
                 if (rb != null) {
                     String s = rb.getText();
                     String val = (s.equals("Yes")) ? "YES" : "NO";
-                    settings.replace("includeAll", val);
+                    settings.replace(Setting.includeAll, val);
                     String ws = rb.getText();
                 }
             }

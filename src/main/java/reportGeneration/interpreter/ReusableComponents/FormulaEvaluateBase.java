@@ -2,7 +2,9 @@ package reportGeneration.interpreter.ReusableComponents;
 
 import defaultData.EvaluationTypes;
 import entities.Formula;
-import reportGeneration.interpreter.ReusableComponents.NormValsEvaluator.*;
+import reportGeneration.interpreter.ReusableComponents.NormValsEvaluator.GeneralRenderer;
+import reportGeneration.interpreter.ReusableComponents.NormValsEvaluator.NormValsEvaluator;
+import reportGeneration.interpreter.ReusableComponents.NormValsEvaluator.PeriodComparisonEvaluator;
 import reportGeneration.storage.Periods;
 
 import java.util.ArrayList;

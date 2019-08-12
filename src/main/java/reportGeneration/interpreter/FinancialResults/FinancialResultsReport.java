@@ -15,7 +15,8 @@ import reportGeneration.storage.TwoDList;
 
 public class FinancialResultsReport implements TableName {
     private int weight;
-    public FinancialResultsReport(int weight){
+
+    public FinancialResultsReport(int weight) {
         this.weight = weight;
     }
 

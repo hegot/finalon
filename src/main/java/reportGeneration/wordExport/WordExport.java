@@ -56,7 +56,7 @@ public class WordExport {
                 } else if (obj.getClass() == TwoDList.class) {
                     if (item.getType().equals("scaleTable")) {
                         createTable((TwoDList) obj, "scaleTable");
-                    }else{
+                    } else {
                         createTable((TwoDList) obj, "table");
                     }
                 } else if (obj.getClass() == BarChart.class) {
@@ -91,10 +91,10 @@ public class WordExport {
         int writableWidthTwips = wordPackage.getDocumentModel()
                 .getSections().get(0).getPageDimensions().getWritableWidthTwips();
 
-        if(type.equals("scaleTable")){
+        if (type.equals("scaleTable")) {
             ScaleTblConstructor constructor = new ScaleTblConstructor(data, writableWidthTwips, cols);
             wordPackage.getMainDocumentPart().addObject(constructor.getTable());
-        }else{
+        } else {
             TblConstructor constructor = new TblConstructor(data, writableWidthTwips, cols);
             wordPackage.getMainDocumentPart().addObject(constructor.getTable());
         }

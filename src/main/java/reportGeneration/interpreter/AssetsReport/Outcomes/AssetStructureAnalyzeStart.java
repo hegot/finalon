@@ -1,10 +1,10 @@
 package reportGeneration.interpreter.AssetsReport.Outcomes;
 
 import entities.Item;
+import globalReusables.LabelWrap;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import globalReusables.LabelWrap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.SrtuctureItemsLoop;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;

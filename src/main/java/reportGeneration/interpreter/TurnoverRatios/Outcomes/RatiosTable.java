@@ -1,4 +1,4 @@
-package reportGeneration.interpreter.ReusableComponents.tables;
+package reportGeneration.interpreter.TurnoverRatios.Outcomes;
 
 import entities.Formula;
 import javafx.collections.ObservableList;
@@ -7,6 +7,7 @@ import javafx.scene.control.TableView;
 import reportGeneration.interpreter.ReusableComponents.interfaces.Diff;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
 import reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
+import reportGeneration.interpreter.ReusableComponents.tables.FormulaTable;
 import reportGeneration.storage.Periods;
 
 import java.util.ArrayList;
@@ -26,7 +27,8 @@ public class RatiosTable extends FormulaTable implements JsCalcHelper, ParseDoub
         table.setEditable(false);
         if (formulas != null) {
             table.getColumns().add(getNameCol());
-            for (String col : periods) {
+            for (int j = 1; j < periods.size(); j++) {
+                String col = periods.get(j);
                 table.getColumns().add(getPeriodCol(col));
             }
             int count = periods.size() - 1;
@@ -41,7 +43,6 @@ public class RatiosTable extends FormulaTable implements JsCalcHelper, ParseDoub
         }
         return table;
     }
-
 
     TableColumn getAbsoluteComparisonCol(String colStart, String colEnd) {
         String colname = "Absolute Change\n" + formatDate(colEnd) + " to \n" + formatDate(colStart);

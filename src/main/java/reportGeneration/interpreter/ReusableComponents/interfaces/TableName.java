@@ -19,34 +19,37 @@ public interface TableName {
     default TwoDList getTableViewValues(TableView tableView) {
         TwoDList values = new TwoDList();
 
+        if (tableView != null) {
+            ObservableList<TableColumn> columns = tableView.getColumns();
 
-        ObservableList<TableColumn> columns = tableView.getColumns();
-
-        //save headers
-        ArrayList<String> headers = new ArrayList<>();
-        for (TableColumn column : columns) {
-            headers.add(column.getText());
-        }
-        values.addList(headers);
-
-        //save rows
-        for (Object row : tableView.getItems()) {
-            ArrayList<String> rowVals = new ArrayList<>();
+            //save headers
+            ArrayList<String> headers = new ArrayList<>();
             for (TableColumn column : columns) {
-                if (column.getCellObservableValue(row) != null) {
-                    Object obj = column.getCellObservableValue(row).getValue();
-                    if (obj != null) {
-                        if (obj.getClass() == Double.class) {
-                            rowVals.add(Double.toString((Double) obj));
-                        } else if (obj.getClass() == String.class) {
-                            rowVals.add((String) obj);
+                headers.add(column.getText());
+            }
+            values.addList(headers);
+
+            if (tableView.getItems().size() > 0) {
+                //save rows
+                for (Object row : tableView.getItems()) {
+                    ArrayList<String> rowVals = new ArrayList<>();
+                    for (TableColumn column : columns) {
+                        if (column.getCellObservableValue(row) != null) {
+                            Object obj = column.getCellObservableValue(row).getValue();
+                            if (obj != null) {
+                                if (obj.getClass() == Double.class) {
+                                    rowVals.add(Double.toString((Double) obj));
+                                } else if (obj.getClass() == String.class) {
+                                    rowVals.add((String) obj);
+                                }
+                            }
+                        } else {
+                            rowVals.add("");
                         }
                     }
-                } else {
-                    rowVals.add("");
+                    values.addList(rowVals);
                 }
             }
-            values.addList(rowVals);
         }
         return values;
     }

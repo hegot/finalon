@@ -2,6 +2,7 @@ package finalonWindows.reusableComponents.selectbox;
 
 import database.setting.DbSettingHandler;
 import defaultData.DefaultCurrency;
+import globalReusables.Setting;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -13,7 +14,7 @@ public class CurrencySelect {
         ComboBox<String> currencyBox = new ComboBox<String>();
         ObservableList<String> currencies = DefaultCurrency.getCurrencies();
         DbSettingHandler dbSettingHandler = new DbSettingHandler();
-        String defaultVal = dbSettingHandler.getSetting("defaultCurrency");
+        String defaultVal = dbSettingHandler.getSetting(Setting.defaultCurrency);
         int index = 0;
         for (int j = 0; j < currencies.size(); j++) {
             if (defaultVal.equals(currencies.get(j))) {

@@ -3,6 +3,8 @@ package reportGeneration;
 import entities.Item;
 import finalonWindows.SceneBase;
 import finalonWindows.reusableComponents.SettingsMenu;
+import globalReusables.CallTypes;
+import globalReusables.StatTrigger;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
@@ -80,6 +82,7 @@ public class AddReportScene extends SceneBase {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
+                StatTrigger.getInstance().call(CallTypes.report_generated_times);
                 Validator validator = new Validator();
                 String errors = validator.validate();
                 if (errors.length() > 0) {

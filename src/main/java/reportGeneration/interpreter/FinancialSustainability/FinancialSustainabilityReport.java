@@ -15,6 +15,7 @@ import reportGeneration.storage.TwoDList;
 public class FinancialSustainabilityReport implements TableName {
     private ObservableList<Formula> formulas;
     private int weight;
+
     public FinancialSustainabilityReport(int weight) {
         FormulaStorage storage = FormulaStorage.getInstance();
         Formula FS = storage.get("FinancialSustainability");

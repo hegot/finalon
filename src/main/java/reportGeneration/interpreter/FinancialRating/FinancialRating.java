@@ -9,7 +9,6 @@ import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.FinancialRating.Outcomes.FinConditionScaleTable;
 import reportGeneration.interpreter.FinancialRating.Outcomes.FinancialRatingTable;
 import reportGeneration.interpreter.FinancialRating.Outcomes.ScaleItem;
-import reportGeneration.interpreter.FinancialRating.Outcomes.ScoreItem;
 import reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
 import reportGeneration.storage.FormulaStorage;
 import reportGeneration.storage.ResultsStorage;
@@ -69,12 +68,12 @@ public class FinancialRating implements TableName, LabelWrap {
         return box;
     }
 
-    private String getOutcome(ObservableList<ScaleItem> scales, Double score){
+    private String getOutcome(ObservableList<ScaleItem> scales, Double score) {
         String out = "";
-        for(ScaleItem item : scales){
+        for (ScaleItem item : scales) {
             Double start = item.getCol1();
             Double end = item.getCol2();
-            if(score > end && score <= start){
+            if (score > end && score <= start) {
                 out = "As a result we can confirm a " + item.getCol4() + " (" + item.getCol3() + ") financial situation.";
             }
         }

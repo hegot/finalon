@@ -11,6 +11,7 @@ import reportGeneration.storage.ResultsStorage;
 public class LaborProductivity {
     private ObservableList<Formula> formulas;
     private int weight;
+
     public LaborProductivity(int weight) {
         FormulaStorage storage = FormulaStorage.getInstance();
         Formula LaborProductivitySection = storage.get("LaborProductivitySection");

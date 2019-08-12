@@ -1,6 +1,7 @@
 package finalonWindows.settingsScene;
 
 import defaultData.DefaultNumberFormats;
+import globalReusables.Setting;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -13,16 +14,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class NumberFormatBlock {
-    private ObservableMap<String, String> settings;
+    private ObservableMap<Setting, String> settings;
 
-    NumberFormatBlock(ObservableMap<String, String> settings) {
+    NumberFormatBlock(ObservableMap<Setting, String> settings) {
         this.settings = settings;
     }
 
     public VBox get() {
         ObservableList<entities.NumberFormat> Formats = DefaultNumberFormats.getFormats();
         ToggleGroup radioGroup = getRadioGroup(Formats);
-        String defaultVal = settings.get("numberFormat");
+        String defaultVal = settings.get(Setting.numberFormat);
 
         VBox vboxrow = new VBox(10);
         vboxrow.getStyleClass().add("vbox-row");
@@ -55,7 +56,7 @@ public class NumberFormatBlock {
                     for (entities.NumberFormat format : formats) {
                         if (format.getName().equals(s)) {
                             try {
-                                settings.replace("numberFormat", format.getShortName());
+                                settings.replace(Setting.numberFormat, format.getShortName());
                             } catch (Exception e) {
                                 System.out.println(e.toString());
                             }

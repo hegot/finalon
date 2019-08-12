@@ -1,10 +1,10 @@
 package reportGeneration.interpreter.FinancialResults.Outcomes;
 
 import entities.Item;
+import globalReusables.LabelWrap;
 import javafx.collections.ObservableMap;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
-import globalReusables.LabelWrap;
 import reportGeneration.interpreter.ReusableComponents.interfaces.Round;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;

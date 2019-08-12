@@ -38,7 +38,7 @@ public class LaborProductivityChart extends ChartBase implements TableName {
             vBox.getChildren().addAll(tableName(title), bc);
             ResultsStorage.addBarChart(weight, bc);
             weight++;
-            ResultsStorage.addStr(weight, "h2",  title);
+            ResultsStorage.addStr(weight, "h2", title);
 
         }
         return vBox;

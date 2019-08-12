@@ -2,6 +2,7 @@ package reportGeneration.stepTwo;
 
 import database.setting.DbSettingHandler;
 import entities.Item;
+import globalReusables.Setting;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -56,7 +57,7 @@ class Columns implements ParseDouble {
 
     TableColumn getPeriodCol(String colname) {
         DbSettingHandler dbSettingHandler = new DbSettingHandler();
-        String numberFormat = dbSettingHandler.getSetting("numberFormat");
+        String numberFormat = dbSettingHandler.getSetting(Setting.numberFormat);
         ObservableList<Item> items = ItemsStorage.getItems();
         TableColumn<Item, String> col = new TableColumn<Item, String>(colname);
         col.setMinWidth(100);

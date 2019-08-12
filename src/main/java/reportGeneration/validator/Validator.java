@@ -1,13 +1,13 @@
 package reportGeneration.validator;
 
 import entities.Item;
+import globalReusables.LabelWrap;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.ScrollPane;
 import javafx.util.Pair;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
-import globalReusables.LabelWrap;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
 

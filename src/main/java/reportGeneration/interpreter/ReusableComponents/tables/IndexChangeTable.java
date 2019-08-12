@@ -2,12 +2,14 @@ package reportGeneration.interpreter.ReusableComponents.tables;
 
 import database.setting.DbSettingHandler;
 import entities.Item;
+import globalReusables.Setting;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import reportGeneration.interpreter.ReusableComponents.interfaces.Diff;
 import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
@@ -15,7 +17,7 @@ import reportGeneration.storage.Periods;
 import java.util.ArrayList;
 
 
-public class IndexChangeTable extends ItemsTable implements JsCalcHelper {
+public class IndexChangeTable extends ItemsTable implements JsCalcHelper, Diff {
     private DbSettingHandler dbSettingHandler = new DbSettingHandler();
     private int rootId;
 
@@ -70,7 +72,7 @@ public class IndexChangeTable extends ItemsTable implements JsCalcHelper {
     }
 
     protected String commaFormat(String value) {
-        if (dbSettingHandler.getSetting("numberFormat").equals("comma")) {
+        if (dbSettingHandler.getSetting(Setting.numberFormat).equals("comma")) {
             value = value.replace('.', ',');
         }
         return value;
@@ -84,12 +86,10 @@ public class IndexChangeTable extends ItemsTable implements JsCalcHelper {
         col.setCellValueFactory(cellData -> {
             ObservableMap<String, Double> values = getValues(cellData);
             if (values != null) {
-                Double colStartVAl = values.get(colStart);
-                Double colEndVAl = values.get(colEnd);
-                if (colStartVAl != null && colEndVAl != null) {
-                    String absolute = Double.toString(colEndVAl - colStartVAl);
-                    return new SimpleStringProperty(commaFormat(absolute));
-                }
+                return diff(
+                        values.get(colStart),
+                        values.get(colEnd)
+                );
             }
             return null;
         });
