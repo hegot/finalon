@@ -19,19 +19,18 @@ public class TotalAssetTurnoverHook {
         Periods periods = new Periods();
         this.periodsArr = periods.getPeriodArr();
         if (periodsArr.size() > 1) {
-            ItemsStorage storage = ItemsStorage.getInstance();
 
             this.firstVal = formula.getFirstVal();
             this.lastVal = formula.getLastVal();
 
-            Item RevenueGeneral = storage.get("RevenueGeneral");
+            Item RevenueGeneral = ItemsStorage.get("RevenueGeneral");
             Double firstRevenueVal = getSecondFirstVal(RevenueGeneral.getValues());
             Double lastRevenueVal = RevenueGeneral.getLastVal();
             if (firstRevenueVal != null && lastRevenueVal != null) {
                 this.revenueChange = lastRevenueVal - firstRevenueVal;
             }
 
-            Item AssetsGeneral = storage.get("AssetsGeneral");
+            Item AssetsGeneral = ItemsStorage.get("AssetsGeneral");
             Double firstAssetsGeneralVal1 = AssetsGeneral.getFirstVal();
             Double firstAssetsGeneralVal2 = getSecondFirstVal(AssetsGeneral.getValues());
             Double lastAssetsGeneralVal1 = AssetsGeneral.getLastVal();

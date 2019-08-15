@@ -12,7 +12,7 @@ public class ReturnonEquityafterTax {
         Formulas.add(new Formula(ReturnonEquityafterTax,
                 "Return on Equity after Tax",
                 "ReturnonEquityafterTax",
-                "(ProfitLossBeforeTax-IncomeTaxExpenseContinuingOperations)/(EquityGeneral[0]/2+EquityGeneral[1]/2)",
+                "((ProfitLossBeforeTax-IncomeTaxExpenseContinuingOperations)/(EquityGeneral[0]/2+EquityGeneral[1]/2))*100",
                 EvaluationTypes.EVALUATE_END.toString(),
                 "formula",
                 "%",

@@ -11,7 +11,7 @@ public class ReturnOnNonCurrentAssets {
         Formulas.add(new Formula(ReturnoNonCurrentAssets,
                 "Return on Non-current Assets",
                 "ReturnOnNonCurrentAssets",
-                "(ProfitLossBeforeTax-IncomeTaxExpenseContinuingOperations)/(AssetsGeneral[1]/2+AssetsGeneral[0]/2)",
+                "((ProfitLossBeforeTax-IncomeTaxExpenseContinuingOperations)/(AssetsGeneral[1]/2+AssetsGeneral[0]/2))*100",
                 "",
                 "formula",
                 "%", parent));

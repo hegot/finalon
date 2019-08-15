@@ -185,7 +185,7 @@ public class Formula {
     }
 
     public Double getLastVal() {
-        ArrayList<String> arr = Periods.getInstance().getPeriodArr();
+        ArrayList<String> arr = Periods.getPeriodArr();
         String key = arr.get(arr.size() - 1);
         if (key != null) {
             return periods.get(key);
@@ -194,7 +194,7 @@ public class Formula {
     }
 
     public Double getFirstVal() {
-        ArrayList<String> arr = Periods.getInstance().getPeriodArr();
+        ArrayList<String> arr = Periods.getPeriodArr();
         if (arr.get(0) != null) {
             Double val = periods.get(arr.get(0));
             if (val == null) {
@@ -216,7 +216,7 @@ public class Formula {
     }
 
     public String getFormulaStart() {
-        ArrayList<String> arr = Periods.getInstance().getPeriodArr();
+        ArrayList<String> arr = Periods.getPeriodArr();
         if (arr.get(0) != null) {
             Double val = periods.get(arr.get(0));
             if (val == null) {

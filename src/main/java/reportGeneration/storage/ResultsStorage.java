@@ -6,23 +6,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 
 public class ResultsStorage {
-    private static ObservableMap<Integer, ResultItem> items;
-    private boolean initalized = false;
-
-    private ResultsStorage() {
-        if (!initalized) {
-            try {
-                init();
-            } catch (Exception e) {
-                System.out.println("Could not init ResultsStorage");
-            }
-            initalized = true;
-        }
-    }
-
-    public static ResultsStorage getInstance() {
-        return ResultsStorage.SingletonHolder.INSTANCE;
-    }
+    private static ObservableMap<Integer, ResultItem> items = FXCollections.observableHashMap();
 
     public static ObservableMap<Integer, ResultItem> getItems() {
         return items;
@@ -59,14 +43,6 @@ public class ResultsStorage {
         items.put(weight, item);
     }
 
-    private void init() {
-        items = FXCollections.observableHashMap();
-    }
-
-
-    private static class SingletonHolder {
-        public static final ResultsStorage INSTANCE = new ResultsStorage();
-    }
 }
 
 

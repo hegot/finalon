@@ -11,7 +11,6 @@ import java.util.Map;
 public class StructureItem {
     private String name;
     private ObservableMap<String, Double> structureValues;
-    private ArrayList<String> periodsArr;
     private ObservableMap<String, Double> itemValues;
     private Map<String, Double> totalVals;
 
@@ -19,7 +18,6 @@ public class StructureItem {
             Item item,
             Map<String, Double> totalVals
     ) {
-        this.periodsArr = Periods.getInstance().getPeriodArr();
         this.totalVals = totalVals;
         this.itemValues = item.getValues();
         this.name = item.getName();
@@ -27,6 +25,7 @@ public class StructureItem {
     }
 
     private ObservableMap<String, Double> calcStructureValues() {
+        ArrayList<String> periodsArr = Periods.getPeriodArr();
         structureValues = FXCollections.observableHashMap();
         for (String col : periodsArr) {
             Double itemVal = itemValues.get(col);

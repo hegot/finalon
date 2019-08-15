@@ -55,7 +55,7 @@ public class Finalon extends Application {
         primaryStage.setScene(scene);
         SceneSwitcher sceneSwitcher = new SceneSwitcher(mainVBox);
         setAppId();
-        StatTrigger.getInstance().call(CallTypes.program_started_times);
+        StatTrigger.call(CallTypes.program_started_times);
         sceneSwitcher.goTo(SceneName.MAIN);
         window.show();
     }

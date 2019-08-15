@@ -1,6 +1,7 @@
 package globalReusables;
 
 import database.setting.DbSettingHandler;
+import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -12,6 +13,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,29 +23,14 @@ public class StatTrigger {
 
     private final static String code = "finalon2050";
     private final static String apiEndpoint = "https://www.finstanon.com/app2/apiforstat.php";
-    private boolean initalized = false;
-    private static Map<CallTypes, Boolean> called;
+    private static Map<CallTypes, Boolean> called = getCalled();
 
 
-    private StatTrigger() {
-        if (!initalized) {
-            try {
-                init();
-            } catch (Exception e) {
-                System.out.println("Could not init StatTrigger");
-            }
-            initalized = true;
-        }
-    }
-
-    public static StatTrigger getInstance() {
-        return StatTrigger.SingletonHolder.INSTANCE;
-    }
-
-    private void init() {
-        called = new HashMap<>();
+    private static Map<CallTypes, Boolean> getCalled() {
+        Map<CallTypes, Boolean> called = new HashMap<>();
         called.put(CallTypes.program_started_times, false);
         called.put(CallTypes.formula_customization_times, false);
+        return called;
     }
 
     private static Boolean wasCalled(CallTypes type) {
@@ -78,7 +65,8 @@ public class StatTrigger {
                 HttpEntity entity = response.getEntity();
                 if (entity != null) {
                     try (InputStream instream = entity.getContent()) {
-                        String code = instream.toString();
+                        String text = IOUtils.toString(instream, StandardCharsets.UTF_8.name());
+                        System.out.println(text);
                     }
                 }
             } catch (IOException e) {
@@ -87,9 +75,5 @@ public class StatTrigger {
                 e.printStackTrace();
             }
         }
-    }
-
-    private static class SingletonHolder {
-        public static final StatTrigger INSTANCE = new StatTrigger();
     }
 }

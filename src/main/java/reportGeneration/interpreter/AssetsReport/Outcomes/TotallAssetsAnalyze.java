@@ -18,14 +18,13 @@ public class TotallAssetsAnalyze implements LabelWrap, JsCalcHelper {
     private String endDate;
 
     public TotallAssetsAnalyze() {
-        this.startDate = Periods.getInstance().getStart();
-        this.endDate = Periods.getInstance().getEnd();
-        ItemsStorage stor = ItemsStorage.getInstance();
-        Item item = stor.get("AssetsGeneral");
+        this.startDate = Periods.getStart();
+        this.endDate = Periods.getEnd();
+        Item item = ItemsStorage.get("AssetsGeneral");
         if (item.getValues().size() > 1) {
             this.first = item.getFirstVal();
             this.last = item.getLastVal();
-            ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
+            ObservableMap<String, String> settings = SettingsStorage.getSettings();
             settings.put("assetsDifference", Double.toString(last - first));
             settings.put("assetsStartValue", Double.toString(first));
         }

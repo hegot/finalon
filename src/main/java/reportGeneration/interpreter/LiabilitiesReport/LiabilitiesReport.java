@@ -17,24 +17,22 @@ public class LiabilitiesReport implements TableName {
 
     private int rootId;
     private Item root;
-    private ItemsStorage stor = ItemsStorage.getInstance();
 
     public LiabilitiesReport() {
-        this.root = stor.get("EquityAndLiabilities");
+        this.root = ItemsStorage.get("EquityAndLiabilities");
         this.rootId = (root != null) ? root.getId() : 0;
     }
 
     public VBox getTrend() {
-        ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
+        ObservableMap<String, String> settings = SettingsStorage.getSettings();
         String tblName = "Table 2. Sources of Finance (Equity and Liabilities) Trend Analysis, in "
                 + settings.get("amount") + " " + settings.get("defaultCurrency");
         Label tableName = tableName(tblName);
         ResultsStorage.addStr(19, "tableName", tblName);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
-        ItemsStorage stor = ItemsStorage.getInstance();
-        Item equityGeneral = stor.get("EquityGeneral");
-        Item liabilitiesGeneral = stor.get("LiabilitiesGeneral");
+        Item equityGeneral = ItemsStorage.get("EquityGeneral");
+        Item liabilitiesGeneral = ItemsStorage.get("LiabilitiesGeneral");
 
         TableView<Item> tbl = new IndexChangeTable(rootId).get();
         TwoDList items = getTableViewValues(tbl);
@@ -46,12 +44,12 @@ public class LiabilitiesReport implements TableName {
                 new TotallLiabilitiesAnalyze().get(),
                 new RelativeItemsChange(
                         equityGeneral,
-                        stor.getItems(equityGeneral.getId()),
+                        ItemsStorage.getItems(equityGeneral.getId()),
                         "sources"
                 ).get(22),
                 new RelativeItemsChange(
                         liabilitiesGeneral,
-                        stor.getItemsDeep(liabilitiesGeneral.getId()),
+                        ItemsStorage.getItemsDeep(liabilitiesGeneral.getId()),
                         "sources"
                 ).get(23),
                 new LiabilitiesCharts().get()
@@ -60,12 +58,11 @@ public class LiabilitiesReport implements TableName {
     }
 
     public VBox getStructure() {
-        String title = "Table 4. Equity and Liabilities Structure Analysis";
+        String title = "Table 4. Equity and Liabilities Structure Analysis %";
         Label tableName = tableName(title);
         ResultsStorage.addStr(26, "tableName", title);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
-        Periods p = Periods.getInstance();
 
         TableView<StructureItem> tbl = new StructureTable(root).get();
         TwoDList items = getTableViewValues(tbl);
@@ -75,7 +72,7 @@ public class LiabilitiesReport implements TableName {
                 tableName,
                 tbl,
                 new LiabilitiesStructureAnalyzeStart().get(),
-                new LiabilitiesStructureChart(p.endKey()).get(),
+                new LiabilitiesStructureChart(Periods.endKey()).get(),
                 new LiabilitiesStructureAnalyzeEnd().get()
         );
         return box;

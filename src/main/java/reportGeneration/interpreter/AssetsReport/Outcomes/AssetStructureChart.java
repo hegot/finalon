@@ -24,18 +24,17 @@ public class AssetStructureChart implements GetVal, TableName {
     public AssetStructureChart(
             String period
     ) {
-        ItemsStorage stor = ItemsStorage.getInstance();
-        this.nonCurrent = stor.get("NonCurrentAssets");
-        this.current = stor.get("GeneralCurrentAssets");
+        this.nonCurrent = ItemsStorage.get("NonCurrentAssets");
+        this.current = ItemsStorage.get("GeneralCurrentAssets");
         this.period = period;
-        this.totalVal = stor.get("AssetsGeneral").getVal(period);
+        this.totalVal = ItemsStorage.get("AssetsGeneral").getVal(period);
         this.currentVal = current.getVal(period);
         this.nonCurrentVal = nonCurrent.getVal(period);
     }
 
     public VBox get() {
         VBox vBox = new VBox();
-        ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
+        ObservableMap<String, String> settings = SettingsStorage.getSettings();
         final PieChart chart = new PieChart();
         if (totalVal != null && totalVal != 0) {
             ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();

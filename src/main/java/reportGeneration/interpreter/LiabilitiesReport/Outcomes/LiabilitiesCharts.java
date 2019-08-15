@@ -16,18 +16,16 @@ public class LiabilitiesCharts extends ChartBase implements TableName {
     private ObservableMap<String, Double> valuesEquity;
 
     public LiabilitiesCharts() {
-        ItemsStorage stor = ItemsStorage.getInstance();
-        this.valuesCurrent = stor.get("CurrentLiabilities").getValues();
-        this.valuesNonCurrent = stor.get("NonCurrentLiabilities").getValues();
-        this.valuesEquity = stor.get("EquityGeneral").getValues();
+        this.valuesCurrent = ItemsStorage.get("CurrentLiabilities").getValues();
+        this.valuesNonCurrent = ItemsStorage.get("NonCurrentLiabilities").getValues();
+        this.valuesEquity = ItemsStorage.get("EquityGeneral").getValues();
     }
 
     private String chartTitle() {
-        Periods periods = Periods.getInstance();
-        ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
+        ObservableMap<String, String> settings = SettingsStorage.getSettings();
         return "Chart 2. " + settings.get("company") +
                 " Source of finance between " +
-                periods.getStart() + " - " + periods.getEnd() +
+                Periods.getStart() + " - " + Periods.getEnd() +
                 " in " + settings.get("amount") + " " + settings.get("defaultCurrency");
     }
 

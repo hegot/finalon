@@ -26,27 +26,26 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper, LabelWra
     private Item grossProfit;
     private Item itemEbit;
     private Item comprehensiveIncome;
-    private ItemsStorage storage = ItemsStorage.getInstance();
-    private ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
+    private ObservableMap<String, String> settings = SettingsStorage.getSettings();
     private ItemsGetter itemsGetter = new ItemsGetter();
 
     public FinancialResultTable() {
-        this.periods = new Periods().getPeriodArr();
-        this.grossProfit = storage.get("GrossProfit");
+        this.periods = Periods.getPeriodArr();
+        this.grossProfit = ItemsStorage.get("GrossProfit");
         this.itemEbit = itemsGetter.getEbit();
-        this.comprehensiveIncome = storage.get("ComprehensiveIncomeGeneral");
+        this.comprehensiveIncome = ItemsStorage.get("ComprehensiveIncomeGeneral");
         this.items = getItems();
     }
 
     private ObservableList<Item> getItems() {
         ObservableList<Item> items = FXCollections.observableArrayList();
-        items.add(storage.get("RevenueGeneral"));
-        items.add(storage.get("CostOfSales"));
+        items.add(ItemsStorage.get("RevenueGeneral"));
+        items.add(ItemsStorage.get("CostOfSales"));
         items.add(grossProfit);
         items.add(itemsGetter.getOtherIncome());
         items.add(itemEbit);
-        items.add(storage.get("FinanceCosts"));
-        items.add(storage.get("IncomeTaxExpenseContinuingOperations"));
+        items.add(ItemsStorage.get("FinanceCosts"));
+        items.add(ItemsStorage.get("IncomeTaxExpenseContinuingOperations"));
         items.add(itemsGetter.getIncomeLossFromContinuingOperations());
         items.add(comprehensiveIncome);
         return items;
@@ -57,8 +56,8 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper, LabelWra
         String out = "";
         Double first = itemEbit.getFirstVal();
         Double last = itemEbit.getLastVal();
-        String startDate = Periods.getInstance().getStart();
-        String endDate = Periods.getInstance().getEnd();
+        String startDate = Periods.getStart();
+        String endDate = Periods.getEnd();
 
         String positive = (first > 0) ? "positive" : "negative";
         if (first == 0) {
@@ -83,7 +82,7 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper, LabelWra
 
 
     private String comprehensiveIncome() {
-        String endDate = Periods.getInstance().getEnd();
+        String endDate = Periods.getEnd();
         Double last = comprehensiveIncome.getLastVal();
         String output = "";
         if (last != null) {
@@ -109,7 +108,7 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper, LabelWra
         for (String col : periods) {
             table.getColumns().add(getPeriodCol(col));
         }
-        ArrayList<String> arr = Periods.getInstance().getPeriodArr();
+        ArrayList<String> arr = Periods.getPeriodArr();
         int count = arr.size() - 1;
         if (count > 0) {
             for (int j = 0; j < count; j++) {
@@ -179,15 +178,14 @@ class ItemsGetter {
     private Item financeCosts;
     private Item grossProfit;
     private Item incomeTaxExpense;
-    private ItemsStorage storage = ItemsStorage.getInstance();
     private ArrayList<String> periods;
 
     ItemsGetter() {
-        this.periods = new Periods().getPeriodArr();
-        this.profitLossBeforeTax = storage.get("ProfitLossBeforeTax");
-        this.financeCosts = storage.get("FinanceCosts");
-        this.grossProfit = storage.get("GrossProfit");
-        this.incomeTaxExpense = storage.get("IncomeTaxExpenseContinuingOperations");
+        this.periods = Periods.getPeriodArr();
+        this.profitLossBeforeTax = ItemsStorage.get("ProfitLossBeforeTax");
+        this.financeCosts = ItemsStorage.get("FinanceCosts");
+        this.grossProfit = ItemsStorage.get("GrossProfit");
+        this.incomeTaxExpense = ItemsStorage.get("IncomeTaxExpenseContinuingOperations");
     }
 
     Item getEbit() {
@@ -208,7 +206,7 @@ class ItemsGetter {
             valuesEbit.put(period, EbitVal);
         }
         itemEbit.setValues(valuesEbit);
-        storage.addItem(itemEbit);
+        ItemsStorage.addItem(itemEbit);
         return itemEbit;
     }
 
@@ -233,7 +231,7 @@ class ItemsGetter {
             valuesItemOtherIncome.put(period, otherIncomeVal);
         }
         itemOtherIncome.setValues(valuesItemOtherIncome);
-        storage.addItem(itemOtherIncome);
+        ItemsStorage.addItem(itemOtherIncome);
         return itemOtherIncome;
     }
 

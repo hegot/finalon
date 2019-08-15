@@ -25,7 +25,6 @@ import reportGeneration.storage.SettingsStorage;
 public class StepOne {
     private final String defaultStandard = "1";
     private Label errors = new Label();
-    private SettingsStorage stor = SettingsStorage.getInstance();
 
     public VBox show() {
         errors.getStyleClass().add("settings-error");
@@ -88,10 +87,10 @@ public class StepOne {
 
     private HBox standardIndustry() {
         HBox hBox = new HBox(20);
-        ComboBox<Formula> standard = StandardSelect.get(stor.getSettings());
+        ComboBox<Formula> standard = StandardSelect.get(SettingsStorage.getSettings());
         ComboBox<Formula> industry = IndustrySelect.get(
                 defaultStandard,
-                stor.getSettings()
+                SettingsStorage.getSettings()
         );
         standard.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Formula>() {
             @Override
@@ -99,7 +98,7 @@ public class StepOne {
                 if (arg2 != null) {
                     industry.setItems(Choices.getChoices(arg2.getId()));
                     industry.getSelectionModel().selectFirst();
-                    stor.getSettings().replace("standard", Integer.toString(arg2.getId()));
+                    SettingsStorage.getSettings().replace("standard", Integer.toString(arg2.getId()));
                 }
             }
         });
@@ -130,12 +129,12 @@ public class StepOne {
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                String company = stor.getSettings().get("company");
+                String company = SettingsStorage.getSettings().get("company");
                 if (company.length() == 0) {
                     errors.setText("Please fill in company name");
                 } else {
                     errors.setText("");
-                    stor.getSettings().put("step", "two");
+                    SettingsStorage.getSettings().put("step", "two");
                 }
             }
         });

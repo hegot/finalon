@@ -80,7 +80,7 @@ public class DefaultFormulas {
         Formulas.addAll(TimesInterestEarned.get(FSiD, counter));
         counter = counter + 6;
         Formulas.addAll(DebtRatio.get(FSiD, counter));
-        counter = counter + 5;
+        counter = counter + 6;
         Formulas.addAll(LongTermDebtRatio.get(FSiD, counter));
         counter = counter + 6;
         Formulas.addAll(TheLongTermDebttoTotalCapitalizationRatio.get(FSiD, counter));

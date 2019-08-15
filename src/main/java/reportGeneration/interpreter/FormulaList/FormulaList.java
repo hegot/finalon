@@ -17,9 +17,8 @@ public class FormulaList extends FormulaTable {
     private ArrayList<String> periods;
 
     public FormulaList() {
-        this.periods = Periods.getInstance().getPeriodArr();
-        FormulaStorage storage = FormulaStorage.getInstance();
-        this.formulas = storage.getItems();
+        this.periods = Periods.getPeriodArr();
+        this.formulas = FormulaStorage.getItems();
     }
 
     public VBox get() {

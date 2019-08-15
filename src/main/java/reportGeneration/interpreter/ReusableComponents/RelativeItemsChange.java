@@ -21,8 +21,8 @@ public class RelativeItemsChange implements LabelWrap, JsCalcHelper {
                                ObservableList<Item> items,
                                String text) {
         this.parent = parent;
-        this.startDate = Periods.getInstance().getStart();
-        this.endDate = Periods.getInstance().getEnd();
+        this.startDate = Periods.getStart();
+        this.endDate = Periods.getEnd();
         this.items = items;
         this.text = text;
         this.rize = riseOrFall();

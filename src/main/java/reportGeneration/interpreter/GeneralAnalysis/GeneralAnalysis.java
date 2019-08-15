@@ -18,13 +18,12 @@ public class GeneralAnalysis implements TableName {
     private int weight;
 
     public GeneralAnalysis(String type, int weight) {
-        FormulaStorage storage = FormulaStorage.getInstance();
-        Formula formula = storage.get(type);
+        Formula formula = FormulaStorage.get(type);
         if (formula != null) {
             ResultsStorage.addStr(weight, "sectionTitle", formula.getName());
             weight++;
             this.section = formula;
-            this.formulas = storage.getItems(formula.getId());
+            this.formulas = FormulaStorage.getItems(formula.getId());
             this.weight = weight;
         }
     }

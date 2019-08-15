@@ -16,7 +16,7 @@ import reportGeneration.storage.SettingsStorage;
 public class TemplateSelect {
 
     public static ComboBox get() {
-        ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
+        ObservableMap<String, String> settings = SettingsStorage.getSettings();
         ComboBox<Item> templatesBox = new ComboBox<Item>();
         templatesBox.setConverter(new ItemConverter());
         ObservableList<Item> items = getTpls();
@@ -54,9 +54,9 @@ public class TemplateSelect {
 
     private static Item getDefaultTemplate(ObservableList<Item> items) {
         DbItemHandler dbItem = new DbItemHandler();
-        ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
+        ObservableMap<String, String> settings = SettingsStorage.getSettings();
         String val = settings.get("template");
-        if (val != null) {
+        if (val != null && val.length() > 0) {
             Item item = dbItem.getItem(Integer.parseInt(val));
             if (item != null) {
                 return item;

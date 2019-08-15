@@ -21,10 +21,9 @@ public class DupontAnalysis implements LabelWrap, ParseDouble, TableName {
     private Formula totalAssetTurnover;
 
     public DupontAnalysis() {
-        FormulaStorage storage = FormulaStorage.getInstance();
-        this.returnOnAssets = storage.get("ReturnOnAssets");
-        this.netProfitMargin = storage.get("NetProfitMargin");
-        this.totalAssetTurnover = storage.get("TotalAssetTurnover");
+        this.returnOnAssets = FormulaStorage.get("ReturnOnAssets");
+        this.netProfitMargin = FormulaStorage.get("NetProfitMargin");
+        this.totalAssetTurnover = FormulaStorage.get("TotalAssetTurnover");
 
     }
 
@@ -66,7 +65,7 @@ public class DupontAnalysis implements LabelWrap, ParseDouble, TableName {
     private String evaluate() {
         Periods periods = new Periods();
         ArrayList<String> periodsArr = periods.getPeriodArr();
-        ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
+        ObservableMap<String, String> settings = SettingsStorage.getSettings();
         String company = settings.get("company");
         String currency = settings.get("defaultCurrency");
         String start = periods.getStart();

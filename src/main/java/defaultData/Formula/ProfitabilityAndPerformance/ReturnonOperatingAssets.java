@@ -12,7 +12,7 @@ public class ReturnonOperatingAssets {
         Formulas.add(new Formula(ReturnonOperatingAssets,
                 "Return on Operating Assets",
                 "ReturnonOperatingAssets",
-                "ProfitLossFromOperatingActivities/(AssetsGeneral[0]/2+AssetsGeneral[1]/2-IntangibleAssetsOtherThanGoodwill[0]/2-IntangibleAssetsOtherThanGoodwill[1]/2-GoodwillGeneral[0]/2-GoodwillGeneral[1]/2-OtherNoncurrentNonfinancialAssets[0]/2-OtherNoncurrentNonfinancialAssets[1]/2-DeferredTaxAssets[0]/2-DeferredTaxAssets[1]/2-OtherNoncurrentFinancialAssets[0]/2-OtherNoncurrentFinancialAssets[1]/2-CurrentTaxAssetsNoncurrent[0]/2-CurrentTaxAssetsNoncurrent[1]/2)",
+                "(ProfitLossFromOperatingActivities/(AssetsGeneral[0]/2+AssetsGeneral[1]/2-IntangibleAssetsOtherThanGoodwill[0]/2-IntangibleAssetsOtherThanGoodwill[1]/2-GoodwillGeneral[0]/2-GoodwillGeneral[1]/2-OtherNoncurrentNonfinancialAssets[0]/2-OtherNoncurrentNonfinancialAssets[1]/2-DeferredTaxAssets[0]/2-DeferredTaxAssets[1]/2-OtherNoncurrentFinancialAssets[0]/2-OtherNoncurrentFinancialAssets[1]/2-CurrentTaxAssetsNoncurrent[0]/2-CurrentTaxAssetsNoncurrent[1]/2))*100",
                 "",
                 "formula",
                 "%",

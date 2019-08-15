@@ -4,39 +4,17 @@ import database.formula.DbFormulaHandler;
 import entities.Formula;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 
 public class FormulaStorage {
-    private static ObservableList<Formula> formulas;
-    private static ObservableList<Formula> sections;
-    private static ObservableMap<String, Formula> indexes;
-    private boolean initalized = false;
-    private DbFormulaHandler dbFormula = new DbFormulaHandler();
 
-    private FormulaStorage() {
-        if (!initalized) {
-            try {
-                init();
-            } catch (Exception e) {
-                System.out.println("Could not init FormulaStorage");
-            }
-            initalized = true;
-        }
-    }
+    private static ObservableList<Formula> formulas = getFormulas();
 
-    public static FormulaStorage getInstance() {
-        return FormulaStorage.SingletonHolder.INSTANCE;
-    }
 
     public static ObservableList<Formula> getItems() {
         return formulas;
     }
 
-    public static ObservableList<Formula> getSections() {
-        return sections;
-    }
-
-    public ObservableList<Formula> getItems(int id) {
+    public static ObservableList<Formula> getItems(int id) {
         ObservableList<Formula> Formulas = FXCollections.observableArrayList();
         for (Formula item : formulas) {
             if (item.getParent() == id && item.getPeriods().size() > 0) {
@@ -46,38 +24,29 @@ public class FormulaStorage {
         return Formulas;
     }
 
-    public Formula get(String code) {
-        Formula index = indexes.get(code);
-        if (index != null) {
-            return index;
-        } else {
-            for (Formula formula : formulas) {
-                if (formula.getShortName().equals(code)) {
-                    indexes.put(formula.getShortName(), formula);
-                    return formula;
-                }
+    public static Formula get(String code) {
+        for (Formula formula : formulas) {
+            if (formula.getShortName().equals(code)) {
+                return formula;
             }
         }
-
         return null;
     }
 
-    private void init() {
-        this.sections = initSections();
-        this.formulas = getFormulas();
-        System.out.println("Formulas Storage added!");
-    }
 
-    private ObservableList<Formula> initSections() {
-        int rootIndustry = Integer.parseInt(SettingsStorage.getInstance().getSettings().get("industry"));
+    public static ObservableList<Formula> getSections() {
+        int rootIndustry = Integer.parseInt(SettingsStorage.getSettings().get("industry"));
+        DbFormulaHandler dbFormula = new DbFormulaHandler();
         ObservableList<Formula> parents = dbFormula.getFormulas(rootIndustry);
         return parents;
     }
 
-    private ObservableList<Formula> getFormulas() {
+    public static ObservableList<Formula> getFormulas() {
+        ObservableList<Formula> sections = getSections();
         ObservableList<Formula> myFormulas = FXCollections.observableArrayList();
         for (Formula child : sections) {
             myFormulas.add(child);
+            DbFormulaHandler dbFormula = new DbFormulaHandler();
             ObservableList<Formula> childs2 = dbFormula.getFormulas(child.getId());
             for (Formula child2 : childs2) {
                 myFormulas.add(child2);
@@ -99,7 +68,6 @@ public class FormulaStorage {
                 "formula",
                 "",
                 0));
-        indexes = FXCollections.observableHashMap();
         return myFormulas;
     }
 
@@ -107,7 +75,4 @@ public class FormulaStorage {
         formulas = itemsList;
     }
 
-    private static class SingletonHolder {
-        public static final FormulaStorage INSTANCE = new FormulaStorage();
-    }
 }

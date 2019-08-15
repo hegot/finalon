@@ -23,15 +23,9 @@ import reportGeneration.validator.Validator;
 import java.util.ArrayList;
 
 public class AddReportScene extends SceneBase {
-    private SettingsStorage stor;
-
-    public AddReportScene() {
-        ItemsStorage.getInstance();
-        this.stor = SettingsStorage.getInstance();
-    }
 
     public VBox getScene() {
-        ObservableMap<String, String> settings = stor.getSettings();
+        ObservableMap<String, String> settings = SettingsStorage.getSettings();
         VBox vbox = new VBox(0);
         vbox.getStyleClass().add("add-company");
         SettingsMenu settingsMenu = new SettingsMenu();
@@ -65,7 +59,7 @@ public class AddReportScene extends SceneBase {
 
     HBox headerMenu() {
         HBox hbox = new HBox(20);
-        String step = stor.getSettings().get("step");
+        String step = SettingsStorage.getSettings().get("step");
         if (step.equals("two")) {
             hbox.getChildren().addAll(backSettingsButton(), generateButton());
         }
@@ -82,14 +76,14 @@ public class AddReportScene extends SceneBase {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                StatTrigger.getInstance().call(CallTypes.report_generated_times);
+                StatTrigger.call(CallTypes.report_generated_times);
                 Validator validator = new Validator();
                 String errors = validator.validate();
                 if (errors.length() > 0) {
                     validator.showValidation(errors);
                 } else {
                     populateEmptyValues();
-                    stor.getSettings().put("step", "three");
+                    SettingsStorage.getSettings().put("step", "three");
                 }
             }
         });
@@ -97,11 +91,10 @@ public class AddReportScene extends SceneBase {
     }
 
     private void populateEmptyValues() {
-        String perStr = stor.getSettings().get("periods");
+        String perStr = SettingsStorage.getSettings().get("periods");
         if (perStr != null) {
             Integer periods = Integer.parseInt(perStr);
-            Periods periodsObj = new Periods();
-            ArrayList<String> periodsArr = periodsObj.getPeriodArr();
+            ArrayList<String> periodsArr = Periods.getPeriodArr();
             for (Item item : ItemsStorage.getItems()) {
                 if (item.getValues().size() > 0) {
                     ObservableMap<String, Double> values = item.getValues();
@@ -122,7 +115,7 @@ public class AddReportScene extends SceneBase {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                stor.getSettings().put("step", "one");
+                SettingsStorage.getSettings().put("step", "one");
             }
         });
         return button;
@@ -134,7 +127,7 @@ public class AddReportScene extends SceneBase {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                stor.getSettings().put("step", "two");
+                SettingsStorage.getSettings().put("step", "two");
             }
         });
         return button;

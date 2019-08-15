@@ -12,7 +12,7 @@ public class SettingsSelect {
     public static ComboBox get(ObservableList<String> items,
                                String key,
                                String defaultVal) {
-        ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
+        ObservableMap<String, String> settings = SettingsStorage.getSettings();
         ComboBox<String> box = new ComboBox<String>();
         box.setItems(items);
         box.getSelectionModel().selectFirst();
@@ -28,7 +28,7 @@ public class SettingsSelect {
             public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
                 if (arg2 != null) {
                     settings.replace(key, arg2);
-                    new Periods().reInit();
+                    Periods.reInit();
                 }
             }
         });

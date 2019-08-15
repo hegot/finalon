@@ -6,7 +6,6 @@ import reportGeneration.storage.ItemsStorage;
 
 public class FinancialLeverageHook {
     private Double lastVal;
-    private ItemsStorage stor = ItemsStorage.getInstance();
     private Double financeCostsVal;
     private Double profitLossFromOperatingActivitiesVal;
     private Double financeIncomeVal;
@@ -21,7 +20,7 @@ public class FinancialLeverageHook {
 
 
     private Double getLastVal(String code) {
-        Item item = stor.get(code);
+        Item item = ItemsStorage.get(code);
         if (item != null) {
             Double val = item.getLastVal();
             if (val != null) {

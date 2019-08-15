@@ -21,7 +21,7 @@ public interface JsCalcHelper extends ParseDouble {
                 String result = engine.eval(formula).toString();
                 if (result != null && result.length() > 0) {
                     val = String.format("%.1f", parseDouble(result));
-                    if (val.equals("NaN")) val = "";
+                    if (val.equals("NaN") || val.equals("Infinity") || val.equals("-Infinity")) val = "";
                 }
             } catch (Exception e) {
                 e.printStackTrace();

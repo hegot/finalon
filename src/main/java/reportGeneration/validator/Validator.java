@@ -14,16 +14,6 @@ import reportGeneration.storage.Periods;
 import java.util.ArrayList;
 
 public class Validator implements JsCalcHelper, LabelWrap {
-    private ArrayList<String> periodsArr;
-    private Item AssetsGeneral;
-    private Item EquityAndLiabilities;
-
-    public Validator() {
-        ItemsStorage stor = ItemsStorage.getInstance();
-        this.periodsArr = Periods.getInstance().getPeriodArr();
-        this.AssetsGeneral = stor.get("AssetsGeneral");
-        this.EquityAndLiabilities = stor.get("EquityAndLiabilities");
-    }
 
     public String validate() {
         StringBuilder output = new StringBuilder();
@@ -40,7 +30,10 @@ public class Validator implements JsCalcHelper, LabelWrap {
 
 
     private ArrayList<String> validateAssetsEquityLiabilities() {
+        Item AssetsGeneral = ItemsStorage.get("AssetsGeneral");
+        Item EquityAndLiabilities = ItemsStorage.get("EquityAndLiabilities");
         ArrayList<String> errors = new ArrayList<>();
+        ArrayList<String> periodsArr = Periods.getPeriodArr();
         for (String period : periodsArr) {
             Double AssetsGeneralCurrent = AssetsGeneral.getVal(period);
             Double EquityAndLiabilitiesCurrent = EquityAndLiabilities.getVal(period);

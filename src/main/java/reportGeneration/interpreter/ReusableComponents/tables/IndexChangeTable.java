@@ -24,7 +24,7 @@ public class IndexChangeTable extends ItemsTable implements JsCalcHelper, Diff {
     public IndexChangeTable(
             int rootId
     ) {
-        super(ItemsStorage.getInstance().getItems());
+        super(ItemsStorage.getItems());
         this.rootId = rootId;
     }
 
@@ -32,7 +32,7 @@ public class IndexChangeTable extends ItemsTable implements JsCalcHelper, Diff {
         TableView<Item> table = getTable(rootId);
         table.getStyleClass().add("report-table");
         table.getColumns().addAll(getNameCol());
-        ArrayList<String> arr = Periods.getInstance().getPeriodArr();
+        ArrayList<String> arr = Periods.getPeriodArr();
         for (String col : arr) {
             table.getColumns().add(getPeriodCol(col));
         }
@@ -107,7 +107,9 @@ public class IndexChangeTable extends ItemsTable implements JsCalcHelper, Diff {
                 Double colEndVAl = values.get(colEnd);
                 if (colStartVAl != null && colEndVAl != null) {
                     String relative = getRelativeChange(colStartVAl, colEndVAl);
-                    return new SimpleStringProperty(commaFormat(relative) + "%");
+                    if(relative.length() > 0){
+                        return new SimpleStringProperty(commaFormat(relative) + "%");
+                    }
                 }
             }
             return null;

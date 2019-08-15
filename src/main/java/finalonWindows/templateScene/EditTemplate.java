@@ -38,7 +38,7 @@ public class EditTemplate extends TemplateBase {
                     items.add(rootItem);
                     TemplateEditor updater = new TemplateEditor(templateName.getText(), items);
                     updater.updateTpl();
-                    StatTrigger.getInstance().call(CallTypes.templates_customization_times);
+                    StatTrigger.call(CallTypes.templates_customization_times);
                     SceneSwitcher.goTo(SceneName.TEMPLATESLIST);
                 } else {
                     System.out.println("err");

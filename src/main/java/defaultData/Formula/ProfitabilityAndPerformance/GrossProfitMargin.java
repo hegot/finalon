@@ -12,7 +12,7 @@ public class GrossProfitMargin {
         Formulas.add(new Formula(GrossProfitMargin,
                 "Gross Profit Margin",
                 "GrossProfitMargin",
-                "GrossProfit/RevenueGeneral",
+                "(GrossProfit/RevenueGeneral)*100",
                 "",
                 "formula",
                 "%",

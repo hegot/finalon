@@ -95,7 +95,7 @@ public class DbFormulaHandler extends DbHandlerBase {
 
     public int addFormula(Formula Formula) throws SQLException {
         try {
-            StatTrigger.getInstance().call(CallTypes.formula_customization_times);
+            StatTrigger.call(CallTypes.formula_customization_times);
             String[] returnId = {"id"};
             String sql = "INSERT INTO " + tableName + " (`id`, `name`, `shortName`,  `value`, `description`, `category`, `unit`, `parent`) " +
                     "VALUES(NULL, ?, ?, ?, ?, ?, ?, ?)";
@@ -125,7 +125,7 @@ public class DbFormulaHandler extends DbHandlerBase {
     }
 
     public void updateFormula(Formula Formula) throws SQLException {
-        StatTrigger.getInstance().call(CallTypes.formula_customization_times);
+        StatTrigger.call(CallTypes.formula_customization_times);
         if (itemExists(Formula.getId(), tableName, this.connection)) {
             try (PreparedStatement statement = this.connection.prepareStatement(
                     "UPDATE " + tableName + " SET `name` = ?,  `shortName` = ?, `value` = ?, `description` = ?,  `category` = ?, `unit` = ?, `parent` = ? WHERE `id` = " + Formula.getId()
@@ -148,7 +148,7 @@ public class DbFormulaHandler extends DbHandlerBase {
 
 
     public void deleteItem(int id) {
-        StatTrigger.getInstance().call(CallTypes.formula_customization_times);
+        StatTrigger.call(CallTypes.formula_customization_times);
         try (PreparedStatement statement = this.connection.prepareStatement(
                 "DELETE FROM " + tableName + " WHERE id = ?")) {
             statement.setObject(1, id);

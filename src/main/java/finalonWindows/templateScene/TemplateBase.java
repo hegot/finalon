@@ -68,7 +68,7 @@ public class TemplateBase extends SceneBase {
     Button saveTemplateButton() {
         Button button = new Button("Save Template");
         button.getStyleClass().add("blue-btn");
-        StatTrigger.getInstance().call(CallTypes.templates_customization_times);
+        StatTrigger.call(CallTypes.templates_customization_times);
         return button;
     }
 

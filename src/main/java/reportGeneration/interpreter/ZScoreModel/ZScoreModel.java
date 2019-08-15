@@ -16,13 +16,12 @@ public class ZScoreModel implements TableName {
     private int weight;
 
     public ZScoreModel(int weight) {
-        FormulaStorage storage = FormulaStorage.getInstance();
-        Formula ZscoreModel = storage.get("ZscoreModel");
+        Formula ZscoreModel = FormulaStorage.get("ZscoreModel");
         if (ZscoreModel != null) {
             ResultsStorage.addStr(weight, "sectionTitle", ZscoreModel.getName());
             weight++;
             this.weight = weight;
-            this.formulas = storage.getItems(ZscoreModel.getId());
+            this.formulas = FormulaStorage.getItems(ZscoreModel.getId());
         }
     }
 

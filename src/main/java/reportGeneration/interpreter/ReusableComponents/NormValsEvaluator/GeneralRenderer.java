@@ -16,10 +16,11 @@ public class GeneralRenderer {
         if (formula.getPeriods().size() > 1) {
             for (Formula child : childs) {
                 if (child.getName().equals(type.toString())) {
-                    return child.getDescription();
+                    return InTimeReplacer.getVal(child.getDescription(), formula);
                 }
             }
         }
         return "";
     }
+
 }

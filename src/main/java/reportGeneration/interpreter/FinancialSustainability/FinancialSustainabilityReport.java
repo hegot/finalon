@@ -17,13 +17,12 @@ public class FinancialSustainabilityReport implements TableName {
     private int weight;
 
     public FinancialSustainabilityReport(int weight) {
-        FormulaStorage storage = FormulaStorage.getInstance();
-        Formula FS = storage.get("FinancialSustainability");
+        Formula FS = FormulaStorage.get("FinancialSustainability");
         if (FS != null) {
             ResultsStorage.addStr(weight, "sectionTitle", FS.getName());
             weight++;
             this.weight = weight;
-            this.formulas = storage.getItems(FS.getId());
+            this.formulas = FormulaStorage.getItems(FS.getId());
         }
     }
 

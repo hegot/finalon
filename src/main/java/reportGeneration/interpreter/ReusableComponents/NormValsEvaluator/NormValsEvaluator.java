@@ -48,7 +48,7 @@ public class NormValsEvaluator extends ValsEvaluator implements JsCalcHelper, Pa
                             valueToCompare
                     );
                     if (match) {
-                        return normative.getDescription();
+                        return InTimeReplacer.getVal(normative.getDescription(), formula);
                     }
                 }
             } catch (NumberFormatException e) {

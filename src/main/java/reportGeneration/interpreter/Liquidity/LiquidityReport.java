@@ -17,13 +17,12 @@ public class LiquidityReport implements TableName {
     private int weight;
 
     public LiquidityReport(int weight) {
-        FormulaStorage storage = FormulaStorage.getInstance();
-        Formula Liquidity = storage.get("Liquidity");
+        Formula Liquidity = FormulaStorage.get("Liquidity");
         if (Liquidity != null) {
             ResultsStorage.addStr(weight, "sectionTitle", Liquidity.getName());
             weight++;
             this.weight = weight;
-            this.formulas = storage.getItems(Liquidity.getId());
+            this.formulas = FormulaStorage.getItems(Liquidity.getId());
         }
     }
 

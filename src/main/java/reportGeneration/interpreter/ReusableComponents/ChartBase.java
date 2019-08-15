@@ -25,7 +25,7 @@ public class ChartBase implements JsCalcHelper {
         XYChart.Series series = new XYChart.Series();
         series.setName(label);
         if (values.size() > 1) {
-            for (String period : Periods.getInstance().getPeriodArr()) {
+            for (String period : Periods.getPeriodArr()) {
                 String date = formatDate(period);
                 if (values.get(period) != null) {
                     series.getData().add(new XYChart.Data(date, values.get(period)));

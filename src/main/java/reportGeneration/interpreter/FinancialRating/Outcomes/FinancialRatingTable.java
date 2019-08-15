@@ -54,13 +54,12 @@ public class FinancialRatingTable implements JsCalcHelper, ParseDouble, Round, R
         TableView table = new TableView<>();
         table.getStyleClass().add("report-table");
         table.setEditable(false);
-        Periods periods = Periods.getInstance();
 
         table.getColumns().addAll(
                 getNameCol(),
                 getCol("weight", "Weighting \n factor")
         );
-        if (periods.getPeriodArr().size() > 2) {
+        if (Periods.getPeriodArr().size() > 2) {
             table.getColumns().add(
                     getCol("score1", "Score \n (Pre-end Period)")
             );

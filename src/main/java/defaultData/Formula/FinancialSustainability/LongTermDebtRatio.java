@@ -23,7 +23,7 @@ public class LongTermDebtRatio {
                 EvaluationTypes.EVALUATE_END.toString(),
                 ">=",
                 "0.2",
-                "Company had excellent Long-Term Debt Ratio (>= 0.2). LASTVALUEPERCENT% of the sources of finance were a long-term debt at the end of ENDDATE. ",
+                "Company had unsatisfactory Long-Term Debt Ratio (>= 0.2). LASTVALUEPERCENT% of the sources of finance were a long-term debt at the end of ENDDATE. ",
                 "",
                 "",
                 LongTermDebtRatio));
@@ -43,7 +43,7 @@ public class LongTermDebtRatio {
                 EvaluationTypes.EVALUATE_END.toString(),
                 "<",
                 "0.1",
-                "Company had unsatisfactory Long-Term Debt Ratio (less than 0.1). LASTVALUEPERCENT% of the sources of finance were a long-term debt at the end of ENDDATE. ",
+                "Company had excellent Long-Term Debt Ratio (less than 0.1). LASTVALUEPERCENT% of the sources of finance were a long-term debt at the end of ENDDATE. ",
                 "",
                 "",
                 LongTermDebtRatio));

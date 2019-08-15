@@ -23,12 +23,11 @@ public class ScoreItem implements RatingWeight {
     public ScoreItem(
             Formula formula
     ) {
-        Periods periods = Periods.getInstance();
         this.formula = formula;
         this.name = formula.getName();
-        this.per0 = periods.prePreEndKey();
-        this.per1 = periods.preEndKey();
-        this.per2 = periods.endKey();
+        this.per0 = Periods.prePreEndKey();
+        this.per1 = Periods.preEndKey();
+        this.per2 = Periods.endKey();
         this.code = formula.getShortName();
         this.df = new DecimalFormat("#.##");
         if (formula.getShortName().length() > 0) {

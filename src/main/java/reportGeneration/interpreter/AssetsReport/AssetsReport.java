@@ -17,19 +17,18 @@ public class AssetsReport implements TableName {
 
     private Item root;
     private int rootId;
-    private ItemsStorage stor = ItemsStorage.getInstance();
     private Item NonCurrentAssets;
     private Item GeneralCurrentAssets;
 
     public AssetsReport() {
-        this.root = stor.get("AssetsGeneral");
+        this.root = ItemsStorage.get("AssetsGeneral");
         this.rootId = (root != null) ? root.getId() : 0;
-        this.NonCurrentAssets = stor.get("NonCurrentAssets");
-        this.GeneralCurrentAssets = stor.get("GeneralCurrentAssets");
+        this.NonCurrentAssets = ItemsStorage.get("NonCurrentAssets");
+        this.GeneralCurrentAssets = ItemsStorage.get("GeneralCurrentAssets");
     }
 
     public VBox getTrend() {
-        ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
+        ObservableMap<String, String> settings = SettingsStorage.getSettings();
         String tblName = "Table 1. Assets Trend Analysis, in "
                 + settings.get("amount") + " " + settings.get("defaultCurrency");
         ResultsStorage.addStr(3, "tableName", tblName);
@@ -49,12 +48,12 @@ public class AssetsReport implements TableName {
                 new AssetsCharts().get(),
                 new RelativeItemsChange(
                         NonCurrentAssets,
-                        stor.getItems(NonCurrentAssets.getId()),
+                        ItemsStorage.getItems(NonCurrentAssets.getId()),
                         "assets"
                 ).get(9),
                 new RelativeItemsChange(
                         GeneralCurrentAssets,
-                        stor.getItems(GeneralCurrentAssets.getId()),
+                        ItemsStorage.getItems(GeneralCurrentAssets.getId()),
                         "assets"
                 ).get(10)
         );
@@ -67,7 +66,6 @@ public class AssetsReport implements TableName {
         ResultsStorage.addStr(11, "tableName", tblName);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
-        Periods p = Periods.getInstance();
         TableView<StructureItem> tbl = new StructureTable(root).get();
         TwoDList items = getTableViewValues(tbl);
         ResultsStorage.addTable(12, items);
@@ -75,13 +73,13 @@ public class AssetsReport implements TableName {
                 tableName,
                 tbl,
                 new AssetStructureAnalyzeStart(
-                        stor.getItems(GeneralCurrentAssets.getId()),
-                        stor.getItems(NonCurrentAssets.getId())
+                        ItemsStorage.getItems(GeneralCurrentAssets.getId()),
+                        ItemsStorage.getItems(NonCurrentAssets.getId())
                 ).get(),
-                new AssetStructureChart(p.endKey()).get(),
+                new AssetStructureChart(Periods.endKey()).get(),
                 new AssetStructureAnalyseEnd(
-                        stor.getItems(GeneralCurrentAssets.getId()),
-                        stor.getItems(NonCurrentAssets.getId())
+                        ItemsStorage.getItems(GeneralCurrentAssets.getId()),
+                        ItemsStorage.getItems(NonCurrentAssets.getId())
                 ).get()
         );
         return box;

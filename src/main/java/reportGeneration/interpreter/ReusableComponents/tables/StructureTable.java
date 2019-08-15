@@ -29,7 +29,7 @@ public class StructureTable implements JsCalcHelper, Diff {
     ) {
         ItemsGetter itemsGetter = new ItemsGetter(root, ItemsStorage.getItems(), true);
         this.items = itemsGetter.getItems();
-        this.periodsArr = Periods.getInstance().getPeriodArr();
+        this.periodsArr = Periods.getPeriodArr();
         this.totalVals = getTotals(root);
     }
 

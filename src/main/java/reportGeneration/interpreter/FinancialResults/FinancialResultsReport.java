@@ -21,7 +21,7 @@ public class FinancialResultsReport implements TableName {
     }
 
     public VBox getTrend() {
-        ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
+        ObservableMap<String, String> settings = SettingsStorage.getSettings();
         String title = "Table 7. Financial Results Trend Analysis, in "
                 + settings.get("amount") + " " + settings.get("defaultCurrency");
         Label tableName = tableName(title);

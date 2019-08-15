@@ -15,15 +15,14 @@ public class LaborProductivityChart extends ChartBase implements TableName {
     private Formula laborProductivity;
 
     public LaborProductivityChart() {
-        this.laborProductivity = FormulaStorage.getInstance().get("LaborProductivity");
+        this.laborProductivity = FormulaStorage.get("LaborProductivity");
     }
 
     private String chartTitle() {
-        ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
-        Periods periods = Periods.getInstance();
+        ObservableMap<String, String> settings = SettingsStorage.getSettings();
         return "Chart 6. " + settings.get("company") +
                 " Labor productivity between " +
-                periods.getStart() + " - " + periods.getEnd() +
+                Periods.getStart() + " - " + Periods.getEnd() +
                 " in " + settings.get("defaultCurrency") + " per person.";
     }
 

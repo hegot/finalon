@@ -12,7 +12,7 @@ public class NetProfitMargin {
         Formulas.add(new Formula(NetProfitMargin,
                 "Net Profit Margin",
                 "NetProfitMargin",
-                "(ProfitLossBeforeTax-IncomeTaxExpenseContinuingOperations)/RevenueGeneral",
+                "((ProfitLossBeforeTax-IncomeTaxExpenseContinuingOperations)/RevenueGeneral)*100",
                 "",
                 "formula",
                 "%",

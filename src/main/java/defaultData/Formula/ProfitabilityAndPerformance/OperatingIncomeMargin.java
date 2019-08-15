@@ -12,7 +12,7 @@ public class OperatingIncomeMargin {
         Formulas.add(new Formula(OperatingIncomeMargin,
                 "Operating Income Margin",
                 "OperatingIncomeMargin",
-                "ProfitLossFromOperatingActivities/RevenueGeneral",
+                "(ProfitLossFromOperatingActivities/RevenueGeneral)*100",
                 "",
                 "formula",
                 "%",

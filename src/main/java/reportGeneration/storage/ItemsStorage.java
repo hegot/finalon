@@ -6,24 +6,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 
 public class ItemsStorage {
-    private static ObservableList<Item> items;
-    private static ObservableMap<String, Item> indexes;
-    private boolean initalized = false;
-
-    private ItemsStorage() {
-        if (!initalized) {
-            try {
-                init();
-            } catch (Exception e) {
-                System.out.println("Could not init ItemsStorage");
-            }
-            initalized = true;
-        }
-    }
-
-    public static ItemsStorage getInstance() {
-        return ItemsStorage.SingletonHolder.INSTANCE;
-    }
+    private static ObservableList<Item> items = FXCollections.observableArrayList();
+    private static ObservableMap<String, Item> indexes = FXCollections.observableHashMap();
 
     public static ObservableList<Item> getItems() {
         return items;
@@ -37,13 +21,8 @@ public class ItemsStorage {
         items.add(item);
     }
 
-    private void init() {
-        items = FXCollections.observableArrayList();
-        indexes = FXCollections.observableHashMap();
-        System.out.println("Items Storage added!");
-    }
 
-    public Item get(String code) {
+    public static Item get(String code) {
         Item index = indexes.get(code);
         if (index != null) {
             return index;
@@ -58,9 +37,9 @@ public class ItemsStorage {
         return null;
     }
 
-    public ObservableList<Item> getItems(int id) {
+    public static ObservableList<Item> getItems(int id) {
         ObservableList<Item> Items = FXCollections.observableArrayList();
-        for (Item item : getItems()) {
+        for (Item item : items) {
             if (item.getParent() == id) {
                 Items.add(item);
             }
@@ -68,12 +47,12 @@ public class ItemsStorage {
         return Items;
     }
 
-    public ObservableList<Item> getItemsDeep(int id) {
+    public static ObservableList<Item> getItemsDeep(int id) {
         ObservableList<Item> Items = FXCollections.observableArrayList();
-        for (Item item : getItems()) {
+        for (Item item : items) {
             if (item.getParent() == id) {
                 int deepId = item.getId();
-                for (Item itemDeep : getItems()) {
+                for (Item itemDeep : items) {
                     if (itemDeep.getParent() == deepId) {
                         Items.add(itemDeep);
                     }
@@ -83,7 +62,4 @@ public class ItemsStorage {
         return Items;
     }
 
-    private static class SingletonHolder {
-        public static final ItemsStorage INSTANCE = new ItemsStorage();
-    }
 }

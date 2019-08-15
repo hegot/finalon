@@ -19,9 +19,8 @@ public class FormulaCalculation implements ParseDouble {
     private ObservableList<Formula> formulas;
 
     public FormulaCalculation() {
-        FormulaStorage storage = FormulaStorage.getInstance();
-        this.periods = Periods.getInstance().getPeriodArr();
-        this.formulas = storage.getItems();
+        this.periods = Periods.getPeriodArr();
+        this.formulas = FormulaStorage.getItems();
     }
 
     public void setFormulaValues() {

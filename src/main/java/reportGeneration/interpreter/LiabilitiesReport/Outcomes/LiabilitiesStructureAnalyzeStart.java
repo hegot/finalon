@@ -25,21 +25,19 @@ public class LiabilitiesStructureAnalyzeStart implements SrtuctureItemsLoop, Lab
     private Double assetsTotal;
 
     public LiabilitiesStructureAnalyzeStart() {
-        Periods p = Periods.getInstance();
-        ItemsStorage stor = ItemsStorage.getInstance();
-        Item EquityGeneral = stor.get("EquityGeneral");
-        Item CurrentLiabilities = stor.get("CurrentLiabilities");
-        Item NonCurrentLiabilities = stor.get("NonCurrentLiabilities");
-        this.parent = stor.get("EquityAndLiabilities");
-        this.period = p.startKey();
-        this.equityItems = stor.getItems(EquityGeneral.getId());
-        this.currentItems = stor.getItems(CurrentLiabilities.getId());
-        this.nonCurrentItems = stor.getItems(NonCurrentLiabilities.getId());
+        Item EquityGeneral = ItemsStorage.get("EquityGeneral");
+        Item CurrentLiabilities = ItemsStorage.get("CurrentLiabilities");
+        Item NonCurrentLiabilities = ItemsStorage.get("NonCurrentLiabilities");
+        this.parent = ItemsStorage.get("EquityAndLiabilities");
+        this.period = Periods.startKey();
+        this.equityItems = ItemsStorage.getItems(EquityGeneral.getId());
+        this.currentItems = ItemsStorage.getItems(CurrentLiabilities.getId());
+        this.nonCurrentItems = ItemsStorage.getItems(NonCurrentLiabilities.getId());
         this.totalVal = parent.getVal(period);
         this.equityVal = EquityGeneral.getVal(period);
         this.currentVal = CurrentLiabilities.getVal(period);
         this.nonCurrentVal = NonCurrentLiabilities.getVal(period);
-        String assetsStartValue = SettingsStorage.getInstance().getSettings().get("assetsStartValue");
+        String assetsStartValue = SettingsStorage.getSettings().get("assetsStartValue");
         this.assetsTotal = parseDouble(assetsStartValue);
     }
 

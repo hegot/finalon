@@ -18,13 +18,12 @@ public class ProfitabilityRatios implements TableName {
     private int weight;
 
     public ProfitabilityRatios(int weight) {
-        FormulaStorage storage = FormulaStorage.getInstance();
-        Formula PaP = storage.get("ProfitabilityAndPerformance");
+        Formula PaP = FormulaStorage.get("ProfitabilityAndPerformance");
         if (PaP != null) {
             ResultsStorage.addStr(weight, "sectionTitle", PaP.getName());
             weight++;
             this.weight = weight;
-            this.formulas = storage.getItems(PaP.getId());
+            this.formulas = FormulaStorage.getItems(PaP.getId());
         }
     }
 

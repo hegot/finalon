@@ -16,13 +16,12 @@ public class InvestorAnalysis implements TableName {
     private int weight;
 
     public InvestorAnalysis(int weight) {
-        FormulaStorage storage = FormulaStorage.getInstance();
-        Formula InvestorAnalysis = storage.get("InvestorAnalysis");
+        Formula InvestorAnalysis = FormulaStorage.get("InvestorAnalysis");
         if (InvestorAnalysis != null) {
             ResultsStorage.addStr(weight, "sectionTitle", InvestorAnalysis.getName());
             weight++;
             this.weight = weight;
-            this.formulas = storage.getItems(InvestorAnalysis.getId());
+            this.formulas = FormulaStorage.getItems(InvestorAnalysis.getId());
         }
     }
 

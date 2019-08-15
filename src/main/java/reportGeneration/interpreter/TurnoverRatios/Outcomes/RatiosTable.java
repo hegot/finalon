@@ -17,7 +17,7 @@ public class RatiosTable extends FormulaTable implements JsCalcHelper, ParseDoub
     private ArrayList<String> periods;
 
     public RatiosTable(ObservableList<Formula> formulas) {
-        this.periods = Periods.getInstance().getPeriodArr();
+        this.periods = Periods.getPeriodArr();
         this.formulas = formulas;
     }
 

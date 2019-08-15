@@ -22,11 +22,10 @@ public class TotallLiabilitiesAnalyze implements LabelWrap, ParseDouble, JsCalcH
     private ObservableMap<String, String> settings;
 
     public TotallLiabilitiesAnalyze() {
-        ItemsStorage stor = ItemsStorage.getInstance();
-        Item liabilities = stor.get("EquityAndLiabilities");
-        this.settings = SettingsStorage.getInstance().getSettings();
-        this.startDate = Periods.getInstance().getStart();
-        this.endDate = Periods.getInstance().getEnd();
+        Item liabilities = ItemsStorage.get("EquityGeneral");
+        this.settings = SettingsStorage.getSettings();
+        this.startDate = Periods.getStart();
+        this.endDate = Periods.getEnd();
         if (liabilities.getValues().size() > 1) {
             this.first = liabilities.getFirstVal();
             this.last = liabilities.getLastVal();
@@ -72,7 +71,7 @@ public class TotallLiabilitiesAnalyze implements LabelWrap, ParseDouble, JsCalcH
         return "The liabilities and equity value" +
                 " amounted to " + settings.get("defaultCurrency") + " "
                 + last + " " + settings.get("amount") + " in "
-                + endDate + ", " +
+                + startDate + ", " +
                 getRelativeChange(first, last) + "% " + suffix() + " than in " +
                 endDate + ". ";
     }

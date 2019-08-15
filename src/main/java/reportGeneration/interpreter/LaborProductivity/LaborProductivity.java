@@ -13,13 +13,12 @@ public class LaborProductivity {
     private int weight;
 
     public LaborProductivity(int weight) {
-        FormulaStorage storage = FormulaStorage.getInstance();
-        Formula LaborProductivitySection = storage.get("LaborProductivitySection");
+        Formula LaborProductivitySection = FormulaStorage.get("LaborProductivitySection");
         if (LaborProductivitySection != null) {
             ResultsStorage.addStr(weight, "sectionTitle", LaborProductivitySection.getName());
             weight++;
             this.weight = weight;
-            this.formulas = storage.getItems(LaborProductivitySection.getId());
+            this.formulas = FormulaStorage.getItems(LaborProductivitySection.getId());
         }
     }
 

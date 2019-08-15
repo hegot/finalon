@@ -2,6 +2,7 @@ package reportGeneration.interpreter.LiabilitiesReport.Outcomes;
 
 import entities.Item;
 import globalReusables.LabelWrap;
+import globalReusables.NotEmpty;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.interfaces.EquityShareAnalyze;
@@ -12,7 +13,7 @@ import reportGeneration.storage.Periods;
 import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
 
-public class LiabilitiesStructureAnalyzeEnd implements SrtuctureItemsLoop, LabelWrap, EquityShareAnalyze, ParseDouble {
+public class LiabilitiesStructureAnalyzeEnd implements SrtuctureItemsLoop, LabelWrap, EquityShareAnalyze, ParseDouble, NotEmpty {
     private Item parent;
     private String period;
     private Double totalVal;
@@ -25,21 +26,19 @@ public class LiabilitiesStructureAnalyzeEnd implements SrtuctureItemsLoop, Label
     private Double assetsTotal;
 
     public LiabilitiesStructureAnalyzeEnd() {
-        Periods p = Periods.getInstance();
-        ItemsStorage stor = ItemsStorage.getInstance();
-        Item EquityGeneral = stor.get("EquityGeneral");
-        Item CurrentLiabilities = stor.get("CurrentLiabilities");
-        Item NonCurrentLiabilities = stor.get("NonCurrentLiabilities");
-        this.parent = stor.get("EquityAndLiabilities");
-        this.period = p.endKey();
-        this.equityItems = stor.getItems(EquityGeneral.getId());
-        this.currentItems = stor.getItems(CurrentLiabilities.getId());
-        this.nonCurrentItems = stor.getItems(NonCurrentLiabilities.getId());
+        Item EquityGeneral = ItemsStorage.get("EquityGeneral");
+        Item CurrentLiabilities = ItemsStorage.get("CurrentLiabilities");
+        Item NonCurrentLiabilities = ItemsStorage.get("NonCurrentLiabilities");
+        this.parent = ItemsStorage.get("EquityAndLiabilities");
+        this.period = Periods.endKey();
+        this.equityItems = ItemsStorage.getItems(EquityGeneral.getId());
+        this.currentItems = ItemsStorage.getItems(CurrentLiabilities.getId());
+        this.nonCurrentItems = ItemsStorage.getItems(NonCurrentLiabilities.getId());
         this.totalVal = parent.getVal(period);
         this.equityVal = EquityGeneral.getVal(period);
         this.currentVal = CurrentLiabilities.getVal(period);
         this.nonCurrentVal = NonCurrentLiabilities.getVal(period);
-        String assetsStartValue = SettingsStorage.getInstance().getSettings().get("assetsStartValue");
+        String assetsStartValue = SettingsStorage.getSettings().get("assetsStartValue");
         this.assetsTotal = parseDouble(assetsStartValue);
     }
 
@@ -80,19 +79,20 @@ public class LiabilitiesStructureAnalyzeEnd implements SrtuctureItemsLoop, Label
 
     private String firstMessage() {
         String str = "At the end of " + formatDate(period) + " the sources of finance comprised ";
-        if (equityVal != null) {
+        if (notZero(equityVal)) {
             str = str + partStr(equityVal, totalVal) + " shareholders' equity, ";
         }
-        if (nonCurrentVal != null) {
+        if (notZero(nonCurrentVal)) {
             str = str + partStr(nonCurrentVal, totalVal) + " non-current liabilities ";
         }
-        if (currentVal != null) {
+        if (notZero(currentVal)) {
             str = str + " and " + partStr(currentVal, totalVal) + " current liabilities. ";
         }
-        if (assetsTotal != null && equityVal != null) {
+        if (notZero(assetsTotal) && notZero(equityVal)) {
             Double share = (equityVal / assetsTotal) * 100;
             str = str + equityShareAnalyse(share, period);
         }
         return str;
     }
+
 }

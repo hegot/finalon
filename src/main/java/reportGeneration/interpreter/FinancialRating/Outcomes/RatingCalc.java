@@ -63,7 +63,7 @@ public class RatingCalc implements RatingWeight {
     }
 
     private Double calcNetProfitMargin() {
-        Item item = ItemsStorage.getInstance().get("RevenueGeneral");
+        Item item = ItemsStorage.get("RevenueGeneral");
         Double val = BAD;
         if (item != null) {
             Double itemVal = (endPeriod != null) ? item.getVal(endPeriod) : -1;
@@ -84,7 +84,7 @@ public class RatingCalc implements RatingWeight {
 
     private Double calcReturnOnAssets() {
         double val = BAD;
-        Item item = ItemsStorage.getInstance().get("AssetsGeneral");
+        Item item = ItemsStorage.get("AssetsGeneral");
         if (item != null) {
             Double itemVal = (endPeriod != null) ? item.getVal(endPeriod) : -1;
             Double itemValStart = (startPeriod != null) ? item.getVal(startPeriod) : -1;
@@ -120,7 +120,7 @@ public class RatingCalc implements RatingWeight {
 
 
     private Double calcDebtEquityRatio() {
-        Item item = ItemsStorage.getInstance().get("EquityGeneral");
+        Item item = ItemsStorage.get("EquityGeneral");
         Double val = BAD;
         if (item != null) {
             Double itemVal = (endPeriod != null) ? item.getVal(endPeriod) : -1;
@@ -141,7 +141,7 @@ public class RatingCalc implements RatingWeight {
 
 
     private Double calcNetSalesChange() {
-        Item item = ItemsStorage.getInstance().get("RevenueGeneral");
+        Item item = ItemsStorage.get("RevenueGeneral");
         double val = BAD;
         if (item != null) {
             Double itemVal = item.getVal(endPeriod);
@@ -176,7 +176,7 @@ public class RatingCalc implements RatingWeight {
     }
 
     private Double calcEquityChange() {
-        Item item = ItemsStorage.getInstance().get("EquityGeneral");
+        Item item = ItemsStorage.get("EquityGeneral");
         double val = BAD;
         if (item != null) {
             Double itemVal = item.getVal(endPeriod);
@@ -212,7 +212,7 @@ public class RatingCalc implements RatingWeight {
 
     private Double calcDebtRatio() {
         Double val = BAD;
-        Item item = ItemsStorage.getInstance().get("EquityAndLiabilities");
+        Item item = ItemsStorage.get("EquityAndLiabilities");
         if (item != null) {
             Double itemVal = item.getVal(endPeriod);
             if (itemVal != null && itemVal > 0) {
@@ -232,7 +232,7 @@ public class RatingCalc implements RatingWeight {
 
     private Double calcTimesInterestEarned() {
         double val = BAD;
-        Item item = ItemsStorage.getInstance().get("FinanceCosts");
+        Item item = ItemsStorage.get("FinanceCosts");
         if (item != null) {
             Double itemVal = item.getVal(endPeriod);
             if (formulaVal > 3 || itemVal == 0) {

@@ -10,17 +10,13 @@ import reportGeneration.storage.Periods;
 import java.util.ArrayList;
 
 public class FormulaEvaluateBase {
-    private ArrayList<String> periodsarr = Periods.getInstance().getPeriodArr();
     private Formula formula;
     private String end;
-    private String start;
-    private String type;
 
     public FormulaEvaluateBase(Formula formula) {
+        ArrayList<String> periodsarr = Periods.getPeriodArr();
         this.formula = formula;
         this.end = periodsarr.get(periodsarr.size() - 1);
-        this.start = periodsarr.get(0);
-        this.type = formula.getDescription();
     }
 
     public String prefix() {

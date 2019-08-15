@@ -141,7 +141,7 @@ public class Item {
 
 
     public Double getLastVal() {
-        ArrayList<String> arr = Periods.getInstance().getPeriodArr();
+        ArrayList<String> arr = Periods.getPeriodArr();
         String key = arr.get(arr.size() - 1);
         if (key != null) {
             return values.get(key);
@@ -150,7 +150,7 @@ public class Item {
     }
 
     public Double getFirstVal() {
-        ArrayList<String> arr = Periods.getInstance().getPeriodArr();
+        ArrayList<String> arr = Periods.getPeriodArr();
         if (arr.get(0) != null) {
             return values.get(arr.get(0));
         }

@@ -58,12 +58,12 @@ public class ItemsGetter {
     private void loopItems(int parentId) {
         for (Item item : items) {
             if (item.getParent() == parentId) {
-                if(checkEmpty == true){
-                    if(item.getValues().size() > 0){
+                if (checkEmpty == true) {
+                    if (item.getValues().size() > 0) {
                         loopItems(item.getId());
                         outputItems.add(item);
                     }
-                }else{
+                } else {
                     loopItems(item.getId());
                     outputItems.add(item);
                 }

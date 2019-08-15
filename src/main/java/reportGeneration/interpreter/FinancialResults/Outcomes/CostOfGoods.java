@@ -19,15 +19,14 @@ public class CostOfGoods implements LabelWrap, JsCalcHelper, Round {
     private ArrayList<String> periodsArr;
     private String currency;
     private String amount;
-    private ItemsStorage stor = ItemsStorage.getInstance();
     private Item costOfSales;
 
     public CostOfGoods() {
-        this.costOfSales = stor.get("CostOfSales");
+        this.costOfSales = ItemsStorage.get("CostOfSales");
         this.last = costOfSales.getLastVal();
-        this.endDate = Periods.getInstance().getEnd();
-        this.periodsArr = Periods.getInstance().getPeriodArr();
-        ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
+        this.endDate = Periods.getEnd();
+        this.periodsArr = Periods.getPeriodArr();
+        ObservableMap<String, String> settings = SettingsStorage.getSettings();
         this.currency = settings.get("defaultCurrency");
         this.amount = settings.get("amount");
     }
@@ -38,7 +37,7 @@ public class CostOfGoods implements LabelWrap, JsCalcHelper, Round {
             String output = "";
 
             output += compareEach();
-            Item grossProfit = stor.get("GrossProfit");
+            Item grossProfit = ItemsStorage.get("GrossProfit");
 
             String trend = grossProfit.trend();
             Double change = grossProfit.getChange();

@@ -12,7 +12,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableView;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
-import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
 
 import java.util.ArrayList;
@@ -21,9 +20,7 @@ public class StepTwo {
     private ObservableList<Item> items;
 
     public StepTwo() {
-        Periods.getInstance();
         this.items = ItemsStorage.getItems();
-        ResultsStorage.getInstance();
     }
 
     public TabPane show() {
@@ -33,7 +30,7 @@ public class StepTwo {
 
     private void setItems() {
         if (items.size() == 0) {
-            int tpl = Integer.parseInt(SettingsStorage.getInstance().getSettings().get("template"));
+            int tpl = Integer.parseInt(SettingsStorage.getSettings().get("template"));
             DbItemHandler itemsHandler = new DbItemHandler();
             ObservableList<Item> dbItems = itemsHandler.getItems(tpl);
             if (dbItems.size() == 0) {
@@ -73,8 +70,7 @@ public class StepTwo {
         table.setPrefWidth(880);
         Columns cols = new Columns();
         table.getColumns().addAll(cols.getNameCol(), cols.getCodeCol());
-        Periods periods = new Periods();
-        ArrayList<String> arr = periods.getPeriodArr();
+        ArrayList<String> arr = Periods.getPeriodArr();
         for (String col : arr) {
             table.getColumns().add(cols.getPeriodCol(col));
         }

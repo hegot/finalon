@@ -20,16 +20,13 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
     private ObservableMap<String, Double> valuesGrossProfit;
     private ObservableMap<String, Double> valuesComprehensiveIncome;
     private Item RevenueGeneral;
-    private ArrayList<String> periodsArr = Periods.getInstance().getPeriodArr();
-    private Periods periods = Periods.getInstance();
+    private ArrayList<String> periodsArr = Periods.getPeriodArr();
 
     public FinancialResultsChart() {
-        ItemsStorage stor = ItemsStorage.getInstance();
-        this.RevenueGeneral = stor.get("RevenueGeneral");
-        Item EBIT = stor.get("EBIT");
-
-        Item GrossProfit = stor.get("GrossProfit");
-        Item ComprehensiveIncome = stor.get("ComprehensiveIncomeGeneral");
+        this.RevenueGeneral = ItemsStorage.get("RevenueGeneral");
+        Item EBIT = ItemsStorage.get("EBIT");
+        Item GrossProfit = ItemsStorage.get("GrossProfit");
+        Item ComprehensiveIncome = ItemsStorage.get("ComprehensiveIncomeGeneral");
         this.valuesEBIT = getUpdatedValues(EBIT.getValues());
         this.valuesRevenueGeneral = getMaxiVals();
         this.valuesGrossProfit = getUpdatedValues(GrossProfit.getValues());
@@ -63,7 +60,7 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
 
     private String chartTitle() {
         return "Chart 5. Share in Financial Results in the Net Sales between" +
-                periods.getStart() + " - " + periods.getEnd() + " %";
+                Periods.getStart() + " - " + Periods.getEnd() + " %";
     }
 
     public VBox get(int weight) {
@@ -105,14 +102,14 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
             if (change == 0) {
                 chRes = "was stable";
             }
-            String out = "The chart above shows that the gross profit to net sales ratio " + chRes + " in " + periods.getEnd();
+            String out = "The chart above shows that the gross profit to net sales ratio " + chRes + " in " + Periods.getEnd();
             if (change != 0) {
                 out += " by " + round(change) + "% ";
             }
-            out += " comparing to " + periods.getStart() + ". ";
+            out += " comparing to " + Periods.getStart() + ". ";
             if (change != 0) {
                 out += " The dynamics of the gross profit to net sales ratio over the period" +
-                        " of " + periods.getStart() + "-" + periods.getEnd() + " demonstrates that the company's manufacturing or distribution" +
+                        " of " + Periods.getStart() + "-" + Periods.getEnd() + " demonstrates that the company's manufacturing or distribution" +
                         " process management efficiency was changing from period to period, being better" +
                         " during the periods with higher values of the ratio.";
             }
@@ -148,13 +145,13 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
                 if (change < 0) {
                     chRes = "decrease";
                 }
-                out += periods.getEnd() + " also witnessed the " + chRes + " of the company's EBIT " +
-                        "to sales ratio comparing to " + periods.getStart() + ". ";
+                out += Periods.getEnd() + " also witnessed the " + chRes + " of the company's EBIT " +
+                        "to sales ratio comparing to " + Periods.getStart() + ". ";
             }
 
             if (change != 0) {
                 out += "Changes in dynamics of the company's EBIT to net sales ratio over the period of "
-                        + periods.getStart() + "-" + periods.getEnd() +
+                        + Periods.getStart() + "-" + Periods.getEnd() +
                         " confirm the variability of its cost management efficiency and earning ability." +
                         " Periods with higher values of this ratio witness better performance " +
                         "of a company in terms of profitability and cost management. ";
@@ -179,10 +176,10 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
             }
             if (change != 0) {
                 out += "The share of the comprehensive income in the company's net sales "
-                        + chRes + " in " + periods.getEnd() + " by " + round(last - fisrt) + "%. ";
+                        + chRes + " in " + Periods.getEnd() + " by " + round(last - fisrt) + "%. ";
             } else {
                 out += "The share of the comprehensive income in the company's net sales " +
-                        "did not change during " + periods.getStart() + "-" + periods.getEnd() + ". ";
+                        "did not change during " + Periods.getStart() + "-" + Periods.getEnd() + ". ";
             }
             ResultsStorage.addStr(weight, "text", out);
             vBox.getChildren().add(labelWrap(out));
@@ -190,8 +187,7 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
     }
 
     private Double getLastVal(ObservableMap<String, Double> values) {
-        ArrayList<String> arr = Periods.getInstance().getPeriodArr();
-        String key = arr.get(arr.size() - 1);
+        String key = periodsArr.get(periodsArr.size() - 1);
         if (key != null) {
             return values.get(key);
         }
@@ -199,9 +195,8 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
     }
 
     private Double getFirstVal(ObservableMap<String, Double> values) {
-        ArrayList<String> arr = Periods.getInstance().getPeriodArr();
-        if (arr.get(0) != null) {
-            return values.get(arr.get(0));
+        if (periodsArr.get(0) != null) {
+            return values.get(periodsArr.get(0));
         }
         return null;
     }

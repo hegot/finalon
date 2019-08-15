@@ -12,7 +12,7 @@ public class ReturnonInvestment {
         Formulas.add(new Formula(ReturnonInvestment,
                 "Return on Investment",
                 "ReturnonInvestment",
-                "(ProfitLossBeforeTax-IncomeTaxExpenseContinuingOperations+FinanceCosts)/(EquityGeneral[0]/2+EquityGeneral[1]/2+NonCurrentAssets[0]/2+NonCurrentAssets[1]/2)",
+                "((ProfitLossBeforeTax-IncomeTaxExpenseContinuingOperations+FinanceCosts)/(EquityGeneral[0]/2+EquityGeneral[1]/2+NonCurrentAssets[0]/2+NonCurrentAssets[1]/2))*100",
                 "",
                 "formula",
                 "%",

@@ -21,11 +21,10 @@ public class CurrentNonCurrentAssetsAnalyze implements JsCalcHelper {
     private Double AssetsOverall;
 
     public CurrentNonCurrentAssetsAnalyze() {
-        ItemsStorage stor = ItemsStorage.getInstance();
-        Item current = stor.get("GeneralCurrentAssets");
-        Item nonCurrent = stor.get("NonCurrentAssets");
-        this.startDate = Periods.getInstance().getStart();
-        this.endDate = Periods.getInstance().getEnd();
+        Item current = ItemsStorage.get("GeneralCurrentAssets");
+        Item nonCurrent = ItemsStorage.get("NonCurrentAssets");
+        this.startDate = Periods.getStart();
+        this.endDate = Periods.getEnd();
         this.firstCurentVal = current.getFirstVal();
         this.lastCurentVal = current.getLastVal();
         this.firstNonCurentVal = nonCurrent.getFirstVal();

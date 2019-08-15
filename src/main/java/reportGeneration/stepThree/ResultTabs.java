@@ -24,7 +24,6 @@ import java.util.Map;
 
 public class ResultTabs {
 
-    private Periods periods = Periods.getInstance();
     private Interprter interprter = new Interprter();
     private Map<String, Tab> tabsArr = new HashMap<>();
     private ImageView throbber = getThrobber();
@@ -40,7 +39,7 @@ public class ResultTabs {
 
     private ArrayList<Tab> loopSections() {
         ArrayList<Tab> tabs = new ArrayList<Tab>();
-        ObservableList<Formula> sections = FormulaStorage.getInstance().getSections();
+        ObservableList<Formula> sections = FormulaStorage.getSections();
         int number = 2;
         for (int i = 0; i < sections.size(); i++) {
             Formula formula = sections.get(i);
@@ -95,7 +94,7 @@ public class ResultTabs {
                 Tab tab1 = new Tab(t1);
                 TabPane tabs2 = new TabPane();
                 tabs2.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-                if (periods.getPeriodArr().size() > 1) {
+                if (Periods.getPeriodArr().size() > 1) {
                     Tab tab01 = new Tab(t2);
                     tabsArr.put("assetTrend", tab01);
                     Tab tab02 = new Tab(t3);

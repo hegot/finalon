@@ -13,14 +13,13 @@ import java.util.ArrayList;
 
 public class RatiosTable extends FormulaTable implements JsCalcHelper, ParseDouble, Diff {
     private ObservableList<Formula> formulas;
-    private ArrayList<String> periods;
 
     public RatiosTable(ObservableList<Formula> formulas) {
-        this.periods = Periods.getInstance().getPeriodArr();
         this.formulas = formulas;
     }
 
     public TableView get() {
+        ArrayList<String> periods = Periods.getPeriodArr();
         TableView<Formula> table = new TableView<Formula>();
         table.getStyleClass().add("report-table");
         table.setEditable(false);

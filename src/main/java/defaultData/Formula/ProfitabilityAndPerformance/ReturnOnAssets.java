@@ -12,7 +12,7 @@ public class ReturnOnAssets {
         Formulas.add(new Formula(ReturnoNonAssets,
                 "Return on Assets",
                 "ReturnOnAssets",
-                "(ProfitLossBeforeTax-IncomeTaxExpenseContinuingOperations)/(AssetsGeneral[0]/2+AssetsGeneral[1]/2)",
+                "((ProfitLossBeforeTax-IncomeTaxExpenseContinuingOperations)/(AssetsGeneral[0]/2+AssetsGeneral[1]/2))*100",
                 "",
                 "formula",
                 "%",

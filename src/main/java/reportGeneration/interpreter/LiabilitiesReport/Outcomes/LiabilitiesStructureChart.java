@@ -24,11 +24,10 @@ public class LiabilitiesStructureChart implements GetVal, TableName {
     public LiabilitiesStructureChart(
             String period
     ) {
-        ItemsStorage stor = ItemsStorage.getInstance();
-        Item parent = stor.get("EquityAndLiabilities");
-        this.equity = stor.get("EquityGeneral");
-        this.nonCurrent = stor.get("NonCurrentLiabilities");
-        this.current = stor.get("CurrentLiabilities");
+        Item parent = ItemsStorage.get("EquityAndLiabilities");
+        this.equity = ItemsStorage.get("EquityGeneral");
+        this.nonCurrent = ItemsStorage.get("NonCurrentLiabilities");
+        this.current = ItemsStorage.get("CurrentLiabilities");
         this.period = period;
         this.totalVal = parent.getVal(period);
         this.equityVal = equity.getVal(period);
@@ -60,7 +59,7 @@ public class LiabilitiesStructureChart implements GetVal, TableName {
                 ));
             }
             chart.setData(pieChartData);
-            String title = "Chart 4. " + SettingsStorage.getInstance().getSettings().get("company") +
+            String title = "Chart 4. " + SettingsStorage.getSettings().get("company") +
                     " Source of Finance structure in " + period;
             ResultsStorage.addStr(31, "h2", title);
             ResultsStorage.addPieChart(31, chart);

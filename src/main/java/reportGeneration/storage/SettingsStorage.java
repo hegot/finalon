@@ -3,40 +3,28 @@ package reportGeneration.storage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 
+import java.util.Calendar;
+
 public class SettingsStorage {
+    private static ObservableMap<String, String> settings = initStorage();
 
-    private static ObservableMap<String, String> settings;
-    private boolean initalized = false;
-
-    private SettingsStorage() {
-        if (!initalized) {
-            try {
-                init();
-            } catch (Exception e) {
-                System.out.println("Could not init settings storage");
-            }
-            initalized = true;
-        }
-    }
-
-    public static SettingsStorage getInstance() {
-        return SettingsStorage.SingletonHolder.INSTANCE;
-    }
-
-    public ObservableMap<String, String> getSettings() {
+    private static ObservableMap<String, String> initStorage() {
+        ObservableMap<String, String> settings = FXCollections.observableHashMap();
+        String year = Integer.toString(Calendar.getInstance().get(Calendar.YEAR));
+        settings.put("company", "");
+        settings.put("step", "one");
+        settings.put("year", year);
+        settings.put("date", "31.12");
+        settings.put("template", "");
+        settings.put("standard", "");
+        settings.put("defaultCurrency", "USD");
+        settings.put("amount", "million");
+        settings.put("reportStep", "year");
+        settings.put("industry", "");
         return settings;
     }
 
-    public void setSettings(ObservableMap<String, String> settingsMap) {
-        settings = settingsMap;
-    }
-
-    private void init() {
-        settings = FXCollections.observableHashMap();
-        System.out.println("Settings Storage added!");
-    }
-
-    private static class SingletonHolder {
-        public static final SettingsStorage INSTANCE = new SettingsStorage();
+    public static ObservableMap<String, String> getSettings() {
+        return settings;
     }
 }

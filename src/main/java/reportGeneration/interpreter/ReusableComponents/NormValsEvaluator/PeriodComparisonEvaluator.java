@@ -12,11 +12,13 @@ public class PeriodComparisonEvaluator implements ParseDouble {
     private Double endVal;
     private Double changePercent;
     private Double change;
+    private Formula formula;
 
     public PeriodComparisonEvaluator(Formula formula) {
         this.childs = formula.getChilds();
         this.startVal = formula.getFirstVal();
         this.endVal = formula.getLastVal();
+        this.formula = formula;
     }
 
 
@@ -35,7 +37,7 @@ public class PeriodComparisonEvaluator implements ParseDouble {
                 outcome += getOutcome(EvaluationTypes.PERIOD_COMPARISON_NOCHANGE);
             }
         }
-        return outcome;
+        return InTimeReplacer.getVal(outcome, formula);
     }
 
     private String getOutcome(EvaluationTypes type) {

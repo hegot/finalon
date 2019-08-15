@@ -22,17 +22,16 @@ public class FinancialRating implements TableName, LabelWrap {
     public FinancialRating(int weight) {
         this.formulas = FXCollections.observableArrayList();
         this.weight = weight;
-        FormulaStorage storage = FormulaStorage.getInstance();
-        formulas.add(storage.get("NetProfitMargin"));
-        formulas.add(storage.get("ReturnOnAssets"));
-        formulas.add(storage.get("DebtEquityRatio"));
-        formulas.add(storage.get("CurrentRatio"));
-        formulas.add(storage.get("NetSalesChange"));
-        formulas.add(storage.get("OperatingIncomeMargin"));
-        formulas.add(storage.get("EquityChange"));
-        formulas.add(storage.get("QuickRatio"));
-        formulas.add(storage.get("DebtRatio"));
-        formulas.add(storage.get("TimesInterestEarned"));
+        formulas.add(FormulaStorage.get("NetProfitMargin"));
+        formulas.add(FormulaStorage.get("ReturnOnAssets"));
+        formulas.add(FormulaStorage.get("DebtEquityRatio"));
+        formulas.add(FormulaStorage.get("CurrentRatio"));
+        formulas.add(FormulaStorage.get("NetSalesChange"));
+        formulas.add(FormulaStorage.get("OperatingIncomeMargin"));
+        formulas.add(FormulaStorage.get("EquityChange"));
+        formulas.add(FormulaStorage.get("QuickRatio"));
+        formulas.add(FormulaStorage.get("DebtRatio"));
+        formulas.add(FormulaStorage.get("TimesInterestEarned"));
     }
 
     public VBox get() {

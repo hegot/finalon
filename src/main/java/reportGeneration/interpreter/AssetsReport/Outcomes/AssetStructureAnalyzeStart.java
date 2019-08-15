@@ -23,12 +23,10 @@ public class AssetStructureAnalyzeStart implements SrtuctureItemsLoop, LabelWrap
             ObservableList<Item> currentItems,
             ObservableList<Item> nonCurrentItems
     ) {
-        Periods p = Periods.getInstance();
-        ItemsStorage stor = ItemsStorage.getInstance();
-        Item current = stor.get("GeneralCurrentAssets");
-        Item nonCurrent = stor.get("NonCurrentAssets");
-        this.parent = stor.get("AssetsGeneral");
-        this.period = p.startKey();
+        Item current = ItemsStorage.get("GeneralCurrentAssets");
+        Item nonCurrent = ItemsStorage.get("NonCurrentAssets");
+        this.parent = ItemsStorage.get("AssetsGeneral");
+        this.period = Periods.startKey();
         this.currentItems = currentItems;
         this.nonCurrentItems = nonCurrentItems;
         this.totalVal = parent.getVal(period);

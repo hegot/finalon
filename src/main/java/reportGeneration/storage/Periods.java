@@ -1,68 +1,67 @@
 package reportGeneration.storage;
 
-import javafx.collections.ObservableMap;
-import reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class Periods implements JsCalcHelper {
+public class Periods {
 
-    private ObservableMap<String, String> settings;
-    private int periods;
-    private int endYear;
-    private int endDay;
-    private int endMonth;
-    private DateTimeFormatter formatM = DateTimeFormatter.ofPattern("MM");
-    private DateTimeFormatter formatY = DateTimeFormatter.ofPattern("yyyy");
-    private int month;
-    private boolean initalized = false;
-    private ArrayList<String> periodArr;
+    private static int periods = getPeriods();
+    private static int endYear = getYear();
+    private static int endDay = getEndDay();
+    private static int endMonth = getEndMonth();
+    private static DateTimeFormatter formatM = DateTimeFormatter.ofPattern("MM");
+    private static DateTimeFormatter formatY = DateTimeFormatter.ofPattern("yyyy");
+    private static int month = getMonths();
+    private static ArrayList<String> periodsArr = initPeriodArr();
 
-    public Periods() {
-        if (!initalized) {
-            try {
-                init();
-            } catch (Exception e) {
-                System.out.println(e.getMessage() + " Could not init Periods");
-            }
+
+    private static int getPeriods() {
+        String periods = SettingsStorage.getSettings().get("periods");
+        if (periods != null) {
+            return Integer.parseInt(periods);
         }
-        this.periodArr = new ArrayList<>();
+        return 12;
     }
 
-    public static Periods getInstance() {
-        return Periods.SingletonHolder.INSTANCE;
+    public static void reInit() {
+        periods = getPeriods();
+        endYear = getYear();
+        endDay = getEndDay();
+        endMonth = getEndMonth();
+        month = getMonths();
+        periodsArr = initPeriodArr();
     }
 
-    private void init() {
-        this.settings = SettingsStorage.getInstance().getSettings();
-        String year = settings.get("year");
-        String periods = settings.get("periods");
-        if (year != null && periods != null) {
-            this.endYear = Integer.parseInt(year);
-            this.periods = Integer.parseInt(periods);
-            setMonthDay();
-            initalized = true;
+    private static int getYear() {
+        String year = SettingsStorage.getSettings().get("year");
+        if (year != null) {
+            return Integer.parseInt(year);
         }
+        return 2019;
     }
 
-    public void reInit() {
-        initalized = false;
-        new SingletonHolder().reInit();
-    }
-
-    private void setMonthDay() {
-        String date = settings.get("date");
+    private static int getEndDay() {
+        String date = SettingsStorage.getSettings().get("date");
         String[] tempArray = date.split("\\.");
-        this.endMonth = Integer.parseInt(tempArray[1]);
-        this.endDay = Integer.parseInt(tempArray[0]);
-        this.month = getMonths();
+        if (tempArray[0] != null) {
+            return Integer.parseInt(tempArray[0]);
+        }
+        return 31;
     }
 
-    private int getMonths() {
+    private static int getEndMonth() {
+        String date = SettingsStorage.getSettings().get("date");
+        String[] tempArray = date.split("\\.");
+        if (tempArray[1] != null) {
+            return Integer.parseInt(tempArray[1]);
+        }
+        return 12;
+    }
+
+    private static int getMonths() {
         int amount = 12;
-        String step = settings.get("reportStep");
+        String step = SettingsStorage.getSettings().get("reportStep");
         switch (step) {
             case "month":
                 amount = 1;
@@ -80,85 +79,87 @@ public class Periods implements JsCalcHelper {
         return amount;
     }
 
-    public ArrayList<String> getPeriodArr() {
-        if (periodArr.size() > 0) {
-            return periodArr;
-        } else {
-            ArrayList<String> arr = new ArrayList<>();
-            LocalDateTime time = getStartTime();
-            for (int j = 0; j < periods; j++) {
-                String str = time.format(formatM) + "/" + time.format(formatY) + "-";
-                time = time.plusMonths(month);
-                str += "\n" + time.format(formatM) + "/" + time.format(formatY);
-                arr.add(str);
-            }
-            this.periodArr = arr;
-            return arr;
+    public static ArrayList<String> getPeriodArr() {
+        return periodsArr;
+    }
+
+    public static ArrayList<String> initPeriodArr() {
+        ArrayList<String> arr = new ArrayList<>();
+        LocalDateTime time = getStartTime();
+        for (int j = 0; j < periods; j++) {
+            String str = time.format(formatM) + "/" + time.format(formatY) + "-";
+            time = time.plusMonths(month);
+            str += time.format(formatM) + "/" + time.format(formatY);
+            arr.add(str);
         }
+        return arr;
     }
 
-    public String startKey() {
-        ArrayList<String> periodArr = getPeriodArr();
-        return periodArr.get(0);
-    }
-
-    public String endKey() {
-        ArrayList<String> periodArr = getPeriodArr();
-        return periodArr.get(periodArr.size() - 1);
-    }
-
-    public String preEndKey() {
-        ArrayList<String> periodArr = getPeriodArr();
-        if (periodArr.size() > 1) {
-            return periodArr.get(periodArr.size() - 2);
+    public static String startKey() {
+        if (periodsArr.size() > 0) {
+            return periodsArr.get(0);
         }
-        return null;
+        return "";
     }
 
-    public String prePreEndKey() {
-        ArrayList<String> periodArr = getPeriodArr();
-        if (periodArr.size() > 2) {
-            return periodArr.get(periodArr.size() - 3);
+    public static String endKey() {
+        if (periodsArr.size() > 1) {
+            return periodsArr.get(periodsArr.size() - 1);
+        }
+        return "";
+    }
+
+    public static String preEndKey() {
+        if (periodsArr.size() > 1) {
+            return periodsArr.get(periodsArr.size() - 2);
         }
         return null;
     }
 
-    private LocalDateTime getStartTime() {
+    public static String prePreEndKey() {
+        if (periodsArr.size() > 2) {
+            return periodsArr.get(periodsArr.size() - 3);
+        }
+        return null;
+    }
+
+    private static LocalDateTime getStartTime() {
         int totall = periods * month;
         LocalDateTime time = getEndTime();
         return time.minusMonths(totall);
     }
 
-    private LocalDateTime getEndTime() {
-        if (endMonth == 0) endMonth = 1;
-        if (endDay == 0) endDay = 1;
-        if (endYear == 0) endYear = 2000;
+    private static LocalDateTime getEndTime() {
+        if (endMonth == 0) endMonth = 12;
+        if (endDay == 0) endDay = 30;
+        if (endYear == 0) endYear = 2019;
         return LocalDateTime.of(endYear, endMonth, endDay, 0, 0);
     }
 
-    public String getStart() {
+    public static String getStart() {
         LocalDateTime time = getStartTime().plusMonths(month);
         return time.format(formatM) + "/" + time.format(formatY);
     }
 
-    public String getAfterStart() {
-        ArrayList<String> arr = getPeriodArr();
-        if (arr.size() > 1 && arr.get(1) != null) {
-            return formatDate(arr.get(1));
+    public static String getAfterStart() {
+        if (periodsArr.size() > 1 && periodsArr.get(1) != null) {
+            return formatDate(periodsArr.get(1));
         }
-        return formatDate(arr.get(0));
+        return formatDate(periodsArr.get(0));
     }
 
-    public String getEnd() {
+    private static String formatDate(String input) {
+        if (input != null) {
+            input = input.replace("\n", "");
+            String[] parts = input.split("-");
+            return (parts[1] != null) ? parts[1] : "";
+        }
+        return "";
+    }
+
+    public static String getEnd() {
         LocalDateTime time = getEndTime();
         return time.format(formatM) + "/" + time.format(formatY);
     }
 
-    private static class SingletonHolder {
-        static Periods INSTANCE = new Periods();
-
-        void reInit() {
-            INSTANCE = new Periods();
-        }
-    }
 }

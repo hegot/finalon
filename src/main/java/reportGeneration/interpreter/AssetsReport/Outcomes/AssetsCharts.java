@@ -16,19 +16,17 @@ public class AssetsCharts extends ChartBase implements TableName {
     private ObservableMap<String, Double> valuesNonCurrent;
 
     public AssetsCharts() {
-        ItemsStorage stor = ItemsStorage.getInstance();
-        Item current = stor.get("GeneralCurrentAssets");
-        Item nonCurrent = stor.get("NonCurrentAssets");
+        Item current = ItemsStorage.get("GeneralCurrentAssets");
+        Item nonCurrent = ItemsStorage.get("NonCurrentAssets");
         this.valuesCurrent = current.getValues();
         this.valuesNonCurrent = nonCurrent.getValues();
     }
 
     private String chartTitle() {
-        ObservableMap<String, String> settings = SettingsStorage.getInstance().getSettings();
-        Periods periods = Periods.getInstance();
+        ObservableMap<String, String> settings = SettingsStorage.getSettings();
         return "Chart 1. " + settings.get("company") +
                 " Non-current and Current Assets between " +
-                periods.getStart() + " - " + periods.getEnd() +
+                Periods.getStart() + " - " + Periods.getEnd() +
                 " in " + settings.get("amount") + " " + settings.get("defaultCurrency");
     }
 
