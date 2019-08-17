@@ -48,11 +48,11 @@ public class RelativeItemsChange implements LabelWrap, JsCalcHelper {
                 if (firstVal != null && lastVal != null) {
                     String change = getRelativeChange(firstVal, lastVal);
                     if (rize) {
-                        if (lastVal > firstVal) {
+                        if (lastVal > firstVal && change.length() > 0) {
                             output += "- " + item.getName() + " (" + change + "%) \n";
                         }
                     } else {
-                        if (lastVal < firstVal) {
+                        if (lastVal < firstVal && change.length() > 0) {
                             output += "- " + item.getName() + " (" + change + "%) \n";
                         }
                     }
