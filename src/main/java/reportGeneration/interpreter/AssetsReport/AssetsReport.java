@@ -31,14 +31,13 @@ public class AssetsReport implements TableName {
         ObservableMap<String, String> settings = SettingsStorage.getSettings();
         String tblName = "Table 1. Assets Trend Analysis, in "
                 + settings.get("amount") + " " + settings.get("defaultCurrency");
-        ResultsStorage.addStr(3, "tableName", tblName);
         Label tableName = tableName(tblName);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
 
         TableView<Item> tbl = new IndexChangeTable(rootId).get();
         TwoDList items = getTableViewValues(tbl);
-        ResultsStorage.addTable(4, items);
+        ResultsStorage.addTable(4, items, tblName);
 
         box.getChildren().addAll(
                 tableName,
@@ -63,12 +62,11 @@ public class AssetsReport implements TableName {
     public VBox getStructure() {
         String tblName = "Table 3. Assets Structure Analysis %";
         Label tableName = tableName(tblName);
-        ResultsStorage.addStr(11, "tableName", tblName);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
         TableView<StructureItem> tbl = new StructureTable(root).get();
         TwoDList items = getTableViewValues(tbl);
-        ResultsStorage.addTable(12, items);
+        ResultsStorage.addTable(12, items, tblName);
         box.getChildren().addAll(
                 tableName,
                 tbl,

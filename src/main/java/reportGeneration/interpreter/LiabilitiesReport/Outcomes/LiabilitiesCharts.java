@@ -43,8 +43,7 @@ public class LiabilitiesCharts extends ChartBase implements TableName {
         VBox vBox = new VBox(20);
         String title = chartTitle();
         vBox.getChildren().addAll(tableName(title), bc);
-        ResultsStorage.addStr(25, "h2", title);
-        ResultsStorage.addBarChart(25, bc);
+        ResultsStorage.addBarChart(25, bc, title);
 
         return vBox;
     }

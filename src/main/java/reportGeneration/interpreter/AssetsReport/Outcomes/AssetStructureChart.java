@@ -52,8 +52,7 @@ public class AssetStructureChart implements GetVal, TableName {
             }
             chart.setData(pieChartData);
             String title = "Chart 3. " + settings.get("company") + " Assets structure in " + period;
-            ResultsStorage.addStr(16, "h2", title);
-            ResultsStorage.addPieChart(16, chart);
+            ResultsStorage.addPieChart(16, chart, title);
             vBox.getChildren().addAll(tableName(title), chart);
         }
         return vBox;

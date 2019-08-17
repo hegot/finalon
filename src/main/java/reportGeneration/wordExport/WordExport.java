@@ -14,6 +14,7 @@ import org.docx4j.wml.P;
 import org.docx4j.wml.R;
 import reportGeneration.storage.ResultItem;
 import reportGeneration.storage.ResultsStorage;
+import reportGeneration.storage.TitledItem;
 import reportGeneration.storage.TwoDList;
 
 import java.io.File;
@@ -53,20 +54,28 @@ public class WordExport {
                     wordPackage.getMainDocumentPart().getContent().add(
                             new AddText(item).getStyledText()
                     );
-                } else if (obj.getClass() == TwoDList.class) {
-                    if (item.getType().equals("scaleTable")) {
-                        createTable((TwoDList) obj, "scaleTable");
-                    } else {
-                        createTable((TwoDList) obj, "table");
+                } else {
+                    TitledItem titledItem = (TitledItem) obj;
+                    String title = titledItem.getTitle();
+                    wordPackage.getMainDocumentPart().getContent().add(
+                            new AddText(title).getStyledText()
+                    );
+                    Object titledItemInner = titledItem.get();
+                    if (titledItemInner.getClass() == TwoDList.class) {
+                        if (item.getType().equals("scaleTable")) {
+                            createTable((TwoDList) titledItemInner, "scaleTable");
+                        } else {
+                            createTable((TwoDList) titledItemInner, "table");
+                        }
+                    } else if (titledItemInner.getClass() == BarChart.class) {
+                        BarChart ch = (BarChart) titledItemInner;
+                        WritableImage image = ch.snapshot(new SnapshotParameters(), null);
+                        new AddImage(wordPackage).addChartToDoc(image);
+                    } else if (titledItemInner.getClass() == PieChart.class) {
+                        PieChart ch = (PieChart) titledItemInner;
+                        WritableImage image = ch.snapshot(new SnapshotParameters(), null);
+                        new AddImage(wordPackage).addChartToDoc(image);
                     }
-                } else if (obj.getClass() == BarChart.class) {
-                    BarChart ch = (BarChart) obj;
-                    WritableImage image = ch.snapshot(new SnapshotParameters(), null);
-                    new AddImage(wordPackage).addChartToDoc(image);
-                } else if (obj.getClass() == PieChart.class) {
-                    PieChart ch = (PieChart) obj;
-                    WritableImage image = ch.snapshot(new SnapshotParameters(), null);
-                    new AddImage(wordPackage).addChartToDoc(image);
                 }
             }
         }

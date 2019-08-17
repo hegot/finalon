@@ -31,13 +31,12 @@ public class ProfitabilityRatios implements TableName {
         VBox box = new VBox(8);
         String title = "Table 8. Profitability Ratios, %";
         Label tableName = tableName(title);
-        ResultsStorage.addStr(weight, "tableName", title);
         weight++;
         FormulaEvaluation formulaEvaluation = new FormulaEvaluation(formulas);
 
         TableView tbl = new RatiosTable(formulas).get();
         TwoDList items = getTableViewValues(tbl);
-        ResultsStorage.addTable(weight, items);
+        ResultsStorage.addTable(weight, items, title);
         weight++;
         box.getChildren().addAll(
                 tableName,

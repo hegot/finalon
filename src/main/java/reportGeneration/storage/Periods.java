@@ -120,7 +120,7 @@ public class Periods {
         if (periodsArr.size() > 2) {
             return periodsArr.get(periodsArr.size() - 3);
         }
-        return null;
+        return "";
     }
 
     private static LocalDateTime getStartTime() {

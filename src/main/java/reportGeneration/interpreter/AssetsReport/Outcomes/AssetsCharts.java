@@ -43,10 +43,7 @@ public class AssetsCharts extends ChartBase implements TableName {
         bc.applyCss();
         bc.setAnimated(false);
         bc.layout();
-
-        ResultsStorage.addStr(8, "h2", title);
-        ResultsStorage.addBarChart(8, bc);
-
+        ResultsStorage.addBarChart(8, bc, title);
         return vBox;
     }
 

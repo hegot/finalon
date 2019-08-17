@@ -18,23 +18,27 @@ public class ResultsStorage {
         items.put(weight, item);
     }
 
-    public static void addTable(int weight, TwoDList val) {
-        ResultItem<TwoDList> item = new ResultItem<TwoDList>(val, "table");
+    public static void addTable(int weight, TwoDList val, String title) {
+        TitledItem<TwoDList> titledItem = new TitledItem<>(title, val);
+        ResultItem<TitledItem> item = new ResultItem<>(titledItem, "table");
         items.put(weight, item);
     }
 
-    public static void addScaleTable(int weight, TwoDList val) {
-        ResultItem<TwoDList> item = new ResultItem<TwoDList>(val, "scaleTable");
+    public static void addScaleTable(int weight, TwoDList val, String title) {
+        TitledItem<TwoDList> titledItem = new TitledItem<>(title, val);
+        ResultItem<TitledItem<TwoDList>> item = new ResultItem<TitledItem<TwoDList>>(titledItem, "scaleTable");
         items.put(weight, item);
     }
 
-    public static void addBarChart(int weight, BarChart<String, Number> bc) {
-        ResultItem<BarChart> item = new ResultItem<BarChart>(bc, "barchart");
+    public static void addBarChart(int weight, BarChart<String, Number> bc, String title) {
+        TitledItem<BarChart<String, Number>> titledItem = new TitledItem<>(title, bc);
+        ResultItem<TitledItem> item = new ResultItem<>(titledItem, "barchart");
         items.put(weight, item);
     }
 
-    public static void addPieChart(int weight, PieChart ch) {
-        ResultItem<PieChart> item = new ResultItem<PieChart>(ch, "piechart");
+    public static void addPieChart(int weight, PieChart ch, String title) {
+        TitledItem<PieChart> titledItem = new TitledItem<>(title, ch);
+        ResultItem<TitledItem> item = new ResultItem<>(titledItem, "piechart");
         items.put(weight, item);
     }
 

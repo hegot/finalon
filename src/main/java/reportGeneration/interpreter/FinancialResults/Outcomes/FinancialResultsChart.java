@@ -72,9 +72,7 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
                 getSeries("Comprehensive Income", valuesComprehensiveIncome)
         );
         String title = chartTitle();
-        ResultsStorage.addStr(weight, "h2", title);
-        weight++;
-        ResultsStorage.addBarChart(weight, bc);
+        ResultsStorage.addBarChart(weight, bc, title);
         VBox vBox = new VBox(20);
         vBox.getChildren().addAll(tableName(title), bc);
         if (periodsArr.size() > 1) {

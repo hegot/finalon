@@ -32,13 +32,12 @@ public class GeneralAnalysis implements TableName {
         VBox box = new VBox(8);
         String title = "Table 5. Evaluation of" + section.getName();
         Label tableName = tableName(title);
-        ResultsStorage.addStr(weight, "tableName", title);
         weight++;
         FormulaEvaluation formulaEvaluation = new FormulaEvaluation(formulas);
         RatiosTable table = new RatiosTable(formulas);
         TableView tbl = table.get();
         TwoDList items = getTableViewValues(tbl);
-        ResultsStorage.addTable(weight, items);
+        ResultsStorage.addTable(weight, items, title);
         weight++;
         box.getChildren().addAll(
                 tableName,

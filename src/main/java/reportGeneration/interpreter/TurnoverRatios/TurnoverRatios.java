@@ -28,12 +28,11 @@ public class TurnoverRatios implements TableName {
     public VBox get() {
         VBox box = new VBox(8);
         String title = "Table 10. Activity Ratios (Turnover Ratios)";
-        ResultsStorage.addStr(weight, "tableName", title);
         weight++;
         FormulaEvaluation formulaEvaluation = new FormulaEvaluation(formulas);
         TableView tbl = new RatiosTable(formulas).get();
         TwoDList items = getTableViewValues(tbl);
-        ResultsStorage.addTable(weight, items);
+        ResultsStorage.addTable(weight, items, title);
         weight++;
         box.getChildren().addAll(
                 tableName(title),

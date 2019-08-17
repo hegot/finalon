@@ -21,6 +21,14 @@ public class AddText {
         this.text = (String) item.get();
     }
 
+    public AddText(String item) throws Docx4JException {
+        this.factory = Context.getWmlObjectFactory();
+        this.runProperties = factory.createRPr();
+        this.type = "tableName";
+        this.text = item;
+    }
+
+
     private void setFontSize(String fontSize) {
         HpsMeasure size = new HpsMeasure();
         size.setVal(new BigInteger(fontSize));

@@ -28,7 +28,6 @@ public class LiabilitiesReport implements TableName {
         String tblName = "Table 2. Sources of Finance (Equity and Liabilities) Trend Analysis, in "
                 + settings.get("amount") + " " + settings.get("defaultCurrency");
         Label tableName = tableName(tblName);
-        ResultsStorage.addStr(19, "tableName", tblName);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
         Item equityGeneral = ItemsStorage.get("EquityGeneral");
@@ -36,7 +35,7 @@ public class LiabilitiesReport implements TableName {
 
         TableView<Item> tbl = new IndexChangeTable(rootId).get();
         TwoDList items = getTableViewValues(tbl);
-        ResultsStorage.addTable(20, items);
+        ResultsStorage.addTable(20, items, tblName);
 
         box.getChildren().addAll(
                 tableName,
@@ -60,13 +59,12 @@ public class LiabilitiesReport implements TableName {
     public VBox getStructure() {
         String title = "Table 4. Equity and Liabilities Structure Analysis %";
         Label tableName = tableName(title);
-        ResultsStorage.addStr(26, "tableName", title);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
 
         TableView<StructureItem> tbl = new StructureTable(root).get();
         TwoDList items = getTableViewValues(tbl);
-        ResultsStorage.addTable(27, items);
+        ResultsStorage.addTable(27, items, title);
 
         box.getChildren().addAll(
                 tableName,

@@ -37,20 +37,18 @@ public class FinancialRating implements TableName, LabelWrap {
     public VBox get() {
         VBox box = new VBox(8);
         String title = "Table 13. Financial Rating";
-        ResultsStorage.addStr(weight, "tableName", title);
         weight++;
         FinancialRatingTable financialRatingTable = new FinancialRatingTable(formulas);
         TableView tbl = financialRatingTable.get();
         TwoDList items = getTableViewValues(tbl);
-        ResultsStorage.addTable(weight, items);
+        ResultsStorage.addTable(weight, items, title);
         weight++;
         String title2 = "Table 14. Financial condition scale";
-        ResultsStorage.addStr(weight, "tableName", title2);
         weight++;
         FinConditionScaleTable finConditionScaleTable = new FinConditionScaleTable();
         TableView tbl2 = finConditionScaleTable.get();
         TwoDList items2 = getTableViewValues(tbl2);
-        ResultsStorage.addScaleTable(weight, items2);
+        ResultsStorage.addScaleTable(weight, items2, title2);
         weight++;
         String outcome = getOutcome(
                 finConditionScaleTable.getItems(),

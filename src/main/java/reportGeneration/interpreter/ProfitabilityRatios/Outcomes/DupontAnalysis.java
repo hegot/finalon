@@ -31,7 +31,6 @@ public class DupontAnalysis implements LabelWrap, ParseDouble, TableName {
         VBox box = new VBox(8);
         String title = "Table 9. Dupont Analysis";
         Label tableName = tableName(title);
-        ResultsStorage.addStr(weight, "tableName", title);
         weight++;
         ObservableList<Formula> formulas = FXCollections.observableArrayList();
         formulas.addAll(
@@ -42,7 +41,7 @@ public class DupontAnalysis implements LabelWrap, ParseDouble, TableName {
 
         TableView tbl = new RatiosTable(formulas).get();
         TwoDList items = getTableViewValues(tbl);
-        ResultsStorage.addTable(weight, items);
+        ResultsStorage.addTable(weight, items, title);
         weight++;
         String evaluate = evaluate();
         ResultsStorage.addStr(weight, "text", evaluate);

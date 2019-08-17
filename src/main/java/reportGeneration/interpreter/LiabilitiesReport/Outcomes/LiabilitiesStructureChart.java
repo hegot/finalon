@@ -61,8 +61,7 @@ public class LiabilitiesStructureChart implements GetVal, TableName {
             chart.setData(pieChartData);
             String title = "Chart 4. " + SettingsStorage.getSettings().get("company") +
                     " Source of Finance structure in " + period;
-            ResultsStorage.addStr(31, "h2", title);
-            ResultsStorage.addPieChart(31, chart);
+            ResultsStorage.addPieChart(31, chart, title);
             vBox.getChildren().addAll(tableName(title), chart);
         }
         return vBox;
