@@ -6,8 +6,7 @@ import javafx.collections.ObservableList;
 
 public interface AttachChilds {
     default void setFormulaChilds(Formula formula) {
-        DbFormulaHandler dbFormula = new DbFormulaHandler();
-        ObservableList<Formula> childs = dbFormula.getFormulas(formula.getId());
+        ObservableList<Formula> childs = DbFormulaHandler.getFormulas(formula.getId());
         formula.setChilds(childs);
     }
 }

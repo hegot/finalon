@@ -20,8 +20,7 @@ class TemplateBase {
 
     int createItem(Item item) {
         try {
-            DbItemHandler itemCreator = new DbItemHandler();
-            return itemCreator.addItem(item);
+            return DbItemHandler.addItem(item);
         } catch (SQLException se) {
             se.printStackTrace();
         } catch (ClassNotFoundException ce) {

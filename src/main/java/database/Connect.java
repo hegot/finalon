@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public final class Connect {
 
-    public static Connection conn;
+    private static Connection conn;
     private boolean initalized = false;
 
     private Connect() {

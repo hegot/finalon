@@ -9,7 +9,6 @@ import java.sql.SQLException;
 
 public class FormulaCreator {
     private ObservableList<Formula> formulas;
-    private DbFormulaHandler formulaDbHandler = new DbFormulaHandler();
     private int newId;
 
     public FormulaCreator() {
@@ -19,7 +18,7 @@ public class FormulaCreator {
     }
 
     public FormulaCreator(int standard, String Industry) {
-        int lastId = formulaDbHandler.getLastId() + 1;
+        int lastId = DbFormulaHandler.getLastId() + 1;
         this.formulas = FXCollections.observableArrayList(
                 DefaultFormulas.getFormulasForIndustry(standard, Industry, lastId)
         );
@@ -33,7 +32,7 @@ public class FormulaCreator {
     public void createFormulas() throws SQLException {
         for (Formula formula : formulas) {
             try{
-                formulaDbHandler.addDefaultFormula(formula);
+                DbFormulaHandler.addDefaultFormula(formula);
             }catch (Exception e){
                 System.out.println(e.getMessage());
             }

@@ -42,7 +42,7 @@ public class DeleteIndustry implements CancelBtn {
         btn.getStyleClass().add("popup-btn");
         btn.setOnAction((ActionEvent event) -> {
             dialog.close();
-            new DbFormulaHandler().deleteItem(industry.getId());
+            DbFormulaHandler.deleteItem(industry.getId());
             Storage.refresh();
         });
         return btn;

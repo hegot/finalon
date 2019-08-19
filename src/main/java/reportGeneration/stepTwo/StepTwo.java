@@ -31,14 +31,13 @@ public class StepTwo {
     private void setItems() {
         if (items.size() == 0) {
             int tpl = Integer.parseInt(SettingsStorage.getSettings().get("template"));
-            DbItemHandler itemsHandler = new DbItemHandler();
-            ObservableList<Item> dbItems = itemsHandler.getItems(tpl);
+            ObservableList<Item> dbItems = DbItemHandler.getItems(tpl);
             if (dbItems.size() == 0) {
                 dbItems = FXCollections.observableArrayList(
                         DefaultTemplate.getTpl()
                 );
             } else {
-                dbItems.add(itemsHandler.getItem(tpl));
+                dbItems.add(DbItemHandler.getItem(tpl));
             }
             items.addAll(dbItems);
         }

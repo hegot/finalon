@@ -10,15 +10,12 @@ import java.sql.SQLException;
 public class AddDefaultTables {
 
     public void start() {
-        DbItemHandler item = new DbItemHandler();
-        DbFormulaHandler formulasTable = new DbFormulaHandler();
         FormulaCreator formulaCreator = new FormulaCreator();
-        DbSettingHandler dbSettingHandler = new DbSettingHandler();
         try {
-            item.createTable();
-            formulasTable.createTable();
-            dbSettingHandler.createTable();
-            if (formulasTable.isEmpty()) {
+            DbItemHandler.createTable();
+            DbFormulaHandler.createTable();
+            DbSettingHandler.createTable();
+            if (DbFormulaHandler.isEmpty()) {
                 formulaCreator.createFormulas();
             }
         } catch (SQLException e) {

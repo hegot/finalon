@@ -61,8 +61,7 @@ public class EditHandler extends FormulaAddBase {
                             Optional<ButtonType> option = alert.showAndWait();
                             try {
                                 if (option.get() == ButtonType.OK) {
-                                    DbFormulaHandler dbFormula = new DbFormulaHandler();
-                                    dbFormula.deleteItem(parentFormula.getId());
+                                    DbFormulaHandler.deleteItem(parentFormula.getId());
                                     Storage.refresh();
                                 }
                             } catch (Exception e) {

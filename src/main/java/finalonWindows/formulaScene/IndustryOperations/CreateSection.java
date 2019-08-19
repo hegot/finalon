@@ -77,16 +77,15 @@ public class CreateSection extends FormulaAddBase implements CancelBtn, SortedSe
             formula.setValue(newIndex);
             itemsNew.add(formula);
         }
-        DbFormulaHandler dbFormula = new DbFormulaHandler();
         try {
             for (Formula item : itemsNew) {
                 try {
-                    dbFormula.updateFormula(item);
+                    DbFormulaHandler.updateFormula(item);
                 } catch (SQLException e) {
                     System.out.println("Formula reordering save error");
                 }
             }
-            dbFormula.updateFormula(newSection);
+            DbFormulaHandler.updateFormula(newSection);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

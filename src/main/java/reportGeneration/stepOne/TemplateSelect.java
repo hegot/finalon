@@ -33,12 +33,11 @@ public class TemplateSelect {
             public void changed(ObservableValue<? extends Item> arg0, Item arg1, Item arg2) {
                 if (arg2 != null) {
                     settings.replace("template", Integer.toString(arg2.getId()));
-                    DbItemHandler itemsHandler = new DbItemHandler();
-                    ObservableList<Item> dbItems = itemsHandler.getItems(arg2.getId());
+                    ObservableList<Item> dbItems = DbItemHandler.getItems(arg2.getId());
                     if (dbItems.size() == 0) {
                         dbItems = FXCollections.observableArrayList(DefaultTemplate.getTpl());
                     } else {
-                        dbItems.add(itemsHandler.getItem(arg2.getId()));
+                        dbItems.add(DbItemHandler.getItem(arg2.getId()));
                     }
                     ItemsStorage.setItems(dbItems);
                 }
@@ -48,16 +47,14 @@ public class TemplateSelect {
     }
 
     private static ObservableList<Item> getTpls() {
-        DbItemHandler dbItem = new DbItemHandler();
-        return dbItem.getTemplates();
+        return DbItemHandler.getTemplates();
     }
 
     private static Item getDefaultTemplate(ObservableList<Item> items) {
-        DbItemHandler dbItem = new DbItemHandler();
         ObservableMap<String, String> settings = SettingsStorage.getSettings();
         String val = settings.get("template");
         if (val != null && val.length() > 0) {
-            Item item = dbItem.getItem(Integer.parseInt(val));
+            Item item = DbItemHandler.getItem(Integer.parseInt(val));
             if (item != null) {
                 return item;
             }

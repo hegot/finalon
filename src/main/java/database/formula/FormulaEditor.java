@@ -8,13 +8,11 @@ import java.sql.SQLException;
 public class FormulaEditor extends FormulaBase {
     private ObservableList<Formula> formulas;
     private int rootId;
-    private DbFormulaHandler formulasHandler;
 
     public FormulaEditor(
             ObservableList<Formula> formulas
     ) {
         this.formulas = formulas;
-        this.formulasHandler = new DbFormulaHandler();
         setRoot();
     }
 
@@ -30,8 +28,7 @@ public class FormulaEditor extends FormulaBase {
 
     private void updateItem(Formula formula) {
         try {
-            DbFormulaHandler formulaUpdater = new DbFormulaHandler();
-            formulaUpdater.updateFormula(formula);
+            DbFormulaHandler.updateFormula(formula);
         } catch (SQLException se) {
             se.printStackTrace();
         }
@@ -49,7 +46,7 @@ public class FormulaEditor extends FormulaBase {
 
 
     public void deleteItem(int Id) {
-        formulasHandler.deleteItem(Id);
+        DbFormulaHandler.deleteItem(Id);
         for (Formula formula : formulas) {
             if (formula.getParent() == Id) {
                 deleteItem(formula.getId());
@@ -59,7 +56,7 @@ public class FormulaEditor extends FormulaBase {
 
 
     public void updateTpl() {
-        ObservableList<Formula> oldItems = formulasHandler.getFormulas(rootId);
+        ObservableList<Formula> oldItems = DbFormulaHandler.getFormulas(rootId);
         for (Formula formula : oldItems) {
             if (!hasItem(formula.getId())) {
                 deleteItem(formula.getId());

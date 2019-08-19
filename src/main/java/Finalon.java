@@ -1,4 +1,5 @@
 import database.AddDefaultTables;
+import database.Connect;
 import database.setting.DbSettingHandler;
 import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
@@ -32,6 +33,7 @@ public class Finalon extends Application {
 
     @Override
     public void start(Stage primaryStage) throws ClassNotFoundException, SQLException {
+        Connect.getInstance();
         Properties prop = new Properties();
         prop.setProperty("log4j.rootLogger", "WARN");
         PropertyConfigurator.configure(prop);
@@ -66,11 +68,10 @@ public class Finalon extends Application {
 
 
     private void setAppId(){
-        DbSettingHandler dbSettingHandler = new DbSettingHandler();
         ObservableMap<String, String> settings = FXCollections.observableHashMap();
-        String id = dbSettingHandler.getSetting(Setting.appId);
+        String id = DbSettingHandler.getSetting(Setting.appId);
         if(id.length() == 0){
-            dbSettingHandler.updateSetting(Setting.appId, RandomString.get());
+            DbSettingHandler.updateSetting(Setting.appId, RandomString.get());
         }
     }
 

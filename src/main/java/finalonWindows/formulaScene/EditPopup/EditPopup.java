@@ -50,8 +50,7 @@ public class EditPopup {
     }
 
     private ObservableList<Formula> getChilds() {
-        DbFormulaHandler dbFormula = new DbFormulaHandler();
-        return dbFormula.getFormulas(formula.getId());
+        return DbFormulaHandler.getFormulas(formula.getId());
     }
 
     public Dialog getdialog() {
@@ -117,22 +116,21 @@ public class EditPopup {
 
     private void addFormula(Formula formula) {
         try {
-            DbFormulaHandler dbFormula = new DbFormulaHandler();
-            dbFormula.updateFormula(formula);
+            DbFormulaHandler.updateFormula(formula);
             ObservableList<Formula> childs = formula.getChilds();
             for (Formula child : childs) {
                 if (child.getId() == -1) {
                     if (isChild(child.getName())) {
                         if (child.getDescription().length() > 2) {
-                            dbFormula.addFormula(child);
+                            DbFormulaHandler.addFormula(child);
                         }
                     } else {
-                        dbFormula.addFormula(child);
+                        DbFormulaHandler.addFormula(child);
                     }
                 } else if (child.getCategory().equals("TO_BE_DELETED")) {
-                    dbFormula.deleteItem(child.getId());
+                    DbFormulaHandler.deleteItem(child.getId());
                 } else {
-                    dbFormula.updateFormula(child);
+                    DbFormulaHandler.updateFormula(child);
                 }
             }
         } catch (SQLException e) {

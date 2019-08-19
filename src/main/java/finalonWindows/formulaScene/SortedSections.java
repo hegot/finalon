@@ -10,8 +10,7 @@ import java.util.ArrayList;
 
 public interface SortedSections {
     default ObservableList<Formula> getSections(int parentId) {
-        DbFormulaHandler dbFormula = new DbFormulaHandler();
-        ObservableList<Formula> childs = dbFormula.getFormulas(parentId);
+        ObservableList<Formula> childs = DbFormulaHandler.getFormulas(parentId);
         ArrayList<Formula> sortedChilds = new ArrayList<Formula>(childs);
         for (Formula child : childs) {
             String val = child.getValue();

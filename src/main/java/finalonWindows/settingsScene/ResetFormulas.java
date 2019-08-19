@@ -17,13 +17,12 @@ class ResetFormulas {
 }
 
 class CreateFormulas implements BaseRun {
-    private static volatile DbFormulaHandler dbFormula = new DbFormulaHandler();
 
     public void runThread() {
         FormulaCreator formulaCreator = new FormulaCreator();
         try {
-            dbFormula.createTable();
-            if (dbFormula.isEmpty()) {
+            DbFormulaHandler.createTable();
+            if (DbFormulaHandler.isEmpty()) {
                 formulaCreator.createFormulas();
             }
         } catch (SQLException e) {
@@ -39,11 +38,10 @@ class CreateFormulas implements BaseRun {
 }
 
 class DeleteFormulas implements BaseRun {
-    private static volatile DbFormulaHandler dbFormula = new DbFormulaHandler();
 
     public void runThread() {
         try {
-            dbFormula.deleteTable();
+            DbFormulaHandler.deleteTable();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

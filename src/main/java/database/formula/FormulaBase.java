@@ -7,8 +7,7 @@ import java.sql.SQLException;
 class FormulaBase {
     int createFormula(Formula formula) {
         try {
-            DbFormulaHandler formulaCreator = new DbFormulaHandler();
-            return formulaCreator.addFormula(formula);
+            return DbFormulaHandler.addFormula(formula);
         } catch (SQLException se) {
             se.printStackTrace();
         }

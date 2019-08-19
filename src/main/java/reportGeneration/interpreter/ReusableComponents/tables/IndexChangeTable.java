@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 
 public class IndexChangeTable extends ItemsTable implements JsCalcHelper, Diff {
-    private DbSettingHandler dbSettingHandler = new DbSettingHandler();
     private int rootId;
 
     public IndexChangeTable(
@@ -72,7 +71,7 @@ public class IndexChangeTable extends ItemsTable implements JsCalcHelper, Diff {
     }
 
     protected String commaFormat(String value) {
-        if (dbSettingHandler.getSetting(Setting.numberFormat).equals("comma")) {
+        if (DbSettingHandler.getSetting(Setting.numberFormat).equals("comma")) {
             value = value.replace('.', ',');
         }
         return value;

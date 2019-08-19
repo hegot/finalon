@@ -22,16 +22,14 @@ import java.util.Optional;
 
 public class SettingsScene extends SceneBase {
 
-    private DbSettingHandler dbSettingHandler;
     private ObservableMap<Setting, String> settings;
 
     public SettingsScene() {
-        this.dbSettingHandler = new DbSettingHandler();
         this.settings = FXCollections.observableHashMap();
-        settings.put(Setting.numberFormat, dbSettingHandler.getSetting(Setting.numberFormat));
-        settings.put(Setting.yearOrder, dbSettingHandler.getSetting(Setting.yearOrder));
-        settings.put(Setting.includeAll, dbSettingHandler.getSetting(Setting.includeAll));
-        settings.put(Setting.defaultCurrency, dbSettingHandler.getSetting(Setting.defaultCurrency));
+        settings.put(Setting.numberFormat, DbSettingHandler.getSetting(Setting.numberFormat));
+        settings.put(Setting.yearOrder, DbSettingHandler.getSetting(Setting.yearOrder));
+        settings.put(Setting.includeAll, DbSettingHandler.getSetting(Setting.includeAll));
+        settings.put(Setting.defaultCurrency, DbSettingHandler.getSetting(Setting.defaultCurrency));
     }
 
 
@@ -65,7 +63,7 @@ public class SettingsScene extends SceneBase {
             public void handle(ActionEvent e) {
                 try {
                     for (Setting key : settings.keySet()) {
-                        dbSettingHandler.updateSetting(key, settings.get(key));
+                        DbSettingHandler.updateSetting(key, settings.get(key));
                     }
                     label.setText("Your changes have been saved!");
                     Timeline timeline = new Timeline(new KeyFrame(

@@ -56,8 +56,7 @@ class Columns implements ParseDouble {
 
 
     TableColumn getPeriodCol(String colname) {
-        DbSettingHandler dbSettingHandler = new DbSettingHandler();
-        String numberFormat = dbSettingHandler.getSetting(Setting.numberFormat);
+        String numberFormat = DbSettingHandler.getSetting(Setting.numberFormat);
         ObservableList<Item> items = ItemsStorage.getItems();
         TableColumn<Item, String> col = new TableColumn<Item, String>(colname.replace("-", "-\n"));
         col.setMinWidth(100);

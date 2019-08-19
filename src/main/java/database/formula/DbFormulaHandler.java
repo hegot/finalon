@@ -12,17 +12,11 @@ import java.sql.*;
 
 public class DbFormulaHandler extends DbHandlerBase {
 
-    private static String tableName;
-    private Connection connection;
+    private static String tableName = "formulas";
 
-    public DbFormulaHandler() {
-        Connect connect = Connect.getInstance();
-        this.connection = connect.conn;
-        tableName = "formulas";
-    }
 
-    private void createTbl() throws SQLException {
-        this.connection.createStatement().execute("CREATE TABLE if not exists `" + tableName + "` (" +
+    private static void createTbl() throws SQLException {
+        Connect.getConn().createStatement().execute("CREATE TABLE if not exists `" + tableName + "` (" +
                 "`id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                 "`name` TEXT," +
                 "`shortName` TEXT," +
@@ -36,17 +30,17 @@ public class DbFormulaHandler extends DbHandlerBase {
         System.out.println("Table " + tableName + " created");
     }
 
-    public void createTable() throws ClassNotFoundException, SQLException {
-        if (!tableExists(this.connection, tableName)) {
+    public static void createTable() throws ClassNotFoundException, SQLException {
+        if (!tableExists(tableName)) {
             createTbl();
         } else {
             System.out.println("Table " + tableName + " already exists");
         }
     }
 
-    public ObservableList<Formula> getFormulas(int parent) {
+    public static ObservableList<Formula> getFormulas(int parent) {
         ObservableList<Formula> Formulas = FXCollections.observableArrayList();
-        try (Statement statement = this.connection.createStatement()) {
+        try (Statement statement = Connect.getConn().createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName, value, description, category, unit, parent FROM " + tableName + " WHERE parent = " + parent);
             while (resultSet.next()) {
                 Formulas.add(
@@ -68,11 +62,11 @@ public class DbFormulaHandler extends DbHandlerBase {
         return Formulas;
     }
 
-    public int addDefaultFormula(Formula Formula) throws SQLException {
+    public static int addDefaultFormula(Formula Formula) throws SQLException {
         try {
             String sql = "INSERT INTO " + tableName + " (`id`, `name`, `shortName`,  `value`, `description`, `category`, `unit`, `parent`) " +
                     "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement statement = this.connection.prepareStatement(sql);
+            PreparedStatement statement = Connect.getConn().prepareStatement(sql);
             statement.setObject(1, Formula.getId());
             statement.setObject(2, Formula.getName());
             statement.setObject(3, Formula.getShortName());
@@ -92,13 +86,13 @@ public class DbFormulaHandler extends DbHandlerBase {
     }
 
 
-    public int addFormula(Formula Formula) throws SQLException {
+    public static int addFormula(Formula Formula) throws SQLException {
         try {
             StatTrigger.call(CallTypes.formula_customization_times);
             String[] returnId = {"id"};
             String sql = "INSERT INTO " + tableName + " (`id`, `name`, `shortName`,  `value`, `description`, `category`, `unit`, `parent`) " +
                     "VALUES(NULL, ?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement statement = this.connection.prepareStatement(sql, returnId);
+            PreparedStatement statement = Connect.getConn().prepareStatement(sql, returnId);
             statement.setObject(1, Formula.getName());
             statement.setObject(2, Formula.getShortName());
             statement.setObject(3, Formula.getValue());
@@ -123,10 +117,10 @@ public class DbFormulaHandler extends DbHandlerBase {
         return 0;
     }
 
-    public void updateFormula(Formula Formula) throws SQLException {
+    public static void updateFormula(Formula Formula) throws SQLException {
         StatTrigger.call(CallTypes.formula_customization_times);
-        if (itemExists(Formula.getId(), tableName, this.connection)) {
-            try (PreparedStatement statement = this.connection.prepareStatement(
+        if (itemExists(Formula.getId(), tableName)) {
+            try (PreparedStatement statement = Connect.getConn().prepareStatement(
                     "UPDATE " + tableName + " SET `name` = ?,  `shortName` = ?, `value` = ?, `description` = ?,  `category` = ?, `unit` = ?, `parent` = ? WHERE `id` = " + Formula.getId()
             )) {
                 statement.setObject(1, Formula.getName());
@@ -146,9 +140,9 @@ public class DbFormulaHandler extends DbHandlerBase {
     }
 
 
-    public void deleteItem(int id) {
+    public static void deleteItem(int id) {
         StatTrigger.call(CallTypes.formula_customization_times);
-        try (PreparedStatement statement = this.connection.prepareStatement(
+        try (PreparedStatement statement = Connect.getConn().prepareStatement(
                 "DELETE FROM " + tableName + " WHERE id = ?")) {
             statement.setObject(1, id);
             statement.executeUpdate();
@@ -157,9 +151,9 @@ public class DbFormulaHandler extends DbHandlerBase {
         }
     }
 
-    public Boolean isEmpty() throws SQLException {
+    public static Boolean isEmpty() throws SQLException {
         try {
-            Statement stmt = this.connection.createStatement();
+            Statement stmt = Connect.getConn().createStatement();
             ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM " + tableName);
             int rows = rs.getInt(1);
             if (rows > 0) {
@@ -172,9 +166,9 @@ public class DbFormulaHandler extends DbHandlerBase {
         return true;
     }
 
-    public int getLastId() {
+    public static int getLastId() {
         try {
-            Statement stmt = this.connection.createStatement();
+            Statement stmt = Connect.getConn().createStatement();
             ResultSet rs = stmt.executeQuery("SELECT MAX(id) FROM " + tableName);
             return rs.getInt(1);
         } catch (SQLException e) {
@@ -183,8 +177,8 @@ public class DbFormulaHandler extends DbHandlerBase {
         return 0;
     }
 
-    public Integer findByName(String name) {
-        try (Statement statement = this.connection.createStatement()) {
+    public static Integer findByName(String name) {
+        try (Statement statement = Connect.getConn().createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT id FROM " + tableName + " WHERE name = " + name);
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
@@ -196,8 +190,8 @@ public class DbFormulaHandler extends DbHandlerBase {
         return null;
     }
 
-    public Formula findById(int id) {
-        try (Statement statement = this.connection.createStatement()) {
+    public static Formula findById(int id) {
+        try (Statement statement = Connect.getConn().createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName, value, description, category, unit, parent FROM "
                     + tableName + " WHERE id = " + id);
             while (resultSet.next()) {
@@ -218,15 +212,15 @@ public class DbFormulaHandler extends DbHandlerBase {
         return null;
     }
 
-    public void deleteTable() throws ClassNotFoundException, SQLException {
-        try (PreparedStatement statement = this.connection.prepareStatement(
+    public static void deleteTable() throws ClassNotFoundException, SQLException {
+        try (PreparedStatement statement = Connect.getConn().prepareStatement(
                 "delete from " + tableName + ";"
         )) {
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        try (PreparedStatement statement = this.connection.prepareStatement(
+        try (PreparedStatement statement = Connect.getConn().prepareStatement(
                 "delete from sqlite_sequence where name='" + tableName + "';"
         )) {
             statement.executeUpdate();

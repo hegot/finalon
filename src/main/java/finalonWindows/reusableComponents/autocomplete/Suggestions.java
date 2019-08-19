@@ -39,8 +39,7 @@ class Suggestions {
 
 
     private TreeSet<String> getEntries() {
-        DbItemHandler dbItemHandler = new DbItemHandler();
-        TreeSet<String> entries = dbItemHandler.getCodes();
+        TreeSet<String> entries = DbItemHandler.getCodes();
         return entries;
     }
 

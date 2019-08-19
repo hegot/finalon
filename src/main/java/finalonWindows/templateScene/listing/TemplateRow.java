@@ -44,8 +44,7 @@ public class TemplateRow extends VBox {
 
     @FXML
     protected void viewRowAction() {
-        DbItemHandler itemsHandler = new DbItemHandler();
-        ObservableList<Item> items = itemsHandler.getItems(item.getId());
+        ObservableList<Item> items = DbItemHandler.getItems(item.getId());
         items.add(this.item);
         PreviewTemplate previewTpl = new PreviewTemplate(items);
         SceneSwitcher.getWindow().getChildren().setAll(previewTpl.getScene());
@@ -53,8 +52,7 @@ public class TemplateRow extends VBox {
 
     @FXML
     protected void editRowAction() {
-        DbItemHandler itemsHandler = new DbItemHandler();
-        ObservableList<Item> items = itemsHandler.getItems(item.getId());
+        ObservableList<Item> items = DbItemHandler.getItems(item.getId());
         items.add(this.item);
         EditTemplate editTpl = new EditTemplate(items);
         SceneSwitcher.getWindow().getChildren().setAll(editTpl.getScene());
@@ -69,8 +67,7 @@ public class TemplateRow extends VBox {
         if (result.get() == ButtonType.OK) {
             int id = item.getId();
             String name = item.getName();
-            DbItemHandler itemsHandler = new DbItemHandler();
-            ObservableList<Item> items = itemsHandler.getItems(id);
+            ObservableList<Item> items = DbItemHandler.getItems(id);
             TemplateEditor templateEditor = new TemplateEditor(name, items);
             templateEditor.deleteItem(id);
             System.out.println("Template " + name + " deleted successfully");

@@ -9,32 +9,26 @@ import java.sql.*;
 
 public class DbSettingHandler extends DbHandlerBase {
 
-    private static String tableName;
-    private Connection connection;
+    private static String tableName = "settings";
 
-    public DbSettingHandler() {
-        this.connection = Connect.conn;
-        tableName = "settings";
-    }
-
-    private void createTbl() throws SQLException {
-        this.connection.createStatement().execute("CREATE TABLE if not exists " + tableName + " (`key` TEXT, `value` TEXT);");
+    private static void createTbl() throws SQLException {
+        Connect.getConn().createStatement().execute("CREATE TABLE if not exists " + tableName + " (`key` TEXT, `value` TEXT);");
 
         System.out.println("Table " + tableName + " created");
         String sql = "INSERT INTO " + tableName + " (`key`, `value`) VALUES('numberFormat', 'default')";
-        this.connection.prepareStatement(sql).executeUpdate();
+        Connect.getConn().prepareStatement(sql).executeUpdate();
         String sql2 = "INSERT INTO " + tableName + " (`key`, `value`) VALUES('yearOrder', 'ASCENDING')";
-        this.connection.prepareStatement(sql2).executeUpdate();
+        Connect.getConn().prepareStatement(sql2).executeUpdate();
         String sql3 = "INSERT INTO " + tableName + " (`key`, `value`) VALUES('includeAll', 'YES')";
-        this.connection.prepareStatement(sql3).executeUpdate();
+        Connect.getConn().prepareStatement(sql3).executeUpdate();
         String sql4 = "INSERT INTO " + tableName + " (`key`, `value`) VALUES('defaultCurrency', 'USD')";
-        this.connection.prepareStatement(sql4).executeUpdate();
+        Connect.getConn().prepareStatement(sql4).executeUpdate();
         String sql5 = "INSERT INTO " + tableName + " (`key`, `value`) VALUES('appId', '" + RandomString.get() + "')";
-        this.connection.prepareStatement(sql5).executeUpdate();
+        Connect.getConn().prepareStatement(sql5).executeUpdate();
     }
 
-    public void createTable() throws ClassNotFoundException, SQLException {
-        if (!tableExists(this.connection, tableName)) {
+    public static void createTable() throws ClassNotFoundException, SQLException {
+        if (!tableExists(tableName)) {
             createTbl();
         } else {
             System.out.println("Table " + tableName + " already exists");
@@ -42,9 +36,9 @@ public class DbSettingHandler extends DbHandlerBase {
     }
 
 
-    public String getSetting(Setting key) {
+    public static String getSetting(Setting key) {
         String value = "";
-        try (Statement statement = this.connection.createStatement()) {
+        try (Statement statement = Connect.getConn().createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT key, value FROM " + tableName + " WHERE key = '" + key.toString() + "'");
             while (resultSet.next()) {
                 value = resultSet.getString("value");
@@ -55,8 +49,8 @@ public class DbSettingHandler extends DbHandlerBase {
         return value;
     }
 
-    public void updateSetting(Setting key, String value) {
-        try (PreparedStatement statement = this.connection.prepareStatement(
+    public static void updateSetting(Setting key, String value) {
+        try (PreparedStatement statement = Connect.getConn().prepareStatement(
                 "UPDATE " + tableName + " SET `value` = ? WHERE key = '" + key.toString() + "'"
         )) {
             statement.setObject(1, value);

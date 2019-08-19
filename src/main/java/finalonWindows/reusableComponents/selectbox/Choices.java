@@ -7,8 +7,7 @@ import javafx.collections.ObservableList;
 
 public class Choices {
     public static ObservableList<Formula> getChoices(int parent) {
-        DbFormulaHandler dbFormula = new DbFormulaHandler();
-        ObservableList<Formula> choices = dbFormula.getFormulas(parent);
+        ObservableList<Formula> choices = DbFormulaHandler.getFormulas(parent);
         if (choices.size() > 0) {
             return choices;
         } else {

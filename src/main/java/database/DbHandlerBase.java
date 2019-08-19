@@ -4,9 +4,9 @@ import java.sql.*;
 
 public class DbHandlerBase {
 
-    public boolean tableExists(Connection conn, String tableName) {
+    public static boolean tableExists(String tableName) {
         try {
-            DatabaseMetaData md = conn.getMetaData();
+            DatabaseMetaData md = Connect.getConn().getMetaData();
             ResultSet rs = md.getTables(null, null, tableName, null);
             if (rs.next()) {
                 return true;
@@ -17,10 +17,10 @@ public class DbHandlerBase {
         return false;
     }
 
-    public Boolean itemExists(int id, String tableName, Connection connection) {
+    public static Boolean itemExists(int id, String tableName) {
         try {
             String query = "SELECT (count(*) > 0) as found FROM " + tableName + " WHERE `id` = " + id;
-            PreparedStatement pst = connection.prepareStatement(query);
+            PreparedStatement pst = Connect.getConn().prepareStatement(query);
             try (ResultSet rs = pst.executeQuery()) {
                 if (rs.next()) {
                     return rs.getBoolean(1);

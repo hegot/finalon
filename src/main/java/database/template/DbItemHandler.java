@@ -13,17 +13,11 @@ import java.util.TreeSet;
 
 public class DbItemHandler extends DbHandlerBase {
 
-    private static String tableName;
-    private Connection connection;
+    private static String tableName= "items";
 
-    public DbItemHandler() {
-        Connect connect = Connect.getInstance();
-        this.connection = connect.conn;
-        this.tableName = "items";
-    }
 
-    private void createTbl() throws SQLException {
-        this.connection.createStatement().execute("CREATE TABLE if not exists `" + tableName + "` (" +
+    private static void createTbl() throws SQLException {
+        Connect.getConn().createStatement().execute("CREATE TABLE if not exists `" + tableName + "` (" +
                 "`id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                 "`name` TEXT," +
                 "`shortName` TEXT," +
@@ -37,19 +31,19 @@ public class DbItemHandler extends DbHandlerBase {
         System.out.println("Table " + tableName + " created");
     }
 
-    private void addCol() throws SQLException {
-        this.connection.createStatement().executeUpdate("ALTER TABLE " + tableName + " ADD `finResult` INTEGER");
+    private static void addCol() throws SQLException {
+        Connect.getConn().createStatement().executeUpdate("ALTER TABLE " + tableName + " ADD `finResult` INTEGER");
         System.out.println("Table " + tableName + " updated");
     }
 
 
-    public void createTable() throws ClassNotFoundException, SQLException {
-        if (!tableExists(this.connection, tableName)) {
+    public static void createTable() throws ClassNotFoundException, SQLException {
+        if (!tableExists(tableName)) {
             createTbl();
         } else {
             System.out.println("Table " + tableName + " already exists");
         }
-        DatabaseMetaData md = this.connection.getMetaData();
+        DatabaseMetaData md = Connect.getConn().getMetaData();
         ResultSet rs = md.getColumns(null, null, tableName, "finResult");
         if (!rs.next()) {
             addCol();
@@ -57,9 +51,9 @@ public class DbItemHandler extends DbHandlerBase {
         }
     }
 
-    public ObservableList<Item> getItems(int parent) {
+    public static ObservableList<Item> getItems(int parent) {
         ObservableList<Item> Items = FXCollections.observableArrayList();
-        try (Statement statement = this.connection.createStatement()) {
+        try (Statement statement = Connect.getConn().createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName,  isPositive, finResult, parent, parentSheet, level FROM "
                     + tableName + " WHERE parentSheet = " + parent);
             while (resultSet.next()) {
@@ -82,9 +76,9 @@ public class DbItemHandler extends DbHandlerBase {
         return Items;
     }
 
-    public Item getItem(int id) {
+    public static Item getItem(int id) {
         Item item = new Item(0, "", "", false, false, 0, 0, 0);
-        try (Statement statement = this.connection.createStatement()) {
+        try (Statement statement = Connect.getConn().createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName,  isPositive, finResult, parent, parentSheet, level FROM "
                     + tableName + " WHERE id = " + id);
             while (resultSet.next()) {
@@ -106,9 +100,9 @@ public class DbItemHandler extends DbHandlerBase {
     }
 
 
-    public ObservableList<Item> getTemplates() {
+    public static ObservableList<Item> getTemplates() {
         ObservableList<Item> Items = FXCollections.observableArrayList();
-        try (Statement statement = this.connection.createStatement()) {
+        try (Statement statement = Connect.getConn().createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName,  isPositive, finResult, parent, parentSheet, level FROM "
                     + tableName + " WHERE parent = 0");
             while (resultSet.next()) {
@@ -131,12 +125,12 @@ public class DbItemHandler extends DbHandlerBase {
         return Items;
     }
 
-    int addItem(Item Item) throws ClassNotFoundException, SQLException {
+    public static int addItem(Item Item) throws ClassNotFoundException, SQLException {
         try {
             String[] returnId = {"id"};
             String sql = "INSERT INTO " + tableName + " (`id`, `name`, `shortName`,  `isPositive`, `finResult`, `parent`, `parentSheet`, `level`) " +
                     "VALUES(NULL, ?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement statement = this.connection.prepareStatement(sql, returnId);
+            PreparedStatement statement = Connect.getConn().prepareStatement(sql, returnId);
             statement.setObject(1, Item.getName());
             statement.setObject(2, Item.getShortName());
             statement.setObject(3, Item.getIsPositive());
@@ -161,8 +155,8 @@ public class DbItemHandler extends DbHandlerBase {
         return 0;
     }
 
-    void updateItem(Item Item) throws ClassNotFoundException, SQLException {
-        try (PreparedStatement statement = this.connection.prepareStatement(
+    public static void updateItem(Item Item) throws ClassNotFoundException, SQLException {
+        try (PreparedStatement statement = Connect.getConn().prepareStatement(
                 "UPDATE " + tableName + " SET `name` = ?,  `shortName` = ?, `isPositive` = ?, `finResult` = ?, `parent` = ?, `parentSheet` = ?, `level` = ? WHERE `id` = " + Item.getId()
         )) {
             statement.setObject(1, Item.getName());
@@ -178,10 +172,10 @@ public class DbItemHandler extends DbHandlerBase {
         }
     }
 
-    public Boolean itemExists(int id) {
+    public static Boolean itemExists(int id) {
         try {
             String query = "SELECT (count(*) > 0) as found FROM " + tableName + " WHERE WHERE `id` = " + id;
-            PreparedStatement pst = this.connection.prepareStatement(query);
+            PreparedStatement pst = Connect.getConn().prepareStatement(query);
             try (ResultSet rs = pst.executeQuery()) {
                 if (rs.next()) {
                     return rs.getBoolean(1);
@@ -193,8 +187,8 @@ public class DbItemHandler extends DbHandlerBase {
         return false;
     }
 
-    void deleteItem(int id) {
-        try (PreparedStatement statement = this.connection.prepareStatement(
+    public static void deleteItem(int id) {
+        try (PreparedStatement statement = Connect.getConn().prepareStatement(
                 "DELETE FROM " + tableName + " WHERE id = ?")) {
             statement.setObject(1, id);
             statement.executeUpdate();
@@ -203,13 +197,13 @@ public class DbItemHandler extends DbHandlerBase {
         }
     }
 
-    private ArrayList<Integer> parentIds() {
+    private static ArrayList<Integer> parentIds() {
         ArrayList<Integer> ids = new ArrayList<>();
-        try (Statement statement = this.connection.createStatement()) {
+        try (Statement statement = Connect.getConn().createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT id FROM " + tableName + " WHERE parent = 0");
             while (resultSet.next()) {
                 int Id = resultSet.getInt("id");
-                Statement statement2 = this.connection.createStatement();
+                Statement statement2 = Connect.getConn().createStatement();
                 ResultSet resultSet2 = statement2.executeQuery("SELECT id FROM " + tableName + " WHERE parent = " + Id);
                 ids.add(Id);
                 while (resultSet2.next()) {
@@ -222,7 +216,7 @@ public class DbItemHandler extends DbHandlerBase {
         return ids;
     }
 
-    public TreeSet getCodes() {
+    public static TreeSet getCodes() {
         TreeSet entries = new TreeSet<String>();
         ArrayList<Integer> parents = parentIds();
         if (parents.size() > 0) {
@@ -231,7 +225,7 @@ public class DbItemHandler extends DbHandlerBase {
                 list += id + ", ";
             }
             list = list.substring(0, list.length() - 2);
-            try (Statement statement = this.connection.createStatement()) {
+            try (Statement statement = Connect.getConn().createStatement()) {
                 ResultSet resultSet = statement.executeQuery("SELECT shortName FROM " + tableName + " WHERE id NOT IN (" + list + ")");
                 while (resultSet.next()) {
                     entries.add(resultSet.getString("shortName"));

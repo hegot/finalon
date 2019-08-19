@@ -77,10 +77,9 @@ public class SortableList implements CancelBtn {
         btn.getStyleClass().add("popup-btn");
         btn.setOnAction((ActionEvent event) -> {
             List<Formula> items = list.getItems();
-            DbFormulaHandler dbFormula = new DbFormulaHandler();
             for (Formula item : items) {
                 try {
-                    dbFormula.updateFormula(item);
+                    DbFormulaHandler.updateFormula(item);
                 } catch (SQLException e) {
                     System.out.println("Formula reordering save error");
                 }

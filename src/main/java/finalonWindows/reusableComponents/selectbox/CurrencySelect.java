@@ -13,8 +13,7 @@ public class CurrencySelect {
     public static ComboBox<String> get(ObservableMap<String, String> settings) {
         ComboBox<String> currencyBox = new ComboBox<String>();
         ObservableList<String> currencies = DefaultCurrency.getCurrencies();
-        DbSettingHandler dbSettingHandler = new DbSettingHandler();
-        String defaultVal = dbSettingHandler.getSetting(Setting.defaultCurrency);
+        String defaultVal = DbSettingHandler.getSetting(Setting.defaultCurrency);
         int index = 0;
         for (int j = 0; j < currencies.size(); j++) {
             if (defaultVal.equals(currencies.get(j))) {

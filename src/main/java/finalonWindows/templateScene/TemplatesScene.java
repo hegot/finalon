@@ -25,8 +25,7 @@ public class TemplatesScene extends SceneBase {
     }
 
     private VBox getTemplates() {
-        DbItemHandler dbItem = new DbItemHandler();
-        ObservableList<Item> items = dbItem.getTemplates();
+        ObservableList<Item> items = DbItemHandler.getTemplates();
         VBox vbox = new VBox(20);
         vbox.setStyle("-fx-padding: 20px 30px;");
         TilePane tilePane = new TilePane();

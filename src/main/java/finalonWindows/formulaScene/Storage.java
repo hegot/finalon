@@ -40,8 +40,7 @@ public class Storage {
     public static void refreshWithId(Integer id) {
         Formula formula = industryBox.getValue();
         if (id != null) {
-            DbFormulaHandler formulaDbHandler = new DbFormulaHandler();
-            formula = formulaDbHandler.findById(id);
+            formula = DbFormulaHandler.findById(id);
         }
         formulaEditable.updateTable(formula);
         ComboBox<Formula> newSelect = IndustrySelect.get("2", FXCollections.observableHashMap());

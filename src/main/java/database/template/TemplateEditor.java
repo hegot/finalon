@@ -8,7 +8,6 @@ import java.sql.SQLException;
 public class TemplateEditor extends TemplateBase {
     private ObservableList<Item> items;
     private int rootId;
-    private DbItemHandler itemsHandler;
 
     public TemplateEditor(
             String tplName,
@@ -16,7 +15,6 @@ public class TemplateEditor extends TemplateBase {
     ) {
         super(tplName, items);
         this.items = items;
-        this.itemsHandler = new DbItemHandler();
         setRoot();
     }
 
@@ -32,8 +30,7 @@ public class TemplateEditor extends TemplateBase {
 
     private void updateItem(Item item) {
         try {
-            DbItemHandler itemUpdater = new DbItemHandler();
-            itemUpdater.updateItem(item);
+            DbItemHandler.updateItem(item);
         } catch (SQLException se) {
             se.printStackTrace();
         } catch (ClassNotFoundException ce) {
@@ -53,7 +50,7 @@ public class TemplateEditor extends TemplateBase {
 
 
     public void deleteItem(int Id) {
-        itemsHandler.deleteItem(Id);
+        DbItemHandler.deleteItem(Id);
         for (Item item : items) {
             if (item.getParent() == Id) {
                 deleteItem(item.getId());
@@ -63,7 +60,7 @@ public class TemplateEditor extends TemplateBase {
 
 
     public void updateTpl() {
-        ObservableList<Item> oldItems = itemsHandler.getItems(rootId);
+        ObservableList<Item> oldItems = DbItemHandler.getItems(rootId);
         for (Item item : oldItems) {
             if (!hasItem(item.getId())) {
                 deleteItem(item.getId());

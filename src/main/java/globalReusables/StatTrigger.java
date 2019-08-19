@@ -52,10 +52,8 @@ public class StatTrigger {
         if (!wasCalled(type)) {
             HttpClient httpclient = HttpClients.createDefault();
             HttpPost httppost = new HttpPost(apiEndpoint);
-
             List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-            DbSettingHandler dbSettingHandler = new DbSettingHandler();
-            String id = dbSettingHandler.getSetting(Setting.appId);
+            String id = DbSettingHandler.getSetting(Setting.appId);
             params.add(new BasicNameValuePair("id", id));
             params.add(new BasicNameValuePair("event", type.toString()));
             params.add(new BasicNameValuePair("code", code));
