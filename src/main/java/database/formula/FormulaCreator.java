@@ -32,7 +32,12 @@ public class FormulaCreator {
 
     public void createFormulas() throws SQLException {
         for (Formula formula : formulas) {
-            formulaDbHandler.addDefaultFormula(formula);
+            try{
+                formulaDbHandler.addDefaultFormula(formula);
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+
         }
     }
 }

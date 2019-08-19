@@ -5,32 +5,33 @@ import defaultData.EvaluationTypes;
 import entities.Formula;
 import finalonWindows.formulaScene.Storage;
 import finalonWindows.reusableComponents.autocomplete.AutoCompleteTextArea;
+import globalReusables.LabelWrap;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 public class EditPopup {
 
     private Formula formula;
-    private TreeItem treeItem;
     private ButtonType saveButtonType = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
     private ButtonType closeButtonType = new ButtonType("Cancel", ButtonBar.ButtonData.NEXT_FORWARD);
-    private String type;
     private EditFormula editFormula;
     private NormativeValues normativeValuesEndPeriod;
     private NormativeValues normativeValuesPreEndPeriod;
     private PrefixSuffix prefixSuffix;
     private PeriodsComparison periodsComparison;
+    private ArrayList<String> errors = new ArrayList<>();
+    private VBox errList = new VBox(5);
 
-    public EditPopup(TreeItem treeItem, String type) {
-        this.type = type;
-        this.treeItem = treeItem;
+    public EditPopup(TreeItem treeItem) {
         this.formula = (Formula) treeItem.getValue();
         this.editFormula = new EditFormula(formula);
         formula.setChilds(getChilds());
@@ -44,7 +45,6 @@ public class EditPopup {
                 EvaluationTypes.EVALUATE_END,
                 "End Period Evaluation"
         );
-
         this.prefixSuffix = new PrefixSuffix(formula);
         this.periodsComparison = new PeriodsComparison(formula);
     }
@@ -56,7 +56,6 @@ public class EditPopup {
 
     public Dialog getdialog() {
         Dialog<Pair<String, String>> dialog = new Dialog<>();
-
         dialog.setWidth(400);
         DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.getStylesheets().add("styles/formulaEdit.css");
@@ -65,9 +64,25 @@ public class EditPopup {
         Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CLOSE);
         closeButton.managedProperty().bind(closeButton.visibleProperty());
         closeButton.setVisible(false);
+        setDialogContent(dialog);
+        EventHandler<ActionEvent> saveFilter = this::saveAction;
+        Button okButton = (Button) dialog.getDialogPane().lookupButton(saveButtonType);
+        okButton.addEventFilter(ActionEvent.ACTION, saveFilter);
+        Button cancelButton = (Button) dialog.getDialogPane().lookupButton(closeButtonType);
+        EventHandler<ActionEvent> closeFilter = event -> {  dialog.close();  };
+        cancelButton.addEventFilter(ActionEvent.ACTION, closeFilter);
+        dialog.showAndWait();
+
+        return dialog;
+    }
+
+
+    private void setDialogContent(Dialog dialog){
+        VBox vBox = new VBox();
         if (formula.getCategory().equals("section")) {
             dialog.setTitle("Edit Section");
-            dialog.getDialogPane().setContent(editFormula.getGrid());
+            vBox.getChildren().addAll(editFormula.getGrid(), errList);
+            dialog.getDialogPane().setContent(vBox);
         } else {
             dialog.setTitle("Edit Formula");
             TabPane tabpane = new TabPane();
@@ -78,61 +93,36 @@ public class EditPopup {
                     prefixSuffix.getPrefixSuffix(),
                     periodsComparison.getPeriodsComparison()
             );
-            dialog.getDialogPane().setContent(tabpane);
+            vBox.getChildren().addAll(tabpane, errList);
+            dialog.getDialogPane().setContent(vBox);
         }
-
-        dialogSubmit(dialog);
-        dialog.showAndWait();
-        return dialog;
     }
 
-    private void dialogSubmit(Dialog dialog) {
-        EventHandler<ActionEvent> saveFilter = event -> {
-            if (formula.getCategory().equals("industry")) {
-                updateFormula();
-                treeItem.setValue(formula);
-                addFormula(formula);
-                dialog.close();
-                Storage.refresh();
-            } else {
-                if (editFormula.getTextArea().getErrors().size() > 0) {
-                    event.consume();
-                } else {
-                    dialog.close();
-                    updateFormula();
-                    addFormula(formula);
-                }
-            }
-        };
-        Button okButton = (Button) dialog.getDialogPane().lookupButton(saveButtonType);
-        okButton.addEventFilter(ActionEvent.ACTION, saveFilter);
 
-        Button cancelButton = (Button) dialog.getDialogPane().lookupButton(closeButtonType);
-        EventHandler<ActionEvent> closeFilter = event -> {
-            dialog.close();
-        };
-        cancelButton.addEventFilter(ActionEvent.ACTION, closeFilter);
+    private void saveAction(ActionEvent event){
+        errors.clear();
+        validateFormula();
+        if(errors.size() == 0){
+            addFormula(formula);
+            Storage.refresh();
+        }else{
+            for(String error : errors){
+                Label label = new Label(error);
+                label.getStyleClass().add("formula-error");
+                errList.getChildren().add(label);
+            }
+            event.consume();
+        }
     }
 
     private void addFormula(Formula formula) {
         try {
             DbFormulaHandler dbFormula = new DbFormulaHandler();
-            if (type.equals("add")) {
-                dbFormula.addFormula(formula);
-            } else {
-                dbFormula.updateFormula(formula);
-            }
+            dbFormula.updateFormula(formula);
             ObservableList<Formula> childs = formula.getChilds();
             for (Formula child : childs) {
                 if (child.getId() == -1) {
-                    String name = child.getName();
-                    if (
-                            name.equals(EvaluationTypes.PREFIX.toString()) ||
-                                    name.equals(EvaluationTypes.SUFFIX.toString()) ||
-                                    name.equals(EvaluationTypes.PERIOD_COMPARISON_NOCHANGE.toString()) ||
-                                    name.equals(EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString()) ||
-                                    name.equals(EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString())
-                    ) {
+                    if (isChild(child.getName())) {
                         if (child.getDescription().length() > 2) {
                             dbFormula.addFormula(child);
                         }
@@ -145,40 +135,39 @@ public class EditPopup {
                     dbFormula.updateFormula(child);
                 }
             }
-            Storage.refresh();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
+    private boolean isChild(String name){
+        if (
+            name != null &&
+            name.equals(EvaluationTypes.PREFIX.toString()) ||
+            name.equals(EvaluationTypes.SUFFIX.toString()) ||
+            name.equals(EvaluationTypes.PERIOD_COMPARISON_NOCHANGE.toString()) ||
+            name.equals(EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString()) ||
+            name.equals(EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString())
+        ){
+            return true;
+        }
+        return false;
+    }
 
-    private void updateFormula() {
-        EditRow[] arr = editFormula.getTextfields();
 
-        for (EditRow row : arr) {
-            String key = row.key;
-            TextField textfieldget = row.textfield;
-            String value = textfieldget.getText();
-            switch (key) {
-                case "name":
-                    formula.setName(value);
-                    System.out.println(value);
-                    break;
-                case "shortName":
-                    formula.setShortName(value);
-                    break;
-                case "unit":
-                    formula.setUnit(value);
-                    break;
-                default:
-                    System.out.println("no match");
-            }
+    private void validateFormula() {
+        Formula newFormula = editFormula.getFormula();
+        if(newFormula.getName().length() == 0) {
+            errors.add("Name field can not be empty! \n");
         }
         if (!formula.getCategory().equals("industry")) {
+            if(newFormula.getShortName().length() == 0) {
+                errors.add("Code field can not be empty! \n");
+            }
+            if(newFormula.getValue().length() == 0) {
+                errors.add("Please add formula in text-field");
+            }
             formula.setCategory("formula");
-            AutoCompleteTextArea textArea = editFormula.getTextArea();
-            String value = textArea.getText();
-            formula.setValue(value);
         }
     }
 

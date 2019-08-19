@@ -3,7 +3,9 @@ package finalonWindows.formulaScene.IndustryOperations;
 import database.formula.DbFormulaHandler;
 import entities.Formula;
 import finalonWindows.formulaScene.FormulaAddBase;
+import finalonWindows.formulaScene.SortedSections;
 import finalonWindows.formulaScene.Storage;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
@@ -13,7 +15,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 
-public class CreateSection extends FormulaAddBase implements CancelBtn {
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class CreateSection extends FormulaAddBase implements CancelBtn, SortedSections {
     private Formula industry;
     private TextField textField;
     private Label error;
@@ -49,13 +55,7 @@ public class CreateSection extends FormulaAddBase implements CancelBtn {
         btn.setOnAction((ActionEvent event) -> {
             String text = textField.getText();
             if (text.length() > 3) {
-                Formula newSection = new Formula(biggestId(), text, text.replaceAll("\\s+", "_"), "", "", "section", "", industry.getId());
-                DbFormulaHandler dbFormula = new DbFormulaHandler();
-                try {
-                    dbFormula.updateFormula(newSection);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
+                reorderFormulas(text);
                 dialog.close();
                 Storage.refresh();
             } else {
@@ -64,5 +64,31 @@ public class CreateSection extends FormulaAddBase implements CancelBtn {
             }
         });
         return btn;
+    }
+
+    private void reorderFormulas(String text) {
+        ObservableList<Formula> items = getSections(industry.getId());
+        Formula newSection = new Formula(biggestId(), text, text.replaceAll("\\s+", "_"), "0", "", "section", "", industry.getId());
+        List<Formula> itemsNew = new ArrayList<>();
+        itemsNew.add(newSection);
+        for (int i = 0; i < items.size(); i++) {
+            Formula formula = items.get(i);
+            String newIndex = Integer.toString(i + 1);
+            formula.setValue(newIndex);
+            itemsNew.add(formula);
+        }
+        DbFormulaHandler dbFormula = new DbFormulaHandler();
+        try {
+            for (Formula item : itemsNew) {
+                try {
+                    dbFormula.updateFormula(item);
+                } catch (SQLException e) {
+                    System.out.println("Formula reordering save error");
+                }
+            }
+            dbFormula.updateFormula(newSection);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

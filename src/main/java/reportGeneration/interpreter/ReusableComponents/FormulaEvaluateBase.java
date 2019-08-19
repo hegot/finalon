@@ -21,12 +21,12 @@ public class FormulaEvaluateBase {
 
     public String prefix() {
         GeneralRenderer generalRenderer = new GeneralRenderer(formula);
-        return generalRenderer.get(EvaluationTypes.PREFIX);
+        return appendWhitespace(generalRenderer.get(EvaluationTypes.PREFIX));
     }
 
     public String suffix() {
         GeneralRenderer generalRenderer = new GeneralRenderer(formula);
-        return generalRenderer.get(EvaluationTypes.SUFFIX);
+        return appendWhitespace(generalRenderer.get(EvaluationTypes.SUFFIX));
     }
 
     public String startAndEnd() {
@@ -47,14 +47,20 @@ public class FormulaEvaluateBase {
         );
         output.append(eval2.getResult());
 
-        return output.toString();
+        return appendWhitespace(output.toString());
 
     }
 
     public String periodsComparison() {
         PeriodComparisonEvaluator periodsComparison = new PeriodComparisonEvaluator(formula);
-        return periodsComparison.getResult();
+        return appendWhitespace(periodsComparison.getResult());
     }
 
 
+    private String appendWhitespace(String str){
+        if(str.endsWith(" ")){
+            str = str + " ";
+        }
+        return str;
+    }
 }

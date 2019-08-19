@@ -30,20 +30,22 @@ public class GeneralAnalysis implements TableName {
 
     public VBox get() {
         VBox box = new VBox(8);
-        String title = "Table 5. Evaluation of" + section.getName();
-        Label tableName = tableName(title);
-        weight++;
-        FormulaEvaluation formulaEvaluation = new FormulaEvaluation(formulas);
-        RatiosTable table = new RatiosTable(formulas);
-        TableView tbl = table.get();
-        TwoDList items = getTableViewValues(tbl);
-        ResultsStorage.addTable(weight, items, title);
-        weight++;
-        box.getChildren().addAll(
-                tableName,
-                tbl,
-                formulaEvaluation.get(weight)
-        );
+        if(section != null){
+            String title = "Table 5. Evaluation of " + section.getName();
+            Label tableName = tableName(title);
+            weight++;
+            FormulaEvaluation formulaEvaluation = new FormulaEvaluation(formulas);
+            RatiosTable table = new RatiosTable(formulas);
+            TableView tbl = table.get();
+            TwoDList items = getTableViewValues(tbl);
+            ResultsStorage.addTable(weight, items, title);
+            weight++;
+            box.getChildren().addAll(
+                    tableName,
+                    tbl,
+                    formulaEvaluation.get(weight)
+            );
+        }
         return box;
     }
 }

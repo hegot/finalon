@@ -59,7 +59,7 @@ class Columns implements ParseDouble {
         DbSettingHandler dbSettingHandler = new DbSettingHandler();
         String numberFormat = dbSettingHandler.getSetting(Setting.numberFormat);
         ObservableList<Item> items = ItemsStorage.getItems();
-        TableColumn<Item, String> col = new TableColumn<Item, String>(colname);
+        TableColumn<Item, String> col = new TableColumn<Item, String>(colname.replace("-", "-\n"));
         col.setMinWidth(100);
         col.setCellFactory(column -> new EditCell());
         col.setOnEditCommit(

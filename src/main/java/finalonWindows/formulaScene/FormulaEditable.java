@@ -31,7 +31,7 @@ public class FormulaEditable implements SortedSections {
             TreeTableRow<Formula> row = new TreeTableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 1 && (!row.isEmpty())) {
-                    EditPopup popup = new EditPopup(row.getTreeItem(), "edit");
+                    EditPopup popup = new EditPopup(row.getTreeItem());
                     popup.getdialog();
                 }
             });

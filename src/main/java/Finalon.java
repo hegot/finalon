@@ -15,8 +15,10 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import org.apache.log4j.PropertyConfigurator;
 
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class Finalon extends Application {
 
@@ -30,7 +32,9 @@ public class Finalon extends Application {
 
     @Override
     public void start(Stage primaryStage) throws ClassNotFoundException, SQLException {
-
+        Properties prop = new Properties();
+        prop.setProperty("log4j.rootLogger", "WARN");
+        PropertyConfigurator.configure(prop);
         AddDefaultTables addDefaultTpl = new AddDefaultTables();
         addDefaultTpl.start();
         window = primaryStage;

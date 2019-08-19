@@ -27,6 +27,7 @@ public class DebtRatio {
                 "",
                 "",
                 DebtRatio));
+        counter++;
         int DebtRatioexcellent = counter;
         Formulas.add(new Formula(DebtRatioexcellent,
                 EvaluationTypes.EVALUATE_PRE_END.toString(),

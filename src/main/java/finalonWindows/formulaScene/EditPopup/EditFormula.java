@@ -2,6 +2,7 @@ package finalonWindows.formulaScene.EditPopup;
 
 import entities.Formula;
 import finalonWindows.reusableComponents.autocomplete.AutoCompleteTextArea;
+import globalReusables.LabelWrap;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
@@ -9,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.util.TreeSet;
@@ -23,42 +25,51 @@ class EditFormula {
 
     EditFormula(Formula formula) {
         this.formula = formula;
-        this.arr = getEditArr();
-        createGrid();
-        populateGrid();
-
+        this.grid = createGrid();
     }
 
-    private void createGrid() {
+    private GridPane createGrid() {
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(20, 10, 10, 10));
-        this.grid = grid;
+        grid.add(createRow("Name:","name", formula.getName()), 0, 0);
+        grid.add(createRow("Code:","shortName", formula.getShortName()), 0, 1);
+        if (!formula.getCategory().equals("section")) {
+            grid.add(createRow("Ubit:","unit", formula.getUnit()), 0, 2);
+            grid.add(new Label("Edit formula"), 0, 3);
+            grid.add(formulaEditor(), 0, 4);
+        }
+        return grid;
     }
 
-    private void populateGrid() {
-        for (int j = 0; j < arr.length; j++) {
-            EditRow row = arr[j];
-            grid.add(new Label(row.label), 0, j);
-            TextField textfield = new TextField();
-            textfield.setMinWidth(350);
-            textfield.setText(row.value);
-            grid.add(textfield, 1, j);
-            row.textfield = textfield;
-            arr[j] = row;
-        }
-        if (!formula.getCategory().equals("section")) {
-            grid.add(new Label("Edit formula"), 0, 4);
-            grid.add(formulaEditor(), 1, 4);
-        }
+    private HBox createRow(String title, String key, String value){
+        HBox hBox = new HBox(10);
+        Label label = new Label(title);
+        label.setMinWidth(150);
+        TextField textfield = new TextField();
+        textfield.setMinWidth(350);
+        textfield.setText(value);
+        textfield.textProperty().addListener((observable, oldValue, newValue) -> {
+            switch(key){
+                case "name" :
+                    formula.setName(newValue);
+                case "unit" :
+                    formula.setUnit(newValue);
+                case "shortName" :
+                    formula.setShortName(newValue);
+            }
+        });
+        hBox.getChildren().addAll(label, textfield);
+        return hBox;
     }
+
 
     private VBox formulaEditor() {
         VBox vBox = new VBox(10);
         VBox errorsBox = new VBox(1);
         this.textArea = new AutoCompleteTextArea(formula.getValue());
-        textArea.setPrefHeight(80);
+        textArea.setPrefSize(650, 80);
         textArea.setWrapText(true);
         textArea.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -74,8 +85,10 @@ class EditFormula {
                 } else {
                     errorsBox.getChildren().clear();
                 }
-
             }
+        });
+        textArea.textProperty().addListener((observable, oldValue, newValue) -> {
+            formula.setValue(newValue);
         });
         vBox.getChildren().addAll(textArea, errorsBox);
         return vBox;
@@ -93,26 +106,12 @@ class EditFormula {
     }
 
 
-    EditRow[] getTextfields() {
-        return arr;
-    }
-
-    private EditRow[] getEditArr() {
-
-        if (formula.getCategory().equals("section")) {
-            EditRow arr[] = new EditRow[1];
-            arr[0] = new EditRow("name", "Section Name:", formula.getName());
-            return arr;
-        } else {
-            EditRow arr[] = new EditRow[3];
-            arr[0] = new EditRow("name", "Name:", formula.getName());
-            arr[1] = new EditRow("shortName", "Code:", formula.getShortName());
-            arr[2] = new EditRow("unit", "Unit:", formula.getUnit());
-            return arr;
-        }
-    }
 
     AutoCompleteTextArea getTextArea() {
         return textArea;
+    }
+
+    public Formula getFormula(){
+        return formula;
     }
 }

@@ -41,9 +41,9 @@ public class PrefixSuffix implements LabelWrap {
                         "while suffix value will be appended after evaluation conclusions. ")
         );
         HBox hbox1 = new HBox(10);
-        hbox1.getChildren().addAll(new Label("Prefix"), input(EvaluationTypes.PREFIX, prefix));
+        hbox1.getChildren().addAll(new Label("Prefix"), input(prefix));
         HBox hbox2 = new HBox(10);
-        hbox2.getChildren().addAll(new Label("Suffix"), input(EvaluationTypes.SUFFIX, suffix));
+        hbox2.getChildren().addAll(new Label("Suffix"), input(suffix));
         vBox.getChildren().addAll(hbox, hbox1, hbox2);
         vBoxOuter.getChildren().addAll(vBox);
         return vBoxOuter;
@@ -72,7 +72,7 @@ public class PrefixSuffix implements LabelWrap {
         return formula;
     }
 
-    private TextField input(EvaluationTypes type, Formula item) {
+    private TextField input(Formula item) {
         TextField conclusions = new TextField();
         conclusions.setPrefWidth(480.00);
         conclusions.setText(item.getDescription());

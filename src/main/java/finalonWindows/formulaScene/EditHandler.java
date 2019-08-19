@@ -28,7 +28,7 @@ public class EditHandler extends FormulaAddBase {
                         ImageButton btn = new ImageButton("image/pencil.png", 16);
                         btn.getStyleClass().add("formula-btn");
                         btn.setOnAction((ActionEvent event) -> {
-                            EditPopup popup = new EditPopup(treeItem, "edit");
+                            EditPopup popup = new EditPopup(treeItem);
                             popup.getdialog();
                         });
                         return btn;
@@ -41,7 +41,7 @@ public class EditHandler extends FormulaAddBase {
                             Formula newFormula = new Formula(biggestId(), "", "", "", "", "TO_BE_ADDED", "", parentFormula.getId());
                             TreeItem treeItemNew = new TreeItem<Formula>(newFormula);
                             treeItem.getChildren().add(treeItemNew);
-                            EditPopup popup = new EditPopup(treeItemNew, "add");
+                            EditPopup popup = new EditPopup(treeItemNew);
                             popup.getdialog();
                         });
                         return btn;

@@ -55,6 +55,11 @@
     -fx-font-size: 11px;
 }
 
+.formula-error{
+    -fx-text-fill: #EA1C1C;
+    -fx-font-size: 11px;
+}
+
 .formula-edit .industry-box{
     -fx-alignment: baseline-center;
 }

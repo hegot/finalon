@@ -86,7 +86,6 @@ public class DbFormulaHandler extends DbHandlerBase {
                 throw new SQLException("Creating formula failed, no rows affected.");
             }
         } catch (SQLException e) {
-
             e.printStackTrace();
         }
         return 0;

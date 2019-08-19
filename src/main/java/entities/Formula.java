@@ -163,7 +163,7 @@ public class Formula {
     }
 
     public ObservableList<Formula> getChildsOfType(EvaluationTypes type) {
-        ObservableList<Formula> returnChilds = FXCollections.observableArrayList();;
+        ObservableList<Formula> returnChilds = FXCollections.observableArrayList();
         for (Formula child : this.childs) {
             if(child.getName().equals(type.toString())){
                 returnChilds.add(child);
