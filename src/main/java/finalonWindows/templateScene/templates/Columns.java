@@ -28,8 +28,6 @@ class Columns {
     TableColumn getNameCol() {
         TableColumn<Item, String> col = new TableColumn<Item, String>("Indicator");
         col.setMinWidth(450);
-
-
         col.setCellFactory(column -> new EditCell(new DefaultStringConverter()));
         col.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
         col.setOnEditCommit(

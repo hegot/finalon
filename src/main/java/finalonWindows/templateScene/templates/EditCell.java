@@ -95,8 +95,10 @@ public class EditCell<S, T> extends TextFieldTableCell<S, T> {
             super.cancelEdit();
             setText(getItemText());
         } else {
-            String newText = textField.getText();
-            this.commitEdit(getConverter().fromString(newText));
+            if(textField != null){
+                String newText = textField.getText();
+                this.commitEdit(getConverter().fromString(newText));
+            }
         }
         setGraphic(null);
 

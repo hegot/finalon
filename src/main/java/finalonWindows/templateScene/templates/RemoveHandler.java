@@ -1,12 +1,15 @@
 package finalonWindows.templateScene.templates;
 
+import database.formula.DbFormulaHandler;
 import entities.Item;
 import finalonWindows.reusableComponents.ImageButton;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.event.ActionEvent;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
+
+import java.util.List;
+import java.util.Optional;
 
 public class RemoveHandler {
 
@@ -20,9 +23,32 @@ public class RemoveHandler {
                     private ImageButton removeBtn() {
                         ImageButton btn = new ImageButton("image/remove.png", 16);
                         btn.getStyleClass().add("img-btn");
-                        TableView table = this.getTableView();
-                        Item selectedItem = (Item) table.getSelectionModel().getSelectedItem();
-                        table.getItems().remove(selectedItem);
+                        btn.setOnAction((ActionEvent event) -> {
+                            TableView table = this.getTableView();
+                            Item selectedItem = (Item) getTableRow().getItem();
+                            System.out.println(selectedItem);
+                            if (selectedItem != null) {
+                                String code = selectedItem.getShortName();
+                                List<String> usages = DbFormulaHandler.findUsage(code);
+                                if (usages.size() > 0) {
+                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                    alert.setTitle("Index deletion");
+                                    alert.setHeaderText("Index that you want to delete is used in such formulas: ");
+                                    alert.setContentText(String.join(";\n", usages)
+                                            + "\n\nAre you sure you want to delete it?");
+                                    Optional<ButtonType> option = alert.showAndWait();
+                                    try {
+                                        if (option.get() == ButtonType.OK) {
+                                            table.getItems().remove(selectedItem);
+                                        }
+                                    } catch (Exception e) {
+                                        System.out.println(e.getMessage());
+                                    }
+                                }
+                            }
+                        });
+
+
                         return btn;
                     }
 

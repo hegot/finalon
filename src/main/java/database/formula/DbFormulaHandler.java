@@ -9,6 +9,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DbFormulaHandler extends DbHandlerBase {
 
@@ -36,6 +38,20 @@ public class DbFormulaHandler extends DbHandlerBase {
         } else {
             System.out.println("Table " + tableName + " already exists");
         }
+    }
+
+
+    public static List<String> findUsage(String code) {
+        List<String> Formulas = new ArrayList<>();
+        try (Statement statement = Connect.getConn().createStatement()) {
+            ResultSet resultSet = statement.executeQuery("SELECT DISTINCT name FROM " + tableName + " WHERE value LIKE '%" + code + "%'");
+            while (resultSet.next()) {
+                Formulas.add(resultSet.getString("name"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Formulas;
     }
 
     public static ObservableList<Formula> getFormulas(int parent) {
