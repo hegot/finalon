@@ -54,6 +54,7 @@
     -fx-font-size: 13px;
     -fx-text-fill: #FFFFFF;
     -fx-padding: 10 25 10 25;
+     -fx-cursor: hand;
 }
 
 .templates-listing .addTemplate .add-template-text{
@@ -77,7 +78,8 @@
 .templates-listing .row .btn-panel{
     -fx-alignment: center;
     -fx-border-insets: 15px;
-        -fx-background-insets: 15px;
+    -fx-background-insets: 15px;
+    -fx-cursor: hand;
 }
 
 .templates-listing .row .btn-panel .btn{
@@ -87,6 +89,7 @@
     -fx-padding:10;
     -fx-alignment:  baseline-left;
     -fx-background-radius: 5em;
+    -fx-cursor: hand;
 }
 
 
@@ -96,9 +99,9 @@
     -fx-pref-width: 400px;
     -fx-text-fill: #6a6c6f;
     -fx-alignment: center;
-      -fx-pref-height: 100px;
-     -fx-max-width:200px;
-     -fx-wrap-text: true;
+    -fx-pref-height: 100px;
+    -fx-max-width:200px;
+    -fx-wrap-text: true;
 }
 
 .templates-listing .whiteBorderedPanel{
@@ -116,5 +119,6 @@
     -fx-font-size: 14px;
     -fx-text-fill: #FFFFFF;
     -fx-padding: 5 10 5 10;
+    -fx-cursor: hand;
     -fx-alignment:  baseline-left;
 }

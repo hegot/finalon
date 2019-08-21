@@ -68,6 +68,7 @@
     -fx-text-fill: #FFFFFF;
     -fx-padding: 5 10 5 10;
     -fx-alignment:  baseline-left;
+    -fx-cursor: hand;
 }
 
 .template-screen .sidebar-blue-btn{
@@ -86,6 +87,7 @@
     -fx-padding: 5px;
     -fx-alignment:  baseline-left;
     -fx-background-radius: 5em;
+    -fx-cursor: hand;
 }
 
 .level-1 .text-cell{

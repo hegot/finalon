@@ -5,6 +5,7 @@
     -fx-padding: 5px;
     -fx-alignment:  baseline-left;
     -fx-background-radius: 5em;
+    -fx-cursor: hand;
 }
 
 .industryDialog .popup-btn{
@@ -13,6 +14,7 @@
     -fx-text-fill: #FFFFFF;
     -fx-padding: 5 13 5 13;
     -fx-alignment:  baseline-left;
+    -fx-cursor: hand;
 }
 
 .formula-edit .industry-btn{
@@ -22,6 +24,7 @@
     -fx-padding: 3px 10px;
     -fx-alignment: baseline-left;
     -fx-background-radius: 2px;
+    -fx-cursor: hand;
 }
 
 .formula-edit .normative-container{
@@ -37,6 +40,7 @@
 .formula-edit .normative-add-btn{
     -fx-background-color: #AAD3E6;
     -fx-border-color: #898989;
+    -fx-cursor: hand;
     -fx-border-radius: 2;
 }
 
@@ -47,6 +51,7 @@
     -fx-padding: 4px;
     -fx-alignment:  baseline-left;
     -fx-background-radius: 5em;
+    -fx-cursor: hand;
 }
 
 

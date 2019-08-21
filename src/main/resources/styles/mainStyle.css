@@ -24,6 +24,7 @@
     -fx-font-family: Arial, sans-serif;
     -fx-font-weight: bold;
     -fx-text-fill: #6a6c6f;
+    -fx-cursor: hand;
 }
 
 .main-screen .content-block{
