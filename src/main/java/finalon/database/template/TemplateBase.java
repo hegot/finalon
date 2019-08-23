@@ -1,24 +1,20 @@
 package finalon.database.template;
-
 import finalon.entities.Item;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.apache.commons.lang3.SerializationUtils;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 class TemplateBase {
     private ObservableList<Item> items;
-    private String tplName;
-
-    TemplateBase(
-            String tplName,
-            ObservableList<Item> items
-
-    ) {
+    public TemplateBase(ObservableList<Item> items) {
         this.items = items;
-        this.tplName = tplName;
     }
 
-    int createItem(Item item) {
+   int createItem(Item item) {
         try {
             return DbItemHandler.addItem(item);
         } catch (SQLException se) {
@@ -29,11 +25,23 @@ class TemplateBase {
         return 0;
     }
 
-    void updateChilds(int oldId, int newId) {
+    List<Item> getChilds(int parentId){
+        List<Item> childs = new ArrayList<Item>();
         for (Item item : items) {
-            if (oldId == item.getParent()) {
-                item.setParent(newId);
+            if (parentId == item.getParent()) {
+                childs.add(item);
             }
+        }
+        return childs;
+    }
+
+    void updateChilds(int oldId, int newId) {
+        List<Item> childs = getChilds(oldId);
+        for (Item child : childs) {
+            Item newItem = (Item) child.clone();
+            newItem.setParent(newId);
+            int newNewId = createItem(newItem);
+            updateChilds(newItem.getId(), newNewId);
         }
     }
 }

@@ -8,7 +8,7 @@ import finalon.reportGeneration.storage.Periods;
 
 import java.util.ArrayList;
 
-public class Item implements Comparable< Item >{
+public class Item implements Comparable< Item >, Cloneable{
     private int id;
     private String name;
     private String shortName;
@@ -62,7 +62,7 @@ public class Item implements Comparable< Item >{
         this.parentSheet = parentSheet;
         this.values = FXCollections.observableHashMap();
         this.level = level;
-        this.weight = 0;
+        this.weight = -1;
     }
 
     public Item(
@@ -109,7 +109,16 @@ public class Item implements Comparable< Item >{
         this.parentSheet = parentSheet;
         this.values = values;
         this.level = level;
-        this.weight = 0;
+        this.weight = -1;
+    }
+
+    public Object clone(){
+        try{
+            return super.clone();
+        }catch(CloneNotSupportedException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public int getId() {

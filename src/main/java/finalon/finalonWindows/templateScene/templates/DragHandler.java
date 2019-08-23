@@ -65,18 +65,31 @@ class DragHandler {
                                 int draggedIndex = (Integer) db.getContent(SERIALIZED_MIME_TYPE);
                                 List<Item> items = new ArrayList<>(table.getItems());
                                 Item draggedItem = items.get(draggedIndex);
-                                items.remove(draggedIndex);
+
                                 int dropIndex;
                                 if (row.isEmpty()) {
                                     dropIndex = table.getItems().size();
                                 } else {
                                     dropIndex = row.getIndex();
                                 }
-                                items.add(dropIndex, draggedItem);
-                                event.setDropCompleted(true);
+                                int parentWeight = 999;
+                                for(Item item : items){
+                                    if(draggedItem.getParent() == item.getId()){
+                                        parentWeight = item.getWeight();
+                                    }
+                                }
+                                if(dropIndex < parentWeight){
+                                    items.remove(draggedIndex);
+                                    items.add(dropIndex, draggedItem);
+                                    event.setDropCompleted(true);
+                                    for (int i = 0; i < items.size(); i++) {
+                                        Item sortItem = items.get(i);
+                                        sortItem.setWeight(i);
+                                    }
+                                    table.getItems().setAll(items);
+                                    table.getSelectionModel().select(dropIndex);
+                                }
                                 event.consume();
-                                table.getItems().setAll(items);
-                                table.getSelectionModel().select(dropIndex);
                             }
                         });
                         return btn;

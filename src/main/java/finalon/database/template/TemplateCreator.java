@@ -1,6 +1,7 @@
 package finalon.database.template;
 
 import finalon.entities.Item;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class TemplateCreator extends TemplateBase {
@@ -12,7 +13,7 @@ public class TemplateCreator extends TemplateBase {
             ObservableList<Item> items
 
     ) {
-        super(tplName, items);
+        super(items);
         this.items = items;
         this.tplName = tplName;
     }
@@ -23,20 +24,13 @@ public class TemplateCreator extends TemplateBase {
             if (item.getParent() == 0) {
                 item.setName(tplName);
                 int templateId = createItem(item);
-                updateChilds(item.getId(), templateId);
                 setParentTpl(templateId);
+                updateChilds(item.getId(), templateId);
                 break;
             }
-
         }
-        for (Item item : items) {
-            if (item.getParent() != 0) {
-                int newId = createItem(item);
-                updateChilds(item.getId(), newId);
-            }
-        }
-
     }
+
 
 
     private void setParentTpl(int templateId) {

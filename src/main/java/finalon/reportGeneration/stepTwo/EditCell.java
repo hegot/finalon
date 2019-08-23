@@ -4,6 +4,8 @@ import finalon.entities.Item;
 import finalon.finalonWindows.reusableComponents.NumField;
 import javafx.event.Event;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
@@ -56,6 +58,28 @@ public class EditCell extends TableCell<Item, String> {
                 } else {
                     commitEdit("");
                 }
+            }
+        });
+        textField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.TAB) {
+                getTableView().getSelectionModel().selectNext();
+                event.consume();
+            } else if (event.getCode() == KeyCode.LEFT) {
+                getTableView().getSelectionModel().selectPrevious();
+                event.consume();
+            } else if (event.getCode() == KeyCode.UP) {
+                getTableView().getSelectionModel().selectAboveCell();
+                event.consume();
+            } else if (event.getCode() == KeyCode.DOWN) {
+                getTableView().getSelectionModel().selectBelowCell();
+                event.consume();
+            } else if (event.getCode() == KeyCode.ENTER) {
+                if(textField != null){
+                    this.commitEdit(textField.getText());
+                    setText(textField.getText());
+                    super.cancelEdit();
+                }
+                event.consume();
             }
         });
         return textField;

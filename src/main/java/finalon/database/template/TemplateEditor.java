@@ -13,7 +13,7 @@ public class TemplateEditor extends TemplateBase {
             String tplName,
             ObservableList<Item> items
     ) {
-        super(tplName, items);
+        super(items);
         this.items = items;
         setRoot();
     }

@@ -47,7 +47,7 @@ public class FormulaCalculation implements ParseDouble {
     private Map<String, ObservableMap<String, Double>> obtainKeyValueArray() {
         Map<String, ObservableMap<String, Double>> values = new HashMap<>();
         for (Item item : ItemsStorage.getItems()) {
-            if (item.getValues().size() > 0) {
+            if (item != null && item.getValues().size() > 0) {
                 values.put(item.getShortName(), item.getValues());
             }
         }

@@ -169,6 +169,11 @@ public class EditCell<S, T> extends TextFieldTableCell<S, T> {
             } else if (event.getCode() == KeyCode.DOWN) {
                 getTableView().getSelectionModel().selectBelowCell();
                 event.consume();
+            } else if (event.getCode() == KeyCode.ENTER) {
+                if(textField != null){
+                    this.commitEdit(getConverter().fromString(textField.getText()));
+                }
+                event.consume();
             }
         });
         return textField;
