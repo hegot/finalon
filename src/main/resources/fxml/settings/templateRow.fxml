@@ -8,17 +8,6 @@
 
     <HBox spacing="20" styleClass="btn-panel">
 
-        <Button onAction="#viewRowAction" styleClass="btn">
-            <graphic>
-                <ImageView>
-                    <image>
-                        <Image url="@img/view.png"/>
-                    </image>
-                </ImageView>
-            </graphic>
-        </Button>
-
-
         <Button onAction="#editRowAction" styleClass="btn">
             <graphic>
                 <ImageView>

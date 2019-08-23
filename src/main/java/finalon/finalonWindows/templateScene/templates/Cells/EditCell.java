@@ -1,6 +1,5 @@
-package finalon.finalonWindows.templateScene.templates;
+package finalon.finalonWindows.templateScene.templates.Cells;
 
-import finalon.entities.Item;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -95,7 +94,7 @@ public class EditCell<S, T> extends TextFieldTableCell<S, T> {
             super.cancelEdit();
             setText(getItemText());
         } else {
-            if(textField != null){
+            if (textField != null) {
                 String newText = textField.getText();
                 this.commitEdit(getConverter().fromString(newText));
             }
@@ -170,7 +169,7 @@ public class EditCell<S, T> extends TextFieldTableCell<S, T> {
                 getTableView().getSelectionModel().selectBelowCell();
                 event.consume();
             } else if (event.getCode() == KeyCode.ENTER) {
-                if(textField != null){
+                if (textField != null) {
                     this.commitEdit(getConverter().fromString(textField.getText()));
                 }
                 event.consume();
@@ -199,11 +198,7 @@ public class EditCell<S, T> extends TextFieldTableCell<S, T> {
             } else {
                 setText(getItemText());
                 setGraphic(null);
-                Item index = (Item) getTableView().getItems().get(getTableRow().getIndex());
-                Integer level = index.getLevel();
-                if (level.equals(1) || level.equals(2) || level.equals(3)) {
-                    setStyle("-fx-padding: 5 0 5 50; -fx-font-weight: bold;");
-                }
+                getStyleClass().add("templates-cell");
             }
         }
     }

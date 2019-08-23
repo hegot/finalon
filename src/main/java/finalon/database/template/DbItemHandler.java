@@ -151,34 +151,40 @@ public class DbItemHandler extends DbHandlerBase {
     }
 
     public static void updateItem(Item Item) throws ClassNotFoundException, SQLException {
-        try (PreparedStatement statement = Connect.getConn().prepareStatement(
-                "UPDATE " + tableName + " SET `name` = ?,  `shortName` = ?, `isPositive` = ?, `finResult` = ?, `parent` = ?, `parentSheet` = ?, `level` = ?,  `weight` = ? WHERE `id` = " + Item.getId()
-        )) {
-            statement.setObject(1, Item.getName());
-            statement.setObject(2, Item.getShortName());
-            statement.setObject(3, Item.getIsPositive());
-            statement.setObject(4, Item.getFinResult());
-            statement.setObject(5, Item.getParent());
-            statement.setObject(6, Item.getParentSheet());
-            statement.setObject(7, Item.getLevel());
-            statement.setObject(8, Item.getWeight());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if(itemExists(Item.getId())){
+            try (PreparedStatement statement = Connect.getConn().prepareStatement(
+                    "UPDATE " + tableName + " SET `name` = ?,  `shortName` = ?, `isPositive` = ?, `finResult` = ?, `parent` = ?, `parentSheet` = ?, `level` = ?,  `weight` = ? WHERE `id` = " + Item.getId()
+            )) {
+                statement.setObject(1, Item.getName());
+                statement.setObject(2, Item.getShortName());
+                statement.setObject(3, Item.getIsPositive());
+                statement.setObject(4, Item.getFinResult());
+                statement.setObject(5, Item.getParent());
+                statement.setObject(6, Item.getParentSheet());
+                statement.setObject(7, Item.getLevel());
+                statement.setObject(8, Item.getWeight());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }else{
+            addItem(Item);
         }
     }
 
-    public static Boolean itemExists(int id) {
-        try {
-            String query = "SELECT (count(*) > 0) as found FROM " + tableName + " WHERE WHERE `id` = " + id;
-            PreparedStatement pst = Connect.getConn().prepareStatement(query);
-            try (ResultSet rs = pst.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getBoolean(1);
+    public static Boolean itemExists(Integer id) {
+        if(id != null){
+            try {
+                String query = "SELECT (count(*) > 0) as found FROM " + tableName + " WHERE id=" + id;
+                PreparedStatement pst = Connect.getConn().prepareStatement(query);
+                try (ResultSet rs = pst.executeQuery()) {
+                    if (rs.next()) {
+                        return rs.getBoolean(1);
+                    }
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return false;
     }

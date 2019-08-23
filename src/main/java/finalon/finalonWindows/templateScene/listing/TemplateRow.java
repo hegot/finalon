@@ -1,20 +1,17 @@
 package finalon.finalonWindows.templateScene.listing;
 
 import finalon.database.template.DbItemHandler;
-import finalon.database.template.TemplateEditor;
+import finalon.finalonWindows.templateScene.templates.SaveHandler;
 import finalon.entities.Item;
 import finalon.finalonWindows.SceneName;
 import finalon.finalonWindows.SceneSwitcher;
-import finalon.finalonWindows.templateScene.EditTemplate;
-import finalon.finalonWindows.templateScene.PreviewTemplate;
+import finalon.finalonWindows.templateScene.templates.EditTemplate;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.VBox;
-import javafx.stage.Screen;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -36,19 +33,6 @@ public class TemplateRow extends VBox {
         }
     }
 
-    private double height() {
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        return primaryScreenBounds.getHeight();
-    }
-
-
-    @FXML
-    protected void viewRowAction() {
-        ObservableList<Item> items = DbItemHandler.getItems(item.getId());
-        items.add(this.item);
-        PreviewTemplate previewTpl = new PreviewTemplate(items);
-        SceneSwitcher.getWindow().getChildren().setAll(previewTpl.getScene());
-    }
 
     @FXML
     protected void editRowAction() {
@@ -68,7 +52,7 @@ public class TemplateRow extends VBox {
             int id = item.getId();
             String name = item.getName();
             ObservableList<Item> items = DbItemHandler.getItems(id);
-            TemplateEditor templateEditor = new TemplateEditor(name, items);
+            SaveHandler templateEditor = new SaveHandler(name);
             templateEditor.deleteItem(id);
             System.out.println("Template " + name + " deleted successfully");
             SceneSwitcher.goTo(SceneName.TEMPLATESLIST);

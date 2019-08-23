@@ -5,8 +5,8 @@ import finalon.entities.Item;
 import finalon.finalonWindows.formulaScene.FormulaScene;
 import finalon.finalonWindows.mainScene.MainScene;
 import finalon.finalonWindows.settingsScene.SettingsScene;
-import finalon.finalonWindows.templateScene.AddTemplate;
-import finalon.finalonWindows.templateScene.TemplatesScene;
+import finalon.finalonWindows.templateScene.templates.EditTemplate;
+import finalon.finalonWindows.templateScene.listing.TemplatesListing;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.VBox;
@@ -35,11 +35,11 @@ public class SceneSwitcher {
                 vbox = new SettingsScene().getScene();
                 break;
             case TEMPLATESLIST:
-                vbox = new TemplatesScene().getScene();
+                vbox = new TemplatesListing().getScene();
                 break;
             case ADDTEMPLATE:
                 ObservableList<Item> items = FXCollections.observableArrayList(DefaultTemplate.getTpl());
-                vbox = new AddTemplate(items).getScene();
+                vbox = new EditTemplate(items).getScene();
                 break;
             case FORMULA:
                 vbox = new FormulaScene().getScene();

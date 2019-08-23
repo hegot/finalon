@@ -1,18 +1,15 @@
-package finalon.finalonWindows.templateScene;
+package finalon.finalonWindows.templateScene.listing;
 
 import finalon.database.template.DbItemHandler;
 import finalon.entities.Item;
 import finalon.finalonWindows.SceneBase;
 import finalon.finalonWindows.reusableComponents.SettingsMenu;
-import finalon.finalonWindows.templateScene.listing.AddTemplateBtn;
-import finalon.finalonWindows.templateScene.listing.SettingsMessage;
-import finalon.finalonWindows.templateScene.listing.TemplateRow;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
 
-public class TemplatesScene extends SceneBase {
+public class TemplatesListing extends SceneBase {
 
     public VBox getScene() {
         VBox vbox = new VBox(0);

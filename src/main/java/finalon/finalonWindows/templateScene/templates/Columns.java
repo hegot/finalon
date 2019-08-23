@@ -1,6 +1,9 @@
 package finalon.finalonWindows.templateScene.templates;
 
 import finalon.entities.Item;
+import finalon.finalonWindows.templateScene.templates.Cells.ActionsCell;
+import finalon.finalonWindows.templateScene.templates.Cells.DragCell;
+import finalon.finalonWindows.templateScene.templates.Cells.EditCell;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -16,14 +19,14 @@ class Columns {
     static TableColumn buttonCol() {
         TableColumn<Item, Void> col = new TableColumn<>("");
         col.setMinWidth(50);
-        col.setCellFactory(RemoveHandler.getRemoveFactory());
+        col.setCellFactory(ActionsCell.getActionsFactory());
         return col;
     }
 
-    static TableColumn getDragCol() {
+    public static TableColumn getDragCol() {
         TableColumn<Item, Void> col = new TableColumn<>("");
         col.setPrefWidth(35);
-        col.setCellFactory(DragHandler.getDragFactory());
+        col.setCellFactory(DragCell.getDragFactory());
         return col;
     }
 
@@ -34,7 +37,7 @@ class Columns {
         col.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
         col.setOnEditCommit(
                 (TableColumn.CellEditEvent<Item, String> t) -> {
-                    if (t.getTableView() != null) {
+                    if (t != null && t.getTableView() != null) {
                         ((Item) t.getTableView().getItems()
                                 .get(t.getTablePosition().getRow()))
                                 .setName(t.getNewValue());

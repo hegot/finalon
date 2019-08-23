@@ -1,4 +1,4 @@
-package finalon.finalonWindows.templateScene.templates;
+package finalon.finalonWindows.templateScene.templates.Cells;
 
 import finalon.entities.Item;
 import finalon.finalonWindows.reusableComponents.ImageButton;
@@ -17,11 +17,11 @@ import javafx.util.Callback;
 import java.util.ArrayList;
 import java.util.List;
 
-class DragHandler {
+public class DragCell {
 
     private static final DataFormat SERIALIZED_MIME_TYPE = new DataFormat("application/x-java-serialized-object");
 
-    static Callback<TableColumn<Item, Void>, TableCell<Item, Void>> getDragFactory() {
+    public static Callback<TableColumn<Item, Void>, TableCell<Item, Void>> getDragFactory() {
         return new Callback<TableColumn<Item, Void>, TableCell<Item, Void>>() {
             @Override
             public TableCell<Item, Void> call(final TableColumn<Item, Void> param) {
@@ -73,12 +73,12 @@ class DragHandler {
                                     dropIndex = row.getIndex();
                                 }
                                 int parentWeight = 999;
-                                for(Item item : items){
-                                    if(draggedItem.getParent() == item.getId()){
+                                for (Item item : items) {
+                                    if (draggedItem.getParent() == item.getId()) {
                                         parentWeight = item.getWeight();
                                     }
                                 }
-                                if(dropIndex < parentWeight){
+                                if (dropIndex < parentWeight) {
                                     items.remove(draggedIndex);
                                     items.add(dropIndex, draggedItem);
                                     event.setDropCompleted(true);
@@ -102,7 +102,16 @@ class DragHandler {
                             setGraphic(null);
                         } else {
                             HBox hBox = new HBox(10);
-                            hBox.getChildren().add(dragBtn());
+                            TableRow row = this.getTableRow();
+                            if (row != null) {
+                                Item rowItem = (Item) row.getItem();
+                                if (rowItem != null) {
+                                    Integer level = rowItem.getLevel();
+                                    if (level.equals(4)) {
+                                        hBox.getChildren().add(dragBtn());
+                                    }
+                                }
+                            }
                             setGraphic(hBox);
                         }
                     }
