@@ -6,11 +6,14 @@ import finalon.entities.Formula;
 import finalon.globalReusables.CallTypes;
 import finalon.globalReusables.StatTrigger;
 import javafx.collections.FXCollections;
+import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DbFormulaHandler extends DbHandlerBase {
 
@@ -41,17 +44,26 @@ public class DbFormulaHandler extends DbHandlerBase {
     }
 
 
-    public static List<String> findUsage(String code) {
-        List<String> Formulas = new ArrayList<>();
+    public static Map<Integer, String> findUsage(String code) {
+        Map<Integer, String> Formulas = new HashMap<Integer, String>();
         try (Statement statement = Connect.getConn().createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT DISTINCT name FROM " + tableName + " WHERE value LIKE '%" + code + "%'");
+            ResultSet resultSet = statement.executeQuery("SELECT DISTINCT id, name FROM " + tableName + " WHERE value LIKE '%" + code + "%'");
             while (resultSet.next()) {
-                Formulas.add(resultSet.getString("name"));
+                Formulas.put(resultSet.getInt("id"), resultSet.getString("name"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return Formulas;
+    }
+
+    public static String usagesString(String code){
+        Map<Integer, String> usages = findUsage(code);
+        StringBuilder builder = new StringBuilder();
+        for (Map.Entry<Integer, String> entry : usages.entrySet()) {
+            builder.append(entry.getValue());
+        }
+        return builder.toString();
     }
 
     public static ObservableList<Formula> getFormulas(int parent) {

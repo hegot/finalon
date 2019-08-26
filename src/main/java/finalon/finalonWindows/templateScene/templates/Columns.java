@@ -1,20 +1,23 @@
 package finalon.finalonWindows.templateScene.templates;
 
+import finalon.database.formula.DbFormulaHandler;
 import finalon.entities.Item;
 import finalon.finalonWindows.templateScene.templates.Cells.ActionsCell;
 import finalon.finalonWindows.templateScene.templates.Cells.DragCell;
 import finalon.finalonWindows.templateScene.templates.Cells.EditCell;
-import finalon.reportGeneration.stepTwo.hooks.UpdateParentHook;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableMap;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.util.converter.DefaultStringConverter;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 class Columns {
 
@@ -67,9 +70,26 @@ class Columns {
                             Item item = ((Item) t.getTableView().getItems()
                                     .get(t.getTablePosition().getRow()));
                             if (item != null) {
-                                item.setShortName(value);
-                                item.setUpdated(true);
-                                t.getTableView().refresh();
+                                String usages = DbFormulaHandler.usagesString(item.getShortName());
+                                if (usages.length() > 0) {
+                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                    alert.setTitle("Index code change");
+                                    alert.setHeaderText("Index code that you want to change is used in such formulas: ");
+                                    alert.setContentText(usages
+                                            + "\n\n Formulas will get automatically updated with new code value. " +
+                                            "Are you sure you want to change it?");
+                                    Optional<ButtonType> option = alert.showAndWait();
+                                    try {
+                                        if (option.get() == ButtonType.OK) {
+                                            item.setShortName(value);
+                                            item.setUpdated(true);
+                                            item.setShortNameUpdated(true);
+                                            t.getTableView().refresh();
+                                        }
+                                    } catch (Exception e) {
+                                        System.out.println(e.getMessage());
+                                    }
+                                }
                             }
                         }
                     }

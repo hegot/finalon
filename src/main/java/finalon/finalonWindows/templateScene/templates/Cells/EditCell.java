@@ -75,7 +75,7 @@ public class EditCell extends TableCell<Item, String> {
                 getTableView().getSelectionModel().selectBelowCell();
                 event.consume();
             } else if (event.getCode() == KeyCode.ENTER) {
-                if(textField != null){
+                if (textField != null) {
                     this.commitEdit(textField.getText());
                     setText(textField.getText());
                     super.cancelEdit();

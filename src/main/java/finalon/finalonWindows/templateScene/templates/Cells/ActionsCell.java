@@ -26,13 +26,12 @@ public class ActionsCell {
                             TableView table = this.getTableView();
                             Item selectedItem = (Item) getTableRow().getItem();
                             if (selectedItem != null) {
-                                String code = selectedItem.getShortName();
-                                List<String> usages = DbFormulaHandler.findUsage(code);
-                                if (usages.size() > 0) {
+                                String usages = DbFormulaHandler.usagesString(selectedItem.getShortName());
+                                if (usages.length() > 0) {
                                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                                     alert.setTitle("Index deletion");
                                     alert.setHeaderText("Index that you want to delete is used in such formulas: ");
-                                    alert.setContentText(String.join(";\n", usages)
+                                    alert.setContentText(usages
                                             + "\n\nAre you sure you want to delete it?");
                                     Optional<ButtonType> option = alert.showAndWait();
                                     try {

@@ -20,6 +20,7 @@ public class Item implements Comparable<Item>, Cloneable {
     private Integer level;
     private Integer weight;
     private Boolean updated;
+    private Boolean shortNameUpdated;
 
     public Item(
             int id,
@@ -43,6 +44,7 @@ public class Item implements Comparable<Item>, Cloneable {
         this.level = level;
         this.weight = weight;
         this.updated = false;
+        this.shortNameUpdated = false;
     }
 
     public Item(
@@ -66,6 +68,7 @@ public class Item implements Comparable<Item>, Cloneable {
         this.level = level;
         this.weight = -1;
         this.updated = false;
+        this.shortNameUpdated = false;
     }
 
     public Item(
@@ -91,6 +94,7 @@ public class Item implements Comparable<Item>, Cloneable {
         this.level = level;
         this.weight = weight;
         this.updated = false;
+        this.shortNameUpdated = false;
     }
 
     public Item(
@@ -115,6 +119,7 @@ public class Item implements Comparable<Item>, Cloneable {
         this.level = level;
         this.weight = -1;
         this.updated = false;
+        this.shortNameUpdated = false;
     }
 
     public Object clone() {
@@ -218,6 +223,15 @@ public class Item implements Comparable<Item>, Cloneable {
     public void setUpdated(Boolean updated) {
         this.updated = updated;
     }
+
+    public Boolean getShortNameUpdated() {
+        return shortNameUpdated;
+    }
+
+    public void setShortNameUpdated(Boolean shortNameUpdated) {
+        this.shortNameUpdated = shortNameUpdated;
+    }
+
 
     public Double getLastVal() {
         ArrayList<String> arr = Periods.getPeriodArr();

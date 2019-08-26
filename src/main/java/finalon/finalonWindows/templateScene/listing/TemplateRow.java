@@ -1,11 +1,11 @@
 package finalon.finalonWindows.templateScene.listing;
 
 import finalon.database.template.DbItemHandler;
-import finalon.finalonWindows.templateScene.templates.EventHandlers.SaveHandler;
 import finalon.entities.Item;
 import finalon.finalonWindows.SceneName;
 import finalon.finalonWindows.SceneSwitcher;
 import finalon.finalonWindows.templateScene.templates.EditTemplate;
+import finalon.finalonWindows.templateScene.templates.EventHandlers.SaveHandler;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

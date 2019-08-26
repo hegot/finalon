@@ -34,7 +34,6 @@ public class EditTemplate {
     }
 
 
-
     public VBox getScene() {
         VBox vBox = new VBox();
         vBox.getStyleClass().add("template-screen");
