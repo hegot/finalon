@@ -16,7 +16,6 @@ public class SaveHandler {
     private ObservableList<Item> items;
     private Item root;
 
-
     public SaveHandler(
             String tplName
     ) {
@@ -24,7 +23,6 @@ public class SaveHandler {
         this.root = getRoot();
         root.setName(tplName);
     }
-
 
     public Item getRoot() {
         for (Item item : items) {
@@ -34,7 +32,6 @@ public class SaveHandler {
         }
         return null;
     }
-
 
     private void updateItem(Item item) {
         try {
@@ -56,7 +53,6 @@ public class SaveHandler {
         return contains;
     }
 
-
     public void deleteItem(int Id) {
         DbItemHandler.deleteItem(Id);
         for (Item item : items) {
@@ -65,7 +61,6 @@ public class SaveHandler {
             }
         }
     }
-
 
     public void updateTpl() {
         ObservableList<Item> oldItems = DbItemHandler.getItems(root.getId());
@@ -129,7 +124,6 @@ public class SaveHandler {
         }
     }
 
-
     int createItem(Item item) {
         try {
             return DbItemHandler.addItem(item);
@@ -160,5 +154,4 @@ public class SaveHandler {
             updateChilds(newItem.getId(), newNewId);
         }
     }
-
 }

@@ -15,8 +15,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 class Columns {
@@ -72,6 +70,7 @@ class Columns {
                             if (item != null) {
                                 String usages = DbFormulaHandler.usagesString(item.getShortName());
                                 if (usages.length() > 0) {
+                                    item.setShortName(value);
                                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                                     alert.setTitle("Index code change");
                                     alert.setHeaderText("Index code that you want to change is used in such formulas: ");
@@ -81,7 +80,6 @@ class Columns {
                                     Optional<ButtonType> option = alert.showAndWait();
                                     try {
                                         if (option.get() == ButtonType.OK) {
-                                            item.setShortName(value);
                                             item.setUpdated(true);
                                             item.setShortNameUpdated(true);
                                             t.getTableView().refresh();
@@ -89,6 +87,9 @@ class Columns {
                                     } catch (Exception e) {
                                         System.out.println(e.getMessage());
                                     }
+                                } else {
+                                    item.setShortName(value);
+                                    item.setUpdated(true);
                                 }
                             }
                         }
