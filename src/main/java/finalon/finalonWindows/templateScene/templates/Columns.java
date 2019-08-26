@@ -4,9 +4,11 @@ import finalon.entities.Item;
 import finalon.finalonWindows.templateScene.templates.Cells.ActionsCell;
 import finalon.finalonWindows.templateScene.templates.Cells.DragCell;
 import finalon.finalonWindows.templateScene.templates.Cells.EditCell;
+import finalon.reportGeneration.stepTwo.hooks.UpdateParentHook;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableMap;
 import javafx.geometry.Pos;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.CheckBoxTableCell;
@@ -33,16 +35,22 @@ class Columns {
     static TableColumn getNameCol() {
         TableColumn<Item, String> col = new TableColumn<Item, String>("Indicator");
         col.setMinWidth(450);
-        col.setCellFactory(column -> new EditCell(new DefaultStringConverter()));
-        col.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
+        col.setCellFactory(column -> new EditCell());
         col.setOnEditCommit(
                 (TableColumn.CellEditEvent<Item, String> t) -> {
                     if (t != null && t.getTableView() != null) {
-                        ((Item) t.getTableView().getItems()
-                                .get(t.getTablePosition().getRow()))
-                                .setName(t.getNewValue());
+                        String value = t.getNewValue().replace(',', '.');
+                        if (value != null) {
+                            Item item = ((Item) t.getTableView().getItems()
+                                    .get(t.getTablePosition().getRow()));
+                            if (item != null) {
+                                item.setName(value);
+                                t.getTableView().refresh();
+                            }
+                        }
                     }
                 });
+        col.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
         return col;
     }
 

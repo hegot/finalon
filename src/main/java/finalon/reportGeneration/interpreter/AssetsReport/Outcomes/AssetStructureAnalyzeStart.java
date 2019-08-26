@@ -40,35 +40,36 @@ public class AssetStructureAnalyzeStart implements SrtuctureItemsLoop, LabelWrap
         if (this.parent.getValues().size() > 1) {
             vBox.getChildren().add(firstMessage());
         }
-        String str = "";
+        StringBuilder str = new StringBuilder();
         if (currentVal != null && currentVal > 0) {
-            str = loopItems(currentItems,
+            str.append(loopItems(currentItems,
                     currentVal,
                     "The most significant items of the current assets were ",
                     " etc.",
-                    period);
+                    period));
         }
         if (nonCurrentVal != null && nonCurrentVal > 0) {
-            str = loopItems(nonCurrentItems,
+            str.append(loopItems(nonCurrentItems,
                     nonCurrentVal,
                     "The following non-current assets had the highest values: ",
                     " while the other items did not play a significant role. ",
-                    period);
+                    period));
         }
-        vBox.getChildren().add(labelWrap(str));
-        ResultsStorage.addStr(14, "text", str);
+        vBox.getChildren().add(labelWrap(str.toString()));
+        ResultsStorage.addStr(14, "text", str.toString());
         return vBox;
     }
 
     private Label firstMessage() {
-        String str = "At the end of " + formatDate(period) + " the assets consisted of ";
+        StringBuilder str = new StringBuilder();
+        str.append("At the end of " + formatDate(period) + " the assets consisted of ");
         if (nonCurrentVal != null) {
-            str = str + partStr(nonCurrentVal, totalVal) + " non-current assets";
+            str.append(partStr(nonCurrentVal, totalVal) + " non-current assets");
         }
         if (currentVal != null) {
-            str = str + " and " + partStr(currentVal, totalVal) + " of current assets. ";
+            str.append(" and " + partStr(currentVal, totalVal) + " of current assets. ");
         }
-        ResultsStorage.addStr(13, "text", str);
-        return labelWrap(str);
+        ResultsStorage.addStr(13, "text", str.toString());
+        return labelWrap(str.toString());
     }
 }

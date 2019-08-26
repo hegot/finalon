@@ -1,12 +1,12 @@
 package finalon.reportGeneration.interpreter.AssetsReport.Outcomes;
 
 import finalon.entities.Item;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
 import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.Periods;
 import finalon.reportGeneration.storage.ResultsStorage;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 
 public class CurrentNonCurrentAssetsAnalyze implements JsCalcHelper {
 
@@ -103,58 +103,108 @@ public class CurrentNonCurrentAssetsAnalyze implements JsCalcHelper {
     }
 
     private String increasedAll() {
-        return "The overall increase of the assets reflects both a growth in the non-current assets by " +
-                nonCurrentAssetsChange + "% and a growth in the current assets by " +
-                currentAssetsChange + "%" + endString();
+        StringBuilder output = new StringBuilder();
+        output.append("The overall increase of the assets reflects both a growth in the non-current assets by ");
+        output.append(nonCurrentAssetsChange);
+        output.append("% and a growth in the current assets by ");
+        output.append(currentAssetsChange);
+        output.append("%");
+        output.append(endString());
+        return output.toString();
     }
 
     private String decreaseAll() {
-        return "The overall decrease of the assets reflects both a reduction in the non-current assets by " +
-                nonCurrentAssetsChange + "% and a reduction in the current assets by" +
-                currentAssetsChange + "%" + endString();
+        StringBuilder output = new StringBuilder();
+        output.append("The overall decrease of the assets reflects both a reduction in the non-current assets by ");
+        output.append(nonCurrentAssetsChange);
+        output.append("% and a reduction in the current assets by");
+        output.append(currentAssetsChange);
+        output.append("%");
+        output.append(endString());
+        return output.toString();
     }
 
     private String totalIncreaseCurrentDecrease() {
-        return incStr() + "non-current assets by " + nonCurrentAssetsChange +
-                "%, while the value of the current assets dropped by " +
-                currentAssetsChange + "%" + endString();
+        StringBuilder output = new StringBuilder();
+        output.append(incStr());
+        output.append("non-current assets by ");
+        output.append(nonCurrentAssetsChange);
+        output.append("%, while the value of the current assets dropped by ");
+        output.append(currentAssetsChange);
+        output.append("%");
+        output.append(endString());
+        return output.toString();
     }
 
     private String totalIncreaseCurrentStable() {
-        return incStr() + "non-current assets by " + nonCurrentAssetsChange +
-                "%, while the value of the current assets not changed";
+        StringBuilder output = new StringBuilder();
+        output.append(incStr());
+        output.append("non-current assets by ");
+        output.append(nonCurrentAssetsChange);
+        output.append("%, while the value of the current assets not changed");
+        return output.toString();
     }
 
     private String totalIncreaseNonCurrentDecrease() {
-        return incStr() + "current assets by " + currentAssetsChange +
-                "% while the value of the non-current assets dropped by " +
-                nonCurrentAssetsChange + "%" + endString();
+        StringBuilder output = new StringBuilder();
+        output.append(incStr());
+        output.append("current assets by ");
+        output.append(currentAssetsChange);
+        output.append("% while the value of the non-current assets dropped by ");
+        output.append(nonCurrentAssetsChange);
+        output.append("%");
+        output.append(endString());
+        return output.toString();
     }
 
     private String totalIncreaseNonCurrentStable() {
-        return incStr() + "current assets by " + currentAssetsChange +
-                "% while the value of the non-current assets not changed";
+        StringBuilder output = new StringBuilder();
+        output.append(incStr());
+        output.append("current assets by ");
+        output.append(currentAssetsChange);
+        output.append("% while the value of the non-current assets not changed");
+        return output.toString();
     }
 
     private String totalDecreaseCurrentIncrease() {
-        return decStr() + "non-current assets by " + nonCurrentAssetsChange +
-                "%, while the value of the current assets increased by " +
-                currentAssetsChange + "%" + endString();
+        StringBuilder output = new StringBuilder();
+        output.append(decStr());
+        output.append("non-current assets by ");
+        output.append(nonCurrentAssetsChange);
+        output.append("%, while the value of the current assets increased by ");
+        output.append(currentAssetsChange + "%");
+        output.append(endString());
+        return output.toString();
     }
 
     private String totalDecreaseCurrentStable() {
-        return decStr() + "non-current assets by " + nonCurrentAssetsChange +
-                "%, while the value of the current assets not changed";
+        StringBuilder output = new StringBuilder();
+        output.append(decStr());
+        output.append("non-current assets by ");
+        output.append(nonCurrentAssetsChange);
+        output.append("%, while the value of the current assets not changed");
+        return output.toString();
     }
 
     private String totalDecreaseNonCurrentIncrease() {
-        return decStr() + "current assets by " + currentAssetsChange +
-                "% while the value of the non-current assets increased by " +
-                nonCurrentAssetsChange + "%" + endString();
+        StringBuilder output;
+        output = new StringBuilder();
+        output.append(decStr());
+        output.append("current assets by ");
+        output.append(currentAssetsChange);
+        output.append("% while the value of the non-current assets increased by ");
+        output.append(nonCurrentAssetsChange);
+        output.append("%");
+        output.append(endString());
+        return output.toString();
     }
 
     private String totalDecreaseNonCurrentStable() {
-        return decStr() + "current assets by " + currentAssetsChange +
-                "% while the value of the non-current assets was stable";
+        StringBuilder output = new StringBuilder();
+        output.append(decStr());
+        output.append("current assets by ");
+        output.append(currentAssetsChange);
+        output.append("% while the value of the non-current assets was stable");
+        return output.toString();
     }
 }
