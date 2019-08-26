@@ -15,6 +15,7 @@ public class EditCell extends TableCell<Item, String> {
     private TablePosition<Item, ?> tablePos = null;
 
     public EditCell() {
+        getStyleClass().add("templates-cell");
         this.addEventHandler(MouseEvent.ANY, event -> {
             if (event.getClickCount() == 1 && event.getButton().equals(MouseButton.PRIMARY)) {
                 getTableView().edit(getTableRow().getIndex(), getTableColumn());

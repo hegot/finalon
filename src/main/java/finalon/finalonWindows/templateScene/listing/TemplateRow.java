@@ -1,7 +1,7 @@
 package finalon.finalonWindows.templateScene.listing;
 
 import finalon.database.template.DbItemHandler;
-import finalon.finalonWindows.templateScene.templates.SaveHandler;
+import finalon.finalonWindows.templateScene.templates.EventHandlers.SaveHandler;
 import finalon.entities.Item;
 import finalon.finalonWindows.SceneName;
 import finalon.finalonWindows.SceneSwitcher;

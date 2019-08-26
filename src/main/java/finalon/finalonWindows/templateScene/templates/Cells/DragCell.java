@@ -84,6 +84,7 @@ public class DragCell {
                                     event.setDropCompleted(true);
                                     for (int i = 0; i < items.size(); i++) {
                                         Item sortItem = items.get(i);
+                                        sortItem.setUpdated(true);
                                         sortItem.setWeight(i);
                                     }
                                     table.getItems().setAll(items);

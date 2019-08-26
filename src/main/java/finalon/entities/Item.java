@@ -1,14 +1,14 @@
 package finalon.entities;
 
+import finalon.reportGeneration.storage.Periods;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
-import finalon.reportGeneration.storage.Periods;
 
 import java.util.ArrayList;
 
-public class Item implements Comparable< Item >, Cloneable{
+public class Item implements Comparable<Item>, Cloneable {
     private int id;
     private String name;
     private String shortName;
@@ -19,6 +19,7 @@ public class Item implements Comparable< Item >, Cloneable{
     private ObservableMap<String, Double> values;
     private Integer level;
     private Integer weight;
+    private Boolean updated;
 
     public Item(
             int id,
@@ -41,6 +42,7 @@ public class Item implements Comparable< Item >, Cloneable{
         this.values = FXCollections.observableHashMap();
         this.level = level;
         this.weight = weight;
+        this.updated = false;
     }
 
     public Item(
@@ -63,6 +65,7 @@ public class Item implements Comparable< Item >, Cloneable{
         this.values = FXCollections.observableHashMap();
         this.level = level;
         this.weight = -1;
+        this.updated = false;
     }
 
     public Item(
@@ -87,6 +90,7 @@ public class Item implements Comparable< Item >, Cloneable{
         this.values = values;
         this.level = level;
         this.weight = weight;
+        this.updated = false;
     }
 
     public Item(
@@ -110,12 +114,13 @@ public class Item implements Comparable< Item >, Cloneable{
         this.values = values;
         this.level = level;
         this.weight = -1;
+        this.updated = false;
     }
 
-    public Object clone(){
-        try{
+    public Object clone() {
+        try {
             return super.clone();
-        }catch(CloneNotSupportedException e){
+        } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
         return null;
@@ -206,6 +211,13 @@ public class Item implements Comparable< Item >, Cloneable{
         return new SimpleBooleanProperty(this, "isPositive", isPositive);
     }
 
+    public Boolean getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Boolean updated) {
+        this.updated = updated;
+    }
 
     public Double getLastVal() {
         ArrayList<String> arr = Periods.getPeriodArr();

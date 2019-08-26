@@ -76,5 +76,5 @@
 
 .template-screen .templates-row-bold .templates-cell{
     -fx-font-weight: bold;
-    -fx-padding: 10px 10px 10px 50px;
+    -fx-padding: 10px 10px 10px 10px;
 }

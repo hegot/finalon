@@ -39,12 +39,13 @@ class Columns {
         col.setOnEditCommit(
                 (TableColumn.CellEditEvent<Item, String> t) -> {
                     if (t != null && t.getTableView() != null) {
-                        String value = t.getNewValue().replace(',', '.');
+                        String value = t.getNewValue();
                         if (value != null) {
                             Item item = ((Item) t.getTableView().getItems()
                                     .get(t.getTablePosition().getRow()));
                             if (item != null) {
                                 item.setName(value);
+                                item.setUpdated(true);
                                 t.getTableView().refresh();
                             }
                         }
@@ -57,9 +58,23 @@ class Columns {
     static TableColumn getCodeCol() {
         TableColumn<Item, String> col = new TableColumn<Item, String>("Indicator Code");
         col.setMinWidth(200);
-        col.setEditable(false);
+        col.setCellFactory(column -> new EditCell());
+        col.setOnEditCommit(
+                (TableColumn.CellEditEvent<Item, String> t) -> {
+                    if (t != null && t.getTableView() != null) {
+                        String value = t.getNewValue();
+                        if (value != null) {
+                            Item item = ((Item) t.getTableView().getItems()
+                                    .get(t.getTablePosition().getRow()));
+                            if (item != null) {
+                                item.setShortName(value);
+                                item.setUpdated(true);
+                                t.getTableView().refresh();
+                            }
+                        }
+                    }
+                });
         col.setCellValueFactory(new PropertyValueFactory<Item, String>("shortName"));
-        col.setCellFactory(TextFieldTableCell.<Item>forTableColumn());
         return col;
     }
 
@@ -77,6 +92,7 @@ class Columns {
                 @Override
                 public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                     item.setIsPositive(newValue);
+                    item.setUpdated(true);
                 }
             });
             return booleanProp;
@@ -95,6 +111,7 @@ class Columns {
                 @Override
                 public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                     item.setFinResult(newValue);
+                    item.setUpdated(true);
                 }
             });
             return booleanProp;

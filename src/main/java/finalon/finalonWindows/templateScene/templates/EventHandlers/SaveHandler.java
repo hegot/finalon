@@ -1,7 +1,8 @@
-package finalon.finalonWindows.templateScene.templates;
+package finalon.finalonWindows.templateScene.templates.EventHandlers;
 
 import finalon.database.template.DbItemHandler;
 import finalon.entities.Item;
+import finalon.finalonWindows.templateScene.templates.EditTemplate;
 import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
@@ -66,6 +67,7 @@ public class SaveHandler {
     public void updateTpl() {
         ObservableList<Item> oldItems = DbItemHandler.getItems(root.getId());
         if(oldItems.size() > 0){
+            updateItem(root);
             for (Item item : oldItems) {
                 if (!hasItem(item.getId())) {
                     deleteItem(item.getId());
@@ -76,7 +78,7 @@ public class SaveHandler {
                     item.setParentSheet(root.getId());
                     int newId = createItem(item);
                     updateChilds(item.getId(), newId);
-                } else {
+                } else if(item.getUpdated()){
                     updateItem(item);
                 }
             }
