@@ -13,7 +13,7 @@ import finalon.reportGeneration.storage.Periods;
 import finalon.reportGeneration.storage.ResultsStorage;
 import finalon.reportGeneration.storage.SettingsStorage;
 
-public class LiabilitiesStructureAnalyzeEnd implements SrtuctureItemsLoop, LabelWrap, EquityShareAnalyze, ParseDouble, NotEmpty {
+public class LiabilitiesStructureAnalyzeEnd implements SrtuctureItemsLoop, LabelWrap, EquityShareAnalyze, ParseDouble {
     private Item parent;
     private String period;
     private Double totalVal;
@@ -79,16 +79,16 @@ public class LiabilitiesStructureAnalyzeEnd implements SrtuctureItemsLoop, Label
 
     private String firstMessage() {
         String str = "At the end of " + formatDate(period) + " the sources of finance comprised ";
-        if (notZero(equityVal)) {
+        if (NotEmpty.notZero(equityVal)) {
             str = str + partStr(equityVal, totalVal) + " shareholders' equity, ";
         }
-        if (notZero(nonCurrentVal)) {
+        if (NotEmpty.notZero(nonCurrentVal)) {
             str = str + partStr(nonCurrentVal, totalVal) + " non-current liabilities ";
         }
-        if (notZero(currentVal)) {
+        if (NotEmpty.notZero(currentVal)) {
             str = str + " and " + partStr(currentVal, totalVal) + " current liabilities. ";
         }
-        if (notZero(assetsTotal) && notZero(equityVal)) {
+        if (NotEmpty.notZero(assetsTotal) && NotEmpty.notZero(equityVal)) {
             Double share = (equityVal / assetsTotal) * 100;
             str = str + equityShareAnalyse(share, period);
         }

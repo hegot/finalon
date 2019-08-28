@@ -3,8 +3,9 @@ package finalon.finalonWindows.formulaScene.IndustryOperations;
 import finalon.database.formula.DbFormulaHandler;
 import finalon.entities.Formula;
 import finalon.finalonWindows.formulaScene.FormulaAddBase;
+import finalon.finalonWindows.formulaScene.FormulaEditable;
 import finalon.finalonWindows.formulaScene.SortedSections;
-import finalon.finalonWindows.formulaScene.Storage;
+import finalon.globalReusables.CancelBtn;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -19,7 +20,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateSection extends FormulaAddBase implements CancelBtn, SortedSections {
+public class CreateSection extends FormulaAddBase {
     private Formula industry;
     private TextField textField;
     private Label error;
@@ -38,7 +39,7 @@ public class CreateSection extends FormulaAddBase implements CancelBtn, SortedSe
         HBox hBox = new HBox(60);
         hBox.setPrefHeight(40);
         hBox.getChildren().addAll(
-                cancelBtn(dialog),
+                CancelBtn.cancelBtn(dialog),
                 createSectionBtn()
         );
         vBox.getChildren().addAll(
@@ -57,7 +58,7 @@ public class CreateSection extends FormulaAddBase implements CancelBtn, SortedSe
             if (text.length() > 3) {
                 reorderFormulas(text);
                 dialog.close();
-                Storage.refresh();
+                FormulaEditable.refresh();
             } else {
                 error.setText("Industry name should be at least 3 characters long!");
                 error.setWrapText(true);
@@ -67,7 +68,7 @@ public class CreateSection extends FormulaAddBase implements CancelBtn, SortedSe
     }
 
     private void reorderFormulas(String text) {
-        ObservableList<Formula> items = getSections(industry.getId());
+        ObservableList<Formula> items = SortedSections.getSections(industry.getId());
         Formula newSection = new Formula(biggestId(), text, text.replaceAll("\\s+", "_"), "0", "", "section", "", industry.getId());
         List<Formula> itemsNew = new ArrayList<>();
         itemsNew.add(newSection);

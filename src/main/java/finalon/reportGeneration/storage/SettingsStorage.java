@@ -16,7 +16,7 @@ public class SettingsStorage {
         settings.put("year", year);
         settings.put("date", "31.12");
         settings.put("template", "");
-        settings.put("standard", "");
+        settings.put("standard", "1");
         settings.put("defaultCurrency", "USD");
         settings.put("amount", "million");
         settings.put("reportStep", "year");

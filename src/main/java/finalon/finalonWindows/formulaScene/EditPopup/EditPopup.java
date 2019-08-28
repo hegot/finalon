@@ -3,7 +3,7 @@ package finalon.finalonWindows.formulaScene.EditPopup;
 import finalon.database.formula.DbFormulaHandler;
 import finalon.defaultData.EvaluationTypes;
 import finalon.entities.Formula;
-import finalon.finalonWindows.formulaScene.Storage;
+import finalon.finalonWindows.formulaScene.FormulaEditable;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -66,7 +66,9 @@ public class EditPopup {
         Button okButton = (Button) dialog.getDialogPane().lookupButton(saveButtonType);
         okButton.addEventFilter(ActionEvent.ACTION, saveFilter);
         Button cancelButton = (Button) dialog.getDialogPane().lookupButton(closeButtonType);
-        EventHandler<ActionEvent> closeFilter = event -> {  dialog.close();  };
+        EventHandler<ActionEvent> closeFilter = event -> {
+            dialog.close();
+        };
         cancelButton.addEventFilter(ActionEvent.ACTION, closeFilter);
         dialog.showAndWait();
 
@@ -74,7 +76,7 @@ public class EditPopup {
     }
 
 
-    private void setDialogContent(Dialog dialog){
+    private void setDialogContent(Dialog dialog) {
         VBox vBox = new VBox();
         if (formula.getCategory().equals("section")) {
             dialog.setTitle("Edit Section");
@@ -96,14 +98,14 @@ public class EditPopup {
     }
 
 
-    private void saveAction(ActionEvent event){
+    private void saveAction(ActionEvent event) {
         errors.clear();
         validateFormula();
-        if(errors.size() == 0){
+        if (errors.size() == 0) {
             addFormula(formula);
-            Storage.refresh();
-        }else{
-            for(String error : errors){
+            FormulaEditable.refresh();
+        } else {
+            for (String error : errors) {
                 Label label = new Label(error);
                 label.getStyleClass().add("formula-error");
                 errList.getChildren().add(label);
@@ -136,15 +138,15 @@ public class EditPopup {
         }
     }
 
-    private boolean isChild(String name){
+    private boolean isChild(String name) {
         if (
-            name != null &&
-            name.equals(EvaluationTypes.PREFIX.toString()) ||
-            name.equals(EvaluationTypes.SUFFIX.toString()) ||
-            name.equals(EvaluationTypes.PERIOD_COMPARISON_NOCHANGE.toString()) ||
-            name.equals(EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString()) ||
-            name.equals(EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString())
-        ){
+                name != null &&
+                        name.equals(EvaluationTypes.PREFIX.toString()) ||
+                        name.equals(EvaluationTypes.SUFFIX.toString()) ||
+                        name.equals(EvaluationTypes.PERIOD_COMPARISON_NOCHANGE.toString()) ||
+                        name.equals(EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString()) ||
+                        name.equals(EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString())
+        ) {
             return true;
         }
         return false;
@@ -153,14 +155,14 @@ public class EditPopup {
 
     private void validateFormula() {
         Formula newFormula = editFormula.getFormula();
-        if(newFormula.getName().length() == 0) {
+        if (newFormula.getName().length() == 0) {
             errors.add("Name field can not be empty! \n");
         }
         if (!formula.getCategory().equals("industry")) {
-            if(newFormula.getShortName().length() == 0) {
+            if (newFormula.getShortName().length() == 0) {
                 errors.add("Code field can not be empty! \n");
             }
-            if(newFormula.getValue().length() == 0) {
+            if (newFormula.getValue().length() == 0) {
                 errors.add("Please add formula in text-field");
             }
             formula.setCategory("formula");

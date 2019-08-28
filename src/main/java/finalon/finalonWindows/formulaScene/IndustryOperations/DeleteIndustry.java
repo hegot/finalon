@@ -2,7 +2,9 @@ package finalon.finalonWindows.formulaScene.IndustryOperations;
 
 import finalon.database.formula.DbFormulaHandler;
 import finalon.entities.Formula;
-import finalon.finalonWindows.formulaScene.Storage;
+import finalon.finalonWindows.formulaScene.FormulaEditable;
+import finalon.globalReusables.CancelBtn;
+import finalon.globalReusables.StandardAndIndustry;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
@@ -11,7 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 
-public class DeleteIndustry implements CancelBtn {
+public class DeleteIndustry {
     private Formula industry;
     private Dialog<Pair<String, String>> dialog;
 
@@ -25,7 +27,7 @@ public class DeleteIndustry implements CancelBtn {
         HBox hBox = new HBox(90);
         hBox.setPrefHeight(40);
         hBox.getChildren().addAll(
-                cancelBtn(dialog),
+                CancelBtn.cancelBtn(dialog),
                 deleteIndustryBtn()
         );
         vBox.getChildren().addAll(
@@ -43,7 +45,8 @@ public class DeleteIndustry implements CancelBtn {
         btn.setOnAction((ActionEvent event) -> {
             dialog.close();
             DbFormulaHandler.deleteItem(industry.getId());
-            Storage.refresh();
+            StandardAndIndustry.refreshIndustry();
+            FormulaEditable.refresh();
         });
         return btn;
     }

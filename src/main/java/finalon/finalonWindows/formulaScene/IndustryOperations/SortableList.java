@@ -2,7 +2,8 @@ package finalon.finalonWindows.formulaScene.IndustryOperations;
 
 import finalon.database.formula.DbFormulaHandler;
 import finalon.entities.Formula;
-import finalon.finalonWindows.formulaScene.Storage;
+import finalon.finalonWindows.formulaScene.FormulaEditable;
+import finalon.globalReusables.CancelBtn;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
@@ -21,7 +22,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SortableList implements CancelBtn {
+public class SortableList {
     private ObservableList<Formula> sections;
     private ListView<Formula> list;
     private Dialog dialog;
@@ -39,7 +40,7 @@ public class SortableList implements CancelBtn {
         HBox hBox = new HBox(100);
         hBox.setPrefHeight(40);
         hBox.getChildren().addAll(
-                cancelBtn(dialog),
+                CancelBtn.cancelBtn(dialog),
                 saveBtn()
         );
         layout.getChildren().addAll(list, hBox);
@@ -85,7 +86,7 @@ public class SortableList implements CancelBtn {
                 }
             }
             dialog.close();
-            Storage.refresh();
+            FormulaEditable.refresh();
         });
         return btn;
     }

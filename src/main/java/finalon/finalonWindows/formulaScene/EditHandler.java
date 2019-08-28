@@ -62,7 +62,7 @@ public class EditHandler extends FormulaAddBase {
                             try {
                                 if (option.get() == ButtonType.OK) {
                                     DbFormulaHandler.deleteItem(parentFormula.getId());
-                                    Storage.refresh();
+                                    FormulaEditable.refresh();
                                 }
                             } catch (Exception e) {
                                 System.out.println(e.getMessage());
@@ -104,14 +104,16 @@ public class EditHandler extends FormulaAddBase {
                     @Override
                     public void updateItem(Void item, boolean empty) {
                         super.updateItem(item, empty);
-                        this.treeItem = getTreeTableRow().getTreeItem();
-                        if (treeItem != null) {
-                            this.table = getTreeTableView();
-                            this.parentFormula = (Formula) treeItem.getValue();
-                            if (empty) {
-                                setGraphic(null);
-                            } else {
-                                setGraphic(container());
+                        if (getTreeTableRow() != null) {
+                            this.treeItem = getTreeTableRow().getTreeItem();
+                            if (treeItem != null) {
+                                this.table = getTreeTableView();
+                                this.parentFormula = (Formula) treeItem.getValue();
+                                if (empty) {
+                                    setGraphic(null);
+                                } else {
+                                    setGraphic(container());
+                                }
                             }
                         }
                     }

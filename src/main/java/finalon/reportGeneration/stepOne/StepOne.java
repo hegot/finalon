@@ -1,12 +1,8 @@
 package finalon.reportGeneration.stepOne;
 
 import finalon.defaultData.DefaultCurrency;
-import finalon.entities.Formula;
-import finalon.finalonWindows.reusableComponents.selectbox.Choices;
-import finalon.finalonWindows.reusableComponents.selectbox.IndustrySelect;
-import finalon.finalonWindows.reusableComponents.selectbox.StandardSelect;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import finalon.globalReusables.StandardAndIndustry;
+import finalon.reportGeneration.storage.SettingsStorage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,10 +16,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import finalon.reportGeneration.storage.SettingsStorage;
 
 public class StepOne {
-    private final String defaultStandard = "1";
     private Label errors = new Label();
 
     public VBox show() {
@@ -50,7 +44,7 @@ public class StepOne {
     }
 
     private HBox periodsRow() {
-        HBox hBox = new HBox(20);
+        HBox hBox = new HBox(0);
         ObservableList<String> steps = FXCollections.observableArrayList();
         steps.addAll("year", "half year", "quater", "month");
         ObservableList<String> periods = FXCollections.observableArrayList();
@@ -86,24 +80,8 @@ public class StepOne {
     }
 
     private HBox standardIndustry() {
-        HBox hBox = new HBox(20);
-        ComboBox<Formula> standard = StandardSelect.get(SettingsStorage.getSettings());
-        ComboBox<Formula> industry = IndustrySelect.get(
-                defaultStandard,
-                SettingsStorage.getSettings()
-        );
-        standard.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Formula>() {
-            @Override
-            public void changed(ObservableValue<? extends Formula> arg0, Formula arg1, Formula arg2) {
-                if (arg2 != null) {
-                    industry.setItems(Choices.getChoices(arg2.getId()));
-                    industry.getSelectionModel().selectFirst();
-                    SettingsStorage.getSettings().replace("standard", Integer.toString(arg2.getId()));
-                }
-            }
-        });
-
-        hBox.getChildren().addAll(titledHbox("Finance analysis standard", standard), titledHbox("Industry", industry));
+        HBox hBox = StandardAndIndustry.get();
+        StandardAndIndustry.shouldUpdateSettings(true);
         return hBox;
     }
 

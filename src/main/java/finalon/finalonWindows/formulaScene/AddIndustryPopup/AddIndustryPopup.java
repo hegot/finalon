@@ -2,9 +2,8 @@ package finalon.finalonWindows.formulaScene.AddIndustryPopup;
 
 import finalon.database.formula.FormulaCreator;
 import finalon.entities.Formula;
-import finalon.finalonWindows.formulaScene.Storage;
-import finalon.finalonWindows.reusableComponents.selectbox.StandardSelect;
-import javafx.collections.ObservableMap;
+import finalon.finalonWindows.formulaScene.FormulaEditable;
+import finalon.globalReusables.StandardAndIndustry;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -18,12 +17,10 @@ public class AddIndustryPopup {
 
     private TextField industry;
     private ComboBox<Formula> standard;
-    private ObservableMap<String, String> settings;
 
-    public AddIndustryPopup(ObservableMap<String, String> settings) {
-        this.settings = settings;
+    public AddIndustryPopup() {
         this.industry = new TextField();
-        this.standard = StandardSelect.get(settings);
+        this.standard = StandardAndIndustry.standard();
     }
 
     public Dialog getdialog() {
@@ -51,9 +48,9 @@ public class AddIndustryPopup {
             );
             try {
                 formulaCreator.createFormulas();
-                Storage.refreshWithId(formulaCreator.getNewId());
+                FormulaEditable.refreshWithId(formulaCreator.getNewId());
             } catch (SQLException e) {
-                System.out.println("Username=" + industry.getText() + ", standard=" + standard.getValue().getName() + " not created");
+                System.out.println("Industry=" + industry.getText() + ", standard=" + standard.getValue().getName() + " not created");
                 e.printStackTrace();
             }
         });

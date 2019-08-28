@@ -8,8 +8,8 @@ import org.apache.commons.lang3.math.NumberUtils;
 
 import java.util.ArrayList;
 
-public interface SortedSections {
-    default ObservableList<Formula> getSections(int parentId) {
+public class SortedSections {
+    public static ObservableList<Formula> getSections(int parentId) {
         ObservableList<Formula> childs = DbFormulaHandler.getFormulas(parentId);
         ArrayList<Formula> sortedChilds = new ArrayList<Formula>(childs);
         for (Formula child : childs) {

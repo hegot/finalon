@@ -147,6 +147,10 @@
     -fx-font-size: 13px;
 }
 
+.add-company .combo-box-base{
+    -fx-min-width: 150px;
+}
+
 .scale-table{
     -fx-max-height: 300px;
 }

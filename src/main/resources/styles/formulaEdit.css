@@ -8,6 +8,15 @@
     -fx-cursor: hand;
 }
 
+.formula-edit .sub-label{
+    -fx-font-size: 14px;
+    -fx-padding: 5px 5px 5px 20px;
+}
+
+.formula-edit .combo-box-base{
+    -fx-min-width: 150px;
+}
+
 .industryDialog .popup-btn{
     -fx-background-color:#3f5872;
     -fx-font-size: 12px;
@@ -69,9 +78,6 @@
     -fx-alignment: baseline-center;
 }
 
-.combo-box {
-    -fx-pref-width: 100;
-}
 
 /** Size the combo-box drop down list. */
 .combo-box-popup > .list-view {

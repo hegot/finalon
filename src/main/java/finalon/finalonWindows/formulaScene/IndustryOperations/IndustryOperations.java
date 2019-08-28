@@ -13,7 +13,7 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 
-public class IndustryOperations implements SortedSections {
+public class IndustryOperations {
     private Formula industry;
     private VBox container;
     private Dialog<Pair<String, String>> dialog;
@@ -76,7 +76,7 @@ public class IndustryOperations implements SortedSections {
         btn.getStyleClass().add("popup-btn");
         btn.setOnAction((ActionEvent event) -> {
             dialog.setHeight(310);
-            ObservableList<Formula> childs = getSections(industry.getId());
+            ObservableList<Formula> childs = SortedSections.getSections(industry.getId());
             VBox newContent = new SortableList(childs, dialog).getContent();
             container.getChildren().setAll(newContent);
         });

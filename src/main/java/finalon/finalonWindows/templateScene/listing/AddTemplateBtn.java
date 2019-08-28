@@ -1,12 +1,19 @@
 package finalon.finalonWindows.templateScene.listing;
 
+import finalon.database.template.DbItemHandler;
+import finalon.entities.Item;
 import finalon.finalonWindows.SceneName;
 import finalon.finalonWindows.SceneSwitcher;
+import finalon.finalonWindows.templateScene.templates.EventHandlers.SaveHandler;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.util.Pair;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class AddTemplateBtn extends HBox {
 
@@ -25,7 +32,17 @@ public class AddTemplateBtn extends HBox {
 
     @FXML
     protected void addTemplateAction() {
+        Dialog<Pair<String, String>> dialog = new Dialog<>();
+        dialog.setWidth(400);
+        dialog.setTitle("Select Industry");
+        DialogPane dialogPane = dialog.getDialogPane();
+
+        //dialogPane.setContent();
+        dialogPane.getButtonTypes().addAll(ButtonType.CLOSE, ButtonType.OK);
+        dialog.showAndWait();
         SceneSwitcher.goTo(SceneName.ADDTEMPLATE);
     }
+
+
 
 }

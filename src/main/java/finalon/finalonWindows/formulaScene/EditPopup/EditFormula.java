@@ -32,17 +32,17 @@ class EditFormula {
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(20, 10, 10, 10));
-        grid.add(createRow("Name:","name", formula.getName()), 0, 0);
-        grid.add(createRow("Code:","shortName", formula.getShortName()), 0, 1);
+        grid.add(createRow("Name:", "name", formula.getName()), 0, 0);
+        grid.add(createRow("Code:", "shortName", formula.getShortName()), 0, 1);
         if (!formula.getCategory().equals("section")) {
-            grid.add(createRow("Ubit:","unit", formula.getUnit()), 0, 2);
+            grid.add(createRow("Ubit:", "unit", formula.getUnit()), 0, 2);
             grid.add(new Label("Edit formula"), 0, 3);
             grid.add(formulaEditor(), 0, 4);
         }
         return grid;
     }
 
-    private HBox createRow(String title, String key, String value){
+    private HBox createRow(String title, String key, String value) {
         HBox hBox = new HBox(10);
         Label label = new Label(title);
         label.setMinWidth(150);
@@ -50,12 +50,12 @@ class EditFormula {
         textfield.setMinWidth(350);
         textfield.setText(value);
         textfield.textProperty().addListener((observable, oldValue, newValue) -> {
-            switch(key){
-                case "name" :
+            switch (key) {
+                case "name":
                     formula.setName(newValue);
-                case "unit" :
+                case "unit":
                     formula.setUnit(newValue);
-                case "shortName" :
+                case "shortName":
                     formula.setShortName(newValue);
             }
         });
@@ -105,12 +105,11 @@ class EditFormula {
     }
 
 
-
     AutoCompleteTextArea getTextArea() {
         return textArea;
     }
 
-    public Formula getFormula(){
+    public Formula getFormula() {
         return formula;
     }
 }
