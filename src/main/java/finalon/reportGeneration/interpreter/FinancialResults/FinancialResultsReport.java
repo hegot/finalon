@@ -1,9 +1,5 @@
 package finalon.reportGeneration.interpreter.FinancialResults;
 
-import javafx.collections.ObservableMap;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.layout.VBox;
 import finalon.reportGeneration.interpreter.FinancialResults.Outcomes.CostOfGoods;
 import finalon.reportGeneration.interpreter.FinancialResults.Outcomes.FinancialResultTable;
 import finalon.reportGeneration.interpreter.FinancialResults.Outcomes.FinancialResultsChart;
@@ -12,6 +8,9 @@ import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.TableN
 import finalon.reportGeneration.storage.ResultsStorage;
 import finalon.reportGeneration.storage.SettingsStorage;
 import finalon.reportGeneration.storage.TwoDList;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.VBox;
 
 public class FinancialResultsReport implements TableName {
     private int weight;
@@ -21,9 +20,8 @@ public class FinancialResultsReport implements TableName {
     }
 
     public VBox getTrend() {
-        ObservableMap<String, String> settings = SettingsStorage.getSettings();
         String title = "Table 7. Financial Results Trend Analysis, in "
-                + settings.get("amount") + " " + settings.get("defaultCurrency");
+                + SettingsStorage.get("amount") + " " + SettingsStorage.get("defaultCurrency");
         Label tableName = tableName(title);
         weight++;
         VBox box = new VBox(8);

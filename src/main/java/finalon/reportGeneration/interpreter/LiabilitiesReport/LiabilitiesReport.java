@@ -1,10 +1,6 @@
 package finalon.reportGeneration.interpreter.LiabilitiesReport;
 
 import finalon.entities.Item;
-import javafx.collections.ObservableMap;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.layout.VBox;
 import finalon.reportGeneration.interpreter.LiabilitiesReport.Outcomes.*;
 import finalon.reportGeneration.interpreter.ReusableComponents.RelativeItemsChange;
 import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
@@ -12,6 +8,9 @@ import finalon.reportGeneration.interpreter.ReusableComponents.tables.IndexChang
 import finalon.reportGeneration.interpreter.ReusableComponents.tables.StructureItem;
 import finalon.reportGeneration.interpreter.ReusableComponents.tables.StructureTable;
 import finalon.reportGeneration.storage.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.VBox;
 
 public class LiabilitiesReport implements TableName {
 
@@ -24,9 +23,8 @@ public class LiabilitiesReport implements TableName {
     }
 
     public VBox getTrend() {
-        ObservableMap<String, String> settings = SettingsStorage.getSettings();
         String tblName = "Table 2. Sources of Finance (Equity and Liabilities) Trend Analysis, in "
-                + settings.get("amount") + " " + settings.get("defaultCurrency");
+                + SettingsStorage.get("amount") + " " + SettingsStorage.get("defaultCurrency");
         Label tableName = tableName(tblName);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");

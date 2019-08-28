@@ -35,7 +35,7 @@ public class FormulaStorage {
 
 
     public static ObservableList<Formula> getSections() {
-        int rootIndustry = Integer.parseInt(SettingsStorage.getSettings().get("industry"));
+        int rootIndustry = Integer.parseInt(SettingsStorage.get("industry"));
         ObservableList<Formula> parents = DbFormulaHandler.getFormulas(rootIndustry);
         return parents;
     }

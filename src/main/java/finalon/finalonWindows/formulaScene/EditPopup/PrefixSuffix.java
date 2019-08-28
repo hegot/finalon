@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class PrefixSuffix implements LabelWrap {
+public class PrefixSuffix {
     private Formula parent;
     private Tab tab;
     private Formula prefix;
@@ -37,7 +37,7 @@ public class PrefixSuffix implements LabelWrap {
         vBox.getStyleClass().add("popup-tab-inner");
         HBox hbox = new HBox(10);
         hbox.getChildren().add(
-                labelWrap("Prefix - will get displayed before formula evaluation conclusions " +
+                LabelWrap.wrap("Prefix - will get displayed before formula evaluation conclusions " +
                         "while suffix value will be appended after evaluation conclusions. ")
         );
         HBox hbox1 = new HBox(10);

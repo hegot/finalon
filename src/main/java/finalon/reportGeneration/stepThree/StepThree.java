@@ -1,20 +1,17 @@
 package finalon.reportGeneration.stepThree;
 
 import finalon.finalonWindows.SceneBase;
-import javafx.collections.ObservableMap;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 import finalon.reportGeneration.storage.Periods;
 import finalon.reportGeneration.storage.ResultsStorage;
 import finalon.reportGeneration.storage.SettingsStorage;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 
 public class StepThree extends SceneBase {
     private String companyName;
-    private ObservableMap<String, String> settings;
 
     public StepThree() {
-        this.settings = SettingsStorage.getSettings();
-        this.companyName = settings.get("company") + "'s";
+        this.companyName = SettingsStorage.get("company") + "'s";
     }
 
 

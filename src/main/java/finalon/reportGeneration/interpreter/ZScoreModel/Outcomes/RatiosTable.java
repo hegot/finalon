@@ -1,10 +1,10 @@
 package finalon.reportGeneration.interpreter.ZScoreModel.Outcomes;
 
 import finalon.entities.Formula;
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableView;
 import finalon.reportGeneration.interpreter.ReusableComponents.tables.FormulaTable;
 import finalon.reportGeneration.storage.Periods;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableView;
 
 import java.util.ArrayList;
 

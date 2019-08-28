@@ -27,4 +27,17 @@ public class SettingsStorage {
     public static ObservableMap<String, String> getSettings() {
         return settings;
     }
+
+    public static String get(String key) {
+        return settings.get(key);
+    }
+
+    public static String put(String key, String value) {
+        return settings.put(key, value);
+    }
+
+    public static void replace(String key, String value) {
+        settings.replace(key, value);
+    }
+
 }

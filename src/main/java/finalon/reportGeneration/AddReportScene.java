@@ -5,13 +5,6 @@ import finalon.finalonWindows.SceneBase;
 import finalon.finalonWindows.reusableComponents.SettingsMenu;
 import finalon.globalReusables.CallTypes;
 import finalon.globalReusables.StatTrigger;
-import javafx.collections.MapChangeListener;
-import javafx.collections.ObservableMap;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import finalon.reportGeneration.stepOne.StepOne;
 import finalon.reportGeneration.stepThree.StepThree;
 import finalon.reportGeneration.stepTwo.StepTwo;
@@ -19,6 +12,13 @@ import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.Periods;
 import finalon.reportGeneration.storage.SettingsStorage;
 import finalon.reportGeneration.validator.Validator;
+import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableMap;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
@@ -59,7 +59,7 @@ public class AddReportScene extends SceneBase {
 
     HBox headerMenu() {
         HBox hbox = new HBox(20);
-        String step = SettingsStorage.getSettings().get("step");
+        String step = SettingsStorage.get("step");
         if (step.equals("two")) {
             hbox.getChildren().addAll(backSettingsButton(), generateButton());
         }
@@ -83,7 +83,7 @@ public class AddReportScene extends SceneBase {
                     validator.showValidation(errors);
                 } else {
                     populateEmptyValues();
-                    SettingsStorage.getSettings().put("step", "three");
+                    SettingsStorage.put("step", "three");
                 }
             }
         });
@@ -91,7 +91,7 @@ public class AddReportScene extends SceneBase {
     }
 
     private void populateEmptyValues() {
-        String perStr = SettingsStorage.getSettings().get("periods");
+        String perStr = SettingsStorage.get("periods");
         if (perStr != null) {
             Integer periods = Integer.parseInt(perStr);
             ArrayList<String> periodsArr = Periods.getPeriodArr();
@@ -115,7 +115,7 @@ public class AddReportScene extends SceneBase {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                SettingsStorage.getSettings().put("step", "one");
+                SettingsStorage.put("step", "one");
             }
         });
         return button;
@@ -127,7 +127,7 @@ public class AddReportScene extends SceneBase {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                SettingsStorage.getSettings().put("step", "two");
+                SettingsStorage.put("step", "two");
             }
         });
         return button;

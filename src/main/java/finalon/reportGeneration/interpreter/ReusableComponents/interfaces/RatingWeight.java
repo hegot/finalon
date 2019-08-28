@@ -1,7 +1,7 @@
 package finalon.reportGeneration.interpreter.ReusableComponents.interfaces;
 
-public interface RatingWeight {
-    default Double getWeight(String code) {
+public class RatingWeight {
+    public static Double getWeight(String code) {
         Double weight = 0.15;
         switch (code) {
             case "NetProfitMargin":

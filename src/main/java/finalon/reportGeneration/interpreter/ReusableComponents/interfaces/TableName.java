@@ -1,10 +1,10 @@
 package finalon.reportGeneration.interpreter.ReusableComponents.interfaces;
 
+import finalon.reportGeneration.storage.TwoDList;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import finalon.reportGeneration.storage.TwoDList;
 
 import java.util.ArrayList;
 

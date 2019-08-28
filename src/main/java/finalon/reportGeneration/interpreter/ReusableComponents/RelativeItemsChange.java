@@ -2,14 +2,14 @@ package finalon.reportGeneration.interpreter.ReusableComponents;
 
 import finalon.entities.Item;
 import finalon.globalReusables.LabelWrap;
-import javafx.collections.ObservableList;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
 import finalon.reportGeneration.storage.Periods;
 import finalon.reportGeneration.storage.ResultsStorage;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 
-public class RelativeItemsChange implements LabelWrap, JsCalcHelper {
+public class RelativeItemsChange implements JsCalcHelper {
     private Item parent;
     private ObservableList<Item> items;
     private String startDate;
@@ -67,7 +67,7 @@ public class RelativeItemsChange implements LabelWrap, JsCalcHelper {
         VBox vBox = new VBox(10);
         if (this.parent.getValues().size() > 1) {
             String mess = message();
-            vBox.getChildren().add(labelWrap(mess));
+            vBox.getChildren().add(LabelWrap.wrap(mess));
             String rowsEval = getRowsEvaluation();
             Label label = new Label(rowsEval);
             vBox.getChildren().addAll(label);

@@ -2,18 +2,18 @@ package finalon.reportGeneration.validator;
 
 import finalon.entities.Item;
 import finalon.globalReusables.LabelWrap;
+import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
+import finalon.reportGeneration.storage.ItemsStorage;
+import finalon.reportGeneration.storage.Periods;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.ScrollPane;
 import javafx.util.Pair;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
-import finalon.reportGeneration.storage.ItemsStorage;
-import finalon.reportGeneration.storage.Periods;
 
 import java.util.ArrayList;
 
-public class Validator implements JsCalcHelper, LabelWrap {
+public class Validator implements JsCalcHelper {
 
     public String validate() {
         StringBuilder output = new StringBuilder();
@@ -55,7 +55,7 @@ public class Validator implements JsCalcHelper, LabelWrap {
         dialog.setTitle("Please fix following errors");
         DialogPane dialogPane = dialog.getDialogPane();
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setContent(labelWrap(text));
+        scrollPane.setContent(LabelWrap.wrap(text));
         dialogPane.setContent(scrollPane);
         dialogPane.getButtonTypes().add(ButtonType.CLOSE);
         dialog.showAndWait();

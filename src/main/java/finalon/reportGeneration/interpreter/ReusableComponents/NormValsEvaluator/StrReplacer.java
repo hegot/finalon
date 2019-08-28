@@ -1,22 +1,20 @@
 package finalon.reportGeneration.interpreter.ReusableComponents.NormValsEvaluator;
 
 import finalon.entities.Formula;
-import javafx.collections.ObservableMap;
+import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.CommaFormat;
 import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.Round;
 import finalon.reportGeneration.storage.Periods;
 import finalon.reportGeneration.storage.SettingsStorage;
+import javafx.collections.ObservableMap;
 
 import java.util.ArrayList;
 
 
-public class StrReplacer implements ParseDouble, Round {
-    private ObservableMap<String, String> settings;
+public class StrReplacer implements ParseDouble {
     private String text;
     private Formula formula;
 
     public StrReplacer(String text, Formula formula) {
-        this.settings = SettingsStorage.getSettings();
         this.text = text;
         this.formula = formula;
     }
@@ -25,9 +23,9 @@ public class StrReplacer implements ParseDouble, Round {
         text = text.replace("ENDDATE", Periods.getEnd());
         text = text.replace("AFTERSTART", Periods.getAfterStart());
         text = text.replace("STARTDATE", Periods.getStart());
-        text = text.replace("COMPANYNAME", "“" + settings.get("company") + "”");
-        text = text.replace("CURRENCY", settings.get("defaultCurrency"));
-        text = text.replace("AMOUNT", settings.get("amount"));
+        text = text.replace("COMPANYNAME", "“" + SettingsStorage.get("company") + "”");
+        text = text.replace("CURRENCY", SettingsStorage.get("defaultCurrency"));
+        text = text.replace("AMOUNT", SettingsStorage.get("amount"));
         if (text.contains("AVERAGEVALUE")) {
             text = text.replace("AVERAGEVALUE", getAverageVal());
         }
@@ -48,7 +46,7 @@ public class StrReplacer implements ParseDouble, Round {
             }
         }
         int size = arr.size() - 1;
-        return round(sum / size);
+        return CommaFormat.format(sum / size);
     }
 
 

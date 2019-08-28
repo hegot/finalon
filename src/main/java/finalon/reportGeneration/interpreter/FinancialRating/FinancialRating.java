@@ -2,10 +2,6 @@ package finalon.reportGeneration.interpreter.FinancialRating;
 
 import finalon.entities.Formula;
 import finalon.globalReusables.LabelWrap;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableView;
-import javafx.scene.layout.VBox;
 import finalon.reportGeneration.interpreter.FinancialRating.Outcomes.FinConditionScaleTable;
 import finalon.reportGeneration.interpreter.FinancialRating.Outcomes.FinancialRatingTable;
 import finalon.reportGeneration.interpreter.FinancialRating.Outcomes.ScaleItem;
@@ -13,8 +9,12 @@ import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.TableN
 import finalon.reportGeneration.storage.FormulaStorage;
 import finalon.reportGeneration.storage.ResultsStorage;
 import finalon.reportGeneration.storage.TwoDList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.VBox;
 
-public class FinancialRating implements TableName, LabelWrap {
+public class FinancialRating implements TableName {
 
     private ObservableList<Formula> formulas;
     private int weight;
@@ -60,7 +60,7 @@ public class FinancialRating implements TableName, LabelWrap {
                 tbl,
                 tableName(title2),
                 tbl2,
-                labelWrap(outcome)
+                LabelWrap.wrap(outcome)
         );
         return box;
     }

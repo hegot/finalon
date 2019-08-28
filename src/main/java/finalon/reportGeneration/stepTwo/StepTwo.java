@@ -5,14 +5,14 @@ import finalon.defaultData.DefaultTemplate;
 import finalon.entities.Item;
 import finalon.globalReusables.ItemsGetter;
 import finalon.globalReusables.SheetsGetter;
+import finalon.reportGeneration.storage.ItemsStorage;
+import finalon.reportGeneration.storage.Periods;
+import finalon.reportGeneration.storage.SettingsStorage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableView;
-import finalon.reportGeneration.storage.ItemsStorage;
-import finalon.reportGeneration.storage.Periods;
-import finalon.reportGeneration.storage.SettingsStorage;
 
 import java.util.ArrayList;
 
@@ -30,7 +30,7 @@ public class StepTwo {
 
     private void setItems() {
         if (items.size() == 0) {
-            int tpl = Integer.parseInt(SettingsStorage.getSettings().get("template"));
+            int tpl = Integer.parseInt(SettingsStorage.get("template"));
             ObservableList<Item> dbItems = DbItemHandler.getItems(tpl);
             if (dbItems.size() == 0) {
                 dbItems = FXCollections.observableArrayList(

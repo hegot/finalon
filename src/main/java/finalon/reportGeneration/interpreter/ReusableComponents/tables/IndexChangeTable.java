@@ -3,21 +3,21 @@ package finalon.reportGeneration.interpreter.ReusableComponents.tables;
 import finalon.database.setting.DbSettingHandler;
 import finalon.entities.Item;
 import finalon.globalReusables.Setting;
+import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.Diff;
+import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
+import finalon.reportGeneration.storage.ItemsStorage;
+import finalon.reportGeneration.storage.Periods;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.Diff;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
-import finalon.reportGeneration.storage.ItemsStorage;
-import finalon.reportGeneration.storage.Periods;
 
 import java.util.ArrayList;
 
 
-public class IndexChangeTable extends ItemsTable implements JsCalcHelper, Diff {
+public class IndexChangeTable extends ItemsTable implements JsCalcHelper {
     private int rootId;
 
     public IndexChangeTable(
@@ -85,7 +85,7 @@ public class IndexChangeTable extends ItemsTable implements JsCalcHelper, Diff {
         col.setCellValueFactory(cellData -> {
             ObservableMap<String, Double> values = getValues(cellData);
             if (values != null) {
-                return diff(
+                return Diff.diff(
                         values.get(colStart),
                         values.get(colEnd)
                 );
@@ -106,7 +106,7 @@ public class IndexChangeTable extends ItemsTable implements JsCalcHelper, Diff {
                 Double colEndVAl = values.get(colEnd);
                 if (colStartVAl != null && colEndVAl != null) {
                     String relative = getRelativeChange(colStartVAl, colEndVAl);
-                    if(relative.length() > 0){
+                    if (relative.length() > 0) {
                         return new SimpleStringProperty(commaFormat(relative) + "%");
                     }
                 }

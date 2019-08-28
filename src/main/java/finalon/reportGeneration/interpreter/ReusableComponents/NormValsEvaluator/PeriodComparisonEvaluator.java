@@ -2,11 +2,11 @@ package finalon.reportGeneration.interpreter.ReusableComponents.NormValsEvaluato
 
 import finalon.defaultData.EvaluationTypes;
 import finalon.entities.Formula;
+import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.CommaFormat;
 import javafx.collections.ObservableList;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 
 
-public class PeriodComparisonEvaluator implements ParseDouble {
+public class PeriodComparisonEvaluator {
     private ObservableList<Formula> childs;
     private Double startVal;
     private Double endVal;
@@ -45,11 +45,11 @@ public class PeriodComparisonEvaluator implements ParseDouble {
             if (formula.getName().equals(type.toString())) {
                 String descr = formula.getDescription();
                 if (startVal != 0) {
-                    descr = descr.replace("CHANGEPERCENT", round(changePercent));
+                    descr = descr.replace("CHANGEPERCENT", CommaFormat.format(changePercent));
                 } else {
-                    descr = descr.replace("CHANGEPERCENT", toString(change));
+                    descr = descr.replace("CHANGEPERCENT", CommaFormat.format(change));
                 }
-                descr = descr.replace("CHANGE", toString(change));
+                descr = descr.replace("CHANGE", CommaFormat.format(change));
                 return descr;
             }
         }

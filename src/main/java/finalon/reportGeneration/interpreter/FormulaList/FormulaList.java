@@ -1,14 +1,14 @@
 package finalon.reportGeneration.interpreter.FormulaList;
 
 import finalon.entities.Formula;
+import finalon.reportGeneration.interpreter.ReusableComponents.tables.FormulaTable;
+import finalon.reportGeneration.storage.FormulaStorage;
+import finalon.reportGeneration.storage.Periods;
 import javafx.collections.ObservableList;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
-import finalon.reportGeneration.interpreter.ReusableComponents.tables.FormulaTable;
-import finalon.reportGeneration.storage.FormulaStorage;
-import finalon.reportGeneration.storage.Periods;
 
 import java.util.ArrayList;
 

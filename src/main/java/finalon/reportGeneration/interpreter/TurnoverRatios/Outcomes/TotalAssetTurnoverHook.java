@@ -2,9 +2,9 @@ package finalon.reportGeneration.interpreter.TurnoverRatios.Outcomes;
 
 import finalon.entities.Formula;
 import finalon.entities.Item;
-import javafx.collections.ObservableMap;
 import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.Periods;
+import javafx.collections.ObservableMap;
 
 import java.util.ArrayList;
 

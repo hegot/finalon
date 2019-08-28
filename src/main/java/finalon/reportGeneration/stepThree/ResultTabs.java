@@ -1,6 +1,11 @@
 package finalon.reportGeneration.stepThree;
 
 import finalon.entities.Formula;
+import finalon.reportGeneration.interpreter.Interprter;
+import finalon.reportGeneration.storage.FormulaStorage;
+import finalon.reportGeneration.storage.Periods;
+import finalon.reportGeneration.storage.ResultsStorage;
+import finalon.reportGeneration.wordExport.WordExport;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -12,11 +17,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import finalon.reportGeneration.interpreter.Interprter;
-import finalon.reportGeneration.storage.FormulaStorage;
-import finalon.reportGeneration.storage.Periods;
-import finalon.reportGeneration.storage.ResultsStorage;
-import finalon.reportGeneration.wordExport.WordExport;
 
 import java.util.ArrayList;
 import java.util.HashMap;

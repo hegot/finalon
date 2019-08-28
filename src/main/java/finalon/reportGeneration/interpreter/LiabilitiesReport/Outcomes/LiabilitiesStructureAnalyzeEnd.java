@@ -3,8 +3,6 @@ package finalon.reportGeneration.interpreter.LiabilitiesReport.Outcomes;
 import finalon.entities.Item;
 import finalon.globalReusables.LabelWrap;
 import finalon.globalReusables.NotEmpty;
-import javafx.collections.ObservableList;
-import javafx.scene.layout.VBox;
 import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.EquityShareAnalyze;
 import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.SrtuctureItemsLoop;
@@ -12,8 +10,10 @@ import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.Periods;
 import finalon.reportGeneration.storage.ResultsStorage;
 import finalon.reportGeneration.storage.SettingsStorage;
+import javafx.collections.ObservableList;
+import javafx.scene.layout.VBox;
 
-public class LiabilitiesStructureAnalyzeEnd implements SrtuctureItemsLoop, LabelWrap, EquityShareAnalyze, ParseDouble {
+public class LiabilitiesStructureAnalyzeEnd implements SrtuctureItemsLoop, EquityShareAnalyze, ParseDouble {
     private Item parent;
     private String period;
     private Double totalVal;
@@ -38,7 +38,7 @@ public class LiabilitiesStructureAnalyzeEnd implements SrtuctureItemsLoop, Label
         this.equityVal = EquityGeneral.getVal(period);
         this.currentVal = CurrentLiabilities.getVal(period);
         this.nonCurrentVal = NonCurrentLiabilities.getVal(period);
-        String assetsStartValue = SettingsStorage.getSettings().get("assetsStartValue");
+        String assetsStartValue = SettingsStorage.get("assetsStartValue");
         this.assetsTotal = parseDouble(assetsStartValue);
     }
 
@@ -47,7 +47,7 @@ public class LiabilitiesStructureAnalyzeEnd implements SrtuctureItemsLoop, Label
         VBox vBox = new VBox(10);
         if (this.parent.getValues().size() > 1) {
             String mess = firstMessage();
-            vBox.getChildren().add(labelWrap(mess));
+            vBox.getChildren().add(LabelWrap.wrap(mess));
             ResultsStorage.addStr(32, "text", mess);
         }
         String str = "";
@@ -72,7 +72,7 @@ public class LiabilitiesStructureAnalyzeEnd implements SrtuctureItemsLoop, Label
                     " etc.",
                     period);
         }
-        vBox.getChildren().add(labelWrap(str));
+        vBox.getChildren().add(LabelWrap.wrap(str));
         ResultsStorage.addStr(33, "text", str);
         return vBox;
     }

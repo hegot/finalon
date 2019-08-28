@@ -2,16 +2,16 @@ package finalon.reportGeneration.interpreter.FormulaCalculation;
 
 import finalon.entities.Formula;
 import finalon.finalonWindows.reusableComponents.autocomplete.ParserBase;
-import javafx.collections.ObservableMap;
 import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.Round;
+import javafx.collections.ObservableMap;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import java.util.Arrays;
 import java.util.Map;
 
-public class FormulaHandler implements ParseDouble, Round {
+public class FormulaHandler implements ParseDouble {
     private Formula formula;
     private Map<String, ObservableMap<String, Double>> values;
     private String period;
@@ -103,7 +103,7 @@ public class FormulaHandler implements ParseDouble, Round {
             res = engine.eval(value).toString();
             if (res != null && res.length() > 0) {
                 Double doubleInt = parseDouble(res);
-                String val = round(doubleInt);
+                String val = Round.format(doubleInt);
                 res = val;
                 if (val.equals("NaN") || val.equals("Infinity") || val.equals("-Infinity")) res = "";
             }

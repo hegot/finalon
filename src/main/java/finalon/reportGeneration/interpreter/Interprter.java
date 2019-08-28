@@ -1,6 +1,5 @@
 package finalon.reportGeneration.interpreter;
 
-import javafx.scene.layout.VBox;
 import finalon.reportGeneration.interpreter.AssetsReport.AssetsReport;
 import finalon.reportGeneration.interpreter.FinancialRating.FinancialRating;
 import finalon.reportGeneration.interpreter.FinancialResults.FinancialResultsReport;
@@ -15,6 +14,7 @@ import finalon.reportGeneration.interpreter.Liquidity.LiquidityReport;
 import finalon.reportGeneration.interpreter.ProfitabilityRatios.ProfitabilityRatios;
 import finalon.reportGeneration.interpreter.TurnoverRatios.TurnoverRatios;
 import finalon.reportGeneration.interpreter.ZScoreModel.ZScoreModel;
+import javafx.scene.layout.VBox;
 
 public class Interprter {
     public VBox getReport(String type, int counter) {

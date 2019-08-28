@@ -1,5 +1,9 @@
 package finalon.reportGeneration.wordExport;
 
+import finalon.reportGeneration.storage.ResultItem;
+import finalon.reportGeneration.storage.ResultsStorage;
+import finalon.reportGeneration.storage.TitledItem;
+import finalon.reportGeneration.storage.TwoDList;
 import javafx.collections.ObservableMap;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.BarChart;
@@ -12,10 +16,6 @@ import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.wml.Br;
 import org.docx4j.wml.P;
 import org.docx4j.wml.R;
-import finalon.reportGeneration.storage.ResultItem;
-import finalon.reportGeneration.storage.ResultsStorage;
-import finalon.reportGeneration.storage.TitledItem;
-import finalon.reportGeneration.storage.TwoDList;
 
 import java.io.File;
 import java.util.SortedSet;

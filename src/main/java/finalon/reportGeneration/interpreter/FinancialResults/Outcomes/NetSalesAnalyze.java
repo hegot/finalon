@@ -2,12 +2,12 @@ package finalon.reportGeneration.interpreter.FinancialResults.Outcomes;
 
 import finalon.entities.Item;
 import finalon.globalReusables.LabelWrap;
-import javafx.scene.layout.VBox;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.Round;
+import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.CommaFormat;
 import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.ResultsStorage;
+import javafx.scene.layout.VBox;
 
-public class NetSalesAnalyze implements LabelWrap, Round {
+public class NetSalesAnalyze {
 
     private Double first;
     private Double last;
@@ -35,7 +35,7 @@ public class NetSalesAnalyze implements LabelWrap, Round {
             if (last == first) {
                 output = equal();
             }
-            hbox.getChildren().add(labelWrap(output));
+            hbox.getChildren().add(LabelWrap.wrap(output));
             ResultsStorage.addStr(weight, "text", output);
         }
         return hbox;
@@ -45,13 +45,13 @@ public class NetSalesAnalyze implements LabelWrap, Round {
     private String increase() {
         return "The comparative income statement given above shows there " +
                 "has been an increase in the net sales of "
-                + round(change) + "% over the reported period. ";
+                + CommaFormat.format(change) + "% over the reported period. ";
     }
 
     private String decrease() {
         return "The comparative income statement given above shows that " +
                 "there has been a decrease in the net sales of "
-                + round(change) + "% over the reported period. ";
+                + CommaFormat.format(change) + "% over the reported period. ";
     }
 
     private String equal() {

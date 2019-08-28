@@ -4,19 +4,17 @@ import finalon.database.template.DbItemHandler;
 import finalon.defaultData.DefaultTemplate;
 import finalon.entities.Item;
 import finalon.entities.ItemConverter;
+import finalon.reportGeneration.storage.ItemsStorage;
+import finalon.reportGeneration.storage.SettingsStorage;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.scene.control.ComboBox;
-import finalon.reportGeneration.storage.ItemsStorage;
-import finalon.reportGeneration.storage.SettingsStorage;
 
 public class TemplateSelect {
 
     public static ComboBox get() {
-        ObservableMap<String, String> settings = SettingsStorage.getSettings();
         ComboBox<Item> templatesBox = new ComboBox<Item>();
         templatesBox.setConverter(new ItemConverter());
         ObservableList<Item> items = getTpls();
@@ -32,7 +30,7 @@ public class TemplateSelect {
             @Override
             public void changed(ObservableValue<? extends Item> arg0, Item arg1, Item arg2) {
                 if (arg2 != null) {
-                    settings.replace("template", Integer.toString(arg2.getId()));
+                    SettingsStorage.replace("template", Integer.toString(arg2.getId()));
                     ObservableList<Item> dbItems = DbItemHandler.getItems(arg2.getId());
                     if (dbItems.size() == 0) {
                         dbItems = FXCollections.observableArrayList(DefaultTemplate.getTpl());
@@ -51,8 +49,7 @@ public class TemplateSelect {
     }
 
     private static Item getDefaultTemplate(ObservableList<Item> items) {
-        ObservableMap<String, String> settings = SettingsStorage.getSettings();
-        String val = settings.get("template");
+        String val = SettingsStorage.get("template");
         if (val != null && val.length() > 0) {
             Item item = DbItemHandler.getItem(Integer.parseInt(val));
             if (item != null) {
@@ -61,10 +58,10 @@ public class TemplateSelect {
         } else {
             if (items.size() > 0) {
                 Item item = items.get(0);
-                settings.put("template", Integer.toString(item.getId()));
+                SettingsStorage.put("template", Integer.toString(item.getId()));
 
             } else {
-                settings.put("template", "1");
+                SettingsStorage.put("template", "1");
                 Item item = new Item(1, "Default Template", "DefaultTemplate", true, false, 0, 0, 0);
                 items.add(item);
                 return item;

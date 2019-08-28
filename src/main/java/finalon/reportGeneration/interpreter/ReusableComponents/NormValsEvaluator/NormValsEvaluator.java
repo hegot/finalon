@@ -2,9 +2,9 @@ package finalon.reportGeneration.interpreter.ReusableComponents.NormValsEvaluato
 
 import finalon.defaultData.EvaluationTypes;
 import finalon.entities.Formula;
-import javafx.collections.ObservableList;
 import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
 import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
+import javafx.collections.ObservableList;
 
 public class NormValsEvaluator extends ValsEvaluator implements JsCalcHelper, ParseDouble {
     private Formula formula;

@@ -2,19 +2,19 @@ package finalon.reportGeneration.interpreter.FinancialResults.Outcomes;
 
 import finalon.entities.Item;
 import finalon.globalReusables.LabelWrap;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableMap;
-import javafx.scene.chart.BarChart;
-import javafx.scene.layout.VBox;
 import finalon.reportGeneration.interpreter.ReusableComponents.ChartBase;
 import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.*;
 import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.Periods;
 import finalon.reportGeneration.storage.ResultsStorage;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
+import javafx.scene.chart.BarChart;
+import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
-public class FinancialResultsChart extends ChartBase implements GetVal, Round, LabelWrap, JsCalcHelper, ParseDouble, TableName {
+public class FinancialResultsChart extends ChartBase implements GetVal, JsCalcHelper, ParseDouble, TableName {
     private ObservableMap<String, Double> valuesEBIT;
     private ObservableMap<String, Double> valuesRevenueGeneral;
     private ObservableMap<String, Double> valuesGrossProfit;
@@ -50,7 +50,7 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
                 if (originalVal != null && toCompare != null) {
                     Double part = (originalVal / toCompare) * 100;
                     if (part != null) {
-                        outputVals.put(period, parseDouble(round(part)));
+                        outputVals.put(period, parseDouble(Round.format(part)));
                     }
                 }
             }
@@ -102,7 +102,7 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
             }
             String out = "The chart above shows that the gross profit to net sales ratio " + chRes + " in " + Periods.getEnd();
             if (change != 0) {
-                out += " by " + round(change) + "% ";
+                out += " by " + CommaFormat.format(change) + "% ";
             }
             out += " comparing to " + Periods.getStart() + ". ";
             if (change != 0) {
@@ -112,7 +112,7 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
                         " during the periods with higher values of the ratio.";
             }
             ResultsStorage.addStr(weight, "text", out);
-            vBox.getChildren().add(labelWrap(out));
+            vBox.getChildren().add(LabelWrap.wrap(out));
         }
     }
 
@@ -155,7 +155,7 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
                         "of a company in terms of profitability and cost management. ";
             }
             ResultsStorage.addStr(weight, "text", out);
-            vBox.getChildren().add(labelWrap(out));
+            vBox.getChildren().add(LabelWrap.wrap(out));
         }
     }
 
@@ -174,13 +174,13 @@ public class FinancialResultsChart extends ChartBase implements GetVal, Round, L
             }
             if (change != 0) {
                 out += "The share of the comprehensive income in the company's net sales "
-                        + chRes + " in " + Periods.getEnd() + " by " + round(last - fisrt) + "%. ";
+                        + chRes + " in " + Periods.getEnd() + " by " + CommaFormat.format(last - fisrt) + "%. ";
             } else {
                 out += "The share of the comprehensive income in the company's net sales " +
                         "did not change during " + Periods.getStart() + "-" + Periods.getEnd() + ". ";
             }
             ResultsStorage.addStr(weight, "text", out);
-            vBox.getChildren().add(labelWrap(out));
+            vBox.getChildren().add(LabelWrap.wrap(out));
         }
     }
 

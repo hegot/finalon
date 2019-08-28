@@ -1,15 +1,14 @@
 package finalon.reportGeneration.interpreter.LaborProductivity.Outcomes;
 
 import finalon.entities.Formula;
-import javafx.collections.ObservableMap;
-import javafx.scene.chart.BarChart;
-import javafx.scene.layout.VBox;
 import finalon.reportGeneration.interpreter.ReusableComponents.ChartBase;
 import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
 import finalon.reportGeneration.storage.FormulaStorage;
 import finalon.reportGeneration.storage.Periods;
 import finalon.reportGeneration.storage.ResultsStorage;
 import finalon.reportGeneration.storage.SettingsStorage;
+import javafx.scene.chart.BarChart;
+import javafx.scene.layout.VBox;
 
 public class LaborProductivityChart extends ChartBase implements TableName {
     private Formula laborProductivity;
@@ -19,11 +18,10 @@ public class LaborProductivityChart extends ChartBase implements TableName {
     }
 
     private String chartTitle() {
-        ObservableMap<String, String> settings = SettingsStorage.getSettings();
-        return "Chart 6. " + settings.get("company") +
+        return "Chart 6. " + SettingsStorage.get("company") +
                 " Labor productivity between " +
                 Periods.getStart() + " - " + Periods.getEnd() +
-                " in " + settings.get("defaultCurrency") + " per person.";
+                " in " + SettingsStorage.get("defaultCurrency") + " per person.";
     }
 
     public VBox get(int weight) {

@@ -2,18 +2,17 @@ package finalon.reportGeneration.interpreter.FinancialResults.Outcomes;
 
 import finalon.entities.Item;
 import finalon.globalReusables.LabelWrap;
-import javafx.collections.ObservableMap;
-import javafx.scene.layout.VBox;
+import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.CommaFormat;
 import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.Round;
 import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.Periods;
 import finalon.reportGeneration.storage.ResultsStorage;
 import finalon.reportGeneration.storage.SettingsStorage;
+import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
-public class CostOfGoods implements LabelWrap, JsCalcHelper, Round {
+public class CostOfGoods implements JsCalcHelper {
     private Double last;
     private String endDate;
     private ArrayList<String> periodsArr;
@@ -26,9 +25,8 @@ public class CostOfGoods implements LabelWrap, JsCalcHelper, Round {
         this.last = costOfSales.getLastVal();
         this.endDate = Periods.getEnd();
         this.periodsArr = Periods.getPeriodArr();
-        ObservableMap<String, String> settings = SettingsStorage.getSettings();
-        this.currency = settings.get("defaultCurrency");
-        this.amount = settings.get("amount");
+        this.currency = SettingsStorage.get("defaultCurrency");
+        this.amount = SettingsStorage.get("amount");
     }
 
     public VBox get(int weight) {
@@ -50,7 +48,7 @@ public class CostOfGoods implements LabelWrap, JsCalcHelper, Round {
                     output += stable();
                 }
             }
-            hbox.getChildren().add(labelWrap(output));
+            hbox.getChildren().add(LabelWrap.wrap(output));
             ResultsStorage.addStr(weight, "text", output);
         }
         return hbox;
@@ -69,7 +67,7 @@ public class CostOfGoods implements LabelWrap, JsCalcHelper, Round {
             if (val1 != null && val2 != null) {
                 out.append("The cost of goods and services totaled "
                         + currency + " " + val2 + " " + amount + " in "
-                        + formatDate(end) + ", " + round(change) + "% " + inner + " than in " + formatDate(start) + ". ");
+                        + formatDate(end) + ", " + CommaFormat.format(change) + "% " + inner + " than in " + formatDate(start) + ". ");
             }
         }
         return out.toString();
@@ -80,11 +78,11 @@ public class CostOfGoods implements LabelWrap, JsCalcHelper, Round {
     }
 
     private String increase(Double change) {
-        return atTheEnd() + "This has resulted in an increase in the gross profit by " + round(change) + "%.";
+        return atTheEnd() + "This has resulted in an increase in the gross profit by " + CommaFormat.format(change) + "%.";
     }
 
     private String decrease(Double change) {
-        return atTheEnd() + "This has resulted in decrease in the gross profit by " + round(change) + "%.";
+        return atTheEnd() + "This has resulted in decrease in the gross profit by " + CommaFormat.format(change) + "%.";
     }
 
     private String stable() {

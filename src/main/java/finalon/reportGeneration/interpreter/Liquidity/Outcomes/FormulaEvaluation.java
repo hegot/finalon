@@ -2,14 +2,13 @@ package finalon.reportGeneration.interpreter.Liquidity.Outcomes;
 
 import finalon.entities.Formula;
 import finalon.globalReusables.LabelWrap;
-import javafx.collections.ObservableList;
-import javafx.scene.layout.VBox;
 import finalon.reportGeneration.interpreter.ReusableComponents.FormulaEvaluateBase;
 import finalon.reportGeneration.interpreter.ReusableComponents.NormValsEvaluator.StrReplacer;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.AttachChilds;
 import finalon.reportGeneration.storage.ResultsStorage;
+import javafx.collections.ObservableList;
+import javafx.scene.layout.VBox;
 
-public class FormulaEvaluation implements LabelWrap, AttachChilds {
+public class FormulaEvaluation {
     private ObservableList<Formula> formulas;
 
     public FormulaEvaluation(ObservableList<Formula> formulas) {
@@ -21,14 +20,14 @@ public class FormulaEvaluation implements LabelWrap, AttachChilds {
         if (formulas != null) {
             String outcome = "";
             for (Formula formula : formulas) {
-                setFormulaChilds(formula);
+                formula.attachChilds();
                 outcome += evaluateSingle(formula) + "\n\n";
                 if (outcome.length() > 0) {
                     StrReplacer replacer = new StrReplacer(outcome, formula);
                     outcome = replacer.substitute();
                 }
             }
-            vbox.getChildren().add(labelWrap(outcome));
+            vbox.getChildren().add(LabelWrap.wrap(outcome));
             ResultsStorage.addStr(weight, "text", outcome);
         }
         return vbox;

@@ -2,15 +2,15 @@ package finalon.reportGeneration.interpreter.AssetsReport.Outcomes;
 
 import finalon.entities.Item;
 import finalon.globalReusables.LabelWrap;
-import javafx.collections.ObservableList;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.SrtuctureItemsLoop;
 import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.Periods;
 import finalon.reportGeneration.storage.ResultsStorage;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 
-public class AssetStructureAnalyseEnd implements SrtuctureItemsLoop, LabelWrap {
+public class AssetStructureAnalyseEnd implements SrtuctureItemsLoop {
     private Item parent;
     private String period;
     private Double totalVal;
@@ -61,7 +61,7 @@ public class AssetStructureAnalyseEnd implements SrtuctureItemsLoop, LabelWrap {
                     period);
         }
         ResultsStorage.addStr(18, "text", str);
-        vBox.getChildren().add(labelWrap(str));
+        vBox.getChildren().add(LabelWrap.wrap(str));
         return vBox;
     }
 
@@ -81,6 +81,6 @@ public class AssetStructureAnalyseEnd implements SrtuctureItemsLoop, LabelWrap {
             }
         }
         ResultsStorage.addStr(17, "text", str);
-        return labelWrap(str);
+        return LabelWrap.wrap(str);
     }
 }

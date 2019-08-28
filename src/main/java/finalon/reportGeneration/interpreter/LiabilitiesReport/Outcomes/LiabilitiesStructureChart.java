@@ -1,15 +1,15 @@
 package finalon.reportGeneration.interpreter.LiabilitiesReport.Outcomes;
 
 import finalon.entities.Item;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.chart.PieChart;
-import javafx.scene.layout.VBox;
 import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.GetVal;
 import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
 import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.ResultsStorage;
 import finalon.reportGeneration.storage.SettingsStorage;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
+import javafx.scene.layout.VBox;
 
 public class LiabilitiesStructureChart implements GetVal, TableName {
     private Item equity;
@@ -59,7 +59,7 @@ public class LiabilitiesStructureChart implements GetVal, TableName {
                 ));
             }
             chart.setData(pieChartData);
-            String title = "Chart 4. " + SettingsStorage.getSettings().get("company") +
+            String title = "Chart 4. " + SettingsStorage.get("company") +
                     " Source of Finance structure in " + period;
             ResultsStorage.addPieChart(31, chart, title);
             vBox.getChildren().addAll(tableName(title), chart);

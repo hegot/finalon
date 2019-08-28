@@ -1,15 +1,15 @@
 package finalon.reportGeneration.interpreter.TurnoverRatios;
 
 import finalon.entities.Formula;
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableView;
-import javafx.scene.layout.VBox;
 import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
 import finalon.reportGeneration.interpreter.TurnoverRatios.Outcomes.FormulaEvaluation;
 import finalon.reportGeneration.interpreter.TurnoverRatios.Outcomes.RatiosTable;
 import finalon.reportGeneration.storage.FormulaStorage;
 import finalon.reportGeneration.storage.ResultsStorage;
 import finalon.reportGeneration.storage.TwoDList;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.VBox;
 
 public class TurnoverRatios implements TableName {
     private ObservableList<Formula> formulas;

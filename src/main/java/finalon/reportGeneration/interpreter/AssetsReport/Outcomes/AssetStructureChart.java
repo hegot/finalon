@@ -1,16 +1,15 @@
 package finalon.reportGeneration.interpreter.AssetsReport.Outcomes;
 
 import finalon.entities.Item;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
-import javafx.scene.chart.PieChart;
-import javafx.scene.layout.VBox;
 import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.GetVal;
 import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
 import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.ResultsStorage;
 import finalon.reportGeneration.storage.SettingsStorage;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
+import javafx.scene.layout.VBox;
 
 public class AssetStructureChart implements GetVal, TableName {
 
@@ -34,7 +33,6 @@ public class AssetStructureChart implements GetVal, TableName {
 
     public VBox get() {
         VBox vBox = new VBox();
-        ObservableMap<String, String> settings = SettingsStorage.getSettings();
         final PieChart chart = new PieChart();
         if (totalVal != null && totalVal != 0) {
             ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
@@ -51,7 +49,7 @@ public class AssetStructureChart implements GetVal, TableName {
                 ));
             }
             chart.setData(pieChartData);
-            String title = "Chart 3. " + settings.get("company") + " Assets structure in " + period;
+            String title = "Chart 3. " + SettingsStorage.get("company") + " Assets structure in " + period;
             ResultsStorage.addPieChart(16, chart, title);
             vBox.getChildren().addAll(tableName(title), chart);
         }

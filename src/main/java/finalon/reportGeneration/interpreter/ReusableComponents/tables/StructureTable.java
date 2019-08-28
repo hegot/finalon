@@ -2,6 +2,11 @@ package finalon.reportGeneration.interpreter.ReusableComponents.tables;
 
 import finalon.entities.Item;
 import finalon.globalReusables.ItemsGetter;
+import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.CommaFormat;
+import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.Diff;
+import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
+import finalon.reportGeneration.storage.ItemsStorage;
+import finalon.reportGeneration.storage.Periods;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,16 +15,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.Diff;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
-import finalon.reportGeneration.storage.ItemsStorage;
-import finalon.reportGeneration.storage.Periods;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StructureTable implements JsCalcHelper, Diff {
+public class StructureTable implements JsCalcHelper {
     private Map<String, Double> totalVals;
     private ObservableList<Item> items;
     private ArrayList<String> periodsArr;
@@ -79,7 +80,7 @@ public class StructureTable implements JsCalcHelper, Diff {
         column.setCellValueFactory(cellData -> {
             ObservableMap<String, Double> values = getValues(cellData);
             if (values != null) {
-                return diff(
+                return Diff.diff(
                         values.get(colStart),
                         values.get(colEnd)
                 );
@@ -105,7 +106,7 @@ public class StructureTable implements JsCalcHelper, Diff {
             if (values != null) {
                 Double itemVAl = values.get(col);
                 if (itemVAl != null) {
-                    return new SimpleStringProperty(commaFormat(itemVAl) + "%");
+                    return new SimpleStringProperty(CommaFormat.format(itemVAl) + "%");
                 }
             }
             return null;

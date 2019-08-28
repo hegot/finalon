@@ -6,7 +6,7 @@ import finalon.reportGeneration.storage.Periods;
 
 import java.text.DecimalFormat;
 
-public class ScoreItem implements RatingWeight {
+public class ScoreItem {
     private String code;
     private Formula formula;
     private Double weight;
@@ -31,7 +31,7 @@ public class ScoreItem implements RatingWeight {
         this.code = formula.getShortName();
         this.df = new DecimalFormat("#.##");
         if (formula.getShortName().length() > 0) {
-            this.weight = getWeight(code);
+            this.weight = RatingWeight.getWeight(code);
             this.score1 = calcScore1();
             this.score2 = calcScore2();
             this.averageScore = calcAverageScore();

@@ -1,18 +1,18 @@
 package finalon.reportGeneration.interpreter.TurnoverRatios.Outcomes;
 
 import finalon.entities.Formula;
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.Diff;
 import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
 import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 import finalon.reportGeneration.interpreter.ReusableComponents.tables.FormulaTable;
 import finalon.reportGeneration.storage.Periods;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 import java.util.ArrayList;
 
-public class RatiosTable extends FormulaTable implements JsCalcHelper, ParseDouble, Diff {
+public class RatiosTable extends FormulaTable implements JsCalcHelper, ParseDouble {
     private ObservableList<Formula> formulas;
     private ArrayList<String> periods;
 
@@ -51,7 +51,7 @@ public class RatiosTable extends FormulaTable implements JsCalcHelper, ParseDoub
         col.setCellValueFactory(cellData -> {
             Formula formula = (Formula) cellData.getValue();
             if (formula != null) {
-                return diff(
+                return Diff.diff(
                         formula.getVal(colStart),
                         formula.getVal(colEnd)
                 );

@@ -2,6 +2,13 @@ package finalon.reportGeneration.interpreter.FinancialResults.Outcomes;
 
 import finalon.entities.Item;
 import finalon.globalReusables.LabelWrap;
+import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.CommaFormat;
+import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.Diff;
+import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
+import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
+import finalon.reportGeneration.storage.ItemsStorage;
+import finalon.reportGeneration.storage.Periods;
+import finalon.reportGeneration.storage.SettingsStorage;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,23 +17,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.Diff;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
-import finalon.reportGeneration.storage.ItemsStorage;
-import finalon.reportGeneration.storage.Periods;
-import finalon.reportGeneration.storage.SettingsStorage;
 
 import java.util.ArrayList;
 
-public class FinancialResultTable implements ParseDouble, JsCalcHelper, LabelWrap, Diff {
+public class FinancialResultTable implements ParseDouble, JsCalcHelper {
 
     private ObservableList<Item> items;
     private ArrayList<String> periods;
     private Item grossProfit;
     private Item itemEbit;
     private Item comprehensiveIncome;
-    private ObservableMap<String, String> settings = SettingsStorage.getSettings();
     private ItemsGetter itemsGetter = new ItemsGetter();
 
     public FinancialResultTable() {
@@ -63,12 +63,12 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper, LabelWra
         if (first == 0) {
             out += "Zero EBIT indicates poor performance in " + endDate + ". ";
         } else {
-            out += "EBIT was " + positive + " at " + settings.get("defaultCurrency") +
-                    " " + last + " " + settings.get("amount") + " in " + endDate + ". ";
+            out += "EBIT was " + positive + " at " + SettingsStorage.get("defaultCurrency") +
+                    " " + last + " " + SettingsStorage.get("amount") + " in " + endDate + ". ";
         }
 
         double change = last - first;
-        String growth = round(change / first * 100);
+        String growth = CommaFormat.format(change / first * 100);
         if (change > 0) {
             out += "The EBIT growth was " + growth + "% during " + startDate + "-" + endDate + ". ";
         } else if (change < 0) {
@@ -77,7 +77,7 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper, LabelWra
             out += "The EBIT was stable during " + startDate + "-" + endDate + ". ";
         }
         out += comprehensiveIncome();
-        return labelWrap(out);
+        return LabelWrap.wrap(out);
     }
 
 
@@ -88,12 +88,12 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper, LabelWra
         if (last != null) {
             if (last <= 0) {
                 output = "On the whole, " + endDate + " was a bad period as the company recorded " +
-                        settings.get("defaultCurrency") + " " + last + " " +
-                        settings.get("amount") + " comprehensive loss.";
+                        SettingsStorage.get("defaultCurrency") + " " + last + " " +
+                        SettingsStorage.get("amount") + " comprehensive loss.";
             } else {
                 output = "On the whole, " + endDate + " was a good period as the company recorded " +
-                        settings.get("defaultCurrency") + " " + last + " " +
-                        settings.get("amount") + " comprehensive income.";
+                        SettingsStorage.get("defaultCurrency") + " " + last + " " +
+                        SettingsStorage.get("amount") + " comprehensive income.";
             }
         }
         return output;
@@ -136,7 +136,7 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper, LabelWra
             if (item != null && item.getValues().size() > 0) {
                 Double period = item.getValues().get(colname);
                 if (period != null) {
-                    return new SimpleStringProperty(round(period));
+                    return new SimpleStringProperty(CommaFormat.format(period));
                 }
             }
             return null;
@@ -161,7 +161,7 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper, LabelWra
         col.setCellValueFactory(cellData -> {
             ObservableMap<String, Double> values = getValues(cellData);
             if (values != null) {
-                return diff(
+                return Diff.diff(
                         values.get(colStart),
                         values.get(colEnd)
                 );

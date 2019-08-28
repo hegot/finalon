@@ -107,12 +107,12 @@ public class StepOne {
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                String company = SettingsStorage.getSettings().get("company");
+                String company = SettingsStorage.get("company");
                 if (company.length() == 0) {
                     errors.setText("Please fill in company name");
                 } else {
                     errors.setText("");
-                    SettingsStorage.getSettings().put("step", "two");
+                    SettingsStorage.put("step", "two");
                 }
             }
         });

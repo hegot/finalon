@@ -1,9 +1,9 @@
 package finalon.reportGeneration.wordExport;
 
+import finalon.reportGeneration.storage.ResultItem;
 import org.docx4j.jaxb.Context;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.wml.*;
-import finalon.reportGeneration.storage.ResultItem;
 
 import java.math.BigInteger;
 

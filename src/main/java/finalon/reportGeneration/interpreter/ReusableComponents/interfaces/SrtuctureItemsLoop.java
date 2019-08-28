@@ -1,14 +1,13 @@
 package finalon.reportGeneration.interpreter.ReusableComponents.interfaces;
 
 import finalon.entities.Item;
-import finalon.globalReusables.LabelWrap;
 import javafx.collections.ObservableList;
 
 import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 
-public interface SrtuctureItemsLoop extends JsCalcHelper, GetVal, LabelWrap {
+public interface SrtuctureItemsLoop extends JsCalcHelper, GetVal {
     default String loopItems(
             ObservableList<Item> items,
             Double totall,

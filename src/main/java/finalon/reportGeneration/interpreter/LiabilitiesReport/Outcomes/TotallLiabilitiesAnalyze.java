@@ -2,28 +2,25 @@ package finalon.reportGeneration.interpreter.LiabilitiesReport.Outcomes;
 
 import finalon.entities.Item;
 import finalon.globalReusables.LabelWrap;
-import javafx.collections.ObservableMap;
-import javafx.scene.layout.VBox;
 import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
 import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.Periods;
 import finalon.reportGeneration.storage.ResultsStorage;
 import finalon.reportGeneration.storage.SettingsStorage;
+import javafx.scene.layout.VBox;
 
 
-public class TotallLiabilitiesAnalyze implements LabelWrap, ParseDouble, JsCalcHelper {
+public class TotallLiabilitiesAnalyze implements ParseDouble, JsCalcHelper {
 
     private Double first;
     private Double last;
     private Double liabilitiesDifference;
     private String startDate;
     private String endDate;
-    private ObservableMap<String, String> settings;
 
     public TotallLiabilitiesAnalyze() {
         Item liabilities = ItemsStorage.get("EquityGeneral");
-        this.settings = SettingsStorage.getSettings();
         this.startDate = Periods.getStart();
         this.endDate = Periods.getEnd();
         if (liabilities.getValues().size() > 1) {
@@ -51,7 +48,7 @@ public class TotallLiabilitiesAnalyze implements LabelWrap, ParseDouble, JsCalcH
             }
             String preOutput = preOutput();
             ResultsStorage.addStr(21, "text", preOutput + output);
-            hbox.getChildren().addAll(labelWrap(preOutput), labelWrap(output));
+            hbox.getChildren().addAll(LabelWrap.wrap(preOutput), LabelWrap.wrap(output));
         }
         return hbox;
     }
@@ -69,8 +66,8 @@ public class TotallLiabilitiesAnalyze implements LabelWrap, ParseDouble, JsCalcH
 
     private String preOutput() {
         return "The liabilities and equity value" +
-                " amounted to " + settings.get("defaultCurrency") + " "
-                + last + " " + settings.get("amount") + " in "
+                " amounted to " + SettingsStorage.get("defaultCurrency") + " "
+                + last + " " + SettingsStorage.get("amount") + " in "
                 + startDate + ", " +
                 getRelativeChange(first, last) + "% " + suffix() + " than in " +
                 endDate + ". ";
@@ -81,7 +78,7 @@ public class TotallLiabilitiesAnalyze implements LabelWrap, ParseDouble, JsCalcH
                 startDate + " - " + endDate +
                 ", which indicates that the company's assets would worth more " +
                 "after all claims upon those assets were paid. This means that " +
-                settings.get("company") +
+                SettingsStorage.get("company") +
                 " was expanding. ";
     }
 
@@ -90,7 +87,7 @@ public class TotallLiabilitiesAnalyze implements LabelWrap, ParseDouble, JsCalcH
                 startDate + " - " + endDate +
                 ", which indicates that the company's assets would worth less " +
                 "after all claims upon those assets were paid. This means that " +
-                settings.get("company") +
+                SettingsStorage.get("company") +
                 " was degrading. ";
     }
 

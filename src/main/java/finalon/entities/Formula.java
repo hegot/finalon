@@ -1,5 +1,6 @@
 package finalon.entities;
 
+import finalon.database.formula.DbFormulaHandler;
 import finalon.defaultData.EvaluationTypes;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -226,6 +227,11 @@ public class Formula {
             }
         }
         return arr.get(0);
+    }
+
+    public void attachChilds() {
+        ObservableList<Formula> childs = DbFormulaHandler.getFormulas(id);
+        setChilds(childs);
     }
 
 }

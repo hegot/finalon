@@ -1,15 +1,15 @@
 package finalon.reportGeneration.interpreter.AssetsReport.Outcomes;
 
 import finalon.entities.Item;
-import javafx.collections.ObservableMap;
-import javafx.scene.chart.BarChart;
-import javafx.scene.layout.VBox;
 import finalon.reportGeneration.interpreter.ReusableComponents.ChartBase;
 import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
 import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.Periods;
 import finalon.reportGeneration.storage.ResultsStorage;
 import finalon.reportGeneration.storage.SettingsStorage;
+import javafx.collections.ObservableMap;
+import javafx.scene.chart.BarChart;
+import javafx.scene.layout.VBox;
 
 public class AssetsCharts extends ChartBase implements TableName {
     private ObservableMap<String, Double> valuesCurrent;
@@ -23,11 +23,10 @@ public class AssetsCharts extends ChartBase implements TableName {
     }
 
     private String chartTitle() {
-        ObservableMap<String, String> settings = SettingsStorage.getSettings();
-        return "Chart 1. " + settings.get("company") +
+        return "Chart 1. " + SettingsStorage.get("company") +
                 " Non-current and Current Assets between " +
                 Periods.getStart() + " - " + Periods.getEnd() +
-                " in " + settings.get("amount") + " " + settings.get("defaultCurrency");
+                " in " + SettingsStorage.get("amount") + " " + SettingsStorage.get("defaultCurrency");
     }
 
     public VBox get() {

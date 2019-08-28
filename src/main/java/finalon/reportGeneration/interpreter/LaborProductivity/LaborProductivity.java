@@ -1,12 +1,12 @@
 package finalon.reportGeneration.interpreter.LaborProductivity;
 
 import finalon.entities.Formula;
-import javafx.collections.ObservableList;
-import javafx.scene.layout.VBox;
 import finalon.reportGeneration.interpreter.LaborProductivity.Outcomes.FormulaEvaluation;
 import finalon.reportGeneration.interpreter.LaborProductivity.Outcomes.LaborProductivityChart;
 import finalon.reportGeneration.storage.FormulaStorage;
 import finalon.reportGeneration.storage.ResultsStorage;
+import javafx.collections.ObservableList;
+import javafx.scene.layout.VBox;
 
 public class LaborProductivity {
     private ObservableList<Formula> formulas;

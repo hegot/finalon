@@ -17,7 +17,7 @@ public class Periods {
 
 
     private static int getPeriods() {
-        String periods = SettingsStorage.getSettings().get("periods");
+        String periods = SettingsStorage.get("periods");
         if (periods != null) {
             return Integer.parseInt(periods);
         }
@@ -34,7 +34,7 @@ public class Periods {
     }
 
     private static int getYear() {
-        String year = SettingsStorage.getSettings().get("year");
+        String year = SettingsStorage.get("year");
         if (year != null) {
             return Integer.parseInt(year);
         }
@@ -42,7 +42,7 @@ public class Periods {
     }
 
     private static int getEndDay() {
-        String date = SettingsStorage.getSettings().get("date");
+        String date = SettingsStorage.get("date");
         String[] tempArray = date.split("\\.");
         if (tempArray[0] != null) {
             return Integer.parseInt(tempArray[0]);
@@ -51,7 +51,7 @@ public class Periods {
     }
 
     private static int getEndMonth() {
-        String date = SettingsStorage.getSettings().get("date");
+        String date = SettingsStorage.get("date");
         String[] tempArray = date.split("\\.");
         if (tempArray[1] != null) {
             return Integer.parseInt(tempArray[1]);
@@ -61,7 +61,7 @@ public class Periods {
 
     private static int getMonths() {
         int amount = 12;
-        String step = SettingsStorage.getSettings().get("reportStep");
+        String step = SettingsStorage.get("reportStep");
         switch (step) {
             case "month":
                 amount = 1;

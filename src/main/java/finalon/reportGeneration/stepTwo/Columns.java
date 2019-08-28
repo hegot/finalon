@@ -3,6 +3,9 @@ package finalon.reportGeneration.stepTwo;
 import finalon.database.setting.DbSettingHandler;
 import finalon.entities.Item;
 import finalon.globalReusables.Setting;
+import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
+import finalon.reportGeneration.stepTwo.hooks.UpdateParentHook;
+import finalon.reportGeneration.storage.ItemsStorage;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -10,9 +13,6 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
-import finalon.reportGeneration.stepTwo.hooks.UpdateParentHook;
-import finalon.reportGeneration.storage.ItemsStorage;
 
 
 class Columns implements ParseDouble {

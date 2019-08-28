@@ -1,14 +1,14 @@
 package finalon.reportGeneration.interpreter.LiabilitiesReport.Outcomes;
 
-import javafx.collections.ObservableMap;
-import javafx.scene.chart.BarChart;
-import javafx.scene.layout.VBox;
 import finalon.reportGeneration.interpreter.ReusableComponents.ChartBase;
 import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
 import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.Periods;
 import finalon.reportGeneration.storage.ResultsStorage;
 import finalon.reportGeneration.storage.SettingsStorage;
+import javafx.collections.ObservableMap;
+import javafx.scene.chart.BarChart;
+import javafx.scene.layout.VBox;
 
 public class LiabilitiesCharts extends ChartBase implements TableName {
     private ObservableMap<String, Double> valuesCurrent;
@@ -22,11 +22,10 @@ public class LiabilitiesCharts extends ChartBase implements TableName {
     }
 
     private String chartTitle() {
-        ObservableMap<String, String> settings = SettingsStorage.getSettings();
-        return "Chart 2. " + settings.get("company") +
+        return "Chart 2. " + SettingsStorage.get("company") +
                 " Source of finance between " +
                 Periods.getStart() + " - " + Periods.getEnd() +
-                " in " + settings.get("amount") + " " + settings.get("defaultCurrency");
+                " in " + SettingsStorage.get("amount") + " " + SettingsStorage.get("defaultCurrency");
     }
 
     public VBox get() {

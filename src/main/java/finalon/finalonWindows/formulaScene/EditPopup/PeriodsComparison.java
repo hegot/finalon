@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class PeriodsComparison implements LabelWrap {
+public class PeriodsComparison{
     private Formula parent;
     private Tab tab;
     private Formula decrease;
@@ -39,7 +39,7 @@ public class PeriodsComparison implements LabelWrap {
         vBox.getStyleClass().add("popup-tab-inner");
         HBox hbox = new HBox(10);
         hbox.getChildren().add(
-                labelWrap("Period comparison conclusions describe case " +
+                LabelWrap.wrap("Period comparison conclusions describe case " +
                         "when formula calculated value increased/decreased/did not changed during evaluation period. ")
         );
 

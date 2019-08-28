@@ -1,12 +1,12 @@
 package finalon.reportGeneration.interpreter.ReusableComponents;
 
+import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
+import finalon.reportGeneration.storage.Periods;
 import javafx.collections.ObservableMap;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
-import finalon.reportGeneration.storage.Periods;
 
 public class ChartBase implements JsCalcHelper {
 

@@ -2,15 +2,14 @@ package finalon.reportGeneration.interpreter.AssetsReport.Outcomes;
 
 import finalon.entities.Item;
 import finalon.globalReusables.LabelWrap;
-import javafx.collections.ObservableMap;
-import javafx.scene.layout.VBox;
 import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
 import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.Periods;
 import finalon.reportGeneration.storage.ResultsStorage;
 import finalon.reportGeneration.storage.SettingsStorage;
+import javafx.scene.layout.VBox;
 
-public class TotallAssetsAnalyze implements LabelWrap, JsCalcHelper {
+public class TotallAssetsAnalyze implements JsCalcHelper {
 
     private Double first;
     private Double last;
@@ -24,9 +23,8 @@ public class TotallAssetsAnalyze implements LabelWrap, JsCalcHelper {
         if (item.getValues().size() > 1) {
             this.first = item.getFirstVal();
             this.last = item.getLastVal();
-            ObservableMap<String, String> settings = SettingsStorage.getSettings();
-            settings.put("assetsDifference", Double.toString(last - first));
-            settings.put("assetsStartValue", Double.toString(first));
+            SettingsStorage.put("assetsDifference", Double.toString(last - first));
+            SettingsStorage.put("assetsStartValue", Double.toString(first));
         }
     }
 
@@ -45,8 +43,8 @@ public class TotallAssetsAnalyze implements LabelWrap, JsCalcHelper {
             }
             String consequence = consequence();
             hbox.getChildren().addAll(
-                    labelWrap(output),
-                    labelWrap(consequence)
+                    LabelWrap.wrap(output),
+                    LabelWrap.wrap(consequence)
             );
 
             ResultsStorage.addStr(5, "text", output + consequence);

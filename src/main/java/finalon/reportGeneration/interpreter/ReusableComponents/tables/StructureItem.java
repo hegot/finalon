@@ -1,9 +1,9 @@
 package finalon.reportGeneration.interpreter.ReusableComponents.tables;
 
 import finalon.entities.Item;
+import finalon.reportGeneration.storage.Periods;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
-import finalon.reportGeneration.storage.Periods;
 
 import java.util.ArrayList;
 import java.util.Map;

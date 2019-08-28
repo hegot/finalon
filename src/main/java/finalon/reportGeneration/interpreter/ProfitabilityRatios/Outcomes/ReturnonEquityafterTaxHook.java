@@ -1,11 +1,8 @@
 package finalon.reportGeneration.interpreter.ProfitabilityRatios.Outcomes;
 
 import finalon.entities.Formula;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.Round;
 
-public class ReturnonEquityafterTaxHook implements JsCalcHelper, ParseDouble, Round {
+public class ReturnonEquityafterTaxHook {
 
     private Double firstVal;
     private Double lastVal;

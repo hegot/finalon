@@ -2,10 +2,9 @@ package finalon.reportGeneration.interpreter.FinancialRating.Outcomes;
 
 import finalon.entities.Formula;
 import finalon.entities.Item;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.RatingWeight;
 import finalon.reportGeneration.storage.ItemsStorage;
 
-public class RatingCalc implements RatingWeight {
+public class RatingCalc {
     private static double BAD = -1;
     private static double UNSAT = -0.5;
     private static double NEUT = 0;

@@ -1,15 +1,15 @@
 package finalon.reportGeneration.interpreter.InvestorAnalysis;
 
 import finalon.entities.Formula;
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableView;
-import javafx.scene.layout.VBox;
 import finalon.reportGeneration.interpreter.InvestorAnalysis.Outcomes.FormulaEvaluation;
 import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
 import finalon.reportGeneration.interpreter.ReusableComponents.tables.RatiosTable;
 import finalon.reportGeneration.storage.FormulaStorage;
 import finalon.reportGeneration.storage.ResultsStorage;
 import finalon.reportGeneration.storage.TwoDList;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.VBox;
 
 public class InvestorAnalysis implements TableName {
     private ObservableList<Formula> formulas;
