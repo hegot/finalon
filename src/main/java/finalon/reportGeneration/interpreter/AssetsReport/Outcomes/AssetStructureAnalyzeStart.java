@@ -2,7 +2,9 @@ package finalon.reportGeneration.interpreter.AssetsReport.Outcomes;
 
 import finalon.entities.Item;
 import finalon.globalReusables.LabelWrap;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.SrtuctureItemsLoop;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Calc;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.SrtuctureItemsLoop;
 import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.Periods;
 import finalon.reportGeneration.storage.ResultsStorage;
@@ -10,7 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-public class AssetStructureAnalyzeStart implements SrtuctureItemsLoop {
+public class AssetStructureAnalyzeStart {
     private Item parent;
     private String period;
     private Double totalVal;
@@ -42,14 +44,14 @@ public class AssetStructureAnalyzeStart implements SrtuctureItemsLoop {
         }
         StringBuilder str = new StringBuilder();
         if (currentVal != null && currentVal > 0) {
-            str.append(loopItems(currentItems,
+            str.append(SrtuctureItemsLoop.loop(currentItems,
                     currentVal,
                     "The most significant items of the current assets were ",
                     " etc.",
                     period));
         }
         if (nonCurrentVal != null && nonCurrentVal > 0) {
-            str.append(loopItems(nonCurrentItems,
+            str.append(SrtuctureItemsLoop.loop(nonCurrentItems,
                     nonCurrentVal,
                     "The following non-current assets had the highest values: ",
                     " while the other items did not play a significant role. ",
@@ -62,12 +64,12 @@ public class AssetStructureAnalyzeStart implements SrtuctureItemsLoop {
 
     private Label firstMessage() {
         StringBuilder str = new StringBuilder();
-        str.append("At the end of " + formatDate(period) + " the assets consisted of ");
+        str.append("At the end of " + Formatter.formatDate(period) + " the assets consisted of ");
         if (nonCurrentVal != null) {
-            str.append(partStr(nonCurrentVal, totalVal) + " non-current assets");
+            str.append(Calc.partStr(nonCurrentVal, totalVal) + " non-current assets");
         }
         if (currentVal != null) {
-            str.append(" and " + partStr(currentVal, totalVal) + " of current assets. ");
+            str.append(" and " + Calc.partStr(currentVal, totalVal) + " of current assets. ");
         }
         ResultsStorage.addStr(13, "text", str.toString());
         return LabelWrap.wrap(str.toString());

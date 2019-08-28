@@ -2,10 +2,8 @@ package finalon.reportGeneration.interpreter.FinancialResults.Outcomes;
 
 import finalon.entities.Item;
 import finalon.globalReusables.LabelWrap;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.CommaFormat;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.Diff;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Calc;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.Periods;
 import finalon.reportGeneration.storage.SettingsStorage;
@@ -20,7 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.ArrayList;
 
-public class FinancialResultTable implements ParseDouble, JsCalcHelper {
+public class FinancialResultTable {
 
     private ObservableList<Item> items;
     private ArrayList<String> periods;
@@ -68,7 +66,7 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper {
         }
 
         double change = last - first;
-        String growth = CommaFormat.format(change / first * 100);
+        String growth = Formatter.format(change / first * 100);
         if (change > 0) {
             out += "The EBIT growth was " + growth + "% during " + startDate + "-" + endDate + ". ";
         } else if (change < 0) {
@@ -136,7 +134,7 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper {
             if (item != null && item.getValues().size() > 0) {
                 Double period = item.getValues().get(colname);
                 if (period != null) {
-                    return new SimpleStringProperty(CommaFormat.format(period));
+                    return new SimpleStringProperty(Formatter.format(period));
                 }
             }
             return null;
@@ -155,13 +153,13 @@ public class FinancialResultTable implements ParseDouble, JsCalcHelper {
     }
 
     TableColumn getAbsoluteComparisonCol(String colStart, String colEnd) {
-        String colname = "Absolute Change\n" + formatDate(colEnd) + " to \n" + formatDate(colStart);
+        String colname = "Absolute Change\n" + Formatter.formatDate(colEnd) + " to \n" + Formatter.formatDate(colStart);
         TableColumn<Item, String> col = new TableColumn<Item, String>(colname);
         col.setMinWidth(150);
         col.setCellValueFactory(cellData -> {
             ObservableMap<String, Double> values = getValues(cellData);
             if (values != null) {
-                return Diff.diff(
+                return Calc.diff(
                         values.get(colStart),
                         values.get(colEnd)
                 );

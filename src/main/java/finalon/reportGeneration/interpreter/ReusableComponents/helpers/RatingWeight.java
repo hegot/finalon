@@ -1,4 +1,4 @@
-package finalon.reportGeneration.interpreter.ReusableComponents.interfaces;
+package finalon.reportGeneration.interpreter.ReusableComponents.helpers;
 
 public class RatingWeight {
     public static Double getWeight(String code) {

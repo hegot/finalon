@@ -2,7 +2,7 @@ package finalon.reportGeneration.validator;
 
 import finalon.entities.Item;
 import finalon.globalReusables.LabelWrap;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.Periods;
 import javafx.scene.control.ButtonType;
@@ -13,7 +13,7 @@ import javafx.util.Pair;
 
 import java.util.ArrayList;
 
-public class Validator implements JsCalcHelper {
+public class Validator {
 
     public String validate() {
         StringBuilder output = new StringBuilder();
@@ -40,7 +40,7 @@ public class Validator implements JsCalcHelper {
             if (AssetsGeneralCurrent != null && EquityAndLiabilitiesCurrent != null) {
                 if (!AssetsGeneralCurrent.equals(EquityAndLiabilitiesCurrent)) {
                     String err = "Equity And Liabilities index should be equal to Total assets in "
-                            + formatDate(period);
+                            + Formatter.formatDate(period);
                     errors.add(err);
                 }
             }

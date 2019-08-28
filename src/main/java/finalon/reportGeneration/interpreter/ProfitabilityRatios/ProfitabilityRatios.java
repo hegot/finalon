@@ -3,7 +3,7 @@ package finalon.reportGeneration.interpreter.ProfitabilityRatios;
 import finalon.entities.Formula;
 import finalon.reportGeneration.interpreter.ProfitabilityRatios.Outcomes.DupontAnalysis;
 import finalon.reportGeneration.interpreter.ProfitabilityRatios.Outcomes.FormulaEvaluation;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.TableName;
 import finalon.reportGeneration.interpreter.ReusableComponents.tables.RatiosTable;
 import finalon.reportGeneration.storage.FormulaStorage;
 import finalon.reportGeneration.storage.ResultsStorage;
@@ -13,7 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 
-public class ProfitabilityRatios implements TableName {
+public class ProfitabilityRatios {
     private ObservableList<Formula> formulas;
     private int weight;
 
@@ -30,12 +30,12 @@ public class ProfitabilityRatios implements TableName {
     public VBox get() {
         VBox box = new VBox(8);
         String title = "Table 8. Profitability Ratios, %";
-        Label tableName = tableName(title);
+        Label tableName = TableName.name(title);
         weight++;
         FormulaEvaluation formulaEvaluation = new FormulaEvaluation(formulas);
 
         TableView tbl = new RatiosTable(formulas).get();
-        TwoDList items = getTableViewValues(tbl);
+        TwoDList items = TableName.getTableViewValues(tbl);
         ResultsStorage.addTable(weight, items, title);
         weight++;
         box.getChildren().addAll(

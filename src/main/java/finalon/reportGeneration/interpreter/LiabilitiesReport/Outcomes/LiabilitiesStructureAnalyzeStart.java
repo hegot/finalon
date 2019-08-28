@@ -2,9 +2,10 @@ package finalon.reportGeneration.interpreter.LiabilitiesReport.Outcomes;
 
 import finalon.entities.Item;
 import finalon.globalReusables.LabelWrap;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.EquityShareAnalyze;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.SrtuctureItemsLoop;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Calc;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.EquityShareAnalyze;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.SrtuctureItemsLoop;
 import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.Periods;
 import finalon.reportGeneration.storage.ResultsStorage;
@@ -12,7 +13,7 @@ import finalon.reportGeneration.storage.SettingsStorage;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.VBox;
 
-public class LiabilitiesStructureAnalyzeStart implements SrtuctureItemsLoop, EquityShareAnalyze, ParseDouble {
+public class LiabilitiesStructureAnalyzeStart {
     private Item parent;
     private String period;
     private Double totalVal;
@@ -38,7 +39,7 @@ public class LiabilitiesStructureAnalyzeStart implements SrtuctureItemsLoop, Equ
         this.currentVal = CurrentLiabilities.getVal(period);
         this.nonCurrentVal = NonCurrentLiabilities.getVal(period);
         String assetsStartValue = SettingsStorage.get("assetsStartValue");
-        this.assetsTotal = parseDouble(assetsStartValue);
+        this.assetsTotal = Formatter.parseDouble(assetsStartValue);
     }
 
 
@@ -51,21 +52,21 @@ public class LiabilitiesStructureAnalyzeStart implements SrtuctureItemsLoop, Equ
         }
         String str = "";
         if (equityVal != null && equityVal > 0) {
-            str = loopItems(equityItems,
+            str = SrtuctureItemsLoop.loop(equityItems,
                     equityVal,
                     "The total equity consisted mostly of ",
                     " etc.",
                     period);
         }
         if (currentVal != null && currentVal > 0) {
-            str = loopItems(currentItems,
+            str = SrtuctureItemsLoop.loop(currentItems,
                     currentVal,
                     "The company's current liabilities included ",
                     " etc.",
                     period);
         }
         if (nonCurrentVal != null && nonCurrentVal > 0) {
-            str = loopItems(nonCurrentItems,
+            str = SrtuctureItemsLoop.loop(nonCurrentItems,
                     nonCurrentVal,
                     "Non-current liabilities included: ",
                     " etc.",
@@ -79,17 +80,17 @@ public class LiabilitiesStructureAnalyzeStart implements SrtuctureItemsLoop, Equ
     private String firstMessage() {
         String str = "By looking at Table 4 it can be noticed that the sources of finance consisted of ";
         if (equityVal != null) {
-            str = str + partStr(equityVal, totalVal) + " shareholders' equity, ";
+            str = str + Calc.partStr(equityVal, totalVal) + " shareholders' equity, ";
         }
         if (nonCurrentVal != null) {
-            str = str + partStr(nonCurrentVal, totalVal) + " non-current liabilities ";
+            str = str + Calc.partStr(nonCurrentVal, totalVal) + " non-current liabilities ";
         }
         if (currentVal != null) {
-            str = str + " and " + partStr(currentVal, totalVal) + " current liabilities. ";
+            str = str + " and " + Calc.partStr(currentVal, totalVal) + " current liabilities. ";
         }
         if (assetsTotal != null && equityVal != null) {
             Double share = (equityVal / assetsTotal) * 100;
-            str = str + equityShareAnalyse(share, period);
+            str = str + EquityShareAnalyze.analyse(share, period);
         }
 
         return str;

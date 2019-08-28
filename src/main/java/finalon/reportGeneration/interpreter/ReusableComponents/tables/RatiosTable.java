@@ -1,9 +1,8 @@
 package finalon.reportGeneration.interpreter.ReusableComponents.tables;
 
 import finalon.entities.Formula;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.Diff;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Calc;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import finalon.reportGeneration.storage.Periods;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
@@ -11,7 +10,7 @@ import javafx.scene.control.TableView;
 
 import java.util.ArrayList;
 
-public class RatiosTable extends FormulaTable implements JsCalcHelper, ParseDouble {
+public class RatiosTable extends FormulaTable {
     private ObservableList<Formula> formulas;
 
     public RatiosTable(ObservableList<Formula> formulas) {
@@ -43,13 +42,13 @@ public class RatiosTable extends FormulaTable implements JsCalcHelper, ParseDoub
 
 
     TableColumn getAbsoluteComparisonCol(String colStart, String colEnd) {
-        String colname = "Absolute Change\n" + formatDate(colEnd) + " to \n" + formatDate(colStart);
+        String colname = "Absolute Change\n" + Formatter.formatDate(colEnd) + " to \n" + Formatter.formatDate(colStart);
         TableColumn<Formula, String> col = new TableColumn<Formula, String>(colname);
         col.setMinWidth(150);
         col.setCellValueFactory(cellData -> {
             Formula formula = (Formula) cellData.getValue();
             if (formula != null) {
-                return Diff.diff(
+                return Calc.diff(
                         formula.getVal(colStart),
                         formula.getVal(colEnd)
                 );

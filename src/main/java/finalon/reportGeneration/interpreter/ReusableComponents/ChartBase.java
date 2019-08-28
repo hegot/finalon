@@ -1,6 +1,6 @@
 package finalon.reportGeneration.interpreter.ReusableComponents;
 
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import finalon.reportGeneration.storage.Periods;
 import javafx.collections.ObservableMap;
 import javafx.scene.chart.BarChart;
@@ -8,7 +8,7 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
-public class ChartBase implements JsCalcHelper {
+public class ChartBase {
 
 
     protected BarChart<String, Number> getChart() {
@@ -26,7 +26,7 @@ public class ChartBase implements JsCalcHelper {
         series.setName(label);
         if (values.size() > 1) {
             for (String period : Periods.getPeriodArr()) {
-                String date = formatDate(period);
+                String date = Formatter.formatDate(period);
                 if (values.get(period) != null) {
                     series.getData().add(new XYChart.Data(date, values.get(period)));
                 }

@@ -2,9 +2,8 @@ package finalon.reportGeneration.interpreter.ProfitabilityRatios.Outcomes;
 
 import finalon.entities.Formula;
 import finalon.globalReusables.LabelWrap;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.Round;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.TableName;
 import finalon.reportGeneration.interpreter.ReusableComponents.tables.RatiosTable;
 import finalon.reportGeneration.storage.*;
 import javafx.collections.FXCollections;
@@ -15,7 +14,7 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
-public class DupontAnalysis implements ParseDouble, TableName {
+public class DupontAnalysis {
     private Formula returnOnAssets;
     private Formula netProfitMargin;
     private Formula totalAssetTurnover;
@@ -30,7 +29,7 @@ public class DupontAnalysis implements ParseDouble, TableName {
     public VBox get(int weight) {
         VBox box = new VBox(8);
         String title = "Table 9. Dupont Analysis";
-        Label tableName = tableName(title);
+        Label tableName = TableName.name(title);
         weight++;
         ObservableList<Formula> formulas = FXCollections.observableArrayList();
         formulas.addAll(
@@ -40,7 +39,7 @@ public class DupontAnalysis implements ParseDouble, TableName {
         );
 
         TableView tbl = new RatiosTable(formulas).get();
-        TwoDList items = getTableViewValues(tbl);
+        TwoDList items = TableName.getTableViewValues(tbl);
         ResultsStorage.addTable(weight, items, title);
         weight++;
         String evaluate = evaluate();
@@ -56,7 +55,7 @@ public class DupontAnalysis implements ParseDouble, TableName {
     private String valToPercent(Double val) {
         if (val != null) {
             val = val * 100;
-            return Round.format(val);
+            return Formatter.round(val);
         }
         return "";
     }

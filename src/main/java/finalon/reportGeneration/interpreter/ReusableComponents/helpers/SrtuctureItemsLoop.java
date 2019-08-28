@@ -1,4 +1,4 @@
-package finalon.reportGeneration.interpreter.ReusableComponents.interfaces;
+package finalon.reportGeneration.interpreter.ReusableComponents.helpers;
 
 import finalon.entities.Item;
 import javafx.collections.ObservableList;
@@ -7,8 +7,8 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 
-public interface SrtuctureItemsLoop extends JsCalcHelper, GetVal {
-    default String loopItems(
+public class SrtuctureItemsLoop {
+    public static String loop(
             ObservableList<Item> items,
             Double totall,
             String start,
@@ -19,14 +19,14 @@ public interface SrtuctureItemsLoop extends JsCalcHelper, GetVal {
         for (Item item : items) {
             Double val = item.getVal(period);
             if (val != null) {
-                Double part = part(val, totall);
+                Double part = Calc.part(val, totall);
                 treeMap.put(part, item.getName());
             }
         }
         StringBuilder result = new StringBuilder("");
         for (Map.Entry<Double, String> entry : treeMap.entrySet()) {
             Double key = entry.getKey();
-            result.append(entry.getValue() + " (" + format(key) + "), ");
+            result.append(entry.getValue() + " (" + Calc.format(key) + "), ");
         }
         return start + result + end;
     }

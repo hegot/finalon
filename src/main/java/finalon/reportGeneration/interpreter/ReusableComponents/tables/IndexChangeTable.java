@@ -3,8 +3,8 @@ package finalon.reportGeneration.interpreter.ReusableComponents.tables;
 import finalon.database.setting.DbSettingHandler;
 import finalon.entities.Item;
 import finalon.globalReusables.Setting;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.Diff;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Calc;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.Periods;
 import javafx.beans.property.SimpleStringProperty;
@@ -17,7 +17,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import java.util.ArrayList;
 
 
-public class IndexChangeTable extends ItemsTable implements JsCalcHelper {
+public class IndexChangeTable extends ItemsTable {
     private int rootId;
 
     public IndexChangeTable(
@@ -79,13 +79,13 @@ public class IndexChangeTable extends ItemsTable implements JsCalcHelper {
 
 
     TableColumn getAbsoluteComparisonCol(String colStart, String colEnd) {
-        String colname = "Absolute Change\n" + formatDate(colEnd) + " to \n" + formatDate(colStart);
+        String colname = "Absolute Change\n" + Formatter.formatDate(colEnd) + " to \n" + Formatter.formatDate(colStart);
         TableColumn<Item, String> col = new TableColumn<Item, String>(colname);
         col.setMinWidth(150);
         col.setCellValueFactory(cellData -> {
             ObservableMap<String, Double> values = getValues(cellData);
             if (values != null) {
-                return Diff.diff(
+                return Calc.diff(
                         values.get(colStart),
                         values.get(colEnd)
                 );
@@ -96,7 +96,7 @@ public class IndexChangeTable extends ItemsTable implements JsCalcHelper {
     }
 
     protected TableColumn getRelativeComparisonCol(String colStart, String colEnd) {
-        String colname = "Percentage change\n" + formatDate(colEnd) + " to \n" + formatDate(colStart);
+        String colname = "Percentage change\n" + Formatter.formatDate(colEnd) + " to \n" + Formatter.formatDate(colStart);
         TableColumn<Item, String> col = new TableColumn<Item, String>(colname);
         col.setMinWidth(150);
         col.setCellValueFactory(cellData -> {
@@ -105,7 +105,7 @@ public class IndexChangeTable extends ItemsTable implements JsCalcHelper {
                 Double colStartVAl = values.get(colStart);
                 Double colEndVAl = values.get(colEnd);
                 if (colStartVAl != null && colEndVAl != null) {
-                    String relative = getRelativeChange(colStartVAl, colEndVAl);
+                    String relative = Calc.getRelativeChange(colStartVAl, colEndVAl);
                     if (relative.length() > 0) {
                         return new SimpleStringProperty(commaFormat(relative) + "%");
                     }
@@ -118,7 +118,7 @@ public class IndexChangeTable extends ItemsTable implements JsCalcHelper {
 
 
     TableColumn getPeriodCol(String colname) {
-        TableColumn<Item, String> col = new TableColumn<Item, String>(formatDate(colname));
+        TableColumn<Item, String> col = new TableColumn<Item, String>(Formatter.formatDate(colname));
         col.setMinWidth(100);
         col.setCellValueFactory(cellData -> {
             ObservableMap<String, Double> values = getValues(cellData);

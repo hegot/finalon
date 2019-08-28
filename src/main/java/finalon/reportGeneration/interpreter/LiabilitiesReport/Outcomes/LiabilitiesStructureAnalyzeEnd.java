@@ -3,9 +3,10 @@ package finalon.reportGeneration.interpreter.LiabilitiesReport.Outcomes;
 import finalon.entities.Item;
 import finalon.globalReusables.LabelWrap;
 import finalon.globalReusables.NotEmpty;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.EquityShareAnalyze;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.SrtuctureItemsLoop;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Calc;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.EquityShareAnalyze;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.SrtuctureItemsLoop;
 import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.Periods;
 import finalon.reportGeneration.storage.ResultsStorage;
@@ -13,7 +14,8 @@ import finalon.reportGeneration.storage.SettingsStorage;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.VBox;
 
-public class LiabilitiesStructureAnalyzeEnd implements SrtuctureItemsLoop, EquityShareAnalyze, ParseDouble {
+
+public class LiabilitiesStructureAnalyzeEnd {
     private Item parent;
     private String period;
     private Double totalVal;
@@ -39,7 +41,7 @@ public class LiabilitiesStructureAnalyzeEnd implements SrtuctureItemsLoop, Equit
         this.currentVal = CurrentLiabilities.getVal(period);
         this.nonCurrentVal = NonCurrentLiabilities.getVal(period);
         String assetsStartValue = SettingsStorage.get("assetsStartValue");
-        this.assetsTotal = parseDouble(assetsStartValue);
+        this.assetsTotal = Formatter.parseDouble(assetsStartValue);
     }
 
 
@@ -52,21 +54,21 @@ public class LiabilitiesStructureAnalyzeEnd implements SrtuctureItemsLoop, Equit
         }
         String str = "";
         if (equityVal != null && equityVal > 0) {
-            str = loopItems(equityItems,
+            str = SrtuctureItemsLoop.loop(equityItems,
                     equityVal,
                     "The total equity consisted mostly of ",
                     " etc.",
                     period);
         }
         if (currentVal != null && currentVal > 0) {
-            str = loopItems(currentItems,
+            str = SrtuctureItemsLoop.loop(currentItems,
                     currentVal,
                     "The following current liabilities had the highest values: ",
                     " etc.",
                     period);
         }
         if (nonCurrentVal != null && nonCurrentVal > 0) {
-            str = loopItems(nonCurrentItems,
+            str = SrtuctureItemsLoop.loop(nonCurrentItems,
                     nonCurrentVal,
                     "Non-current liabilities included: ",
                     " etc.",
@@ -78,19 +80,19 @@ public class LiabilitiesStructureAnalyzeEnd implements SrtuctureItemsLoop, Equit
     }
 
     private String firstMessage() {
-        String str = "At the end of " + formatDate(period) + " the sources of finance comprised ";
+        String str = "At the end of " + Formatter.formatDate(period) + " the sources of finance comprised ";
         if (NotEmpty.notZero(equityVal)) {
-            str = str + partStr(equityVal, totalVal) + " shareholders' equity, ";
+            str = str + Calc.partStr(equityVal, totalVal) + " shareholders' equity, ";
         }
         if (NotEmpty.notZero(nonCurrentVal)) {
-            str = str + partStr(nonCurrentVal, totalVal) + " non-current liabilities ";
+            str = str + Calc.partStr(nonCurrentVal, totalVal) + " non-current liabilities ";
         }
         if (NotEmpty.notZero(currentVal)) {
-            str = str + " and " + partStr(currentVal, totalVal) + " current liabilities. ";
+            str = str + " and " + Calc.partStr(currentVal, totalVal) + " current liabilities. ";
         }
         if (NotEmpty.notZero(assetsTotal) && NotEmpty.notZero(equityVal)) {
             Double share = (equityVal / assetsTotal) * 100;
-            str = str + equityShareAnalyse(share, period);
+            str = str + EquityShareAnalyze.analyse(share, period);
         }
         return str;
     }

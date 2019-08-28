@@ -1,4 +1,4 @@
-package finalon.reportGeneration.interpreter.ReusableComponents.interfaces;
+package finalon.reportGeneration.interpreter.ReusableComponents.helpers;
 
 import finalon.reportGeneration.storage.TwoDList;
 import javafx.collections.ObservableList;
@@ -8,15 +8,15 @@ import javafx.scene.control.TableView;
 
 import java.util.ArrayList;
 
-public interface TableName {
-    default Label tableName(String str) {
+public class TableName {
+    public static Label name(String str) {
         Label tableName = new Label(str);
         tableName.getStyleClass().add("table-name");
         tableName.setWrapText(true);
         return tableName;
     }
 
-    default TwoDList getTableViewValues(TableView tableView) {
+    public static TwoDList getTableViewValues(TableView tableView) {
         TwoDList values = new TwoDList();
 
         if (tableView != null) {

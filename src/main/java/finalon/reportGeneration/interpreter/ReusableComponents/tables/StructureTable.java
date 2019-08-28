@@ -2,9 +2,8 @@ package finalon.reportGeneration.interpreter.ReusableComponents.tables;
 
 import finalon.entities.Item;
 import finalon.globalReusables.ItemsGetter;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.CommaFormat;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.Diff;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Calc;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.Periods;
 import javafx.beans.property.SimpleStringProperty;
@@ -20,7 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StructureTable implements JsCalcHelper {
+public class StructureTable {
     private Map<String, Double> totalVals;
     private ObservableList<Item> items;
     private ArrayList<String> periodsArr;
@@ -74,13 +73,13 @@ public class StructureTable implements JsCalcHelper {
     }
 
     private TableColumn absoluteChangeCol(String colStart, String colEnd) {
-        String colname = "Absolute Change\n" + formatDate(colEnd) + " to \n" + formatDate(colStart);
+        String colname = "Absolute Change\n" + Formatter.formatDate(colEnd) + " to \n" + Formatter.formatDate(colStart);
         TableColumn<StructureItem, String> column = new TableColumn<StructureItem, String>(colname);
         column.setMinWidth(150);
         column.setCellValueFactory(cellData -> {
             ObservableMap<String, Double> values = getValues(cellData);
             if (values != null) {
-                return Diff.diff(
+                return Calc.diff(
                         values.get(colStart),
                         values.get(colEnd)
                 );
@@ -99,14 +98,14 @@ public class StructureTable implements JsCalcHelper {
     }
 
     private TableColumn structureCol(String col) {
-        TableColumn<StructureItem, String> column = new TableColumn<StructureItem, String>(formatDate(col));
+        TableColumn<StructureItem, String> column = new TableColumn<StructureItem, String>(Formatter.formatDate(col));
         column.setMinWidth(150);
         column.setCellValueFactory(cellData -> {
             ObservableMap<String, Double> values = getValues(cellData);
             if (values != null) {
                 Double itemVAl = values.get(col);
                 if (itemVAl != null) {
-                    return new SimpleStringProperty(CommaFormat.format(itemVAl) + "%");
+                    return new SimpleStringProperty(Formatter.format(itemVAl) + "%");
                 }
             }
             return null;

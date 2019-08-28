@@ -2,8 +2,7 @@ package finalon.reportGeneration.interpreter.FinancialResults.Outcomes;
 
 import finalon.entities.Item;
 import finalon.globalReusables.LabelWrap;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.CommaFormat;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.Periods;
 import finalon.reportGeneration.storage.ResultsStorage;
@@ -12,7 +11,7 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
-public class CostOfGoods implements JsCalcHelper {
+public class CostOfGoods {
     private Double last;
     private String endDate;
     private ArrayList<String> periodsArr;
@@ -67,7 +66,7 @@ public class CostOfGoods implements JsCalcHelper {
             if (val1 != null && val2 != null) {
                 out.append("The cost of goods and services totaled "
                         + currency + " " + val2 + " " + amount + " in "
-                        + formatDate(end) + ", " + CommaFormat.format(change) + "% " + inner + " than in " + formatDate(start) + ". ");
+                        + Formatter.formatDate(end) + ", " + Formatter.format(change) + "% " + inner + " than in " + Formatter.formatDate(start) + ". ");
             }
         }
         return out.toString();
@@ -78,11 +77,11 @@ public class CostOfGoods implements JsCalcHelper {
     }
 
     private String increase(Double change) {
-        return atTheEnd() + "This has resulted in an increase in the gross profit by " + CommaFormat.format(change) + "%.";
+        return atTheEnd() + "This has resulted in an increase in the gross profit by " + Formatter.format(change) + "%.";
     }
 
     private String decrease(Double change) {
-        return atTheEnd() + "This has resulted in decrease in the gross profit by " + CommaFormat.format(change) + "%.";
+        return atTheEnd() + "This has resulted in decrease in the gross profit by " + Formatter.format(change) + "%.";
     }
 
     private String stable() {

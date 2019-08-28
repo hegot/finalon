@@ -5,7 +5,7 @@ import finalon.globalReusables.LabelWrap;
 import finalon.reportGeneration.interpreter.FinancialRating.Outcomes.FinConditionScaleTable;
 import finalon.reportGeneration.interpreter.FinancialRating.Outcomes.FinancialRatingTable;
 import finalon.reportGeneration.interpreter.FinancialRating.Outcomes.ScaleItem;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.TableName;
 import finalon.reportGeneration.storage.FormulaStorage;
 import finalon.reportGeneration.storage.ResultsStorage;
 import finalon.reportGeneration.storage.TwoDList;
@@ -14,7 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 
-public class FinancialRating implements TableName {
+public class FinancialRating {
 
     private ObservableList<Formula> formulas;
     private int weight;
@@ -40,14 +40,14 @@ public class FinancialRating implements TableName {
         weight++;
         FinancialRatingTable financialRatingTable = new FinancialRatingTable(formulas);
         TableView tbl = financialRatingTable.get();
-        TwoDList items = getTableViewValues(tbl);
+        TwoDList items = TableName.getTableViewValues(tbl);
         ResultsStorage.addTable(weight, items, title);
         weight++;
         String title2 = "Table 14. Financial condition scale";
         weight++;
         FinConditionScaleTable finConditionScaleTable = new FinConditionScaleTable();
         TableView tbl2 = finConditionScaleTable.get();
-        TwoDList items2 = getTableViewValues(tbl2);
+        TwoDList items2 = TableName.getTableViewValues(tbl2);
         ResultsStorage.addScaleTable(weight, items2, title2);
         weight++;
         String outcome = getOutcome(
@@ -56,9 +56,9 @@ public class FinancialRating implements TableName {
         ResultsStorage.addStr(weight, "text", outcome);
         weight++;
         box.getChildren().addAll(
-                tableName(title),
+                TableName.name(title),
                 tbl,
-                tableName(title2),
+                TableName.name(title2),
                 tbl2,
                 LabelWrap.wrap(outcome)
         );

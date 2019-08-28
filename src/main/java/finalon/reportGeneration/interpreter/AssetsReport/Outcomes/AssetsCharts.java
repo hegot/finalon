@@ -2,7 +2,7 @@ package finalon.reportGeneration.interpreter.AssetsReport.Outcomes;
 
 import finalon.entities.Item;
 import finalon.reportGeneration.interpreter.ReusableComponents.ChartBase;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.TableName;
 import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.Periods;
 import finalon.reportGeneration.storage.ResultsStorage;
@@ -11,7 +11,7 @@ import javafx.collections.ObservableMap;
 import javafx.scene.chart.BarChart;
 import javafx.scene.layout.VBox;
 
-public class AssetsCharts extends ChartBase implements TableName {
+public class AssetsCharts extends ChartBase {
     private ObservableMap<String, Double> valuesCurrent;
     private ObservableMap<String, Double> valuesNonCurrent;
 
@@ -38,7 +38,7 @@ public class AssetsCharts extends ChartBase implements TableName {
                 getSeries("Non Current Assets", valuesNonCurrent)
         );
         VBox vBox = new VBox(20);
-        vBox.getChildren().addAll(tableName(title), bc);
+        vBox.getChildren().addAll(TableName.name(title), bc);
         bc.applyCss();
         bc.setAnimated(false);
         bc.layout();

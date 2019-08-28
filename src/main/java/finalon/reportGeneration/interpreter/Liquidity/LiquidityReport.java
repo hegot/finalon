@@ -2,7 +2,7 @@ package finalon.reportGeneration.interpreter.Liquidity;
 
 import finalon.entities.Formula;
 import finalon.reportGeneration.interpreter.Liquidity.Outcomes.FormulaEvaluation;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.TableName;
 import finalon.reportGeneration.interpreter.ReusableComponents.tables.RatiosTable;
 import finalon.reportGeneration.storage.FormulaStorage;
 import finalon.reportGeneration.storage.ResultsStorage;
@@ -12,7 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 
-public class LiquidityReport implements TableName {
+public class LiquidityReport {
     private ObservableList<Formula> formulas;
     private int weight;
 
@@ -30,11 +30,11 @@ public class LiquidityReport implements TableName {
         VBox box = new VBox(8);
 
         String title = "Table 6. Liquidity Ratios";
-        Label tableName = tableName(title);
+        Label tableName = TableName.name(title);
         weight++;
         RatiosTable liquidityTable = new RatiosTable(formulas);
         TableView tbl = liquidityTable.get();
-        TwoDList items = getTableViewValues(tbl);
+        TwoDList items = TableName.getTableViewValues(tbl);
         ResultsStorage.addTable(weight, items, title);
         weight++;
         FormulaEvaluation formulaEvaluation = new FormulaEvaluation(formulas);

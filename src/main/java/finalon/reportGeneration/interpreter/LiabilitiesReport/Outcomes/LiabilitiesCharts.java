@@ -1,7 +1,7 @@
 package finalon.reportGeneration.interpreter.LiabilitiesReport.Outcomes;
 
 import finalon.reportGeneration.interpreter.ReusableComponents.ChartBase;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.TableName;
 import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.Periods;
 import finalon.reportGeneration.storage.ResultsStorage;
@@ -10,7 +10,7 @@ import javafx.collections.ObservableMap;
 import javafx.scene.chart.BarChart;
 import javafx.scene.layout.VBox;
 
-public class LiabilitiesCharts extends ChartBase implements TableName {
+public class LiabilitiesCharts extends ChartBase {
     private ObservableMap<String, Double> valuesCurrent;
     private ObservableMap<String, Double> valuesNonCurrent;
     private ObservableMap<String, Double> valuesEquity;
@@ -41,7 +41,7 @@ public class LiabilitiesCharts extends ChartBase implements TableName {
         );
         VBox vBox = new VBox(20);
         String title = chartTitle();
-        vBox.getChildren().addAll(tableName(title), bc);
+        vBox.getChildren().addAll(TableName.name(title), bc);
         ResultsStorage.addBarChart(25, bc, title);
 
         return vBox;

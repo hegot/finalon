@@ -2,7 +2,7 @@ package finalon.reportGeneration.interpreter.InvestorAnalysis;
 
 import finalon.entities.Formula;
 import finalon.reportGeneration.interpreter.InvestorAnalysis.Outcomes.FormulaEvaluation;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.TableName;
 import finalon.reportGeneration.interpreter.ReusableComponents.tables.RatiosTable;
 import finalon.reportGeneration.storage.FormulaStorage;
 import finalon.reportGeneration.storage.ResultsStorage;
@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 
-public class InvestorAnalysis implements TableName {
+public class InvestorAnalysis {
     private ObservableList<Formula> formulas;
     private int weight;
 
@@ -31,11 +31,11 @@ public class InvestorAnalysis implements TableName {
         weight++;
         FormulaEvaluation formulaEvaluation = new FormulaEvaluation(formulas);
         TableView tbl = new RatiosTable(formulas).get();
-        TwoDList items = getTableViewValues(tbl);
+        TwoDList items = TableName.getTableViewValues(tbl);
         ResultsStorage.addTable(weight, items, title);
         weight++;
         box.getChildren().addAll(
-                tableName(title),
+                TableName.name(title),
                 tbl,
                 formulaEvaluation.get(weight)
         );

@@ -3,7 +3,7 @@ package finalon.reportGeneration.interpreter.AssetsReport;
 import finalon.entities.Item;
 import finalon.reportGeneration.interpreter.AssetsReport.Outcomes.*;
 import finalon.reportGeneration.interpreter.ReusableComponents.RelativeItemsChange;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.TableName;
 import finalon.reportGeneration.interpreter.ReusableComponents.tables.IndexChangeTable;
 import finalon.reportGeneration.interpreter.ReusableComponents.tables.StructureItem;
 import finalon.reportGeneration.interpreter.ReusableComponents.tables.StructureTable;
@@ -12,7 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 
-public class AssetsReport implements TableName {
+public class AssetsReport {
 
     private Item root;
     private int rootId;
@@ -29,12 +29,12 @@ public class AssetsReport implements TableName {
     public VBox getTrend() {
         String tblName = "Table 1. Assets Trend Analysis, in "
                 + SettingsStorage.get("amount") + " " + SettingsStorage.get("defaultCurrency");
-        Label tableName = tableName(tblName);
+        Label tableName = TableName.name(tblName);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
 
         TableView<Item> tbl = new IndexChangeTable(rootId).get();
-        TwoDList items = getTableViewValues(tbl);
+        TwoDList items = TableName.getTableViewValues(tbl);
         ResultsStorage.addTable(4, items, tblName);
 
         box.getChildren().addAll(
@@ -59,11 +59,11 @@ public class AssetsReport implements TableName {
 
     public VBox getStructure() {
         String tblName = "Table 3. Assets Structure Analysis %";
-        Label tableName = tableName(tblName);
+        Label tableName = TableName.name(tblName);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
         TableView<StructureItem> tbl = new StructureTable(root).get();
-        TwoDList items = getTableViewValues(tbl);
+        TwoDList items = TableName.getTableViewValues(tbl);
         ResultsStorage.addTable(12, items, tblName);
         box.getChildren().addAll(
                 tableName,

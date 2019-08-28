@@ -1,7 +1,7 @@
 package finalon.reportGeneration.interpreter.FinancialRating.Outcomes;
 
 import finalon.entities.Formula;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.RatingWeight;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.RatingWeight;
 import finalon.reportGeneration.storage.Periods;
 
 import java.text.DecimalFormat;

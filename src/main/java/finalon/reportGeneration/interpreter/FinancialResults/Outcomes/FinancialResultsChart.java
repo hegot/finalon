@@ -3,7 +3,9 @@ package finalon.reportGeneration.interpreter.FinancialResults.Outcomes;
 import finalon.entities.Item;
 import finalon.globalReusables.LabelWrap;
 import finalon.reportGeneration.interpreter.ReusableComponents.ChartBase;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.*;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Calc;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.TableName;
 import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.Periods;
 import finalon.reportGeneration.storage.ResultsStorage;
@@ -14,7 +16,7 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
-public class FinancialResultsChart extends ChartBase implements GetVal, JsCalcHelper, ParseDouble, TableName {
+public class FinancialResultsChart extends ChartBase {
     private ObservableMap<String, Double> valuesEBIT;
     private ObservableMap<String, Double> valuesRevenueGeneral;
     private ObservableMap<String, Double> valuesGrossProfit;
@@ -48,9 +50,9 @@ public class FinancialResultsChart extends ChartBase implements GetVal, JsCalcHe
                 Double originalVal = values.get(period);
                 Double toCompare = RevenueGeneral.getVal(period);
                 if (originalVal != null && toCompare != null) {
-                    Double part = (originalVal / toCompare) * 100;
+                    Double part = Calc.part(originalVal, toCompare);
                     if (part != null) {
-                        outputVals.put(period, parseDouble(Round.format(part)));
+                        outputVals.put(period, part);
                     }
                 }
             }
@@ -74,7 +76,7 @@ public class FinancialResultsChart extends ChartBase implements GetVal, JsCalcHe
         String title = chartTitle();
         ResultsStorage.addBarChart(weight, bc, title);
         VBox vBox = new VBox(20);
-        vBox.getChildren().addAll(tableName(title), bc);
+        vBox.getChildren().addAll(TableName.name(title), bc);
         if (periodsArr.size() > 1) {
             getGrossProfitEvaluation(vBox, weight);
             weight++;
@@ -102,7 +104,7 @@ public class FinancialResultsChart extends ChartBase implements GetVal, JsCalcHe
             }
             String out = "The chart above shows that the gross profit to net sales ratio " + chRes + " in " + Periods.getEnd();
             if (change != 0) {
-                out += " by " + CommaFormat.format(change) + "% ";
+                out += " by " + Formatter.format(change) + "% ";
             }
             out += " comparing to " + Periods.getStart() + ". ";
             if (change != 0) {
@@ -131,9 +133,9 @@ public class FinancialResultsChart extends ChartBase implements GetVal, JsCalcHe
                     if (middle - fisrt > 0) {
                         chRes = "increased";
                     }
-                    out = formatDate(middelPreiod) + " also witnessed the " +
+                    out = Formatter.formatDate(middelPreiod) + " also witnessed the " +
                             chRes + " of the company's EBIT to sales ratio comparing to "
-                            + formatDate(periodsArr.get(0)) + ". ";
+                            + Formatter.formatDate(periodsArr.get(0)) + ". ";
                 }
             } else {
                 String chRes = "";
@@ -174,7 +176,7 @@ public class FinancialResultsChart extends ChartBase implements GetVal, JsCalcHe
             }
             if (change != 0) {
                 out += "The share of the comprehensive income in the company's net sales "
-                        + chRes + " in " + Periods.getEnd() + " by " + CommaFormat.format(last - fisrt) + "%. ";
+                        + chRes + " in " + Periods.getEnd() + " by " + Formatter.format(last - fisrt) + "%. ";
             } else {
                 out += "The share of the comprehensive income in the company's net sales " +
                         "did not change during " + Periods.getStart() + "-" + Periods.getEnd() + ". ";

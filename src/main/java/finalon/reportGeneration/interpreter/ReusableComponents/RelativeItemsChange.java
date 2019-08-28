@@ -2,14 +2,14 @@ package finalon.reportGeneration.interpreter.ReusableComponents;
 
 import finalon.entities.Item;
 import finalon.globalReusables.LabelWrap;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Calc;
 import finalon.reportGeneration.storage.Periods;
 import finalon.reportGeneration.storage.ResultsStorage;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-public class RelativeItemsChange implements JsCalcHelper {
+public class RelativeItemsChange {
     private Item parent;
     private ObservableList<Item> items;
     private String startDate;
@@ -46,7 +46,7 @@ public class RelativeItemsChange implements JsCalcHelper {
                 Double firstVal = item.getFirstVal();
                 Double lastVal = item.getLastVal();
                 if (firstVal != null && lastVal != null) {
-                    String change = getRelativeChange(firstVal, lastVal);
+                    String change = Calc.getRelativeChange(firstVal, lastVal);
                     if (rize) {
                         if (lastVal > firstVal && change.length() > 0) {
                             output += "- " + item.getName() + " (" + change + "%) \n";

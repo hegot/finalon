@@ -2,8 +2,7 @@ package finalon.reportGeneration.interpreter.FormulaCalculation;
 
 import finalon.entities.Formula;
 import finalon.finalonWindows.reusableComponents.autocomplete.ParserBase;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.Round;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import javafx.collections.ObservableMap;
 
 import javax.script.ScriptEngine;
@@ -11,7 +10,7 @@ import javax.script.ScriptEngineManager;
 import java.util.Arrays;
 import java.util.Map;
 
-public class FormulaHandler implements ParseDouble {
+public class FormulaHandler {
     private Formula formula;
     private Map<String, ObservableMap<String, Double>> values;
     private String period;
@@ -23,7 +22,7 @@ public class FormulaHandler implements ParseDouble {
     }
 
     private boolean isNumeric(String str) {
-        return parseDouble(str) != null;
+        return Formatter.parseDouble(str) != null;
     }
 
     String getResult() {
@@ -102,8 +101,8 @@ public class FormulaHandler implements ParseDouble {
         try {
             res = engine.eval(value).toString();
             if (res != null && res.length() > 0) {
-                Double doubleInt = parseDouble(res);
-                String val = Round.format(doubleInt);
+                Double doubleInt = Formatter.parseDouble(res);
+                String val = Formatter.round(doubleInt);
                 res = val;
                 if (val.equals("NaN") || val.equals("Infinity") || val.equals("-Infinity")) res = "";
             }

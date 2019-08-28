@@ -2,14 +2,14 @@ package finalon.reportGeneration.interpreter.AssetsReport.Outcomes;
 
 import finalon.entities.Item;
 import finalon.globalReusables.LabelWrap;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Calc;
 import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.Periods;
 import finalon.reportGeneration.storage.ResultsStorage;
 import finalon.reportGeneration.storage.SettingsStorage;
 import javafx.scene.layout.VBox;
 
-public class TotallAssetsAnalyze implements JsCalcHelper {
+public class TotallAssetsAnalyze {
 
     private Double first;
     private Double last;
@@ -57,7 +57,7 @@ public class TotallAssetsAnalyze implements JsCalcHelper {
         return "It can be noticed from Table 1 that there was a " +
                 "tendency to increase in the total value of the assets. " +
                 "The percentage change was equal " +
-                getRelativeChange(first, last) + "% in " + startDate +
+                Calc.getRelativeChange(first, last) + "% in " + startDate +
                 " comparing to " + endDate + ". ";
     }
 
@@ -65,7 +65,7 @@ public class TotallAssetsAnalyze implements JsCalcHelper {
         return "It can be noticed from Table 1 that there was a " +
                 "tendency to decrease in the total value of the assets. " +
                 "The percentage change was equal " +
-                getRelativeChange(first, last) + "% in " + startDate +
+                Calc.getRelativeChange(first, last) + "% in " + startDate +
                 " comparing to " + endDate + ". ";
     }
 

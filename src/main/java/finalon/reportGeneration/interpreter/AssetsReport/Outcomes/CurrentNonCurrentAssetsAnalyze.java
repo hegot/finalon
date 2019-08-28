@@ -1,14 +1,14 @@
 package finalon.reportGeneration.interpreter.AssetsReport.Outcomes;
 
 import finalon.entities.Item;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Calc;
 import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.Periods;
 import finalon.reportGeneration.storage.ResultsStorage;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-public class CurrentNonCurrentAssetsAnalyze implements JsCalcHelper {
+public class CurrentNonCurrentAssetsAnalyze {
 
     private Double firstCurentVal;
     private Double lastCurentVal;
@@ -30,8 +30,8 @@ public class CurrentNonCurrentAssetsAnalyze implements JsCalcHelper {
         this.firstNonCurentVal = nonCurrent.getFirstVal();
         this.lastNonCurentVal = nonCurrent.getLastVal();
         if (firstCurentVal != null && lastCurentVal != null && firstNonCurentVal != null && lastNonCurentVal != null) {
-            this.currentAssetsChange = getRelativeChange(firstCurentVal, lastCurentVal);
-            this.nonCurrentAssetsChange = getRelativeChange(firstNonCurentVal, lastNonCurentVal);
+            this.currentAssetsChange = Calc.getRelativeChange(firstCurentVal, lastCurentVal);
+            this.nonCurrentAssetsChange = Calc.getRelativeChange(firstNonCurentVal, lastNonCurentVal);
             this.AssetsOverall = (lastCurentVal - firstCurentVal) + (lastNonCurentVal - firstNonCurentVal);
         }
     }

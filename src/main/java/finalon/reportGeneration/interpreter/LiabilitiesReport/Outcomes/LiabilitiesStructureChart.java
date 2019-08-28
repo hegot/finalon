@@ -1,8 +1,8 @@
 package finalon.reportGeneration.interpreter.LiabilitiesReport.Outcomes;
 
 import finalon.entities.Item;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.GetVal;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Calc;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.TableName;
 import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.ResultsStorage;
 import finalon.reportGeneration.storage.SettingsStorage;
@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.layout.VBox;
 
-public class LiabilitiesStructureChart implements GetVal, TableName {
+public class LiabilitiesStructureChart {
     private Item equity;
     private Item current;
     private Item nonCurrent;
@@ -43,26 +43,26 @@ public class LiabilitiesStructureChart implements GetVal, TableName {
             if (currentVal != null) {
                 pieChartData.add(new PieChart.Data(
                         current.getName(),
-                        part(currentVal, totalVal)
+                        Calc.part(currentVal, totalVal)
                 ));
             }
             if (nonCurrentVal != null) {
                 pieChartData.add(new PieChart.Data(
                         nonCurrent.getName(),
-                        part(nonCurrentVal, totalVal)
+                        Calc.part(nonCurrentVal, totalVal)
                 ));
             }
             if (equityVal != null) {
                 pieChartData.add(new PieChart.Data(
                         equity.getName(),
-                        part(equityVal, totalVal)
+                        Calc.part(equityVal, totalVal)
                 ));
             }
             chart.setData(pieChartData);
             String title = "Chart 4. " + SettingsStorage.get("company") +
                     " Source of Finance structure in " + period;
             ResultsStorage.addPieChart(31, chart, title);
-            vBox.getChildren().addAll(tableName(title), chart);
+            vBox.getChildren().addAll(TableName.name(title), chart);
         }
         return vBox;
     }

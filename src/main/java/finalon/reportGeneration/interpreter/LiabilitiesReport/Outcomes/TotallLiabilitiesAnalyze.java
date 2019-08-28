@@ -2,8 +2,7 @@ package finalon.reportGeneration.interpreter.LiabilitiesReport.Outcomes;
 
 import finalon.entities.Item;
 import finalon.globalReusables.LabelWrap;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Calc;
 import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.Periods;
 import finalon.reportGeneration.storage.ResultsStorage;
@@ -11,7 +10,7 @@ import finalon.reportGeneration.storage.SettingsStorage;
 import javafx.scene.layout.VBox;
 
 
-public class TotallLiabilitiesAnalyze implements ParseDouble, JsCalcHelper {
+public class TotallLiabilitiesAnalyze {
 
     private Double first;
     private Double last;
@@ -69,7 +68,7 @@ public class TotallLiabilitiesAnalyze implements ParseDouble, JsCalcHelper {
                 " amounted to " + SettingsStorage.get("defaultCurrency") + " "
                 + last + " " + SettingsStorage.get("amount") + " in "
                 + startDate + ", " +
-                getRelativeChange(first, last) + "% " + suffix() + " than in " +
+                Calc.getRelativeChange(first, last) + "% " + suffix() + " than in " +
                 endDate + ". ";
     }
 

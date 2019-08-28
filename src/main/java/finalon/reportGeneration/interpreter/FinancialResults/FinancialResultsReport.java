@@ -4,7 +4,7 @@ import finalon.reportGeneration.interpreter.FinancialResults.Outcomes.CostOfGood
 import finalon.reportGeneration.interpreter.FinancialResults.Outcomes.FinancialResultTable;
 import finalon.reportGeneration.interpreter.FinancialResults.Outcomes.FinancialResultsChart;
 import finalon.reportGeneration.interpreter.FinancialResults.Outcomes.NetSalesAnalyze;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.TableName;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.TableName;
 import finalon.reportGeneration.storage.ResultsStorage;
 import finalon.reportGeneration.storage.SettingsStorage;
 import finalon.reportGeneration.storage.TwoDList;
@@ -12,7 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 
-public class FinancialResultsReport implements TableName {
+public class FinancialResultsReport {
     private int weight;
 
     public FinancialResultsReport(int weight) {
@@ -22,13 +22,13 @@ public class FinancialResultsReport implements TableName {
     public VBox getTrend() {
         String title = "Table 7. Financial Results Trend Analysis, in "
                 + SettingsStorage.get("amount") + " " + SettingsStorage.get("defaultCurrency");
-        Label tableName = tableName(title);
+        Label tableName = TableName.name(title);
         weight++;
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
         FinancialResultTable financialResultTable = new FinancialResultTable();
         TableView tbl = financialResultTable.get();
-        TwoDList items = getTableViewValues(tbl);
+        TwoDList items = TableName.getTableViewValues(tbl);
         ResultsStorage.addTable(weight, items, title);
         VBox NetSalesAnalyze = new NetSalesAnalyze().get(weight);
         weight++;

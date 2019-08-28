@@ -1,8 +1,7 @@
 package finalon.reportGeneration.interpreter.ReusableComponents.NormValsEvaluator;
 
 import finalon.entities.Formula;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.CommaFormat;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import finalon.reportGeneration.storage.Periods;
 import finalon.reportGeneration.storage.SettingsStorage;
 import javafx.collections.ObservableMap;
@@ -10,7 +9,7 @@ import javafx.collections.ObservableMap;
 import java.util.ArrayList;
 
 
-public class StrReplacer implements ParseDouble {
+public class StrReplacer {
     private String text;
     private Formula formula;
 
@@ -46,7 +45,7 @@ public class StrReplacer implements ParseDouble {
             }
         }
         int size = arr.size() - 1;
-        return CommaFormat.format(sum / size);
+        return Formatter.format(sum / size);
     }
 
 

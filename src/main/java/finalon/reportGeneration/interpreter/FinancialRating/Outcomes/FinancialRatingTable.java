@@ -1,8 +1,6 @@
 package finalon.reportGeneration.interpreter.FinancialRating.Outcomes;
 
 import finalon.entities.Formula;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
 import finalon.reportGeneration.storage.Periods;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,7 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class FinancialRatingTable implements JsCalcHelper, ParseDouble {
+public class FinancialRatingTable {
     private ObservableList<Formula> formulas;
     private ObservableList<ScoreItem> scores;
     private Double totalScore;

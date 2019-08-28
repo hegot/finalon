@@ -2,7 +2,7 @@ package finalon.reportGeneration.interpreter.ReusableComponents.NormValsEvaluato
 
 import finalon.defaultData.EvaluationTypes;
 import finalon.entities.Formula;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.CommaFormat;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import javafx.collections.ObservableList;
 
 
@@ -45,11 +45,11 @@ public class PeriodComparisonEvaluator {
             if (formula.getName().equals(type.toString())) {
                 String descr = formula.getDescription();
                 if (startVal != 0) {
-                    descr = descr.replace("CHANGEPERCENT", CommaFormat.format(changePercent));
+                    descr = descr.replace("CHANGEPERCENT", Formatter.format(changePercent));
                 } else {
-                    descr = descr.replace("CHANGEPERCENT", CommaFormat.format(change));
+                    descr = descr.replace("CHANGEPERCENT", Formatter.format(change));
                 }
-                descr = descr.replace("CHANGE", CommaFormat.format(change));
+                descr = descr.replace("CHANGE", Formatter.format(change));
                 return descr;
             }
         }

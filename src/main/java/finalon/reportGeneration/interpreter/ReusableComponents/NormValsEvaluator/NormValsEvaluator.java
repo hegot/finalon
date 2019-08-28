@@ -2,11 +2,10 @@ package finalon.reportGeneration.interpreter.ReusableComponents.NormValsEvaluato
 
 import finalon.defaultData.EvaluationTypes;
 import finalon.entities.Formula;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.JsCalcHelper;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import javafx.collections.ObservableList;
 
-public class NormValsEvaluator extends ValsEvaluator implements JsCalcHelper, ParseDouble {
+public class NormValsEvaluator extends ValsEvaluator {
     private Formula formula;
     private ObservableList<Formula> childs;
     private String period;
@@ -28,9 +27,9 @@ public class NormValsEvaluator extends ValsEvaluator implements JsCalcHelper, Pa
     }
 
     public String strReplace(String outcome) {
-        outcome = outcome.replace("CURRENTPERIOD", formatDate(period));
+        outcome = outcome.replace("CURRENTPERIOD", Formatter.formatDate(period));
         if (formula.getVal(period) != null) {
-            outcome = outcome.replace("CURRENTVALUE", toString(formula.getVal(period)));
+            outcome = outcome.replace("CURRENTVALUE", Formatter.doubleToString(formula.getVal(period)));
         }
         return outcome;
     }
@@ -40,7 +39,7 @@ public class NormValsEvaluator extends ValsEvaluator implements JsCalcHelper, Pa
             try {
                 EvaluationTypes formulaType = EvaluationTypes.valueOf(normative.getName());
                 if (formulaType.equals(type)) {
-                    Double valueToCompare = normative.getValue().length() > 0 ? parseDouble(normative.getValue()) : null;
+                    Double valueToCompare = normative.getValue().length() > 0 ? Formatter.parseDouble(normative.getValue()) : null;
                     Boolean match = matches(
                             normative.getShortName(),
                             normative.getCategory(),

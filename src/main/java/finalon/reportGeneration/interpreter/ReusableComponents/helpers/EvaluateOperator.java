@@ -1,7 +1,7 @@
-package finalon.reportGeneration.interpreter.ReusableComponents.interfaces;
+package finalon.reportGeneration.interpreter.ReusableComponents.helpers;
 
-public interface EvaluateOperator {
-    default Boolean evaluateOperator(String operator, Double a, Double b) {
+public class EvaluateOperator {
+    public static Boolean get(String operator, Double a, Double b) {
         Boolean result = false;
         switch (operator) {
             case (">"):

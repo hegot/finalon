@@ -3,7 +3,7 @@ package finalon.reportGeneration.stepTwo;
 import finalon.database.setting.DbSettingHandler;
 import finalon.entities.Item;
 import finalon.globalReusables.Setting;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import finalon.reportGeneration.stepTwo.hooks.UpdateParentHook;
 import finalon.reportGeneration.storage.ItemsStorage;
 import javafx.beans.property.SimpleStringProperty;
@@ -15,7 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 
 
-class Columns implements ParseDouble {
+class Columns {
 
     TableColumn getNameCol() {
         TableColumn<Item, String> col = new TableColumn<Item, String>("Indicator");
@@ -103,7 +103,7 @@ class Columns implements ParseDouble {
 
     private void updateItem(Item item, ObservableMap<String, Double> values, String value, String param) {
         if (value.length() > 0) {
-            values.put(param, parseDouble(value));
+            values.put(param, Formatter.parseDouble(value));
         } else {
             values.remove(param);
         }

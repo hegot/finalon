@@ -2,7 +2,7 @@ package finalon.reportGeneration.interpreter.FormulaCalculation;
 
 import finalon.entities.Formula;
 import finalon.entities.Item;
-import finalon.reportGeneration.interpreter.ReusableComponents.interfaces.ParseDouble;
+import finalon.reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import finalon.reportGeneration.storage.FormulaStorage;
 import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.Periods;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FormulaCalculation implements ParseDouble {
+public class FormulaCalculation {
     private ArrayList<String> periods;
     private ObservableList<Formula> formulas;
 
@@ -32,7 +32,7 @@ public class FormulaCalculation implements ParseDouble {
                     FormulaHandler formulaHahdler = new FormulaHandler(formula, values, period);
                     String res = formulaHahdler.getResult();
                     if (res != null && res.length() > 0) {
-                        Double result = parseDouble(res);
+                        Double result = Formatter.parseDouble(res);
                         if (result != null) {
                             formulaPeriods.put(period, result);
                         }
