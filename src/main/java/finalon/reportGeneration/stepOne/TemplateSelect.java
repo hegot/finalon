@@ -2,30 +2,46 @@ package finalon.reportGeneration.stepOne;
 
 import finalon.database.template.DbItemHandler;
 import finalon.defaultData.DefaultTemplate;
+import finalon.entities.Formula;
 import finalon.entities.Item;
 import finalon.entities.ItemConverter;
+import finalon.globalReusables.StandardAndIndustry;
 import finalon.reportGeneration.storage.ItemsStorage;
 import finalon.reportGeneration.storage.SettingsStorage;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
+import javafx.util.Duration;
 
 public class TemplateSelect {
 
-    public static ComboBox get() {
+    private static ComboBox<Item> tplSelect = createTemplateSelect();
+
+    public static ComboBox getTpl(){
+        return tplSelect;
+    }
+
+    public static void reInit(){
+        ObservableList<Item> items = getTpls();
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.millis(1000),
+                ae -> {
+                    tplSelect.setItems(items);
+                    tplSelect.getSelectionModel().selectFirst();
+                }));
+        timeline.play();
+    }
+
+    private static ComboBox<Item>   createTemplateSelect() {
         ComboBox<Item> templatesBox = new ComboBox<Item>();
         templatesBox.setConverter(new ItemConverter());
         ObservableList<Item> items = getTpls();
         templatesBox.setItems(items);
-        Item item = getDefaultTemplate(items);
-        if (item != null) {
-            templatesBox.setValue(item);
-        } else {
-            templatesBox.getSelectionModel().selectFirst();
-        }
-
+        templatesBox.getSelectionModel().selectFirst();
         templatesBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Item>() {
             @Override
             public void changed(ObservableValue<? extends Item> arg0, Item arg1, Item arg2) {
@@ -45,30 +61,17 @@ public class TemplateSelect {
     }
 
     private static ObservableList<Item> getTpls() {
-        return DbItemHandler.getTemplates();
-    }
-
-    private static Item getDefaultTemplate(ObservableList<Item> items) {
-        String val = SettingsStorage.get("template");
-        if (val != null && val.length() > 0) {
-            Item item = DbItemHandler.getItem(Integer.parseInt(val));
-            if (item != null) {
-                return item;
-            }
-        } else {
-            if (items.size() > 0) {
-                Item item = items.get(0);
-                SettingsStorage.put("template", Integer.toString(item.getId()));
-
-            } else {
-                SettingsStorage.put("template", "1");
-                Item item = new Item(1, "Default Template", "DefaultTemplate", true, false, 0, 0, 0);
-                items.add(item);
-                return item;
-            }
+        int industryId = StandardAndIndustry.getIndustryId();
+        ObservableList<Item> tpls = DbItemHandler.getTemplateForIndustry(industryId);
+        if(tpls.size() > 0){
+            return tpls;
+        }else{
+            ObservableList<Item> items = FXCollections.observableArrayList();
+            items.add(new Item(1, "Default Template", "DefaultTemplate", true, false, 0, 0, 0));
+            return items;
         }
-        return null;
     }
+
 
 }
 

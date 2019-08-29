@@ -21,7 +21,7 @@ class TemplateTableColumns {
 
     static TableColumn buttonCol() {
         TableColumn<Item, Void> col = new TableColumn<>("");
-        col.setMinWidth(50);
+        col.setMinWidth(65);
         col.setCellFactory(ActionsCell.getActionsFactory());
         col.setSortable(false);
         return col;
@@ -105,7 +105,7 @@ class TemplateTableColumns {
 
     static TableColumn isPositiveCol() {
         TableColumn<Item, Boolean> col = new TableColumn<>("Positive");
-        col.setMinWidth(90);
+        col.setMinWidth(60);
         col.setCellValueFactory((TableColumn.CellDataFeatures<Item, Boolean> param) -> {
             Item item = param.getValue();
             return item.isPositive();
@@ -129,7 +129,7 @@ class TemplateTableColumns {
 
     static TableColumn finResultCol() {
         TableColumn<Item, Boolean> col = new TableColumn<>("Result");
-        col.setMinWidth(80);
+        col.setMinWidth(60);
         col.setSortable(false);
         col.setCellValueFactory((TableColumn.CellDataFeatures<Item, Boolean> param) -> {
             Item item = param.getValue();

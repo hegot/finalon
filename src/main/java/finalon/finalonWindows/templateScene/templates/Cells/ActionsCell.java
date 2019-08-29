@@ -31,16 +31,9 @@ public class ActionsCell {
                                     alert.setTitle("Index deletion");
                                     alert.setHeaderText("Index that you want to delete is used in such formulas: ");
                                     alert.setContentText(usages
-                                            + "\n\nAre you sure you want to delete it?");
-                                    Optional<ButtonType> option = alert.showAndWait();
-                                    try {
-                                        if (option.get() == ButtonType.OK) {
-                                            table.getItems().remove(selectedItem);
-                                            TemplateEditPage.getItems().remove(selectedItem);
-                                        }
-                                    } catch (Exception e) {
-                                        System.out.println(e.getMessage());
-                                    }
+                                            + "\n\nPlease edit formula calculation and remove index" +
+                                            "\nthere to be able to delete it.");
+                                    alert.showAndWait();
                                 } else {
                                     table.getItems().remove(selectedItem);
                                     TemplateEditPage.getItems().remove(selectedItem);
@@ -72,6 +65,7 @@ public class ActionsCell {
                         if (empty) {
                             setGraphic(null);
                         } else {
+                            setStyle("-fx-padding:5px 15px");
                             HBox hBox = new HBox(10);
                             TableRow row = this.getTableRow();
                             if (row != null) {

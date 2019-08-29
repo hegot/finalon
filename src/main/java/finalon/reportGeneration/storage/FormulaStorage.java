@@ -33,6 +33,11 @@ public class FormulaStorage {
         return null;
     }
 
+    public static void reInit(){
+        if(formulas.size() > 0){
+            formulas = getFormulas();
+        }
+    }
 
     public static ObservableList<Formula> getSections() {
         int rootIndustry = Integer.parseInt(SettingsStorage.get("industry"));

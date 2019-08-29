@@ -8,10 +8,6 @@
 }
 
 
-
-
-
-
 .add-company .report-table .column-header,
 .add-company .report-table .column-header .filler,
 .add-company .report-table .column-header-background .filler {
@@ -147,8 +143,13 @@
     -fx-font-size: 13px;
 }
 
-.add-company .combo-box-base{
+.add-company .combo-box-base,
+.add-company .combo-box-base .list-view{
     -fx-min-width: 150px;
+}
+
+.add-company  .combo-box-popup > .list-view {
+    -fx-min-width: 150;
 }
 
 .scale-table{

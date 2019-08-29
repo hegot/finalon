@@ -4,8 +4,8 @@ import finalon.database.template.DbItemHandler;
 import finalon.entities.Item;
 import finalon.finalonWindows.SceneName;
 import finalon.finalonWindows.SceneSwitcher;
+import finalon.finalonWindows.templateScene.templates.EventHandlers.TemplateDeleteHandler;
 import finalon.finalonWindows.templateScene.templates.TemplateEditPage;
-import finalon.finalonWindows.templateScene.templates.TemplateSaveHandler;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,10 +48,7 @@ public class TemplateRow extends VBox {
         alert.setHeaderText("Are you Sure you want to delete template? This Action can not be undone.");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            int id = item.getId();
-            TemplateSaveHandler templateEditor = new TemplateSaveHandler();
-            templateEditor.deleteItem(id);
-            System.out.println("Template " + item.getName() + " deleted successfully");
+            TemplateDeleteHandler.deleteItems(item.getId());
             SceneSwitcher.goTo(SceneName.TEMPLATESLIST);
         }
     }

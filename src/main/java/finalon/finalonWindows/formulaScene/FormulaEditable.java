@@ -72,6 +72,7 @@ public class FormulaEditable {
                 }
             };
         });
+        col.setSortable(false);
         return col;
     }
 
@@ -80,6 +81,7 @@ public class FormulaEditable {
         col.setMinWidth(width);
         col.setCellValueFactory(new TreeItemPropertyValueFactory<Formula, String>(key));
         col.setCellFactory(TextFieldTreeTableCell.<Formula>forTreeTableColumn());
+        col.setSortable(false);
         return col;
     }
 
@@ -88,6 +90,7 @@ public class FormulaEditable {
         col.setMinWidth(100);
         EditHandler editHandler = new EditHandler();
         col.setCellFactory(editHandler.getBtnFactory());
+        col.setSortable(false);
         return col;
     }
 

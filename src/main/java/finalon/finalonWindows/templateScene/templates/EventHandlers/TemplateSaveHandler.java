@@ -1,9 +1,10 @@
-package finalon.finalonWindows.templateScene.templates;
+package finalon.finalonWindows.templateScene.templates.EventHandlers;
 
 import finalon.database.formula.DbFormulaHandler;
 import finalon.database.template.DbItemHandler;
 import finalon.entities.Formula;
 import finalon.entities.Item;
+import finalon.finalonWindows.templateScene.templates.TemplateEditPage;
 import javafx.collections.ObservableList;
 
 import java.sql.SQLException;

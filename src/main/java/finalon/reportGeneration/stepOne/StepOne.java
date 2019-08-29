@@ -1,8 +1,12 @@
 package finalon.reportGeneration.stepOne;
 
 import finalon.defaultData.DefaultCurrency;
+import finalon.entities.Formula;
 import finalon.globalReusables.StandardAndIndustry;
+import finalon.reportGeneration.storage.FormulaStorage;
 import finalon.reportGeneration.storage.SettingsStorage;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -32,7 +36,7 @@ public class StepOne {
         vbox.getChildren().addAll(
                 mainLabel,
                 ReportName.get(),
-                titledHbox("Template", TemplateSelect.get()),
+                titledHbox("Template", TemplateSelect.getTpl()),
                 currencyRow(),
                 standardIndustry(),
                 periodsRow(),
@@ -48,7 +52,7 @@ public class StepOne {
         ObservableList<String> steps = FXCollections.observableArrayList();
         steps.addAll("year", "half year", "quater", "month");
         ObservableList<String> periods = FXCollections.observableArrayList();
-        for (int i = 1; i < 15; i++) {
+        for (int i = 2; i < 8; i++) {
             periods.add(Integer.toString(i));
         }
         hBox.getChildren().addAll(
@@ -58,7 +62,7 @@ public class StepOne {
                 ),
                 titledHbox(
                         "How many periods \nyou want to analyse: ",
-                        SettingsSelect.get(periods, "periods", "1")
+                        SettingsSelect.get(periods, "periods", "2")
                 )
         );
         return hBox;
@@ -82,6 +86,26 @@ public class StepOne {
     private HBox standardIndustry() {
         HBox hBox = StandardAndIndustry.get();
         StandardAndIndustry.shouldUpdateSettings(true);
+        ComboBox<Formula> industry =  StandardAndIndustry.getIndustry();
+        ComboBox<Formula> standard =  StandardAndIndustry.getStandard();
+        standard.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Formula>() {
+            @Override
+            public void changed(ObservableValue<? extends Formula> arg0, Formula arg1, Formula arg2) {
+                if (arg2 != null) {
+                    FormulaStorage.reInit();
+                    TemplateSelect.reInit();
+                }
+            }
+        });
+        industry.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Formula>() {
+            @Override
+            public void changed(ObservableValue<? extends Formula> arg0, Formula arg1, Formula arg2) {
+                if (arg2 != null) {
+                    FormulaStorage.reInit();
+                    TemplateSelect.reInit();
+                }
+            }
+        });
         return hBox;
     }
 

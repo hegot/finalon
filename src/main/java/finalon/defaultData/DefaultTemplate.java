@@ -45,7 +45,7 @@ public class DefaultTemplate {
         counter++;
 
         int LiabilitiesGeneral = counter;
-        Items.add(new Item(LiabilitiesGeneral, "Liabilities", "LiabilitiesGeneral", true, false, EquityAndLiabilities, SOFP, 2));
+        Items.add(new Item(LiabilitiesGeneral, "Liabilities", "LiabilitiesGeneral", true, false, EquityAndLiabilities, SOFP, 1));
         counter++;
         int NonCurrentLiabilities = counter;
         Items.add(new Item(NonCurrentLiabilities, "Non-current liabilities", "NonCurrentLiabilities", true, false, LiabilitiesGeneral, SOFP, 3));

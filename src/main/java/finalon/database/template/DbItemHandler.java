@@ -7,13 +7,16 @@ import finalon.entities.Item;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class DbItemHandler extends DbHandlerBase {
 
-    private static String tableName= "items";
+    private static String tableName = "items";
 
 
     private static void createTbl() throws SQLException {
@@ -31,7 +34,6 @@ public class DbItemHandler extends DbHandlerBase {
 
         System.out.println("Table " + tableName + " created");
     }
-
 
 
     public static void createTable() throws ClassNotFoundException, SQLException {
@@ -119,6 +121,32 @@ public class DbItemHandler extends DbHandlerBase {
         return Items;
     }
 
+    public static ObservableList<Item> getTemplateForIndustry(int industryId) {
+        ObservableList<Item> Items = FXCollections.observableArrayList();
+        Item item = new Item(0, "", "", false, false, 0, 0, 0);
+        try (Statement statement = Connect.getConn().createStatement()) {
+            ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName,  isPositive, finResult, parent, parentSheet, level, weight FROM "
+                    + tableName + " WHERE parentSheet = " + industryId + " AND parent = 0");
+            while (resultSet.next()) {
+                Items.add(
+                        new Item(
+                                resultSet.getInt("id"),
+                                resultSet.getString("name"),
+                                resultSet.getString("shortName"),
+                                resultSet.getBoolean("isPositive"),
+                                resultSet.getBoolean("finResult"),
+                                resultSet.getInt("parent"),
+                                resultSet.getInt("parentSheet"),
+                                resultSet.getInt("level"),
+                                resultSet.getInt("weight")
+                        ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Items;
+    }
+
     public static int addItem(Item Item) throws ClassNotFoundException, SQLException {
         try {
             String[] returnId = {"id"};
@@ -151,7 +179,7 @@ public class DbItemHandler extends DbHandlerBase {
     }
 
     public static void updateItem(Item Item) throws ClassNotFoundException, SQLException {
-        if(itemExists(Item.getId())){
+        if (itemExists(Item.getId())) {
             try (PreparedStatement statement = Connect.getConn().prepareStatement(
                     "UPDATE " + tableName + " SET `name` = ?,  `shortName` = ?, `isPositive` = ?, `finResult` = ?, `parent` = ?, `parentSheet` = ?, `level` = ?,  `weight` = ? WHERE `id` = " + Item.getId()
             )) {
@@ -167,13 +195,13 @@ public class DbItemHandler extends DbHandlerBase {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
             addItem(Item);
         }
     }
 
     public static Boolean itemExists(Integer id) {
-        if(id != null){
+        if (id != null) {
             try {
                 String query = "SELECT (count(*) > 0) as found FROM " + tableName + " WHERE id=" + id;
                 PreparedStatement pst = Connect.getConn().prepareStatement(query);

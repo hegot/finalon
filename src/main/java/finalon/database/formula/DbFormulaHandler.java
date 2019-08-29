@@ -87,7 +87,7 @@ public class DbFormulaHandler extends DbHandlerBase {
         }
         Iterator it = names.iterator();
         while(it.hasNext()) {
-            builder.append(it.next() + "\n");
+            builder.append("«"+ it.next() + "»\n");
         }
         return builder.toString();
     }

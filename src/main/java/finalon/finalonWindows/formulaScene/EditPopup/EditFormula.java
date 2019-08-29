@@ -35,7 +35,7 @@ class EditFormula {
         grid.add(createRow("Name:", "name", formula.getName()), 0, 0);
         grid.add(createRow("Code:", "shortName", formula.getShortName()), 0, 1);
         if (!formula.getCategory().equals("section")) {
-            grid.add(createRow("Ubit:", "unit", formula.getUnit()), 0, 2);
+            grid.add(createRow("Unit:", "unit", formula.getUnit()), 0, 2);
             grid.add(new Label("Edit formula"), 0, 3);
             grid.add(formulaEditor(), 0, 4);
         }
