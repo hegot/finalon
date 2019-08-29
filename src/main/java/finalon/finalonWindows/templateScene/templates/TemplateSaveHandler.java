@@ -1,27 +1,29 @@
-package finalon.finalonWindows.templateScene.templates.EventHandlers;
+package finalon.finalonWindows.templateScene.templates;
 
 import finalon.database.formula.DbFormulaHandler;
 import finalon.database.template.DbItemHandler;
 import finalon.entities.Formula;
 import finalon.entities.Item;
-import finalon.finalonWindows.templateScene.templates.EditTemplate;
 import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-public class SaveHandler {
+public class TemplateSaveHandler {
     private ObservableList<Item> items;
     private Item root;
 
-    public SaveHandler(
+    public TemplateSaveHandler(
             String tplName
     ) {
-        this.items = EditTemplate.getItems();
+        this.items = TemplateEditPage.getItems();
         this.root = getRoot();
         root.setName(tplName);
+    }
+
+    public TemplateSaveHandler() {
+        this.items = TemplateEditPage.getItems();
     }
 
     public Item getRoot() {
@@ -96,18 +98,19 @@ public class SaveHandler {
     private void updateDependantFormulas(Item item) {
         try {
             if (item.getShortNameUpdated()) {
+                Integer rootIndustryId = root.getParentSheet();
                 Item starter = DbItemHandler.getItem(item.getId());
                 if (starter != null && starter.getShortName().length() > 0) {
-                    Map<Integer, String> usages = DbFormulaHandler.findUsage(starter.getShortName());
+                    List<Formula> usages = DbFormulaHandler.findUsage(
+                            starter.getShortName(),
+                            rootIndustryId
+                    );
                     if (usages != null && usages.size() > 0) {
-                        for (Map.Entry<Integer, String> entry : usages.entrySet()) {
-                            Formula formula = DbFormulaHandler.findById(entry.getKey());
-                            if (formula != null) {
-                                String value = formula.getValue();
-                                value = value.replace(starter.getShortName(), item.getShortName());
-                                formula.setValue(value);
-                                DbFormulaHandler.updateFormula(formula);
-                            }
+                        for (Formula formula : usages) {
+                            String value = formula.getValue();
+                            value = value.replace(starter.getShortName(), item.getShortName());
+                            formula.setValue(value);
+                            DbFormulaHandler.updateFormula(formula);
                         }
                     }
                 }

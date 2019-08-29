@@ -11,12 +11,12 @@ import javafx.scene.control.TableView;
 
 import java.util.Collections;
 
-class TemplateEditable {
+class TemplateEditTable {
 
     static TabPane getTemplateEditable() {
         TabPane tabs = new TabPane();
         tabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-        SheetsGetter sheetsGetter = new SheetsGetter(EditTemplate.getItems());
+        SheetsGetter sheetsGetter = new SheetsGetter(TemplateEditPage.getItems());
         ObservableList<Item> Sheets = sheetsGetter.getSheets();
         for (Item Sheet : Sheets) {
             Tab tab = new Tab();
@@ -35,21 +35,21 @@ class TemplateEditable {
         table.setPrefHeight(780);
         if (SheetName.equals("Statement of Financial Position \n (Balance Sheet)") || SheetName.equals("Other Data")) {
             table.getColumns().addAll(
-                    Columns.getDragCol(),
-                    Columns.getNameCol(),
-                    Columns.getCodeCol(),
-                    Columns.isPositiveCol(),
-                    Columns.buttonCol());
+                    TemplateTableColumns.getDragCol(),
+                    TemplateTableColumns.getNameCol(),
+                    TemplateTableColumns.getCodeCol(),
+                    TemplateTableColumns.isPositiveCol(),
+                    TemplateTableColumns.buttonCol());
         } else {
             table.getColumns().addAll(
-                    Columns.getDragCol(),
-                    Columns.getNameCol(),
-                    Columns.getCodeCol(),
-                    Columns.isPositiveCol(),
-                    Columns.finResultCol(),
-                    Columns.buttonCol());
+                    TemplateTableColumns.getDragCol(),
+                    TemplateTableColumns.getNameCol(),
+                    TemplateTableColumns.getCodeCol(),
+                    TemplateTableColumns.isPositiveCol(),
+                    TemplateTableColumns.finResultCol(),
+                    TemplateTableColumns.buttonCol());
         }
-        ItemsGetter itemsGetter = new ItemsGetter(Id, EditTemplate.getItems());
+        ItemsGetter itemsGetter = new ItemsGetter(Id, TemplateEditPage.getItems());
         ObservableList<Item> unsortedItems = itemsGetter.getItems();
         Collections.sort(unsortedItems);
         table.getItems().addAll(unsortedItems);

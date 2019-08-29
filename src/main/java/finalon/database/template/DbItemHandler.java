@@ -199,7 +199,7 @@ public class DbItemHandler extends DbHandlerBase {
         }
     }
 
-    private static ArrayList<Integer> parentIds() {
+    public static ArrayList<Integer> parentIds() {
         ArrayList<Integer> ids = new ArrayList<>();
         try (Statement statement = Connect.getConn().createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT id FROM " + tableName + " WHERE parent = 0");
@@ -211,6 +211,19 @@ public class DbItemHandler extends DbHandlerBase {
                 while (resultSet2.next()) {
                     ids.add(resultSet2.getInt("id"));
                 }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ids;
+    }
+
+    public static ArrayList<Integer> templateIndustries() {
+        ArrayList<Integer> ids = new ArrayList<>();
+        try (Statement statement = Connect.getConn().createStatement()) {
+            ResultSet resultSet = statement.executeQuery("SELECT parentSheet FROM " + tableName + " WHERE parent = 0");
+            while (resultSet.next()) {
+                ids.add(resultSet.getInt("parentSheet"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -234,4 +234,16 @@ public class Formula {
         setChilds(childs);
     }
 
+    public Integer getParentIndustryID(int parentId){
+        Formula parent = DbFormulaHandler.findById(parentId);
+        if(parent != null){
+            if(parent.getCategory().equals("industry")){
+                return parent.getId();
+            }else{
+                return getParentIndustryID(parent.getParent());
+            }
+        }
+        return null;
+    }
+
 }

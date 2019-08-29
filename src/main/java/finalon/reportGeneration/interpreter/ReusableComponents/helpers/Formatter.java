@@ -27,7 +27,6 @@ public class Formatter {
     }
 
     public static Double parseDouble(String str) {
-        str = String.format("%.2f", str);
         if (str == null) return null;
         try {
             return Double.parseDouble(str);

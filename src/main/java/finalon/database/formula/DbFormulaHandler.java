@@ -10,10 +10,7 @@ import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DbFormulaHandler extends DbHandlerBase {
 
@@ -44,24 +41,53 @@ public class DbFormulaHandler extends DbHandlerBase {
     }
 
 
-    public static Map<Integer, String> findUsage(String code) {
-        Map<Integer, String> Formulas = new HashMap<Integer, String>();
+    public static List<Formula> findUsage(String code, int rootIndustry) {
+        List<Formula> usages = new ArrayList<>();
+        List<Formula> finalUsages = new ArrayList<>();
         try (Statement statement = Connect.getConn().createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT DISTINCT id, name FROM " + tableName + " WHERE value LIKE '%" + code + "%'");
+            ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName, value, description, category, unit, parent FROM " + tableName + " WHERE value LIKE '%" + code + "%'");
             while (resultSet.next()) {
-                Formulas.put(resultSet.getInt("id"), resultSet.getString("name"));
+                usages.add(
+                        new Formula(
+                                resultSet.getInt("id"),
+                                resultSet.getString("name"),
+                                resultSet.getString("shortName"),
+                                resultSet.getString("value"),
+                                resultSet.getString("description"),
+                                resultSet.getString("category"),
+                                resultSet.getString("unit"),
+                                resultSet.getInt("parent")
+                        )
+                );
+            }
+            if(rootIndustry != 0){
+                for (Formula formula : usages) {
+                    if (formula != null) {
+                        int parentIndustryId = formula.getParentIndustryID(formula.getParent());
+                        if (parentIndustryId == rootIndustry) {
+                            finalUsages.add(formula);
+                        }
+                    }
+                }
+            }else{
+                finalUsages = usages;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return Formulas;
+        return finalUsages;
     }
 
-    public static String usagesString(String code){
-        Map<Integer, String> usages = findUsage(code);
+    public static String usagesString(String code, int rootIndustry){
+        List<Formula> usages = findUsage(code, rootIndustry);
         StringBuilder builder = new StringBuilder();
-        for (Map.Entry<Integer, String> entry : usages.entrySet()) {
-            builder.append(entry.getValue());
+        Set<String> names = new HashSet<String>();
+        for (Formula formula : usages) {
+            names.add(formula.getName());
+        }
+        Iterator it = names.iterator();
+        while(it.hasNext()) {
+            builder.append(it.next() + "\n");
         }
         return builder.toString();
     }

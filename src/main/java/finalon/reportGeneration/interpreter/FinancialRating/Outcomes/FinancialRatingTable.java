@@ -27,12 +27,14 @@ public class FinancialRatingTable {
         ArrayList<Double> vals = new ArrayList<>();
         Double sum = 0.0;
         for (Formula formula : formulas) {
-            ScoreItem item = new ScoreItem(formula);
-            Double weightedScore = item.getWeightedScore();
-            if (weightedScore != null) {
-                sum += weightedScore;
-                vals.add(weightedScore);
-                output.add(item);
+            if(formula != null){
+                ScoreItem item = new ScoreItem(formula);
+                Double weightedScore = item.getWeightedScore();
+                if (weightedScore != null) {
+                    sum += weightedScore;
+                    vals.add(weightedScore);
+                    output.add(item);
+                }
             }
         }
 

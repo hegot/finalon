@@ -1,9 +1,10 @@
 package finalon.finalonWindows.templateScene.templates;
 
+import finalon.database.formula.DbFormulaHandler;
+import finalon.entities.Formula;
 import finalon.entities.Item;
 import finalon.finalonWindows.SceneName;
 import finalon.finalonWindows.SceneSwitcher;
-import finalon.finalonWindows.templateScene.templates.EventHandlers.SaveHandler;
 import finalon.globalReusables.CallTypes;
 import finalon.globalReusables.StatTrigger;
 import javafx.collections.FXCollections;
@@ -19,12 +20,18 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-public class EditTemplate {
+public class TemplateEditPage {
 
     private static ObservableList<Item> items = FXCollections.observableArrayList();
     private TextField templateName;
+    private Integer industry;
 
-    public EditTemplate(ObservableList<Item> itemsInput) {
+    public TemplateEditPage(ObservableList<Item> itemsInput, int industryId) {
+        items = itemsInput;
+        industry = industryId;
+    }
+
+    public TemplateEditPage(ObservableList<Item> itemsInput) {
         items = itemsInput;
     }
 
@@ -43,7 +50,7 @@ public class EditTemplate {
         vBox.getChildren().addAll(
                 hbox,
                 templateName(),
-                TemplateEditable.getTemplateEditable()
+                TemplateEditTable.getTemplateEditable()
         );
         return vBox;
     }
@@ -57,6 +64,13 @@ public class EditTemplate {
         label.setTextFill(Color.web("#6a6c6f"));
         templateName = new TextField();
         Item rootItem = getRoot();
+        if(industry != null){
+            Formula industryForm = DbFormulaHandler.findById(industry);
+            if(industryForm != null){
+                String name = "Template for " + industryForm.getName() + " industry";
+                rootItem.setName(name);
+            }
+        }
         templateName.setText(rootItem.getName());
         templateName.setPrefWidth(300);
         hbox.getChildren().addAll(label, templateName);
@@ -66,10 +80,13 @@ public class EditTemplate {
     Item getRoot() {
         for (Item item : items) {
             if (item.getParent() == 0) {
+                if(industry != null){
+                    item.setParentSheet(industry);
+                }
                 return item;
             }
         }
-        return new Item(-2222, "", "", true, false, 0, 0, 0);
+        return new Item(-2, "", "", true, false, 0, 0, 0);
     }
 
 
@@ -95,7 +112,7 @@ public class EditTemplate {
                 if ((templateName.getText() != null && !templateName.getText().isEmpty())) {
                     Item rootItem = getRoot();
                     rootItem.setName(templateName.getText());
-                    SaveHandler updater = new SaveHandler(templateName.getText());
+                    TemplateSaveHandler updater = new TemplateSaveHandler(templateName.getText());
                     updater.updateTpl();
                     StatTrigger.call(CallTypes.templates_customization_times);
                     SceneSwitcher.goTo(SceneName.TEMPLATESLIST);

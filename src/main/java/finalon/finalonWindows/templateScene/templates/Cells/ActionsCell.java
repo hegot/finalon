@@ -3,7 +3,7 @@ package finalon.finalonWindows.templateScene.templates.Cells;
 import finalon.database.formula.DbFormulaHandler;
 import finalon.entities.Item;
 import finalon.finalonWindows.reusableComponents.ImageButton;
-import finalon.finalonWindows.templateScene.templates.EditTemplate;
+import finalon.finalonWindows.templateScene.templates.TemplateEditPage;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -25,7 +25,7 @@ public class ActionsCell {
                             TableView table = this.getTableView();
                             Item selectedItem = (Item) getTableRow().getItem();
                             if (selectedItem != null) {
-                                String usages = DbFormulaHandler.usagesString(selectedItem.getShortName());
+                                String usages = DbFormulaHandler.usagesString(selectedItem.getShortName(), 0);
                                 if (usages.length() > 0) {
                                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                                     alert.setTitle("Index deletion");
@@ -36,14 +36,14 @@ public class ActionsCell {
                                     try {
                                         if (option.get() == ButtonType.OK) {
                                             table.getItems().remove(selectedItem);
-                                            EditTemplate.getItems().remove(selectedItem);
+                                            TemplateEditPage.getItems().remove(selectedItem);
                                         }
                                     } catch (Exception e) {
                                         System.out.println(e.getMessage());
                                     }
                                 } else {
                                     table.getItems().remove(selectedItem);
-                                    EditTemplate.getItems().remove(selectedItem);
+                                    TemplateEditPage.getItems().remove(selectedItem);
                                 }
                             }
                         });
@@ -60,7 +60,7 @@ public class ActionsCell {
                                 TableView table = this.getTableView();
                                 Item itemNew = new Item(-1, "Set value here", "Set value here", true, false, item.getId(), item.getParentSheet(), 4, index);
                                 table.getItems().add(index, itemNew);
-                                EditTemplate.getItems().add(itemNew);
+                                TemplateEditPage.getItems().add(itemNew);
                             }
                         });
                         return btn;

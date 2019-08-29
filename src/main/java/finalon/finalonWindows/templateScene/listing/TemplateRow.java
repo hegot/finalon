@@ -4,8 +4,8 @@ import finalon.database.template.DbItemHandler;
 import finalon.entities.Item;
 import finalon.finalonWindows.SceneName;
 import finalon.finalonWindows.SceneSwitcher;
-import finalon.finalonWindows.templateScene.templates.EditTemplate;
-import finalon.finalonWindows.templateScene.templates.EventHandlers.SaveHandler;
+import finalon.finalonWindows.templateScene.templates.TemplateEditPage;
+import finalon.finalonWindows.templateScene.templates.TemplateSaveHandler;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,12 +33,11 @@ public class TemplateRow extends VBox {
         }
     }
 
-
     @FXML
     protected void editRowAction() {
         ObservableList<Item> items = DbItemHandler.getItems(item.getId());
         items.add(this.item);
-        EditTemplate editTpl = new EditTemplate(items);
+        TemplateEditPage editTpl = new TemplateEditPage(items);
         SceneSwitcher.getWindow().getChildren().setAll(editTpl.getScene());
     }
 
@@ -50,13 +49,10 @@ public class TemplateRow extends VBox {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             int id = item.getId();
-            String name = item.getName();
-            ObservableList<Item> items = DbItemHandler.getItems(id);
-            SaveHandler templateEditor = new SaveHandler(name);
+            TemplateSaveHandler templateEditor = new TemplateSaveHandler();
             templateEditor.deleteItem(id);
-            System.out.println("Template " + name + " deleted successfully");
+            System.out.println("Template " + item.getName() + " deleted successfully");
             SceneSwitcher.goTo(SceneName.TEMPLATESLIST);
         }
     }
-
 }

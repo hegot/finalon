@@ -35,6 +35,7 @@ public class TemplatesListing extends SceneBase {
             }
             vbox.getChildren().addAll(
                     tilePane,
+                    new SettingsMessage(),
                     new AddTemplateBtn("Add new template: ")
             );
         } else {

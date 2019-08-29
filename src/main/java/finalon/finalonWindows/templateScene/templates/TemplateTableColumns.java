@@ -17,12 +17,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.Optional;
 
-class Columns {
+class TemplateTableColumns {
 
     static TableColumn buttonCol() {
         TableColumn<Item, Void> col = new TableColumn<>("");
         col.setMinWidth(50);
         col.setCellFactory(ActionsCell.getActionsFactory());
+        col.setSortable(false);
         return col;
     }
 
@@ -30,6 +31,7 @@ class Columns {
         TableColumn<Item, Void> col = new TableColumn<>("");
         col.setPrefWidth(35);
         col.setCellFactory(DragCell.getDragFactory());
+        col.setSortable(false);
         return col;
     }
 
@@ -37,6 +39,7 @@ class Columns {
         TableColumn<Item, String> col = new TableColumn<Item, String>("Indicator");
         col.setMinWidth(450);
         col.setCellFactory(column -> new EditCell());
+        col.setSortable(false);
         col.setOnEditCommit(
                 (TableColumn.CellEditEvent<Item, String> t) -> {
                     if (t != null && t.getTableView() != null) {
@@ -60,6 +63,7 @@ class Columns {
         TableColumn<Item, String> col = new TableColumn<Item, String>("Indicator Code");
         col.setMinWidth(200);
         col.setCellFactory(column -> new EditCell());
+        col.setSortable(false);
         col.setOnEditCommit(
                 (TableColumn.CellEditEvent<Item, String> t) -> {
                     if (t != null && t.getTableView() != null) {
@@ -68,15 +72,15 @@ class Columns {
                             Item item = ((Item) t.getTableView().getItems()
                                     .get(t.getTablePosition().getRow()));
                             if (item != null) {
-                                String usages = DbFormulaHandler.usagesString(item.getShortName());
+                                String usages = DbFormulaHandler.usagesString(item.getShortName(), 0);
                                 if (usages.length() > 0) {
                                     item.setShortName(value);
                                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                                     alert.setTitle("Index code change");
                                     alert.setHeaderText("Index code that you want to change is used in such formulas: ");
                                     alert.setContentText(usages
-                                            + "\n\n Formulas will get automatically updated with new code value. " +
-                                            "Are you sure you want to change it?");
+                                            + "\n\nFormulas values will get automatically updated with new code value. " +
+                                            "\n\nAre you sure you want to change it?");
                                     Optional<ButtonType> option = alert.showAndWait();
                                     try {
                                         if (option.get() == ButtonType.OK) {
@@ -106,6 +110,7 @@ class Columns {
             Item item = param.getValue();
             return item.isPositive();
         });
+        col.setSortable(false);
         col.setCellValueFactory((TableColumn.CellDataFeatures<Item, Boolean> param) -> {
             Item item = param.getValue();
             SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(item.getIsPositive());
@@ -125,6 +130,7 @@ class Columns {
     static TableColumn finResultCol() {
         TableColumn<Item, Boolean> col = new TableColumn<>("Result");
         col.setMinWidth(80);
+        col.setSortable(false);
         col.setCellValueFactory((TableColumn.CellDataFeatures<Item, Boolean> param) -> {
             Item item = param.getValue();
             SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(item.getFinResult());
