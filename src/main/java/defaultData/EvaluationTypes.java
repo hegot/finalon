@@ -1,0 +1,11 @@
+package defaultData;
+
+public enum EvaluationTypes {
+    EVALUATE_END,
+    EVALUATE_PRE_END,
+    PREFIX,
+    SUFFIX,
+    PERIOD_COMPARISON_INCREASE,
+    PERIOD_COMPARISON_DECREASE,
+    PERIOD_COMPARISON_NOCHANGE
+}
