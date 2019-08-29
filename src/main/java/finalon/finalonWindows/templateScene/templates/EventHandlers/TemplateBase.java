@@ -6,21 +6,10 @@ import finalon.entities.Formula;
 import finalon.entities.Item;
 import finalon.finalonWindows.templateScene.templates.TemplateEditPage;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TemplateBase {
-    public static int createItem(Item item) {
-        try {
-            return DbItemHandler.addItem(item);
-        } catch (SQLException se) {
-            se.printStackTrace();
-        } catch (ClassNotFoundException ce) {
-            ce.printStackTrace();
-        }
-        return 0;
-    }
 
     public static List<Item> getChilds(int parentId) {
         List<Item> childs = new ArrayList<Item>();
@@ -37,7 +26,7 @@ public class TemplateBase {
         for (Item child : childs) {
             Item newItem = (Item) child.clone();
             newItem.setParent(newId);
-            int newNewId = createItem(newItem);
+            int newNewId = DbItemHandler.addItem(newItem);
             updateChilds(newItem.getId(), newNewId);
         }
     }

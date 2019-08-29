@@ -147,7 +147,7 @@ public class DbItemHandler extends DbHandlerBase {
         return Items;
     }
 
-    public static int addItem(Item Item) throws ClassNotFoundException, SQLException {
+    public static int addItem(Item Item) {
         try {
             String[] returnId = {"id"};
             String sql = "INSERT INTO " + tableName + " (`id`, `name`, `shortName`,  `isPositive`, `finResult`, `parent`, `parentSheet`, `level`, `weight`) " +

@@ -1,5 +1,6 @@
 package finalon.finalonWindows.templateScene.templates.EventHandlers;
 
+import finalon.database.template.DbItemHandler;
 import finalon.defaultData.Formula.DefaultFormulas;
 import finalon.entities.Item;
 import finalon.finalonWindows.templateScene.templates.TemplateEditPage;
@@ -32,7 +33,7 @@ public class TemplateSaveHandler {
     public void saveTpl() {
         for (Item item : items) {
             if (item.getParent() == 0) {
-                int templateId = TemplateBase.createItem(item);
+                int templateId = DbItemHandler.addItem(item);
                 setParentTpl(templateId);
                 TemplateBase.updateChilds(item.getId(), templateId);
                 break;

@@ -69,7 +69,7 @@ public class TemplateUpdateHandler {
             for (Item item : items) {
                 if (item.getId() == -1) {
                     item.setParentSheet(root.getId());
-                    int newId = TemplateBase.createItem(item);
+                    int newId = DbItemHandler.addItem(item);
                     TemplateBase.updateChilds(item.getId(), newId);
                 } else if (item.getUpdated()) {
                     TemplateBase.updateDependantFormulas(item);
