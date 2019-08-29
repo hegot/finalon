@@ -6,6 +6,7 @@ import finalon.entities.Item;
 import finalon.finalonWindows.SceneName;
 import finalon.finalonWindows.SceneSwitcher;
 import finalon.finalonWindows.templateScene.templates.EventHandlers.TemplateSaveHandler;
+import finalon.finalonWindows.templateScene.templates.EventHandlers.TemplateUpdateHandler;
 import finalon.globalReusables.CallTypes;
 import finalon.globalReusables.StatTrigger;
 import javafx.collections.FXCollections;
@@ -65,9 +66,9 @@ public class TemplateEditPage {
         label.setTextFill(Color.web("#6a6c6f"));
         templateName = new TextField();
         Item rootItem = getRoot();
-        if(industry != null){
+        if (industry != null) {
             Formula industryForm = DbFormulaHandler.findById(industry);
-            if(industryForm != null){
+            if (industryForm != null) {
                 String name = "Template for " + industryForm.getName() + " industry";
                 rootItem.setName(name);
             }
@@ -81,7 +82,7 @@ public class TemplateEditPage {
     Item getRoot() {
         for (Item item : items) {
             if (item.getParent() == 0) {
-                if(industry != null){
+                if (industry != null) {
                     item.setParentSheet(industry);
                 }
                 return item;
@@ -113,8 +114,13 @@ public class TemplateEditPage {
                 if ((templateName.getText() != null && !templateName.getText().isEmpty())) {
                     Item rootItem = getRoot();
                     rootItem.setName(templateName.getText());
-                    TemplateSaveHandler updater = new TemplateSaveHandler(templateName.getText());
-                    updater.updateTpl();
+                    if (industry != null) {
+                        TemplateSaveHandler saver = new TemplateSaveHandler(templateName.getText());
+                        saver.saveTpl();
+                    } else {
+                        TemplateUpdateHandler updater = new TemplateUpdateHandler(templateName.getText());
+                        updater.updateTpl();
+                    }
                     StatTrigger.call(CallTypes.templates_customization_times);
                     SceneSwitcher.goTo(SceneName.TEMPLATESLIST);
                 } else {

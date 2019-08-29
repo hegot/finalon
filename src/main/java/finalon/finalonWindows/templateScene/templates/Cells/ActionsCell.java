@@ -9,8 +9,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
-import java.util.Optional;
-
 public class ActionsCell {
     public static Callback<TableColumn<Item, Void>, TableCell<Item, Void>> getActionsFactory() {
         return new Callback<TableColumn<Item, Void>, TableCell<Item, Void>>() {

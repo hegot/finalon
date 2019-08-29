@@ -18,11 +18,7 @@ import javafx.scene.layout.VBox;
 public class FormulaScene extends SceneBase {
 
     public static Formula industry;
-    private ObservableMap<String, String> settings;
 
-    public FormulaScene() {
-        this.settings = FXCollections.observableHashMap();
-    }
 
     public VBox getScene() {
         VBox vbox = new VBox(20);

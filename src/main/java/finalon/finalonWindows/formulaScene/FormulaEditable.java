@@ -13,24 +13,30 @@ import javafx.stage.Screen;
 
 public class FormulaEditable {
 
-    private static TreeTableView<Formula> table = new TreeTableView<>();
+    private static TreeTableView<Formula> table = createFormulaTable();
 
 
     public static TreeTableView getFormulaTable() {
+        return table;
+    }
+
+    private static TreeTableView<Formula> createFormulaTable() {
+        TreeTableView<Formula> tbl = new TreeTableView<>();
         int rootId = StandardAndIndustry.getIndustryId();
         Formula rootIndustry = DbFormulaHandler.findById(rootId);
-        table.setEditable(false);
-        table.setMinWidth(880);
+        tbl.setEditable(false);
+        tbl.setMinWidth(880);
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        table.setMinHeight(primaryScreenBounds.getHeight() - 220);
-        table.getColumns().addAll(
+        tbl.setMinHeight(primaryScreenBounds.getHeight() - 220);
+        tbl.getColumns().addAll(
                 getCol("Indicator", "name", 300),
                 getCol("Code", "shortName", 180),
                 getValueCol(),
                 buttonCol()
         );
-        updateTable(rootIndustry);
-        table.setRowFactory(tv -> {
+        TreeItem rootNode = getRoot(rootIndustry);
+        tbl.setRoot(rootNode);
+        tbl.setRowFactory(tv -> {
             TreeTableRow<Formula> row = new TreeTableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 1 && (!row.isEmpty())) {
@@ -40,7 +46,7 @@ public class FormulaEditable {
             });
             return row;
         });
-        return table;
+        return tbl;
     }
 
     public static void updateTable(Formula rootIndustry) {
