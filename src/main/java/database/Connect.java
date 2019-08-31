@@ -41,7 +41,7 @@ public final class Connect {
         } catch (ClassNotFoundException eString) {
             System.out.println("Could not init JDBC driver - driver not found");
         }
-        conn = DriverManager.getConnection("jdbc:sqlite:finalon_templates");
+        conn = DriverManager.getConnection("jdbc:sqlite::resource:" + getClass().getResource("/db/finalon_templates"));
         System.out.println("Database connected!");
     }
 
