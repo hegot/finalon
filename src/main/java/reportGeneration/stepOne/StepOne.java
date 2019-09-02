@@ -1,7 +1,9 @@
 package reportGeneration.stepOne;
 
+import database.setting.DbSettingHandler;
 import defaultData.DefaultCurrency;
 import entities.Formula;
+import globalReusables.Setting;
 import globalReusables.StandardAndIndustry;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -78,7 +80,7 @@ public class StepOne {
         hBox.getChildren().addAll(
                 label,
                 SettingsSelect.get(amountItems, "amount", "thousand"),
-                SettingsSelect.get(DefaultCurrency.getCurrencies(), "defaultCurrency", "USD")
+                SettingsSelect.get(DefaultCurrency.getCurrencies(), "defaultCurrency",  SettingsStorage.get("SettingsStorage"))
         );
         return hBox;
     }

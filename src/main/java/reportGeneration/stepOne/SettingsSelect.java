@@ -13,13 +13,16 @@ public class SettingsSelect {
                                String defaultVal) {
         ComboBox<String> box = new ComboBox<String>();
         box.setItems(items);
-        box.getSelectionModel().selectFirst();
+        if(defaultVal.length() > 0){
+            box.getSelectionModel().select(defaultVal);
+        }else{
+            box.getSelectionModel().selectFirst();
+        }
         String val = SettingsStorage.get(key);
         if (val != null) {
             box.setValue(val);
         } else {
             SettingsStorage.put(key, defaultVal);
-            box.getSelectionModel().selectFirst();
         }
         box.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override

@@ -1,5 +1,7 @@
 package reportGeneration.storage;
 
+import database.setting.DbSettingHandler;
+import globalReusables.Setting;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 
@@ -11,13 +13,15 @@ public class SettingsStorage {
     private static ObservableMap<String, String> initStorage() {
         ObservableMap<String, String> settings = FXCollections.observableHashMap();
         String year = Integer.toString(Calendar.getInstance().get(Calendar.YEAR));
+        String defaultCurrency = DbSettingHandler.getSetting(Setting.defaultCurrency);
+        if(defaultCurrency.length() == 0) defaultCurrency = "USD";
         settings.put("company", "");
         settings.put("step", "one");
         settings.put("year", year);
         settings.put("date", "31.12");
         settings.put("template", "");
         settings.put("standard", "1");
-        settings.put("defaultCurrency", "USD");
+        settings.put("SettingsStorage", defaultCurrency);
         settings.put("amount", "million");
         settings.put("reportStep", "year");
         settings.put("industry", "");
