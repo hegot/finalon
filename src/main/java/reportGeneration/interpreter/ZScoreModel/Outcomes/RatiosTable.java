@@ -1,19 +1,21 @@
 package reportGeneration.interpreter.ZScoreModel.Outcomes;
 
+import database.setting.DbSettingHandler;
 import entities.Formula;
+import globalReusables.Setting;
+import javafx.scene.control.TableColumn;
 import reportGeneration.interpreter.ReusableComponents.tables.FormulaTable;
 import reportGeneration.storage.Periods;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class RatiosTable extends FormulaTable {
     private ObservableList<Formula> formulas;
-    private ArrayList<String> periods;
 
     public RatiosTable(ObservableList<Formula> formulas) {
-        this.periods = Periods.getPeriodArr();
         this.formulas = formulas;
     }
 
@@ -23,8 +25,8 @@ public class RatiosTable extends FormulaTable {
         table.setEditable(false);
         if (formulas != null) {
             table.getColumns().add(getNameCol());
-            for (String col : periods) {
-                table.getColumns().add(getPeriodCol(col));
+            for (TableColumn col : getPeriodCols()) {
+                table.getColumns().add(col);
             }
             table.setItems(formulas);
         }
@@ -32,4 +34,15 @@ public class RatiosTable extends FormulaTable {
     }
 
 
+    protected ArrayList<TableColumn> getPeriodCols() {
+        ArrayList<TableColumn> colsArr = new ArrayList<TableColumn>();
+        for (String col : Periods.getPeriodArr()) {
+            colsArr.add(getPeriodCol(col));
+        }
+        String order = DbSettingHandler.getSetting(Setting.yearOrder);
+        if (order.equals("DESCENDING")) {
+            Collections.reverse(colsArr);
+        }
+        return colsArr;
+    }
 }

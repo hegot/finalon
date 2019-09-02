@@ -17,6 +17,13 @@ public class Formatter {
         return strValue;
     }
 
+    public static String stringCommaFormat(String value) {
+        if (DbSettingHandler.getSetting(Setting.numberFormat).equals("comma")) {
+            value = value.replace('.', ',');
+        }
+        return value;
+    }
+
     public static String formatDate(String input) {
         if (input != null) {
             input = input.replace("\n", "");

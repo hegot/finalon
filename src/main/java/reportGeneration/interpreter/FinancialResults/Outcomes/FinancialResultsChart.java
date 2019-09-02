@@ -61,7 +61,7 @@ public class FinancialResultsChart extends ChartBase {
     }
 
     private String chartTitle() {
-        return "Chart 5. Share in Financial Results in the Net Sales between" +
+        return "Chart 5. Share in Financial Results in the Net Sales between " +
                 Periods.getStart() + " - " + Periods.getEnd() + " %";
     }
 

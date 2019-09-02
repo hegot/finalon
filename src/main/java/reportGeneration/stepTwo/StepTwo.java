@@ -1,18 +1,20 @@
 package reportGeneration.stepTwo;
 
+import database.setting.DbSettingHandler;
 import database.template.DbItemHandler;
 import defaultData.DefaultTemplate;
 import entities.Item;
 import globalReusables.ItemsGetter;
+import globalReusables.Setting;
 import globalReusables.SheetsGetter;
-import reportGeneration.storage.ItemsStorage;
-import reportGeneration.storage.Periods;
-import reportGeneration.storage.SettingsStorage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableView;
+import reportGeneration.storage.ItemsStorage;
+import reportGeneration.storage.Periods;
+import reportGeneration.storage.SettingsStorage;
 
 import java.util.ArrayList;
 
@@ -30,14 +32,18 @@ public class StepTwo {
 
     private void setItems() {
         if (items.size() == 0) {
-            int tpl = Integer.parseInt(SettingsStorage.get("template"));
-            ObservableList<Item> dbItems = DbItemHandler.getItems(tpl);
+            ObservableList<Item> dbItems = FXCollections.observableArrayList();
+            int industryId = Integer.parseInt(SettingsStorage.get("industry"));
+            ObservableList<Item> tpls = DbItemHandler.getTemplateForIndustry(industryId);
+            if (tpls.size() > 0) {
+                Item tpl = tpls.get(0);
+                dbItems = DbItemHandler.getItems(tpl.getId());
+                dbItems.add(DbItemHandler.getItem(tpl.getId()));
+            }
             if (dbItems.size() == 0) {
                 dbItems = FXCollections.observableArrayList(
                         DefaultTemplate.getTpl()
                 );
-            } else {
-                dbItems.add(DbItemHandler.getItem(tpl));
             }
             items.addAll(dbItems);
         }
@@ -70,8 +76,16 @@ public class StepTwo {
         Columns cols = new Columns();
         table.getColumns().addAll(cols.getNameCol(), cols.getCodeCol());
         ArrayList<String> arr = Periods.getPeriodArr();
-        for (String col : arr) {
-            table.getColumns().add(cols.getPeriodCol(col));
+        String order = DbSettingHandler.getSetting(Setting.yearOrder);
+        if (order.equals("ASCENDING")){
+            for (String col : arr) {
+                table.getColumns().add(cols.getPeriodCol(col));
+            }
+        }else{
+            for (int i = arr.size(); i-- > 0; ) {
+                String col = arr.get(i);
+                table.getColumns().add(cols.getPeriodCol(col));
+            }
         }
         return table;
     }

@@ -1,7 +1,9 @@
 package reportGeneration.interpreter.ReusableComponents.tables;
 
+import database.setting.DbSettingHandler;
 import entities.Item;
 import globalReusables.ItemsGetter;
+import globalReusables.Setting;
 import reportGeneration.interpreter.ReusableComponents.helpers.Calc;
 import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import reportGeneration.storage.ItemsStorage;
@@ -15,7 +17,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,19 +61,43 @@ public class StructureTable {
         table.getItems().addAll(getStructureItems());
         table.getStyleClass().add("report-table");
         table.getColumns().addAll(getNameCol());
-
-        for (String col : periodsArr) {
-            table.getColumns().add(structureCol(col));
+        for (TableColumn col : getStructureCols()) {
+            table.getColumns().add(col);
         }
+        for (TableColumn col : getAbsoluteChangeCols()) {
+            table.getColumns().add(col);
+        }
+        return table;
+    }
+
+
+    private ArrayList<TableColumn> getAbsoluteChangeCols(){
+        ArrayList<TableColumn> colsArr = new ArrayList<>();
         int count = periodsArr.size() - 1;
         if (count > 0) {
             for (int j = 0; j < count; j++) {
                 String colStart = periodsArr.get(j);
                 String colEnd = periodsArr.get(j + 1);
-                table.getColumns().add(absoluteChangeCol(colStart, colEnd));
+                colsArr.add(absoluteChangeCol(colStart, colEnd));
             }
         }
-        return table;
+        String order = DbSettingHandler.getSetting(Setting.yearOrder);
+        if (order.equals("DESCENDING")){
+            Collections.reverse(colsArr);
+        }
+        return colsArr;
+    }
+
+    private ArrayList<TableColumn> getStructureCols(){
+        ArrayList<TableColumn> colsArr = new ArrayList<>();
+        for (String col : periodsArr) {
+            colsArr.add(structureCol(col));
+        }
+        String order = DbSettingHandler.getSetting(Setting.yearOrder);
+        if (order.equals("DESCENDING")){
+            Collections.reverse(colsArr);
+        }
+        return colsArr;
     }
 
     private TableColumn absoluteChangeCol(String colStart, String colEnd) {

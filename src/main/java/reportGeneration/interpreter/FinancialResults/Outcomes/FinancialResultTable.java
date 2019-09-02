@@ -1,24 +1,24 @@
 package reportGeneration.interpreter.FinancialResults.Outcomes;
 
+import database.setting.DbSettingHandler;
 import entities.Item;
 import globalReusables.LabelWrap;
-import reportGeneration.interpreter.ReusableComponents.helpers.Calc;
-import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
-import reportGeneration.storage.ItemsStorage;
-import reportGeneration.storage.Periods;
-import reportGeneration.storage.SettingsStorage;
-import javafx.beans.property.SimpleStringProperty;
+import globalReusables.Setting;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
+import reportGeneration.interpreter.ReusableComponents.tables.ItemsTable;
+import reportGeneration.storage.ItemsStorage;
+import reportGeneration.storage.Periods;
+import reportGeneration.storage.SettingsStorage;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
-public class FinancialResultTable {
+public class FinancialResultTable extends ItemsTable {
 
     private ObservableList<Item> items;
     private ArrayList<String> periods;
@@ -28,6 +28,7 @@ public class FinancialResultTable {
     private ItemsGetter itemsGetter = new ItemsGetter();
 
     public FinancialResultTable() {
+        super(ItemsStorage.getItems());
         this.periods = Periods.getPeriodArr();
         this.grossProfit = ItemsStorage.get("GrossProfit");
         this.itemEbit = itemsGetter.getEbit();
@@ -97,160 +98,39 @@ public class FinancialResultTable {
         return output;
     }
 
-
     public TableView get() {
         TableView<Item> table = new TableView<Item>();
         table.setEditable(false);
         table.getStyleClass().add("report-table");
         table.getColumns().add(getNameCol());
-        for (String col : periods) {
-            table.getColumns().add(getPeriodCol(col));
+        for (TableColumn col : getPeriodCols()) {
+            table.getColumns().add(col);
         }
-        ArrayList<String> arr = Periods.getPeriodArr();
-        int count = arr.size() - 1;
-        if (count > 0) {
-            for (int j = 0; j < count; j++) {
-                String colStart = arr.get(j);
-                String colEnd = arr.get(j + 1);
-                table.getColumns().add(getAbsoluteComparisonCol(colStart, colEnd));
-            }
+        for (TableColumn col : getAbsoluteCols()) {
+            table.getColumns().add(col);
         }
         table.setItems(items);
         return table;
     }
 
-    protected TableColumn getNameCol() {
-        TableColumn<Item, String> col = new TableColumn<Item, String>("Item");
-        col.setMinWidth(350);
-        col.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
-        return col;
-    }
-
-    protected TableColumn getPeriodCol(String colname) {
-        TableColumn<Item, String> col = new TableColumn<Item, String>(colname);
-        col.setMinWidth(100);
-        col.setCellValueFactory(cellData -> {
-            Item item = (Item) cellData.getValue();
-            if (item != null && item.getValues().size() > 0) {
-                Double period = item.getValues().get(colname);
-                if (period != null) {
-                    return new SimpleStringProperty(Formatter.format(period));
-                }
-            }
-            return null;
-        });
-        return col;
-    }
-
-    private ObservableMap<String, Double> getValues(TableColumn.CellDataFeatures<Item, String> cellData) {
-        Item item = (Item) cellData.getValue();
-        if (item != null) {
-            if (item.getValues().size() > 0) {
-                return item.getValues();
+    protected ArrayList<TableColumn> getAbsoluteCols() {
+        ArrayList<TableColumn> colsArr = new ArrayList<>();
+        ArrayList<String> periods = Periods.getPeriodArr();
+        int count = periods.size() - 1;
+        if (count > 0) {
+            for (int j = 0; j < count; j++) {
+                String colStart = periods.get(j);
+                String colEnd = periods.get(j + 1);
+                colsArr.add(getAbsoluteComparisonCol(colStart, colEnd));
             }
         }
-        return null;
+        String order = DbSettingHandler.getSetting(Setting.yearOrder);
+        if (order.equals("DESCENDING")) {
+            Collections.reverse(colsArr);
+        }
+        return colsArr;
     }
 
-    TableColumn getAbsoluteComparisonCol(String colStart, String colEnd) {
-        String colname = "Absolute Change\n" + Formatter.formatDate(colEnd) + " to \n" + Formatter.formatDate(colStart);
-        TableColumn<Item, String> col = new TableColumn<Item, String>(colname);
-        col.setMinWidth(150);
-        col.setCellValueFactory(cellData -> {
-            ObservableMap<String, Double> values = getValues(cellData);
-            if (values != null) {
-                return Calc.diff(
-                        values.get(colStart),
-                        values.get(colEnd)
-                );
-            }
-            return null;
-        });
-        return col;
-    }
 }
 
 
-class ItemsGetter {
-    private Item profitLossBeforeTax;
-    private Item financeCosts;
-    private Item grossProfit;
-    private Item incomeTaxExpense;
-    private ArrayList<String> periods;
-
-    ItemsGetter() {
-        this.periods = Periods.getPeriodArr();
-        this.profitLossBeforeTax = ItemsStorage.get("ProfitLossBeforeTax");
-        this.financeCosts = ItemsStorage.get("FinanceCosts");
-        this.grossProfit = ItemsStorage.get("GrossProfit");
-        this.incomeTaxExpense = ItemsStorage.get("IncomeTaxExpenseContinuingOperations");
-    }
-
-    Item getEbit() {
-        Item itemEbit = new Item(0,
-                "EBIT",
-                "EBIT",
-                true,
-                false,
-                0,
-                0, 0);
-        ObservableMap<String, Double> valuesEbit = FXCollections.observableHashMap();
-        for (String period : periods) {
-            Double val1 = profitLossBeforeTax.getVal(period);
-            Double val2 = financeCosts.getVal(period);
-            if (val1 == null) val1 = 0.0;
-            if (val2 == null) val2 = 0.0;
-            Double EbitVal = val1 + val2;
-            valuesEbit.put(period, EbitVal);
-        }
-        itemEbit.setValues(valuesEbit);
-        ItemsStorage.addItem(itemEbit);
-        return itemEbit;
-    }
-
-    Item getOtherIncome() {
-        Item itemOtherIncome = new Item(0,
-                "Other income and expenses from continuing operations, " +
-                        "except finance costs and income tax expense",
-                "OIEFCOEFCAITE",
-                true,
-                false,
-                0,
-                0, 0);
-        ObservableMap<String, Double> valuesItemOtherIncome = FXCollections.observableHashMap();
-        for (String period : periods) {
-            Double val1 = profitLossBeforeTax.getVal(period);
-            Double val2 = financeCosts.getVal(period);
-            Double val3 = grossProfit.getVal(period);
-            if (val1 == null) val1 = 0.0;
-            if (val2 == null) val2 = 0.0;
-            if (val3 == null) val3 = 0.0;
-            Double otherIncomeVal = val1 + val2 - val3;
-            valuesItemOtherIncome.put(period, otherIncomeVal);
-        }
-        itemOtherIncome.setValues(valuesItemOtherIncome);
-        ItemsStorage.addItem(itemOtherIncome);
-        return itemOtherIncome;
-    }
-
-    Item getIncomeLossFromContinuingOperations() {
-        Item IncomeLossFromContinuingOperations = new Item(0,
-                "Income (loss) from continuing operations",
-                "IncomeLossFromContinuingOperations",
-                true,
-                false,
-                0,
-                0, 0);
-        ObservableMap<String, Double> valuesIncomeLossFromContinuingOperations = FXCollections.observableHashMap();
-        for (String period : periods) {
-            Double val1 = profitLossBeforeTax.getVal(period);
-            Double val4 = incomeTaxExpense.getVal(period);
-            if (val1 == null) val1 = 0.0;
-            if (val4 == null) val4 = 0.0;
-            Double IncomeLossFromContinuingOperationsVal = val1 - val4;
-            valuesIncomeLossFromContinuingOperations.put(period, IncomeLossFromContinuingOperationsVal);
-        }
-        IncomeLossFromContinuingOperations.setValues(valuesIncomeLossFromContinuingOperations);
-        return IncomeLossFromContinuingOperations;
-    }
-}
