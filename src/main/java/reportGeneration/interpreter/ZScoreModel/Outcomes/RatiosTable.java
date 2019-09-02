@@ -3,11 +3,11 @@ package reportGeneration.interpreter.ZScoreModel.Outcomes;
 import database.setting.DbSettingHandler;
 import entities.Formula;
 import globalReusables.Setting;
+import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import reportGeneration.interpreter.ReusableComponents.tables.FormulaTable;
 import reportGeneration.storage.Periods;
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableView;
 
 import java.util.ArrayList;
 import java.util.Collections;

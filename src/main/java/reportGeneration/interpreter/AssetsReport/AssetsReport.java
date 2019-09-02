@@ -1,6 +1,9 @@
 package reportGeneration.interpreter.AssetsReport;
 
 import entities.Item;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.AssetsReport.Outcomes.*;
 import reportGeneration.interpreter.ReusableComponents.RelativeItemsChange;
 import reportGeneration.interpreter.ReusableComponents.helpers.TableName;
@@ -8,9 +11,6 @@ import reportGeneration.interpreter.ReusableComponents.tables.IndexChangeTable;
 import reportGeneration.interpreter.ReusableComponents.tables.StructureItem;
 import reportGeneration.interpreter.ReusableComponents.tables.StructureTable;
 import reportGeneration.storage.*;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.layout.VBox;
 
 public class AssetsReport {
 

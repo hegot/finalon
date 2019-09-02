@@ -163,18 +163,18 @@ public class Formula {
         return this.childs;
     }
 
+    public void setChilds(ObservableList<Formula> childs) {
+        this.childs = childs;
+    }
+
     public ObservableList<Formula> getChildsOfType(EvaluationTypes type) {
         ObservableList<Formula> returnChilds = FXCollections.observableArrayList();
         for (Formula child : this.childs) {
-            if(child.getName().equals(type.toString())){
+            if (child.getName().equals(type.toString())) {
                 returnChilds.add(child);
             }
         }
         return returnChilds;
-    }
-
-    public void setChilds(ObservableList<Formula> childs) {
-        this.childs = childs;
     }
 
     public ObservableMap<String, Double> getPeriods() {
@@ -234,12 +234,12 @@ public class Formula {
         setChilds(childs);
     }
 
-    public Integer getParentIndustryID(int parentId){
+    public Integer getParentIndustryID(int parentId) {
         Formula parent = DbFormulaHandler.findById(parentId);
-        if(parent != null){
-            if(parent.getCategory().equals("industry")){
+        if (parent != null) {
+            if (parent.getCategory().equals("industry")) {
                 return parent.getId();
-            }else{
+            } else {
                 return getParentIndustryID(parent.getParent());
             }
         }

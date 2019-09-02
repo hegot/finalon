@@ -31,9 +31,9 @@ public class FormulaCreator {
 
     public void createFormulas() throws SQLException {
         for (Formula formula : formulas) {
-            try{
+            try {
                 DbFormulaHandler.addDefaultFormula(formula);
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
 

@@ -1,16 +1,16 @@
 package reportGeneration.interpreter.Liquidity;
 
 import entities.Formula;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.Liquidity.Outcomes.FormulaEvaluation;
 import reportGeneration.interpreter.ReusableComponents.helpers.TableName;
 import reportGeneration.interpreter.ReusableComponents.tables.RatiosTable;
 import reportGeneration.storage.FormulaStorage;
 import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.TwoDList;
-import javafx.collections.ObservableList;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.layout.VBox;
 
 public class LiquidityReport {
     private ObservableList<Formula> formulas;

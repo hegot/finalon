@@ -67,10 +67,10 @@ public class Finalon extends Application {
     }
 
 
-    private void setAppId(){
+    private void setAppId() {
         ObservableMap<String, String> settings = FXCollections.observableHashMap();
         String id = DbSettingHandler.getSetting(Setting.appId);
-        if(id.length() == 0){
+        if (id.length() == 0) {
             DbSettingHandler.updateSetting(Setting.appId, RandomString.get());
         }
     }

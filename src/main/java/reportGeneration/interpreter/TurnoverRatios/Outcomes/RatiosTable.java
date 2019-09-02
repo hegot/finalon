@@ -3,13 +3,11 @@ package reportGeneration.interpreter.TurnoverRatios.Outcomes;
 import database.setting.DbSettingHandler;
 import entities.Formula;
 import globalReusables.Setting;
-import reportGeneration.interpreter.ReusableComponents.helpers.Calc;
-import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
-import reportGeneration.interpreter.ReusableComponents.tables.FormulaTable;
-import reportGeneration.storage.Periods;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import reportGeneration.interpreter.ReusableComponents.tables.FormulaTable;
+import reportGeneration.storage.Periods;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,8 +37,6 @@ public class RatiosTable extends FormulaTable {
         }
         return table;
     }
-
-
 
 
     protected ArrayList<TableColumn> getPeriodCols() {

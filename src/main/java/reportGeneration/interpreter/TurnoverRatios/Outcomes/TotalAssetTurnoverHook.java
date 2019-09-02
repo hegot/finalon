@@ -2,9 +2,9 @@ package reportGeneration.interpreter.TurnoverRatios.Outcomes;
 
 import entities.Formula;
 import entities.Item;
+import javafx.collections.ObservableMap;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
-import javafx.collections.ObservableMap;
 
 import java.util.ArrayList;
 

@@ -66,7 +66,7 @@ public class AddIndustryPopup {
     }
 
 
-    private void runTask(){
+    private void runTask() {
         Task listLoader = new Task<Integer>() {
             {
                 setOnSucceeded(workerStateEvent -> {

@@ -2,13 +2,13 @@ package reportGeneration.interpreter.FormulaCalculation;
 
 import entities.Formula;
 import entities.Item;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import reportGeneration.storage.FormulaStorage;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 
 import java.util.ArrayList;
 import java.util.HashMap;

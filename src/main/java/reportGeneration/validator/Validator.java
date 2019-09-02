@@ -2,14 +2,14 @@ package reportGeneration.validator;
 
 import entities.Item;
 import globalReusables.LabelWrap;
-import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
-import reportGeneration.storage.ItemsStorage;
-import reportGeneration.storage.Periods;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.ScrollPane;
 import javafx.util.Pair;
+import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
+import reportGeneration.storage.ItemsStorage;
+import reportGeneration.storage.Periods;
 
 import java.util.ArrayList;
 

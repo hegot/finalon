@@ -1,15 +1,15 @@
 package reportGeneration.interpreter.InvestorAnalysis;
 
 import entities.Formula;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.InvestorAnalysis.Outcomes.FormulaEvaluation;
 import reportGeneration.interpreter.ReusableComponents.helpers.TableName;
 import reportGeneration.interpreter.ReusableComponents.tables.RatiosTable;
 import reportGeneration.storage.FormulaStorage;
 import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.TwoDList;
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableView;
-import javafx.scene.layout.VBox;
 
 public class InvestorAnalysis {
     private ObservableList<Formula> formulas;

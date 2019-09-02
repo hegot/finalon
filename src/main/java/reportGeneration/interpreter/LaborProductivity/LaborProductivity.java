@@ -1,12 +1,12 @@
 package reportGeneration.interpreter.LaborProductivity;
 
 import entities.Formula;
+import javafx.collections.ObservableList;
+import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.LaborProductivity.Outcomes.FormulaEvaluation;
 import reportGeneration.interpreter.LaborProductivity.Outcomes.LaborProductivityChart;
 import reportGeneration.storage.FormulaStorage;
 import reportGeneration.storage.ResultsStorage;
-import javafx.collections.ObservableList;
-import javafx.scene.layout.VBox;
 
 public class LaborProductivity {
     private ObservableList<Formula> formulas;

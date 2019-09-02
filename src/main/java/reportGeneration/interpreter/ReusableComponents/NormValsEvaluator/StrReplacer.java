@@ -1,10 +1,10 @@
 package reportGeneration.interpreter.ReusableComponents.NormValsEvaluator;
 
 import entities.Formula;
+import javafx.collections.ObservableMap;
 import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.SettingsStorage;
-import javafx.collections.ObservableMap;
 
 import java.util.ArrayList;
 

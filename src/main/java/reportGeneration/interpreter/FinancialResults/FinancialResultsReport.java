@@ -1,5 +1,8 @@
 package reportGeneration.interpreter.FinancialResults;
 
+import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.FinancialResults.Outcomes.CostOfGoods;
 import reportGeneration.interpreter.FinancialResults.Outcomes.FinancialResultTable;
 import reportGeneration.interpreter.FinancialResults.Outcomes.FinancialResultsChart;
@@ -8,9 +11,6 @@ import reportGeneration.interpreter.ReusableComponents.helpers.TableName;
 import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
 import reportGeneration.storage.TwoDList;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.layout.VBox;
 
 public class FinancialResultsReport {
     private int weight;

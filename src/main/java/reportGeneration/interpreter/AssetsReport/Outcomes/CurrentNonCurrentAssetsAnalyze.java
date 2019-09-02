@@ -1,12 +1,12 @@
 package reportGeneration.interpreter.AssetsReport.Outcomes;
 
 import entities.Item;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.helpers.Calc;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.ResultsStorage;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 
 public class CurrentNonCurrentAssetsAnalyze {
 

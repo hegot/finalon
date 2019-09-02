@@ -1,15 +1,15 @@
 package reportGeneration.interpreter.LiabilitiesReport.Outcomes;
 
 import entities.Item;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
+import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.helpers.Calc;
 import reportGeneration.interpreter.ReusableComponents.helpers.TableName;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.chart.PieChart;
-import javafx.scene.layout.VBox;
 
 public class LiabilitiesStructureChart {
     private Item equity;

@@ -2,8 +2,8 @@ package reportGeneration.interpreter.ReusableComponents.NormValsEvaluator;
 
 import defaultData.EvaluationTypes;
 import entities.Formula;
-import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import javafx.collections.ObservableList;
+import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 
 
 public class PeriodComparisonEvaluator {

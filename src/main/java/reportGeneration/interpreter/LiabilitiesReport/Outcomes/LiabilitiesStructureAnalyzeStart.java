@@ -2,6 +2,8 @@ package reportGeneration.interpreter.LiabilitiesReport.Outcomes;
 
 import entities.Item;
 import globalReusables.LabelWrap;
+import javafx.collections.ObservableList;
+import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.helpers.Calc;
 import reportGeneration.interpreter.ReusableComponents.helpers.EquityShareAnalyze;
 import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
@@ -10,8 +12,6 @@ import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
-import javafx.collections.ObservableList;
-import javafx.scene.layout.VBox;
 
 public class LiabilitiesStructureAnalyzeStart {
     private Item parent;

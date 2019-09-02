@@ -1,10 +1,10 @@
 package entities;
 
-import reportGeneration.storage.Periods;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
+import reportGeneration.storage.Periods;
 
 import java.util.ArrayList;
 

@@ -1,15 +1,15 @@
 package reportGeneration.interpreter.AssetsReport.Outcomes;
 
 import entities.Item;
+import javafx.collections.ObservableMap;
+import javafx.scene.chart.BarChart;
+import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.ChartBase;
 import reportGeneration.interpreter.ReusableComponents.helpers.TableName;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
-import javafx.collections.ObservableMap;
-import javafx.scene.chart.BarChart;
-import javafx.scene.layout.VBox;
 
 public class AssetsCharts extends ChartBase {
     private ObservableMap<String, Double> valuesCurrent;

@@ -25,16 +25,11 @@ public class ItemsTable {
         this.items = items;
     }
 
-    protected TableView<Item> getTable(int Id) {
-        TableView<Item> table = new TableView<>();
-        ItemsGetter itemsGetter = new ItemsGetter(Id, this.items, true);
-        table.getItems().addAll(itemsGetter.getItems());
-        return table;
-    }
-
     public static TableColumn<Item, String> getPeriodCol(String colname) {
-        TableColumn<Item, String> col = new TableColumn<Item, String>(colname);
+        String colName = colname.replace("-", "\n-");
+        TableColumn<Item, String> col = new TableColumn<Item, String>(colName);
         col.setMinWidth(100);
+        col.setSortable(false);
         col.setCellValueFactory(cellData -> {
             ObservableMap<String, Double> values = getValues(cellData);
             if (values != null) {
@@ -51,6 +46,7 @@ public class ItemsTable {
     public static TableColumn getNameCol() {
         TableColumn<Item, String> col = new TableColumn<Item, String>("Indicator");
         col.setMinWidth(350);
+        col.setSortable(false);
         col.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
         col.setCellFactory(TextFieldTableCell.<Item>forTableColumn());
         return col;
@@ -60,6 +56,7 @@ public class ItemsTable {
         String colname = "Absolute Change\n" + Formatter.formatDate(colEnd) + " to \n" + Formatter.formatDate(colStart);
         TableColumn<Item, String> col = new TableColumn<Item, String>(colname);
         col.setMinWidth(150);
+        col.setSortable(false);
         col.setCellValueFactory(cellData -> {
             ObservableMap<String, Double> values = getValues(cellData);
             if (values != null) {
@@ -87,14 +84,6 @@ public class ItemsTable {
     }
 
 
-    public static TableColumn<Item, String> getCol() {
-        TableColumn<Item, String> col = new TableColumn<Item, String>("Item");
-        col.setMinWidth(350);
-        col.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
-        return col;
-    }
-
-
     static ObservableMap<String, Double> getValues(TableColumn.CellDataFeatures<Item, String> cellData) {
         Item item = (Item) cellData.getValue();
         if (item != null) {
@@ -103,5 +92,12 @@ public class ItemsTable {
             }
         }
         return null;
+    }
+
+    protected TableView<Item> getTable(int Id) {
+        TableView<Item> table = new TableView<>();
+        ItemsGetter itemsGetter = new ItemsGetter(Id, this.items, true);
+        table.getItems().addAll(itemsGetter.getItems());
+        return table;
     }
 }

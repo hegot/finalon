@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -32,6 +33,14 @@ public class AddTemplateBtn extends HBox {
         }
     }
 
+    public static ComboBox<Formula> industry() {
+        ComboBox<Formula> industryBox = new ComboBox<Formula>();
+        industryBox.setPrefWidth(200);
+        industryBox.setConverter(
+                new FormulaConverter()
+        );
+        return industryBox;
+    }
 
     @FXML
     protected void addTemplateAction() {
@@ -86,15 +95,6 @@ public class AddTemplateBtn extends HBox {
         Label desc = new Label("Please select industry this new template" +
                 "\n will be associated with");
         return desc;
-    }
-
-    public static ComboBox<Formula> industry() {
-        ComboBox<Formula> industryBox = new ComboBox<Formula>();
-        industryBox.setPrefWidth(200);
-        industryBox.setConverter(
-                new FormulaConverter()
-        );
-        return industryBox;
     }
 
 }

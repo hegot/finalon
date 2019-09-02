@@ -73,12 +73,12 @@ public class ItemsGetter {
 
     public ObservableList<Item> getItems() {
         boolean sorted = true;
-        for(Item outputItem : outputItems){
-            if(outputItem.getWeight() == -1){
+        for (Item outputItem : outputItems) {
+            if (outputItem.getWeight() == -1) {
                 sorted = false;
             }
         }
-        if(!sorted){
+        if (!sorted) {
             for (int i = 0; i < outputItems.size(); i++) {
                 Item sortItem = outputItems.get(i);
                 sortItem.setWeight(i);

@@ -1,12 +1,12 @@
 package reportGeneration.interpreter.FinancialRating.Outcomes;
 
 import entities.Formula;
-import reportGeneration.storage.Periods;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import reportGeneration.storage.Periods;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class FinancialRatingTable {
         ArrayList<Double> vals = new ArrayList<>();
         Double sum = 0.0;
         for (Formula formula : formulas) {
-            if(formula != null){
+            if (formula != null) {
                 ScoreItem item = new ScoreItem(formula);
                 Double weightedScore = item.getWeightedScore();
                 if (weightedScore != null) {

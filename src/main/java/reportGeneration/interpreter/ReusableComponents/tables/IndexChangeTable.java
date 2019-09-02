@@ -7,8 +7,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import reportGeneration.interpreter.ReusableComponents.helpers.Calc;
 import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import reportGeneration.storage.ItemsStorage;
@@ -65,8 +63,6 @@ public class IndexChangeTable extends ItemsTable {
         }
         return colsArr;
     }
-
-
 
 
     protected TableColumn getRelativeComparisonCol(String colStart, String colEnd) {

@@ -1,14 +1,14 @@
 package reportGeneration.interpreter.LaborProductivity.Outcomes;
 
 import entities.Formula;
+import javafx.scene.chart.BarChart;
+import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.ChartBase;
 import reportGeneration.interpreter.ReusableComponents.helpers.TableName;
 import reportGeneration.storage.FormulaStorage;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
-import javafx.scene.chart.BarChart;
-import javafx.scene.layout.VBox;
 
 public class LaborProductivityChart extends ChartBase {
     private Formula laborProductivity;

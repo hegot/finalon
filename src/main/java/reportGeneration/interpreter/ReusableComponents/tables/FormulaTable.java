@@ -17,14 +17,16 @@ public class FormulaTable {
     protected TableColumn getNameCol() {
         TableColumn<Formula, String> col = new TableColumn<Formula, String>("Formula");
         col.setMinWidth(350);
+        col.setSortable(false);
         col.setCellValueFactory(new PropertyValueFactory<Formula, String>("name"));
         return col;
     }
 
     protected TableColumn getPeriodCol(String colname) {
-        colname.replace("-", "\n-");
-        TableColumn<Formula, String> col = new TableColumn<Formula, String>(colname);
+        String colName = colname.replace("-", "\n-");
+        TableColumn<Formula, String> col = new TableColumn<Formula, String>(colName);
         col.setMinWidth(100);
+        col.setSortable(false);
         col.setCellValueFactory(cellData -> {
             Formula formula = (Formula) cellData.getValue();
             if (formula != null && formula.getPeriods().size() > 0 && formula.getVal(colname) != null) {
@@ -43,6 +45,7 @@ public class FormulaTable {
         String colname = "Absolute Change\n" + Formatter.formatDate(colEnd) + " to \n" + Formatter.formatDate(colStart);
         TableColumn<Formula, String> col = new TableColumn<Formula, String>(colname);
         col.setMinWidth(150);
+        col.setSortable(false);
         col.setCellValueFactory(cellData -> {
             Formula formula = (Formula) cellData.getValue();
             if (formula != null) {

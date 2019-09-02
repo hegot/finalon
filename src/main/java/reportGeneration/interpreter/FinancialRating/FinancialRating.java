@@ -2,6 +2,10 @@ package reportGeneration.interpreter.FinancialRating;
 
 import entities.Formula;
 import globalReusables.LabelWrap;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.FinancialRating.Outcomes.FinConditionScaleTable;
 import reportGeneration.interpreter.FinancialRating.Outcomes.FinancialRatingTable;
 import reportGeneration.interpreter.FinancialRating.Outcomes.ScaleItem;
@@ -9,10 +13,6 @@ import reportGeneration.interpreter.ReusableComponents.helpers.TableName;
 import reportGeneration.storage.FormulaStorage;
 import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.TwoDList;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableView;
-import javafx.scene.layout.VBox;
 
 public class FinancialRating {
 

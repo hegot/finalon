@@ -2,8 +2,8 @@ package reportGeneration.interpreter.FormulaCalculation;
 
 import entities.Formula;
 import finalonWindows.reusableComponents.autocomplete.ParserBase;
-import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import javafx.collections.ObservableMap;
+import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;

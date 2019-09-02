@@ -1,12 +1,12 @@
 package reportGeneration.wordExport;
 
-import reportGeneration.interpreter.FinancialRating.Outcomes.ScaleItem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.docx4j.XmlUtils;
 import org.docx4j.jaxb.Context;
 import org.docx4j.openpackaging.parts.relationships.Namespaces;
 import org.docx4j.wml.*;
+import reportGeneration.interpreter.FinancialRating.Outcomes.ScaleItem;
 
 import javax.xml.bind.JAXBException;
 import java.math.BigInteger;

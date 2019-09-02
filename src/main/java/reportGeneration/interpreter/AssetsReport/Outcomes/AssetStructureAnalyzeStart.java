@@ -2,15 +2,15 @@ package reportGeneration.interpreter.AssetsReport.Outcomes;
 
 import entities.Item;
 import globalReusables.LabelWrap;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.helpers.Calc;
 import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import reportGeneration.interpreter.ReusableComponents.helpers.SrtuctureItemsLoop;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.ResultsStorage;
-import javafx.collections.ObservableList;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 
 public class AssetStructureAnalyzeStart {
     private Item parent;

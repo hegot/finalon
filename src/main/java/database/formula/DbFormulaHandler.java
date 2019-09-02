@@ -8,7 +8,10 @@ import globalReusables.StatTrigger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 
 public class DbFormulaHandler extends DbHandlerBase {
@@ -59,7 +62,7 @@ public class DbFormulaHandler extends DbHandlerBase {
                         )
                 );
             }
-            if(rootIndustry != 0){
+            if (rootIndustry != 0) {
                 for (Formula formula : usages) {
                     if (formula != null) {
                         int parentIndustryId = formula.getParentIndustryID(formula.getParent());
@@ -68,7 +71,7 @@ public class DbFormulaHandler extends DbHandlerBase {
                         }
                     }
                 }
-            }else{
+            } else {
                 finalUsages = usages;
             }
         } catch (SQLException e) {
@@ -77,7 +80,7 @@ public class DbFormulaHandler extends DbHandlerBase {
         return finalUsages;
     }
 
-    public static String usagesString(String code, int rootIndustry){
+    public static String usagesString(String code, int rootIndustry) {
         List<Formula> usages = findUsage(code, rootIndustry);
         StringBuilder builder = new StringBuilder();
         Set<String> names = new HashSet<String>();
@@ -85,8 +88,8 @@ public class DbFormulaHandler extends DbHandlerBase {
             names.add(formula.getName());
         }
         Iterator it = names.iterator();
-        while(it.hasNext()) {
-            builder.append("«"+ it.next() + "»\n");
+        while (it.hasNext()) {
+            builder.append("«" + it.next() + "»\n");
         }
         return builder.toString();
     }

@@ -3,9 +3,6 @@ package reportGeneration.stepTwo;
 import database.setting.DbSettingHandler;
 import entities.Item;
 import globalReusables.Setting;
-import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
-import reportGeneration.stepTwo.hooks.UpdateParentHook;
-import reportGeneration.storage.ItemsStorage;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -13,6 +10,9 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
+import reportGeneration.stepTwo.hooks.UpdateParentHook;
+import reportGeneration.storage.ItemsStorage;
 
 
 class Columns {

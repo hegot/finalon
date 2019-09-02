@@ -1,9 +1,9 @@
 package reportGeneration.interpreter.ReusableComponents.tables;
 
 import entities.Item;
-import reportGeneration.storage.Periods;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
+import reportGeneration.storage.Periods;
 
 import java.util.ArrayList;
 import java.util.Map;

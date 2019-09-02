@@ -42,7 +42,7 @@ public class TemplateSaveHandler {
 
     private void setParentTpl(int templateId) {
         for (Item item : items) {
-            if(item.getUpdated()){
+            if (item.getUpdated()) {
                 TemplateBase.updateDependantFormulas(item);
             }
             item.setParentSheet(templateId);

@@ -2,13 +2,13 @@ package reportGeneration.interpreter.ReusableComponents;
 
 import database.setting.DbSettingHandler;
 import globalReusables.Setting;
-import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
-import reportGeneration.storage.Periods;
 import javafx.collections.ObservableMap;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
+import reportGeneration.storage.Periods;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,7 +33,7 @@ public class ChartBase {
         return series;
     }
 
-    private ArrayList<XYChart.Data> getData(ObservableMap<String, Double> values){
+    private ArrayList<XYChart.Data> getData(ObservableMap<String, Double> values) {
         ArrayList<XYChart.Data> data = new ArrayList<XYChart.Data>();
         if (values.size() > 1) {
             for (String period : Periods.getPeriodArr()) {
@@ -44,7 +44,7 @@ public class ChartBase {
             }
         }
         String order = DbSettingHandler.getSetting(Setting.yearOrder);
-        if (order.equals("DESCENDING")){
+        if (order.equals("DESCENDING")) {
             Collections.reverse(data);
         }
         return data;

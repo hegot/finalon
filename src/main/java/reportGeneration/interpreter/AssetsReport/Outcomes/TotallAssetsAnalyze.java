@@ -2,12 +2,12 @@ package reportGeneration.interpreter.AssetsReport.Outcomes;
 
 import entities.Item;
 import globalReusables.LabelWrap;
+import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.helpers.Calc;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
-import javafx.scene.layout.VBox;
 
 public class TotallAssetsAnalyze {
 

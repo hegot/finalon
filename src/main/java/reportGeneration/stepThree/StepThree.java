@@ -1,11 +1,11 @@
 package reportGeneration.stepThree;
 
 import finalonWindows.SceneBase;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 
 public class StepThree extends SceneBase {
     private String companyName;

@@ -14,7 +14,7 @@ public class CurrentRatio {
                 "Current Ratio",
                 "CurrentRatio",
                 "GeneralCurrentAssets/CurrentLiabilities",
-               "",
+                "",
                 "formula",
                 "",
                 parent));

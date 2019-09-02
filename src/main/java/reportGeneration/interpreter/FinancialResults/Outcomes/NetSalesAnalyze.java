@@ -2,10 +2,10 @@ package reportGeneration.interpreter.FinancialResults.Outcomes;
 
 import entities.Item;
 import globalReusables.LabelWrap;
+import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.ResultsStorage;
-import javafx.scene.layout.VBox;
 
 public class NetSalesAnalyze {
 

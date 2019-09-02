@@ -1,6 +1,10 @@
 package reportGeneration.interpreter.ProfitabilityRatios;
 
 import entities.Formula;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ProfitabilityRatios.Outcomes.DupontAnalysis;
 import reportGeneration.interpreter.ProfitabilityRatios.Outcomes.FormulaEvaluation;
 import reportGeneration.interpreter.ReusableComponents.helpers.TableName;
@@ -8,10 +12,6 @@ import reportGeneration.interpreter.ReusableComponents.tables.RatiosTable;
 import reportGeneration.storage.FormulaStorage;
 import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.TwoDList;
-import javafx.collections.ObservableList;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.layout.VBox;
 
 public class ProfitabilityRatios {
     private ObservableList<Formula> formulas;

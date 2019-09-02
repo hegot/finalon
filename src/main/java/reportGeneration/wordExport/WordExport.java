@@ -1,9 +1,5 @@
 package reportGeneration.wordExport;
 
-import reportGeneration.storage.ResultItem;
-import reportGeneration.storage.ResultsStorage;
-import reportGeneration.storage.TitledItem;
-import reportGeneration.storage.TwoDList;
 import javafx.collections.ObservableMap;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.BarChart;
@@ -16,6 +12,10 @@ import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.wml.Br;
 import org.docx4j.wml.P;
 import org.docx4j.wml.R;
+import reportGeneration.storage.ResultItem;
+import reportGeneration.storage.ResultsStorage;
+import reportGeneration.storage.TitledItem;
+import reportGeneration.storage.TwoDList;
 
 import java.io.File;
 import java.util.SortedSet;

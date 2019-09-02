@@ -77,11 +77,11 @@ public class StepTwo {
         table.getColumns().addAll(cols.getNameCol(), cols.getCodeCol());
         ArrayList<String> arr = Periods.getPeriodArr();
         String order = DbSettingHandler.getSetting(Setting.yearOrder);
-        if (order.equals("ASCENDING")){
+        if (order.equals("ASCENDING")) {
             for (String col : arr) {
                 table.getColumns().add(cols.getPeriodCol(col));
             }
-        }else{
+        } else {
             for (int i = arr.size(); i-- > 0; ) {
                 String col = arr.get(i);
                 table.getColumns().add(cols.getPeriodCol(col));

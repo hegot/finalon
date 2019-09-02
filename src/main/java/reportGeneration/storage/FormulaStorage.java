@@ -33,8 +33,8 @@ public class FormulaStorage {
         return null;
     }
 
-    public static void reInit(){
-        if(formulas.size() > 0){
+    public static void reInit() {
+        if (formulas.size() > 0) {
             formulas = getFormulas();
         }
     }

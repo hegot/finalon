@@ -1,11 +1,6 @@
 package reportGeneration.stepThree;
 
 import entities.Formula;
-import reportGeneration.interpreter.Interprter;
-import reportGeneration.storage.FormulaStorage;
-import reportGeneration.storage.Periods;
-import reportGeneration.storage.ResultsStorage;
-import reportGeneration.wordExport.WordExport;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -17,6 +12,11 @@ import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import reportGeneration.interpreter.Interprter;
+import reportGeneration.storage.FormulaStorage;
+import reportGeneration.storage.Periods;
+import reportGeneration.storage.ResultsStorage;
+import reportGeneration.wordExport.WordExport;
 
 import java.util.ArrayList;
 import java.util.HashMap;

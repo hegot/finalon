@@ -5,8 +5,6 @@ import defaultData.DefaultTemplate;
 import entities.Item;
 import entities.ItemConverter;
 import globalReusables.StandardAndIndustry;
-import reportGeneration.storage.ItemsStorage;
-import reportGeneration.storage.SettingsStorage;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
@@ -15,16 +13,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.util.Duration;
+import reportGeneration.storage.ItemsStorage;
+import reportGeneration.storage.SettingsStorage;
 
 public class TemplateSelect {
 
     private static ComboBox<Item> tplSelect = createTemplateSelect();
 
-    public static ComboBox getTpl(){
+    public static ComboBox getTpl() {
         return tplSelect;
     }
 
-    public static void reInit(){
+    public static void reInit() {
         ObservableList<Item> items = getTpls();
         Timeline timeline = new Timeline(new KeyFrame(
                 Duration.millis(1000),
@@ -35,7 +35,7 @@ public class TemplateSelect {
         timeline.play();
     }
 
-    private static ComboBox<Item>   createTemplateSelect() {
+    private static ComboBox<Item> createTemplateSelect() {
         ComboBox<Item> templatesBox = new ComboBox<Item>();
         templatesBox.setConverter(new ItemConverter());
         ObservableList<Item> items = getTpls();
@@ -62,9 +62,9 @@ public class TemplateSelect {
     private static ObservableList<Item> getTpls() {
         int industryId = StandardAndIndustry.getIndustryId();
         ObservableList<Item> tpls = DbItemHandler.getTemplateForIndustry(industryId);
-        if(tpls.size() > 0){
+        if (tpls.size() > 0) {
             return tpls;
-        }else{
+        } else {
             ObservableList<Item> items = FXCollections.observableArrayList();
             items.add(new Item(1, "Default Template", "DefaultTemplate", true, false, 0, 0, 0));
             return items;

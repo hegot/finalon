@@ -1,15 +1,15 @@
 package reportGeneration.interpreter.TurnoverRatios;
 
 import entities.Formula;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.helpers.TableName;
 import reportGeneration.interpreter.TurnoverRatios.Outcomes.FormulaEvaluation;
 import reportGeneration.interpreter.TurnoverRatios.Outcomes.RatiosTable;
 import reportGeneration.storage.FormulaStorage;
 import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.TwoDList;
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableView;
-import javafx.scene.layout.VBox;
 
 public class TurnoverRatios {
     private ObservableList<Formula> formulas;

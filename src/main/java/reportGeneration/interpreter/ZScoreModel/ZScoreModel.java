@@ -1,15 +1,15 @@
 package reportGeneration.interpreter.ZScoreModel;
 
 import entities.Formula;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.helpers.TableName;
 import reportGeneration.interpreter.ZScoreModel.Outcomes.FormulaEvaluation;
 import reportGeneration.interpreter.ZScoreModel.Outcomes.RatiosTable;
 import reportGeneration.storage.FormulaStorage;
 import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.TwoDList;
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableView;
-import javafx.scene.layout.VBox;
 
 public class ZScoreModel {
     private ObservableList<Formula> formulas;

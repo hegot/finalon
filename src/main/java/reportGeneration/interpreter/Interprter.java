@@ -1,5 +1,6 @@
 package reportGeneration.interpreter;
 
+import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.AssetsReport.AssetsReport;
 import reportGeneration.interpreter.FinancialRating.FinancialRating;
 import reportGeneration.interpreter.FinancialResults.FinancialResultsReport;
@@ -14,7 +15,6 @@ import reportGeneration.interpreter.Liquidity.LiquidityReport;
 import reportGeneration.interpreter.ProfitabilityRatios.ProfitabilityRatios;
 import reportGeneration.interpreter.TurnoverRatios.TurnoverRatios;
 import reportGeneration.interpreter.ZScoreModel.ZScoreModel;
-import javafx.scene.layout.VBox;
 
 public class Interprter {
     public VBox getReport(String type, int counter) {

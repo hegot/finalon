@@ -1,10 +1,10 @@
 package reportGeneration.interpreter.ReusableComponents.helpers;
 
-import reportGeneration.storage.TwoDList;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import reportGeneration.storage.TwoDList;
 
 import java.util.ArrayList;
 

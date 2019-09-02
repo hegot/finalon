@@ -2,12 +2,12 @@ package reportGeneration.interpreter.ReusableComponents;
 
 import entities.Item;
 import globalReusables.LabelWrap;
-import reportGeneration.interpreter.ReusableComponents.helpers.Calc;
-import reportGeneration.storage.Periods;
-import reportGeneration.storage.ResultsStorage;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import reportGeneration.interpreter.ReusableComponents.helpers.Calc;
+import reportGeneration.storage.Periods;
+import reportGeneration.storage.ResultsStorage;
 
 public class RelativeItemsChange {
     private Item parent;

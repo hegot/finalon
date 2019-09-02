@@ -1,11 +1,11 @@
 package reportGeneration.stepOne;
 
-import reportGeneration.storage.Periods;
-import reportGeneration.storage.SettingsStorage;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
+import reportGeneration.storage.Periods;
+import reportGeneration.storage.SettingsStorage;
 
 public class SettingsSelect {
     public static ComboBox get(ObservableList<String> items,

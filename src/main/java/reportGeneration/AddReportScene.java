@@ -5,13 +5,6 @@ import finalonWindows.SceneBase;
 import finalonWindows.reusableComponents.SettingsMenu;
 import globalReusables.CallTypes;
 import globalReusables.StatTrigger;
-import reportGeneration.stepOne.StepOne;
-import reportGeneration.stepThree.StepThree;
-import reportGeneration.stepTwo.StepTwo;
-import reportGeneration.storage.ItemsStorage;
-import reportGeneration.storage.Periods;
-import reportGeneration.storage.SettingsStorage;
-import reportGeneration.validator.Validator;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
@@ -19,6 +12,13 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import reportGeneration.stepOne.StepOne;
+import reportGeneration.stepThree.StepThree;
+import reportGeneration.stepTwo.StepTwo;
+import reportGeneration.storage.ItemsStorage;
+import reportGeneration.storage.Periods;
+import reportGeneration.storage.SettingsStorage;
+import reportGeneration.validator.Validator;
 
 import java.util.ArrayList;
 

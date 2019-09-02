@@ -3,8 +3,6 @@ package reportGeneration.stepOne;
 import defaultData.DefaultCurrency;
 import entities.Formula;
 import globalReusables.StandardAndIndustry;
-import reportGeneration.storage.FormulaStorage;
-import reportGeneration.storage.SettingsStorage;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -20,6 +18,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import reportGeneration.storage.FormulaStorage;
+import reportGeneration.storage.SettingsStorage;
 
 public class StepOne {
     private Label errors = new Label();
@@ -86,8 +86,8 @@ public class StepOne {
     private HBox standardIndustry() {
         HBox hBox = StandardAndIndustry.get();
         StandardAndIndustry.shouldUpdateSettings(true);
-        ComboBox<Formula> industry =  StandardAndIndustry.getIndustry();
-        ComboBox<Formula> standard =  StandardAndIndustry.getStandard();
+        ComboBox<Formula> industry = StandardAndIndustry.getIndustry();
+        ComboBox<Formula> standard = StandardAndIndustry.getStandard();
         standard.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Formula>() {
             @Override
             public void changed(ObservableValue<? extends Formula> arg0, Formula arg1, Formula arg2) {

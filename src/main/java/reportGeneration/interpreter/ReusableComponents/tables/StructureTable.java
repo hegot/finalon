@@ -4,10 +4,6 @@ import database.setting.DbSettingHandler;
 import entities.Item;
 import globalReusables.ItemsGetter;
 import globalReusables.Setting;
-import reportGeneration.interpreter.ReusableComponents.helpers.Calc;
-import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
-import reportGeneration.storage.ItemsStorage;
-import reportGeneration.storage.Periods;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,8 +12,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import reportGeneration.interpreter.ReusableComponents.helpers.Calc;
+import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
+import reportGeneration.storage.ItemsStorage;
+import reportGeneration.storage.Periods;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -71,7 +70,7 @@ public class StructureTable {
     }
 
 
-    private ArrayList<TableColumn> getAbsoluteChangeCols(){
+    private ArrayList<TableColumn> getAbsoluteChangeCols() {
         ArrayList<TableColumn> colsArr = new ArrayList<>();
         int count = periodsArr.size() - 1;
         if (count > 0) {
@@ -82,19 +81,19 @@ public class StructureTable {
             }
         }
         String order = DbSettingHandler.getSetting(Setting.yearOrder);
-        if (order.equals("DESCENDING")){
+        if (order.equals("DESCENDING")) {
             Collections.reverse(colsArr);
         }
         return colsArr;
     }
 
-    private ArrayList<TableColumn> getStructureCols(){
+    private ArrayList<TableColumn> getStructureCols() {
         ArrayList<TableColumn> colsArr = new ArrayList<>();
         for (String col : periodsArr) {
             colsArr.add(structureCol(col));
         }
         String order = DbSettingHandler.getSetting(Setting.yearOrder);
-        if (order.equals("DESCENDING")){
+        if (order.equals("DESCENDING")) {
             Collections.reverse(colsArr);
         }
         return colsArr;

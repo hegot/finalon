@@ -2,6 +2,10 @@ package reportGeneration.interpreter.FinancialResults.Outcomes;
 
 import entities.Item;
 import globalReusables.LabelWrap;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
+import javafx.scene.chart.BarChart;
+import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.ChartBase;
 import reportGeneration.interpreter.ReusableComponents.helpers.Calc;
 import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
@@ -9,10 +13,6 @@ import reportGeneration.interpreter.ReusableComponents.helpers.TableName;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.ResultsStorage;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableMap;
-import javafx.scene.chart.BarChart;
-import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
