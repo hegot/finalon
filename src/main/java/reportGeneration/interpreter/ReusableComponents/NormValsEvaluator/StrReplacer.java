@@ -1,12 +1,15 @@
 package reportGeneration.interpreter.ReusableComponents.NormValsEvaluator;
 
+import database.setting.DbSettingHandler;
 import entities.Formula;
+import globalReusables.Setting;
 import javafx.collections.ObservableMap;
 import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.SettingsStorage;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 
 public class StrReplacer {
@@ -17,6 +20,7 @@ public class StrReplacer {
         this.text = text;
         this.formula = formula;
     }
+
 
     public String substitute() {
         text = text.replace("ENDDATE", Periods.getEnd());
@@ -31,6 +35,10 @@ public class StrReplacer {
         if (text.contains("PRE_END_DATE")) {
             text = text.replace("PRE_END_DATE", Periods.prePreEndKey());
         }
+        if (DbSettingHandler.getSetting(Setting.numberFormat).equals("comma")) {
+            text = text.replaceAll("(\\d+)\\.(\\d+)", "$1,$2");
+        }
+
         return text;
     }
 
@@ -45,7 +53,7 @@ public class StrReplacer {
             }
         }
         int size = arr.size() - 1;
-        return Formatter.format(sum / size);
+        return Formatter.doubleCommaFormat(sum / size);
     }
 
 

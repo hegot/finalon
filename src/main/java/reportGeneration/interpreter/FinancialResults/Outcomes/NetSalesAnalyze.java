@@ -45,13 +45,13 @@ public class NetSalesAnalyze {
     private String increase() {
         return "The comparative income statement given above shows there " +
                 "has been an increase in the net sales of "
-                + Formatter.format(change) + "% over the reported period. ";
+                + Formatter.doubleCommaFormat(change) + "% over the reported period. ";
     }
 
     private String decrease() {
         return "The comparative income statement given above shows that " +
                 "there has been a decrease in the net sales of "
-                + Formatter.format(change) + "% over the reported period. ";
+                + Formatter.doubleCommaFormat(change) + "% over the reported period. ";
     }
 
     private String equal() {

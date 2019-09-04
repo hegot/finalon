@@ -67,7 +67,7 @@ public class FinancialResultTable extends ItemsTable {
         }
 
         double change = last - first;
-        String growth = Formatter.format(change / first * 100);
+        String growth = Formatter.doubleCommaFormat(change / first * 100);
         if (change > 0) {
             out += "The EBIT growth was " + growth + "% during " + startDate + "-" + endDate + ". ";
         } else if (change < 0) {

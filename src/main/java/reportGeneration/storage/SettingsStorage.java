@@ -21,7 +21,7 @@ public class SettingsStorage {
         settings.put("date", "31.12");
         settings.put("template", "");
         settings.put("standard", "1");
-        settings.put("SettingsStorage", defaultCurrency);
+        settings.put("defaultCurrency", defaultCurrency);
         settings.put("amount", "million");
         settings.put("reportStep", "year");
         settings.put("industry", "");
@@ -30,6 +30,10 @@ public class SettingsStorage {
 
     public static ObservableMap<String, String> getSettings() {
         return settings;
+    }
+
+    public static void setSettings(ObservableMap<String, String> newSettings) {
+        settings = newSettings;
     }
 
     public static String get(String key) {

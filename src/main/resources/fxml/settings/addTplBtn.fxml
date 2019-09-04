@@ -7,6 +7,6 @@
          xmlns="http://javafx.com/javafx/8.0.121" maxWidth="900">
     <Label styleClass="add-template-text" text="$labelText" textFill="#6a6c6f"/>
 
-    <Button styleClass="add-template-btn" text="Add Template" onAction="#addTemplateAction"/>
+    <Button styleClass="add-template-btn" text="Add" onAction="#addTemplateAction"/>
 </fx:root>
 

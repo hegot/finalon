@@ -79,7 +79,7 @@
             </VBox>
 
             <VBox styleClass="content-block">
-                <Button onAction="#templatesAction" styleClass="tile-btn" text=" Analytics">
+                <Button onAction="#reportsAction" styleClass="tile-btn" text="Your Saved&#10;Reports">
                     <graphic>
                         <ImageView>
                             <image>

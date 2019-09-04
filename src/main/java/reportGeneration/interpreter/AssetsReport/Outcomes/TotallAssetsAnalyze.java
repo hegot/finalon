@@ -4,6 +4,7 @@ import entities.Item;
 import globalReusables.LabelWrap;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.helpers.Calc;
+import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.ResultsStorage;
@@ -76,7 +77,7 @@ public class TotallAssetsAnalyze {
     }
 
     private String consequence() {
-        return "The value of the assets totaled " + last +
+        return "The value of the assets totaled " + Formatter.doubleCommaFormat(last) +
                 " at the end of " + endDate + ". ";
     }
 }

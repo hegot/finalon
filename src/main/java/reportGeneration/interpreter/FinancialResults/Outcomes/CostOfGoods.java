@@ -66,7 +66,7 @@ public class CostOfGoods {
             if (val1 != null && val2 != null) {
                 out.append("The cost of goods and services totaled "
                         + currency + " " + val2 + " " + amount + " in "
-                        + Formatter.formatDate(end) + ", " + Formatter.format(change) + "% " + inner + " than in " + Formatter.formatDate(start) + ". ");
+                        + Formatter.formatDate(end) + ", " + Formatter.doubleCommaFormat(change) + "% " + inner + " than in " + Formatter.formatDate(start) + ". ");
             }
         }
         return out.toString();
@@ -77,11 +77,11 @@ public class CostOfGoods {
     }
 
     private String increase(Double change) {
-        return atTheEnd() + "This has resulted in an increase in the gross profit by " + Formatter.format(change) + "%.";
+        return atTheEnd() + "This has resulted in an increase in the gross profit by " + Formatter.doubleCommaFormat(change) + "%.";
     }
 
     private String decrease(Double change) {
-        return atTheEnd() + "This has resulted in decrease in the gross profit by " + Formatter.format(change) + "%.";
+        return atTheEnd() + "This has resulted in decrease in the gross profit by " + Formatter.doubleCommaFormat(change) + "%.";
     }
 
     private String stable() {

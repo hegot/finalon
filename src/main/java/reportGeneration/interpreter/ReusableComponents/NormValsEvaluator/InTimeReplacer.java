@@ -1,6 +1,7 @@
 package reportGeneration.interpreter.ReusableComponents.NormValsEvaluator;
 
 import entities.Formula;
+import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import reportGeneration.storage.Periods;
 
 public class InTimeReplacer {
@@ -30,13 +31,9 @@ public class InTimeReplacer {
             if (val == null) {
                 return "";
             } else {
-                return text.replace("LASTVALUE", round(val));
+                return text.replace(key, Formatter.doubleCommaFormat(val));
             }
         }
         return text;
-    }
-
-    static String round(Double input) {
-        return (input != null) ? String.format("%.2f", input) : null;
     }
 }

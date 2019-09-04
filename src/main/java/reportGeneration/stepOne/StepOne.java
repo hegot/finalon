@@ -80,7 +80,7 @@ public class StepOne {
         hBox.getChildren().addAll(
                 label,
                 SettingsSelect.get(amountItems, "amount", "thousand"),
-                SettingsSelect.get(DefaultCurrency.getCurrencies(), "defaultCurrency",  SettingsStorage.get("SettingsStorage"))
+                SettingsSelect.get(DefaultCurrency.getCurrencies(), "defaultCurrency",  SettingsStorage.get("defaultCurrency"))
         );
         return hBox;
     }

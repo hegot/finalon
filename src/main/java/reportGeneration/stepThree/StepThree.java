@@ -1,6 +1,9 @@
 package reportGeneration.stepThree;
 
 import finalonWindows.SceneBase;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import reportGeneration.storage.Periods;
@@ -30,7 +33,7 @@ public class StepThree extends SceneBase {
         String text = "This report analyzes the balance sheets and income statements of " + companyName
                 + ". Trends for the major balance sheet and income statement items and ratio analysis are used " +
                 "to understand the financial position and financial effectiveness of the company. " +
-                "The report studied the " + Periods.getStart() + " - " + Periods.getEnd() + " period.";
+                "The report studied the " + Periods.getStart() + " - " + Periods.getEnd() + " period.\n";
         Label label = new Label(text);
         ResultsStorage.addStr(1, "h3", text);
         label.getStyleClass().add("report-text");
@@ -50,6 +53,8 @@ public class StepThree extends SceneBase {
         title.setWrapText(true);
         return title;
     }
+
+
 
 
 }

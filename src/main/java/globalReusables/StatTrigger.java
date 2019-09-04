@@ -68,9 +68,7 @@ public class StatTrigger {
                     }
                 }
             } catch (IOException e) {
-                e.printStackTrace();
-            } catch (UnsupportedOperationException e) {
-                e.printStackTrace();
+
             }
         }
     }

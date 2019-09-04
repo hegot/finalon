@@ -4,6 +4,7 @@ import defaultData.DefaultTemplate;
 import entities.Item;
 import finalonWindows.formulaScene.FormulaScene;
 import finalonWindows.mainScene.MainScene;
+import finalonWindows.reportsScene.ReportsListing;
 import finalonWindows.settingsScene.SettingsScene;
 import finalonWindows.templateScene.listing.TemplatesListing;
 import finalonWindows.templateScene.templates.TemplateEditPage;
@@ -36,6 +37,9 @@ public class SceneSwitcher {
                 break;
             case TEMPLATESLIST:
                 vbox = new TemplatesListing().getScene();
+                break;
+            case REPORTLIST:
+                vbox = new ReportsListing().getScene();
                 break;
             case ADDTEMPLATE:
                 ObservableList<Item> items = FXCollections.observableArrayList(DefaultTemplate.getTpl());

@@ -44,12 +44,12 @@ public class LiabilitiesReport {
                         ItemsStorage.getItems(equityGeneral.getId()),
                         "sources"
                 ).get(22),
+                new LiabilitiesCharts().get(),
                 new RelativeItemsChange(
                         liabilitiesGeneral,
                         ItemsStorage.getItemsDeep(liabilitiesGeneral.getId()),
                         "sources"
-                ).get(23),
-                new LiabilitiesCharts().get()
+                ).get(23)
         );
         return box;
     }

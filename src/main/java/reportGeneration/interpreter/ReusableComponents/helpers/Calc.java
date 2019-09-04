@@ -12,7 +12,8 @@ public class Calc {
     }
 
     public static String format(Double input) {
-        return Formatter.round(input) + '%';
+        String val = Formatter.round(input);
+        return Formatter.stringCommaFormat(val) + '%';
     }
 
     public static Double part(Double val, Double total) {
@@ -44,12 +45,13 @@ public class Calc {
                 e.printStackTrace();
             }
         }
+        val = Formatter.stringCommaFormat(val);
         return val;
     }
 
     public static SimpleStringProperty diff(Double startVAl, Double endVal) {
         if (startVAl != null && endVal != null) {
-            String absolute = Formatter.format(endVal - startVAl);
+            String absolute = Formatter.doubleCommaFormat(endVal - startVAl);
             return new SimpleStringProperty(absolute);
         }
         return null;

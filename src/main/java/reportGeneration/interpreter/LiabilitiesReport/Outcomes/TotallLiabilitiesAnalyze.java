@@ -4,6 +4,7 @@ import entities.Item;
 import globalReusables.LabelWrap;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.helpers.Calc;
+import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.ResultsStorage;
@@ -66,7 +67,7 @@ public class TotallLiabilitiesAnalyze {
     private String preOutput() {
         return "The liabilities and equity value" +
                 " amounted to " + SettingsStorage.get("defaultCurrency") + " "
-                + last + " " + SettingsStorage.get("amount") + " in "
+                + Formatter.doubleCommaFormat(last) + " " + SettingsStorage.get("amount") + " in "
                 + startDate + ", " +
                 Calc.getRelativeChange(first, last) + "% " + suffix() + " than in " +
                 endDate + ". ";

@@ -29,7 +29,7 @@ public class NormValsEvaluator extends ValsEvaluator {
     public String strReplace(String outcome) {
         outcome = outcome.replace("CURRENTPERIOD", Formatter.formatDate(period));
         if (formula.getVal(period) != null) {
-            outcome = outcome.replace("CURRENTVALUE", Formatter.doubleToString(formula.getVal(period)));
+            outcome = outcome.replace("CURRENTVALUE", Formatter.doubleCommaFormat(formula.getVal(period)));
         }
         return outcome;
     }

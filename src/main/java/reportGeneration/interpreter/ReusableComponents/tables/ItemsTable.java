@@ -35,7 +35,7 @@ public class ItemsTable {
             if (values != null) {
                 Double dob = values.get(colname);
                 if (dob != null) {
-                    return new SimpleStringProperty(Formatter.format(dob));
+                    return new SimpleStringProperty(Formatter.doubleCommaFormat(dob));
                 }
             }
             return null;

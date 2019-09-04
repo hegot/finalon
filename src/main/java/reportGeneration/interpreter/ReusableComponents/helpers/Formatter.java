@@ -9,7 +9,7 @@ public class Formatter {
         return (input != null) ? String.format("%.2f", input) : null;
     }
 
-    public static String format(Double value) {
+    public static String doubleCommaFormat(Double value) {
         String strValue = round(value);
         if (DbSettingHandler.getSetting(Setting.numberFormat).equals("comma")) {
             strValue = strValue.replace('.', ',');
@@ -42,10 +42,4 @@ public class Formatter {
         }
     }
 
-    public static String doubleToString(Double dob) {
-        if (dob != null) {
-            return round(dob);
-        }
-        return null;
-    }
 }

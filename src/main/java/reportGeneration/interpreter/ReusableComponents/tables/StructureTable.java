@@ -132,7 +132,7 @@ public class StructureTable {
             if (values != null) {
                 Double itemVAl = values.get(col);
                 if (itemVAl != null) {
-                    return new SimpleStringProperty(Formatter.format(itemVAl) + "%");
+                    return new SimpleStringProperty(Formatter.doubleCommaFormat(itemVAl) + "%");
                 }
             }
             return null;

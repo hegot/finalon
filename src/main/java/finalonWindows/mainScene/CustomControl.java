@@ -47,4 +47,8 @@ public class CustomControl extends BorderPane {
         SceneSwitcher.goTo(SceneName.FORMULA);
     }
 
+    @FXML
+    protected void reportsAction() {
+        SceneSwitcher.goTo(SceneName.REPORTLIST);
+    }
 }
