@@ -13,9 +13,9 @@ public class SettingsSelect {
                                String defaultVal) {
         ComboBox<String> box = new ComboBox<String>();
         box.setItems(items);
-        if(defaultVal.length() > 0){
+        if (defaultVal.length() > 0) {
             box.getSelectionModel().select(defaultVal);
-        }else{
+        } else {
             box.getSelectionModel().selectFirst();
         }
         String val = SettingsStorage.get(key);

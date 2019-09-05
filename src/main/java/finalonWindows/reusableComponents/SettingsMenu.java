@@ -8,6 +8,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
+import reportGeneration.storage.SettingsStorage;
 
 public class SettingsMenu {
 
@@ -15,7 +16,7 @@ public class SettingsMenu {
         MenuBar menuBar = new MenuBar();
         Menu menu = new Menu("navigation");
         menu.setGraphic(new ImageView("image/menuBtn.jpg"));
-        menu.getItems().addAll(home(), addCompany(), settings(), templates(), formulas());
+        menu.getItems().addAll(home(), addCompany(), settings(), templates(), formulas(), reports());
         menuBar.getMenus().add(menu);
         return menuBar;
     }
@@ -25,6 +26,7 @@ public class SettingsMenu {
         home.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                SettingsStorage.put("reportId", "-1");
                 SceneSwitcher.goTo(SceneName.ADDREPORT);
             }
         });
@@ -70,6 +72,17 @@ public class SettingsMenu {
             @Override
             public void handle(ActionEvent event) {
                 SceneSwitcher.goTo(SceneName.SETTINGSMAIN);
+            }
+        });
+        return settings;
+    }
+
+    private MenuItem reports() {
+        MenuItem settings = new MenuItem("Saved Reports");
+        settings.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                SceneSwitcher.goTo(SceneName.REPORTLIST);
             }
         });
         return settings;

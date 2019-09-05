@@ -1,5 +1,9 @@
 package entities;
 
+import database.formula.DbFormulaHandler;
+import javafx.collections.ObservableMap;
+import reportGeneration.reportJson.ReportJson;
+
 public class Report {
     private int id;
     private String name;
@@ -59,5 +63,20 @@ public class Report {
 
     public void setUpdated(String updated) {
         this.updated = updated;
+    }
+
+    public String getIndustryName() {
+        ObservableMap<String, String> settings = ReportJson.jsonToSettings(getSettings());
+        String industryId = settings.get("industry");
+        if (industryId != null && industryId.length() > 0) {
+            Integer id = Integer.parseInt(industryId);
+            if (id != null) {
+                Formula industry = DbFormulaHandler.findById(id);
+                if (industry != null) {
+                    return industry.getName();
+                }
+            }
+        }
+        return "";
     }
 }

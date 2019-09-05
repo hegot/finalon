@@ -13,8 +13,6 @@ import java.util.ArrayList;
 
 public class CostOfGoods {
     private Double last;
-    private String endDate;
-    private ArrayList<String> periodsArr;
     private String currency;
     private String amount;
     private Item costOfSales;
@@ -22,8 +20,6 @@ public class CostOfGoods {
     public CostOfGoods() {
         this.costOfSales = ItemsStorage.get("CostOfSales");
         this.last = costOfSales.getLastVal();
-        this.endDate = Periods.getEnd();
-        this.periodsArr = Periods.getPeriodArr();
         this.currency = SettingsStorage.get("defaultCurrency");
         this.amount = SettingsStorage.get("amount");
     }
@@ -55,6 +51,7 @@ public class CostOfGoods {
 
 
     private String compareEach() {
+        ArrayList<String> periodsArr = Periods.getPeriodArr();
         StringBuilder out = new StringBuilder();
         for (int j = 0; j < periodsArr.size() - 1; j++) {
             String start = periodsArr.get(j);
@@ -65,7 +62,7 @@ public class CostOfGoods {
             String inner = change > 0 ? "more" : "less";
             if (val1 != null && val2 != null) {
                 out.append("The cost of goods and services totaled "
-                        + currency + " " + val2 + " " + amount + " in "
+                        + currency + " " + Formatter.doubleCommaFormat(val2) + " " + amount + " in "
                         + Formatter.formatDate(end) + ", " + Formatter.doubleCommaFormat(change) + "% " + inner + " than in " + Formatter.formatDate(start) + ". ");
             }
         }
@@ -73,7 +70,7 @@ public class CostOfGoods {
     }
 
     private String atTheEnd() {
-        return "At the end of " + endDate + " the cost of goods and services totaled " + currency + " " + last + " " + amount + ". ";
+        return "At the end of " + Periods.getEnd() + " the cost of goods and services totaled " + currency + " " + Formatter.doubleCommaFormat(last) + " " + amount + ". ";
     }
 
     private String increase(Double change) {

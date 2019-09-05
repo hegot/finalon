@@ -39,7 +39,10 @@ public class AssetStructureAnalyseEnd {
     private Boolean assetsChanged() {
         Double assetsStart = parent.getFirstVal();
         Double assetsEnd = parent.getLastVal();
-        return !assetsStart.equals(assetsEnd);
+        if (assetsStart != null && assetsEnd != null) {
+            return !assetsStart.equals(assetsEnd);
+        }
+        return false;
     }
 
     public VBox get() {

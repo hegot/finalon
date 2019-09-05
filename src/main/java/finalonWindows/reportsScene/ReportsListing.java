@@ -8,8 +8,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
-import java.awt.*;
-
 
 public class ReportsListing extends SceneBase {
 

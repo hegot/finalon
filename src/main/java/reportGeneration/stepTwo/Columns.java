@@ -21,6 +21,7 @@ class Columns {
         TableColumn<Item, String> col = new TableColumn<Item, String>("Indicator");
         col.setMinWidth(350);
         col.setEditable(false);
+        col.setSortable(false);
         col.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
         col.setCellFactory(column -> {
             return new TableCell<Item, String>() {
@@ -48,6 +49,7 @@ class Columns {
     TableColumn getCodeCol() {
         TableColumn<Item, String> col = new TableColumn<Item, String>("Indicator Code");
         col.setMinWidth(100);
+        col.setSortable(false);
         col.setEditable(false);
         col.setCellValueFactory(new PropertyValueFactory<Item, String>("shortName"));
         col.setCellFactory(TextFieldTableCell.<Item>forTableColumn());
@@ -60,6 +62,7 @@ class Columns {
         ObservableList<Item> items = ItemsStorage.getItems();
         TableColumn<Item, String> col = new TableColumn<Item, String>(colname.replace("-", "-\n"));
         col.setMinWidth(100);
+        col.setSortable(false);
         col.setCellFactory(column -> new EditCell());
         col.setOnEditCommit(
                 (TableColumn.CellEditEvent<Item, String> t) -> {

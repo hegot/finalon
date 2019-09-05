@@ -1,9 +1,6 @@
 package reportGeneration.stepThree;
 
-import database.report.DbReportHandler;
 import entities.Formula;
-import entities.Item;
-import entities.Report;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -17,14 +14,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.Interprter;
-import reportGeneration.reportJson.ReportJson;
 import reportGeneration.storage.FormulaStorage;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.ResultsStorage;
-import reportGeneration.storage.SettingsStorage;
 import reportGeneration.wordExport.WordExport;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -73,10 +67,11 @@ public class ResultTabs {
     }
 
     public VBox getTabs() {
+
         VBox vBox = new VBox();
         HBox hBox = new HBox(20);
         hBox.setVisible(false);
-        hBox.getChildren().addAll(exportBtn(), saveReportBtn());
+        hBox.getChildren().addAll(exportBtn(), SaveReport.getPane());
         vBox.getChildren().addAll(hBox, throbber);
         TabPane tabs = new TabPane();
         tabs.setStyle("-fx-padding: 10px 0 0 0;");
@@ -163,27 +158,5 @@ public class ResultTabs {
         return btn;
     }
 
-    private Button saveReportBtn() {
-        Button btn = new Button("Save report");
-        btn.getStyleClass().add("blue-btn");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                String itemsStringfied =  ReportJson.itemsToJson();
-                String settingsStringfied =  ReportJson.settingsToJson();
-                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                System.out.println(timestamp);
-                Report report = new Report(
-                        0,
-                        SettingsStorage.get("company"),
-                        settingsStringfied,
-                        itemsStringfied,
-                        timestamp.toString()
-                );
-                DbReportHandler.addReport(report);
-            }
-        });
-        return btn;
-    }
 
 }

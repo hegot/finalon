@@ -63,7 +63,7 @@ public class FinancialResultTable extends ItemsTable {
             out += "Zero EBIT indicates poor performance in " + endDate + ". ";
         } else {
             out += "EBIT was " + positive + " at " + SettingsStorage.get("defaultCurrency") +
-                    " " + last + " " + SettingsStorage.get("amount") + " in " + endDate + ". ";
+                    " " + Formatter.doubleCommaFormat(last) + " " + SettingsStorage.get("amount") + " in " + endDate + ". ";
         }
 
         double change = last - first;
@@ -87,11 +87,11 @@ public class FinancialResultTable extends ItemsTable {
         if (last != null) {
             if (last <= 0) {
                 output = "On the whole, " + endDate + " was a bad period as the company recorded " +
-                        SettingsStorage.get("defaultCurrency") + " " + last + " " +
+                        SettingsStorage.get("defaultCurrency") + " " + Formatter.doubleCommaFormat(last) + " " +
                         SettingsStorage.get("amount") + " comprehensive loss.";
             } else {
                 output = "On the whole, " + endDate + " was a good period as the company recorded " +
-                        SettingsStorage.get("defaultCurrency") + " " + last + " " +
+                        SettingsStorage.get("defaultCurrency") + " " + Formatter.doubleCommaFormat(last) + " " +
                         SettingsStorage.get("amount") + " comprehensive income.";
             }
         }

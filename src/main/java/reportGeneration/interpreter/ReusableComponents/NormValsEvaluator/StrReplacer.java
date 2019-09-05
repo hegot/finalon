@@ -9,7 +9,6 @@ import reportGeneration.storage.Periods;
 import reportGeneration.storage.SettingsStorage;
 
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 
 public class StrReplacer {

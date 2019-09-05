@@ -4,8 +4,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <fx:root xmlns:fx="http://javafx.com/fxml" type="VBox" styleClass="row">
-    <Label styleClass="row-text" alignment="CENTER_LEFT" text="$labelText" textAlignment="LEFT"/>
-
+    <Label styleClass="row-label" alignment="CENTER_LEFT" text="$labelText" textAlignment="LEFT"/>
+    <Label styleClass="row-desc" alignment="CENTER_LEFT" text="$describtionText" textAlignment="LEFT"/>
     <HBox spacing="20" styleClass="btn-panel">
 
         <Button onAction="#editRowAction" styleClass="btn">

@@ -2,7 +2,6 @@ package database.report;
 
 import database.Connect;
 import database.DbHandlerBase;
-import entities.Item;
 import entities.Report;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -63,7 +62,7 @@ public class DbReportHandler extends DbHandlerBase {
         return 0;
     }
 
-    public static void updateReport(Report report) throws SQLException {
+    public static void updateReport(Report report) {
         if (itemExists(report.getId(), tableName)) {
             try (PreparedStatement statement = Connect.getConn().prepareStatement(
                     "UPDATE " + tableName + " SET `name` = ?,  `settings` = ?, `items` = ?, `updated` = ? WHERE `id` = " + report.getId()
@@ -111,6 +110,7 @@ public class DbReportHandler extends DbHandlerBase {
         }
         return item;
     }
+
     public static ObservableList<Report> getReports() {
         ObservableList<Report> items = FXCollections.observableArrayList();
         try (Statement statement = Connect.getConn().createStatement()) {

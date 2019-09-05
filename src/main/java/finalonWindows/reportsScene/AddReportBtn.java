@@ -1,23 +1,13 @@
 package finalonWindows.reportsScene;
 
-import database.template.DbItemHandler;
-import entities.Formula;
-import entities.FormulaConverter;
 import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
-import globalReusables.StandardAndIndustry;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.util.Pair;
+import reportGeneration.storage.SettingsStorage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Optional;
 
 public class AddReportBtn extends HBox {
 
@@ -35,9 +25,7 @@ public class AddReportBtn extends HBox {
 
     @FXML
     protected void addTemplateAction() {
+        SettingsStorage.put("reportId", "-1");
         SceneSwitcher.goTo(SceneName.ADDREPORT);
     }
-
-
-
 }

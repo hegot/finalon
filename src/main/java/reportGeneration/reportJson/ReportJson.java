@@ -1,4 +1,5 @@
 package reportGeneration.reportJson;
+
 import com.google.gson.*;
 import entities.Item;
 import javafx.collections.FXCollections;
@@ -11,21 +12,31 @@ import java.util.Map;
 
 public class ReportJson {
 
-    public static String itemsToJson(){
+    public static String itemsToJson() {
         Gson gson = new Gson();
         return gson.toJson(ItemsStorage.getItems());
     }
 
-    public static String settingsToJson(){
+    public static String settingsToJson() {
         Gson gson = new Gson();
         return gson.toJson(SettingsStorage.getSettings());
     }
 
-    public static ObservableList<Item> jsonToItems(String json){
+    public static ObservableMap<String, String> jsonToSettings(String json) {
+        ObservableMap<String, String> settings = FXCollections.observableHashMap();
+        JsonParser parser = new JsonParser();
+        JsonObject element = parser.parse(json).getAsJsonObject();
+        for (Map.Entry<String, JsonElement> entry : element.entrySet()) {
+            settings.put(entry.getKey(), entry.getValue().getAsString());
+        }
+        return settings;
+    }
+
+    public static ObservableList<Item> jsonToItems(String json) {
         ObservableList<Item> items = FXCollections.observableArrayList();
         JsonParser parser = new JsonParser();
         JsonElement element = parser.parse(json);
-            JsonArray objArray = element.getAsJsonArray();
+        JsonArray objArray = element.getAsJsonArray();
         for (int i = 0; i < objArray.size(); i++) {
             JsonObject dataset = objArray.get(i).getAsJsonObject();
             JsonObject vals = dataset.get("values").getAsJsonObject();
@@ -47,10 +58,9 @@ public class ReportJson {
         return items;
     }
 
-    private static ObservableMap<String, Double> getValues(JsonObject vals){
+    private static ObservableMap<String, Double> getValues(JsonObject vals) {
         ObservableMap<String, Double> values = FXCollections.observableHashMap();
-        for (Map.Entry<String, JsonElement> entry : vals.entrySet())
-        {
+        for (Map.Entry<String, JsonElement> entry : vals.entrySet()) {
             values.put(entry.getKey(), entry.getValue().getAsDouble());
         }
         return values;

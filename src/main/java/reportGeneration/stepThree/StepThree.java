@@ -1,9 +1,6 @@
 package reportGeneration.stepThree;
 
 import finalonWindows.SceneBase;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import reportGeneration.storage.Periods;
@@ -53,8 +50,6 @@ public class StepThree extends SceneBase {
         title.setWrapText(true);
         return title;
     }
-
-
 
 
 }

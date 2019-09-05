@@ -5,6 +5,7 @@ import finalonWindows.SceneSwitcher;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;
+import reportGeneration.storage.SettingsStorage;
 
 import java.io.IOException;
 
@@ -24,6 +25,7 @@ public class CustomControl extends BorderPane {
 
     @FXML
     protected void addCompanyAction() {
+        SettingsStorage.put("reportId", "-1");
         SceneSwitcher.goTo(SceneName.ADDREPORT);
     }
 
