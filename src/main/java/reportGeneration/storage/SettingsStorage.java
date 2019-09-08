@@ -10,23 +10,28 @@ import java.util.Calendar;
 public class SettingsStorage {
     private static ObservableMap<String, String> settings = initStorage();
 
+
     private static ObservableMap<String, String> initStorage() {
-        ObservableMap<String, String> settings = FXCollections.observableHashMap();
+        ObservableMap<String, String> settingsMap = FXCollections.observableHashMap();
         String year = Integer.toString(Calendar.getInstance().get(Calendar.YEAR));
         String defaultCurrency = DbSettingHandler.getSetting(Setting.defaultCurrency);
         if (defaultCurrency.length() == 0) defaultCurrency = "USD";
-        settings.put("reportId", "-1");
-        settings.put("company", "");
-        settings.put("step", "one");
-        settings.put("year", year);
-        settings.put("date", "31.12");
-        settings.put("template", "");
-        settings.put("standard", "1");
-        settings.put("defaultCurrency", defaultCurrency);
-        settings.put("amount", "million");
-        settings.put("reportStep", "year");
-        settings.put("industry", "");
-        return settings;
+        settingsMap.put("reportId", "-1");
+        settingsMap.put("company", "");
+        settingsMap.put("step", "one");
+        settingsMap.put("year", year);
+        settingsMap.put("date", "31.12");
+        settingsMap.put("template", "");
+        settingsMap.put("standard", "1");
+        settingsMap.put("defaultCurrency", defaultCurrency);
+        settingsMap.put("amount", "million");
+        settingsMap.put("reportStep", "year");
+        settingsMap.put("industry", "");
+        return settingsMap;
+    }
+
+    public static void reInitStorage(){
+        settings = initStorage();
     }
 
     public static ObservableMap<String, String> getSettings() {
@@ -41,8 +46,13 @@ public class SettingsStorage {
         return settings.get(key);
     }
 
-    public static int getInt(String key) {
-        return Integer.parseInt(settings.get(key));
+    public static Integer getInt(String key) {
+        try{
+            return Integer.parseInt(settings.get(key));
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
     public static String put(String key, String value) {

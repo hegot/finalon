@@ -3,12 +3,15 @@ package reportGeneration.stepTwo;
 import database.setting.DbSettingHandler;
 import database.template.DbItemHandler;
 import defaultData.DefaultTemplate;
+import entities.Formula;
 import entities.Item;
 import globalReusables.ItemsGetter;
 import globalReusables.Setting;
 import globalReusables.SheetsGetter;
+import globalReusables.StandardAndIndustry;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableView;
@@ -33,7 +36,11 @@ public class StepTwo {
     private void setItems() {
         if (items.size() == 0) {
             ObservableList<Item> dbItems = FXCollections.observableArrayList();
-            int industryId = Integer.parseInt(SettingsStorage.get("industry"));
+            Integer industryId =  SettingsStorage.getInt("industry");
+            if(industryId == null){
+                industryId = StandardAndIndustry.getIndustryId();
+            }
+
             ObservableList<Item> tpls = DbItemHandler.getTemplateForIndustry(industryId);
             if (tpls.size() > 0) {
                 Item tpl = tpls.get(0);
