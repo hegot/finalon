@@ -4,6 +4,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
+import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import reportGeneration.storage.Periods;
 
 import java.util.ArrayList;
@@ -252,8 +253,19 @@ public class Item implements Comparable<Item>, Cloneable {
 
     public Double getVal(String period) {
         Double val = null;
-        if (values.size() > 0) {
+        if (values.size() > 0 && period != null) {
             val = values.get(period);
+        }
+        return val;
+    }
+
+    public String getStrVal(String period) {
+        String val = "";
+        if (values.size() > 0) {
+            Double value = values.get(period);
+            if(value != null){
+                val = Formatter.doubleCommaFormat(value);
+            }
         }
         return val;
     }
@@ -286,6 +298,14 @@ public class Item implements Comparable<Item>, Cloneable {
             }
         }
         return "STABLE";
+    }
+
+    public void updateItem(String value, String param) {
+        if (value.length() > 0) {
+            values.put(param, Formatter.parseDouble(value));
+        } else {
+            values.remove(param);
+        }
     }
 
     @Override

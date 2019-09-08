@@ -2,9 +2,11 @@ package finalonWindows.reportsScene;
 
 import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
+import globalReusables.AddNewReport;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
+import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.SettingsStorage;
 
 import java.io.IOException;
@@ -25,7 +27,6 @@ public class AddReportBtn extends HBox {
 
     @FXML
     protected void addTemplateAction() {
-        SettingsStorage.put("reportId", "-1");
-        SceneSwitcher.goTo(SceneName.ADDREPORT);
+        AddNewReport.run();
     }
 }

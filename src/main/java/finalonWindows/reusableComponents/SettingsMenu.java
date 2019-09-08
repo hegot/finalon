@@ -2,12 +2,14 @@ package finalonWindows.reusableComponents;
 
 import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
+import globalReusables.AddNewReport;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
+import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.SettingsStorage;
 
 public class SettingsMenu {
@@ -26,8 +28,7 @@ public class SettingsMenu {
         home.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                SettingsStorage.put("reportId", "-1");
-                SceneSwitcher.goTo(SceneName.ADDREPORT);
+                AddNewReport.run();
             }
         });
         return home;

@@ -1,18 +1,14 @@
-package reportGeneration.stepTwo.hooks;
+package reportGeneration.stepTwo;
 
 import entities.Item;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import reportGeneration.storage.ItemsStorage;
 
-public class UpdateParentHook {
+public class UpdateParentCell {
 
-    private ObservableList<Item> items;
-
-    public UpdateParentHook(ObservableList<Item> items) {
-        this.items = items;
-    }
-
-    public void run(Item child, String param) {
+    public static void run(Item child, String param) {
+        ObservableList<Item> items = ItemsStorage.getItems();
         for (Item parent : items) {
             if (child.getParent() == parent.getId()) {
                 Double childVals = getChildVals(parent.getId(), param);
@@ -26,8 +22,9 @@ public class UpdateParentHook {
         }
     }
 
-    private Double getChildVals(int id, String param) {
+    private static Double getChildVals(int id, String param) {
         Double val = 0.0;
+        ObservableList<Item> items = ItemsStorage.getItems();
         for (Item item : items) {
             if (item.getParent() == id) {
                 ObservableMap<String, Double> values = item.getValues();

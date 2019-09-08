@@ -13,12 +13,12 @@ public class ItemsStorage {
         return items;
     }
 
-    public static void emptyItems() {
-        items = FXCollections.observableArrayList();
-    }
-
     public static void setItems(ObservableList<Item> itemsList) {
         items = itemsList;
+    }
+
+    public static void emptyItems() {
+        items = FXCollections.observableArrayList();
     }
 
     public static void addItem(Item item) {

@@ -30,7 +30,7 @@ public class SettingsStorage {
         return settingsMap;
     }
 
-    public static void reInitStorage(){
+    public static void reInitStorage() {
         settings = initStorage();
     }
 
@@ -47,9 +47,9 @@ public class SettingsStorage {
     }
 
     public static Integer getInt(String key) {
-        try{
+        try {
             return Integer.parseInt(settings.get(key));
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return null;

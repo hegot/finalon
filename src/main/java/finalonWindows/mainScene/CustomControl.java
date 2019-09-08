@@ -2,6 +2,7 @@ package finalonWindows.mainScene;
 
 import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
+import globalReusables.AddNewReport;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;
@@ -26,10 +27,7 @@ public class CustomControl extends BorderPane {
 
     @FXML
     protected void addCompanyAction() {
-        SettingsStorage.reInitStorage();
-        SettingsStorage.put("reportId", "-1");
-        ItemsStorage.emptyItems();
-        SceneSwitcher.goTo(SceneName.ADDREPORT);
+        AddNewReport.run();
     }
 
     @FXML
