@@ -2,6 +2,7 @@ package reportGeneration.storage;
 
 import database.formula.DbFormulaHandler;
 import entities.Formula;
+import globalReusables.StandardAndIndustry;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -40,8 +41,11 @@ public class FormulaStorage {
     }
 
     public static ObservableList<Formula> getSections() {
-        int rootIndustry = Integer.parseInt(SettingsStorage.get("industry"));
-        ObservableList<Formula> parents = DbFormulaHandler.getFormulas(rootIndustry);
+        Integer industryId = SettingsStorage.getInt("industry");
+        if (industryId == null) {
+            industryId = StandardAndIndustry.getIndustryId();
+        }
+        ObservableList<Formula> parents = DbFormulaHandler.getFormulas(industryId);
         return parents;
     }
 
