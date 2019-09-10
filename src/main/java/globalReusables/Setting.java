@@ -5,5 +5,6 @@ public enum Setting {
     yearOrder,
     includeAll,
     defaultCurrency,
-    appId
+    appId,
+    blocked,
 }

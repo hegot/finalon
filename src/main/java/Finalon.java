@@ -59,13 +59,23 @@ public class Finalon extends Application {
         primaryStage.setScene(scene);
         SceneSwitcher sceneSwitcher = new SceneSwitcher(mainVBox);
         setAppId();
-        String pass = StatTrigger.call(CallTypes.program_started_times);
-        if(pass.equals("yes")){
-            sceneSwitcher.goTo(SceneName.MAIN);
-        }else{
-            sceneSwitcher.goTo(SceneName.DEATHSCREEN);
-        }
+        checkBlockout(sceneSwitcher);
         window.show();
+    }
+
+    private void checkBlockout(SceneSwitcher sceneSwitcher){
+        String blocked = DbSettingHandler.getSetting(Setting.blocked);
+        if(blocked.equals("true")){
+            sceneSwitcher.goTo(SceneName.DEATHSCREEN);
+        }else{
+            String pass = StatTrigger.call(CallTypes.program_started_times);
+            if(pass.equals("yes")){
+                sceneSwitcher.goTo(SceneName.MAIN);
+            }else{
+                DbSettingHandler.updateSetting(Setting.blocked, "true");
+                sceneSwitcher.goTo(SceneName.DEATHSCREEN);
+            }
+        }
     }
 
 

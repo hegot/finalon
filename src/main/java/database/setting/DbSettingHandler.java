@@ -28,6 +28,8 @@ public class DbSettingHandler extends DbHandlerBase {
         Connect.getConn().prepareStatement(sql4).executeUpdate();
         String sql5 = "INSERT INTO " + tableName + " (`key`, `value`) VALUES('appId', '" + RandomString.get() + "')";
         Connect.getConn().prepareStatement(sql5).executeUpdate();
+        String sql6 = "INSERT INTO " + tableName + " (`key`, `value`) VALUES('blocked', 'false')";
+        Connect.getConn().prepareStatement(sql6).executeUpdate();
     }
 
     public static void createTable() throws ClassNotFoundException, SQLException {
@@ -63,4 +65,12 @@ public class DbSettingHandler extends DbHandlerBase {
         }
     }
 
+    public static void createSetting(Setting key, String value) {
+        try {
+            String sql = "INSERT INTO " + tableName + " (`key`, `value`) VALUES ('" + key.toString() + "', '" + value + "')";
+            Connect.getConn().prepareStatement(sql).executeUpdate();
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -1,24 +1,30 @@
 package database;
 
-import java.sql.DatabaseMetaData;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DbHandlerBase {
 
     public static boolean tableExists(String tableName) {
         try {
-            DatabaseMetaData md = Connect.getConn().getMetaData();
-            ResultSet rs = md.getTables(null, null, tableName, null);
-            if (rs.next()) {
-                return true;
+            Connection conn = Connect.getConn();
+            if(conn != null){
+                DatabaseMetaData md = Connect.getConn().getMetaData();
+                ResultSet rs = md.getTables(null, null, tableName, null);
+                if (rs.next()) {
+                    return true;
+                }
+            }else{
+                Statement statement = Connect.getConn().createStatement();
+                int myResult = statement.executeUpdate("CREATE DATABASE finalon_templates");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+           // e.printStackTrace();
         }
         return false;
     }
+
+
+
 
     public static Boolean itemExists(int id, String tableName) {
         try {
