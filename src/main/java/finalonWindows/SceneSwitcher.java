@@ -2,6 +2,7 @@ package finalonWindows;
 
 import defaultData.DefaultTemplate;
 import entities.Item;
+import finalonWindows.DeathScreen.DeathScreen;
 import finalonWindows.formulaScene.FormulaScene;
 import finalonWindows.mainScene.MainScene;
 import finalonWindows.reportsScene.ReportsListing;
@@ -50,6 +51,10 @@ public class SceneSwitcher {
                 break;
             case ADDREPORT:
                 vbox = new AddReportScene().getScene();
+                break;
+            case DEATHSCREEN:
+                vbox = new VBox();
+                vbox.getChildren().add(new DeathScreen());
                 break;
         }
         window.getChildren().setAll(vbox);

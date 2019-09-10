@@ -8,8 +8,6 @@ import globalReusables.RandomString;
 import globalReusables.Setting;
 import globalReusables.StatTrigger;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableMap;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -61,14 +59,17 @@ public class Finalon extends Application {
         primaryStage.setScene(scene);
         SceneSwitcher sceneSwitcher = new SceneSwitcher(mainVBox);
         setAppId();
-        StatTrigger.call(CallTypes.program_started_times);
-        sceneSwitcher.goTo(SceneName.MAIN);
+        String pass = StatTrigger.call(CallTypes.program_started_times);
+        if(pass.equals("yes")){
+            sceneSwitcher.goTo(SceneName.MAIN);
+        }else{
+            sceneSwitcher.goTo(SceneName.DEATHSCREEN);
+        }
         window.show();
     }
 
 
     private void setAppId() {
-        ObservableMap<String, String> settings = FXCollections.observableHashMap();
         String id = DbSettingHandler.getSetting(Setting.appId);
         if (id.length() == 0) {
             DbSettingHandler.updateSetting(Setting.appId, RandomString.get());

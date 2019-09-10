@@ -6,8 +6,6 @@ import globalReusables.AddNewReport;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;
-import reportGeneration.storage.ItemsStorage;
-import reportGeneration.storage.SettingsStorage;
 
 import java.io.IOException;
 

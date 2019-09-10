@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<fx:root xmlns:fx="http://javafx.com/fxml/1" type="javafx.scene.layout.BorderPane"
+         xmlns="http://javafx.com/javafx/8.0.121">
+    <top>
+        <HBox spacing="20" styleClass="header">
+            <ImageView>
+                <image>
+                    <Image url="@img/statistics.png"/>
+                </image>
+            </ImageView>
+            <Label styleClass="headerText" text="Financial Statement Analysis Application" textAlignment="LEFT"/>
+        </HBox>
+    </top>
+    <center>
+        <VBox styleClass="message">
+            <Label text="Free Application use time expired." textFill="#6a6c6f"/>
+            <Label text="You can download paid version from Finalon website." textFill="#6a6c6f"/>
+        </VBox>
+    </center>
+    <bottom>
+        <VBox styleClass="footer">
+            <Text text="© finalon.com 2019 all rights reserved"/>
+        </VBox>
+    </bottom>
+</fx:root>

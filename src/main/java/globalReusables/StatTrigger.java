@@ -1,19 +1,16 @@
 package globalReusables;
 
 import database.setting.DbSettingHandler;
-import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +21,6 @@ public class StatTrigger {
     private final static String code = "finalon2050";
     private final static String apiEndpoint = "https://www.finstanon.com/app2/apiforstat.php";
     private static Map<CallTypes, Boolean> called = getCalled();
-
 
     private static Map<CallTypes, Boolean> getCalled() {
         Map<CallTypes, Boolean> called = new HashMap<>();
@@ -45,10 +41,9 @@ public class StatTrigger {
         } else {
             return false;
         }
-
     }
 
-    public static void call(CallTypes type) {
+    public static String call(CallTypes type) {
         if (!wasCalled(type)) {
             HttpClient httpclient = HttpClients.createDefault();
             HttpPost httppost = new HttpPost(apiEndpoint);
@@ -60,16 +55,11 @@ public class StatTrigger {
             try {
                 httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
                 HttpResponse response = httpclient.execute(httppost);
-                HttpEntity entity = response.getEntity();
-                if (entity != null) {
-                    try (InputStream instream = entity.getContent()) {
-                        String text = IOUtils.toString(instream, StandardCharsets.UTF_8.name());
-                        System.out.println(text);
-                    }
-                }
+                return new BasicResponseHandler().handleResponse(response);
             } catch (IOException e) {
 
             }
         }
+        return "yes";
     }
 }

@@ -46,7 +46,7 @@
     -fx-border-radius: 2;
     -fx-border-color: #e4e5e7;
     -fx-background-color: #fff;
-     -fx-text-fill: #6a6c6f;
+    -fx-text-fill: #6a6c6f;
 }
 
 .templates-listing .addTemplate .add-template-btn{
@@ -54,7 +54,7 @@
     -fx-font-size: 13px;
     -fx-text-fill: #FFFFFF;
     -fx-padding: 10 25 10 25;
-     -fx-cursor: hand;
+    -fx-cursor: hand;
 }
 
 .templates-listing .addTemplate .add-template-text{

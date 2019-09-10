@@ -10,6 +10,17 @@
     -fx-alignment: center;
 }
 
+.main-screen  .message{
+    -fx-font-size: 23px;
+    -fx-wrap-text: true;
+    -fx-font-weight: bold;
+    -fx-padding:150px 100px;
+    -fx-text-fill: #122538;
+    -fx-pref-height:830px;
+    -fx-alignment: baseline-center;
+    -fx-line-spacing: 1.2em;
+}
+
 .main-screen .header .headerText{
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 20px;

@@ -5,7 +5,6 @@ import finalonWindows.reusableComponents.SettingsMenu;
 import javafx.scene.layout.VBox;
 
 public class MainScene extends SceneBase {
-
     public VBox getScene() {
         CustomControl customControl = new CustomControl();
         SettingsMenu settingsMenu = new SettingsMenu();
@@ -15,6 +14,4 @@ public class MainScene extends SceneBase {
         customControl.setPrefHeight(height() - 40);
         return vBox;
     }
-
-
 }
