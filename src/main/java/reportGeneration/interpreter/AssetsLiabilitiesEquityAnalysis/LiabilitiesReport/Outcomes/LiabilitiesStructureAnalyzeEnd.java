@@ -1,7 +1,8 @@
-package reportGeneration.interpreter.LiabilitiesReport.Outcomes;
+package reportGeneration.interpreter.AssetsLiabilitiesEquityAnalysis.LiabilitiesReport.Outcomes;
 
 import entities.Item;
 import globalReusables.LabelWrap;
+import globalReusables.NotEmpty;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.helpers.Calc;
@@ -13,7 +14,8 @@ import reportGeneration.storage.Periods;
 import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
 
-public class LiabilitiesStructureAnalyzeStart {
+
+public class LiabilitiesStructureAnalyzeEnd {
     private Item parent;
     private String period;
     private Double totalVal;
@@ -25,12 +27,12 @@ public class LiabilitiesStructureAnalyzeStart {
     private ObservableList<Item> nonCurrentItems;
     private Double assetsTotal;
 
-    public LiabilitiesStructureAnalyzeStart() {
+    public LiabilitiesStructureAnalyzeEnd() {
         Item EquityGeneral = ItemsStorage.get("EquityGeneral");
         Item CurrentLiabilities = ItemsStorage.get("CurrentLiabilities");
         Item NonCurrentLiabilities = ItemsStorage.get("NonCurrentLiabilities");
         this.parent = ItemsStorage.get("EquityAndLiabilities");
-        this.period = Periods.startKey();
+        this.period = Periods.endKey();
         this.equityItems = ItemsStorage.getItems(EquityGeneral.getId());
         this.currentItems = ItemsStorage.getItems(CurrentLiabilities.getId());
         this.nonCurrentItems = ItemsStorage.getItems(NonCurrentLiabilities.getId());
@@ -43,56 +45,55 @@ public class LiabilitiesStructureAnalyzeStart {
     }
 
 
-    public VBox get() {
+    public VBox get(int weight) {
+        String str = "";
         VBox vBox = new VBox(10);
         if (this.parent.getValues().size() > 1) {
-            String mess = firstMessage();
-            vBox.getChildren().add(LabelWrap.wrap(mess));
-            ResultsStorage.addStr(28, "text", mess);
+            str += firstMessage();
         }
-        String str = "";
+
         if (equityVal != null && equityVal > 0) {
-            str = SrtuctureItemsLoop.loop(equityItems,
+            str += SrtuctureItemsLoop.loop(equityItems,
                     equityVal,
                     "The total equity consisted mostly of ",
                     " etc.",
                     period);
         }
         if (currentVal != null && currentVal > 0) {
-            str = SrtuctureItemsLoop.loop(currentItems,
+            str += SrtuctureItemsLoop.loop(currentItems,
                     currentVal,
-                    "The company's current liabilities included ",
+                    "The following current liabilities had the highest values: ",
                     " etc.",
                     period);
         }
         if (nonCurrentVal != null && nonCurrentVal > 0) {
-            str = SrtuctureItemsLoop.loop(nonCurrentItems,
+            str += SrtuctureItemsLoop.loop(nonCurrentItems,
                     nonCurrentVal,
                     "Non-current liabilities included: ",
                     " etc.",
                     period);
         }
-        ResultsStorage.addStr(29, "text", str);
         vBox.getChildren().add(LabelWrap.wrap(str));
+        ResultsStorage.addStr(weight, "text", str);
         return vBox;
     }
 
     private String firstMessage() {
-        String str = "By looking at Table 4 it can be noticed that the sources of finance consisted of ";
-        if (equityVal != null) {
+        String str = "At the end of " + Formatter.formatDate(period) + " the sources of finance comprised ";
+        if (NotEmpty.notZero(equityVal)) {
             str = str + Calc.partStr(equityVal, totalVal) + " shareholders' equity, ";
         }
-        if (nonCurrentVal != null) {
+        if (NotEmpty.notZero(nonCurrentVal)) {
             str = str + Calc.partStr(nonCurrentVal, totalVal) + " non-current liabilities ";
         }
-        if (currentVal != null) {
+        if (NotEmpty.notZero(currentVal)) {
             str = str + " and " + Calc.partStr(currentVal, totalVal) + " current liabilities. ";
         }
-        if (assetsTotal != null && equityVal != null) {
+        if (NotEmpty.notZero(assetsTotal) && NotEmpty.notZero(equityVal)) {
             Double share = (equityVal / assetsTotal) * 100;
             str = str + EquityShareAnalyze.analyse(share, period);
         }
-
         return str;
     }
+
 }

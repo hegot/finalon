@@ -20,6 +20,8 @@ public class FinancialRating {
     private int weight;
 
     public FinancialRating(int weight) {
+        ResultsStorage.addStr(weight, "sectionTitle", "Financial Rating");
+        weight++;
         this.formulas = FXCollections.observableArrayList();
         this.weight = weight;
         formulas.add(FormulaStorage.get("NetProfitMargin"));

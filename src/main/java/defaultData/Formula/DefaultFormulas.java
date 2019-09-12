@@ -55,27 +55,37 @@ public class DefaultFormulas {
     private static ObservableList<Formula> getIndustryChilds(int parent) {
         ObservableList<Formula> Formulas = FXCollections.observableArrayList();
         //IFRS CategoryLevel
+        int CSAL = counter;
+        Formulas.add(new Formula(CSAL, "The Common-Size  Analysis \n of the Assets, Liabilities \n and Shareholders' Equity", "AssetsEquityStructureTrend", "0", "", "section", "", parent));
+        counter++;
         int FSiD = counter;
-        Formulas.add(new Formula(FSiD, "Financial Sustainability and \n Long-Term Debt-Paying Ability", "FinancialSustainability", "0", "", "section", "", parent));
+        Formulas.add(new Formula(FSiD, "Financial Sustainability and \n Long-Term Debt-Paying Ability", "FinancialSustainability", "1", "", "section", "", parent));
         counter++;
         int LiD = counter;
-        Formulas.add(new Formula(LiD, "Liquidity of Short-Term Assets", "Liquidity", "1", "", "section", "", parent));
+        Formulas.add(new Formula(LiD, "Liquidity of Short-Term Assets", "Liquidity", "2", "", "section", "", parent));
+        counter++;
+        int OFR = counter;
+        Formulas.add(new Formula(OFR, "Overview of the financial Results", "OverviewFinancialResults", "3", "", "section", "", parent));
         counter++;
         int PaPiD = counter;
-        Formulas.add(new Formula(PaPiD, "Profitability and Performance", "ProfitabilityAndPerformance", "2", "", "section", "", parent));
+        Formulas.add(new Formula(PaPiD, "Profitability and Performance", "ProfitabilityAndPerformance", "4", "", "section", "", parent));
         counter++;
         int TiD = counter;
-        Formulas.add(new Formula(TiD, "Activity Ratios \n(Turnover Ratios)", "Turnover", "3", "", "section", "", parent));
+        Formulas.add(new Formula(TiD, "Activity Ratios \n(Turnover Ratios)", "Turnover", "5", "", "section", "", parent));
         counter++;
         int IAiD = counter;
-        Formulas.add(new Formula(IAiD, "Investor Analysis", "InvestorAnalysis", "4", "", "section", "", parent));
+        Formulas.add(new Formula(IAiD, "Investor Analysis", "InvestorAnalysis", "6", "", "section", "", parent));
         counter++;
         int AZSiD = counter;
-        Formulas.add(new Formula(AZSiD, "Forecasting Financial Failure \n (Bankruptcy Test)", "ZscoreModel", "5", "", "section", "", parent));
+        Formulas.add(new Formula(AZSiD, "Forecasting Financial Failure \n (Bankruptcy Test)", "ZscoreModel", "7", "", "section", "", parent));
         counter++;
         int OIiD = counter;
-        Formulas.add(new Formula(OIiD, "Labor Productivity", "LaborProductivitySection", "6", "", "section", "", parent));
+        Formulas.add(new Formula(OIiD, "Labor Productivity", "LaborProductivitySection", "8", "", "section", "", parent));
         counter++;
+        int FRAT = counter;
+        Formulas.add(new Formula(FRAT, "Financial Rating", "FinancialRating", "9", "", "section", "", parent));
+        counter++;
+
         //Financial Sustainability
         Formulas.addAll(TimesInterestEarned.get(FSiD, counter));
         counter = counter + 6;

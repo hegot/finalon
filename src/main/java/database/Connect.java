@@ -48,7 +48,7 @@ public final class Connect {
         String filepath = "";
         try {
             filepath = new File(".").getCanonicalPath();
-            filepath = filepath + "/src/main/resources/db/finalon_templates.sqlite";
+            filepath = filepath + "/src/main/resources/db/finalon_templates";
             Path realpath = Paths.get(filepath);
             if (!Files.exists(realpath)) {
                 File file = new File(filepath);
@@ -58,7 +58,7 @@ public final class Connect {
             System.out.println("Could not create db file");
         }
 
-        conn = DriverManager.getConnection("jdbc:sqlite::resource:" + getClass().getResource("/db/finalon_templates.sqlite"));
+        conn = DriverManager.getConnection("jdbc:sqlite::resource:" + getClass().getResource("/db/finalon_templates"));
         System.out.println("Database connected!");
     }
 

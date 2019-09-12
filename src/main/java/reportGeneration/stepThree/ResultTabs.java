@@ -41,29 +41,25 @@ public class ResultTabs {
     private ArrayList<Tab> loopSections() {
         ArrayList<Tab> tabs = new ArrayList<Tab>();
         ObservableList<Formula> sections = FormulaStorage.getSections();
-        int number = 2;
+        int number = 1;
+        int counter = 0;
         for (int i = 0; i < sections.size(); i++) {
             Formula formula = sections.get(i);
+            String code = formula.getShortName();
             String name = number + ". " + formula.getName();
             number++;
             Tab tab = new Tab(name);
             tabs.add(tab);
-            tabsArr.put(formula.getShortName(), tab);
+            counter = counter + 100;
+            final int num = counter;
+            System.out.println(code);
+            VBox vBox = interprter.getReport(code, num);
+            if (vBox != null) {
+                tab.setContent(vBox);
+            }
+            tabsArr.put(code, tab);
         }
         return tabs;
-    }
-
-    private void populateInThread(Map<String, Tab> tabs) {
-        int counter = 30;
-        for (Map.Entry<String, Tab> entry : tabs.entrySet()) {
-            counter = counter + 10;
-            final int num = counter;
-            System.out.println(entry.getKey());
-            VBox vBox = interprter.getReport(entry.getKey(), num);
-            if (vBox != null) {
-                entry.getValue().setContent(vBox);
-            }
-        }
     }
 
     public VBox getTabs() {
@@ -89,46 +85,10 @@ public class ResultTabs {
             @Override
             protected ArrayList<Tab> call() throws Exception {
                 ArrayList<Tab> tabs = new ArrayList<>();
-                String t1 = "1. The Common-Size  Analysis \n of the Assets, Liabilities \n and Shareholders' Equity";
-                ResultsStorage.addStr(2, "sectionTitle", t1);
-                String t2 = "Assets trend Analysis";
-                String t3 = "Liabilities trend Analysis";
-                String t4 = "Assets Structure Analysis";
-                String t5 = "Liabilities Structure Analysis";
-                Tab tab1 = new Tab(t1);
-                TabPane tabs2 = new TabPane();
-                tabs2.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-                if (Periods.getPeriodArr().size() > 1) {
-                    Tab tab01 = new Tab(t2);
-                    tabsArr.put("assetTrend", tab01);
-                    Tab tab02 = new Tab(t3);
-                    tabsArr.put("liabilitiesTrend", tab02);
-                    tabs2.getTabs().addAll(tab01, tab02);
-                }
-                Tab tab03 = new Tab(t4);
-                tabsArr.put("assetStructure", tab03);
-                Tab tab04 = new Tab(t5);
-                tabsArr.put("liabilitiesStructure", tab04);
-                Tab tab05 = new Tab("Formula Calculation");
-                tabsArr.put("formulaList", tab05);
-                tabs2.getTabs().addAll(tab03, tab04, tab05);
-                tab1.setContent(tabs2);
-
-                String t09 = "4. Overview of the \n Financial Results";
-                ResultsStorage.addStr(130, "sectionTitle", t09);
-                String t14 = "10. Financial Rating";
-                ResultsStorage.addStr(140, "sectionTitle", t14);
-                Tab tab09 = new Tab(t09);
-                tabsArr.put("financialResultsTrend", tab09);
-                Tab tab10 = new Tab(t14);
-                tabsArr.put("financialRating", tab10);
-                tabs.add(tab1);
-                for (Tab formulaTab : loopSections()) {
+                ArrayList<Tab> sections = loopSections();
+                for (Tab formulaTab : sections) {
                     tabs.add(formulaTab);
                 }
-                tabs.add(tab09);
-                tabs.add(tab10);
-                populateInThread(tabsArr);
                 return tabs;
             }
         };

@@ -1,4 +1,4 @@
-package reportGeneration.interpreter.AssetsReport.Outcomes;
+package reportGeneration.interpreter.AssetsLiabilitiesEquityAnalysis.AssetsReport.Outcomes;
 
 import entities.Item;
 import javafx.collections.FXCollections;
@@ -31,7 +31,7 @@ public class AssetStructureChart {
         this.nonCurrentVal = nonCurrent.getVal(period);
     }
 
-    public VBox get() {
+    public VBox get(int weight) {
         VBox vBox = new VBox();
         final PieChart chart = new PieChart();
         if (totalVal != null && totalVal != 0) {
@@ -50,7 +50,7 @@ public class AssetStructureChart {
             }
             chart.setData(pieChartData);
             String title = "Chart 3. " + SettingsStorage.get("company") + " Assets structure in " + period;
-            ResultsStorage.addPieChart(16, chart, title);
+            ResultsStorage.addPieChart(weight, chart, title);
             vBox.getChildren().addAll(TableName.name(title), chart);
         }
         return vBox;

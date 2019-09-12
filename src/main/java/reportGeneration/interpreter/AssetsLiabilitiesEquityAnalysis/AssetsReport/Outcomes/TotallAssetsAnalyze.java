@@ -1,4 +1,4 @@
-package reportGeneration.interpreter.AssetsReport.Outcomes;
+package reportGeneration.interpreter.AssetsLiabilitiesEquityAnalysis.AssetsReport.Outcomes;
 
 import entities.Item;
 import globalReusables.LabelWrap;
@@ -29,7 +29,7 @@ public class TotallAssetsAnalyze {
         }
     }
 
-    public VBox get() {
+    public VBox get(int weight) {
         VBox hbox = new VBox(10);
         if (first != null && last != null) {
             String output = "";
@@ -48,7 +48,7 @@ public class TotallAssetsAnalyze {
                     LabelWrap.wrap(consequence)
             );
 
-            ResultsStorage.addStr(5, "text", output + consequence);
+            ResultsStorage.addStr(weight, "text", output + consequence);
         }
         return hbox;
     }

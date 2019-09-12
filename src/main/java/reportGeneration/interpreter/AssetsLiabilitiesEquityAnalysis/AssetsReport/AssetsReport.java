@@ -1,10 +1,10 @@
-package reportGeneration.interpreter.AssetsReport;
+package reportGeneration.interpreter.AssetsLiabilitiesEquityAnalysis.AssetsReport;
 
 import entities.Item;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
-import reportGeneration.interpreter.AssetsReport.Outcomes.*;
+import reportGeneration.interpreter.AssetsLiabilitiesEquityAnalysis.AssetsReport.Outcomes.*;
 import reportGeneration.interpreter.ReusableComponents.RelativeItemsChange;
 import reportGeneration.interpreter.ReusableComponents.helpers.TableName;
 import reportGeneration.interpreter.ReusableComponents.tables.IndexChangeTable;
@@ -26,7 +26,7 @@ public class AssetsReport {
         this.GeneralCurrentAssets = ItemsStorage.get("GeneralCurrentAssets");
     }
 
-    public VBox getTrend() {
+    public VBox getTrend(int weight) {
         String tblName = "Table 1. Assets Trend Analysis, in "
                 + SettingsStorage.get("amount") + " " + SettingsStorage.get("defaultCurrency");
         Label tableName = TableName.name(tblName);
@@ -35,48 +35,48 @@ public class AssetsReport {
 
         TableView<Item> tbl = new IndexChangeTable(rootId).get();
         TwoDList items = TableName.getTableViewValues(tbl);
-        ResultsStorage.addTable(4, items, tblName);
+        ResultsStorage.addTable(++weight, items, tblName);
 
         box.getChildren().addAll(
                 tableName,
                 tbl,
-                new TotallAssetsAnalyze().get(),
-                new CurrentNonCurrentAssetsAnalyze().get(),
-                new AssetsCharts().get(),
+                new TotallAssetsAnalyze().get(++weight),
+                new CurrentNonCurrentAssetsAnalyze().get(++weight),
+                new AssetsCharts().get(++weight),
                 new RelativeItemsChange(
                         NonCurrentAssets,
                         ItemsStorage.getItems(NonCurrentAssets.getId()),
                         "assets"
-                ).get(9),
+                ).get(++weight),
                 new RelativeItemsChange(
                         GeneralCurrentAssets,
                         ItemsStorage.getItems(GeneralCurrentAssets.getId()),
                         "assets"
-                ).get(10)
+                ).get(++weight)
         );
         return box;
     }
 
-    public VBox getStructure() {
+    public VBox getStructure(int weight) {
         String tblName = "Table 3. Assets Structure Analysis %";
         Label tableName = TableName.name(tblName);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");
         TableView<StructureItem> tbl = new StructureTable(root).get();
         TwoDList items = TableName.getTableViewValues(tbl);
-        ResultsStorage.addTable(12, items, tblName);
+        ResultsStorage.addTable(++weight, items, tblName);
         box.getChildren().addAll(
                 tableName,
                 tbl,
                 new AssetStructureAnalyzeStart(
                         ItemsStorage.getItems(GeneralCurrentAssets.getId()),
                         ItemsStorage.getItems(NonCurrentAssets.getId())
-                ).get(),
-                new AssetStructureChart(Periods.endKey()).get(),
+                ).get(++weight),
+                new AssetStructureChart(Periods.endKey()).get(++weight),
                 new AssetStructureAnalyseEnd(
                         ItemsStorage.getItems(GeneralCurrentAssets.getId()),
                         ItemsStorage.getItems(NonCurrentAssets.getId())
-                ).get()
+                ).get(++weight)
         );
         return box;
     }

@@ -1,4 +1,4 @@
-package reportGeneration.interpreter.LiabilitiesReport.Outcomes;
+package reportGeneration.interpreter.AssetsLiabilitiesEquityAnalysis.LiabilitiesReport.Outcomes;
 
 import entities.Item;
 import javafx.collections.FXCollections;
@@ -35,7 +35,7 @@ public class LiabilitiesStructureChart {
         this.nonCurrentVal = nonCurrent.getVal(period);
     }
 
-    public VBox get() {
+    public VBox get(int weight) {
         VBox vBox = new VBox();
         final PieChart chart = new PieChart();
         if (totalVal != null && totalVal != 0) {
@@ -61,7 +61,7 @@ public class LiabilitiesStructureChart {
             chart.setData(pieChartData);
             String title = "Chart 4. " + SettingsStorage.get("company") +
                     " Source of Finance structure in " + period;
-            ResultsStorage.addPieChart(31, chart, title);
+            ResultsStorage.addPieChart(weight, chart, title);
             vBox.getChildren().addAll(TableName.name(title), chart);
         }
         return vBox;

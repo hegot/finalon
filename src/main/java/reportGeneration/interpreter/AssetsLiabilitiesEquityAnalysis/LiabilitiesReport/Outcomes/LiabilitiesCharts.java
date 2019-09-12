@@ -1,4 +1,4 @@
-package reportGeneration.interpreter.LiabilitiesReport.Outcomes;
+package reportGeneration.interpreter.AssetsLiabilitiesEquityAnalysis.LiabilitiesReport.Outcomes;
 
 import javafx.collections.ObservableMap;
 import javafx.scene.chart.BarChart;
@@ -28,7 +28,7 @@ public class LiabilitiesCharts extends ChartBase {
                 " in " + SettingsStorage.get("amount") + " " + SettingsStorage.get("defaultCurrency");
     }
 
-    public VBox get() {
+    public VBox get(int weight) {
         BarChart<String, Number> bc = getChart();
         if (valuesEquity.size() > 0) bc.getData().add(
                 getSeries("Equity", valuesEquity)
@@ -42,7 +42,7 @@ public class LiabilitiesCharts extends ChartBase {
         VBox vBox = new VBox(20);
         String title = chartTitle();
         vBox.getChildren().addAll(TableName.name(title), bc);
-        ResultsStorage.addBarChart(25, bc, title);
+        ResultsStorage.addBarChart(weight, bc, title);
 
         return vBox;
     }

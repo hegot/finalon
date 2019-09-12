@@ -13,6 +13,7 @@ import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import reportGeneration.interpreter.ReusableComponents.tables.ItemsTable;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
+import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
 
 import java.util.ArrayList;
@@ -51,7 +52,7 @@ public class FinancialResultTable extends ItemsTable {
     }
 
 
-    public Label analyseEbit() {
+    public Label analyseEbit(int weight) {
         String out = "";
         Double first = itemEbit.getFirstVal();
         Double last = itemEbit.getLastVal();
@@ -76,6 +77,7 @@ public class FinancialResultTable extends ItemsTable {
             out += "The EBIT was stable during " + startDate + "-" + endDate + ". ";
         }
         out += comprehensiveIncome();
+        ResultsStorage.addStr(weight, "text", out);
         return LabelWrap.wrap(out);
     }
 

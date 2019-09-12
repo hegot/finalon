@@ -23,6 +23,7 @@ public class InTimeReplacer {
             text = replaceVal("STARTVALUEPERCENT", text, startVal * 100);
         }
         text = replaceVal("STARTVALUE", text, startVal);
+        text = text.trim() + " ";
         return text;
     }
 

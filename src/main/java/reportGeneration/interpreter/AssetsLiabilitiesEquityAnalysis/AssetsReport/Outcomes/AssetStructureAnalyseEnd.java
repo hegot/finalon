@@ -1,4 +1,4 @@
-package reportGeneration.interpreter.AssetsReport.Outcomes;
+package reportGeneration.interpreter.AssetsLiabilitiesEquityAnalysis.AssetsReport.Outcomes;
 
 import entities.Item;
 import globalReusables.LabelWrap;
@@ -45,12 +45,12 @@ public class AssetStructureAnalyseEnd {
         return false;
     }
 
-    public VBox get() {
+    public VBox get(int weight) {
         VBox vBox = new VBox(10);
-        if (this.parent.getValues().size() > 1) {
-            vBox.getChildren().add(firstMessage());
-        }
         String str = "";
+        if (this.parent.getValues().size() > 1) {
+            str = firstMessage();
+        }
         if (currentVal != null && currentVal > 0) {
             str = SrtuctureItemsLoop.loop(currentItems,
                     currentVal,
@@ -65,12 +65,12 @@ public class AssetStructureAnalyseEnd {
                     " etc.",
                     period);
         }
-        ResultsStorage.addStr(18, "text", str);
+        ResultsStorage.addStr(++weight, "text", str);
         vBox.getChildren().add(LabelWrap.wrap(str));
         return vBox;
     }
 
-    private Label firstMessage() {
+    private String firstMessage() {
         String str = "";
         if (totalVal != null && totalVal != 0) {
             if (assetsChanged()) {
@@ -85,7 +85,6 @@ public class AssetStructureAnalyseEnd {
                 str = str + " and " + Calc.partStr(currentVal, totalVal) + " of current assets.";
             }
         }
-        ResultsStorage.addStr(17, "text", str);
-        return LabelWrap.wrap(str);
+        return str;
     }
 }

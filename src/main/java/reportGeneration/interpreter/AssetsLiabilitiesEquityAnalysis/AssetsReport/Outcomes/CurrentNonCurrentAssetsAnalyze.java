@@ -1,4 +1,4 @@
-package reportGeneration.interpreter.AssetsReport.Outcomes;
+package reportGeneration.interpreter.AssetsLiabilitiesEquityAnalysis.AssetsReport.Outcomes;
 
 import entities.Item;
 import javafx.scene.control.Label;
@@ -37,7 +37,7 @@ public class CurrentNonCurrentAssetsAnalyze {
     }
 
 
-    public VBox get() {
+    public VBox get(int weight) {
         VBox vbox = new VBox(10);
         vbox.setPrefWidth(600);
         String output = "";
@@ -81,7 +81,7 @@ public class CurrentNonCurrentAssetsAnalyze {
         text1.getStyleClass().add("report-text-small");
         text1.setWrapText(true);
         vbox.getChildren().addAll(text1);
-        ResultsStorage.addStr(6, "text", output);
+        ResultsStorage.addStr(weight, "text", output);
         return vbox;
     }
 

@@ -1,4 +1,4 @@
-package reportGeneration.interpreter.AssetsReport.Outcomes;
+package reportGeneration.interpreter.AssetsLiabilitiesEquityAnalysis.AssetsReport.Outcomes;
 
 import entities.Item;
 import javafx.collections.ObservableMap;
@@ -29,7 +29,7 @@ public class AssetsCharts extends ChartBase {
                 " in " + SettingsStorage.get("amount") + " " + SettingsStorage.get("defaultCurrency");
     }
 
-    public VBox get() {
+    public VBox get(int weight) {
         BarChart<String, Number> bc = getChart();
         String title = chartTitle();
         bc.setAnimated(false);
@@ -42,7 +42,7 @@ public class AssetsCharts extends ChartBase {
         bc.applyCss();
         bc.setAnimated(false);
         bc.layout();
-        ResultsStorage.addBarChart(8, bc, title);
+        ResultsStorage.addBarChart(weight, bc, title);
         return vBox;
     }
 

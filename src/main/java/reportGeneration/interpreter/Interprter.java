@@ -1,16 +1,14 @@
 package reportGeneration.interpreter;
 
 import javafx.scene.layout.VBox;
-import reportGeneration.interpreter.AssetsReport.AssetsReport;
+import reportGeneration.interpreter.AssetsLiabilitiesEquityAnalysis.AssetsLiabilitiesEquityAnalysis;
 import reportGeneration.interpreter.FinancialRating.FinancialRating;
 import reportGeneration.interpreter.FinancialResults.FinancialResultsReport;
 import reportGeneration.interpreter.FinancialSustainability.FinancialSustainabilityReport;
 import reportGeneration.interpreter.FormulaCalculation.FormulaCalculation;
-import reportGeneration.interpreter.FormulaList.FormulaList;
 import reportGeneration.interpreter.GeneralAnalysis.GeneralAnalysis;
 import reportGeneration.interpreter.InvestorAnalysis.InvestorAnalysis;
 import reportGeneration.interpreter.LaborProductivity.LaborProductivity;
-import reportGeneration.interpreter.LiabilitiesReport.LiabilitiesReport;
 import reportGeneration.interpreter.Liquidity.LiquidityReport;
 import reportGeneration.interpreter.ProfitabilityRatios.ProfitabilityRatios;
 import reportGeneration.interpreter.TurnoverRatios.TurnoverRatios;
@@ -22,20 +20,8 @@ public class Interprter {
         calc.setFormulaValues();
         VBox vbox = new VBox();
         switch (type) {
-            case "assetTrend":
-                vbox = new AssetsReport().getTrend();
-                break;
-            case "assetStructure":
-                vbox = new AssetsReport().getStructure();
-                break;
-            case "liabilitiesTrend":
-                vbox = new LiabilitiesReport().getTrend();
-                break;
-            case "liabilitiesStructure":
-                vbox = new LiabilitiesReport().getStructure();
-                break;
-            case "formulaList":
-                vbox = new FormulaList().get();
+            case "AssetsEquityStructureTrend":
+                vbox = new AssetsLiabilitiesEquityAnalysis(counter).get();
                 break;
             case "FinancialSustainability":
                 vbox = new FinancialSustainabilityReport(counter).get();
@@ -43,7 +29,7 @@ public class Interprter {
             case "Liquidity":
                 vbox = new LiquidityReport(counter).get();
                 break;
-            case "financialResultsTrend":
+            case "OverviewFinancialResults":
                 vbox = new FinancialResultsReport(counter).getTrend();
                 break;
             case "ProfitabilityAndPerformance":
@@ -61,7 +47,7 @@ public class Interprter {
             case "LaborProductivitySection":
                 vbox = new LaborProductivity(counter).get();
                 break;
-            case "financialRating":
+            case "FinancialRating":
                 vbox = new FinancialRating(counter).get();
                 break;
             default:
