@@ -16,7 +16,7 @@ public class AssetsLiabilitiesEquityAnalysis {
         this.weight = weight;
     }
 
-    public VBox get(){
+    public VBox get() {
         VBox vBox = new VBox(10);
         String t = "1. The Common-Size Analysis \n of the Assets, Liabilities \n and Shareholders' Equity";
         ResultsStorage.addStr(weight++, "sectionTitle", t);

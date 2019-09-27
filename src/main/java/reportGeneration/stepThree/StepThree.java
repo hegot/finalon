@@ -27,8 +27,8 @@ public class StepThree extends SceneBase {
     }
 
     private Label getDescText() {
-        String text = "This report analyzes the balance sheets and income statements of " + companyName
-                + ". Trends for the major balance sheet and income statement items and ratio analysis are used " +
+        String text = "This report analyzes the balance sheets and income statements of ”" + companyName
+                + "”. Trends for the major balance sheet and income statement items and ratio analysis are used " +
                 "to understand the financial position and financial effectiveness of the company. " +
                 "The report studied the " + Periods.getStart() + " - " + Periods.getEnd() + " period.\n";
         Label label = new Label(text);

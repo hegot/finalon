@@ -3,7 +3,6 @@ package reportGeneration.interpreter.AssetsLiabilitiesEquityAnalysis.AssetsRepor
 import entities.Item;
 import globalReusables.LabelWrap;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.helpers.Calc;
 import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;

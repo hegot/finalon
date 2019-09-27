@@ -60,10 +60,13 @@ class TemplateEditTable {
                 super.updateItem(item, empty);
                 if (item != null && !empty) {
                     Integer level = item.getLevel();
+                    getStyleClass().remove("templates-row-level-max");
+                    getStyleClass().remove("templates-row-level-4");
                     if (level.equals(1) || level.equals(2) || level.equals(3)) {
-                        getStyleClass().add("templates-row-bold");
-                    } else {
-                        getStyleClass().remove("templates-row-bold");
+                        getStyleClass().add("templates-row-level-max");
+                    }
+                    if (level.equals(4)) {
+                        getStyleClass().add("templates-row-level-4");
                     }
                 }
             }

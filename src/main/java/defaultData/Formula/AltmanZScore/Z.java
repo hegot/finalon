@@ -24,7 +24,7 @@ public class Z {
                 EvaluationTypes.EVALUATE_PRE_END.toString(),
                 ">=",
                 "2.9",
-                "COMPANYNAME's Z-score was above the gray area of 1.20 to " +
+                "COMPANYS Z-score was above the gray area of 1.20 to " +
                         "2.90 indicating a low bankruptcy risk in PRE_END_DATE. ",
                 "",
                 "",
@@ -35,7 +35,7 @@ public class Z {
                 EvaluationTypes.EVALUATE_PRE_END.toString(),
                 ">=",
                 "1.2",
-                "COMPANYNAME's Z-score was in " +
+                "COMPANYS Z-score was in " +
                         "the gray area between 1.20 and 2.90 in PRE_END_DATE. ",
                 "<",
                 "2.9",
@@ -46,7 +46,7 @@ public class Z {
                 EvaluationTypes.EVALUATE_PRE_END.toString(),
                 "<",
                 "1.2",
-                "COMPANYNAME's Z-score was under 1.2 " +
+                "COMPANYS Z-score was under 1.2 " +
                         "indicating a high bankruptcy risk in PRE_END_DATE. ",
                 "",
                 "",

@@ -108,7 +108,7 @@ public class DragCell {
                                 Item rowItem = (Item) row.getItem();
                                 if (rowItem != null) {
                                     Integer level = rowItem.getLevel();
-                                    if (level.equals(4)) {
+                                    if (level.equals(4) || level.equals(5)) {
                                         hBox.getChildren().add(dragBtn());
                                     }
                                 }

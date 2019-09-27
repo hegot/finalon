@@ -23,7 +23,7 @@ public class OperatingIncomeMargin {
                 EvaluationTypes.EVALUATE_END.toString(),
                 ">",
                 "0",
-                "The COMPANYNAME's operating performance was robust in ENDDATE. For every CURRENCY of the net sales the company earned LASTVALUE in the operating income. ",
+                "The COMPANYS operating performance was robust in ENDDATE. For every CURRENCY of the net sales the company earned LASTVALUE in the operating income. ",
                 "",
                 "",
                 OperatingIncomeMargin));
@@ -33,7 +33,7 @@ public class OperatingIncomeMargin {
                 EvaluationTypes.EVALUATE_END.toString(),
                 "<=",
                 "0",
-                "The COMPANYNAME's operating performance was weak in ENDDATE. For every CURRENCY of the net sales the company had LASTVALUE in the operating loss. ",
+                "The COMPANYS operating performance was weak in ENDDATE. For every CURRENCY of the net sales the company had LASTVALUE in the operating loss. ",
                 "",
                 "",
                 OperatingIncomeMargin));

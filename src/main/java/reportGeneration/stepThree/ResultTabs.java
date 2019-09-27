@@ -15,8 +15,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.Interprter;
 import reportGeneration.storage.FormulaStorage;
-import reportGeneration.storage.Periods;
-import reportGeneration.storage.ResultsStorage;
 import reportGeneration.wordExport.WordExport;
 
 import java.util.ArrayList;

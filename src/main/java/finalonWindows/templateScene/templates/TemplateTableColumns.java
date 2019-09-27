@@ -22,6 +22,7 @@ class TemplateTableColumns {
     static TableColumn buttonCol() {
         TableColumn<Item, Void> col = new TableColumn<>("");
         col.setMinWidth(65);
+        col.getStyleClass().add("buttons-cell");
         col.setCellFactory(ActionsCell.getActionsFactory());
         col.setSortable(false);
         return col;
@@ -40,6 +41,7 @@ class TemplateTableColumns {
         col.setMinWidth(450);
         col.setCellFactory(column -> new EditCell());
         col.setSortable(false);
+        col.getStyleClass().add("templates-cell");
         col.setOnEditCommit(
                 (TableColumn.CellEditEvent<Item, String> t) -> {
                     if (t != null && t.getTableView() != null) {

@@ -53,7 +53,7 @@ public class TimesInterestEarned {
                 EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString(),
                 "",
                 "",
-                "COMPANYNAME's ability to pay interest on debt was better in ENDDATE comparing to STARTDATE. ",
+                "COMPANYS ability to pay interest on debt was better in ENDDATE comparing to STARTDATE. ",
                 "",
                 "",
                 TimesInterestEarned));
@@ -63,7 +63,7 @@ public class TimesInterestEarned {
                 EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString(),
                 "",
                 "",
-                "COMPANYNAME's ability to pay interest on debt was worse in ENDDATE comparing to STARTDATE.",
+                "COMPANYS ability to pay interest on debt was worse in ENDDATE comparing to STARTDATE.",
                 "",
                 "",
                 TimesInterestEarned));

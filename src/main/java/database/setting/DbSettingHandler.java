@@ -69,7 +69,7 @@ public class DbSettingHandler extends DbHandlerBase {
         try {
             String sql = "INSERT INTO " + tableName + " (`key`, `value`) VALUES ('" + key.toString() + "', '" + value + "')";
             Connect.getConn().prepareStatement(sql).executeUpdate();
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

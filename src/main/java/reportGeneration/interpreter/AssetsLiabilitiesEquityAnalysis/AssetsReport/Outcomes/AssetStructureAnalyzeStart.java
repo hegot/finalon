@@ -3,7 +3,6 @@ package reportGeneration.interpreter.AssetsLiabilitiesEquityAnalysis.AssetsRepor
 import entities.Item;
 import globalReusables.LabelWrap;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.helpers.Calc;
 import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
@@ -47,7 +46,7 @@ public class AssetStructureAnalyzeStart {
             str.append(SrtuctureItemsLoop.loop(currentItems,
                     currentVal,
                     "The most significant items of the current assets were ",
-                    " etc.",
+                    " etc. ",
                     period));
         }
         if (nonCurrentVal != null && nonCurrentVal > 0) {

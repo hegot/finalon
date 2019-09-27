@@ -26,6 +26,7 @@ public class StrReplacer {
         text = text.replace("AFTERSTART", Periods.getAfterStart());
         text = text.replace("STARTDATE", Periods.getStart());
         text = text.replace("COMPANYNAME", "“" + SettingsStorage.get("company") + "”");
+        text = text.replace("COMPANYS", "“" + SettingsStorage.get("company") + "`s”");
         text = text.replace("CURRENCY", SettingsStorage.get("defaultCurrency"));
         text = text.replace("AMOUNT", SettingsStorage.get("amount"));
         if (text.contains("AVERAGEVALUE")) {

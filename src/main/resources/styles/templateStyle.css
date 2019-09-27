@@ -59,12 +59,14 @@
 
 .template-screen .img-btn{
     -fx-background-color: transparent;
-    -fx-font-size: 12px;
-    -fx-text-fill: #FFFFFF;
-    -fx-padding: 5px;
+    -fx-padding: 2px;
     -fx-alignment:  baseline-left;
-    -fx-background-radius: 5em;
+    -fx-background-radius: 2em;
     -fx-cursor: hand;
+}
+
+.template-screen .buttons-cell{
+  -fx-padding: 10px 2px;
 }
 
 .template-screen .table-cell {
@@ -74,7 +76,15 @@
     -fx-pref-height: 25px;
 }
 
-.template-screen .templates-row-bold .templates-cell{
+.template-screen .templates-cell{
+    -fx-padding: 10px 10px 10px 3px;
+}
+
+.template-screen .templates-row-level-max .templates-cell{
     -fx-font-weight: bold;
-    -fx-padding: 10px 10px 10px 10px;
+    -fx-padding: 10px 10px 10px 40px;
+}
+
+.template-screen .templates-row-level-4 .templates-cell{
+    -fx-padding: 10px 10px 10px 20px;
 }

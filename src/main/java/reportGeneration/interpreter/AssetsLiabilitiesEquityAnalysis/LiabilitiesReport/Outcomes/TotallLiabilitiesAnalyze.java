@@ -77,18 +77,18 @@ public class TotallLiabilitiesAnalyze {
         return "There was a stable growth of the stockholders' equity value in " +
                 startDate + " - " + endDate +
                 ", which indicates that the company's assets would worth more " +
-                "after all claims upon those assets were paid. This means that " +
+                "after all claims upon those assets were paid. This means that ”" +
                 SettingsStorage.get("company") +
-                " was expanding. ";
+                "” was expanding. ";
     }
 
     private String decrease() {
         return "There was a stable decline in the stockholders' equity value in " +
                 startDate + " - " + endDate +
                 ", which indicates that the company's assets would worth less " +
-                "after all claims upon those assets were paid. This means that " +
+                "after all claims upon those assets were paid. This means that ”" +
                 SettingsStorage.get("company") +
-                " was degrading. ";
+                "” was degrading. ";
     }
 
     private String equal() {

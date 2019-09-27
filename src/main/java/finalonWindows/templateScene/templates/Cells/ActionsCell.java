@@ -41,15 +41,15 @@ public class ActionsCell {
                         return btn;
                     }
 
-                    private ImageButton addBtn() {
-                        ImageButton btn = new ImageButton("image/add-plus-button.png", 16);
+                    private ImageButton addBtn(int level) {
+                        ImageButton btn = new ImageButton("image/add-plus-button.png", 14);
                         btn.getStyleClass().add("img-btn");
                         btn.setOnAction((ActionEvent event) -> {
                             int index = getTableRow().getIndex();
                             Item item = (Item) this.getTableRow().getItem();
                             if (item != null) {
                                 TableView table = this.getTableView();
-                                Item itemNew = new Item(-1, "Set value here", "Set value here", true, false, item.getId(), item.getParentSheet(), 4, index);
+                                Item itemNew = new Item(-1, "Set indicator name here", "CodeProperty", true, false, item.getId(), item.getParentSheet(), level, index);
                                 table.getItems().add(index, itemNew);
                                 TemplateEditPage.getItems().add(itemNew);
                             }
@@ -63,7 +63,6 @@ public class ActionsCell {
                         if (empty) {
                             setGraphic(null);
                         } else {
-                            setStyle("-fx-padding:5px 15px");
                             HBox hBox = new HBox(10);
                             TableRow row = this.getTableRow();
                             if (row != null) {
@@ -71,9 +70,11 @@ public class ActionsCell {
                                 if (rowItem != null) {
                                     Integer level = rowItem.getLevel();
                                     if (level.equals(2) || level.equals(3)) {
-                                        hBox.getChildren().addAll(addBtn());
+                                        hBox.getChildren().addAll(addBtn(4));
                                     } else if (level.equals(4)) {
-                                        hBox.getChildren().add(removeBtn());
+                                        hBox.getChildren().addAll(addBtn(5), removeBtn());
+                                    } else if (level.equals(5)) {
+                                        hBox.getChildren().addAll(removeBtn());
                                     }
                                 }
                             }

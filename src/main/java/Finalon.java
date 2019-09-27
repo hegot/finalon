@@ -63,15 +63,15 @@ public class Finalon extends Application {
         window.show();
     }
 
-    private void checkBlockout(SceneSwitcher sceneSwitcher){
+    private void checkBlockout(SceneSwitcher sceneSwitcher) {
         String blocked = DbSettingHandler.getSetting(Setting.blocked);
-        if(blocked.equals("true")){
+        if (blocked.equals("true")) {
             sceneSwitcher.goTo(SceneName.DEATHSCREEN);
-        }else{
+        } else {
             String pass = StatTrigger.call(CallTypes.program_started_times);
-            if(pass.equals("yes")){
+            if (pass.equals("yes")) {
                 sceneSwitcher.goTo(SceneName.MAIN);
-            }else{
+            } else {
                 DbSettingHandler.updateSetting(Setting.blocked, "true");
                 sceneSwitcher.goTo(SceneName.DEATHSCREEN);
             }
