@@ -37,8 +37,7 @@ public class TemplateRow extends VBox {
     protected void editRowAction() {
         ObservableList<Item> items = DbItemHandler.getItems(item.getId());
         items.add(this.item);
-        TemplateEditPage editTpl = new TemplateEditPage(items);
-        SceneSwitcher.getWindow().getChildren().setAll(editTpl.getScene());
+        SceneSwitcher.getWindow().getChildren().setAll(TemplateEditPage.getScene(items));
     }
 
     @FXML

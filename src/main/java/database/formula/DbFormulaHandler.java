@@ -43,13 +43,14 @@ public class DbFormulaHandler extends DbHandlerBase {
     }
 
 
-    public static List<Formula> findUsage(String code, int rootIndustry) {
-        List<Formula> usages = new ArrayList<>();
-        List<Formula> finalUsages = new ArrayList<>();
+    public static Map<Integer, Formula> findUsage(String code, int rootIndustry) {
+        Map<Integer, Formula> usages = new HashMap<Integer, Formula>();
+        Map<Integer, Formula> finalUsages = new HashMap<Integer, Formula>();
         try (Statement statement = Connect.getConn().createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName, value, description, category, unit, parent FROM " + tableName + " WHERE value LIKE '%" + code + "%'");
             while (resultSet.next()) {
-                usages.add(
+                usages.put(
+                        resultSet.getInt("id"),
                         new Formula(
                                 resultSet.getInt("id"),
                                 resultSet.getString("name"),
@@ -63,11 +64,12 @@ public class DbFormulaHandler extends DbHandlerBase {
                 );
             }
             if (rootIndustry != 0) {
-                for (Formula formula : usages) {
+                for (Map.Entry<Integer, Formula> entry : usages.entrySet()) {
+                    Formula formula = entry.getValue();
                     if (formula != null) {
                         int parentIndustryId = formula.getParentIndustryID(formula.getParent());
                         if (parentIndustryId == rootIndustry) {
-                            finalUsages.add(formula);
+                            finalUsages.put(formula.getId(), formula);
                         }
                     }
                 }
@@ -81,10 +83,11 @@ public class DbFormulaHandler extends DbHandlerBase {
     }
 
     public static String usagesString(String code, int rootIndustry) {
-        List<Formula> usages = findUsage(code, rootIndustry);
+        Map<Integer, Formula> usages = findUsage(code, rootIndustry);
         StringBuilder builder = new StringBuilder();
         Set<String> names = new HashSet<String>();
-        for (Formula formula : usages) {
+        for (Map.Entry<Integer, Formula> entry : usages.entrySet()) {
+            Formula formula  = entry.getValue();
             names.add(formula.getName());
         }
         Iterator it = names.iterator();

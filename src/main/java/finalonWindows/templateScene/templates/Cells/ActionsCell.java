@@ -1,13 +1,22 @@
 package finalonWindows.templateScene.templates.Cells;
 
 import database.formula.DbFormulaHandler;
+import entities.Formula;
 import entities.Item;
 import finalonWindows.reusableComponents.ImageButton;
+import finalonWindows.reusableComponents.autocomplete.AutoCompleteTextArea;
 import finalonWindows.templateScene.templates.TemplateEditPage;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+import javafx.util.Pair;
+
+import java.util.List;
+import java.util.Map;
 
 public class ActionsCell {
     public static Callback<TableColumn<Item, Void>, TableCell<Item, Void>> getActionsFactory() {
@@ -23,15 +32,13 @@ public class ActionsCell {
                             TableView table = this.getTableView();
                             Item selectedItem = (Item) getTableRow().getItem();
                             if (selectedItem != null) {
-                                String usages = DbFormulaHandler.usagesString(selectedItem.getShortName(), 0);
-                                if (usages.length() > 0) {
-                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                                    alert.setTitle("Index deletion");
-                                    alert.setHeaderText("Index that you want to delete is used in such formulas: ");
-                                    alert.setContentText(usages
-                                            + "\n\nPlease edit formula calculation and remove index" +
-                                            "\nthere to be able to delete it.");
-                                    alert.showAndWait();
+                                Map<Integer, Formula> usages = DbFormulaHandler.findUsage(
+                                        selectedItem.getShortName(),
+                                        TemplateEditPage.getTplIndustry()
+                                );
+                                if (usages.size() > 0) {
+                                    FormulaUpdater updater = new FormulaUpdater(usages, table, selectedItem);
+                                    updater.showDialog();
                                 } else {
                                     table.getItems().remove(selectedItem);
                                     TemplateEditPage.getItems().remove(selectedItem);
@@ -40,6 +47,10 @@ public class ActionsCell {
                         });
                         return btn;
                     }
+
+
+
+
 
                     private ImageButton addBtn(int level) {
                         ImageButton btn = new ImageButton("image/add-plus-button.png", 14);

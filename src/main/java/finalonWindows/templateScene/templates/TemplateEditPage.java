@@ -25,12 +25,11 @@ import javafx.scene.text.Font;
 public class TemplateEditPage {
 
     private static ObservableList<Item> items = FXCollections.observableArrayList();
-    private TextField templateName;
-    private Integer industry;
+    private static TextField templateName;
+    private static Integer industry;
 
-    public TemplateEditPage(ObservableList<Item> itemsInput, int industryId) {
-        items = itemsInput;
-        industry = industryId;
+    public static Integer getTplIndustry(){
+        return industry;
     }
 
     public TemplateEditPage(ObservableList<Item> itemsInput) {
@@ -43,7 +42,31 @@ public class TemplateEditPage {
     }
 
 
-    public VBox getScene() {
+    public static VBox getScene(ObservableList<Item> itemsInput, int industryId) {
+        items = itemsInput;
+        industry = industryId;
+        return getBox();
+    }
+
+    public static VBox getScene(ObservableList<Item> itemsInput) {
+        items = itemsInput;
+        Item root = getRoot(itemsInput);
+        if(root != null){
+            industry = root.getParentSheet();
+        }
+        return getBox();
+    }
+
+    private static Item getRoot(ObservableList<Item> itemsInput) {
+        for (Item item : itemsInput) {
+            if (item.getParent() == 0) {
+                return item;
+            }
+        }
+        return null;
+    }
+
+    private static VBox getBox(){
         VBox vBox = new VBox();
         vBox.getStyleClass().add("template-screen");
         HBox hbox = new HBox(10);
@@ -57,7 +80,7 @@ public class TemplateEditPage {
         return vBox;
     }
 
-    HBox templateName() {
+    static HBox templateName() {
         HBox hbox = new HBox(10);
         hbox.getStyleClass().add("whiteBorderedPanel");
         Label label = new Label("Enter your template name: ");
@@ -79,7 +102,7 @@ public class TemplateEditPage {
         return hbox;
     }
 
-    Item getRoot() {
+    static Item getRoot() {
         for (Item item : items) {
             if (item.getParent() == 0) {
                 if (industry != null) {
@@ -92,7 +115,7 @@ public class TemplateEditPage {
     }
 
 
-    Button backButton() {
+    static Button backButton() {
         Button button = new Button("Back to Settings");
         button.getStyleClass().add("blue-btn");
         button.setOnAction(new EventHandler<ActionEvent>() {
@@ -104,7 +127,7 @@ public class TemplateEditPage {
         return button;
     }
 
-    Button saveTemplateButton() {
+    static Button saveTemplateButton() {
         Button button = new Button("Save Template");
         button.getStyleClass().add("blue-btn");
         StatTrigger.call(CallTypes.templates_customization_times);

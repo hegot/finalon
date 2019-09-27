@@ -44,7 +44,7 @@ public class SceneSwitcher {
                 break;
             case ADDTEMPLATE:
                 ObservableList<Item> items = FXCollections.observableArrayList(DefaultTemplate.getTpl());
-                vbox = new TemplateEditPage(items).getScene();
+                vbox = TemplateEditPage.getScene(items);
                 break;
             case FORMULA:
                 vbox = new FormulaScene().getScene();
@@ -65,7 +65,7 @@ public class SceneSwitcher {
         switch (sceneName) {
             case ADDTEMPLATE:
                 ObservableList<Item> items = FXCollections.observableArrayList(DefaultTemplate.getTpl());
-                vbox = new TemplateEditPage(items, id).getScene();
+                vbox = TemplateEditPage.getScene(items, id);
                 break;
         }
         window.getChildren().setAll(vbox);

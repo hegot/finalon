@@ -8,6 +8,7 @@ import finalonWindows.templateScene.templates.TemplateEditPage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class TemplateBase {
 
@@ -46,12 +47,13 @@ public class TemplateBase {
                 Integer rootIndustryId = getRoot().getParentSheet();
                 Item starter = DbItemHandler.getItem(item.getId());
                 if (starter != null && starter.getShortName().length() > 0) {
-                    List<Formula> usages = DbFormulaHandler.findUsage(
+                    Map<Integer, Formula> usages = DbFormulaHandler.findUsage(
                             starter.getShortName(),
                             rootIndustryId
                     );
                     if (usages != null && usages.size() > 0) {
-                        for (Formula formula : usages) {
+                        for (Map.Entry<Integer, Formula> entry : usages.entrySet()) {
+                            Formula formula  = entry.getValue();
                             String value = formula.getValue();
                             value = value.replace(starter.getShortName(), item.getShortName());
                             formula.setValue(value);
