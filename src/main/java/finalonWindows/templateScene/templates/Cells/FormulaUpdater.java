@@ -89,11 +89,10 @@ public class FormulaUpdater {
             public void handle(ActionEvent e) {
                 try {
                     for (Map.Entry<Integer, AutoCompleteTextArea> entry : formulaMap.entrySet()) {
-                        DbFormulaHandler.deleteItem(entry.getKey());
+                        TemplateEditPage.addFormulaDelete(entry.getKey());
                     }
                     table.getItems().remove(selectedItem);
                     TemplateEditPage.getItems().remove(selectedItem);
-
                 } catch (Exception exception) {
                     System.out.println("Error while deleting index and formulas");
                 }
@@ -112,7 +111,7 @@ public class FormulaUpdater {
                 try {
                     Boolean contains = false;
                     for (Map.Entry<Integer, AutoCompleteTextArea> entry : formulaMap.entrySet()) {
-                       Formula formula = usages.get(entry.getKey());
+                        Formula formula = usages.get(entry.getKey());
                         AutoCompleteTextArea editor = entry.getValue();
                         String output = editor.getText();
                         contains = output.contains(selectedItem.getShortName());
@@ -121,7 +120,7 @@ public class FormulaUpdater {
                             break;
                         }else{
                             formula.setValue(output);
-                            DbFormulaHandler.updateFormula(formula);
+                            TemplateEditPage.addFormulaUpdate(formula);
                         }
                     }
                     if(!contains){

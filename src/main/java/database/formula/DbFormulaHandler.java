@@ -145,7 +145,7 @@ public class DbFormulaHandler extends DbHandlerBase {
     }
 
 
-    public static int addFormula(Formula Formula) throws SQLException {
+    public static int addFormula(Formula Formula) {
         try {
             StatTrigger.call(CallTypes.formula_customization_times);
             String[] returnId = {"id"};
@@ -176,7 +176,7 @@ public class DbFormulaHandler extends DbHandlerBase {
         return 0;
     }
 
-    public static void updateFormula(Formula Formula) throws SQLException {
+    public static void updateFormula(Formula Formula) {
         StatTrigger.call(CallTypes.formula_customization_times);
         if (itemExists(Formula.getId(), tableName)) {
             try (PreparedStatement statement = Connect.getConn().prepareStatement(

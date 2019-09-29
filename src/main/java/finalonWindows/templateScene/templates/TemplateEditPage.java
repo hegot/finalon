@@ -22,13 +22,27 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TemplateEditPage {
 
     private static ObservableList<Item> items = FXCollections.observableArrayList();
     private static TextField templateName;
     private static Integer industry;
+    private static Boolean isCreating = false;
+    private static List<Formula> formulasUpdate = new ArrayList<Formula>();
+    private static List<Integer> formulasDelete = new ArrayList<Integer>();
 
-    public static Integer getTplIndustry(){
+    public static void addFormulaUpdate(Formula formula) {
+        formulasUpdate.add(formula);
+    }
+
+    public static void addFormulaDelete(Integer id) {
+        formulasDelete.add(id);
+    }
+
+    public static Integer getTplIndustry() {
         return industry;
     }
 
@@ -45,15 +59,17 @@ public class TemplateEditPage {
     public static VBox getScene(ObservableList<Item> itemsInput, int industryId) {
         items = itemsInput;
         industry = industryId;
+        isCreating = true;
         return getBox();
     }
 
     public static VBox getScene(ObservableList<Item> itemsInput) {
         items = itemsInput;
         Item root = getRoot(itemsInput);
-        if(root != null){
+        if (root != null) {
             industry = root.getParentSheet();
         }
+        isCreating = false;
         return getBox();
     }
 
@@ -66,7 +82,7 @@ public class TemplateEditPage {
         return null;
     }
 
-    private static VBox getBox(){
+    private static VBox getBox() {
         VBox vBox = new VBox();
         vBox.getStyleClass().add("template-screen");
         HBox hbox = new HBox(10);
@@ -137,13 +153,14 @@ public class TemplateEditPage {
                 if ((templateName.getText() != null && !templateName.getText().isEmpty())) {
                     Item rootItem = getRoot();
                     rootItem.setName(templateName.getText());
-                    if (industry != null) {
+                    if (isCreating) {
                         TemplateSaveHandler saver = new TemplateSaveHandler(templateName.getText());
                         saver.saveTpl();
                     } else {
                         TemplateUpdateHandler updater = new TemplateUpdateHandler(templateName.getText());
                         updater.updateTpl();
                     }
+                    updateFormulas();
                     StatTrigger.call(CallTypes.templates_customization_times);
                     SceneSwitcher.goTo(SceneName.TEMPLATESLIST);
                 } else {
@@ -154,6 +171,17 @@ public class TemplateEditPage {
         return button;
     }
 
+
+    private static void updateFormulas() {
+        for (Formula formula : formulasUpdate) {
+            DbFormulaHandler.updateFormula(formula);
+        }
+        formulasUpdate = new ArrayList<>();
+        for (Integer id : formulasDelete) {
+            DbFormulaHandler.deleteItem(id);
+        }
+        formulasDelete = new ArrayList<>();
+    }
 }
 
 
