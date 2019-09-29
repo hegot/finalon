@@ -52,7 +52,9 @@ public class ItemPeriodEditCell extends TableCell<Item, String> {
         textField.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
             if (!isNowFocused) {
                 this.getTableView().refresh();
-                UpdateParentCell.run(item, colName);
+                if(!item.getLevel().equals(5)){
+                    UpdateParentCell.run(item, colName);
+                }
             }
         });
         return textField;
