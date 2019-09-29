@@ -81,7 +81,7 @@ public class SortableList {
             for (Formula item : items) {
                 try {
                     DbFormulaHandler.updateFormula(item);
-                } catch (SQLException e) {
+                } catch (Exception e) {
                     System.out.println("Formula reordering save error");
                 }
             }

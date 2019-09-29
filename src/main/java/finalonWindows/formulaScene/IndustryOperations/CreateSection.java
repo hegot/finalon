@@ -82,7 +82,7 @@ public class CreateSection extends FormulaAddBase {
             for (Formula item : itemsNew) {
                 try {
                     DbFormulaHandler.updateFormula(item);
-                } catch (SQLException e) {
+                } catch (Exception e) {
                     System.out.println("Formula reordering save error");
                 }
             }

@@ -12,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
@@ -97,6 +98,31 @@ public class StepTwo {
 
     private TableView<Item> getTable(int Id) {
         TableView<Item> table = new TableView<>();
+        table.setRowFactory(row -> new TableRow<Item>() {
+            @Override
+            public void updateItem(Item item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item != null && !empty) {
+                    Integer level = item.getLevel();
+                    getStyleClass().removeAll("templates-row-level-1", "templates-row-level-2", "templates-row-level-3", "templates-row-level-4", "templates-row-level-5");
+                    if (level.equals(1)) {
+                        getStyleClass().add("templates-row-level-1");
+                    }
+                    if (level.equals(2)) {
+                        getStyleClass().add("templates-row-level-2");
+                    }
+                    if (level.equals(3)) {
+                        getStyleClass().add("templates-row-level-3");
+                    }
+                    if (level.equals(4)) {
+                        getStyleClass().add("templates-row-level-4");
+                    }
+                    if (level.equals(5)) {
+                        getStyleClass().add("templates-row-level-5");
+                    }
+                }
+            }
+        });
         ItemsGetter itemsGetter = new ItemsGetter(Id, this.items);
         ObservableList<Item> items = itemsGetter.getItems();
         table.getItems().addAll(items);

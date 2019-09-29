@@ -29,7 +29,7 @@ public class FormulaEditor extends FormulaBase {
     private void updateItem(Formula formula) {
         try {
             DbFormulaHandler.updateFormula(formula);
-        } catch (SQLException se) {
+        } catch (Exception se) {
             se.printStackTrace();
         }
     }

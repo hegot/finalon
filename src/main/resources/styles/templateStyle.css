@@ -76,15 +76,27 @@
     -fx-pref-height: 25px;
 }
 
-.template-screen .templates-cell{
-    -fx-padding: 10px 10px 10px 3px;
+
+.template-screen .templates-row-level-1 .templates-cell{
+    -fx-padding: 10px 10px 10px 80px;
+    -fx-font-weight: bold;
 }
 
-.template-screen .templates-row-level-max .templates-cell{
+.template-screen .templates-row-level-2 .templates-cell{
+    -fx-padding: 10px 10px 10px 60px;
     -fx-font-weight: bold;
+}
+
+.template-screen .templates-row-level-3 .templates-cell{
     -fx-padding: 10px 10px 10px 40px;
+    -fx-font-weight: bold;
 }
 
 .template-screen .templates-row-level-4 .templates-cell{
+    -fx-padding: 10px 10px 10px 5px;
+}
+
+.template-screen .templates-row-level-5 .templates-cell{
     -fx-padding: 10px 10px 10px 20px;
+    -fx-font-style: italic;
 }

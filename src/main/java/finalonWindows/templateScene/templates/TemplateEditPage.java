@@ -5,6 +5,7 @@ import entities.Formula;
 import entities.Item;
 import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
+import finalonWindows.templateScene.templates.Cells.FormulaStorage;
 import finalonWindows.templateScene.templates.EventHandlers.TemplateSaveHandler;
 import finalonWindows.templateScene.templates.EventHandlers.TemplateUpdateHandler;
 import globalReusables.CallTypes;
@@ -22,34 +23,21 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class TemplateEditPage {
 
     private static ObservableList<Item> items = FXCollections.observableArrayList();
     private static TextField templateName;
     private static Integer industry;
     private static Boolean isCreating = false;
-    private static List<Formula> formulasUpdate = new ArrayList<Formula>();
-    private static List<Integer> formulasDelete = new ArrayList<Integer>();
-
-    public static void addFormulaUpdate(Formula formula) {
-        formulasUpdate.add(formula);
-    }
-
-    public static void addFormulaDelete(Integer id) {
-        formulasDelete.add(id);
-    }
-
-    public static Integer getTplIndustry() {
-        return industry;
-    }
 
     public TemplateEditPage(ObservableList<Item> itemsInput) {
         items = itemsInput;
     }
 
+
+    public static Integer getTplIndustry() {
+        return industry;
+    }
 
     public static ObservableList<Item> getItems() {
         return items;
@@ -160,7 +148,7 @@ public class TemplateEditPage {
                         TemplateUpdateHandler updater = new TemplateUpdateHandler(templateName.getText());
                         updater.updateTpl();
                     }
-                    updateFormulas();
+                    FormulaStorage.updateFormulas();
                     StatTrigger.call(CallTypes.templates_customization_times);
                     SceneSwitcher.goTo(SceneName.TEMPLATESLIST);
                 } else {
@@ -172,16 +160,7 @@ public class TemplateEditPage {
     }
 
 
-    private static void updateFormulas() {
-        for (Formula formula : formulasUpdate) {
-            DbFormulaHandler.updateFormula(formula);
-        }
-        formulasUpdate = new ArrayList<>();
-        for (Integer id : formulasDelete) {
-            DbFormulaHandler.deleteItem(id);
-        }
-        formulasDelete = new ArrayList<>();
-    }
+
 }
 
 

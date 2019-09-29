@@ -26,13 +26,13 @@ public class DefaultTemplate {
         counter++;
 
         int AssetsGeneral = counter;
-        Items.add(new Item(AssetsGeneral, "Assets", "AssetsGeneral", true, false, SOFP, SOFP, 1));
+        Items.add(new Item(AssetsGeneral, "Assets", "AssetsGeneral", true, false, SOFP, SOFP, 2));
         counter++;
         int NonCurrentAssets = counter;
-        Items.add(new Item(NonCurrentAssets, "Non-current assets", "NonCurrentAssets", true, false, AssetsGeneral, SOFP, 2));
+        Items.add(new Item(NonCurrentAssets, "Non-current assets", "NonCurrentAssets", true, false, AssetsGeneral, SOFP, 3));
         counter++;
         int GeneralCurrentAssets = counter;
-        Items.add(new Item(GeneralCurrentAssets, "Current assets", "GeneralCurrentAssets", true, false, AssetsGeneral, SOFP, 2));
+        Items.add(new Item(GeneralCurrentAssets, "Current assets", "GeneralCurrentAssets", true, false, AssetsGeneral, SOFP, 3));
         counter++;
 
         //Equity And Liabilities
@@ -45,7 +45,7 @@ public class DefaultTemplate {
         counter++;
 
         int LiabilitiesGeneral = counter;
-        Items.add(new Item(LiabilitiesGeneral, "Liabilities", "LiabilitiesGeneral", true, false, EquityAndLiabilities, SOFP, 1));
+        Items.add(new Item(LiabilitiesGeneral, "Liabilities", "LiabilitiesGeneral", true, false, EquityAndLiabilities, SOFP, 2));
         counter++;
         int NonCurrentLiabilities = counter;
         Items.add(new Item(NonCurrentLiabilities, "Non-current liabilities", "NonCurrentLiabilities", true, false, LiabilitiesGeneral, SOFP, 3));
@@ -203,12 +203,12 @@ public class DefaultTemplate {
         //Statement of Comprehensive Income (P&L Statement)
 
         int ComprehensiveIncomeGeneral = counter;
-        Items.add(new Item(ComprehensiveIncomeGeneral, "Comprehensive Income", "ComprehensiveIncomeGeneral", true, true, SOCI, SOCI, 1));
+        Items.add(new Item(ComprehensiveIncomeGeneral, "Comprehensive Income", "ComprehensiveIncomeGeneral", true, true, SOCI, SOCI, 2));
         counter++;
 
 
         int GrossProfit = counter;
-        Items.add(new Item(GrossProfit, "Gross profit", "GrossProfit", true, true, ComprehensiveIncomeGeneral, SOCI, 2));
+        Items.add(new Item(GrossProfit, "Gross profit", "GrossProfit", true, true, ComprehensiveIncomeGeneral, SOCI, 3));
         counter++;
         int RevenueGeneral = counter;
         Items.add(new Item(RevenueGeneral, "RevenueGeneral", "RevenueGeneral", true, false, GrossProfit, SOCI, 4));
@@ -219,7 +219,7 @@ public class DefaultTemplate {
 
 
         int ProfitLossFromOperatingActivities = counter;
-        Items.add(new Item(ProfitLossFromOperatingActivities, "Profit (loss) from operating activities", "ProfitLossFromOperatingActivities", true, true, ComprehensiveIncomeGeneral, SOCI, 2));
+        Items.add(new Item(ProfitLossFromOperatingActivities, "Profit (loss) from operating activities", "ProfitLossFromOperatingActivities", true, true, ComprehensiveIncomeGeneral, SOCI, 3));
         counter++;
         int OtherIncomeGeneral = counter;
         Items.add(new Item(OtherIncomeGeneral, "Other income", "OtherIncomeGeneral", true, false, ProfitLossFromOperatingActivities, SOCI, 4));
@@ -239,7 +239,7 @@ public class DefaultTemplate {
 
 
         int ProfitLossBeforeTax = counter;
-        Items.add(new Item(ProfitLossBeforeTax, "Profit (loss) before tax", "ProfitLossBeforeTax", true, true, ComprehensiveIncomeGeneral, SOCI, 2));
+        Items.add(new Item(ProfitLossBeforeTax, "Profit (loss) before tax", "ProfitLossBeforeTax", true, true, ComprehensiveIncomeGeneral, SOCI, 3));
         counter++;
         int DifferenceBetweenCarryingAmountOfDividendsPayableAndCarryingAmountOfNoncashAssetsDistributed = counter;
         Items.add(new Item(DifferenceBetweenCarryingAmountOfDividendsPayableAndCarryingAmountOfNoncashAssetsDistributed, "Difference between carrying amount of dividends payable and carrying amount of non-cash assets distributed", "DifferenceBetweenCarryingAmountOfDividendsPayableAndCarryingAmountOfNoncashAssetsDistributed", true, false, ProfitLossBeforeTax, SOCI, 4));
@@ -277,7 +277,7 @@ public class DefaultTemplate {
 
 
         int ProfitLossGeneral = counter;
-        Items.add(new Item(ProfitLossGeneral, "Profit (loss)", "ProfitLossGeneral", true, true, ComprehensiveIncomeGeneral, SOCI, 2));
+        Items.add(new Item(ProfitLossGeneral, "Profit (loss)", "ProfitLossGeneral", true, true, ComprehensiveIncomeGeneral, SOCI, 3));
         counter++;
         int IncomeTaxExpenseContinuingOperations = counter;
         Items.add(new Item(IncomeTaxExpenseContinuingOperations, "Income tax expense (from continuing operations)", "IncomeTaxExpenseContinuingOperations", false, false, ProfitLossGeneral, SOCI, 4));

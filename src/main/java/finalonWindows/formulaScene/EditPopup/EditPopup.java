@@ -133,7 +133,7 @@ public class EditPopup {
                     DbFormulaHandler.updateFormula(child);
                 }
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }

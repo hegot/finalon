@@ -8,7 +8,7 @@ class FormulaBase {
     int createFormula(Formula formula) {
         try {
             return DbFormulaHandler.addFormula(formula);
-        } catch (SQLException se) {
+        } catch (Exception se) {
             se.printStackTrace();
         }
         return 0;

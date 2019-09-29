@@ -24,7 +24,7 @@ public class TotallAssetsAnalyze {
         if (item.getValues().size() > 1) {
             this.first = item.getFirstVal();
             this.last = item.getLastVal();
-            if(first != null){
+            if (first != null) {
                 SettingsStorage.put("assetsStartValue", Double.toString(first));
             }
         }

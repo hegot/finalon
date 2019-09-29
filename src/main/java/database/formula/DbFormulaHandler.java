@@ -87,7 +87,7 @@ public class DbFormulaHandler extends DbHandlerBase {
         StringBuilder builder = new StringBuilder();
         Set<String> names = new HashSet<String>();
         for (Map.Entry<Integer, Formula> entry : usages.entrySet()) {
-            Formula formula  = entry.getValue();
+            Formula formula = entry.getValue();
             names.add(formula.getName());
         }
         Iterator it = names.iterator();

@@ -15,6 +15,7 @@ class Columns {
         col.setEditable(false);
         col.setSortable(false);
         col.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
+        col.getStyleClass().add("report-cell");
         col.setCellFactory(column -> {
             return new TableCell<Item, String>() {
                 @Override
@@ -25,11 +26,6 @@ class Columns {
                         setStyle("");
                     } else {
                         setText(item);
-                        Item index = getTableView().getItems().get(getTableRow().getIndex());
-                        Integer level = index.getLevel();
-                        if (level.equals(1) || level.equals(2) || level.equals(3)) {
-                            setStyle("-fx-padding: 5 0 5 50; -fx-font-weight: bold;");
-                        }
                     }
                 }
             };

@@ -69,11 +69,11 @@ public class Finalon extends Application {
             sceneSwitcher.goTo(SceneName.DEATHSCREEN);
         } else {
             String pass = StatTrigger.call(CallTypes.program_started_times);
-            if (pass.equals("yes")) {
-                sceneSwitcher.goTo(SceneName.MAIN);
-            } else {
+            if (pass.equals("no")) {
                 DbSettingHandler.updateSetting(Setting.blocked, "true");
                 sceneSwitcher.goTo(SceneName.DEATHSCREEN);
+            } else {
+                sceneSwitcher.goTo(SceneName.MAIN);
             }
         }
     }

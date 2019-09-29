@@ -60,13 +60,21 @@ class TemplateEditTable {
                 super.updateItem(item, empty);
                 if (item != null && !empty) {
                     Integer level = item.getLevel();
-                    getStyleClass().remove("templates-row-level-max");
-                    getStyleClass().remove("templates-row-level-4");
-                    if (level.equals(1) || level.equals(2) || level.equals(3)) {
-                        getStyleClass().add("templates-row-level-max");
+                    getStyleClass().removeAll("templates-row-level-1", "templates-row-level-2", "templates-row-level-3", "templates-row-level-4", "templates-row-level-5");
+                    if (level.equals(1)) {
+                        getStyleClass().add("templates-row-level-1");
+                    }
+                    if (level.equals(2)) {
+                        getStyleClass().add("templates-row-level-2");
+                    }
+                    if (level.equals(3)) {
+                        getStyleClass().add("templates-row-level-3");
                     }
                     if (level.equals(4)) {
                         getStyleClass().add("templates-row-level-4");
+                    }
+                    if (level.equals(5)) {
+                        getStyleClass().add("templates-row-level-5");
                     }
                 }
             }

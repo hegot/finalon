@@ -53,7 +53,7 @@ public class TemplateBase {
                     );
                     if (usages != null && usages.size() > 0) {
                         for (Map.Entry<Integer, Formula> entry : usages.entrySet()) {
-                            Formula formula  = entry.getValue();
+                            Formula formula = entry.getValue();
                             String value = formula.getValue();
                             value = value.replace(starter.getShortName(), item.getShortName());
                             formula.setValue(value);
