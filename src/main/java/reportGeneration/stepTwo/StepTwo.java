@@ -19,6 +19,7 @@ import reportGeneration.storage.Periods;
 import reportGeneration.storage.SettingsStorage;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class StepTwo {
     private ObservableList<Item> items;
@@ -125,6 +126,7 @@ public class StepTwo {
         });
         ItemsGetter itemsGetter = new ItemsGetter(Id, this.items);
         ObservableList<Item> items = itemsGetter.getItems();
+        Collections.sort(items);
         table.getItems().addAll(items);
         return table;
     }
