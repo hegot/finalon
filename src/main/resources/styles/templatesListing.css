@@ -110,6 +110,7 @@
     -fx-alignment: center;
 }
 
+.formula-edit .whiteBorderedPanel,
 .templates-listing .whiteBorderedPanel{
     -fx-padding: 15;
     -fx-border-style: solid outside;
@@ -120,6 +121,7 @@
     -fx-background-color: #fff;
 }
 
+.formula-edit .blue-btn,
 .templates-listing .blue-btn{
     -fx-background-color:#3f5872;
     -fx-font-size: 14px;

@@ -25,7 +25,7 @@ public class ReportRow extends VBox {
 
     public ReportRow(Report item) {
         this.item = item;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/settings/templateRow.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/listing/templateRow.fxml"));
         fxmlLoader.getNamespace().put("labelText", item.getName());
         fxmlLoader.getNamespace().put("describtionText", "Industry: " + item.getIndustryName());
         fxmlLoader.setRoot(this);

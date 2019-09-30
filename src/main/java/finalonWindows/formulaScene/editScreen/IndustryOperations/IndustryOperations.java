@@ -1,7 +1,7 @@
-package finalonWindows.formulaScene.IndustryOperations;
+package finalonWindows.formulaScene.editScreen.IndustryOperations;
 
 import entities.Formula;
-import finalonWindows.formulaScene.SortedSections;
+import finalonWindows.formulaScene.editScreen.SortedSections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
@@ -44,22 +44,10 @@ public class IndustryOperations {
         vBox.setAlignment(Pos.CENTER);
         vBox.getChildren().addAll(
                 createSectionBtn(),
-                removeIndustryBtn(),
                 reorderSectionBtn()
         );
         return vBox;
     }
-
-    private Button removeIndustryBtn() {
-        Button btn = new Button("Delete industry");
-        btn.getStyleClass().add("popup-btn");
-        btn.setOnAction((ActionEvent event) -> {
-            VBox newContent = new DeleteIndustry(industry, dialog).getContent();
-            container.getChildren().setAll(newContent);
-        });
-        return btn;
-    }
-
 
     private Button createSectionBtn() {
         Button btn = new Button("Add Section");

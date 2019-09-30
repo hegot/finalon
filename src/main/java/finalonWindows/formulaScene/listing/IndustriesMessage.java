@@ -1,14 +1,14 @@
-package finalonWindows.templateScene.listing;
+package finalonWindows.formulaScene.listing;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
-public class SettingsMessage extends VBox {
+public class IndustriesMessage extends VBox {
 
-    public SettingsMessage() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/listing/templatesMessage.fxml"));
+    public IndustriesMessage() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/listing/industriesMessage.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         try {

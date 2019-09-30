@@ -3,7 +3,8 @@ package finalonWindows;
 import defaultData.DefaultTemplate;
 import entities.Item;
 import finalonWindows.DeathScreen.DeathScreen;
-import finalonWindows.formulaScene.FormulaScene;
+import finalonWindows.formulaScene.editScreen.IndustryEdit;
+import finalonWindows.formulaScene.listing.IndustriesListing;
 import finalonWindows.mainScene.MainScene;
 import finalonWindows.reportsScene.ReportsListing;
 import finalonWindows.settingsScene.SettingsScene;
@@ -46,8 +47,11 @@ public class SceneSwitcher {
                 ObservableList<Item> items = FXCollections.observableArrayList(DefaultTemplate.getTpl());
                 vbox = TemplateEditPage.getScene(items);
                 break;
-            case FORMULA:
-                vbox = new FormulaScene().getScene();
+            case FORMULALIST:
+                vbox = new IndustriesListing().getScene();
+                break;
+            case ADDINDUSTRY:
+                vbox = new IndustryEdit().getScene();
                 break;
             case ADDREPORT:
                 vbox = new AddReportScene().getScene();

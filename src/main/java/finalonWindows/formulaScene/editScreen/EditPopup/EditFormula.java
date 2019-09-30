@@ -1,4 +1,4 @@
-package finalonWindows.formulaScene.EditPopup;
+package finalonWindows.formulaScene.editScreen.EditPopup;
 
 import entities.Formula;
 import finalonWindows.reusableComponents.autocomplete.AutoCompleteTextArea;

@@ -22,7 +22,7 @@ import java.util.Optional;
 public class AddTemplateBtn extends HBox {
 
     public AddTemplateBtn(String text) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/settings/addTplBtn.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/listing/addTplBtn.fxml"));
         fxmlLoader.getNamespace().put("labelText", text);
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);

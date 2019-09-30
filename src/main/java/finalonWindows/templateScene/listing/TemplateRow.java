@@ -22,7 +22,7 @@ public class TemplateRow extends VBox {
 
     public TemplateRow(Item item) {
         this.item = item;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/settings/templateRow.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/listing/templateRow.fxml"));
         fxmlLoader.getNamespace().put("labelText", item.getName());
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);

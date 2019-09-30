@@ -1,4 +1,4 @@
-package finalonWindows.formulaScene;
+package finalonWindows.formulaScene.editScreen;
 
 import database.formula.DbFormulaHandler;
 import entities.Formula;

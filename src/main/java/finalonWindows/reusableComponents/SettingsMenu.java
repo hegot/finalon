@@ -59,7 +59,7 @@ public class SettingsMenu {
         formulas.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                SceneSwitcher.goTo(SceneName.FORMULA);
+                SceneSwitcher.goTo(SceneName.FORMULALIST);
             }
         });
         return formulas;

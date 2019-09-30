@@ -1,10 +1,10 @@
-package finalonWindows.formulaScene.IndustryOperations;
+package finalonWindows.formulaScene.editScreen.IndustryOperations;
 
 import database.formula.DbFormulaHandler;
 import entities.Formula;
-import finalonWindows.formulaScene.FormulaAddBase;
-import finalonWindows.formulaScene.FormulaEditable;
-import finalonWindows.formulaScene.SortedSections;
+import finalonWindows.formulaScene.editScreen.FormulaAddBase;
+import finalonWindows.formulaScene.editScreen.FormulaEditable;
+import finalonWindows.formulaScene.editScreen.SortedSections;
 import globalReusables.CancelBtn;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,7 +16,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 

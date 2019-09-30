@@ -1,9 +1,9 @@
-package finalonWindows.formulaScene.EditPopup;
+package finalonWindows.formulaScene.editScreen.EditPopup;
 
 import database.formula.DbFormulaHandler;
 import defaultData.EvaluationTypes;
 import entities.Formula;
-import finalonWindows.formulaScene.FormulaEditable;
+import finalonWindows.formulaScene.editScreen.FormulaEditable;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,7 +12,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 

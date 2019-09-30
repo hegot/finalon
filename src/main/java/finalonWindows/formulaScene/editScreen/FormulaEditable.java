@@ -1,8 +1,8 @@
-package finalonWindows.formulaScene;
+package finalonWindows.formulaScene.editScreen;
 
 import database.formula.DbFormulaHandler;
 import entities.Formula;
-import finalonWindows.formulaScene.EditPopup.EditPopup;
+import finalonWindows.formulaScene.editScreen.EditPopup.EditPopup;
 import globalReusables.StandardAndIndustry;
 import javafx.collections.ObservableList;
 import javafx.geometry.Rectangle2D;
@@ -13,16 +13,18 @@ import javafx.stage.Screen;
 
 public class FormulaEditable {
 
-    private static TreeTableView<Formula> table = createFormulaTable();
+    private static int rootId;
+    private static TreeTableView<Formula> table;
 
 
-    public static TreeTableView getFormulaTable() {
+    public static TreeTableView getFormulaTable(int root) {
+        rootId = root;
+        table = createFormulaTable();
         return table;
     }
 
     private static TreeTableView<Formula> createFormulaTable() {
         TreeTableView<Formula> tbl = new TreeTableView<>();
-        int rootId = StandardAndIndustry.getIndustryId();
         Formula rootIndustry = DbFormulaHandler.findById(rootId);
         tbl.setEditable(false);
         tbl.setMinWidth(880);
@@ -104,7 +106,6 @@ public class FormulaEditable {
         TreeItem<Formula> rootNode = new TreeItem<Formula>(rootIndustry);
         if (rootIndustry != null) {
             rootNode.setExpanded(true);
-
             attachChilds(rootIndustry.getId(), rootNode);
         }
         return rootNode;
