@@ -4,7 +4,8 @@
 <?import javafx.scene.layout.VBox?>
 <fx:root xmlns:fx="http://javafx.com/fxml/1" styleClass="settingsMessage" type="javafx.scene.layout.VBox"
          xmlns="http://javafx.com/javafx/8.0.121" maxWidth="900">
-    <Label text="Formula customization allows you to add/edit/delete formulas for certain industry you create." textFill="#6a6c6f"/>
+    <Label text="Formula customization allows you to add/edit/delete formulas for certain industry you create."
+           textFill="#6a6c6f"/>
     <Label text="You can add additional formulas and remove those you don`t need." textFill="#6a6c6f"/>
     <Label text="Also you can rearange entries for more comfortable data entrance." textFill="#6a6c6f"/>
 </fx:root>

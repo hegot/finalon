@@ -50,14 +50,9 @@ class EditFormula {
         textfield.setMinWidth(350);
         textfield.setText(value);
         textfield.textProperty().addListener((observable, oldValue, newValue) -> {
-            switch (key) {
-                case "name":
-                    formula.setName(newValue);
-                case "unit":
-                    formula.setUnit(newValue);
-                case "shortName":
-                    formula.setShortName(newValue);
-            }
+            if (key.equals("name")) formula.setName(newValue);
+            if (key.equals("unit")) formula.setUnit(newValue);
+            if (key.equals("shortName")) formula.setShortName(newValue);
         });
         hBox.getChildren().addAll(label, textfield);
         return hBox;

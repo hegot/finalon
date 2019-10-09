@@ -22,7 +22,7 @@ public class IndustryRow extends VBox {
     public IndustryRow(Formula formula) {
         this.formula = formula;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/listing/templateRow.fxml"));
-        if(coreIndustries()){
+        if (coreIndustries()) {
             fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/listing/emptyRow.fxml"));
         }
         fxmlLoader.getNamespace().put("labelText", formula.getName());

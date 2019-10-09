@@ -4,7 +4,6 @@ import database.formula.FormulaCreator;
 import entities.Formula;
 import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
-import finalonWindows.formulaScene.editScreen.FormulaEditable;
 import globalReusables.StandardAndIndustry;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -63,7 +62,7 @@ public class AddIndustryBtn extends HBox {
             try {
                 runTask();
                 Timeline timeline = new Timeline(new KeyFrame(
-                        Duration.millis(500),
+                        Duration.millis(700),
                         ae -> SceneSwitcher.goTo(SceneName.FORMULALIST)));
                 timeline.play();
 
@@ -74,7 +73,6 @@ public class AddIndustryBtn extends HBox {
         });
         return dialog;
     }
-
 
     private GridPane getContent() {
         GridPane grid = new GridPane();
@@ -88,7 +86,6 @@ public class AddIndustryBtn extends HBox {
         return grid;
     }
 
-
     private void runTask() {
         Task listLoader = new Task<Integer>() {
             {
@@ -97,6 +94,7 @@ public class AddIndustryBtn extends HBox {
                 });
                 setOnFailed(workerStateEvent -> getException().printStackTrace());
             }
+
             @Override
             protected Integer call() throws Exception {
                 FormulaCreator formulaCreator = new FormulaCreator(
@@ -107,18 +105,13 @@ public class AddIndustryBtn extends HBox {
                 return formulaCreator.getNewId();
             }
         };
-
         Thread loadingThread = new Thread(listLoader, "list-loader2");
         loadingThread.setDaemon(true);
         loadingThread.start();
-
     }
-
 
     @FXML
     protected void addIndustryAction() {
         showDialog();
     }
-
-
 }

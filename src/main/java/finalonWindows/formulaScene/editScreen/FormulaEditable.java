@@ -3,7 +3,7 @@ package finalonWindows.formulaScene.editScreen;
 import database.formula.DbFormulaHandler;
 import entities.Formula;
 import finalonWindows.formulaScene.editScreen.EditPopup.EditPopup;
-import globalReusables.StandardAndIndustry;
+import finalonWindows.formulaScene.editScreen.IndustryOperations.SortedSections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.*;
@@ -114,30 +114,34 @@ public class FormulaEditable {
     private static void attachChilds(int parentId, TreeItem<Formula> root) {
         ObservableList<Formula> childs = SortedSections.getSections(parentId);
         for (Formula child : childs) {
-            TreeItem treeItem = new TreeItem<Formula>(child);
-            treeItem.setExpanded(true);
-            root.getChildren().add(treeItem);
-            ObservableList<Formula> childs2 = DbFormulaHandler.getFormulas(child.getId());
-            for (Formula child2 : childs2) {
-                TreeItem treeItem2 = new TreeItem<Formula>(child2);
-                treeItem2.setExpanded(true);
-                treeItem.getChildren().add(treeItem2);
+            if(!coreSection(child)){
+                TreeItem treeItem = new TreeItem<Formula>(child);
+                treeItem.setExpanded(true);
+                root.getChildren().add(treeItem);
+                ObservableList<Formula> childs2 = DbFormulaHandler.getFormulas(child.getId());
+                for (Formula child2 : childs2) {
+                    TreeItem treeItem2 = new TreeItem<Formula>(child2);
+                    treeItem2.setExpanded(true);
+                    treeItem.getChildren().add(treeItem2);
+                }
             }
         }
     }
 
-    public static void refresh() {
-        updateTable(StandardAndIndustry.getIndustry().getValue());
+    private static Boolean coreSection(Formula formula){
+        if(formula.getShortName().equals("AssetsEquityStructureTrend") ||
+                formula.getShortName().equals("OverviewFinancialResults") ||
+                formula.getShortName().equals("FinancialRating")
+        ){
+            return true;
+        }
+        return false;
     }
 
-    public static void refreshWithId(Integer id) {
-        Formula formula = StandardAndIndustry.getIndustry().getValue();
-        if (id != null) {
-            formula = DbFormulaHandler.findById(id);
-        }
-        updateTable(formula);
-        StandardAndIndustry.refreshIndustry();
-        StandardAndIndustry.getIndustry().getSelectionModel().select(formula);
+    public static void refresh() {
+        Formula rootIndustry = DbFormulaHandler.findById(rootId);
+        updateTable(rootIndustry);
     }
+
 }
 

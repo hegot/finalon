@@ -1,7 +1,6 @@
 package finalonWindows.formulaScene.editScreen.IndustryOperations;
 
 import entities.Formula;
-import finalonWindows.formulaScene.editScreen.SortedSections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;

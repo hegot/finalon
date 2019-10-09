@@ -4,6 +4,7 @@
     -fx-text-fill: #FFFFFF;
     -fx-padding: 5px;
     -fx-alignment:  baseline-left;
+    -fx-border-color: #FFFFFF;
     -fx-background-radius: 5em;
     -fx-cursor: hand;
 }
@@ -42,7 +43,7 @@
     -fx-border-width: 1;
     -fx-border-radius: 2;
     -fx-border-color: #DDDDDD;
-    -fx-pref-width: 350px;
+    -fx-pref-width: 650px;
     -fx-background-color: #E6E6FA;
 }
 
@@ -53,13 +54,22 @@
     -fx-border-radius: 2;
 }
 
-.formula-edit .normative-remove-btn{
-    -fx-background-color: #A2CBDF;
+.normative-row{
+    -fx-border-style: solid outside;
+    -fx-border-width: 1;
+    -fx-border-color: #A8ACB0;
+    -fx-padding: 5;
+    -fx-pref-width: 750px;
+}
+
+.normative-remove-btn{
+    -fx-background-color:#3f5872;
     -fx-font-size: 0px;
     -fx-text-fill: #FFFFFF;
-    -fx-padding: 4px;
+    -fx-padding: 7;
     -fx-alignment:  baseline-left;
-    -fx-background-radius: 5em;
+    -fx-border-radius: 100px;
+    -fx-background-radius: 100px;
     -fx-cursor: hand;
 }
 

@@ -12,6 +12,14 @@ import javafx.scene.layout.VBox;
 
 public class IndustriesListing extends SceneBase {
 
+    private static TilePane getPane() {
+        TilePane tilePane = new TilePane();
+        tilePane.setStyle("-fx-padding:10px");
+        tilePane.setHgap(10);
+        tilePane.setVgap(10);
+        return tilePane;
+    }
+
     public VBox getScene() {
         VBox vbox = new VBox(0);
         vbox.getStyleClass().add("templates-listing");
@@ -56,14 +64,6 @@ public class IndustriesListing extends SceneBase {
                 new AddIndustryBtn("Add new industry: ")
         );
         return vbox;
-    }
-
-    private static TilePane getPane() {
-        TilePane tilePane = new TilePane();
-        tilePane.setStyle("-fx-padding:10px");
-        tilePane.setHgap(10);
-        tilePane.setVgap(10);
-        return tilePane;
     }
 }
 

@@ -21,7 +21,7 @@ public class FormulaStorage {
     }
 
 
-    public static Formula getFormulaUpdate(int id){
+    public static Formula getFormulaUpdate(int id) {
         return formulasUpdate.get(id);
     }
 

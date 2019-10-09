@@ -32,7 +32,7 @@ class Suggestions {
     Suggestions() {
         this.entries = getEntries();
         this.entriesPopup = new ContextMenu();
-        entriesPopup.setStyle("-fx-cursor: hand;");
+        entriesPopup.setStyle("-fx-cursor: hand; -fx-max-width:800px;");
         this.text = "";
         this.subSet = new TreeSet<String>();
     }
@@ -73,7 +73,7 @@ class Suggestions {
         if (endString != null && endString.length() > 0) {
             TreeSet<String> set = new TreeSet<String>();
             for (String entry : entries) {
-                if (entry.indexOf(endString) > -1) {
+                if (entry.toLowerCase().indexOf(endString.toLowerCase()) > -1) {
                     set.add(entry);
                 }
             }
@@ -93,10 +93,12 @@ class Suggestions {
         String ending = indexEnd <= len ? text.substring(indexEnd) : "";
         String beginning = indexStart <= len ? text.substring(0, indexStart) : "";
         String replacement = beginning + result + ending;
+        String caret = beginning + result;
         if (indexStart == 0 && indexEnd == 0) {
             anchor.setText(result);
         } else {
             anchor.setText(replacement);
+            anchor.positionCaret(caret.length());
         }
     }
 

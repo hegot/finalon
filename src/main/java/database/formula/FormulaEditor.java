@@ -3,8 +3,6 @@ package database.formula;
 import entities.Formula;
 import javafx.collections.ObservableList;
 
-import java.sql.SQLException;
-
 public class FormulaEditor extends FormulaBase {
     private ObservableList<Formula> formulas;
     private int rootId;

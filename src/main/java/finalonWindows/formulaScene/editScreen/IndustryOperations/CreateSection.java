@@ -2,9 +2,7 @@ package finalonWindows.formulaScene.editScreen.IndustryOperations;
 
 import database.formula.DbFormulaHandler;
 import entities.Formula;
-import finalonWindows.formulaScene.editScreen.FormulaAddBase;
 import finalonWindows.formulaScene.editScreen.FormulaEditable;
-import finalonWindows.formulaScene.editScreen.SortedSections;
 import globalReusables.CancelBtn;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

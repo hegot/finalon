@@ -1,4 +1,4 @@
-package finalonWindows.formulaScene.editScreen;
+package finalonWindows.formulaScene.editScreen.IndustryOperations;
 
 import database.formula.DbFormulaHandler;
 

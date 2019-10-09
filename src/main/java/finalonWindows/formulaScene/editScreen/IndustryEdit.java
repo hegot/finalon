@@ -1,6 +1,5 @@
 package finalonWindows.formulaScene.editScreen;
 
-import entities.Formula;
 import finalonWindows.SceneBase;
 import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
@@ -12,7 +11,6 @@ import javafx.scene.layout.VBox;
 
 public class IndustryEdit extends SceneBase {
 
-    public static Formula industry;
 
     public static VBox getScene() {
         return getBox(3);

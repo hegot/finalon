@@ -42,32 +42,37 @@ public class NormativeValues {
     private VBox normativeValues() {
         VBox vBoxOuter = new VBox(15);
         VBox vBox = new VBox(15);
-        vBox.setPadding(new Insets(10, 2, 10, 2));
-        vBox.setPrefWidth(550.00);
+        vBox.setPadding(new Insets(10));
+        vBox.setPrefWidth(650.00);
 
         for (Formula item : formula.getChildsOfType(type)) {
             if (filter(item)) {
                 HBox hbox = new HBox(10);
+                hbox.getStyleClass().add("normative-row");
                 VBox vBoxIn = new VBox(3);
                 vBoxIn.getStyleClass().add("normative-container");
-                Label label = new Label("Value Is");
-                Label label2 = new Label("And");
-                hbox.getChildren().addAll(
-                        label,
-                        comparator(item),
-                        value(item),
-                        label2,
-                        comparator2(item),
-                        value2(item),
-                        removeButton(item.getId())
-                );
-                vBoxIn.getChildren().addAll(hbox, conclusions(item));
-                vBox.getChildren().add(vBoxIn);
+                vBoxIn.getChildren().addAll(choices(item), conclusions(item));
+                hbox.getChildren().addAll(vBoxIn, removeButton(item.getId()));
+                vBox.getChildren().add(hbox);
             }
         }
         scrollPane.setContent(vBox);
         vBoxOuter.getChildren().addAll(scrollPane, addButton());
         return vBoxOuter;
+    }
+
+    private HBox choices(Formula item){
+        HBox hbox = new HBox(10);
+        hbox.setPrefWidth(650);
+        hbox.getChildren().addAll(
+                new Label("Value Is"),
+                comparator(item),
+                value(item),
+                new Label("And"),
+                comparator2(item),
+                value2(item)
+        );
+        return hbox;
     }
 
     private Boolean filter(Formula item) {
@@ -93,7 +98,7 @@ public class NormativeValues {
     }
 
     private Button removeButton(int Id) {
-        ImageButton btn = new ImageButton("image/removeBlack.png", 16);
+        ImageButton btn = new ImageButton("image/trash.png", 16);
         btn.getStyleClass().add("normative-remove-btn");
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
