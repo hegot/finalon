@@ -76,6 +76,7 @@ public class StepTwo {
 
     private TableView<Item> getSingleTable(int Id) {
         TableView<Item> table = getTable(Id);
+        table.setSelectionModel(null);
         table.getStyleClass().add("report-input");
         table.setEditable(true);
         table.setPrefHeight(1900);

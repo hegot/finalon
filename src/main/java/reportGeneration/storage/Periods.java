@@ -162,4 +162,23 @@ public class Periods {
         return time.format(formatM) + "/" + time.format(formatY);
     }
 
+    public static String next(String item) {
+        if (periodsArr.size() > 1) {
+            int index = periodsArr.indexOf(item) + 1;
+            if(index > 0 && periodsArr.size() >= index){
+                return  periodsArr.get(index);
+            }
+        }
+        return "";
+    }
+
+    public static String prev(String item) {
+        if (periodsArr.size() > 1) {
+            int index = periodsArr.indexOf(item) - 1;
+            if(index > -1){
+                return  periodsArr.get(index);
+            }
+        }
+        return "";
+    }
 }

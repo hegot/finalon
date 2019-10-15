@@ -114,7 +114,7 @@ public class FormulaEditable {
     private static void attachChilds(int parentId, TreeItem<Formula> root) {
         ObservableList<Formula> childs = SortedSections.getSections(parentId);
         for (Formula child : childs) {
-            if(!coreSection(child)){
+            if (!coreSection(child)) {
                 TreeItem treeItem = new TreeItem<Formula>(child);
                 treeItem.setExpanded(true);
                 root.getChildren().add(treeItem);
@@ -128,11 +128,11 @@ public class FormulaEditable {
         }
     }
 
-    private static Boolean coreSection(Formula formula){
-        if(formula.getShortName().equals("AssetsEquityStructureTrend") ||
+    private static Boolean coreSection(Formula formula) {
+        if (formula.getShortName().equals("AssetsEquityStructureTrend") ||
                 formula.getShortName().equals("OverviewFinancialResults") ||
                 formula.getShortName().equals("FinancialRating")
-        ){
+        ) {
             return true;
         }
         return false;

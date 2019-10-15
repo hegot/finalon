@@ -61,7 +61,7 @@ public class NormativeValues {
         return vBoxOuter;
     }
 
-    private HBox choices(Formula item){
+    private HBox choices(Formula item) {
         HBox hbox = new HBox(10);
         hbox.setPrefWidth(650);
         hbox.getChildren().addAll(
