@@ -64,8 +64,9 @@ public class DbFormulaHandler extends DbHandlerBase {
                 );
             }
             if (rootIndustry != 0) {
+                Formula formula;
                 for (Map.Entry<Integer, Formula> entry : usages.entrySet()) {
-                    Formula formula = entry.getValue();
+                    formula = entry.getValue();
                     if (formula != null) {
                         int parentIndustryId = formula.getParentIndustryID(formula.getParent());
                         if (parentIndustryId == rootIndustry) {
@@ -87,8 +88,7 @@ public class DbFormulaHandler extends DbHandlerBase {
         StringBuilder builder = new StringBuilder();
         Set<String> names = new HashSet<String>();
         for (Map.Entry<Integer, Formula> entry : usages.entrySet()) {
-            Formula formula = entry.getValue();
-            names.add(formula.getName());
+            names.add(entry.getValue().getName());
         }
         Iterator it = names.iterator();
         while (it.hasNext()) {

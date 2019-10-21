@@ -10,6 +10,7 @@ public class Report {
     private String settings;
     private String items;
     private String updated;
+    private String industry;
 
     public Report(
             int id,
@@ -65,7 +66,7 @@ public class Report {
         this.updated = updated;
     }
 
-    public String getIndustryName() {
+    public String getIndustry() {
         ObservableMap<String, String> settings = ReportJson.jsonToSettings(getSettings());
         String industryId = settings.get("industry");
         if (industryId != null && industryId.length() > 0) {

@@ -1,64 +1,58 @@
-package finalonWindows.templateScene.templates.Cells;
+package finalonWindows.reportsScene;
 
-import database.formula.DbFormulaHandler;
-import entities.Formula;
+import database.report.DbReportHandler;
 import entities.Item;
+import entities.Report;
+import finalonWindows.SceneName;
+import finalonWindows.SceneSwitcher;
 import finalonWindows.reusableComponents.ImageButton;
-import finalonWindows.templateScene.templates.TemplateEditPage;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
+import reportGeneration.reportJson.ReportJson;
+import reportGeneration.storage.ItemsStorage;
+import reportGeneration.storage.SettingsStorage;
 
-import java.util.Map;
+import java.util.Optional;
 
 public class ActionsCell {
-    public static Callback<TableColumn<Item, Void>, TableCell<Item, Void>> getActionsFactory() {
-        return new Callback<TableColumn<Item, Void>, TableCell<Item, Void>>() {
+    public static Callback<TableColumn<Report, Void>, TableCell<Report, Void>> getActionsFactory() {
+        return new Callback<TableColumn<Report, Void>, TableCell<Report, Void>>() {
             @Override
-            public TableCell<Item, Void> call(final TableColumn<Item, Void> param) {
-                final TableCell<Item, Void> cell = new TableCell<Item, Void>() {
+            public TableCell<Report, Void> call(final TableColumn<Report, Void> param) {
+                final TableCell<Report, Void> cell = new TableCell<Report, Void>() {
 
-                    private ImageButton removeBtn() {
+                    private ImageButton removeBtn(int id) {
                         ImageButton btn = new ImageButton("image/remove.png", 16);
                         btn.getStyleClass().add("img-btn");
                         btn.setOnAction((ActionEvent event) -> {
-                            TableView table = this.getTableView();
-                            Item selectedItem = (Item) getTableRow().getItem();
-                            if (selectedItem != null) {
-                                Map<Integer, Formula> usages = DbFormulaHandler.findUsage(
-                                        selectedItem.getShortName(),
-                                        TemplateEditPage.getTplIndustry()
-                                );
-                                if (usages.size() > 0) {
-                                    FormulaUpdater updater = new FormulaUpdater(usages, table, selectedItem);
-                                    updater.showDialog();
-                                } else {
-                                    table.getItems().remove(selectedItem);
-                                    TemplateEditPage.getItems().remove(selectedItem);
-                                }
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert.setTitle("Delete Report");
+                            alert.setHeaderText("Are you Sure you want to delete report? This Action can not be undone.");
+                            Optional<ButtonType> result = alert.showAndWait();
+                            if (result.get() == ButtonType.OK) {
+                                DbReportHandler.deleteItem(id);
+                                SceneSwitcher.goTo(SceneName.REPORTLIST);
                             }
                         });
                         return btn;
                     }
 
 
-                    private ImageButton addBtn(Integer level) {
-                        ImageButton btn = new ImageButton("image/add-plus-button.png", 14);
+                    private ImageButton editBtn(int id) {
+                        ImageButton btn = new ImageButton("image/pencil.png", 16);
                         btn.getStyleClass().add("img-btn");
                         btn.setOnAction((ActionEvent event) -> {
-                            int index = getTableRow().getIndex();
-                            Item item = (Item) this.getTableRow().getItem();
-                            if (item != null) {
-                                index = (level.equals(5)) ? index + 1 : index;
-                                TableView table = this.getTableView();
-                                Item itemNew = new Item(-1, "Set indicator name here", "CodeProperty", true, false, item.getId(), item.getParentSheet(), level, index);
-                                table.getItems().add(index, itemNew);
-                                TemplateEditPage.getItems().add(itemNew);
-                            }
+                            Report report = DbReportHandler.getItem(id);
+                            ObservableList<Item> items = ReportJson.jsonToItems(report.getItems());
+                            ObservableMap<String, String> settings = ReportJson.jsonToSettings(report.getSettings());
+                            SettingsStorage.setSettings(settings);
+                            SettingsStorage.put("reportId", Integer.toString(id));
+                            ItemsStorage.setItems(items);
+                            SceneSwitcher.goTo(SceneName.ADDREPORT);
                         });
                         return btn;
                     }
@@ -72,20 +66,10 @@ public class ActionsCell {
                             HBox hBox = new HBox(10);
                             TableRow row = this.getTableRow();
                             if (row != null) {
-                                Item rowItem = (Item) row.getItem();
+                                Report rowItem = (Report) row.getItem();
                                 if (rowItem != null) {
-                                    Integer level = rowItem.getLevel();
-                                    if (level.equals(1)) {
-                                        hBox.getChildren().addAll(addBtn(2));
-                                    } else if (level.equals(2)) {
-                                        hBox.getChildren().addAll(addBtn(3), removeBtn());
-                                    } else if (level.equals(3)) {
-                                        hBox.getChildren().addAll(addBtn(4), removeBtn());
-                                    } else if (level.equals(4)) {
-                                        hBox.getChildren().addAll(addBtn(5), removeBtn());
-                                    } else if (level.equals(5)) {
-                                        hBox.getChildren().addAll(removeBtn());
-                                    }
+                                    int id = rowItem.getId();
+                                    hBox.getChildren().addAll(editBtn(id), removeBtn(id));
                                 }
                             }
                             setGraphic(hBox);
