@@ -24,7 +24,7 @@ public class NetSalesAnalyze {
 
     public VBox get(int weight) {
         VBox hbox = new VBox(10);
-        if (first != null && last != null) {
+        if (first != null && last != null && first != 0) {
             String output = "";
             if (last > first) {
                 output = increase();

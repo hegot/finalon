@@ -60,7 +60,7 @@ public class CostOfGoods {
             Double val2 = costOfSales.getVal(end);
             Double change = ((val2 - val1) / val1) * 100;
             String inner = change > 0 ? "more" : "less";
-            if (val1 != null && val2 != null) {
+            if (val1 != null && val2 != null && val1 != 0) {
                 out.append("The cost of goods and services totaled "
                         + currency + " " + Formatter.doubleCommaFormat(val2) + " " + amount + " in "
                         + Formatter.formatDate(end) + ", " + Formatter.doubleCommaFormat(change) + "% " + inner + " than in " + Formatter.formatDate(start) + ". ");

@@ -16,13 +16,13 @@ public class UpdateParentCell {
                 Double childVals = getChildVals(parent.getId(), param);
                 if (childVals != null) {
                     parent.getValues().put(param, childVals);
-                    NumField field = TextFieldStorage.get(parent.getShortName()+param);
-                    if(field != null){
+                    NumField field = TextFieldStorage.get(parent.getShortName() + param);
+                    if (field != null) {
                         field.setText(childVals.toString());
                     }
-                    if (parent.getParent() > 0) {
-                        run(parent, param);
-                    }
+                }
+                if (parent.getParent() > 0) {
+                    run(parent, param);
                 }
             }
         }

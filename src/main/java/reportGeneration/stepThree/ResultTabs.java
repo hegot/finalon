@@ -51,9 +51,13 @@ public class ResultTabs {
             counter = counter + 100;
             final int num = counter;
             System.out.println(code);
-            VBox vBox = interprter.getReport(code, num);
-            if (vBox != null) {
-                tab.setContent(vBox);
+            try{
+                VBox vBox = interprter.getReport(code, num);
+                if (vBox != null) {
+                    tab.setContent(vBox);
+                }
+            }catch(Exception e){
+                System.out.println(e.getMessage());
             }
             tabsArr.put(code, tab);
         }

@@ -203,96 +203,104 @@ public class DefaultTemplate {
         //Statement of Comprehensive Income (P&L Statement)
 
         int ComprehensiveIncomeGeneral = counter;
-        Items.add(new Item(ComprehensiveIncomeGeneral, "Comprehensive Income", "ComprehensiveIncomeGeneral", true, true, SOCI, SOCI, 2));
         counter++;
-
-
-        int GrossProfit = counter;
-        Items.add(new Item(GrossProfit, "Gross profit", "GrossProfit", true, true, ComprehensiveIncomeGeneral, SOCI, 3));
-        counter++;
-        int RevenueGeneral = counter;
-        Items.add(new Item(RevenueGeneral, "RevenueGeneral", "RevenueGeneral", true, false, GrossProfit, SOCI, 4));
-        counter++;
-        int CostOfSales = counter;
-        Items.add(new Item(CostOfSales, "Cost of sales", "CostOfSales", false, false, GrossProfit, SOCI, 4));
-        counter++;
-
-
-        int ProfitLossFromOperatingActivities = counter;
-        Items.add(new Item(ProfitLossFromOperatingActivities, "Profit (loss) from operating activities", "ProfitLossFromOperatingActivities", true, true, ComprehensiveIncomeGeneral, SOCI, 3));
-        counter++;
-        int OtherIncomeGeneral = counter;
-        Items.add(new Item(OtherIncomeGeneral, "Other income", "OtherIncomeGeneral", true, false, ProfitLossFromOperatingActivities, SOCI, 4));
-        counter++;
-        int DistributionCostsGeneral = counter;
-        Items.add(new Item(DistributionCostsGeneral, "Distribution costs", "DistributionCostsGeneral", false, false, ProfitLossFromOperatingActivities, SOCI, 4));
-        counter++;
-        int AdministrativeExpense = counter;
-        Items.add(new Item(AdministrativeExpense, "Administrative expense", "AdministrativeExpense", false, false, ProfitLossFromOperatingActivities, SOCI, 4));
-        counter++;
-        int OtherExpenseByFunction = counter;
-        Items.add(new Item(OtherExpenseByFunction, "Other expense", "OtherExpenseByFunction", false, false, ProfitLossFromOperatingActivities, SOCI, 4));
-        counter++;
-        int OtherGainsLosses = counter;
-        Items.add(new Item(OtherGainsLosses, "Other gains (losses)", "OtherGainsLosses", true, false, ProfitLossFromOperatingActivities, SOCI, 4));
-        counter++;
-
-
-        int ProfitLossBeforeTax = counter;
-        Items.add(new Item(ProfitLossBeforeTax, "Profit (loss) before tax", "ProfitLossBeforeTax", true, true, ComprehensiveIncomeGeneral, SOCI, 3));
-        counter++;
-        int DifferenceBetweenCarryingAmountOfDividendsPayableAndCarryingAmountOfNoncashAssetsDistributed = counter;
-        Items.add(new Item(DifferenceBetweenCarryingAmountOfDividendsPayableAndCarryingAmountOfNoncashAssetsDistributed, "Difference between carrying amount of dividends payable and carrying amount of non-cash assets distributed", "DifferenceBetweenCarryingAmountOfDividendsPayableAndCarryingAmountOfNoncashAssetsDistributed", true, false, ProfitLossBeforeTax, SOCI, 4));
-        counter++;
-        int GainsLossesOnNetMonetaryPosition = counter;
-        Items.add(new Item(GainsLossesOnNetMonetaryPosition, "Gains (losses) on net monetary position", "GainsLossesOnNetMonetaryPosition", true, false, ProfitLossBeforeTax, SOCI, 4));
-        counter++;
-        int GainLossArisingFromDerecognitionOfFinancialAssetsMeasuredAtAmortisedCost = counter;
-        Items.add(new Item(GainLossArisingFromDerecognitionOfFinancialAssetsMeasuredAtAmortisedCost, "Gain (loss) arising from derecognition of financial assets measured at amortised cost", "GainLossArisingFromDerecognitionOfFinancialAssetsMeasuredAtAmortisedCost", true, false, ProfitLossBeforeTax, SOCI, 4));
-        counter++;
-        int FinanceIncome = counter;
-        Items.add(new Item(FinanceIncome, "Finance income", "FinanceIncome", true, false, ProfitLossBeforeTax, SOCI, 4));
-        counter++;
-        int FinanceCosts = counter;
-        Items.add(new Item(FinanceCosts, "Finance costs", "FinanceCosts", false, false, ProfitLossBeforeTax, SOCI, 4));
-        counter++;
-        int ImpairmentLossImpairmentGainAndReversalOfImpairmentLossDeterminedInAccordanceWithIFRS9 = counter;
-        Items.add(new Item(ImpairmentLossImpairmentGainAndReversalOfImpairmentLossDeterminedInAccordanceWithIFRS9, "Impairment loss (impairment gain and reversal of impairment loss) determined in accordance with IFRS 9", "ImpairmentLossImpairmentGainAndReversalOfImpairmentLossDeterminedInAccordanceWithIFRS9", false, false, ProfitLossBeforeTax, SOCI, 4));
-        counter++;
-        int ShareOfProfitLossOfAssociatesAndJointVenturesAccountedForUsingEquityMethod = counter;
-        Items.add(new Item(ShareOfProfitLossOfAssociatesAndJointVenturesAccountedForUsingEquityMethod, "Share of profit (loss) of associates and joint ventures accounted for using equity method", "ShareOfProfitLossOfAssociatesAndJointVenturesAccountedForUsingEquityMethod", true, false, ProfitLossBeforeTax, SOCI, 4));
-        counter++;
-        int OtherIncomeExpenseFromSubsidiariesJointlyControlledEntitiesAndAssociates = counter;
-        Items.add(new Item(OtherIncomeExpenseFromSubsidiariesJointlyControlledEntitiesAndAssociates, "Other income (expense) from subsidiaries, jointly controlled entities and associates", "OtherIncomeExpenseFromSubsidiariesJointlyControlledEntitiesAndAssociates", true, false, ProfitLossBeforeTax, SOCI, 4));
-        counter++;
-        int GainsLossesArisingFromDifferenceBetweenPreviousCarryingAmountAndFairValueOfFinancialAssetsReclassifiedAsMeasuredAtFairValue = counter;
-        Items.add(new Item(GainsLossesArisingFromDifferenceBetweenPreviousCarryingAmountAndFairValueOfFinancialAssetsReclassifiedAsMeasuredAtFairValue, "Gains (losses) arising from difference between previous carrying amount and fair value of financial assets reclassified as measured at fair value", "GainsLossesArisingFromDifferenceBetweenPreviousCarryingAmountAndFairValueOfFinancialAssetsReclassifiedAsMeasuredAtFairValue", true, false, ProfitLossBeforeTax, SOCI, 4));
-        counter++;
-        int CumulativeGainLossPreviouslyRecognisedInOtherComprehensiveIncomeArisingFromReclassificationOfFinancialAssetsOutOfFairValueThroughOtherComprehensiveIncomeIntoFairValueThroughProfitOrLossMeasurementCategory = counter;
-        Items.add(new Item(CumulativeGainLossPreviouslyRecognisedInOtherComprehensiveIncomeArisingFromReclassificationOfFinancialAssetsOutOfFairValueThroughOtherComprehensiveIncomeIntoFairValueThroughProfitOrLossMeasurementCategory, "Cumulative gain (loss) previously recognised in other comprehensive income arising from reclassification of financial assets out of fair value through other comprehensive income into fair value through profit or loss measurement category", "CumulativeGainLossPreviouslyRecognisedInOtherComprehensiveIncomeArisingFromReclassificationOfFinancialAssetsOutOfFairValueThroughOtherComprehensiveIncomeIntoFairValueThroughProfitOrLossMeasurementCategory", true, false, ProfitLossBeforeTax, SOCI, 4));
-        counter++;
-        int HedgingGainsLossesForHedgeOfGroupOfItemsWithOffsettingRiskPositions = counter;
-        Items.add(new Item(HedgingGainsLossesForHedgeOfGroupOfItemsWithOffsettingRiskPositions, "Hedging gains (losses) for hedge of group of items with offsetting risk positions", "HedgingGainsLossesForHedgeOfGroupOfItemsWithOffsettingRiskPositions", true, false, ProfitLossBeforeTax, SOCI, 4));
-        counter++;
-
-
         int ProfitLossGeneral = counter;
-        Items.add(new Item(ProfitLossGeneral, "Profit (loss)", "ProfitLossGeneral", true, true, ComprehensiveIncomeGeneral, SOCI, 3));
-        counter++;
-        int IncomeTaxExpenseContinuingOperations = counter;
-        Items.add(new Item(IncomeTaxExpenseContinuingOperations, "Income tax expense (from continuing operations)", "IncomeTaxExpenseContinuingOperations", false, false, ProfitLossGeneral, SOCI, 4));
         counter++;
         int ProfitLossFromContinuingOperations = counter;
-        Items.add(new Item(ProfitLossFromContinuingOperations, "Profit (loss) from continuing operations", "ProfitLossFromContinuingOperations", true, true, ProfitLossGeneral, SOCI, 4));
         counter++;
         int ProfitLossFromDiscontinuedOperations = counter;
-        Items.add(new Item(ProfitLossFromDiscontinuedOperations, "Profit (loss) from discontinued operations", "ProfitLossFromDiscontinuedOperations", true, false, ProfitLossGeneral, SOCI, 4));
+        counter++;
+        int ProfitLossBeforeTax = counter;
+        counter++;
+        int ProfitLossFromOperatingActivities = counter;
+        counter++;
+        int GrossProfit = counter;
         counter++;
 
+
+
+
+        int RevenueGeneral = counter;
+        Items.add(new Item(RevenueGeneral, "RevenueGeneral", "RevenueGeneral", true, false, GrossProfit, SOCI, 4, 0));
+        counter++;
+        int CostOfSales = counter;
+        Items.add(new Item(CostOfSales, "Cost of sales", "CostOfSales", false, false, GrossProfit, SOCI, 4, 1));
+        counter++;
+        Items.add(new Item(GrossProfit, "Gross profit", "GrossProfit", true, true, ProfitLossFromOperatingActivities, SOCI, 3, 2));
+
+
+
+        int OtherIncomeGeneral = counter;
+        Items.add(new Item(OtherIncomeGeneral, "Other income", "OtherIncomeGeneral", true, false, ProfitLossFromOperatingActivities, SOCI, 4, 3));
+        counter++;
+        int DistributionCostsGeneral = counter;
+        Items.add(new Item(DistributionCostsGeneral, "Distribution costs", "DistributionCostsGeneral", false, false, ProfitLossFromOperatingActivities, SOCI, 4, 4));
+        counter++;
+        int AdministrativeExpense = counter;
+        Items.add(new Item(AdministrativeExpense, "Administrative expense", "AdministrativeExpense", false, false, ProfitLossFromOperatingActivities, SOCI, 4, 5));
+        counter++;
+        int OtherExpenseByFunction = counter;
+        Items.add(new Item(OtherExpenseByFunction, "Other expense", "OtherExpenseByFunction", false, false, ProfitLossFromOperatingActivities, SOCI, 4, 6));
+        counter++;
+        int OtherGainsLosses = counter;
+        Items.add(new Item(OtherGainsLosses, "Other gains (losses)", "OtherGainsLosses", true, false, ProfitLossFromOperatingActivities, SOCI, 4,7));
+        counter++;
+        Items.add(new Item(ProfitLossFromOperatingActivities, "Profit (loss) from operating activities", "ProfitLossFromOperatingActivities", true, true, ProfitLossBeforeTax, SOCI, 3, 8));
+
+
+
+
+        int DifferenceBetweenCarryingAmountOfDividendsPayableAndCarryingAmountOfNoncashAssetsDistributed = counter;
+        Items.add(new Item(DifferenceBetweenCarryingAmountOfDividendsPayableAndCarryingAmountOfNoncashAssetsDistributed, "Difference between carrying amount of dividends payable and carrying amount of non-cash assets distributed", "DifferenceBetweenCarryingAmountOfDividendsPayableAndCarryingAmountOfNoncashAssetsDistributed", true, false, ProfitLossBeforeTax, SOCI, 4, 9));
+        counter++;
+        int GainsLossesOnNetMonetaryPosition = counter;
+        Items.add(new Item(GainsLossesOnNetMonetaryPosition, "Gains (losses) on net monetary position", "GainsLossesOnNetMonetaryPosition", true, false, ProfitLossBeforeTax, SOCI, 4, 10));
+        counter++;
+        int GainLossArisingFromDerecognitionOfFinancialAssetsMeasuredAtAmortisedCost = counter;
+        Items.add(new Item(GainLossArisingFromDerecognitionOfFinancialAssetsMeasuredAtAmortisedCost, "Gain (loss) arising from derecognition of financial assets measured at amortised cost", "GainLossArisingFromDerecognitionOfFinancialAssetsMeasuredAtAmortisedCost", true, false, ProfitLossBeforeTax, SOCI, 4, 11));
+        counter++;
+        int FinanceIncome = counter;
+        Items.add(new Item(FinanceIncome, "Finance income", "FinanceIncome", true, false, ProfitLossBeforeTax, SOCI, 4, 12));
+        counter++;
+        int FinanceCosts = counter;
+        Items.add(new Item(FinanceCosts, "Finance costs", "FinanceCosts", false, false, ProfitLossBeforeTax, SOCI, 4, 13));
+        counter++;
+        int ImpairmentLossImpairmentGainAndReversalOfImpairmentLossDeterminedInAccordanceWithIFRS9 = counter;
+        Items.add(new Item(ImpairmentLossImpairmentGainAndReversalOfImpairmentLossDeterminedInAccordanceWithIFRS9, "Impairment loss (impairment gain and reversal of impairment loss) determined in accordance with IFRS 9", "ImpairmentLossImpairmentGainAndReversalOfImpairmentLossDeterminedInAccordanceWithIFRS9", false, false, ProfitLossBeforeTax, SOCI, 4, 14));
+        counter++;
+        int ShareOfProfitLossOfAssociatesAndJointVenturesAccountedForUsingEquityMethod = counter;
+        Items.add(new Item(ShareOfProfitLossOfAssociatesAndJointVenturesAccountedForUsingEquityMethod, "Share of profit (loss) of associates and joint ventures accounted for using equity method", "ShareOfProfitLossOfAssociatesAndJointVenturesAccountedForUsingEquityMethod", true, false, ProfitLossBeforeTax, SOCI, 4,15));
+        counter++;
+        int OtherIncomeExpenseFromSubsidiariesJointlyControlledEntitiesAndAssociates = counter;
+        Items.add(new Item(OtherIncomeExpenseFromSubsidiariesJointlyControlledEntitiesAndAssociates, "Other income (expense) from subsidiaries, jointly controlled entities and associates", "OtherIncomeExpenseFromSubsidiariesJointlyControlledEntitiesAndAssociates", true, false, ProfitLossBeforeTax, SOCI, 4,16));
+        counter++;
+        int GainsLossesArisingFromDifferenceBetweenPreviousCarryingAmountAndFairValueOfFinancialAssetsReclassifiedAsMeasuredAtFairValue = counter;
+        Items.add(new Item(GainsLossesArisingFromDifferenceBetweenPreviousCarryingAmountAndFairValueOfFinancialAssetsReclassifiedAsMeasuredAtFairValue, "Gains (losses) arising from difference between previous carrying amount and fair value of financial assets reclassified as measured at fair value", "GainsLossesArisingFromDifferenceBetweenPreviousCarryingAmountAndFairValueOfFinancialAssetsReclassifiedAsMeasuredAtFairValue", true, false, ProfitLossBeforeTax, SOCI, 4,17));
+        counter++;
+        int CumulativeGainLossPreviouslyRecognisedInOtherComprehensiveIncomeArisingFromReclassificationOfFinancialAssetsOutOfFairValueThroughOtherComprehensiveIncomeIntoFairValueThroughProfitOrLossMeasurementCategory = counter;
+        Items.add(new Item(CumulativeGainLossPreviouslyRecognisedInOtherComprehensiveIncomeArisingFromReclassificationOfFinancialAssetsOutOfFairValueThroughOtherComprehensiveIncomeIntoFairValueThroughProfitOrLossMeasurementCategory, "Cumulative gain (loss) previously recognised in other comprehensive income arising from reclassification of financial assets out of fair value through other comprehensive income into fair value through profit or loss measurement category", "CumulativeGainLossPreviouslyRecognisedInOtherComprehensiveIncomeArisingFromReclassificationOfFinancialAssetsOutOfFairValueThroughOtherComprehensiveIncomeIntoFairValueThroughProfitOrLossMeasurementCategory", true, false, ProfitLossBeforeTax, SOCI, 4, 18));
+        counter++;
+        int HedgingGainsLossesForHedgeOfGroupOfItemsWithOffsettingRiskPositions = counter;
+        Items.add(new Item(HedgingGainsLossesForHedgeOfGroupOfItemsWithOffsettingRiskPositions, "Hedging gains (losses) for hedge of group of items with offsetting risk positions", "HedgingGainsLossesForHedgeOfGroupOfItemsWithOffsettingRiskPositions", true, false, ProfitLossBeforeTax, SOCI, 4, 19));
+        counter++;
+        Items.add(new Item(ProfitLossBeforeTax, "Profit (loss) before tax", "ProfitLossBeforeTax", true, true, ProfitLossFromContinuingOperations, SOCI, 3, 20));
+
+
+        Items.add(new Item(ProfitLossFromDiscontinuedOperations, "Profit (loss) from discontinued operations", "ProfitLossFromDiscontinuedOperations", true, false, ProfitLossGeneral, SOCI, 3, 21));
+
+
+        int IncomeTaxExpenseContinuingOperations = counter;
+        Items.add(new Item(IncomeTaxExpenseContinuingOperations, "Income tax expense (from continuing operations)", "IncomeTaxExpenseContinuingOperations", false, false, ProfitLossFromContinuingOperations, SOCI, 4, 22));
+        counter++;
+        Items.add(new Item(ProfitLossFromContinuingOperations, "Profit (loss) from continuing operations", "ProfitLossFromContinuingOperations", true, true, ProfitLossGeneral, SOCI, 3, 23));
+
+        Items.add(new Item(ProfitLossGeneral, "Profit (loss)", "ProfitLossGeneral", true, true, ComprehensiveIncomeGeneral, SOCI, 3,24));
 
         int OtherComprehensiveIncome = counter;
-        Items.add(new Item(OtherComprehensiveIncome, "Other comprehensive income", "OtherComprehensiveIncome", true, false, ComprehensiveIncomeGeneral, SOCI, 4));
+        Items.add(new Item(OtherComprehensiveIncome, "Other comprehensive income", "OtherComprehensiveIncome", true, false, ComprehensiveIncomeGeneral, SOCI, 4, 25));
         counter++;
+        Items.add(new Item(ComprehensiveIncomeGeneral, "Comprehensive Income", "ComprehensiveIncomeGeneral", true, true, SOCI, SOCI, 2, 26));
+
 
 
         //Cash Flow Statement

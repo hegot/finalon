@@ -60,21 +60,23 @@ public class FinancialResultTable extends ItemsTable {
         String endDate = Periods.getEnd();
 
         String positive = (first > 0) ? "positive" : "negative";
-        if (first == 0) {
+        if (last == 0) {
             out += "Zero EBIT indicates poor performance in " + endDate + ". ";
         } else {
             out += "EBIT was " + positive + " at " + SettingsStorage.get("defaultCurrency") +
                     " " + Formatter.doubleCommaFormat(last) + " " + SettingsStorage.get("amount") + " in " + endDate + ". ";
         }
 
-        double change = last - first;
-        String growth = Formatter.doubleCommaFormat(change / first * 100);
-        if (change > 0) {
-            out += "The EBIT growth was " + growth + "% during " + startDate + "-" + endDate + ". ";
-        } else if (change < 0) {
-            out += "The EBIT declined " + growth + "% during " + startDate + "-" + endDate + ". ";
-        } else {
-            out += "The EBIT was stable during " + startDate + "-" + endDate + ". ";
+        if(first != 0){
+            double change = last - first;
+            String growth = Formatter.doubleCommaFormat(change / first * 100);
+            if (change > 0) {
+                out += "The EBIT growth was " + growth + "% during " + startDate + "-" + endDate + ". ";
+            } else if (change < 0) {
+                out += "The EBIT declined " + growth + "% during " + startDate + "-" + endDate + ". ";
+            } else {
+                out += "The EBIT was stable during " + startDate + "-" + endDate + ". ";
+            }
         }
         out += comprehensiveIncome();
         ResultsStorage.addStr(weight, "text", out);

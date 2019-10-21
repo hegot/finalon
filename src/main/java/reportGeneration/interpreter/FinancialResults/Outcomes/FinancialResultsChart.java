@@ -49,11 +49,13 @@ public class FinancialResultsChart extends ChartBase {
             for (String period : periodsArr) {
                 Double originalVal = values.get(period);
                 Double toCompare = RevenueGeneral.getVal(period);
-                if (originalVal != null && toCompare != null) {
+                if (originalVal != null && toCompare != null && toCompare != 0) {
                     Double part = Calc.part(originalVal, toCompare);
                     if (part != null) {
                         outputVals.put(period, part);
                     }
+                }else{
+                    outputVals.put(period, 0.0);
                 }
             }
         }

@@ -11,17 +11,6 @@ public class ItemsGetter {
 
     public ItemsGetter(
             Item root,
-            ObservableList<Item> items
-    ) {
-        this.items = items;
-        this.outputItems = FXCollections.observableArrayList();
-        this.checkEmpty = false;
-        loopItems(root.getId());
-        outputItems.add(root);
-    }
-
-    public ItemsGetter(
-            Item root,
             ObservableList<Item> items,
             Boolean checkEmpty
     ) {
@@ -58,7 +47,7 @@ public class ItemsGetter {
     private void loopItems(int parentId) {
         for (Item item : items) {
             if (item.getParent() == parentId) {
-                if (checkEmpty == true) {
+                if (checkEmpty) {
                     if (item.getValues().size() > 0) {
                         loopItems(item.getId());
                         outputItems.add(item);
