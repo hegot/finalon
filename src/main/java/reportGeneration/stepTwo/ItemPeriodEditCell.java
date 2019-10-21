@@ -23,7 +23,7 @@ public class ItemPeriodEditCell extends TableCell<Item, String> {
         this.addEventHandler(MouseEvent.ANY, event -> {
             if (event.getClickCount() == 1 && event.getButton().equals(MouseButton.PRIMARY)) {
                 getTableView().edit(getTableRow().getIndex(), getTableColumn());
-                if(textField != null){
+                if (textField != null) {
                     textField.requestFocus();
                 }
             }

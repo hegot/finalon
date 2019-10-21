@@ -21,8 +21,7 @@ public class FormulaEvaluation {
             formula.attachChilds();
             outcome += evaluateSingle(formula) + "\n\n";
             if (outcome.length() > 0) {
-                StrReplacer replacer = new StrReplacer(outcome, formula);
-                outcome = replacer.substitute();
+                outcome = StrReplacer.substitute(outcome, formula);
             }
         }
         VBox vbox = new VBox();

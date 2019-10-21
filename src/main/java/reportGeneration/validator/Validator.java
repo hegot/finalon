@@ -18,10 +18,12 @@ public class Validator {
     public String validate() {
         StringBuilder output = new StringBuilder();
         ArrayList<String> errors = validateAssetsEquityLiabilities();
+        String error;
+        String num;
         for (int i = 0; i < errors.size(); i++) {
-            String error = errors.get(i);
+            error = errors.get(i);
             if (error != null) {
-                String num = Integer.toString(i + 1) + ". ";
+                num = Integer.toString(i + 1) + ". ";
                 output.append(num + error + '\n');
             }
         }
@@ -34,9 +36,11 @@ public class Validator {
         Item EquityAndLiabilities = ItemsStorage.get("EquityAndLiabilities");
         ArrayList<String> errors = new ArrayList<>();
         ArrayList<String> periodsArr = Periods.getPeriodArr();
+        Double AssetsGeneralCurrent;
+        Double EquityAndLiabilitiesCurrent;
         for (String period : periodsArr) {
-            Double AssetsGeneralCurrent = AssetsGeneral.getVal(period);
-            Double EquityAndLiabilitiesCurrent = EquityAndLiabilities.getVal(period);
+            AssetsGeneralCurrent = AssetsGeneral.getVal(period);
+            EquityAndLiabilitiesCurrent = EquityAndLiabilities.getVal(period);
             if (AssetsGeneralCurrent != null && EquityAndLiabilitiesCurrent != null) {
                 if (!AssetsGeneralCurrent.equals(EquityAndLiabilitiesCurrent)) {
                     String err = "Equity And Liabilities index should be equal to Total assets in "

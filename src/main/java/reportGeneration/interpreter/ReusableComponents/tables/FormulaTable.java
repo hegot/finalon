@@ -64,9 +64,11 @@ public class FormulaTable {
         ArrayList<String> periods = Periods.getPeriodArr();
         int count = periods.size() - 1;
         if (count > 0) {
+            String colStart;
+            String colEnd;
             for (int j = 0; j < count; j++) {
-                String colStart = periods.get(j);
-                String colEnd = periods.get(j + 1);
+                colStart = periods.get(j);
+                colEnd = periods.get(j + 1);
                 colsArr.add(getAbsoluteComparisonCol(colStart, colEnd));
             }
         }

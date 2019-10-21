@@ -52,9 +52,10 @@ public class FormulaStorage {
     public static ObservableList<Formula> getFormulas() {
         ObservableList<Formula> sections = getSections();
         ObservableList<Formula> myFormulas = FXCollections.observableArrayList();
+        ObservableList<Formula> childs2;
         for (Formula child : sections) {
             myFormulas.add(child);
-            ObservableList<Formula> childs2 = DbFormulaHandler.getFormulas(child.getId());
+            childs2 = DbFormulaHandler.getFormulas(child.getId());
             for (Formula child2 : childs2) {
                 myFormulas.add(child2);
             }

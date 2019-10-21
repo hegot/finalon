@@ -24,6 +24,8 @@ import java.util.ArrayList;
 
 public class AddReportScene extends SceneBase {
 
+
+
     public VBox getScene() {
         ObservableMap<String, String> settings = SettingsStorage.getSettings();
         VBox vbox = new VBox(0);
@@ -56,19 +58,17 @@ public class AddReportScene extends SceneBase {
         return vbox;
     }
 
-
     HBox headerMenu() {
         HBox hbox = new HBox(20);
         String step = SettingsStorage.get("step");
         if (step.equals("two")) {
-            hbox.getChildren().addAll(backSettingsButton(), generateButton());
+            hbox.getChildren().addAll(backSettingsButton(), generateButton(), saveReportBtn());
         }
         if (step.equals("three")) {
             hbox.getChildren().addAll(backSettingsButton(), backStepTwoButton());
         }
         return hbox;
     }
-
 
     Button generateButton() {
         Button button = new Button("Generate Report");
@@ -85,9 +85,22 @@ public class AddReportScene extends SceneBase {
                     populateEmptyValues();
                     SettingsStorage.put("step", "three");
                 }
+                SaveReport.save();
             }
         });
         return button;
+    }
+
+    private static Button saveReportBtn() {
+        Button btn = new Button("Save company data");
+        btn.getStyleClass().add("blue-btn");
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                SaveReport.save();
+            }
+        });
+        return btn;
     }
 
     private void populateEmptyValues() {

@@ -25,14 +25,18 @@ public class FormulaCalculation {
 
     public void setFormulaValues() {
         Map<String, ObservableMap<String, Double>> values = obtainKeyValueArray();
+        FormulaHandler formulaHahdler;
+        String res;
+        Double result;
+        ObservableMap<String, Double> formulaPeriods;
         for (Formula formula : formulas) {
             if (formula.getValue().length() > 0) {
-                ObservableMap<String, Double> formulaPeriods = FXCollections.observableHashMap();
+                formulaPeriods = FXCollections.observableHashMap();
                 for (String period : periods) {
-                    FormulaHandler formulaHahdler = new FormulaHandler(formula, values, period);
-                    String res = formulaHahdler.getResult();
+                    formulaHahdler = new FormulaHandler(formula, values, period);
+                    res = formulaHahdler.getResult();
                     if (res != null && res.length() > 0) {
-                        Double result = Formatter.parseDouble(res);
+                        result = Formatter.parseDouble(res);
                         if (result != null) {
                             formulaPeriods.put(period, result);
                         }

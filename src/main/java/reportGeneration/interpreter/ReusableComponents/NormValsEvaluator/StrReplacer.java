@@ -12,16 +12,9 @@ import java.util.ArrayList;
 
 
 public class StrReplacer {
-    private String text;
-    private Formula formula;
-
-    public StrReplacer(String text, Formula formula) {
-        this.text = text;
-        this.formula = formula;
-    }
 
 
-    public String substitute() {
+    public static String substitute(String text, Formula formula) {
         text = text.replace("ENDDATE", Periods.getEnd());
         text = text.replace("AFTERSTART", Periods.getAfterStart());
         text = text.replace("STARTDATE", Periods.getStart());
@@ -30,7 +23,7 @@ public class StrReplacer {
         text = text.replace("CURRENCY", SettingsStorage.get("defaultCurrency"));
         text = text.replace("AMOUNT", SettingsStorage.get("amount"));
         if (text.contains("AVERAGEVALUE")) {
-            text = text.replace("AVERAGEVALUE", getAverageVal());
+            text = text.replace("AVERAGEVALUE", getAverageVal(formula));
         }
         if (text.contains("PRE_END_DATE")) {
             text = text.replace("PRE_END_DATE", Periods.prePreEndKey());
@@ -42,12 +35,13 @@ public class StrReplacer {
         return text;
     }
 
-    private String getAverageVal() {
+    private static String getAverageVal(Formula formula) {
         ObservableMap<String, Double> vals = formula.getPeriods();
         Double sum = 0.0;
         ArrayList<String> arr = Periods.getPeriodArr();
+        Double val;
         for (String period : arr) {
-            Double val = vals.get(period);
+            val = vals.get(period);
             if (val != null) {
                 sum += val;
             }

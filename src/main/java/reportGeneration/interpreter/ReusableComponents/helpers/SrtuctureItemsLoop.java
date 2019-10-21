@@ -16,17 +16,20 @@ public class SrtuctureItemsLoop {
             String period
     ) {
         TreeMap<Double, String> treeMap = new TreeMap<>(Collections.reverseOrder());
+        Double val;
+        Double part;
         for (Item item : items) {
-            Double val = item.getVal(period);
+            val = item.getVal(period);
             if (val != null) {
-                Double part = Calc.part(val, totall);
+                part = Calc.part(val, totall);
                 treeMap.put(part, item.getName());
             }
         }
         StringBuilder result = new StringBuilder("");
         for (Map.Entry<Double, String> entry : treeMap.entrySet()) {
-            Double key = entry.getKey();
-            result.append(entry.getValue() + " (" + Calc.format(key) + "), ");
+            result.append(entry.getValue() + " ("
+                    + Calc.format(entry.getKey()) +
+                    "), ");
         }
         return start + result + end;
     }

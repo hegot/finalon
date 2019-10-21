@@ -41,22 +41,27 @@ public class ResultTabs {
         ObservableList<Formula> sections = FormulaStorage.getSections();
         int number = 1;
         int counter = 0;
+        Formula formula;
+        String code;
+        String name;
+        Tab tab;
+        VBox vBox;
         for (int i = 0; i < sections.size(); i++) {
-            Formula formula = sections.get(i);
-            String code = formula.getShortName();
-            String name = number + ". " + formula.getName();
+            formula = sections.get(i);
+            code = formula.getShortName();
+            name = number + ". " + formula.getName();
             number++;
-            Tab tab = new Tab(name);
+            tab = new Tab(name);
             tabs.add(tab);
             counter = counter + 100;
             final int num = counter;
             System.out.println(code);
-            try{
-                VBox vBox = interprter.getReport(code, num);
+            try {
+                vBox = interprter.getReport(code, num);
                 if (vBox != null) {
                     tab.setContent(vBox);
                 }
-            }catch(Exception e){
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
             tabsArr.put(code, tab);
@@ -69,7 +74,7 @@ public class ResultTabs {
         VBox vBox = new VBox();
         HBox hBox = new HBox(20);
         hBox.setVisible(false);
-        hBox.getChildren().addAll(exportBtn(), SaveReport.getPane());
+        hBox.getChildren().addAll(exportBtn());
         vBox.getChildren().addAll(hBox, throbber);
         TabPane tabs = new TabPane();
         tabs.setStyle("-fx-padding: 10px 0 0 0;");

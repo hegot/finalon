@@ -36,8 +36,9 @@ public class ChartBase {
     private ArrayList<XYChart.Data> getData(ObservableMap<String, Double> values) {
         ArrayList<XYChart.Data> data = new ArrayList<XYChart.Data>();
         if (values.size() > 1) {
+            String date;
             for (String period : Periods.getPeriodArr()) {
-                String date = Formatter.formatDate(period);
+                date = Formatter.formatDate(period);
                 if (values.get(period) != null) {
                     data.add(new XYChart.Data(date, values.get(period)));
                 }

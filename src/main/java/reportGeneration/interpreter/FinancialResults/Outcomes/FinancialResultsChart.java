@@ -46,15 +46,18 @@ public class FinancialResultsChart extends ChartBase {
     private ObservableMap<String, Double> getUpdatedValues(ObservableMap<String, Double> values) {
         ObservableMap<String, Double> outputVals = FXCollections.observableHashMap();
         if (values != null && values.size() > 0) {
+            Double originalVal;
+            Double toCompare;
+            Double part;
             for (String period : periodsArr) {
-                Double originalVal = values.get(period);
-                Double toCompare = RevenueGeneral.getVal(period);
+                originalVal = values.get(period);
+                toCompare = RevenueGeneral.getVal(period);
                 if (originalVal != null && toCompare != null && toCompare != 0) {
-                    Double part = Calc.part(originalVal, toCompare);
+                    part = Calc.part(originalVal, toCompare);
                     if (part != null) {
                         outputVals.put(period, part);
                     }
-                }else{
+                } else {
                     outputVals.put(period, 0.0);
                 }
             }

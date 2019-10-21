@@ -53,13 +53,19 @@ public class CostOfGoods {
     private String compareEach() {
         ArrayList<String> periodsArr = Periods.getPeriodArr();
         StringBuilder out = new StringBuilder();
+        String start;
+        String end;
+        Double val1;
+        Double val2;
+        Double change;
+        String inner;
         for (int j = 0; j < periodsArr.size() - 1; j++) {
-            String start = periodsArr.get(j);
-            String end = periodsArr.get(j + 1);
-            Double val1 = costOfSales.getVal(start);
-            Double val2 = costOfSales.getVal(end);
-            Double change = ((val2 - val1) / val1) * 100;
-            String inner = change > 0 ? "more" : "less";
+            start = periodsArr.get(j);
+            end = periodsArr.get(j + 1);
+            val1 = costOfSales.getVal(start);
+            val2 = costOfSales.getVal(end);
+            change = ((val2 - val1) / val1) * 100;
+            inner = change > 0 ? "more" : "less";
             if (val1 != null && val2 != null && val1 != 0) {
                 out.append("The cost of goods and services totaled "
                         + currency + " " + Formatter.doubleCommaFormat(val2) + " " + amount + " in "

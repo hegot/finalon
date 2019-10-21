@@ -39,11 +39,13 @@ public class FormulaHandler {
     private String getValuesInPlace() {
         String formulaVal = formula.getValue();
         String[] indexes = getIndexes();
+        Double val;
+        String indexVal;
         for (String index : indexes) {
             if (!isNumeric(index)) {
-                Double val = searchInValues(index);
+                val = searchInValues(index);
                 if (val != null) {
-                    String indexVal = Double.toString(val);
+                    indexVal = Double.toString(val);
                     formulaVal = formulaVal.replace(index, indexVal);
                 } else {
                     return null;
@@ -69,8 +71,9 @@ public class FormulaHandler {
             if (prevIndex) {
                 Object[] set = map.keySet().toArray();
                 Arrays.sort(set);
+                String key;
                 for (int i = 0; i < set.length; i++) {
-                    String key = (String) set[i];
+                    key = (String) set[i];
                     if (key.equals(period)) {
                         int i2 = i - 1;
                         if (i2 >= 0) {

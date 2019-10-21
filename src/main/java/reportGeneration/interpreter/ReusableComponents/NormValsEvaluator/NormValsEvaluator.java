@@ -35,12 +35,15 @@ public class NormValsEvaluator extends ValsEvaluator {
     }
 
     private String loopNormatives() {
+        EvaluationTypes formulaType;
+        Double valueToCompare;
+        Boolean match;
         for (Formula normative : childs) {
             try {
-                EvaluationTypes formulaType = EvaluationTypes.valueOf(normative.getName());
+                formulaType = EvaluationTypes.valueOf(normative.getName());
                 if (formulaType.equals(type)) {
-                    Double valueToCompare = normative.getValue().length() > 0 ? Formatter.parseDouble(normative.getValue()) : null;
-                    Boolean match = matches(
+                    valueToCompare = normative.getValue().length() > 0 ? Formatter.parseDouble(normative.getValue()) : null;
+                    match = matches(
                             normative.getShortName(),
                             normative.getCategory(),
                             formula.getVal(period),

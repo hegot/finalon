@@ -67,7 +67,7 @@ public class FinancialResultTable extends ItemsTable {
                     " " + Formatter.doubleCommaFormat(last) + " " + SettingsStorage.get("amount") + " in " + endDate + ". ";
         }
 
-        if(first != 0){
+        if (first != 0) {
             double change = last - first;
             String growth = Formatter.doubleCommaFormat(change / first * 100);
             if (change > 0) {
@@ -122,9 +122,11 @@ public class FinancialResultTable extends ItemsTable {
         ArrayList<String> periods = Periods.getPeriodArr();
         int count = periods.size() - 1;
         if (count > 0) {
+            String colStart;
+            String colEnd;
             for (int j = 0; j < count; j++) {
-                String colStart = periods.get(j);
-                String colEnd = periods.get(j + 1);
+                colStart = periods.get(j);
+                colEnd = periods.get(j + 1);
                 colsArr.add(getAbsoluteComparisonCol(colStart, colEnd));
             }
         }

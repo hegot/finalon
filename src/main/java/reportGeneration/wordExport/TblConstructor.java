@@ -54,8 +54,9 @@ public class TblConstructor {
         tbl.setTblPr(tblPr);
         TblGrid tblGrid = Context.getWmlObjectFactory().createTblGrid();
         tbl.setTblGrid(tblGrid);
+        TblGridCol gridCol;
         for (int i = 1; i <= cols; i++) {
-            TblGridCol gridCol = Context.getWmlObjectFactory().createTblGridCol();
+            gridCol = Context.getWmlObjectFactory().createTblGridCol();
             gridCol.setW(BigInteger.valueOf(
                     getColWidth(i)
             ));

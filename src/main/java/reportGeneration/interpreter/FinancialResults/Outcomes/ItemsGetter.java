@@ -55,14 +55,18 @@ class ItemsGetter {
                 0,
                 0, 0);
         ObservableMap<String, Double> valuesItemOtherIncome = FXCollections.observableHashMap();
+        Double val1;
+        Double val2;
+        Double val3;
+        Double otherIncomeVal;
         for (String period : periods) {
-            Double val1 = profitLossBeforeTax.getVal(period);
-            Double val2 = financeCosts.getVal(period);
-            Double val3 = grossProfit.getVal(period);
+            val1 = profitLossBeforeTax.getVal(period);
+            val2 = financeCosts.getVal(period);
+            val3 = grossProfit.getVal(period);
             if (val1 == null) val1 = 0.0;
             if (val2 == null) val2 = 0.0;
             if (val3 == null) val3 = 0.0;
-            Double otherIncomeVal = val1 + val2 - val3;
+            otherIncomeVal = val1 + val2 - val3;
             valuesItemOtherIncome.put(period, otherIncomeVal);
         }
         itemOtherIncome.setValues(valuesItemOtherIncome);
@@ -79,13 +83,14 @@ class ItemsGetter {
                 0,
                 0, 0);
         ObservableMap<String, Double> valuesIncomeLossFromContinuingOperations = FXCollections.observableHashMap();
+        Double val1;
+        Double val4;
         for (String period : periods) {
-            Double val1 = profitLossBeforeTax.getVal(period);
-            Double val4 = incomeTaxExpense.getVal(period);
+            val1 = profitLossBeforeTax.getVal(period);
+            val4 = incomeTaxExpense.getVal(period);
             if (val1 == null) val1 = 0.0;
             if (val4 == null) val4 = 0.0;
-            Double IncomeLossFromContinuingOperationsVal = val1 - val4;
-            valuesIncomeLossFromContinuingOperations.put(period, IncomeLossFromContinuingOperationsVal);
+            valuesIncomeLossFromContinuingOperations.put(period, val1 - val4);
         }
         IncomeLossFromContinuingOperations.setValues(valuesIncomeLossFromContinuingOperations);
         return IncomeLossFromContinuingOperations;

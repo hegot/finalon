@@ -50,10 +50,13 @@ public class IndexChangeTable extends ItemsTable {
         ArrayList<String> arr = Periods.getPeriodArr();
         int count = arr.size() - 1;
         if (count > 0) {
+            String colStart;
+            String colEnd;
+            TableColumn col;
             for (int j = 0; j < count; j++) {
-                String colStart = arr.get(j);
-                String colEnd = arr.get(j + 1);
-                TableColumn col = (type.equals("Absolute")) ? getAbsoluteComparisonCol(colStart, colEnd) : getRelativeComparisonCol(colStart, colEnd);
+                colStart = arr.get(j);
+                colEnd = arr.get(j + 1);
+                col = (type.equals("Absolute")) ? getAbsoluteComparisonCol(colStart, colEnd) : getRelativeComparisonCol(colStart, colEnd);
                 colsArr.add(col);
             }
         }

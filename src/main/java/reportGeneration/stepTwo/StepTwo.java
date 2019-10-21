@@ -63,11 +63,14 @@ public class StepTwo {
         tabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         SheetsGetter sheetsGetter = new SheetsGetter(items);
         ObservableList<Item> Sheets = sheetsGetter.getSheets();
+        Tab tab;
+        Item sheet;
+        TableView<Item> table;
         for (Item Sheet : Sheets) {
-            Tab tab = new Tab();
-            Item sheet = Sheet;
+            tab = new Tab();
+            sheet = Sheet;
             tab.setText(sheet.getName());
-            TableView<Item> table = getSingleTable(sheet.getId());
+            table = getSingleTable(sheet.getId());
             tab.setContent(table);
             tabs.getTabs().add(tab);
         }
@@ -91,8 +94,7 @@ public class StepTwo {
             }
         } else {
             for (int i = arr.size(); i-- > 0; ) {
-                String col = arr.get(i);
-                table.getColumns().add(cols.getPeriodCol(col));
+                table.getColumns().add(cols.getPeriodCol(arr.get(i)));
             }
         }
         return table;
@@ -103,26 +105,26 @@ public class StepTwo {
         table.setRowFactory(row -> new TableRow<Item>() {
             @Override
             public void updateItem(Item item, boolean empty) {
-            super.updateItem(item, empty);
-            if (item != null && !empty) {
-                Integer level = item.getLevel();
-                getStyleClass().removeAll("templates-row-level-1", "templates-row-level-2", "templates-row-level-3", "templates-row-level-4", "templates-row-level-5");
-                if (level.equals(1)) {
-                    getStyleClass().add("templates-row-level-1");
+                super.updateItem(item, empty);
+                if (item != null && !empty) {
+                    Integer level = item.getLevel();
+                    getStyleClass().removeAll("templates-row-level-1", "templates-row-level-2", "templates-row-level-3", "templates-row-level-4", "templates-row-level-5");
+                    if (level.equals(1)) {
+                        getStyleClass().add("templates-row-level-1");
+                    }
+                    if (level.equals(2)) {
+                        getStyleClass().add("templates-row-level-2");
+                    }
+                    if (level.equals(3)) {
+                        getStyleClass().add("templates-row-level-3");
+                    }
+                    if (level.equals(4)) {
+                        getStyleClass().add("templates-row-level-4");
+                    }
+                    if (level.equals(5)) {
+                        getStyleClass().add("templates-row-level-5");
+                    }
                 }
-                if (level.equals(2)) {
-                    getStyleClass().add("templates-row-level-2");
-                }
-                if (level.equals(3)) {
-                    getStyleClass().add("templates-row-level-3");
-                }
-                if (level.equals(4)) {
-                    getStyleClass().add("templates-row-level-4");
-                }
-                if (level.equals(5)) {
-                    getStyleClass().add("templates-row-level-5");
-                }
-            }
             }
         });
         ItemsGetter itemsGetter = new ItemsGetter(Id, this.items);

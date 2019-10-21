@@ -40,8 +40,7 @@ public class StructureTable {
     private ObservableList<StructureItem> getStructureItems() {
         ObservableList<StructureItem> StructureItems = FXCollections.observableArrayList();
         for (Item item : items) {
-            StructureItem structureItem = new StructureItem(item, totalVals);
-            StructureItems.add(structureItem);
+            StructureItems.add(new StructureItem(item, totalVals));
         }
         return StructureItems;
     }
@@ -74,9 +73,11 @@ public class StructureTable {
         ArrayList<TableColumn> colsArr = new ArrayList<>();
         int count = periodsArr.size() - 1;
         if (count > 0) {
+            String colStart;
+            String colEnd;
             for (int j = 0; j < count; j++) {
-                String colStart = periodsArr.get(j);
-                String colEnd = periodsArr.get(j + 1);
+                colStart = periodsArr.get(j);
+                colEnd = periodsArr.get(j + 1);
                 colsArr.add(absoluteChangeCol(colStart, colEnd));
             }
         }

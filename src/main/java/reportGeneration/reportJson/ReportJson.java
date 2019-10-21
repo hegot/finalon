@@ -37,11 +37,15 @@ public class ReportJson {
         JsonParser parser = new JsonParser();
         JsonElement element = parser.parse(json);
         JsonArray objArray = element.getAsJsonArray();
+        JsonObject dataset;
+        JsonObject vals;
+        ObservableMap<String, Double> values;
+        Item item;
         for (int i = 0; i < objArray.size(); i++) {
-            JsonObject dataset = objArray.get(i).getAsJsonObject();
-            JsonObject vals = dataset.get("values").getAsJsonObject();
-            ObservableMap<String, Double> values = getValues(vals);
-            Item item = new Item(
+            dataset = objArray.get(i).getAsJsonObject();
+            vals = dataset.get("values").getAsJsonObject();
+            values = getValues(vals);
+            item = new Item(
                     dataset.get("id").getAsInt(),
                     dataset.get("name").getAsString(),
                     dataset.get("shortName").getAsString(),

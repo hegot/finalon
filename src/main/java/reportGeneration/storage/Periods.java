@@ -86,8 +86,9 @@ public class Periods {
     public static ArrayList<String> initPeriodArr() {
         ArrayList<String> arr = new ArrayList<>();
         LocalDateTime time = getStartTime();
+        String str;
         for (int j = 0; j < periods; j++) {
-            String str = time.format(formatM) + "/" + time.format(formatY) + "-";
+            str = time.format(formatM) + "/" + time.format(formatY) + "-";
             time = time.plusMonths(month);
             str += time.format(formatM) + "/" + time.format(formatY);
             arr.add(str);

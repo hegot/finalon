@@ -44,9 +44,16 @@ public class WordExport {
         ObservableMap<Integer, ResultItem> items = ResultsStorage.getItems();
         if (items.size() > 0) {
             SortedSet<Integer> keys = new TreeSet<Integer>(items.keySet());
+            ResultItem item;
+            Object obj;
+            TitledItem titledItem;
+            Object titledItemInner;
+            BarChart ch;
+            WritableImage image;
+            PieChart pch;
             for (Integer key : keys) {
-                ResultItem item = items.get(key);
-                Object obj = item.get();
+                item = items.get(key);
+                obj = item.get();
                 if (obj.getClass() == String.class) {
                     if (item.getType().equals("sectionTitle")) {
                         wordPackage.getMainDocumentPart().getContent().add(getPageBreak());
@@ -55,12 +62,13 @@ public class WordExport {
                             new AddText(item).getStyledText()
                     );
                 } else {
-                    TitledItem titledItem = (TitledItem) obj;
-                    String title = titledItem.getTitle();
+                    titledItem = (TitledItem) obj;
                     wordPackage.getMainDocumentPart().getContent().add(
-                            new AddText(title).getStyledText()
+                            new AddText(
+                                    titledItem.getTitle()
+                            ).getStyledText()
                     );
-                    Object titledItemInner = titledItem.get();
+                    titledItemInner = titledItem.get();
                     if (titledItemInner.getClass() == TwoDList.class) {
                         if (item.getType().equals("scaleTable")) {
                             createTable((TwoDList) titledItemInner, "scaleTable");
@@ -68,12 +76,12 @@ public class WordExport {
                             createTable((TwoDList) titledItemInner, "table");
                         }
                     } else if (titledItemInner.getClass() == BarChart.class) {
-                        BarChart ch = (BarChart) titledItemInner;
-                        WritableImage image = ch.snapshot(new SnapshotParameters(), null);
+                        ch = (BarChart) titledItemInner;
+                        image = ch.snapshot(new SnapshotParameters(), null);
                         new AddImage(wordPackage).addChartToDoc(image);
                     } else if (titledItemInner.getClass() == PieChart.class) {
-                        PieChart ch = (PieChart) titledItemInner;
-                        WritableImage image = ch.snapshot(new SnapshotParameters(), null);
+                        pch = (PieChart) titledItemInner;
+                        image = pch.snapshot(new SnapshotParameters(), null);
                         new AddImage(wordPackage).addChartToDoc(image);
                     }
                 }

@@ -27,11 +27,14 @@ public class StructureItem {
     private ObservableMap<String, Double> calcStructureValues() {
         ArrayList<String> periodsArr = Periods.getPeriodArr();
         structureValues = FXCollections.observableHashMap();
+        Double itemVal;
+        Double totalVal;
+        Double structure;
         for (String col : periodsArr) {
-            Double itemVal = itemValues.get(col);
-            Double totalVal = totalVals.get(col);
+            itemVal = itemValues.get(col);
+            totalVal = totalVals.get(col);
             if (itemVal != null && totalVal != null) {
-                Double structure = (itemVal / totalVal) * 100;
+                structure = (itemVal / totalVal) * 100;
                 structureValues.put(col, structure);
             }
         }
