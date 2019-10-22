@@ -20,7 +20,8 @@ public class DbReportHandler extends DbHandlerBase {
                 "`name` TEXT," +
                 "`settings` TEXT," +
                 "`items` TEXT," +
-                "`updated` TEXT" +
+                "`updated` TEXT," +
+                "`years` TEXT" +
                 ");");
 
         System.out.println("Table " + tableName + " created");
@@ -38,13 +39,14 @@ public class DbReportHandler extends DbHandlerBase {
     public static int addReport(Report report) {
         try {
             String[] returnId = {"id"};
-            String sql = "INSERT INTO " + tableName + " (`id`, `name`, `settings`, `items`, `updated`) " +
-                    "VALUES(NULL, ?, ?, ?, ?)";
+            String sql = "INSERT INTO " + tableName + " (`id`, `name`, `settings`, `items`, `updated`, `years`) " +
+                    "VALUES(NULL, ?, ?, ?, ?, ?)";
             PreparedStatement statement = Connect.getConn().prepareStatement(sql, returnId);
             statement.setObject(1, report.getName());
             statement.setObject(2, report.getSettings());
             statement.setObject(3, report.getItems());
             statement.setObject(4, report.getUpdated());
+            statement.setObject(5, report.getYears());
             int affectedRows = statement.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException("Creating report failed, no rows affected.");
@@ -65,12 +67,13 @@ public class DbReportHandler extends DbHandlerBase {
     public static void updateReport(Report report) {
         if (itemExists(report.getId(), tableName)) {
             try (PreparedStatement statement = Connect.getConn().prepareStatement(
-                    "UPDATE " + tableName + " SET `name` = ?,  `settings` = ?, `items` = ?, `updated` = ? WHERE `id` = " + report.getId()
+                    "UPDATE " + tableName + " SET `name` = ?,  `settings` = ?, `items` = ?, `updated` = ?, `years` = ? WHERE `id` = " + report.getId()
             )) {
                 statement.setObject(1, report.getName());
                 statement.setObject(2, report.getSettings());
                 statement.setObject(3, report.getItems());
                 statement.setObject(4, report.getUpdated());
+                statement.setObject(5, report.getYears());
                 statement.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -92,9 +95,9 @@ public class DbReportHandler extends DbHandlerBase {
 
 
     public static Report getItem(int id) {
-        Report item = new Report(0, "", "", "", "");
+        Report item = new Report(0, "", "", "", "", "");
         try (Statement statement = Connect.getConn().createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT `id`, `name`, `settings`, `items`, `updated` FROM "
+            ResultSet resultSet = statement.executeQuery("SELECT `id`, `name`, `settings`, `items`, `updated`, `years` FROM "
                     + tableName + " WHERE id = " + id);
             while (resultSet.next()) {
                 item = new Report(
@@ -102,7 +105,8 @@ public class DbReportHandler extends DbHandlerBase {
                         resultSet.getString("name"),
                         resultSet.getString("settings"),
                         resultSet.getString("items"),
-                        resultSet.getString("updated")
+                        resultSet.getString("updated"),
+                        resultSet.getString("years")
                 );
             }
         } catch (SQLException e) {
@@ -114,7 +118,7 @@ public class DbReportHandler extends DbHandlerBase {
     public static ObservableList<Report> getReports() {
         ObservableList<Report> items = FXCollections.observableArrayList();
         try (Statement statement = Connect.getConn().createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT `id`, `name`, `settings`, `items`, `updated` FROM "
+            ResultSet resultSet = statement.executeQuery("SELECT `id`, `name`, `settings`, `items`, `updated`, `years` FROM "
                     + tableName);
             while (resultSet.next()) {
                 items.add(
@@ -123,7 +127,8 @@ public class DbReportHandler extends DbHandlerBase {
                                 resultSet.getString("name"),
                                 resultSet.getString("settings"),
                                 resultSet.getString("items"),
-                                resultSet.getString("updated")
+                                resultSet.getString("updated"),
+                                resultSet.getString("years")
                         )
                 );
             }

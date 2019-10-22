@@ -51,39 +51,27 @@ public class ReportsListing extends SceneBase {
         table.setPrefHeight(780);
 
         table.getColumns().addAll(
-                getCompanyCol(),
-                getIndustryCol(),
-                getTimeCol(),
+                getTextCol("Company", "name"),
+                getTextCol("Industry", "industry"),
+                getTextCol("Years", "years"),
+                getTextCol("Last time Updated", "updated"),
                 buttonCol()
         );
         table.getItems().addAll(items);
         return table;
     }
 
-    static TableColumn getTimeCol() {
-        TableColumn<Report, String> col = new TableColumn<Report, String>("Last time Updated");
-        col.setMinWidth(250);
-        col.setCellValueFactory(new PropertyValueFactory<Report, String>("updated"));
+    static TableColumn getTextCol(String title, String key) {
+        TableColumn<Report, String> col = new TableColumn<Report, String>(title);
+        col.setMinWidth(190);
+        col.setCellValueFactory(new PropertyValueFactory<Report, String>(key));
         return col;
     }
 
-    static TableColumn getIndustryCol() {
-        TableColumn<Report, String> col = new TableColumn<Report, String>("Industry");
-        col.setMinWidth(250);
-        col.setCellValueFactory(new PropertyValueFactory<Report, String>("industry"));
-        return col;
-    }
-
-    static TableColumn getCompanyCol() {
-        TableColumn<Report, String> col = new TableColumn<Report, String>("Company");
-        col.setMinWidth(250);
-        col.setCellValueFactory(new PropertyValueFactory<Report, String>("name"));
-        return col;
-    }
 
     static TableColumn buttonCol() {
         TableColumn<Report, Void> col = new TableColumn<>("");
-        col.setMinWidth(80);
+        col.setMinWidth(70);
         col.getStyleClass().add("buttons-cell");
         col.setCellFactory(ActionsCell.getActionsFactory());
         col.setSortable(false);

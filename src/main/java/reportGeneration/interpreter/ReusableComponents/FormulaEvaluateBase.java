@@ -58,7 +58,7 @@ public class FormulaEvaluateBase {
 
 
     private String appendWhitespace(String str) {
-        if (str.endsWith(" ")) {
+        if (str.length() > 1 && str.endsWith(" ")) {
             str = str + " ";
         }
         return str;

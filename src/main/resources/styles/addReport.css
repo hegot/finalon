@@ -175,3 +175,8 @@
     -fx-padding: 2px 2px 2px 20px;
     -fx-font-style: italic;
 }
+
+.add-company .confirm{
+    -fx-font-weight: bold;
+    -fx-padding: 10px;
+}

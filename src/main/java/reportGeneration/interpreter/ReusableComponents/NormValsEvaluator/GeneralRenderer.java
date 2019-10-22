@@ -13,7 +13,7 @@ public class GeneralRenderer {
 
     public String get(EvaluationTypes type) {
         ObservableList<Formula> childs = formula.getChilds();
-        if (formula.getPeriods().size() > 1) {
+        if (formula.getPeriods().size() > 0) {
             for (Formula child : childs) {
                 if (child.getName().equals(type.toString())) {
                     return InTimeReplacer.getVal(child.getDescription(), formula);

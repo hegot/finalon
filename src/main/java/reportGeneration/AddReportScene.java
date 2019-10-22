@@ -5,13 +5,17 @@ import finalonWindows.SceneBase;
 import finalonWindows.reusableComponents.SettingsMenu;
 import globalReusables.CallTypes;
 import globalReusables.StatTrigger;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import reportGeneration.stepOne.StepOne;
 import reportGeneration.stepThree.StepThree;
 import reportGeneration.stepTwo.StepTwo;
@@ -91,16 +95,28 @@ public class AddReportScene extends SceneBase {
         return button;
     }
 
-    private static Button saveReportBtn() {
+    private static HBox saveReportBtn() {
+        HBox hBox = new HBox(20);
+        Label label = new Label();
+        label.getStyleClass().add("confirm");
         Button btn = new Button("Save company data");
         btn.getStyleClass().add("blue-btn");
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
+                label.setText("Company data successfully saved!");
+                Timeline timeline = new Timeline(
+                        new KeyFrame(
+                                Duration.millis(3000),
+                                ae -> label.setText("")
+                        )
+                );
+                timeline.play();
                 SaveReport.save();
             }
         });
-        return btn;
+        hBox.getChildren().addAll(btn, label);
+        return hBox;
     }
 
     private void populateEmptyValues() {

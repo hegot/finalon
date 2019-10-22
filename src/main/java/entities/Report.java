@@ -11,19 +11,22 @@ public class Report {
     private String items;
     private String updated;
     private String industry;
+    private String years;
 
     public Report(
             int id,
             String name,
             String settings,
             String items,
-            String updated
+            String updated,
+            String years
     ) {
         this.id = id;
         this.name = name;
         this.settings = settings;
         this.items = items;
         this.updated = updated;
+        this.years = years;
     }
 
     public int getId() {
@@ -56,6 +59,14 @@ public class Report {
 
     public void setItems(String items) {
         this.items = items;
+    }
+
+    public String getYears() {
+        return years;
+    }
+
+    public void setYears(String years) {
+        this.years = years;
     }
 
     public String getUpdated() {

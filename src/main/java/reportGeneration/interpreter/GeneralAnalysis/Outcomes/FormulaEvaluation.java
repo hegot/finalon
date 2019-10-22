@@ -17,11 +17,15 @@ public class FormulaEvaluation {
 
     public VBox get(int weight) {
         String outcome = "";
+        String res = "";
         for (Formula formula : formulas) {
             formula.attachChilds();
-            outcome += evaluateSingle(formula) + "\n\n";
-            if (outcome.length() > 0) {
-                outcome = StrReplacer.substitute(outcome, formula);
+            res = evaluateSingle(formula);
+            if (res.length() > 2) {
+                outcome += res + "\n\n";
+                if (outcome.length() > 0) {
+                    outcome = StrReplacer.substitute(outcome, formula);
+                }
             }
         }
         VBox vbox = new VBox();
