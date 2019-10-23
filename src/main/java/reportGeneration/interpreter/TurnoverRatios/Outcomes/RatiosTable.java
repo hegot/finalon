@@ -39,7 +39,7 @@ public class RatiosTable extends FormulaTable {
     }
 
 
-    protected ArrayList<TableColumn> getPeriodCols() {
+    private ArrayList<TableColumn> getPeriodCols() {
         ArrayList<TableColumn> colsArr = new ArrayList<TableColumn>();
         for (int j = 1; j < periods.size(); j++) {
             String col = periods.get(j);

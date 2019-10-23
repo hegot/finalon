@@ -14,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 import reportGeneration.reportJson.ReportJson;
 import reportGeneration.storage.ItemsStorage;
+import reportGeneration.storage.Periods;
 import reportGeneration.storage.SettingsStorage;
 
 import java.util.Optional;
@@ -52,6 +53,7 @@ public class ActionsCell {
                             SettingsStorage.setSettings(settings);
                             SettingsStorage.put("reportId", Integer.toString(id));
                             ItemsStorage.setItems(items);
+                            Periods.reInit();
                             SceneSwitcher.goTo(SceneName.ADDREPORT);
                         });
                         return btn;

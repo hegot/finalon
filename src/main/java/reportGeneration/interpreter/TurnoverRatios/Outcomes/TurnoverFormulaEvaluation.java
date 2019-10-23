@@ -7,37 +7,15 @@ import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.FormulaEvaluateBase;
 import reportGeneration.interpreter.ReusableComponents.NormValsEvaluator.StrReplacer;
 import reportGeneration.storage.ResultsStorage;
+import reportGeneration.interpreter.ReusableComponents.FormulaEvaluation;
 
-public class FormulaEvaluation {
-    private ObservableList<Formula> formulas;
+public class TurnoverFormulaEvaluation extends FormulaEvaluation{
 
-    public FormulaEvaluation(ObservableList<Formula> formulas) {
-        this.formulas = formulas;
+    public TurnoverFormulaEvaluation(ObservableList<Formula> formulas) {
+        super(formulas);
     }
 
-    public VBox get(int weight) {
-        VBox vbox = new VBox();
-        if (formulas != null) {
-            String outcome = "";
-            String res = "";
-            for (Formula formula : formulas) {
-                formula.attachChilds();
-                res = evaluateSingle(formula);
-                if (res.length() > 2) {
-                    outcome += res + "\n\n";
-                    if (outcome.length() > 0) {
-                        outcome = StrReplacer.substitute(outcome, formula);
-                    }
-                }
-            }
-
-            vbox.getChildren().add(LabelWrap.wrap(outcome));
-            ResultsStorage.addStr(weight, "text", outcome);
-        }
-        return vbox;
-    }
-
-    private String evaluateSingle(Formula formula) {
+    protected String evaluateSingle(Formula formula) {
         StringBuilder output = new StringBuilder();
         FormulaEvaluateBase evaluator = new FormulaEvaluateBase(formula);
         output.append(evaluator.prefix());
@@ -53,7 +31,6 @@ public class FormulaEvaluation {
             RecivablePayableAccountsComparison recivablePayable = new RecivablePayableAccountsComparison();
             output.append(recivablePayable.getResult());
         }
-        String k = output.toString();
         return output.toString();
     }
 }

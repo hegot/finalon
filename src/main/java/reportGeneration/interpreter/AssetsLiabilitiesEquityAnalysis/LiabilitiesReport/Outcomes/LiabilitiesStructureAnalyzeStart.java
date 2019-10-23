@@ -44,54 +44,55 @@ public class LiabilitiesStructureAnalyzeStart {
 
 
     public VBox get(int weight) {
-        String str = "";
+        StringBuilder str = new StringBuilder();
         VBox vBox = new VBox(10);
         if (this.parent.getValues().size() > 1) {
-            str += firstMessage();
+            str.append(firstMessage());
         }
 
         if (equityVal != null && equityVal > 0) {
-            str += SrtuctureItemsLoop.loop(equityItems,
+            str.append(SrtuctureItemsLoop.loop(equityItems,
                     equityVal,
                     "The total equity consisted mostly of ",
                     " etc. ",
-                    period);
+                    period));
         }
         if (currentVal != null && currentVal > 0) {
-            str += SrtuctureItemsLoop.loop(currentItems,
+            str.append(SrtuctureItemsLoop.loop(currentItems,
                     currentVal,
                     "The company's current liabilities included ",
                     " etc. ",
-                    period);
+                    period));
         }
         if (nonCurrentVal != null && nonCurrentVal > 0) {
-            str += SrtuctureItemsLoop.loop(nonCurrentItems,
+            str.append(SrtuctureItemsLoop.loop(nonCurrentItems,
                     nonCurrentVal,
                     "Non-current liabilities included: ",
                     " etc. ",
-                    period);
+                    period));
         }
-        ResultsStorage.addStr(weight, "text", str);
-        vBox.getChildren().add(LabelWrap.wrap(str));
+        ResultsStorage.addStr(weight, "text", str.toString());
+        vBox.getChildren().add(LabelWrap.wrap(str.toString()));
         return vBox;
     }
 
     private String firstMessage() {
-        String str = "By looking at Table 4 it can be noticed that the sources of finance consisted of ";
+        StringBuilder str = new StringBuilder();
+        str.append("By looking at Table 4 it can be noticed that the sources of finance consisted of ");
         if (equityVal != null) {
-            str = str + Calc.partStr(equityVal, totalVal) + " shareholders' equity, ";
+            str.append(Calc.partStr(equityVal, totalVal) + " shareholders' equity, ");
         }
         if (nonCurrentVal != null) {
-            str = str + Calc.partStr(nonCurrentVal, totalVal) + " non-current liabilities ";
+            str.append(Calc.partStr(nonCurrentVal, totalVal) + " non-current liabilities ");
         }
         if (currentVal != null) {
-            str = str + " and " + Calc.partStr(currentVal, totalVal) + " current liabilities. ";
+            str.append(" and " + Calc.partStr(currentVal, totalVal) + " current liabilities. ");
         }
         if (assetsTotal != null && equityVal != null) {
             Double share = (equityVal / assetsTotal) * 100;
-            str = str + EquityShareAnalyze.analyse(share, period);
+            str.append(EquityShareAnalyze.analyse(share, period));
         }
 
-        return str;
+        return str.toString();
     }
 }

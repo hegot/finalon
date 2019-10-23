@@ -23,7 +23,7 @@ public class ReturnonOperatingAssets {
                 EvaluationTypes.PREFIX.toString(),
                 "",
                 "",
-                "The operating assets were yielding LASTVALUEPERCENT% return in ENDDATE. ",
+                "The operating assets were yielding LASTVALUE% return in ENDDATE. ",
                 "",
                 "",
                 ReturnonOperatingAssets));

@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ProfitabilityRatios.Outcomes.DupontAnalysis;
-import reportGeneration.interpreter.ProfitabilityRatios.Outcomes.FormulaEvaluation;
+import reportGeneration.interpreter.ProfitabilityRatios.Outcomes.ProfitabilityFormulaEvaluation;
 import reportGeneration.interpreter.ReusableComponents.helpers.TableName;
 import reportGeneration.interpreter.ReusableComponents.tables.RatiosTable;
 import reportGeneration.storage.FormulaStorage;
@@ -32,7 +32,7 @@ public class ProfitabilityRatios {
         String title = "Table 8. Profitability Ratios, %";
         Label tableName = TableName.name(title);
         weight++;
-        FormulaEvaluation formulaEvaluation = new FormulaEvaluation(formulas);
+        ProfitabilityFormulaEvaluation formulaEvaluation = new ProfitabilityFormulaEvaluation(formulas);
 
         TableView tbl = new RatiosTable(formulas).get();
         TwoDList items = TableName.getTableViewValues(tbl);

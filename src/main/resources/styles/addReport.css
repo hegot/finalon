@@ -1,15 +1,13 @@
 .add-company{
- -fx-padding: 0 10;
+    -fx-padding: 0 10;
 }
-
-
 
 .add-company .report-table .column-header,
 .add-company .report-table .column-header .filler,
 .add-company .report-table .column-header-background .filler {
     -fx-background-color: #34495e;
-      -fx-padding: 15;
-      -fx-pref-height: 50px;
+    -fx-padding: 15;
+    -fx-pref-height: 50px;
 }
 
 .add-company .report-table .column-header{
@@ -29,7 +27,7 @@
     -fx-font-size: 12px;
     -fx-font-weight: normal;
     -fx-padding: 10px 0 5px 0;
-     -fx-font-weight: bold;
+    -fx-font-weight: bold;
 }
 
 

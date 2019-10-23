@@ -63,7 +63,7 @@ public class ReturnonInvestment {
                 EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString(),
                 "",
                 "",
-                "Overall, ROI improved from STARTVALUEPERCENT% in STARTDATE to LASTVALUEPERCENT% in ENDDATE. ",
+                "Overall, ROI improved from STARTVALUE% in STARTDATE to LASTVALUE% in ENDDATE. ",
                 "",
                 "",
                 ReturnonInvestment));
@@ -73,7 +73,7 @@ public class ReturnonInvestment {
                 EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString(),
                 "",
                 "",
-                "Overall, ROI declined from STARTVALUEPERCENT% in STARTDATE to LASTVALUEPERCENT% in ENDDATE. ",
+                "Overall, ROI declined from STARTVALUE% in STARTDATE to LASTVALUE% in ENDDATE. ",
                 "",
                 "",
                 ReturnonInvestment));

@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.helpers.TableName;
-import reportGeneration.interpreter.ZScoreModel.Outcomes.FormulaEvaluation;
+import reportGeneration.interpreter.ZScoreModel.Outcomes.ZScoreFormulaEvaluation;
 import reportGeneration.interpreter.ZScoreModel.Outcomes.RatiosTable;
 import reportGeneration.storage.FormulaStorage;
 import reportGeneration.storage.ResultsStorage;
@@ -29,7 +29,7 @@ public class ZScoreModel {
         VBox box = new VBox(8);
         String title = "Table 12. The Z-Score Model for Private Firms ";
         weight++;
-        FormulaEvaluation formulaEvaluation = new FormulaEvaluation(formulas);
+        ZScoreFormulaEvaluation formulaEvaluation = new ZScoreFormulaEvaluation(formulas);
 
         TableView tbl = new RatiosTable(formulas).get();
         TwoDList items = TableName.getTableViewValues(tbl);

@@ -1,4 +1,4 @@
-package reportGeneration.interpreter.LaborProductivity.Outcomes;
+package reportGeneration.interpreter.ReusableComponents;
 
 import entities.Formula;
 import globalReusables.LabelWrap;
@@ -18,7 +18,6 @@ public class FormulaEvaluation {
     public VBox get(int weight) {
         VBox vbox = new VBox();
         if (formulas != null) {
-            weight++;
             String outcome = "";
             String res = "";
             for (Formula formula : formulas) {
@@ -37,11 +36,15 @@ public class FormulaEvaluation {
         return vbox;
     }
 
-    private String evaluateSingle(Formula formula) {
+    protected String evaluateSingle(Formula formula) {
         StringBuilder output = new StringBuilder();
         FormulaEvaluateBase evaluator = new FormulaEvaluateBase(formula);
         output.append(evaluator.prefix());
+        output.append(evaluator.startAndEnd());
         output.append(evaluator.periodsComparison());
+        output.append(evaluator.suffix());
         return output.toString();
     }
+
+
 }

@@ -3,7 +3,7 @@ package reportGeneration.interpreter.LaborProductivity;
 import entities.Formula;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.VBox;
-import reportGeneration.interpreter.LaborProductivity.Outcomes.FormulaEvaluation;
+import reportGeneration.interpreter.LaborProductivity.Outcomes.LaborProductivityFormulaEvaluation;
 import reportGeneration.interpreter.LaborProductivity.Outcomes.LaborProductivityChart;
 import reportGeneration.storage.FormulaStorage;
 import reportGeneration.storage.ResultsStorage;
@@ -25,7 +25,7 @@ public class LaborProductivity {
     public VBox get() {
         VBox box = new VBox(8);
         LaborProductivityChart chart = new LaborProductivityChart();
-        FormulaEvaluation formulaEvaluation = new FormulaEvaluation(formulas);
+        LaborProductivityFormulaEvaluation formulaEvaluation = new LaborProductivityFormulaEvaluation(formulas);
         box.getChildren().addAll(
                 chart.get(weight),
                 formulaEvaluation.get(weight++)

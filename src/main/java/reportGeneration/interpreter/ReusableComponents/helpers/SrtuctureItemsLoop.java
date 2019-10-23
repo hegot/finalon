@@ -1,11 +1,11 @@
 package reportGeneration.interpreter.ReusableComponents.helpers;
 
 import entities.Item;
+import globalReusables.MapUtil;
 import javafx.collections.ObservableList;
 
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class SrtuctureItemsLoop {
     public static String loop(
@@ -15,20 +15,21 @@ public class SrtuctureItemsLoop {
             String end,
             String period
     ) {
-        TreeMap<Double, String> treeMap = new TreeMap<>(Collections.reverseOrder());
+        Map<String, Double> map = new HashMap<>();
         Double val;
         Double part;
         for (Item item : items) {
             val = item.getVal(period);
-            if (val != null) {
+            if (val != null && val > 0) {
                 part = Calc.part(val, totall);
-                treeMap.put(part, item.getName());
+                map.put(item.getName(), part);
             }
         }
+        Map<String, Double> sorted = MapUtil.sortByValue(map);
         StringBuilder result = new StringBuilder("");
-        for (Map.Entry<Double, String> entry : treeMap.entrySet()) {
-            result.append(entry.getValue() + " ("
-                    + Calc.format(entry.getKey()) +
+        for (Map.Entry<String, Double> entry : sorted.entrySet()) {
+            result.append(entry.getKey() + " ("
+                    + Calc.format(entry.getValue()) +
                     "), ");
         }
         return start + result + end;

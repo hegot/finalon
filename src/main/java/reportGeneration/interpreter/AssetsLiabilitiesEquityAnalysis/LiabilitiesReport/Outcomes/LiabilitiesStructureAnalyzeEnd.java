@@ -56,21 +56,21 @@ public class LiabilitiesStructureAnalyzeEnd {
             str += SrtuctureItemsLoop.loop(equityItems,
                     equityVal,
                     "The total equity consisted mostly of ",
-                    " etc.",
+                    " etc. ",
                     period);
         }
         if (currentVal != null && currentVal > 0) {
             str += SrtuctureItemsLoop.loop(currentItems,
                     currentVal,
                     "The following current liabilities had the highest values: ",
-                    " etc.",
+                    " etc. ",
                     period);
         }
         if (nonCurrentVal != null && nonCurrentVal > 0) {
             str += SrtuctureItemsLoop.loop(nonCurrentItems,
                     nonCurrentVal,
                     "Non-current liabilities included: ",
-                    " etc.",
+                    " etc. ",
                     period);
         }
         vBox.getChildren().add(LabelWrap.wrap(str));

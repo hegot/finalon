@@ -1,7 +1,6 @@
 package finalonWindows.reportsScene;
 
 import database.report.DbReportHandler;
-import entities.Item;
 import entities.Report;
 import finalonWindows.SceneBase;
 import finalonWindows.reusableComponents.SettingsMenu;
@@ -13,6 +12,22 @@ import javafx.scene.layout.VBox;
 
 
 public class ReportsListing extends SceneBase {
+
+    static TableColumn getTextCol(String title, String key) {
+        TableColumn<Report, String> col = new TableColumn<Report, String>(title);
+        col.setMinWidth(190);
+        col.setCellValueFactory(new PropertyValueFactory<Report, String>(key));
+        return col;
+    }
+
+    static TableColumn buttonCol() {
+        TableColumn<Report, Void> col = new TableColumn<>("");
+        col.setMinWidth(70);
+        col.getStyleClass().add("buttons-cell");
+        col.setCellFactory(ActionsCell.getActionsFactory());
+        col.setSortable(false);
+        return col;
+    }
 
     public VBox getScene() {
         VBox vbox = new VBox(0);
@@ -43,7 +58,6 @@ public class ReportsListing extends SceneBase {
         return vbox;
     }
 
-
     public TableView<Report> getTable(ObservableList<Report> items) {
         TableView<Report> table = new TableView<>();
         table.setEditable(true);
@@ -59,22 +73,5 @@ public class ReportsListing extends SceneBase {
         );
         table.getItems().addAll(items);
         return table;
-    }
-
-    static TableColumn getTextCol(String title, String key) {
-        TableColumn<Report, String> col = new TableColumn<Report, String>(title);
-        col.setMinWidth(190);
-        col.setCellValueFactory(new PropertyValueFactory<Report, String>(key));
-        return col;
-    }
-
-
-    static TableColumn buttonCol() {
-        TableColumn<Report, Void> col = new TableColumn<>("");
-        col.setMinWidth(70);
-        col.getStyleClass().add("buttons-cell");
-        col.setCellFactory(ActionsCell.getActionsFactory());
-        col.setSortable(false);
-        return col;
     }
 }

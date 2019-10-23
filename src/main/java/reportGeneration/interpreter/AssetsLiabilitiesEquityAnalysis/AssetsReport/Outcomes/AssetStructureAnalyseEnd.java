@@ -46,44 +46,44 @@ public class AssetStructureAnalyseEnd {
 
     public VBox get(int weight) {
         VBox vBox = new VBox(10);
-        String str = "";
+        StringBuilder str = new StringBuilder();
         if (this.parent.getValues().size() > 1) {
-            str = firstMessage();
+            str.append(firstMessage());
         }
         if (currentVal != null && currentVal > 0) {
-            str = SrtuctureItemsLoop.loop(currentItems,
+            str.append(SrtuctureItemsLoop.loop(currentItems,
                     currentVal,
                     "Total Current assets composed mostly of ",
-                    " etc.",
-                    period);
+                    " etc. ",
+                    period));
         }
         if (nonCurrentVal != null && nonCurrentVal > 0) {
-            str = SrtuctureItemsLoop.loop(nonCurrentItems,
+            str.append(SrtuctureItemsLoop.loop(nonCurrentItems,
                     nonCurrentVal,
                     "The most significant items of the Non Current assets - ",
-                    " etc.",
-                    period);
+                    " etc. ",
+                    period));
         }
-        ResultsStorage.addStr(++weight, "text", str);
-        vBox.getChildren().add(LabelWrap.wrap(str));
+        ResultsStorage.addStr(++weight, "text", str.toString());
+        vBox.getChildren().add(LabelWrap.wrap(str.toString()));
         return vBox;
     }
 
     private String firstMessage() {
-        String str = "";
+        StringBuilder str = new StringBuilder();
         if (totalVal != null && totalVal != 0) {
             if (assetsChanged()) {
-                str = "Over the period under review the assets structure changed. ";
+                str.append("Over the period under review the assets structure changed. ");
             }
-            str = str + "At the end of " + Formatter.formatDate(period) + " the assets consisted of ";
+            str.append("At the end of ").append(Formatter.formatDate(period)).append(" the assets consisted of ");
 
             if (nonCurrentVal != null) {
-                str = str + Calc.partStr(nonCurrentVal, totalVal) + " non-current assets";
+                str.append(Calc.partStr(nonCurrentVal, totalVal)).append(" non-current assets");
             }
             if (currentVal != null) {
-                str = str + " and " + Calc.partStr(currentVal, totalVal) + " of current assets.";
+                str.append(" and ").append(Calc.partStr(currentVal, totalVal)).append(" of current assets. ");
             }
         }
-        return str;
+        return str.toString();
     }
 }

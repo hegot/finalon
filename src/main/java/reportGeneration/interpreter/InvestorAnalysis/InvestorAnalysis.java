@@ -4,7 +4,7 @@ import entities.Formula;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
-import reportGeneration.interpreter.InvestorAnalysis.Outcomes.FormulaEvaluation;
+import reportGeneration.interpreter.InvestorAnalysis.Outcomes.InvestorFormulaEvaluation;
 import reportGeneration.interpreter.ReusableComponents.helpers.TableName;
 import reportGeneration.interpreter.ReusableComponents.tables.RatiosTable;
 import reportGeneration.storage.FormulaStorage;
@@ -29,7 +29,7 @@ public class InvestorAnalysis {
         VBox box = new VBox(8);
         String title = "Table 11. Investor Analysis";
         weight++;
-        FormulaEvaluation formulaEvaluation = new FormulaEvaluation(formulas);
+        InvestorFormulaEvaluation formulaEvaluation = new InvestorFormulaEvaluation(formulas);
         TableView tbl = new RatiosTable(formulas).get();
         TwoDList items = TableName.getTableViewValues(tbl);
         ResultsStorage.addTable(weight, items, title);

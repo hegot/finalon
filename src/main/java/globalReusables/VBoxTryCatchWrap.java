@@ -2,25 +2,27 @@ package globalReusables;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+
 import java.util.function.Supplier;
 
 public class VBoxTryCatchWrap implements Supplier<VBox> {
 
-    public VBoxTryCatchWrap(Supplier<VBox> transformer){
+    private Supplier<VBox> transformer;
+
+    public VBoxTryCatchWrap(Supplier<VBox> transformer) {
         this.transformer = transformer;
     }
 
-    @Override public VBox get() {
+    @Override
+    public VBox get() {
         VBox vBox = new VBox();
-        try{
+        try {
             vBox = transformer.get();
-        }catch(Exception e){
+        } catch (Exception e) {
             Label err = new Label();
             err.setText(e.getMessage());
             vBox.getChildren().add(err);
         }
         return vBox;
     }
-
-    private Supplier<VBox> transformer;
 }

@@ -45,7 +45,7 @@ public class AssetStructureAnalyzeStart {
         if (currentVal != null && currentVal > 0) {
             str.append(SrtuctureItemsLoop.loop(currentItems,
                     currentVal,
-                    "The most significant items of the current assets were ",
+                    "The most significant items of the current assets were: ",
                     " etc. ",
                     period));
         }
