@@ -64,7 +64,7 @@ public class DbReportHandler extends DbHandlerBase {
         return 0;
     }
 
-    public static void updateReport(Report report) {
+    public static int updateReport(Report report) {
         if (itemExists(report.getId(), tableName)) {
             try (PreparedStatement statement = Connect.getConn().prepareStatement(
                     "UPDATE " + tableName + " SET `name` = ?,  `settings` = ?, `items` = ?, `updated` = ?, `years` = ? WHERE `id` = " + report.getId()
@@ -78,8 +78,9 @@ public class DbReportHandler extends DbHandlerBase {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+            return report.getId();
         } else {
-            addReport(report);
+            return addReport(report);
         }
     }
 

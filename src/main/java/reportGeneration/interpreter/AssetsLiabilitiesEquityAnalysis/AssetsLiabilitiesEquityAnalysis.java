@@ -1,5 +1,6 @@
 package reportGeneration.interpreter.AssetsLiabilitiesEquityAnalysis;
 
+import globalReusables.VBoxTryCatchWrap;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
@@ -26,30 +27,27 @@ public class AssetsLiabilitiesEquityAnalysis {
         String t4 = "Liabilities Structure Analysis";
         TabPane tabs = new TabPane();
         tabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-
         if (Periods.getPeriodArr().size() > 1) {
             Tab tab01 = new Tab(t1);
             weight += 20;
-            tab01.setContent(new AssetsReport().getTrend(weight));
+            tab01.setContent(new VBoxTryCatchWrap(() -> new AssetsReport().getTrend(weight)).get());
             Tab tab02 = new Tab(t2);
             weight += 20;
-            tab02.setContent(new LiabilitiesReport().getTrend(weight));
+            tab02.setContent(new VBoxTryCatchWrap(() -> new LiabilitiesReport().getTrend(weight)).get());
             tabs.getTabs().addAll(tab01, tab02);
         }
 
         Tab tab03 = new Tab(t3);
         weight += 20;
-        tab03.setContent(new AssetsReport().getStructure(weight));
+        tab03.setContent(new VBoxTryCatchWrap(() -> new AssetsReport().getStructure(weight)).get());
         Tab tab04 = new Tab(t4);
         weight += 20;
-        tab04.setContent(new LiabilitiesReport().getStructure(weight));
-
+        tab04.setContent(new VBoxTryCatchWrap(() -> new LiabilitiesReport().getStructure(weight)).get());
         Tab tab05 = new Tab("Formula Calculation");
-        tab05.setContent(new FormulaList().get());
-
-
+        tab05.setContent(new VBoxTryCatchWrap(() -> new FormulaList().get()).get());
         tabs.getTabs().addAll(tab03, tab04, tab05);
         vBox.getChildren().add(tabs);
         return vBox;
     }
+
 }

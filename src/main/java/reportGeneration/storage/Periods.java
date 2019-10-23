@@ -166,7 +166,7 @@ public class Periods {
     public static String next(String item) {
         if (periodsArr.size() > 1) {
             int index = periodsArr.indexOf(item) + 1;
-            if (index > 0 && periodsArr.size() >= index) {
+            if (index > 0 && periodsArr.size() > index) {
                 return periodsArr.get(index);
             }
         }

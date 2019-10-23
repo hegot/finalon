@@ -1,18 +1,21 @@
 package reportGeneration.stepThree;
 
 import entities.Formula;
+import globalReusables.VBoxTryCatchWrap;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import reportGeneration.interpreter.AssetsLiabilitiesEquityAnalysis.AssetsReport.AssetsReport;
 import reportGeneration.interpreter.Interprter;
 import reportGeneration.storage.FormulaStorage;
 import reportGeneration.wordExport.WordExport;
@@ -42,28 +45,18 @@ public class ResultTabs {
         int number = 1;
         int counter = 0;
         Formula formula;
-        String code;
         String name;
         Tab tab;
-        VBox vBox;
         for (int i = 0; i < sections.size(); i++) {
             formula = sections.get(i);
-            code = formula.getShortName();
+            String code = formula.getShortName();
             name = number + ". " + formula.getName();
             number++;
             tab = new Tab(name);
             tabs.add(tab);
             counter = counter + 100;
             final int num = counter;
-            System.out.println(code);
-            try {
-                vBox = interprter.getReport(code, num);
-                if (vBox != null) {
-                    tab.setContent(vBox);
-                }
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
+            tab.setContent(new VBoxTryCatchWrap(() -> interprter.getReport(code, num)).get());
             tabsArr.put(code, tab);
         }
         return tabs;
@@ -109,7 +102,7 @@ public class ResultTabs {
     }
 
     private Button exportBtn() {
-        Button btn = new Button("Export Doc");
+        Button btn = new Button("Export to Docx");
         btn.getStyleClass().add("blue-btn");
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override

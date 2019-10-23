@@ -13,17 +13,17 @@ import java.util.Date;
 public class SaveReport {
     public static void save() {
         Platform.runLater(() -> {
-
             int reportId = SettingsStorage.getInt("reportId");
             Report report = new Report(
-                    reportId,
-                    SettingsStorage.get("company"),
-                    ReportJson.settingsToJson(),
-                    ReportJson.itemsToJson(),
-                    getSaveDate(),
-                    getYears()
+                reportId,
+                SettingsStorage.get("company"),
+                ReportJson.settingsToJson(),
+                ReportJson.itemsToJson(),
+                getSaveDate(),
+                getYears()
             );
-            DbReportHandler.updateReport(report);
+            Integer id = DbReportHandler.updateReport(report);
+            SettingsStorage.put("reportId", id.toString());
         });
     }
 
