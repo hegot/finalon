@@ -51,11 +51,15 @@ public class ItemPeriodEditCell extends TableCell<Item, String> {
                 String nextColName = Periods.next(colName);
                 if (nextColName.length() > 0) {
                     selectCell(getIndex(), nextColName);
+                }else{
+                    selectCell(getIndex() + 1, Periods.startKey());
                 }
             } else if (t.getCode() == KeyCode.LEFT) {
                 String prevColName = Periods.prev(colName);
                 if (prevColName.length() > 0) {
                     selectCell(getIndex(), prevColName);
+                }else{
+                    selectCell(getIndex() - 1, Periods.endKey());
                 }
             } else if (t.getCode() == KeyCode.UP) {
                 int index = getIndex() - 1;
