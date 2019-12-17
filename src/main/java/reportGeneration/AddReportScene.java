@@ -70,7 +70,7 @@ public class AddReportScene extends SceneBase {
                         vbox.getChildren().addAll(settingsMenu.getMenu(), stepOne.show());
                     } else if (newStep.equals("two")) {
                         StepTwo stepTwo = new StepTwo();
-                        vbox.getChildren().addAll(headerMenu(), stepTwo.show());
+                        vbox.getChildren().addAll(headerMenu(), stepTwo.show(), headerMenu());
                     } else if (newStep.equals("three")) {
                         StepThree stepThree = new StepThree();
                         vbox.getChildren().addAll(headerMenu(), stepThree.show());
@@ -85,7 +85,7 @@ public class AddReportScene extends SceneBase {
         return vbox;
     }
 
-    HBox headerMenu() {
+    public static HBox headerMenu() {
         HBox hbox = new HBox(20);
         String step = SettingsStorage.get("step");
         if (step.equals("two")) {
@@ -97,7 +97,7 @@ public class AddReportScene extends SceneBase {
         return hbox;
     }
 
-    Button generateButton() {
+    public static Button generateButton() {
         Button button = new Button("Generate Report");
         button.getStyleClass().add("blue-btn");
         button.setOnAction(new EventHandler<ActionEvent>() {
@@ -118,7 +118,7 @@ public class AddReportScene extends SceneBase {
         return button;
     }
 
-    private void populateEmptyValues() {
+    public static void populateEmptyValues() {
         String perStr = SettingsStorage.get("periods");
         if (perStr != null) {
             Integer periods = Integer.parseInt(perStr);
@@ -137,7 +137,7 @@ public class AddReportScene extends SceneBase {
     }
 
 
-    Button backSettingsButton() {
+    public static Button backSettingsButton() {
         Button button = new Button("Report Settings");
         button.getStyleClass().add("blue-btn");
         button.setOnAction(new EventHandler<ActionEvent>() {
@@ -149,7 +149,7 @@ public class AddReportScene extends SceneBase {
         return button;
     }
 
-    Button backStepTwoButton() {
+    public static Button backStepTwoButton() {
         Button button = new Button("Back to data input");
         button.getStyleClass().add("blue-btn");
         button.setOnAction(new EventHandler<ActionEvent>() {

@@ -82,7 +82,7 @@ public class StepTwo {
         table.setSelectionModel(null);
         table.getStyleClass().add("report-input");
         table.setEditable(true);
-        table.setPrefHeight(1900);
+        table.setMinHeight(1550);
         table.setPrefWidth(880);
         Columns cols = new Columns();
         table.getColumns().addAll(cols.getNameCol(), cols.getCodeCol());

@@ -63,12 +63,12 @@ public class AssetStructureAnalyzeStart {
 
     private String firstMessage() {
         StringBuilder str = new StringBuilder();
-        str.append("At the end of " + Formatter.formatDate(period) + " the assets consisted of ");
+        str.append("At the end of ").append(Formatter.formatDate(period)).append(" the assets consisted of ");
         if (nonCurrentVal != null) {
-            str.append(Calc.partStr(nonCurrentVal, totalVal) + " non-current assets");
+            str.append(Calc.partStr(nonCurrentVal, totalVal)).append(" non-current assets");
         }
         if (currentVal != null) {
-            str.append(" and " + Calc.partStr(currentVal, totalVal) + " of current assets. ");
+            str.append(" and ").append(Calc.partStr(currentVal, totalVal)).append(" of current assets. ");
         }
         return str.toString();
     }

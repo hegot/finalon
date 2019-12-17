@@ -37,10 +37,8 @@ public class ItemPeriodEditCell extends TableCell<Item, String> {
         textField.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
             if (wasFocused && !isNowFocused) {
                 String text = textField.getText();
-                if (text != null && text.length() > 0) {
-                    item.updateItem(text, colName);
-                    UpdateParentCell.run(item, colName);
-                }
+                item.updateItem(text, colName);
+                UpdateParentCell.run(item, colName);
             }
         });
         textField.setOnKeyPressed(t -> {

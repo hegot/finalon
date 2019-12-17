@@ -3,6 +3,7 @@ package reportGeneration.stepThree;
 import finalonWindows.SceneBase;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import reportGeneration.AddReportScene;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
@@ -21,7 +22,8 @@ public class StepThree extends SceneBase {
         vBox.getChildren().addAll(
                 getTitle(),
                 getDescText(),
-                new ResultTabs().getTabs()
+                new ResultTabs().getTabs(),
+                AddReportScene.headerMenu()
         );
         return vBox;
     }

@@ -26,15 +26,19 @@ public class ResultTabs {
 
     private Interprter interprter = new Interprter();
     private Map<String, Tab> tabsArr = new HashMap<>();
-    private ImageView throbber = getThrobber();
+    private VBox throbber = getThrobber();
 
 
-    private ImageView getThrobber() {
+    private VBox getThrobber() {
         Image img = new Image("image/loading.gif");
         ImageView iv = new ImageView(img);
         iv.setFitHeight(200);
         iv.setFitWidth(200);
-        return iv;
+        VBox vBox = new VBox(iv);
+        vBox.setPrefHeight(730);
+        vBox.setFillWidth(true);
+        vBox.setAlignment(Pos.TOP_CENTER);
+        return vBox;
     }
 
     private ArrayList<Tab> loopSections() {

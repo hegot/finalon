@@ -8,51 +8,73 @@ import javax.script.ScriptEngineManager;
 
 public class Calc {
     public static String partStr(Double val, Double total) {
-        return format(part(val, total));
+        String str = "";
+        try {
+            str = format(part(val, total));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return str;
     }
 
     public static String format(Double input) {
-        String val = Formatter.round(input);
-        return Formatter.stringCommaFormat(val) + '%';
+        String str = "";
+        try {
+            String val = Formatter.round(input);
+            str = Formatter.stringCommaFormat(val) + '%';
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return str;
     }
 
     public static Double part(Double val, Double total) {
-        Double part = (val / total) * 100;
-        String formatted = Formatter.round(part);
-        return Double.parseDouble(formatted);
+        Double dob = 0.0;
+        try {
+            Double part = (val / total) * 100;
+            String formatted = Formatter.round(part);
+            dob = Double.parseDouble(formatted);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return dob;
     }
 
     public static String getRelativeChange(Double start, Double end) {
         String val = "0";
-        if (start != null && end != null) {
-            ScriptEngineManager mgr = new ScriptEngineManager();
-            ScriptEngine engine = mgr.getEngineByName("JavaScript");
-            String formula = "(("
-                    + "(" + Double.toString(end) + ")"
-                    + "-"
-                    + "(" + Double.toString(start) + ")"
-                    + ")/"
-                    + "(" + Double.toString(start) + ")"
-                    + ") * 100";
-            val = "";
-            try {
+        try {
+            if (start != null && end != null) {
+                ScriptEngineManager mgr = new ScriptEngineManager();
+                ScriptEngine engine = mgr.getEngineByName("JavaScript");
+                String formula = "(("
+                        + "(" + Double.toString(end) + ")"
+                        + "-"
+                        + "(" + Double.toString(start) + ")"
+                        + ")/"
+                        + "(" + Double.toString(start) + ")"
+                        + ") * 100";
+                val = "";
                 String result = engine.eval(formula).toString();
                 if (result != null && result.length() > 0) {
                     val = String.format("%.1f", Formatter.parseDouble(result));
                     if (val.equals("NaN") || val.equals("Infinity") || val.equals("-Infinity")) val = "";
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         val = Formatter.stringCommaFormat(val);
         return val;
     }
 
     public static SimpleStringProperty diff(Double startVAl, Double endVal) {
-        if (startVAl != null && endVal != null) {
-            String absolute = Formatter.doubleCommaFormat(endVal - startVAl);
-            return new SimpleStringProperty(absolute);
+        try {
+            if (startVAl != null && endVal != null) {
+                String absolute = Formatter.doubleCommaFormat(endVal - startVAl);
+                return new SimpleStringProperty(absolute);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         return null;
     }
