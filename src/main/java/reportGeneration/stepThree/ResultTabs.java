@@ -58,12 +58,15 @@ public class ResultTabs {
             String code = formula.getShortName();
             name = number + ". " + formula.getName();
             number++;
-            tab = new Tab(name);
-            tabs.add(tab);
             counter = counter + 100;
             final int num = counter;
-            tab.setContent(new VBoxTryCatchWrap(() -> interprter.getReport(code, num)).get());
-            tabsArr.put(code, tab);
+            VBox vBox = new VBoxTryCatchWrap(() -> interprter.getReport(code, num)).get();
+            if(vBox.getChildren().size() > 0){
+                tab = new Tab(name);
+                tab.setContent(vBox);
+                tabs.add(tab);
+                tabsArr.put(code, tab);
+            }
         }
         return tabs;
     }

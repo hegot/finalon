@@ -20,7 +20,8 @@ public class Validator {
     public String validate() {
         StringBuilder output = new StringBuilder();
         ArrayList<String> errors = validateAssetsEquityLiabilities();
-        errors.addAll(validateAssetsEquityPoulated());
+        errors.addAll(validateAssetsEquityPopulated());
+        errors.addAll(validateComprehensiveIncome());
         String error;
         String num;
         for (int i = 0; i < errors.size(); i++) {
@@ -31,6 +32,25 @@ public class Validator {
             }
         }
         return output.toString();
+    }
+
+    private ArrayList<String> validateComprehensiveIncome() {
+        Item ComprehensiveIncomeGeneral = ItemsStorage.get("ComprehensiveIncomeGeneral");
+        ArrayList<String> errors = new ArrayList<>();
+        boolean ComprehensiveIncomeErr = true;
+        if (ComprehensiveIncomeGeneral.getValues().size() > 0) {
+            ObservableMap<String, Double> vals = ComprehensiveIncomeGeneral.getValues();
+            for (String key : vals.keySet()) {
+                if (vals.get(key) != 0) {
+                    ComprehensiveIncomeErr = false;
+                }
+            }
+        }
+        if(ComprehensiveIncomeErr){
+            String err = "Please populate Comprehensive Income value to be able to submit report.";
+            errors.add(err);
+        }
+        return errors;
     }
 
 
@@ -55,10 +75,10 @@ public class Validator {
         return errors;
     }
 
-    private ArrayList<String> validateAssetsEquityPoulated() {
+    private ArrayList<String> validateAssetsEquityPopulated() {
         ArrayList<String> errors = new ArrayList<>();
         if(!liabilitiesPopulated() || !assetsPopulated()){
-            errors.add("Please populate Equity And Liabilities value and Assets General value to be able to submit report");
+            errors.add("Please populate Equity And Liabilities value and Assets General value to be able to submit report.");
         }
         return errors;
     }

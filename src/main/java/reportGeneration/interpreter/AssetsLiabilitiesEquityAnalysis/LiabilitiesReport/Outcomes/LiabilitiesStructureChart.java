@@ -41,21 +41,24 @@ public class LiabilitiesStructureChart {
         if (totalVal != null && totalVal != 0) {
             ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
             if (currentVal != null) {
+                Double val = Calc.part(currentVal, totalVal);
                 pieChartData.add(new PieChart.Data(
-                        current.getName(),
-                        Calc.part(currentVal, totalVal)
+                        current.getName() + " - " + val + "%",
+                        val
                 ));
             }
             if (nonCurrentVal != null) {
+                Double val = Calc.part(nonCurrentVal, totalVal);
                 pieChartData.add(new PieChart.Data(
-                        nonCurrent.getName(),
-                        Calc.part(nonCurrentVal, totalVal)
+                        nonCurrent.getName() + " - " + val + "%",
+                        val
                 ));
             }
             if (equityVal != null) {
+                Double val = Calc.part(equityVal, totalVal);
                 pieChartData.add(new PieChart.Data(
-                        equity.getName(),
-                        Calc.part(equityVal, totalVal)
+                        equity.getName() + " - " + val + "%",
+                        val
                 ));
             }
             chart.setData(pieChartData);

@@ -1,11 +1,14 @@
 package reportGeneration.interpreter.LaborProductivity;
 
 import entities.Formula;
+import entities.Item;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.LaborProductivity.Outcomes.LaborProductivityChart;
 import reportGeneration.interpreter.LaborProductivity.Outcomes.LaborProductivityFormulaEvaluation;
 import reportGeneration.storage.FormulaStorage;
+import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.ResultsStorage;
 
 public class LaborProductivity {
@@ -24,12 +27,28 @@ public class LaborProductivity {
 
     public VBox get() {
         VBox box = new VBox(8);
-        LaborProductivityChart chart = new LaborProductivityChart();
-        LaborProductivityFormulaEvaluation formulaEvaluation = new LaborProductivityFormulaEvaluation(formulas);
-        box.getChildren().addAll(
-                chart.get(weight),
-                formulaEvaluation.get(weight++)
-        );
+        if(laborProductivityPopulated()){
+            LaborProductivityChart chart = new LaborProductivityChart();
+            LaborProductivityFormulaEvaluation formulaEvaluation = new LaborProductivityFormulaEvaluation(formulas);
+            box.getChildren().addAll(
+                    chart.get(weight),
+                    formulaEvaluation.get(weight++)
+            );
+        }
         return box;
+    }
+
+    private Boolean laborProductivityPopulated() {
+        Item numberOfEmployees = ItemsStorage.get("NumberOfEmployees");
+        Boolean laborProductivityShow = false;
+        if (numberOfEmployees.getValues().size() > 0) {
+            ObservableMap<String, Double> vals = numberOfEmployees.getValues();
+            for (String key : vals.keySet()) {
+                if (vals.get(key) != 0) {
+                    laborProductivityShow = true;
+                }
+            }
+        }
+        return laborProductivityShow;
     }
 }
