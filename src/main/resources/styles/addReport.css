@@ -7,16 +7,13 @@
 .add-company .report-table .column-header-background .filler {
     -fx-background-color: #34495e;
     -fx-padding: 15;
-    -fx-pref-height: 50px;
+    -fx-pref-height: 70px;
 }
 
-.add-company .report-table .column-header{
-    -fx-padding: 15;
-}
 
 .add-company .report-table  .column-header .label {
     -fx-text-fill: #fff;
-    -fx-font-size: 13px;
+    -fx-font-size: 12px;
     -fx-font-weight: normal;
     -fx-min-height: 100px;
     -fx-alignment:  baseline-left;
@@ -177,4 +174,11 @@
 .add-company .confirm{
     -fx-font-weight: bold;
     -fx-padding: 10px;
+}
+
+.docx-saved-label{
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 7px 0;
+    -fx-text-fill: #F92222;
 }

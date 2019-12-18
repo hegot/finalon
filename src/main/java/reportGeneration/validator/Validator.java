@@ -2,6 +2,7 @@ package reportGeneration.validator;
 
 import entities.Item;
 import globalReusables.LabelWrap;
+import javafx.collections.ObservableMap;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
@@ -12,12 +13,14 @@ import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Validator {
 
     public String validate() {
         StringBuilder output = new StringBuilder();
         ArrayList<String> errors = validateAssetsEquityLiabilities();
+        errors.addAll(validateAssetsEquityPoulated());
         String error;
         String num;
         for (int i = 0; i < errors.size(); i++) {
@@ -50,6 +53,43 @@ public class Validator {
             }
         }
         return errors;
+    }
+
+    private ArrayList<String> validateAssetsEquityPoulated() {
+        ArrayList<String> errors = new ArrayList<>();
+        if(!liabilitiesPopulated() || !assetsPopulated()){
+            errors.add("Please populate Equity And Liabilities value and Assets General value to be able to submit report");
+        }
+        return errors;
+    }
+
+
+    private Boolean liabilitiesPopulated() {
+        Item equityAndLiabilities = ItemsStorage.get("EquityAndLiabilities");
+        Boolean showLiabilities = false;
+        if (equityAndLiabilities.getValues().size() > 0) {
+            ObservableMap<String, Double> vals = equityAndLiabilities.getValues();
+            for (String key : vals.keySet()) {
+                if (vals.get(key) != 0) {
+                    showLiabilities = true;
+                }
+            }
+        }
+        return showLiabilities;
+    }
+
+    private Boolean assetsPopulated() {
+        Boolean showAssets = false;
+        Item assetsGeneral = ItemsStorage.get("AssetsGeneral");
+        if (assetsGeneral.getValues().size() > 0) {
+            ObservableMap<String, Double> vals = assetsGeneral.getValues();
+            for (String key : vals.keySet()) {
+                if (vals.get(key) != 0) {
+                    showAssets = true;
+                }
+            }
+        }
+        return showAssets;
     }
 
 

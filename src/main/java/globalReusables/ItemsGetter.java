@@ -3,6 +3,7 @@ package globalReusables;
 import entities.Item;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 
 public class ItemsGetter {
     private ObservableList<Item> items;
@@ -45,12 +46,23 @@ public class ItemsGetter {
 
 
     private void loopItems(int parentId) {
+        ObservableMap<String, Double> vals;
         for (Item item : items) {
             if (item.getParent() == parentId) {
                 if (checkEmpty) {
                     if (item.getValues().size() > 0) {
-                        loopItems(item.getId());
-                        outputItems.add(item);
+                        vals = item.getValues();
+                        boolean isAllZero = true;
+                        for (String key : vals.keySet()) {
+                            if (vals.get(key) != 0.0) {
+                                isAllZero = false;
+                                break;
+                            }
+                        }
+                        if (!isAllZero) {
+                            loopItems(item.getId());
+                            outputItems.add(item);
+                        }
                     }
                 } else {
                     loopItems(item.getId());

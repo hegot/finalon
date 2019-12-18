@@ -53,38 +53,6 @@ public class AddReportScene extends SceneBase {
         return hBox;
     }
 
-    public VBox getScene() {
-        ObservableMap<String, String> settings = SettingsStorage.getSettings();
-        VBox vbox = new VBox(0);
-        vbox.getStyleClass().add("add-company");
-        SettingsMenu settingsMenu = new SettingsMenu();
-        StepOne stepOne = new StepOne();
-        settings.put("step", "one");
-        settings.addListener(new MapChangeListener() {
-            @Override
-            public void onChanged(MapChangeListener.Change change) {
-                if (change.getKey().equals("step")) {
-                    String newStep = (String) change.getValueAdded();
-                    vbox.getChildren().clear();
-                    if (newStep.equals("one")) {
-                        vbox.getChildren().addAll(settingsMenu.getMenu(), stepOne.show());
-                    } else if (newStep.equals("two")) {
-                        StepTwo stepTwo = new StepTwo();
-                        vbox.getChildren().addAll(headerMenu(), stepTwo.show(), headerMenu());
-                    } else if (newStep.equals("three")) {
-                        StepThree stepThree = new StepThree();
-                        vbox.getChildren().addAll(headerMenu(), stepThree.show());
-                    }
-                }
-            }
-        });
-        vbox.getChildren().addAll(
-                settingsMenu.getMenu(),
-                stepOne.show()
-        );
-        return vbox;
-    }
-
     public static HBox headerMenu() {
         HBox hbox = new HBox(20);
         String step = SettingsStorage.get("step");
@@ -136,7 +104,6 @@ public class AddReportScene extends SceneBase {
         }
     }
 
-
     public static Button backSettingsButton() {
         Button button = new Button("Report Settings");
         button.getStyleClass().add("blue-btn");
@@ -159,6 +126,38 @@ public class AddReportScene extends SceneBase {
             }
         });
         return button;
+    }
+
+    public VBox getScene() {
+        ObservableMap<String, String> settings = SettingsStorage.getSettings();
+        VBox vbox = new VBox(0);
+        vbox.getStyleClass().add("add-company");
+        SettingsMenu settingsMenu = new SettingsMenu();
+        StepOne stepOne = new StepOne();
+        settings.put("step", "one");
+        settings.addListener(new MapChangeListener() {
+            @Override
+            public void onChanged(MapChangeListener.Change change) {
+                if (change.getKey().equals("step")) {
+                    String newStep = (String) change.getValueAdded();
+                    vbox.getChildren().clear();
+                    if (newStep.equals("one")) {
+                        vbox.getChildren().addAll(settingsMenu.getMenu(), stepOne.show());
+                    } else if (newStep.equals("two")) {
+                        StepTwo stepTwo = new StepTwo();
+                        vbox.getChildren().addAll(headerMenu(), stepTwo.show(), headerMenu());
+                    } else if (newStep.equals("three")) {
+                        StepThree stepThree = new StepThree();
+                        vbox.getChildren().addAll(headerMenu(), stepThree.show());
+                    }
+                }
+            }
+        });
+        vbox.getChildren().addAll(
+                settingsMenu.getMenu(),
+                stepOne.show()
+        );
+        return vbox;
     }
 
 }

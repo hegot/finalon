@@ -4,7 +4,6 @@ import entities.Formula;
 import globalReusables.LabelWrap;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.VBox;
-import reportGeneration.interpreter.ReusableComponents.FormulaEvaluateBase;
 import reportGeneration.interpreter.ReusableComponents.NormValsEvaluator.StrReplacer;
 import reportGeneration.storage.ResultsStorage;
 

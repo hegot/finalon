@@ -56,7 +56,7 @@ public class DefaultFormulas {
         ObservableList<Formula> Formulas = FXCollections.observableArrayList();
         //IFRS CategoryLevel
         int CSAL = counter;
-        Formulas.add(new Formula(CSAL, "The Common-Size  Analysis \n of the Assets, Liabilities \n and Shareholders' Equity", "AssetsEquityStructureTrend", "0", "", "section", "", parent));
+        Formulas.add(new Formula(CSAL, "Common-Size Analysis of Assets, \n Liabilities and Shareholders' Equity", "AssetsEquityStructureTrend", "0", "", "section", "", parent));
         counter++;
         int FSiD = counter;
         Formulas.add(new Formula(FSiD, "Financial Sustainability and \n Long-Term Debt-Paying Ability", "FinancialSustainability", "1", "", "section", "", parent));

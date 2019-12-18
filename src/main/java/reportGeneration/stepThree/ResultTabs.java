@@ -2,18 +2,22 @@ package reportGeneration.stepThree;
 
 import entities.Formula;
 import globalReusables.VBoxTryCatchWrap;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import reportGeneration.interpreter.Interprter;
 import reportGeneration.storage.FormulaStorage;
 import reportGeneration.wordExport.WordExport;
@@ -103,7 +107,10 @@ public class ResultTabs {
         return vBox;
     }
 
-    private Button exportBtn() {
+    private HBox exportBtn() {
+        HBox hbox = new HBox(30);
+        Label label = new Label();
+        label.getStyleClass().add("docx-saved-label");
         Button btn = new Button("Export to Docx");
         btn.getStyleClass().add("blue-btn");
         btn.setOnAction(new EventHandler<ActionEvent>() {
@@ -112,12 +119,18 @@ public class ResultTabs {
                 try {
                     WordExport export = new WordExport();
                     export.exportDoc();
+                    label.setText("Export file successfully saved!");
+                    Timeline timeline = new Timeline(new KeyFrame(
+                            Duration.millis(5000),
+                            ae -> label.setText("")));
+                    timeline.play();
                 } catch (Exception exception) {
                     System.out.println("Error while saving file: " + exception.getMessage());
                 }
             }
         });
-        return btn;
+        hbox.getChildren().addAll(btn, label);
+        return hbox;
     }
 
 
