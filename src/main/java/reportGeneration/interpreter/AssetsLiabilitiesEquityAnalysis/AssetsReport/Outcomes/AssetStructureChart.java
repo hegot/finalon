@@ -35,7 +35,8 @@ public class AssetStructureChart {
     public VBox get(int weight) {
         VBox vBox = new VBox();
         final PieChart chart = new PieChart();
-        chart.setLegendSide(Side.LEFT);
+        chart.setStyle("-fx-font-size: 15px;");
+        chart.setMinHeight(600);
         if (totalVal != null && totalVal != 0) {
             ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
             if (currentVal != null) {

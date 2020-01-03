@@ -14,13 +14,13 @@ import reportGeneration.storage.ResultsStorage;
 public class LaborProductivity {
     private ObservableList<Formula> formulas;
     private int weight;
+    private String sectionTitle;
 
     public LaborProductivity(int weight) {
         Formula LaborProductivitySection = FormulaStorage.get("LaborProductivitySection");
         if (LaborProductivitySection != null) {
-            ResultsStorage.addStr(weight, "sectionTitle", LaborProductivitySection.getName());
-            weight++;
             this.weight = weight;
+            this.sectionTitle = LaborProductivitySection.getName();
             this.formulas = FormulaStorage.getItems(LaborProductivitySection.getId());
         }
     }
@@ -28,6 +28,8 @@ public class LaborProductivity {
     public VBox get() {
         VBox box = new VBox(8);
         if(laborProductivityPopulated()){
+            ResultsStorage.addStr(weight, "sectionTitle", sectionTitle);
+            weight++;
             LaborProductivityChart chart = new LaborProductivityChart();
             LaborProductivityFormulaEvaluation formulaEvaluation = new LaborProductivityFormulaEvaluation(formulas);
             box.getChildren().addAll(

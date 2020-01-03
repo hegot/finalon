@@ -7,17 +7,17 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.image.WritableImage;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import org.docx4j.model.structure.PageDimensions;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
-import org.docx4j.wml.Br;
-import org.docx4j.wml.P;
-import org.docx4j.wml.R;
+import org.docx4j.wml.*;
 import reportGeneration.storage.ResultItem;
 import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.TitledItem;
 import reportGeneration.storage.TwoDList;
-
+import org.docx4j.wml.ObjectFactory;
 import java.io.File;
+import java.math.BigInteger;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -27,14 +27,15 @@ public class WordExport {
 
     public WordExport() throws Docx4JException {
         this.wordPackage = WordprocessingMLPackage.createPackage();
+        setPageMargins(wordPackage);
     }
 
     public static P getPageBreak() {
-        org.docx4j.wml.ObjectFactory wmlObjectFactory = new org.docx4j.wml.ObjectFactory();
-        P p = wmlObjectFactory.createP();
-        R r = wmlObjectFactory.createR();
+        ObjectFactory factory = new ObjectFactory();
+        P p = factory.createP();
+        R r = factory.createR();
         p.getContent().add(r);
-        Br br = wmlObjectFactory.createBr();
+        Br br = factory.createBr();
         r.getContent().add(br);
         br.setType(org.docx4j.wml.STBrType.PAGE);
         return p;
@@ -117,5 +118,24 @@ public class WordExport {
         }
 
         wordPackage.getMainDocumentPart().addParagraphOfText("\n");
+    }
+
+    public void setPageMargins(WordprocessingMLPackage wordMLPackage) {
+        try {
+            ObjectFactory factory = new ObjectFactory();
+            Body body = wordMLPackage.getMainDocumentPart().getContents()
+                    .getBody();
+            PageDimensions page = new PageDimensions();
+            SectPr.PgMar pgMar = page.getPgMar();
+            pgMar.setBottom(BigInteger.valueOf(800));
+            pgMar.setTop(BigInteger.valueOf(800));
+            pgMar.setLeft(BigInteger.valueOf(800));
+            pgMar.setRight(BigInteger.valueOf(800));
+            SectPr sectPr = factory.createSectPr();
+            body.setSectPr(sectPr);
+            sectPr.setPgMar(pgMar);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
