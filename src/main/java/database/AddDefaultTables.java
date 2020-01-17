@@ -2,6 +2,7 @@ package database;
 
 import database.formula.DbFormulaHandler;
 import database.formula.FormulaCreator;
+import database.log.DbLogHandler;
 import database.report.DbReportHandler;
 import database.setting.DbSettingHandler;
 import database.template.DbItemHandler;
@@ -17,6 +18,8 @@ public class AddDefaultTables {
             DbFormulaHandler.createTable();
             DbSettingHandler.createTable();
             DbReportHandler.createTable();
+            DbLogHandler.createTable();
+
             if (DbFormulaHandler.isEmpty()) {
                 formulaCreator.createFormulas();
             }

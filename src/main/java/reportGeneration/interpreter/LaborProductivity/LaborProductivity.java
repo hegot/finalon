@@ -27,7 +27,7 @@ public class LaborProductivity {
 
     public VBox get() {
         VBox box = new VBox(8);
-        if(laborProductivityPopulated()){
+        if (laborProductivityPopulated()) {
             ResultsStorage.addStr(weight, "sectionTitle", sectionTitle);
             weight++;
             LaborProductivityChart chart = new LaborProductivityChart();

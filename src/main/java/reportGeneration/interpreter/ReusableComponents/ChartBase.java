@@ -26,14 +26,16 @@ public class ChartBase {
         final Node node = data.getNode();
         final Text dataText = new Text(data.getYValue() + "");
         node.parentProperty().addListener(new ChangeListener<Parent>() {
-            @Override public void changed(ObservableValue<? extends Parent> ov, Parent oldParent, Parent parent) {
+            @Override
+            public void changed(ObservableValue<? extends Parent> ov, Parent oldParent, Parent parent) {
                 Group parentGroup = (Group) parent;
                 parentGroup.getChildren().add(dataText);
             }
         });
 
         node.boundsInParentProperty().addListener(new ChangeListener<Bounds>() {
-            @Override public void changed(ObservableValue<? extends Bounds> ov, Bounds oldBounds, Bounds bounds) {
+            @Override
+            public void changed(ObservableValue<? extends Bounds> ov, Bounds oldBounds, Bounds bounds) {
                 dataText.setLayoutX(
                         Math.round(
                                 bounds.getMinX() + bounds.getWidth() / 2 - dataText.prefWidth(-1) / 2
@@ -76,7 +78,8 @@ public class ChartBase {
                 XYChart.Data<String, Double> dataPiece = new XYChart.Data(date, values.get(period));
                 if (values.get(period) != null) {
                     dataPiece.nodeProperty().addListener(new ChangeListener<Node>() {
-                        @Override public void changed(ObservableValue<? extends Node> ov, Node oldNode, final Node node) {
+                        @Override
+                        public void changed(ObservableValue<? extends Node> ov, Node oldNode, final Node node) {
                             if (node != null) {
                                 displayLabelForData(dataPiece);
                             }

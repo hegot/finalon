@@ -15,7 +15,7 @@ import reportGeneration.storage.ResultItem;
 import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.TitledItem;
 import reportGeneration.storage.TwoDList;
-import org.docx4j.wml.ObjectFactory;
+
 import java.io.File;
 import java.math.BigInteger;
 import java.util.SortedSet;

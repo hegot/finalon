@@ -11,6 +11,7 @@ import reportGeneration.interpreter.ReusableComponents.tables.RatiosTable;
 import reportGeneration.storage.FormulaStorage;
 import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.TwoDList;
+import services.Logger;
 
 public class FinancialSustainabilityReport {
     private ObservableList<Formula> formulas;
@@ -32,6 +33,11 @@ public class FinancialSustainabilityReport {
         String title = "Table 5. Key ratios of the company's financial sustainability";
         Label tableName = TableName.name(title);
         weight++;
+        if (formulas.size() == 0) {
+            Logger.log("No formulas came to Financial Sustainability Report calculation");
+        } else {
+            Logger.log("Financial Sustainability Report encountered " + formulas.size() + " formulas.");
+        }
         FormulaEvaluation formulaEvaluation = new FormulaEvaluation(formulas);
         RatiosTable sustainabilityTable = new RatiosTable(formulas);
         TableView tbl = sustainabilityTable.get();

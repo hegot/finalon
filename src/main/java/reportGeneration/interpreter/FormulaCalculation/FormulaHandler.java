@@ -4,6 +4,7 @@ import entities.Formula;
 import finalonWindows.reusableComponents.autocomplete.ParserBase;
 import javafx.collections.ObservableMap;
 import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
+import services.Logger;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -38,56 +39,66 @@ public class FormulaHandler {
 
     private String getValuesInPlace() {
         String formulaVal = formula.getValue();
-        String[] indexes = getIndexes();
-        Double val;
-        String indexVal;
-        for (String index : indexes) {
-            if (!isNumeric(index)) {
-                val = searchInValues(index);
-                if (val != null) {
-                    indexVal = Double.toString(val);
-                    formulaVal = formulaVal.replace(index, indexVal);
-                } else {
-                    return null;
+        try {
+            String[] indexes = getIndexes();
+            Double val;
+            String indexVal;
+            for (String index : indexes) {
+                if (!isNumeric(index)) {
+                    val = searchInValues(index);
+                    if (val != null) {
+                        indexVal = Double.toString(val);
+                        formulaVal = formulaVal.replace(index, indexVal);
+                    } else {
+                        return null;
+                    }
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Logger.log("Replacement in formula string  failed");
         }
         return formulaVal;
     }
 
     private Double searchInValues(String index) {
         boolean prevIndex = false;
-        String fperiod = "[0]";
-        if (index.contains(fperiod)) {
-            index = index.replace(fperiod, "");
-            prevIndex = true;
-        }
-        String speriod = "[1]";
-        if (speriod.contains(index)) {
-            index = index.replace(speriod, "");
-        }
-        ObservableMap<String, Double> map = values.get(index);
-        if (map != null) {
-            if (prevIndex) {
-                Object[] set = map.keySet().toArray();
-                Arrays.sort(set);
-                String key;
-                for (int i = 0; i < set.length; i++) {
-                    key = (String) set[i];
-                    if (key.equals(period)) {
-                        int i2 = i - 1;
-                        if (i2 >= 0) {
-                            String prevPeriod = (String) set[i2];
-                            return map.get(prevPeriod);
+        try {
+            String fperiod = "[0]";
+            if (index.contains(fperiod)) {
+                index = index.replace(fperiod, "");
+                prevIndex = true;
+            }
+            String speriod = "[1]";
+            if (speriod.contains(index)) {
+                index = index.replace(speriod, "");
+            }
+            ObservableMap<String, Double> map = values.get(index);
+            if (map != null) {
+                if (prevIndex) {
+                    Object[] set = map.keySet().toArray();
+                    Arrays.sort(set);
+                    String key;
+                    for (int i = 0; i < set.length; i++) {
+                        key = (String) set[i];
+                        if (key.equals(period)) {
+                            int i2 = i - 1;
+                            if (i2 >= 0) {
+                                String prevPeriod = (String) set[i2];
+                                return map.get(prevPeriod);
+                            }
                         }
                     }
+                } else {
+                    Double val = map.get(period);
+                    return val != null ? val : 0.0;
                 }
             } else {
-                Double val = map.get(period);
-                return val != null ? val : 0.0;
+                return 0.0;
             }
-        } else {
-            return 0.0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            Logger.log("Search In Values formula calculation failed");
         }
         return null;
     }
@@ -111,6 +122,7 @@ public class FormulaHandler {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.log("JavaScript engeen formula evaluation failed");
         }
         return res;
     }

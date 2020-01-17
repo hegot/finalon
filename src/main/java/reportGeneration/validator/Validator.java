@@ -13,7 +13,6 @@ import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Validator {
 
@@ -46,7 +45,7 @@ public class Validator {
                 }
             }
         }
-        if(ComprehensiveIncomeErr){
+        if (ComprehensiveIncomeErr) {
             String err = "Please populate Comprehensive Income value to be able to submit report.";
             errors.add(err);
         }
@@ -77,7 +76,7 @@ public class Validator {
 
     private ArrayList<String> validateAssetsEquityPopulated() {
         ArrayList<String> errors = new ArrayList<>();
-        if(!liabilitiesPopulated() || !assetsPopulated()){
+        if (!liabilitiesPopulated() || !assetsPopulated()) {
             errors.add("Please populate Equity And Liabilities value and Assets General value to be able to submit report.");
         }
         return errors;

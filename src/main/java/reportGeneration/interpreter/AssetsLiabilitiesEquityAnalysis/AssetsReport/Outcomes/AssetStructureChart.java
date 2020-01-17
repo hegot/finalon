@@ -3,7 +3,6 @@ package reportGeneration.interpreter.AssetsLiabilitiesEquityAnalysis.AssetsRepor
 import entities.Item;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.helpers.Calc;
@@ -47,7 +46,7 @@ public class AssetStructureChart {
                 ));
             }
             if (nonCurrentVal != null) {
-                Double val =  Calc.part(nonCurrentVal, totalVal);
+                Double val = Calc.part(nonCurrentVal, totalVal);
                 pieChartData.add(new PieChart.Data(
                         nonCurrent.getName() + " - " + val + "%",
                         val

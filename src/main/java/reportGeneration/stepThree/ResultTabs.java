@@ -61,7 +61,7 @@ public class ResultTabs {
             counter = counter + 100;
             final int num = counter;
             VBox vBox = new VBoxTryCatchWrap(() -> interprter.getReport(code, num)).get();
-            if(vBox.getChildren().size() > 0){
+            if (vBox.getChildren().size() > 0) {
                 tab = new Tab(name);
                 tab.setContent(vBox);
                 tabs.add(tab);

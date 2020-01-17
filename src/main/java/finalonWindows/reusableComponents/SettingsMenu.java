@@ -16,7 +16,7 @@ public class SettingsMenu {
         MenuBar menuBar = new MenuBar();
         Menu menu = new Menu("navigation");
         menu.setGraphic(new ImageView("image/menuBtn.jpg"));
-        menu.getItems().addAll(home(), addCompany(), settings(), templates(), formulas(), reports());
+        menu.getItems().addAll(home(), addCompany(), settings(), templates(), formulas(), reports(), logs());
         menuBar.getMenus().add(menu);
         return menuBar;
     }
@@ -82,6 +82,17 @@ public class SettingsMenu {
             @Override
             public void handle(ActionEvent event) {
                 SceneSwitcher.goTo(SceneName.REPORTLIST);
+            }
+        });
+        return settings;
+    }
+
+    private MenuItem logs() {
+        MenuItem settings = new MenuItem("Logs");
+        settings.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                SceneSwitcher.goTo(SceneName.LOGS);
             }
         });
         return settings;
