@@ -36,6 +36,7 @@ public class Formatter {
     public static Double parseDouble(String str) {
         if (str == null) return null;
         try {
+            str = str.replaceAll(",",".");
             return Double.parseDouble(str);
         } catch (NumberFormatException e) {
             return null;
