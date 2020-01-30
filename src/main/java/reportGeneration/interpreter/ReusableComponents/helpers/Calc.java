@@ -33,6 +33,7 @@ public class Calc {
         try {
             Double part = (val / total) * 100;
             String formatted = Formatter.round(part);
+            formatted = formatted.replaceAll(",", ".");
             dob = Double.parseDouble(formatted);
         } catch (Exception e) {
             System.out.println(e.getMessage());

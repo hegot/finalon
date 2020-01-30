@@ -41,6 +41,13 @@ public class ItemPeriodEditCell extends TableCell<Item, String> {
                 UpdateParentCell.run(item, colName);
             }
         });
+        textField.setOnMouseClicked(e -> {
+            String text = textField.getText();
+            if (text.length() > 0) {
+                item.updateItem(text, colName);
+                UpdateParentCell.run(item, colName);
+            }
+        });
         textField.setOnKeyPressed(t -> {
             if (t.getCode() == KeyCode.ENTER || t.getCode() == KeyCode.DOWN) {
                 int index = getIndex() + 1;

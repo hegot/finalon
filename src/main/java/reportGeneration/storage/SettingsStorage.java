@@ -15,7 +15,9 @@ public class SettingsStorage {
         ObservableMap<String, String> settingsMap = FXCollections.observableHashMap();
         String year = Integer.toString(Calendar.getInstance().get(Calendar.YEAR));
         String defaultCurrency = DbSettingHandler.getSetting(Setting.defaultCurrency);
+        String numberFormat = DbSettingHandler.getSetting(Setting.numberFormat);
         if (defaultCurrency.length() == 0) defaultCurrency = "USD";
+
         settingsMap.put("reportId", "-1");
         settingsMap.put("company", "");
         settingsMap.put("step", "one");
@@ -27,6 +29,7 @@ public class SettingsStorage {
         settingsMap.put("amount", "million");
         settingsMap.put("reportStep", "year");
         settingsMap.put("industry", "");
+        settingsMap.put("numberFormat", numberFormat);
         return settingsMap;
     }
 

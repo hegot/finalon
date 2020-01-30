@@ -12,6 +12,7 @@ import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import reportGeneration.storage.SettingsStorage;
 
 public class NumberFormatBlock {
     private ObservableMap<Setting, String> settings;
@@ -56,6 +57,7 @@ public class NumberFormatBlock {
                     for (entities.NumberFormat format : formats) {
                         if (format.getName().equals(s)) {
                             try {
+                                SettingsStorage.put(Setting.numberFormat.toString(), format.getShortName());
                                 settings.replace(Setting.numberFormat, format.getShortName());
                             } catch (Exception e) {
                                 System.out.println(e.toString());

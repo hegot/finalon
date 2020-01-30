@@ -1,8 +1,6 @@
 package reportGeneration.interpreter.ReusableComponents.NormValsEvaluator;
 
-import database.setting.DbSettingHandler;
 import entities.Formula;
-import globalReusables.Setting;
 import javafx.collections.ObservableMap;
 import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import reportGeneration.storage.Periods;
@@ -28,7 +26,7 @@ public class StrReplacer {
         if (text.contains("PRE_END_DATE")) {
             text = text.replace("PRE_END_DATE", Periods.prePreEndKey());
         }
-        if (DbSettingHandler.getSetting(Setting.numberFormat).equals("comma")) {
+        if (SettingsStorage.get("numberFormat").equals("comma")) {
             text = text.replaceAll("(\\d+)\\.(\\d+)", "$1,$2");
         }
 

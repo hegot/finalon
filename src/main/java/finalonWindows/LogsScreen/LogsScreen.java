@@ -23,7 +23,7 @@ public class LogsScreen {
         return vbox;
     }
 
-    private TableView getTable(){
+    private TableView getTable() {
         TableView<Log> table = new TableView<Log>();
         TableColumn<Log, String> dateCol = new TableColumn<Log, String>("Date");
         dateCol.setCellValueFactory(new PropertyValueFactory<Log, String>("date"));

@@ -1,7 +1,6 @@
 package reportGeneration.interpreter.ReusableComponents.helpers;
 
-import database.setting.DbSettingHandler;
-import globalReusables.Setting;
+import reportGeneration.storage.SettingsStorage;
 
 public class Formatter {
 
@@ -11,14 +10,15 @@ public class Formatter {
 
     public static String doubleCommaFormat(Double value) {
         String strValue = round(value);
-        if (DbSettingHandler.getSetting(Setting.numberFormat).equals("comma")) {
+        String format = SettingsStorage.get("numberFormat");
+        if (format.equals("comma")) {
             strValue = strValue.replace('.', ',');
         }
         return strValue;
     }
 
     public static String stringCommaFormat(String value) {
-        if (DbSettingHandler.getSetting(Setting.numberFormat).equals("comma")) {
+        if (SettingsStorage.get("numberFormat").equals("comma")) {
             value = value.replace('.', ',');
         }
         return value;
@@ -36,7 +36,7 @@ public class Formatter {
     public static Double parseDouble(String str) {
         if (str == null) return null;
         try {
-            str = str.replaceAll(",",".");
+            str = str.replaceAll(",", ".");
             return Double.parseDouble(str);
         } catch (NumberFormatException e) {
             return null;

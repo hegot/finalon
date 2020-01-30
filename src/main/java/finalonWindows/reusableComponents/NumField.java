@@ -3,6 +3,7 @@ package finalonWindows.reusableComponents;
 import javafx.event.EventHandler;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import reportGeneration.storage.SettingsStorage;
 
 public class NumField extends TextField {
     public NumField(String text) {
@@ -17,7 +18,13 @@ public class NumField extends TextField {
                     consume = true;
                 }
                 String s = Character.toString(ch);
-                String[] match = {"-", ".", ","};
+                String numberFormat = SettingsStorage.get("numberFormat");
+                String[] match;
+                if (numberFormat.equals("comma")) {
+                    match = new String[]{"-", ","};
+                } else {
+                    match = new String[]{"-", "."};
+                }
                 for (String i : match) {
                     if (s.contains(i)) {
                         consume = false;
