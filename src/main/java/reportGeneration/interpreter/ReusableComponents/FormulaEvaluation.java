@@ -30,7 +30,7 @@ public class FormulaEvaluation {
                 }
             }
             vbox.getChildren().add(LabelWrap.wrap(outcome));
-            ResultsStorage.addStr(weight, "text", outcome);
+            ResultsStorage.addStr(weight, "text", outcome.trim().replaceAll("\n", " ").replaceAll(" +", " "));
         }
         return vbox;
     }

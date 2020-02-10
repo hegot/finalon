@@ -56,10 +56,10 @@ public class DefaultFormulas {
         ObservableList<Formula> Formulas = FXCollections.observableArrayList();
         //IFRS CategoryLevel
         int CSAL = counter;
-        Formulas.add(new Formula(CSAL, "Common-Size Analysis of Assets, \n Liabilities and Shareholders' Equity", "AssetsEquityStructureTrend", "0", "", "section", "", parent));
+        Formulas.add(new Formula(CSAL, "Common-Size Analysis of Assets, \nLiabilities and Shareholders' Equity", "AssetsEquityStructureTrend", "0", "", "section", "", parent));
         counter++;
         int FSiD = counter;
-        Formulas.add(new Formula(FSiD, "Financial Sustainability and \n Long-Term Debt-Paying Ability", "FinancialSustainability", "1", "", "section", "", parent));
+        Formulas.add(new Formula(FSiD, "Financial Sustainability and \nLong-Term Debt-Paying Ability", "FinancialSustainability", "1", "", "section", "", parent));
         counter++;
         int LiD = counter;
         Formulas.add(new Formula(LiD, "Liquidity of Short-Term Assets", "Liquidity", "2", "", "section", "", parent));
@@ -77,7 +77,7 @@ public class DefaultFormulas {
         Formulas.add(new Formula(IAiD, "Investor Analysis", "InvestorAnalysis", "6", "", "section", "", parent));
         counter++;
         int AZSiD = counter;
-        Formulas.add(new Formula(AZSiD, "Forecasting Financial Failure \n (Bankruptcy Test)", "ZscoreModel", "7", "", "section", "", parent));
+        Formulas.add(new Formula(AZSiD, "Forecasting Financial Failure \n(Bankruptcy Test)", "ZscoreModel", "7", "", "section", "", parent));
         counter++;
         int OIiD = counter;
         Formulas.add(new Formula(OIiD, "Labor Productivity", "LaborProductivitySection", "8", "", "section", "", parent));

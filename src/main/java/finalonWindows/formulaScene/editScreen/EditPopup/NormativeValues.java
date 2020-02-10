@@ -167,7 +167,7 @@ public class NormativeValues {
 
 
     private TextField textfield(String value, Double width, String prompt) {
-        TextField textfield = new NumField(value);
+        TextField textfield = new NumField(value, true);
         textfield.setMaxWidth(width);
         textfield.setPromptText(prompt);
         return textfield;

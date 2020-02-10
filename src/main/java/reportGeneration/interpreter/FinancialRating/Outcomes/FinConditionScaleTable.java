@@ -32,7 +32,7 @@ public class FinConditionScaleTable {
                 getCol("col1", "Score from (inclusive)"),
                 getCol("col2", "to"),
                 getSignCol("col3", "Sign"),
-                getStrCol("col4", "Current financial \n condition")
+                getStrCol("col4", "Current financial \ncondition")
         );
         table.setItems(getItems());
         return table;

@@ -54,21 +54,21 @@ public class LiabilitiesStructureAnalyzeStart {
             str.append(SrtuctureItemsLoop.loop(equityItems,
                     equityVal,
                     "The total equity consisted mostly of ",
-                    " etc. ",
+                    "etc. ",
                     period));
         }
         if (currentVal != null && currentVal > 0) {
             str.append(SrtuctureItemsLoop.loop(currentItems,
                     currentVal,
                     "The company's current liabilities included ",
-                    " etc. ",
+                    "etc. ",
                     period));
         }
         if (nonCurrentVal != null && nonCurrentVal > 0) {
             str.append(SrtuctureItemsLoop.loop(nonCurrentItems,
                     nonCurrentVal,
                     "Non-current liabilities included: ",
-                    " etc. ",
+                    "etc. ",
                     period));
         }
         ResultsStorage.addStr(weight, "text", str.toString());
@@ -83,7 +83,7 @@ public class LiabilitiesStructureAnalyzeStart {
             str.append(Calc.partStr(equityVal, totalVal) + " shareholders' equity, ");
         }
         if (nonCurrentVal != null) {
-            str.append(Calc.partStr(nonCurrentVal, totalVal) + " non-current liabilities ");
+            str.append(Calc.partStr(nonCurrentVal, totalVal) + " non-current liabilities");
         }
         if (currentVal != null) {
             str.append(" and " + Calc.partStr(currentVal, totalVal) + " current liabilities. ");

@@ -49,11 +49,11 @@ public class RelativeItemsChange {
                     String change = Calc.getRelativeChange(firstVal, lastVal);
                     if (rize) {
                         if (lastVal > firstVal && change.length() > 0) {
-                            output += "- " + item.getName() + " (" + change + "%) \n";
+                            output += "- " + item.getName() + " (" + change + "%)\n";
                         }
                     } else {
                         if (lastVal < firstVal && change.length() > 0) {
-                            output += "- " + item.getName() + " (" + change + "%) \n";
+                            output += "- " + item.getName() + " (" + change + "%)\n";
                         }
                     }
                 }
@@ -80,6 +80,6 @@ public class RelativeItemsChange {
         String change = rize ? "positive" : "negative";
         return "The change of the " + parent.getName() + " value in " +
                 startDate + "-" + endDate + " was connected with a " +
-                change + " change of the following " + text + ": \n";
+                change + " change of the following " + text + ":\n";
     }
 }

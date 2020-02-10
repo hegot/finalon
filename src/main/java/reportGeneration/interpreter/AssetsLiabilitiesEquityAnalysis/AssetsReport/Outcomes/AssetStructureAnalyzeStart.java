@@ -46,14 +46,14 @@ public class AssetStructureAnalyzeStart {
             str.append(SrtuctureItemsLoop.loop(currentItems,
                     currentVal,
                     "The most significant items of the current assets were: ",
-                    " etc. ",
+                    "etc. ",
                     period));
         }
         if (nonCurrentVal != null && nonCurrentVal > 0) {
             str.append(SrtuctureItemsLoop.loop(nonCurrentItems,
                     nonCurrentVal,
                     "The following non-current assets had the highest values: ",
-                    " while the other items did not play a significant role. ",
+                    "while the other items did not play a significant role. ",
                     period));
         }
         vBox.getChildren().add(LabelWrap.wrap(str.toString()));

@@ -19,7 +19,7 @@ public class AssetsLiabilitiesEquityAnalysis {
 
     public VBox get() {
         VBox vBox = new VBox(10);
-        String t = "1. The Common-Size Analysis \n of the Assets, Liabilities \n and Shareholders' Equity";
+        String t = "1. The Common-Size Analysis \nof the Assets, Liabilities \nand Shareholders' Equity";
         ResultsStorage.addStr(weight++, "sectionTitle", t);
         String t1 = "Assets trend Analysis";
         String t2 = "Liabilities trend Analysis";

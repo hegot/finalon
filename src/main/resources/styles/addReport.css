@@ -178,7 +178,19 @@
 
 .docx-saved-label{
     -fx-font-weight: bold;
-    -fx-font-size: 14px;
+    -fx-font-size: 18px;
     -fx-padding: 7px 0;
     -fx-text-fill: #F92222;
+}
+
+.num-err{
+    -fx-text-fill: #F92222;
+    -fx-background-color:  #ffffff;
+}
+
+
+.num-err:focused {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #F92222;
+     -fx-focus-color:#ffffff;
 }

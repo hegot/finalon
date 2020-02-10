@@ -54,14 +54,14 @@ public class AssetStructureAnalyseEnd {
             str.append(SrtuctureItemsLoop.loop(currentItems,
                     currentVal,
                     "Total Current assets composed mostly of ",
-                    " etc. ",
+                    "etc. ",
                     period));
         }
         if (nonCurrentVal != null && nonCurrentVal > 0) {
             str.append(SrtuctureItemsLoop.loop(nonCurrentItems,
                     nonCurrentVal,
                     "The most significant items of the Non Current assets - ",
-                    " etc. ",
+                    "etc. ",
                     period));
         }
         ResultsStorage.addStr(++weight, "text", str.toString());

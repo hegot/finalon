@@ -69,7 +69,7 @@ public class ScaleTblConstructor {
     private void addHeader(Tbl tbl) {
         Tr tr = Context.getWmlObjectFactory().createTr();
         tbl.getEGContentRowContent().add(tr);
-        String[] headArray = new String[]{"Score from (inclusive)", "to", "Sign", "Current financial \n condition"};
+        String[] headArray = new String[]{"Score from (inclusive)", "to", "Sign", "Current financial \ncondition"};
 
         for (int i = 0; i < headArray.length; i++) {
             addTableCell(

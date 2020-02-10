@@ -28,6 +28,8 @@ public class IndexChangeTable extends ItemsTable {
 
     public TableView<Item> get() {
         TableView<Item> table = getTable(rootId);
+        Item totall = getTotall(rootId);
+        table.getItems().add(totall);
         table.getStyleClass().add("report-table");
         table.getColumns().addAll(getNameCol());
         ArrayList<TableColumn> colsArr = getPeriodCols();
@@ -67,6 +69,25 @@ public class IndexChangeTable extends ItemsTable {
         return colsArr;
     }
 
+    private Item getTotall(int id) {
+        for (Item item : ItemsStorage.getItems()) {
+            if (item.getId() == id) {
+                Item parent = new Item(
+                        item.getId(),
+                        "Totall: ",
+                        item.getShortName(),
+                        item.getIsPositive(),
+                        item.getFinResult(),
+                        item.getParent(),
+                        item.getParentSheet(),
+                        item.getLevel()
+                );
+                parent.setValues(item.getValues());
+                return parent;
+            }
+        }
+        return null;
+    }
 
     protected TableColumn getRelativeComparisonCol(String colStart, String colEnd) {
         String colname = "Percentage change\n" + Formatter.formatDate(colEnd) + " to \n" + Formatter.formatDate(colStart);

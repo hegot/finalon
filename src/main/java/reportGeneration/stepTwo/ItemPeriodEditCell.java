@@ -4,8 +4,10 @@ import entities.Item;
 import finalonWindows.reusableComponents.NumField;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.scene.control.TableCell;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import reportGeneration.storage.Periods;
@@ -32,7 +34,8 @@ public class ItemPeriodEditCell extends TableCell<Item, String> {
 
 
     private void createNumField() {
-        textField = new NumField(item.getStrVal(colName));
+        Boolean isPositive = item.getIsPositive();
+        textField = new NumField(item.getStrVal(colName), isPositive);
         TextFieldStorage.add(item.getShortName() + colName, textField);
         textField.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
             if (wasFocused && !isNowFocused) {
@@ -71,6 +74,8 @@ public class ItemPeriodEditCell extends TableCell<Item, String> {
                 selectCell(index, colName);
             }
         });
+
+
     }
 
     private void selectCell(Integer index, String columnName) {
