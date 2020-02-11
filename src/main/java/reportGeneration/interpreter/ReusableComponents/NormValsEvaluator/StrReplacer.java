@@ -45,7 +45,7 @@ public class StrReplacer {
             }
         }
         int size = arr.size() - 1;
-        return Formatter.doubleCommaFormat(sum / size);
+        return Formatter.finalNumberFormat(sum / size);
     }
 
 

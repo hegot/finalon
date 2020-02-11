@@ -32,7 +32,7 @@ public class InTimeReplacer {
             if (val == null) {
                 return "";
             } else {
-                return text.replace(key, Formatter.doubleCommaFormat(val));
+                return text.replace(key, Formatter.finalNumberFormat(val));
             }
         }
         return text;

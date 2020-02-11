@@ -68,23 +68,23 @@ public class CostOfGoods {
             inner = change > 0 ? "more" : "less";
             if (val1 != null && val2 != null && val1 != 0) {
                 out.append("The cost of goods and services totaled "
-                        + currency + " " + Formatter.doubleCommaFormat(val2) + " " + amount + " in "
-                        + Formatter.formatDate(end) + ", " + Formatter.doubleCommaFormat(change) + "% " + inner + " than in " + Formatter.formatDate(start) + ". ");
+                        + currency + " " + Formatter.finalNumberFormat(val2) + " " + amount + " in "
+                        + Formatter.formatDate(end) + ", " + Formatter.finalNumberFormat(change) + "% " + inner + " than in " + Formatter.formatDate(start) + ". ");
             }
         }
         return out.toString();
     }
 
     private String atTheEnd() {
-        return "At the end of " + Periods.getEnd() + " the cost of goods and services totaled " + currency + " " + Formatter.doubleCommaFormat(last) + " " + amount + ". ";
+        return "At the end of " + Periods.getEnd() + " the cost of goods and services totaled " + currency + " " + Formatter.finalNumberFormat(last) + " " + amount + ". ";
     }
 
     private String increase(Double change) {
-        return atTheEnd() + "This has resulted in an increase in the gross profit by " + Formatter.doubleCommaFormat(change) + "%.";
+        return atTheEnd() + "This has resulted in an increase in the gross profit by " + Formatter.finalNumberFormat(change) + "%.";
     }
 
     private String decrease(Double change) {
-        return atTheEnd() + "This has resulted in decrease in the gross profit by " + Formatter.doubleCommaFormat(change) + "%.";
+        return atTheEnd() + "This has resulted in decrease in the gross profit by " + Formatter.finalNumberFormat(change) + "%.";
     }
 
     private String stable() {

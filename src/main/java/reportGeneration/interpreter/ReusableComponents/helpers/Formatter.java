@@ -2,19 +2,24 @@ package reportGeneration.interpreter.ReusableComponents.helpers;
 
 import reportGeneration.storage.SettingsStorage;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class Formatter {
 
     public static String round(Double input) {
         return (input != null) ? String.format("%.2f", input) : null;
     }
 
-    public static String doubleCommaFormat(Double value) {
-        String strValue = round(value);
+    public static String finalNumberFormat(Double value) {
+        String val = localeFormat(value);
         String format = SettingsStorage.get("numberFormat");
         if (format.equals("comma")) {
-            strValue = strValue.replace('.', ',');
+            val = val.replace('.', ',');
         }
-        return strValue;
+        return val;
     }
 
     public static String stringCommaFormat(String value) {
@@ -22,6 +27,20 @@ public class Formatter {
             value = value.replace('.', ',');
         }
         return value;
+    }
+
+    public static String percentFormat(String value) {
+        Double val = parseDouble(value);
+        value = finalNumberFormat(val);
+        return value;
+    }
+
+    public static String localeFormat(Double value) {
+        DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
+        DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
+        symbols.setGroupingSeparator(' ');
+        formatter.setDecimalFormatSymbols(symbols);
+        return formatter.format(value);
     }
 
     public static String formatDate(String input) {

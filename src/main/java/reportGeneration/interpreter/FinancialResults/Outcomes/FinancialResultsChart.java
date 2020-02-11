@@ -109,7 +109,7 @@ public class FinancialResultsChart extends ChartBase {
             }
             String out = "The chart above shows that the gross profit to net sales ratio " + chRes + " in " + Periods.getEnd();
             if (change != 0) {
-                out += " by " + Formatter.doubleCommaFormat(change) + "% ";
+                out += " by " + Formatter.finalNumberFormat(change) + "% ";
             }
             out += " comparing to " + Periods.getStart() + ". ";
             if (change != 0) {
@@ -181,7 +181,7 @@ public class FinancialResultsChart extends ChartBase {
             }
             if (change != 0) {
                 out += "The share of the comprehensive income in the company's net sales "
-                        + chRes + " in " + Periods.getEnd() + " by " + Formatter.doubleCommaFormat(last - fisrt) + "%. ";
+                        + chRes + " in " + Periods.getEnd() + " by " + Formatter.finalNumberFormat(last - fisrt) + "%. ";
             } else {
                 out += "The share of the comprehensive income in the company's net sales " +
                         "did not change during " + Periods.getStart() + "-" + Periods.getEnd() + ". ";

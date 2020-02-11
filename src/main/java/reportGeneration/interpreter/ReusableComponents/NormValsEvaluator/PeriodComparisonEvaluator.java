@@ -45,11 +45,11 @@ public class PeriodComparisonEvaluator {
             if (formula.getName().equals(type.toString())) {
                 String descr = formula.getDescription();
                 if (startVal != 0) {
-                    descr = descr.replace("CHANGEPERCENT", Formatter.doubleCommaFormat(changePercent));
+                    descr = descr.replace("CHANGEPERCENT", Formatter.finalNumberFormat(changePercent));
                 } else {
-                    descr = descr.replace("CHANGEPERCENT", Formatter.doubleCommaFormat(change));
+                    descr = descr.replace("CHANGEPERCENT", Formatter.finalNumberFormat(change));
                 }
-                descr = descr.replace("CHANGE", Formatter.doubleCommaFormat(change));
+                descr = descr.replace("CHANGE", Formatter.finalNumberFormat(change));
                 return descr;
             }
         }

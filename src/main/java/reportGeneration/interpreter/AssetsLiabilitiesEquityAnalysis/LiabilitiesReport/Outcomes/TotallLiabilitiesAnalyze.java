@@ -67,7 +67,7 @@ public class TotallLiabilitiesAnalyze {
     private String preOutput() {
         return "The liabilities and equity value" +
                 " amounted to " + SettingsStorage.get("defaultCurrency") + " "
-                + Formatter.doubleCommaFormat(last) + " " + SettingsStorage.get("amount") + " in "
+                + Formatter.finalNumberFormat(last) + " " + SettingsStorage.get("amount") + " in "
                 + startDate + ", " +
                 Calc.getRelativeChange(first, last) + "% " + suffix() + " than in " +
                 endDate + ". ";

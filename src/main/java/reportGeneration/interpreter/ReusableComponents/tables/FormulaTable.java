@@ -30,7 +30,7 @@ public class FormulaTable {
         col.setCellValueFactory(cellData -> {
             Formula formula = (Formula) cellData.getValue();
             if (formula != null && formula.getPeriods().size() > 0 && formula.getVal(colname) != null) {
-                String period = Formatter.doubleCommaFormat(formula.getVal(colname));
+                String period = Formatter.finalNumberFormat(formula.getVal(colname));
                 if (period != null) {
                     return new SimpleStringProperty(period);
                 }

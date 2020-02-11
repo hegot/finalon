@@ -57,21 +57,20 @@ public class Calc {
                 val = "";
                 String result = engine.eval(formula).toString();
                 if (result != null && result.length() > 0) {
-                    val = String.format("%.1f", Formatter.parseDouble(result));
+                    val = Formatter.percentFormat(result);
                     if (val.equals("NaN") || val.equals("Infinity") || val.equals("-Infinity")) val = "";
                 }
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        val = Formatter.stringCommaFormat(val);
         return val;
     }
 
     public static SimpleStringProperty diff(Double startVAl, Double endVal) {
         try {
             if (startVAl != null && endVal != null) {
-                String absolute = Formatter.doubleCommaFormat(endVal - startVAl);
+                String absolute = Formatter.finalNumberFormat(endVal - startVAl);
                 return new SimpleStringProperty(absolute);
             }
         } catch (Exception e) {

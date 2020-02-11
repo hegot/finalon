@@ -78,7 +78,7 @@ public class TotallAssetsAnalyze {
     }
 
     private String consequence() {
-        return "The value of the assets totaled " + Formatter.doubleCommaFormat(last) +
+        return "The value of the assets totaled " + Formatter.finalNumberFormat(last) +
                 " at the end of " + endDate + ". ";
     }
 }
