@@ -59,9 +59,27 @@ public class WordExport {
                     if (item.getType().equals("sectionTitle")) {
                         wordPackage.getMainDocumentPart().getContent().add(getPageBreak());
                     }
-                    wordPackage.getMainDocumentPart().getContent().add(
-                            new AddText(item).getStyledText()
-                    );
+                    if (item.getType().equals("text")) {
+                        String val = (String) item.get();
+                        String[] split = val.split("\\r?\\n");
+                        if(split.length > 1){
+                            for(String chunk : split){
+                                ResultItem<String> rowItem = new ResultItem<>(chunk, "text");
+                                wordPackage.getMainDocumentPart().getContent().add(
+                                        new AddText(rowItem).getStyledText()
+                                );
+                            }
+                        }else{
+                            wordPackage.getMainDocumentPart().getContent().add(
+                                    new AddText(item).getStyledText()
+                            );
+                        }
+                    }else{
+                        wordPackage.getMainDocumentPart().getContent().add(
+                                new AddText(item).getStyledText()
+                        );
+                    }
+
                 } else {
                     titledItem = (TitledItem) obj;
                     wordPackage.getMainDocumentPart().getContent().add(

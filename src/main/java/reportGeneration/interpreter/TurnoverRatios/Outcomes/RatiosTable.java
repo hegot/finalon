@@ -38,6 +38,27 @@ public class RatiosTable extends FormulaTable {
         return table;
     }
 
+    protected ArrayList<TableColumn> getAbsoluteCols() {
+        ArrayList<TableColumn> colsArr = new ArrayList<>();
+        ArrayList<String> periods = Periods.getPeriodArr();
+        int count = periods.size() - 2;
+        if (count > 0) {
+            String colStart;
+            String colEnd;
+            for (int j = 1; j <= count; j++) {
+                colStart = periods.get(j);
+                colEnd = periods.get(j + 1);
+                if(colEnd != null){
+                    colsArr.add(getAbsoluteComparisonCol(colStart, colEnd));
+                }
+            }
+        }
+        String order = DbSettingHandler.getSetting(Setting.yearOrder);
+        if (order.equals("DESCENDING")) {
+            Collections.reverse(colsArr);
+        }
+        return colsArr;
+    }
 
     private ArrayList<TableColumn> getPeriodCols() {
         ArrayList<TableColumn> colsArr = new ArrayList<TableColumn>();

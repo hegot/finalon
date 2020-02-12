@@ -73,7 +73,7 @@ public class IndexChangeTable extends ItemsTable {
         for (Item item : ItemsStorage.getItems()) {
             if (item.getId() == id) {
                 Item parent = new Item(
-                        item.getId(),
+                        0,
                         "Totall: ",
                         item.getShortName(),
                         item.getIsPositive(),

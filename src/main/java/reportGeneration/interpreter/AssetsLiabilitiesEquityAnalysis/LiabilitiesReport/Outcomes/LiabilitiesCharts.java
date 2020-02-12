@@ -25,7 +25,7 @@ public class LiabilitiesCharts extends ChartBase {
         return "Chart 2. " + SettingsStorage.get("company") +
                 " Source of finance between " +
                 Periods.getStart() + " - " + Periods.getEnd() +
-                " in " + SettingsStorage.get("amount") + " " + SettingsStorage.get("defaultCurrency");
+                ", in " + SettingsStorage.get("amount") + " " + SettingsStorage.get("defaultCurrency");
     }
 
     public VBox get(int weight) {

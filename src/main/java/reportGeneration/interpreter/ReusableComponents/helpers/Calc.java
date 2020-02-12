@@ -58,7 +58,7 @@ public class Calc {
                 String result = engine.eval(formula).toString();
                 if (result != null && result.length() > 0) {
                     val = Formatter.percentFormat(result);
-                    if (val.equals("NaN") || val.equals("Infinity") || val.equals("-Infinity")) val = "";
+                    if (val.equals("NaN") || val.equals("Infinity") || val.equals("-Infinity")|| val.equals("∞")) val = "";
                 }
             }
         } catch (Exception e) {

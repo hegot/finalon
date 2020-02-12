@@ -47,13 +47,15 @@ public class RelativeItemsChange {
                 Double lastVal = item.getLastVal();
                 if (firstVal != null && lastVal != null) {
                     String change = Calc.getRelativeChange(firstVal, lastVal);
-                    if (rize) {
-                        if (lastVal > firstVal && change.length() > 0) {
-                            output += "- " + item.getName() + " (" + change + "%)\n";
-                        }
-                    } else {
-                        if (lastVal < firstVal && change.length() > 0) {
-                            output += "- " + item.getName() + " (" + change + "%)\n";
+                    if(change.length() > 0){
+                        if (rize) {
+                            if (lastVal > firstVal && change.length() > 0) {
+                                output += "- " + item.getName() + " (" + change + "%)\n";
+                            }
+                        } else {
+                            if (lastVal < firstVal && change.length() > 0) {
+                                output += "- " + item.getName() + " (" + change + "%)\n";
+                            }
                         }
                     }
                 }

@@ -11,6 +11,7 @@ import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -38,6 +39,8 @@ public class Finalon extends Application {
         AddDefaultTables addDefaultTpl = new AddDefaultTables();
         addDefaultTpl.start();
         window = primaryStage;
+        window.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("image/exe.ico")));
+        window.setTitle("Finstaton");
         VBox mainVBox = new VBox();
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(mainVBox);

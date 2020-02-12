@@ -26,7 +26,7 @@ public class AssetsCharts extends ChartBase {
         return "Chart 1. " + SettingsStorage.get("company") +
                 " Non-current and Current Assets between " +
                 Periods.getStart() + " - " + Periods.getEnd() +
-                " in " + SettingsStorage.get("amount") + " " + SettingsStorage.get("defaultCurrency");
+                ", in " + SettingsStorage.get("amount") + " " + SettingsStorage.get("defaultCurrency");
     }
 
     public VBox get(int weight) {
