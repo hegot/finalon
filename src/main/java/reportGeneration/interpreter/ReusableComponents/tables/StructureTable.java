@@ -104,6 +104,7 @@ public class StructureTable {
         String colname = "Absolute Change\n" + Formatter.formatDate(colEnd) + " to \n" + Formatter.formatDate(colStart);
         TableColumn<StructureItem, String> column = new TableColumn<StructureItem, String>(colname);
         column.setMinWidth(150);
+        column.getStyleClass().add("period-col");
         column.setCellValueFactory(cellData -> {
             ObservableMap<String, Double> values = getValues(cellData);
             if (values != null) {
@@ -119,6 +120,7 @@ public class StructureTable {
 
     protected TableColumn getNameCol() {
         TableColumn<StructureItem, String> col = new TableColumn<>("Indicator");
+        col.setId("name-column");
         col.setMinWidth(350);
         col.setCellValueFactory(new PropertyValueFactory<>("name"));
         col.setCellFactory(TextFieldTableCell.<StructureItem>forTableColumn());
@@ -128,6 +130,7 @@ public class StructureTable {
     private TableColumn structureCol(String col) {
         TableColumn<StructureItem, String> column = new TableColumn<StructureItem, String>(Formatter.formatDate(col));
         column.setMinWidth(150);
+        column.getStyleClass().add("period-col");
         column.setCellValueFactory(cellData -> {
             ObservableMap<String, Double> values = getValues(cellData);
             if (values != null) {

@@ -1,14 +1,17 @@
 package reportGeneration.interpreter.FinancialResults.Outcomes;
 
 import database.setting.DbSettingHandler;
+import entities.Formula;
 import entities.Item;
 import globalReusables.LabelWrap;
 import globalReusables.Setting;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import reportGeneration.interpreter.ReusableComponents.helpers.Calc;
 import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import reportGeneration.interpreter.ReusableComponents.tables.ItemsTable;
 import reportGeneration.storage.ItemsStorage;
@@ -113,8 +116,33 @@ public class FinancialResultTable extends ItemsTable {
         for (TableColumn col : getAbsoluteCols()) {
             table.getColumns().add(col);
         }
+        if (periods.size() > 2) {
+            table.getColumns().add(getFirstLastComparisonCol());
+        }
         table.setItems(items);
         return table;
+    }
+
+    protected TableColumn getFirstLastComparisonCol(){
+        ArrayList<String> periods = Periods.getPeriodArr();
+        String colStart = periods.get(0);
+        String colEnd = periods.get(periods.size() -1);
+        String colname = "Absolute Change\n" + Formatter.formatDate(colEnd) + " to \n" + Formatter.formatDate(colStart);
+        TableColumn<Item, String> col = new TableColumn<Item, String>(colname);
+        col.getStyleClass().add("period-col");
+        col.setMinWidth(150);
+        col.setSortable(false);
+        col.setCellValueFactory(cellData -> {
+            ObservableMap<String, Double> values = getValues(cellData);
+            if (values != null) {
+                return Calc.diff(
+                        values.get(colStart),
+                        values.get(colEnd)
+                );
+            }
+            return null;
+        });
+        return col;
     }
 
     protected ArrayList<TableColumn> getAbsoluteCols() {

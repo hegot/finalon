@@ -6,17 +6,25 @@
 .add-company .report-table .column-header .filler,
 .add-company .report-table .column-header-background .filler {
     -fx-background-color: #34495e;
-    -fx-padding: 15;
+    -fx-padding: 5;
     -fx-pref-height: 70px;
 }
-
 
 .add-company .report-table  .column-header .label {
     -fx-text-fill: #fff;
     -fx-font-size: 12px;
     -fx-font-weight: normal;
     -fx-min-height: 100px;
+    -fx-alignment:  baseline-right;
+}
+
+.add-company .report-table .column-header#name-column .label {
     -fx-alignment:  baseline-left;
+}
+
+
+.add-company .report-table .period-col {
+  -fx-alignment: CENTER-RIGHT;
 }
 
 .add-company .table-name{
@@ -26,8 +34,6 @@
     -fx-padding: 10px 0 5px 0;
     -fx-font-weight: bold;
 }
-
-
 
 .add-company .chart-title {
     -fx-text-fill: #000000;
@@ -69,7 +75,6 @@
     -fx-font-size: 12px;
     -fx-padding: 5px 0;
 }
-
 
 .add-company .hbox-row{
     -fx-padding: 10px;
@@ -125,6 +130,10 @@
 
 .add-company  .combo-box-popup > .list-view {
     -fx-min-width: 150;
+}
+
+.add-company .scale-table .column-header .label {
+    -fx-alignment: CENTER;
 }
 
 .scale-table{

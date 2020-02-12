@@ -2,6 +2,8 @@ package finalonWindows.settingsScene;
 
 import database.setting.DbSettingHandler;
 import finalonWindows.SceneBase;
+import finalonWindows.SceneName;
+import finalonWindows.SceneSwitcher;
 import finalonWindows.reusableComponents.SettingsMenu;
 import globalReusables.Setting;
 import javafx.animation.KeyFrame;
@@ -32,7 +34,6 @@ public class SettingsScene extends SceneBase {
         settings.put(Setting.defaultCurrency, DbSettingHandler.getSetting(Setting.defaultCurrency));
     }
 
-
     public VBox getScene() {
         VBox vbox = new VBox(0);
         vbox.getStyleClass().add("settings-container");
@@ -51,11 +52,8 @@ public class SettingsScene extends SceneBase {
         return vbox;
     }
 
-
     private HBox submitBtn() {
         HBox hbox = new HBox(20);
-        Label label = new Label("");
-        label.getStyleClass().add("confirm-label");
         Button btn = new Button("Save Changes");
         btn.getStyleClass().add("blue-btn");
         btn.setOnAction(new EventHandler<ActionEvent>() {
@@ -65,19 +63,13 @@ public class SettingsScene extends SceneBase {
                     for (Setting key : settings.keySet()) {
                         DbSettingHandler.updateSetting(key, settings.get(key));
                     }
-                    label.setText("Your changes have been saved!");
-                    Timeline timeline = new Timeline(new KeyFrame(
-                            Duration.millis(2500),
-                            ae -> label.setText("")));
-                    timeline.play();
-
-
+                    SceneSwitcher.goTo(SceneName.MAIN);
                 } catch (Exception exception) {
                     System.out.println("Error while saving settings");
                 }
             }
         });
-        hbox.getChildren().addAll(btn, label);
+        hbox.getChildren().addAll(btn);
         return hbox;
     }
 
@@ -125,6 +117,4 @@ public class SettingsScene extends SceneBase {
             timeline.play();
         }
     }
-
-
 }

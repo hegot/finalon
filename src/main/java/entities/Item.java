@@ -264,7 +264,7 @@ public class Item implements Comparable<Item>, Cloneable {
         if (values.size() > 0) {
             Double value = values.get(period);
             if (value != null) {
-                val = Formatter.finalNumberFormat(value);
+                val = Formatter.commaFormat(value);
             }
         }
         return val;

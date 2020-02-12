@@ -47,9 +47,3 @@
     -fx-alignment:  baseline-left;
     -fx-cursor: hand;
 }
-
-.settings-container .confirm-label{
-    -fx-font-size: 14px;
-    -fx-text-fill: #000000;
-    -fx-font-weight: bold;
-}

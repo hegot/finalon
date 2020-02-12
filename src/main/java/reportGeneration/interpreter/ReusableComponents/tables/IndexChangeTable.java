@@ -93,6 +93,7 @@ public class IndexChangeTable extends ItemsTable {
         String colname = "Percentage change\n" + Formatter.formatDate(colEnd) + " to \n" + Formatter.formatDate(colStart);
         TableColumn<Item, String> col = new TableColumn<Item, String>(colname);
         col.setMinWidth(150);
+        col.getStyleClass().add("period-col");
         col.setCellValueFactory(cellData -> {
             ObservableMap<String, Double> values = getValues(cellData);
             if (values != null) {

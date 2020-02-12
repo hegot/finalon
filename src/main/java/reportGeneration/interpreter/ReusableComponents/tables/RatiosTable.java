@@ -30,10 +30,15 @@ public class RatiosTable extends FormulaTable {
             for (TableColumn col : getAbsoluteCols()) {
                 table.getColumns().add(col);
             }
+            ArrayList<String> periods = Periods.getPeriodArr();
+            if (periods.size() > 2) {
+                table.getColumns().add(getFirstLastComparisonCol());
+            }
             table.setItems(formulas);
         }
         return table;
     }
+
 
     protected ArrayList<TableColumn> getAbsoluteCols() {
         ArrayList<TableColumn> colsArr = new ArrayList<>();

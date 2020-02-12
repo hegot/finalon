@@ -26,8 +26,9 @@ public class ItemsTable {
     }
 
     public static TableColumn<Item, String> getPeriodCol(String colname) {
-        String colName = colname.replace("-", "\n-");
-        TableColumn<Item, String> col = new TableColumn<Item, String>(colName);
+        String[] split = colname.split("-");
+        TableColumn<Item, String> col = new TableColumn<Item, String>(split[1]);
+        col.getStyleClass().add("period-col");
         col.setMinWidth(100);
         col.setSortable(false);
         col.setCellValueFactory(cellData -> {
@@ -45,6 +46,7 @@ public class ItemsTable {
 
     public static TableColumn getNameCol() {
         TableColumn<Item, String> col = new TableColumn<Item, String>("Indicator");
+        col.setId("name-column");
         col.setMinWidth(350);
         col.setSortable(false);
         col.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
@@ -55,6 +57,7 @@ public class ItemsTable {
     public static TableColumn getAbsoluteComparisonCol(String colStart, String colEnd) {
         String colname = "Absolute Change\n" + Formatter.formatDate(colEnd) + " to \n" + Formatter.formatDate(colStart);
         TableColumn<Item, String> col = new TableColumn<Item, String>(colname);
+        col.getStyleClass().add("period-col");
         col.setMinWidth(150);
         col.setSortable(false);
         col.setCellValueFactory(cellData -> {
@@ -83,8 +86,7 @@ public class ItemsTable {
         return colsArr;
     }
 
-
-    static ObservableMap<String, Double> getValues(TableColumn.CellDataFeatures<Item, String> cellData) {
+    protected static ObservableMap<String, Double> getValues(TableColumn.CellDataFeatures<Item, String> cellData) {
         Item item = (Item) cellData.getValue();
         if (item != null) {
             if (item.getValues().size() > 0) {

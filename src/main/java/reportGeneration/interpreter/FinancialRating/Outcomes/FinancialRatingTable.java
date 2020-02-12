@@ -73,12 +73,14 @@ public class FinancialRatingTable {
 
     private TableColumn<String, ScoreItem> getNameCol() {
         TableColumn<String, ScoreItem> column = new TableColumn<>("Indicators");
+        column.setId("name-column");
         column.setCellValueFactory(new PropertyValueFactory<>("name"));
         return column;
     }
 
     private TableColumn<Double, ScoreItem> getCol(String key, String title) {
         TableColumn<Double, ScoreItem> column = new TableColumn<>(title);
+        column.getStyleClass().add("period-col");
         column.setCellValueFactory(new PropertyValueFactory<>(key));
         return column;
     }

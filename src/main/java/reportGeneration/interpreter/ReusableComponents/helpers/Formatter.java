@@ -22,6 +22,15 @@ public class Formatter {
         return val;
     }
 
+    public static String commaFormat(Double value) {
+        String val = value.toString();
+        String format = SettingsStorage.get("numberFormat");
+        if (format.equals("comma")) {
+            val = val.replace('.', ',');
+        }
+        return val;
+    }
+
     public static String stringCommaFormat(String value) {
         if (SettingsStorage.get("numberFormat").equals("comma")) {
             value = value.replace('.', ',');
@@ -56,6 +65,7 @@ public class Formatter {
         if (str == null) return null;
         try {
             str = str.replaceAll(",", ".");
+            str = str.replaceAll(" ", "");
             return Double.parseDouble(str);
         } catch (NumberFormatException e) {
             return null;

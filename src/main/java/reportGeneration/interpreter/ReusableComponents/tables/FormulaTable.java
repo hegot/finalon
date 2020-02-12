@@ -16,6 +16,7 @@ import java.util.Collections;
 public class FormulaTable {
     protected TableColumn getNameCol() {
         TableColumn<Formula, String> col = new TableColumn<Formula, String>("Formula");
+        col.setId("name-column");
         col.setMinWidth(350);
         col.setSortable(false);
         col.setCellValueFactory(new PropertyValueFactory<Formula, String>("name"));
@@ -23,8 +24,9 @@ public class FormulaTable {
     }
 
     protected TableColumn getPeriodCol(String colname) {
-        String colName = colname.replace("-", "\n-");
-        TableColumn<Formula, String> col = new TableColumn<Formula, String>(colName);
+        String[] split = colname.split("-");
+        TableColumn<Formula, String> col = new TableColumn<Formula, String>(split[1]);
+        col.getStyleClass().add("period-col");
         col.setMinWidth(100);
         col.setSortable(false);
         col.setCellValueFactory(cellData -> {
@@ -40,10 +42,33 @@ public class FormulaTable {
         return col;
     }
 
+    protected TableColumn getFirstLastComparisonCol(){
+        ArrayList<String> periods = Periods.getPeriodArr();
+        String colStart = periods.get(0);
+        String colEnd = periods.get(periods.size() -1);
+        String colname = "Absolute Change\n" + Formatter.formatDate(colStart) +
+                " to \n" + Formatter.formatDate(colEnd);
+        TableColumn<Formula, String> col = new TableColumn<Formula, String>(colname);
+        col.getStyleClass().add("period-col");
+        col.setMinWidth(150);
+        col.setSortable(false);
+        col.setCellValueFactory(cellData -> {
+            Formula formula = (Formula) cellData.getValue();
+            if (formula != null) {
+                return Calc.diff(
+                        formula.getVal(colStart),
+                        formula.getVal(colEnd)
+                );
+            }
+            return null;
+        });
+        return col;
+    }
 
     protected TableColumn getAbsoluteComparisonCol(String colStart, String colEnd) {
         String colname = "Absolute Change\n" + Formatter.formatDate(colEnd) + " to \n" + Formatter.formatDate(colStart);
         TableColumn<Formula, String> col = new TableColumn<Formula, String>(colname);
+        col.getStyleClass().add("period-col");
         col.setMinWidth(150);
         col.setSortable(false);
         col.setCellValueFactory(cellData -> {
