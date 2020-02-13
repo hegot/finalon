@@ -61,11 +61,7 @@ public class AddIndustryBtn extends HBox {
         result.ifPresent(id -> {
             try {
                 runTask();
-                Timeline timeline = new Timeline(new KeyFrame(
-                        Duration.millis(700),
-                        ae -> SceneSwitcher.goTo(SceneName.FORMULALIST)));
-                timeline.play();
-
+                SceneSwitcher.runPreloader(4000, SceneName.FORMULALIST);
             } catch (Exception e) {
                 System.out.println("Industry=" + industry.getText() + ", standard=" + standard.getValue().getName() + " not created");
                 e.printStackTrace();

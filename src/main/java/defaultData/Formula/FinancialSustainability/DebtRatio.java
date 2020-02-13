@@ -12,7 +12,7 @@ public class DebtRatio {
         Formulas.add(new Formula(DebtRatio,
                 "Debt Ratio",
                 "DebtRatio",
-                "(NonCurrentAssets+CurrentLiabilities)/AssetsGeneral",
+                "(NonCurrentLiabilities+CurrentLiabilities)/AssetsGeneral",
                 "",
                 "formula",
                 "",

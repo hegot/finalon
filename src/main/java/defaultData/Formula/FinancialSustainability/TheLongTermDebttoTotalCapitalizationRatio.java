@@ -12,7 +12,7 @@ public class TheLongTermDebttoTotalCapitalizationRatio {
         Formulas.add(new Formula(TheLongTermDebttoTotalCapitalizationRatio,
                 "The Long-Term Debt to Total Capitalization Ratio",
                 "TheLongTermDebttoTotalCapitalizationRatio",
-                "(NonCurrentAssets)/(NonCurrentAssets+IssuedCapital+SharePremium)",
+                "(NonCurrentLiabilities)/(NonCurrentLiabilities+IssuedCapital+SharePremium)",
                 "",
                 "formula",
                 "",

@@ -4,6 +4,7 @@ import defaultData.DefaultTemplate;
 import entities.Item;
 import finalonWindows.DeathScreen.DeathScreen;
 import finalonWindows.LogsScreen.LogsScreen;
+import finalonWindows.PreloaderScene.PreloaderScene;
 import finalonWindows.formulaScene.editScreen.IndustryEdit;
 import finalonWindows.formulaScene.listing.IndustriesListing;
 import finalonWindows.mainScene.MainScene;
@@ -64,6 +65,7 @@ public class SceneSwitcher {
             case LOGS:
                 vbox = new LogsScreen().getScene();
                 break;
+
         }
         window.getChildren().setAll(vbox);
     }
@@ -76,6 +78,11 @@ public class SceneSwitcher {
                 vbox = TemplateEditPage.getScene(items, id);
                 break;
         }
+        window.getChildren().setAll(vbox);
+    }
+
+    public static void runPreloader(int duration, SceneName redirect) {
+        VBox vbox = PreloaderScene.getScene(duration, redirect);
         window.getChildren().setAll(vbox);
     }
 

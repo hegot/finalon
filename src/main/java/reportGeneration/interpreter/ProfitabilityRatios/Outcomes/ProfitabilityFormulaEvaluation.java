@@ -4,6 +4,7 @@ import entities.Formula;
 import javafx.collections.ObservableList;
 import reportGeneration.interpreter.ReusableComponents.FormulaEvaluateBase;
 import reportGeneration.interpreter.ReusableComponents.FormulaEvaluation;
+import reportGeneration.interpreter.ReusableComponents.NormValsEvaluator.InTimeReplacer;
 
 public class ProfitabilityFormulaEvaluation extends FormulaEvaluation {
 
@@ -18,7 +19,7 @@ public class ProfitabilityFormulaEvaluation extends FormulaEvaluation {
         String code = formula.getShortName();
         if (code.equals("ReturnonEquityafterTax")) {
             ReturnonEquityafterTaxHook returnonEquityafterTax = new ReturnonEquityafterTaxHook(formula);
-            output.append(returnonEquityafterTax.getResult());
+            output.append(InTimeReplacer.getVal(returnonEquityafterTax.getResult(), formula));
         }
         output.append(evaluator.startAndEnd());
         output.append(evaluator.periodsComparison());

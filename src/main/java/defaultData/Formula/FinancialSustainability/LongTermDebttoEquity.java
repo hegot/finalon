@@ -12,7 +12,7 @@ public class LongTermDebttoEquity {
         Formulas.add(new Formula(LongTermDebttoEquity,
                 "Long-Term Debt to Equity",
                 "LongTermDebttoEquity",
-                "NonCurrentAssets/(IssuedCapital+SharePremium)",
+                "NonCurrentLiabilities/(IssuedCapital+SharePremium)",
                 "",
                 "formula",
                 "",

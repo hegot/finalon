@@ -12,7 +12,7 @@ public class LongTermDebtRatio {
         Formulas.add(new Formula(LongTermDebtRatio,
                 "Long-Term Debt Ratio",
                 "LongTermDebtRatio",
-                "NonCurrentAssets/AssetsGeneral",
+                "NonCurrentLiabilities/AssetsGeneral",
                 "",
                 "formula",
                 "",
