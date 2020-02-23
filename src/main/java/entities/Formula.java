@@ -8,6 +8,7 @@ import javafx.collections.ObservableMap;
 import reportGeneration.storage.Periods;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Formula {
     private int id;
@@ -246,4 +247,13 @@ public class Formula {
         return null;
     }
 
+    public Boolean valsEmpty(){
+        Boolean filled = true;
+        for(Map.Entry<String, Double> entry : periods.entrySet()){
+            if(!entry.getValue().equals(0.0)){
+                filled = false;
+            }
+        }
+        return filled;
+    }
 }

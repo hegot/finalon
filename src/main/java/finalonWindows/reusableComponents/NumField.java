@@ -1,5 +1,7 @@
 package finalonWindows.reusableComponents;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
@@ -9,10 +11,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import reportGeneration.storage.SettingsStorage;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class NumField extends TextField {
+
+
     public NumField(String text, Boolean isPositive) {
         setText(text);
         getStyleClass().add("num-field");
@@ -27,31 +28,8 @@ public class NumField extends TextField {
             public void handle(KeyEvent t) {
                 char ar[] = t.getCharacter().toCharArray();
                 char ch = ar[t.getCharacter().toCharArray().length - 1];
-                boolean consume = false;
-                if (!(ch >= '0' && ch <= '9')) {
-                    consume = true;
-                }
-                String s = Character.toString(ch);
-                String numberFormat = SettingsStorage.get("numberFormat");
-                List<String> allowed = new ArrayList<String>();
-                if (numberFormat.equals("comma")) {
-                    allowed.add(",");
-                } else {
-                    allowed.add(".");
-                }
-                if (isPositive) {
-                    allowed.add("-");
-                }
-                for (String i : allowed) {
-                    if (s.contains(i)) {
-                        consume = false;
-                    }
-                }
-                if (consume) {
-                    if (!isPositive && (ch == '-')) {
-                        err.show(field, Side.BOTTOM, 0, 0);
-                    }
-                    t.consume();
+                if (!isPositive && (ch == '-')) {
+                    err.show(field, Side.BOTTOM, 0, 0);
                 }
 
             }
@@ -63,5 +41,21 @@ public class NumField extends TextField {
                         err.hide();
                     }
                 });
+        this.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
+                if (!isPositive) {
+                    newValue = newValue.replace("-", "");
+                }
+                String numberFormat = SettingsStorage.get("numberFormat");
+                if (numberFormat.equals("comma")) {
+                    newValue = newValue.replaceAll("[^0-9,-]", "");
+                } else {
+                    newValue = newValue.replaceAll("[^0-9.-]", "");
+                }
+
+                setText(newValue);
+            }
+        });
     }
 }

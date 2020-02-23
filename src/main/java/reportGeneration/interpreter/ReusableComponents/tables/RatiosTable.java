@@ -34,6 +34,13 @@ public class RatiosTable extends FormulaTable {
             if (periods.size() > 2) {
                 table.getColumns().add(getFirstLastComparisonCol());
             }
+            for(int i = 0; i < formulas.size(); i++){
+                Formula formula = formulas.get(i);
+                if(formula.valsEmpty()){
+                    i--;
+                    formulas.remove(formula);
+                }
+            }
             table.setItems(formulas);
         }
         return table;

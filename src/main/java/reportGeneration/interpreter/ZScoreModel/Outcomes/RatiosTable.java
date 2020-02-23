@@ -28,6 +28,13 @@ public class RatiosTable extends FormulaTable {
             for (TableColumn col : getPeriodCols()) {
                 table.getColumns().add(col);
             }
+            for(int i = 0; i < formulas.size(); i++){
+                Formula formula = formulas.get(i);
+                if(formula.valsEmpty()){
+                    i--;
+                    formulas.remove(formula);
+                }
+            }
             table.setItems(formulas);
         }
         return table;

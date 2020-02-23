@@ -26,6 +26,10 @@ class Columns {
                         setStyle("");
                     } else {
                         setText(item);
+                        Item cellItem = (Item) getTableRow().getItem();
+                        if(!cellItem.getIsPositive()){
+                            setStyle(" -fx-text-fill: #D52525;");
+                        }
                     }
                 }
             };

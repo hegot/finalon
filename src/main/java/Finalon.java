@@ -39,7 +39,7 @@ public class Finalon extends Application {
         AddDefaultTables addDefaultTpl = new AddDefaultTables();
         addDefaultTpl.start();
         window = primaryStage;
-        window.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("image/exe.ico")));
+        window.getIcons().add(new Image("image/exe.ico"));
         window.setTitle("Finstaton");
         VBox mainVBox = new VBox();
         ScrollPane scrollPane = new ScrollPane();
