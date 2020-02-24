@@ -10,7 +10,7 @@ public class AccountsReceivableTurnover {
         ObservableList<Formula> Formulas = FXCollections.observableArrayList();
         int AccountsReceivableTurnover = counter;
         Formulas.add(new Formula(AccountsReceivableTurnover,
-                "Accounts Receivable Turnover (Times)",
+                "Accounts Receivable Turnover ",
                 "AccountsReceivableTurnover",
                 "RevenueGeneral/((TradeAndOtherCurrentReceivables[0]+TradeAndOtherCurrentReceivables[1])/2)",
                 "",

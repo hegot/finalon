@@ -18,12 +18,16 @@ import java.util.Collections;
 
 public class IndexChangeTable extends ItemsTable {
     private int rootId;
+    private int periodsSize;
+    private ArrayList<String> periods;
 
     public IndexChangeTable(
             int rootId
     ) {
         super(ItemsStorage.getItems());
         this.rootId = rootId;
+        this.periods = Periods.getPeriodArr();
+        this.periodsSize = periods.size();
     }
 
     public TableView<Item> get() {
@@ -36,16 +40,29 @@ public class IndexChangeTable extends ItemsTable {
         for (TableColumn col : colsArr) {
             table.getColumns().add(col);
         }
-        for (TableColumn col : getCols("Absolute")) {
-            table.getColumns().add(col);
+        if (periodsSize > 3) {
+            String colStart = periods.get(periodsSize - 2);
+            String colEnd = periods.get(periodsSize - 1);
+            table.getColumns().addAll(
+                    getAbsoluteComparisonCol(colStart, colEnd),
+                    getFirstLastAbsComparisonCol(),
+                    getRelativeComparisonCol(colStart, colEnd),
+                    getFirstLastPercentComparisonCol()
+            );
+        } else {
+            for (TableColumn col : getCols("Absolute")) {
+                table.getColumns().add(col);
+            }
+            if (periodsSize > 2) {
+                table.getColumns().add(getFirstLastAbsComparisonCol());
+            }
+            for (TableColumn col : getCols("Relative")) {
+                table.getColumns().add(col);
+            }
+            if (periodsSize > 2) {
+                table.getColumns().add(getFirstLastPercentComparisonCol());
+            }
         }
-        if (Periods.getPeriodArr().size() > 2) {
-            table.getColumns().add(getFirstLastComparisonCol());
-        }
-        for (TableColumn col : getCols("Relative")) {
-            table.getColumns().add(col);
-        }
-
         return table;
     }
 
@@ -114,7 +131,7 @@ public class IndexChangeTable extends ItemsTable {
         return col;
     }
 
-    protected TableColumn getFirstLastComparisonCol() {
+    protected TableColumn getFirstLastAbsComparisonCol() {
         ArrayList<String> periods = Periods.getPeriodArr();
         String colStart = periods.get(0);
         String colEnd = periods.get(periods.size() - 1);
@@ -131,6 +148,31 @@ public class IndexChangeTable extends ItemsTable {
                         item.getVal(colStart),
                         item.getVal(colEnd)
                 );
+            }
+            return null;
+        });
+        return col;
+    }
+
+    protected TableColumn getFirstLastPercentComparisonCol() {
+        ArrayList<String> periods = Periods.getPeriodArr();
+        String colStart = periods.get(0);
+        String colEnd = periods.get(periods.size() - 1);
+        String colname = "Percentage change\n" + Formatter.formatDate(colEnd) + " to \n" + Formatter.formatDate(colStart);
+        TableColumn<Item, String> col = new TableColumn<Item, String>(colname);
+        col.setMinWidth(150);
+        col.getStyleClass().add("period-col");
+        col.setCellValueFactory(cellData -> {
+            ObservableMap<String, Double> values = getValues(cellData);
+            if (values != null) {
+                Double colStartVAl = values.get(colStart);
+                Double colEndVAl = values.get(colEnd);
+                if (colStartVAl != null && colEndVAl != null) {
+                    String relative = Calc.getRelativeChange(colStartVAl, colEndVAl);
+                    if (relative.length() > 0) {
+                        return new SimpleStringProperty(Formatter.stringCommaFormat(relative) + "%");
+                    }
+                }
             }
             return null;
         });

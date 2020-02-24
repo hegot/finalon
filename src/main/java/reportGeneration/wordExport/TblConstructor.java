@@ -99,7 +99,7 @@ public class TblConstructor {
     }
 
     private void addTableCell(Tr tr, String content, int width, String background, String color) {
-        CellCorstructor con = new CellCorstructor(content, width, "20", background, color);
+        CellCorstructor con = new CellCorstructor(content, width, "16", background, color);
         Tc tc = con.getCell();
         tr.getEGContentCellContent().add(tc);
     }
