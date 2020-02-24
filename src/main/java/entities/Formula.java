@@ -5,6 +5,7 @@ import defaultData.EvaluationTypes;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import reportGeneration.storage.Periods;
 
 import java.util.ArrayList;

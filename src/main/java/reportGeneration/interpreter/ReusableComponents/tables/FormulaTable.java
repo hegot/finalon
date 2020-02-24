@@ -42,10 +42,10 @@ public class FormulaTable {
         return col;
     }
 
-    protected TableColumn getFirstLastComparisonCol(){
+    protected TableColumn getFirstLastComparisonCol() {
         ArrayList<String> periods = Periods.getPeriodArr();
         String colStart = periods.get(0);
-        String colEnd = periods.get(periods.size() -1);
+        String colEnd = periods.get(periods.size() - 1);
         String colname = "Absolute Change\n" + Formatter.formatDate(colStart) +
                 " to \n" + Formatter.formatDate(colEnd);
         TableColumn<Formula, String> col = new TableColumn<Formula, String>(colname);

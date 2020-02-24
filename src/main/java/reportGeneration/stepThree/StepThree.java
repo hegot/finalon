@@ -12,7 +12,7 @@ public class StepThree extends SceneBase {
     private String companyName;
 
     public StepThree() {
-        this.companyName = SettingsStorage.get("company") + "'s";
+        this.companyName = SettingsStorage.get("company");
     }
 
 

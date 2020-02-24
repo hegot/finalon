@@ -47,7 +47,7 @@ public class RelativeItemsChange {
                 Double lastVal = item.getLastVal();
                 if (firstVal != null && lastVal != null) {
                     String change = Calc.getRelativeChange(firstVal, lastVal);
-                    if(change.length() > 0){
+                    if (change.length() > 0) {
                         if (rize) {
                             if (lastVal > firstVal && change.length() > 0) {
                                 output += "- " + item.getName() + " (" + change + "%)\n";

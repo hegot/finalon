@@ -1,7 +1,6 @@
 package reportGeneration.interpreter.FinancialResults.Outcomes;
 
 import database.setting.DbSettingHandler;
-import entities.Formula;
 import entities.Item;
 import globalReusables.LabelWrap;
 import globalReusables.Setting;
@@ -123,10 +122,10 @@ public class FinancialResultTable extends ItemsTable {
         return table;
     }
 
-    protected TableColumn getFirstLastComparisonCol(){
+    protected TableColumn getFirstLastComparisonCol() {
         ArrayList<String> periods = Periods.getPeriodArr();
         String colStart = periods.get(0);
-        String colEnd = periods.get(periods.size() -1);
+        String colEnd = periods.get(periods.size() - 1);
         String colname = "Absolute Change\n" + Formatter.formatDate(colEnd) + " to \n" + Formatter.formatDate(colStart);
         TableColumn<Item, String> col = new TableColumn<Item, String>(colname);
         col.getStyleClass().add("period-col");

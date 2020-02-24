@@ -1,6 +1,7 @@
 package reportGeneration.interpreter.FinancialRating.Outcomes;
 
 import entities.Formula;
+import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import reportGeneration.interpreter.ReusableComponents.helpers.RatingWeight;
 import reportGeneration.storage.Periods;
 
@@ -41,7 +42,9 @@ public class ScoreItem {
 
     private Double calcWeightedScore() {
         if (averageScore != null) {
-            return Double.valueOf(df.format(weight * averageScore));
+            String formatted = df.format(weight * averageScore);
+            formatted = Formatter.clean(formatted);
+            return Double.valueOf(formatted);
         }
         return null;
     }
@@ -51,7 +54,8 @@ public class ScoreItem {
         if (score1 != null && score2 != null) {
             res = score1 * 0.35 + score2 * 0.65;
             if (res != null) {
-                res = Double.valueOf(df.format(res));
+                String formatted = Formatter.clean(df.format(res));
+                res = Double.valueOf(formatted);
             }
         }
         return res;

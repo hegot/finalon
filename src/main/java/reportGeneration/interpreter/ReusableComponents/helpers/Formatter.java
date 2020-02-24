@@ -64,12 +64,17 @@ public class Formatter {
     public static Double parseDouble(String str) {
         if (str == null) return null;
         try {
-            str = str.replaceAll(",", ".");
-            str = str.replaceAll(" ", "");
+            str = clean(str);
             return Double.parseDouble(str);
         } catch (NumberFormatException e) {
             return null;
         }
+    }
+
+    public static String clean(String str) {
+        str = str.replaceAll(",", ".");
+        str = str.replaceAll(" ", "");
+        return str;
     }
 
 }

@@ -62,19 +62,19 @@ public class WordExport {
                     if (item.getType().equals("text")) {
                         String val = (String) item.get();
                         String[] split = val.split("\\r?\\n");
-                        if(split.length > 1){
-                            for(String chunk : split){
+                        if (split.length > 1) {
+                            for (String chunk : split) {
                                 ResultItem<String> rowItem = new ResultItem<>(chunk, "text");
                                 wordPackage.getMainDocumentPart().getContent().add(
                                         new AddText(rowItem).getStyledText()
                                 );
                             }
-                        }else{
+                        } else {
                             wordPackage.getMainDocumentPart().getContent().add(
                                     new AddText(item).getStyledText()
                             );
                         }
-                    }else{
+                    } else {
                         wordPackage.getMainDocumentPart().getContent().add(
                                 new AddText(item).getStyledText()
                         );

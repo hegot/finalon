@@ -20,7 +20,7 @@ public class NumField extends TextField {
         NumField field = this;
         ContextMenu err = new ContextMenu();
         err.setStyle("-fx-background-color: #FFFFFF;");
-        MenuItem item = new MenuItem("Item already negative");
+        MenuItem item = new MenuItem("The item is negative already");
         item.getStyleClass().add("num-err");
         err.getItems().addAll(item);
 

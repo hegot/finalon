@@ -145,7 +145,7 @@ public class AddReportScene extends SceneBase {
                         vbox.getChildren().addAll(settingsMenu.getMenu(), stepOne.show());
                     } else if (newStep.equals("two")) {
                         StepTwo stepTwo = new StepTwo();
-                        vbox.getChildren().addAll(headerMenu(), stepTwo.show(), headerMenu());
+                        vbox.getChildren().addAll(headerMenu(), stepTwo.show());
                     } else if (newStep.equals("three")) {
                         StepThree stepThree = new StepThree();
                         vbox.getChildren().addAll(headerMenu(), stepThree.show());

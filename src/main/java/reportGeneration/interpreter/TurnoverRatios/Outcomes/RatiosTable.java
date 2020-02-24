@@ -33,9 +33,9 @@ public class RatiosTable extends FormulaTable {
             for (TableColumn col : getAbsoluteCols()) {
                 table.getColumns().add(col);
             }
-            for(int i = 0; i < formulas.size(); i++){
+            for (int i = 0; i < formulas.size(); i++) {
                 Formula formula = formulas.get(i);
-                if(formula.valsEmpty()){
+                if (formula.valsEmpty()) {
                     i--;
                     formulas.remove(formula);
                 }
@@ -55,7 +55,7 @@ public class RatiosTable extends FormulaTable {
             for (int j = 1; j <= count; j++) {
                 colStart = periods.get(j);
                 colEnd = periods.get(j + 1);
-                if(colEnd != null){
+                if (colEnd != null) {
                     colsArr.add(getAbsoluteComparisonCol(colStart, colEnd));
                 }
             }

@@ -8,12 +8,15 @@ import globalReusables.ItemsGetter;
 import globalReusables.Setting;
 import globalReusables.SheetsGetter;
 import globalReusables.StandardAndIndustry;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.VBox;
+import reportGeneration.AddReportScene;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
 import reportGeneration.storage.SettingsStorage;
@@ -70,20 +73,26 @@ public class StepTwo {
             tab = new Tab();
             sheet = Sheet;
             tab.setText(sheet.getName());
-            table = getSingleTable(sheet.getId());
-            tab.setContent(table);
+            tab.setContent(getSingleTable(sheet.getId()));
             tabs.getTabs().add(tab);
         }
         return tabs;
     }
 
-    private TableView<Item> getSingleTable(int Id) {
+    private VBox getSingleTable(int Id) {
+        VBox wrap = new VBox(20);
         TableView<Item> table = getTable(Id);
         table.setSelectionModel(null);
         table.getStyleClass().add("report-input");
         table.setEditable(true);
-        table.setMinHeight(1550);
         table.setPrefWidth(880);
+        table.setFixedCellSize(30);
+
+        table.prefHeightProperty().bind(table.fixedCellSizeProperty().multiply(Bindings.size(table.getItems()).add(2.01)));
+        table.minHeightProperty().bind(table.prefHeightProperty());
+        table.maxHeightProperty().bind(table.prefHeightProperty());
+
+
         Columns cols = new Columns();
         table.getColumns().addAll(cols.getNameCol(), cols.getCodeCol());
         ArrayList<String> arr = Periods.getPeriodArr();
@@ -97,7 +106,8 @@ public class StepTwo {
                 table.getColumns().add(cols.getPeriodCol(arr.get(i)));
             }
         }
-        return table;
+        wrap.getChildren().addAll(table, AddReportScene.headerMenu());
+        return wrap;
     }
 
     private TableView<Item> getTable(int Id) {

@@ -6,7 +6,9 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import reportGeneration.storage.Periods;
+import services.Logger;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -28,20 +30,26 @@ public class FinancialRatingTable {
         Double sum = 0.0;
         for (Formula formula : formulas) {
             if (formula != null) {
-                ScoreItem item = new ScoreItem(formula);
-                Double weightedScore = item.getWeightedScore();
-                if (weightedScore != null) {
-                    sum += weightedScore;
-                    vals.add(weightedScore);
-                    output.add(item);
+                try {
+                    ScoreItem item = new ScoreItem(formula);
+                    Double weightedScore = item.getWeightedScore();
+                    if (weightedScore != null) {
+                        sum += weightedScore;
+                        vals.add(weightedScore);
+                        output.add(item);
+                    }
+                } catch (Exception e) {
+                    Logger.log("FIN RATING, Formula: " + formula.getShortName() + ", " + e.getMessage());
                 }
+
             }
         }
 
         Formula endRow = new Formula(0, "Total Score", "", "", "", "", "", 0);
         ScoreItem item = new ScoreItem(endRow);
         item.setWeight(1.0);
-        sum = Double.valueOf(new DecimalFormat("#.##").format(sum));
+        String formatted = Formatter.clean(new DecimalFormat("#.##").format(sum));
+        sum = Double.valueOf(formatted);
         item.setWeightedScore(sum);
         output.add(item);
         this.totalScore = sum;

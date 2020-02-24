@@ -28,9 +28,9 @@ public class RatiosTable extends FormulaTable {
             for (TableColumn col : getPeriodCols()) {
                 table.getColumns().add(col);
             }
-            for(int i = 0; i < formulas.size(); i++){
+            for (int i = 0; i < formulas.size(); i++) {
                 Formula formula = formulas.get(i);
-                if(formula.valsEmpty()){
+                if (formula.valsEmpty()) {
                     i--;
                     formulas.remove(formula);
                 }
