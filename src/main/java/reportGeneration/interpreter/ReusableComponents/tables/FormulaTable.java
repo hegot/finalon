@@ -9,6 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import reportGeneration.interpreter.ReusableComponents.helpers.Calc;
 import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import reportGeneration.storage.Periods;
+import reportGeneration.storage.SettingsStorage;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,8 +20,28 @@ public class FormulaTable {
         col.setId("name-column");
         col.setMinWidth(350);
         col.setSortable(false);
-        col.setCellValueFactory(new PropertyValueFactory<Formula, String>("name"));
+        col.setCellValueFactory(cellData -> {
+            Formula formula = (Formula) cellData.getValue();
+            if (formula != null) {
+                String name = formula.getName();
+                String unit = formatUnit(formula.getUnit());
+                return new SimpleStringProperty(name + unit);
+            }
+            return null;
+        });
         return col;
+    }
+
+    private String formatUnit(String unit) {
+        if (unit.length() > 0) {
+            String currency = SettingsStorage.get("defaultCurrency");
+            String amount = SettingsStorage.get("amount");
+            String replace = amount + " " + currency;
+            unit = unit.replace("money", replace);
+            return ", " + unit;
+        } else {
+            return "";
+        }
     }
 
     protected TableColumn getPeriodCol(String colname) {

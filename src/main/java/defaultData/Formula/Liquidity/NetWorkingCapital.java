@@ -15,7 +15,7 @@ public class NetWorkingCapital {
                 "GeneralCurrentAssets-CurrentLiabilities",
                 "",
                 "formula",
-                "money (to us and dollar)",
+                "money",
                 parent));
         counter++;
         int NetWorkingCapitalExcellent = counter;

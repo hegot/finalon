@@ -65,6 +65,9 @@ public class StructureTable {
         for (TableColumn col : getAbsoluteChangeCols()) {
             table.getColumns().add(col);
         }
+        if (Periods.getPeriodArr().size() > 2) {
+            table.getColumns().add(getFirstLastComparisonCol());
+        }
         return table;
     }
 
@@ -153,5 +156,28 @@ public class StructureTable {
             }
         }
         return null;
+    }
+
+    protected TableColumn getFirstLastComparisonCol() {
+        ArrayList<String> periods = Periods.getPeriodArr();
+        String colStart = periods.get(0);
+        String colEnd = periods.get(periods.size() - 1);
+        String colname = "Absolute Change\n" + Formatter.formatDate(colEnd) +
+                " to \n" + Formatter.formatDate(colStart);
+        TableColumn<StructureItem, String> col = new TableColumn<StructureItem, String>(colname);
+        col.getStyleClass().add("period-col");
+        col.setMinWidth(150);
+        col.setSortable(false);
+        col.setCellValueFactory(cellData -> {
+            ObservableMap<String, Double> values = getValues(cellData);
+            if (values != null) {
+                return Calc.diff(
+                        values.get(colStart),
+                        values.get(colEnd)
+                );
+            }
+            return null;
+        });
+        return col;
     }
 }

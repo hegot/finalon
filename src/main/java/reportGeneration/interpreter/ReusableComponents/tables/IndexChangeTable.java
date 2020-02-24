@@ -39,6 +39,9 @@ public class IndexChangeTable extends ItemsTable {
         for (TableColumn col : getCols("Absolute")) {
             table.getColumns().add(col);
         }
+        if (Periods.getPeriodArr().size() > 2) {
+            table.getColumns().add(getFirstLastComparisonCol());
+        }
         for (TableColumn col : getCols("Relative")) {
             table.getColumns().add(col);
         }
@@ -111,4 +114,26 @@ public class IndexChangeTable extends ItemsTable {
         return col;
     }
 
+    protected TableColumn getFirstLastComparisonCol() {
+        ArrayList<String> periods = Periods.getPeriodArr();
+        String colStart = periods.get(0);
+        String colEnd = periods.get(periods.size() - 1);
+        String colname = "Absolute Change\n" + Formatter.formatDate(colEnd) +
+                " to \n" + Formatter.formatDate(colStart);
+        TableColumn<Item, String> col = new TableColumn<Item, String>(colname);
+        col.getStyleClass().add("period-col");
+        col.setMinWidth(150);
+        col.setSortable(false);
+        col.setCellValueFactory(cellData -> {
+            Item item = (Item) cellData.getValue();
+            if (item != null) {
+                return Calc.diff(
+                        item.getVal(colStart),
+                        item.getVal(colEnd)
+                );
+            }
+            return null;
+        });
+        return col;
+    }
 }

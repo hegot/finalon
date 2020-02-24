@@ -58,7 +58,7 @@ public class AssetsReport {
     }
 
     public VBox getStructure(int weight) {
-        String tblName = "Table 3. Assets Structure Analysis %";
+        String tblName = "Table 3. Assets Structure Analysis, %";
         Label tableName = TableName.name(tblName);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");

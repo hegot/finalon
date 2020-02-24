@@ -55,7 +55,7 @@ public class LiabilitiesReport {
     }
 
     public VBox getStructure(int weight) {
-        String title = "Table 4. Equity and Liabilities Structure Analysis %";
+        String title = "Table 4. Equity and Liabilities Structure Analysis, %";
         Label tableName = TableName.name(title);
         VBox box = new VBox(8);
         box.setStyle("-fx-padding: 0 0 30px 0");

@@ -5,8 +5,6 @@ import entities.Formula;
 import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
 import globalReusables.StandardAndIndustry;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +13,6 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.util.Duration;
 import javafx.util.Pair;
 
 import java.io.IOException;
