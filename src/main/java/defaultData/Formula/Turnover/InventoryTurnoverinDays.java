@@ -12,7 +12,7 @@ public class InventoryTurnoverinDays {
         Formulas.add(new Formula(InventoryTurnoverinDays,
                 "Inventory Turnover in Days",
                 "InventoryTurnoverinDays",
-                "360*((Inventories[1]+Inventories[0])/2)/CostOfSales",
+                "360*((CurrentInventories[1]+CurrentInventories[0])/2)/CostOfSales",
                 "",
                 "formula",
                 "days",

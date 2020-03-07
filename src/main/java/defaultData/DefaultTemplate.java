@@ -120,11 +120,11 @@ public class DefaultTemplate {
         int CashAndCashEquivalents = counter;
         Items.add(new Item(CashAndCashEquivalents, "Cash and cash equivalents", "CashAndCashEquivalents", true, false, GeneralCurrentAssets, SOFP, 4));
         counter++;
-        int CurrentNoncashAssetsPledgedAsCollateralForWhichTransfereeHasRightByContractOrCustomToSellOrRepledgeCollateral = counter;
-        Items.add(new Item(CurrentNoncashAssetsPledgedAsCollateralForWhichTransfereeHasRightByContractOrCustomToSellOrRepledgeCollateral, "Current non-cash assets pledged as collateral for which transferee has right by contract or custom to sell or repledge collateral", "CurrentNoncashAssetsPledgedAsCollateralForWhichTransfereeHasRightByContractOrCustomToSellOrRepledgeCollateral", true, false, GeneralCurrentAssets, SOFP, 4));
+        int CurrentNonCashCollat = counter;
+        Items.add(new Item(CurrentNonCashCollat, "Current non-cash assets pledged as collateral for which transferee has right by contract or custom to sell or repledge collateral", "CurrentNonCashCollat", true, false, GeneralCurrentAssets, SOFP, 4));
         counter++;
-        int NoncurrentAssetsOrDisposalGroupsClassifiedAsHeldForSaleOrAsHeldForDistributionToOwners = counter;
-        Items.add(new Item(NoncurrentAssetsOrDisposalGroupsClassifiedAsHeldForSaleOrAsHeldForDistributionToOwners, "Non-current assets or disposal groups classified as held for sale or as held for distribution to owners", "NoncurrentAssetsOrDisposalGroupsClassifiedAsHeldForSaleOrAsHeldForDistributionToOwners", true, false, GeneralCurrentAssets, SOFP, 4));
+        int NonAssetsDispGroup = counter;
+        Items.add(new Item(NonAssetsDispGroup, "Non-current assets or disposal groups classified as held for sale or as held for distribution to owners", "NonAssetsDispGroup", true, false, GeneralCurrentAssets, SOFP, 4));
         counter++;
 
         //Equity
@@ -245,14 +245,14 @@ public class DefaultTemplate {
         Items.add(new Item(ProfitLossFromOperatingActivities, "Profit (loss) from operating activities", "ProfitLossFromOperatingActivities", true, true, ProfitLossBeforeTax, SOCI, 3, 8));
 
 
-        int DifferenceBetweenCarryingAmountOfDividendsPayableAndCarryingAmountOfNoncashAssetsDistributed = counter;
-        Items.add(new Item(DifferenceBetweenCarryingAmountOfDividendsPayableAndCarryingAmountOfNoncashAssetsDistributed, "Difference between carrying amount of dividends payable and carrying amount of non-cash assets distributed", "DifferenceBetweenCarryingAmountOfDividendsPayableAndCarryingAmountOfNoncashAssetsDistributed", true, false, ProfitLossBeforeTax, SOCI, 4, 9));
+        int DiffDivPayAndNoncash = counter;
+        Items.add(new Item(DiffDivPayAndNoncash, "Difference between carrying amount of dividends payable and carrying amount of non-cash assets distributed", "DiffDivPayAndNoncash", true, false, ProfitLossBeforeTax, SOCI, 4, 9));
         counter++;
         int GainsLossesOnNetMonetaryPosition = counter;
         Items.add(new Item(GainsLossesOnNetMonetaryPosition, "Gains (losses) on net monetary position", "GainsLossesOnNetMonetaryPosition", true, false, ProfitLossBeforeTax, SOCI, 4, 10));
         counter++;
-        int GainLossArisingFromDerecognitionOfFinancialAssetsMeasuredAtAmortisedCost = counter;
-        Items.add(new Item(GainLossArisingFromDerecognitionOfFinancialAssetsMeasuredAtAmortisedCost, "Gain (loss) arising from derecognition of financial assets measured at amortised cost", "GainLossArisingFromDerecognitionOfFinancialAssetsMeasuredAtAmortisedCost", true, false, ProfitLossBeforeTax, SOCI, 4, 11));
+        int GainDerecogAmort = counter;
+        Items.add(new Item(GainDerecogAmort, "Gain (loss) arising from derecognition of financial assets measured at amortised cost", "GainDerecogAmort", true, false, ProfitLossBeforeTax, SOCI, 4, 11));
         counter++;
         int FinanceIncome = counter;
         Items.add(new Item(FinanceIncome, "Finance income", "FinanceIncome", true, false, ProfitLossBeforeTax, SOCI, 4, 12));
@@ -260,23 +260,23 @@ public class DefaultTemplate {
         int FinanceCosts = counter;
         Items.add(new Item(FinanceCosts, "Finance costs", "FinanceCosts", false, false, ProfitLossBeforeTax, SOCI, 4, 13));
         counter++;
-        int ImpairmentLossImpairmentGainAndReversalOfImpairmentLossDeterminedInAccordanceWithIFRS9 = counter;
-        Items.add(new Item(ImpairmentLossImpairmentGainAndReversalOfImpairmentLossDeterminedInAccordanceWithIFRS9, "Impairment loss (impairment gain and reversal of impairment loss) determined in accordance with IFRS 9", "ImpairmentLossImpairmentGainAndReversalOfImpairmentLossDeterminedInAccordanceWithIFRS9", false, false, ProfitLossBeforeTax, SOCI, 4, 14));
+        int ImpairmentLoss = counter;
+        Items.add(new Item(ImpairmentLoss, "Impairment loss (impairment gain and reversal of impairment loss) determined in accordance with IFRS 9", "ImpairmentLoss", false, false, ProfitLossBeforeTax, SOCI, 4, 14));
         counter++;
-        int ShareOfProfitLossOfAssociatesAndJointVenturesAccountedForUsingEquityMethod = counter;
-        Items.add(new Item(ShareOfProfitLossOfAssociatesAndJointVenturesAccountedForUsingEquityMethod, "Share of profit (loss) of associates and joint ventures accounted for using equity method", "ShareOfProfitLossOfAssociatesAndJointVenturesAccountedForUsingEquityMethod", true, false, ProfitLossBeforeTax, SOCI, 4, 15));
+        int ShareAssociates = counter;
+        Items.add(new Item(ShareAssociates, "Share of profit (loss) of associates and joint ventures accounted for using equity method", "ShareAssociates", true, false, ProfitLossBeforeTax, SOCI, 4, 15));
         counter++;
-        int OtherIncomeExpenseFromSubsidiariesJointlyControlledEntitiesAndAssociates = counter;
-        Items.add(new Item(OtherIncomeExpenseFromSubsidiariesJointlyControlledEntitiesAndAssociates, "Other income (expense) from subsidiaries, jointly controlled entities and associates", "OtherIncomeExpenseFromSubsidiariesJointlyControlledEntitiesAndAssociates", true, false, ProfitLossBeforeTax, SOCI, 4, 16));
+        int OtherAssociates = counter;
+        Items.add(new Item(OtherAssociates, "Other income (expense) from subsidiaries, jointly controlled entities and associates", "OtherAssociates", true, false, ProfitLossBeforeTax, SOCI, 4, 16));
         counter++;
-        int GainsLossesArisingFromDifferenceBetweenPreviousCarryingAmountAndFairValueOfFinancialAssetsReclassifiedAsMeasuredAtFairValue = counter;
-        Items.add(new Item(GainsLossesArisingFromDifferenceBetweenPreviousCarryingAmountAndFairValueOfFinancialAssetsReclassifiedAsMeasuredAtFairValue, "Gains (losses) arising from difference between previous carrying amount and fair value of financial assets reclassified as measured at fair value", "GainsLossesArisingFromDifferenceBetweenPreviousCarryingAmountAndFairValueOfFinancialAssetsReclassifiedAsMeasuredAtFairValue", true, false, ProfitLossBeforeTax, SOCI, 4, 17));
+        int GainDiffFinAssets = counter;
+        Items.add(new Item(GainDiffFinAssets, "Gains (losses) arising from difference between previous carrying amount and fair value of financial assets reclassified as measured at fair value", "GainDiffFinAssets", true, false, ProfitLossBeforeTax, SOCI, 4, 17));
         counter++;
-        int CumulativeGainLossPreviouslyRecognisedInOtherComprehensiveIncomeArisingFromReclassificationOfFinancialAssetsOutOfFairValueThroughOtherComprehensiveIncomeIntoFairValueThroughProfitOrLossMeasurementCategory = counter;
-        Items.add(new Item(CumulativeGainLossPreviouslyRecognisedInOtherComprehensiveIncomeArisingFromReclassificationOfFinancialAssetsOutOfFairValueThroughOtherComprehensiveIncomeIntoFairValueThroughProfitOrLossMeasurementCategory, "Cumulative gain (loss) previously recognised in other comprehensive income arising from reclassification of financial assets out of fair value through other comprehensive income into fair value through profit or loss measurement category", "CumulativeGainLossPreviouslyRecognisedInOtherComprehensiveIncomeArisingFromReclassificationOfFinancialAssetsOutOfFairValueThroughOtherComprehensiveIncomeIntoFairValueThroughProfitOrLossMeasurementCategory", true, false, ProfitLossBeforeTax, SOCI, 4, 18));
+        int CumulatReclassFinAss = counter;
+        Items.add(new Item(CumulatReclassFinAss, "Cumulative gain (loss) previously recognised in other comprehensive income arising from reclassification of financial assets out of fair value through other comprehensive income into fair value through profit or loss measurement category", "CumulatReclassFinAss", true, false, ProfitLossBeforeTax, SOCI, 4, 18));
         counter++;
-        int HedgingGainsLossesForHedgeOfGroupOfItemsWithOffsettingRiskPositions = counter;
-        Items.add(new Item(HedgingGainsLossesForHedgeOfGroupOfItemsWithOffsettingRiskPositions, "Hedging gains (losses) for hedge of group of items with offsetting risk positions", "HedgingGainsLossesForHedgeOfGroupOfItemsWithOffsettingRiskPositions", true, false, ProfitLossBeforeTax, SOCI, 4, 19));
+        int HedgeOfGroup = counter;
+        Items.add(new Item(HedgeOfGroup, "Hedging gains (losses) for hedge of group of items with offsetting risk positions", "HedgeOfGroup", true, false, ProfitLossBeforeTax, SOCI, 4, 19));
         counter++;
         Items.add(new Item(ProfitLossBeforeTax, "Profit (loss) before tax", "ProfitLossBeforeTax", true, true, ProfitLossFromContinuingOperations, SOCI, 3, 20));
 

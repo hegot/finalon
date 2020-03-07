@@ -42,6 +42,7 @@ public class Calc {
     }
 
     public static String getRelativeChange(Double start, Double end) {
+        if(start == 0.0) return "";
         String val = "0";
         try {
             if (start != null && end != null) {

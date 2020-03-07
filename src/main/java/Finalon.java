@@ -15,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.apache.log4j.PropertyConfigurator;
 
 import java.sql.SQLException;
@@ -39,7 +40,8 @@ public class Finalon extends Application {
         AddDefaultTables addDefaultTpl = new AddDefaultTables();
         addDefaultTpl.start();
         window = primaryStage;
-        window.getIcons().add(new Image("image/exe.ico"));
+        window.getIcons().add(new Image(Finalon.class.getResourceAsStream("image/ico.jpg")));
+        window.initStyle(StageStyle.DECORATED);
         window.setTitle("Finstaton");
         VBox mainVBox = new VBox();
         ScrollPane scrollPane = new ScrollPane();

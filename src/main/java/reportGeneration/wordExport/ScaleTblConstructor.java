@@ -85,10 +85,10 @@ public class ScaleTblConstructor {
     private void addRow(Tbl tbl, ScaleItem row) {
         Tr tr = Context.getWmlObjectFactory().createTr();
         tbl.getEGContentRowContent().add(tr);
-        addTableCell(tr, Double.toString(row.getCol1()), getColWidth(), "FFFFFF", "000000");
-        addTableCell(tr, Double.toString(row.getCol2()), getColWidth(), "FFFFFF", "000000");
+        addTableCell(tr, Double.toString(row.getCol1()), getColWidth(), row.getColor(), "000000");
+        addTableCell(tr, Double.toString(row.getCol2()), getColWidth(), row.getColor(), "000000");
         addTableCell(tr, row.getCol3(), getColWidth(), row.getColor(), "000000");
-        addTableCell(tr, row.getCol4(), getColWidth(), "FFFFFF", "000000");
+        addTableCell(tr, row.getCol4(), getColWidth(), row.getColor(), "000000");
     }
 
 

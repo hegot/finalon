@@ -52,10 +52,7 @@ public class CellCorstructor {
     private void setBackground() {
         CTShd shd = factory.createCTShd();
         shd.setVal(org.docx4j.wml.STShd.CLEAR);
-        shd.setColor("auto");
         shd.setFill(background);
-        shd.setThemeFill(org.docx4j.wml.STThemeColor.ACCENT_1);
-        shd.setThemeFillTint("66");
         tcPr.setShd(shd);
     }
 

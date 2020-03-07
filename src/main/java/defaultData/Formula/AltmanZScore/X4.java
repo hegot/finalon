@@ -11,7 +11,7 @@ public class X4 {
         Formulas.add(new Formula(X4,
                 "Altman Z-score X4 (Market Value of Equity/Book Value of Total Debt)",
                 "X4",
-                "EquityGeneral/(NonCurrentAssets+CurrentLiabilities)",
+                "EquityGeneral/(NonCurrentLiabilities+CurrentLiabilities)",
                 "",
                 "formula",
                 "",

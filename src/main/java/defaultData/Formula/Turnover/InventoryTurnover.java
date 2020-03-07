@@ -11,12 +11,12 @@ public class InventoryTurnover {
 
         int InventoryTurnover = counter;
         Formulas.add(new Formula(InventoryTurnover,
-                "Inventory Turnover  (Days Inventory Outstanding)",
+                "Inventory Turnover",
                 "InventoryTurnover",
-                "CostOfSales/((Inventories[1]+Inventories[0])/2)",
+                "CostOfSales/((CurrentInventories[1]+CurrentInventories[0])/2)",
                 "",
                 "formula",
-                "days",
+                "times",
                 parent));
         counter++;
         int InventoryTurnovergood = counter;

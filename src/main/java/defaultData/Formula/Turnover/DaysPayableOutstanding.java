@@ -15,7 +15,7 @@ public class DaysPayableOutstanding {
                 "(((TradeAndOtherCurrentPayables[0]+TradeAndOtherCurrentPayables[1])/2)*360)/CostOfSales",
                 "",
                 "formula",
-                "times",
+                "days",
                 parent));
         counter++;
         int DaysPayableOutstandinggood = counter;

@@ -30,12 +30,12 @@ public class LaborProductivity {
         if (laborProductivityPopulated()) {
             ResultsStorage.addStr(weight, "sectionTitle", sectionTitle);
             weight++;
+
             LaborProductivityChart chart = new LaborProductivityChart();
             LaborProductivityFormulaEvaluation formulaEvaluation = new LaborProductivityFormulaEvaluation(formulas);
-            box.getChildren().addAll(
-                    chart.get(weight),
-                    formulaEvaluation.get(weight++)
-            );
+            box.getChildren().add(chart.get(weight));
+            weight++;
+            box.getChildren().add(formulaEvaluation.get(weight++));
         }
         return box;
     }

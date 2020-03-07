@@ -70,7 +70,7 @@ public class FormulaHandler {
                 prevIndex = true;
             }
             String speriod = "[1]";
-            if (speriod.contains(index)) {
+            if (index.contains(speriod)) {
                 index = index.replace(speriod, "");
             }
             ObservableMap<String, Double> map = values.get(index);

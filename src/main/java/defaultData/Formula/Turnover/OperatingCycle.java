@@ -12,7 +12,7 @@ public class OperatingCycle {
         Formulas.add(new Formula(OperatingCycle,
                 "Operating Cycle",
                 "OperatingCycle",
-                "360*((Inventories[1]+Inventories[0])/2)/CostOfSales+360*((TradeAndOtherCurrentReceivables[0]+TradeAndOtherCurrentReceivables[1])/2)/RevenueGeneral",
+                "360*((CurrentInventories[1]+CurrentInventories[0])/2)/CostOfSales+360*((TradeAndOtherCurrentReceivables[0]+TradeAndOtherCurrentReceivables[1])/2)/RevenueGeneral",
                 "",
                 "formula",
                 "days",

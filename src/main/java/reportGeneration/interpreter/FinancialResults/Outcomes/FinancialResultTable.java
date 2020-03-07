@@ -4,6 +4,7 @@ import database.setting.DbSettingHandler;
 import entities.Item;
 import globalReusables.LabelWrap;
 import globalReusables.Setting;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -29,6 +30,7 @@ public class FinancialResultTable extends ItemsTable {
     private Item itemEbit;
     private Item comprehensiveIncome;
     private ItemsGetter itemsGetter = new ItemsGetter();
+    private int periodsSize;
 
     public FinancialResultTable() {
         super(ItemsStorage.getItems());
@@ -37,6 +39,7 @@ public class FinancialResultTable extends ItemsTable {
         this.itemEbit = itemsGetter.getEbit();
         this.comprehensiveIncome = ItemsStorage.get("ComprehensiveIncomeGeneral");
         this.items = getItems();
+        this.periodsSize = periods.size();
     }
 
     private ObservableList<Item> getItems() {
@@ -112,17 +115,78 @@ public class FinancialResultTable extends ItemsTable {
         for (TableColumn col : getPeriodCols()) {
             table.getColumns().add(col);
         }
-        for (TableColumn col : getAbsoluteCols()) {
-            table.getColumns().add(col);
-        }
-        if (periods.size() > 2) {
-            table.getColumns().add(getFirstLastComparisonCol());
+        if (periodsSize > 3) {
+            String colStart = periods.get(periodsSize - 2);
+            String colEnd = periods.get(periodsSize - 1);
+            table.getColumns().addAll(
+                    getAbsoluteComparisonCol(colStart, colEnd),
+                    getFirstLastAbsComparisonCol(),
+                    getRelativeComparisonCol(colStart, colEnd),
+                    getFirstLastPercentComparisonCol()
+            );
+        } else {
+            for (TableColumn col : getCols("Absolute")) {
+                table.getColumns().add(col);
+            }
+            if (periodsSize > 2) {
+                table.getColumns().add(getFirstLastAbsComparisonCol());
+            }
+            for (TableColumn col : getCols("Relative")) {
+                table.getColumns().add(col);
+            }
+            if (periodsSize > 2) {
+                table.getColumns().add(getFirstLastPercentComparisonCol());
+            }
         }
         table.setItems(items);
         return table;
     }
 
-    protected TableColumn getFirstLastComparisonCol() {
+    private ArrayList<TableColumn> getCols(String type) {
+        ArrayList<TableColumn> colsArr = new ArrayList<>();
+        ArrayList<String> arr = Periods.getPeriodArr();
+        int count = arr.size() - 1;
+        if (count > 0) {
+            String colStart;
+            String colEnd;
+            TableColumn col;
+            for (int j = 0; j < count; j++) {
+                colStart = arr.get(j);
+                colEnd = arr.get(j + 1);
+                col = (type.equals("Absolute")) ? getAbsoluteComparisonCol(colStart, colEnd) : getRelativeComparisonCol(colStart, colEnd);
+                colsArr.add(col);
+            }
+        }
+        String order = DbSettingHandler.getSetting(Setting.yearOrder);
+        if (order.equals("DESCENDING")) {
+            Collections.reverse(colsArr);
+        }
+        return colsArr;
+    }
+
+    protected TableColumn getRelativeComparisonCol(String colStart, String colEnd) {
+        String colname = "Percentage change\n" + Formatter.formatDate(colEnd) + " to \n" + Formatter.formatDate(colStart);
+        TableColumn<Item, String> col = new TableColumn<Item, String>(colname);
+        col.setMinWidth(150);
+        col.getStyleClass().add("period-col");
+        col.setCellValueFactory(cellData -> {
+            ObservableMap<String, Double> values = getValues(cellData);
+            if (values != null) {
+                Double colStartVAl = values.get(colStart);
+                Double colEndVAl = values.get(colEnd);
+                if (colStartVAl != null && colEndVAl != null) {
+                    String relative = Calc.getRelativeChange(colStartVAl, colEndVAl);
+                    if (relative.length() > 0) {
+                        return new SimpleStringProperty(Formatter.stringCommaFormat(relative) + "%");
+                    }
+                }
+            }
+            return null;
+        });
+        return col;
+    }
+
+    protected TableColumn getFirstLastAbsComparisonCol() {
         ArrayList<String> periods = Periods.getPeriodArr();
         String colStart = periods.get(0);
         String colEnd = periods.get(periods.size() - 1);
@@ -144,24 +208,29 @@ public class FinancialResultTable extends ItemsTable {
         return col;
     }
 
-    protected ArrayList<TableColumn> getAbsoluteCols() {
-        ArrayList<TableColumn> colsArr = new ArrayList<>();
+    protected TableColumn getFirstLastPercentComparisonCol() {
         ArrayList<String> periods = Periods.getPeriodArr();
-        int count = periods.size() - 1;
-        if (count > 0) {
-            String colStart;
-            String colEnd;
-            for (int j = 0; j < count; j++) {
-                colStart = periods.get(j);
-                colEnd = periods.get(j + 1);
-                colsArr.add(getAbsoluteComparisonCol(colStart, colEnd));
+        String colStart = periods.get(0);
+        String colEnd = periods.get(periods.size() - 1);
+        String colname = "Percentage change\n" + Formatter.formatDate(colEnd) + " to \n" + Formatter.formatDate(colStart);
+        TableColumn<Item, String> col = new TableColumn<Item, String>(colname);
+        col.setMinWidth(150);
+        col.getStyleClass().add("period-col");
+        col.setCellValueFactory(cellData -> {
+            ObservableMap<String, Double> values = getValues(cellData);
+            if (values != null) {
+                Double colStartVAl = values.get(colStart);
+                Double colEndVAl = values.get(colEnd);
+                if (colStartVAl != null && colEndVAl != null) {
+                    String relative = Calc.getRelativeChange(colStartVAl, colEndVAl);
+                    if (relative.length() > 0) {
+                        return new SimpleStringProperty(Formatter.stringCommaFormat(relative) + "%");
+                    }
+                }
             }
-        }
-        String order = DbSettingHandler.getSetting(Setting.yearOrder);
-        if (order.equals("DESCENDING")) {
-            Collections.reverse(colsArr);
-        }
-        return colsArr;
+            return null;
+        });
+        return col;
     }
 
 }

@@ -94,7 +94,7 @@
     </center>
     <bottom>
         <VBox styleClass="footer">
-            <Text text="© finalon.com 2019 all rights reserved"/>
+            <Text text="© Finstaton.com 2020 all rights reserved"/>
         </VBox>
     </bottom>
 </fx:root>

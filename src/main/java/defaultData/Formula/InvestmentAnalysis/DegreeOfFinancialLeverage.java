@@ -12,7 +12,7 @@ public class DegreeOfFinancialLeverage {
         Formulas.add(new Formula(DegreeOfFinancialLeverage,
                 "Degree of Financial Leverage",
                 "DegreeOfFinancialLeverage",
-                "(ProfitLossBeforeTax-FinanceCosts)/ProfitLossBeforeTax",
+                "ProfitLossBeforeTax/(ProfitLossBeforeTax-FinanceCosts)",
                 "",
                 "formula",
                 "money",
