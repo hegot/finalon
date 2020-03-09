@@ -31,7 +31,7 @@ public class LaborProductivityChart extends ChartBase {
         VBox vBox = new VBox(20);
         if (laborProductivity != null && laborProductivity.getPeriods().size() > 0) {
             List<Double> allVals = new ArrayList<>();
-            for(String key : laborProductivity.getPeriods().keySet()) {
+            for (String key : laborProductivity.getPeriods().keySet()) {
                 allVals.add(laborProductivity.getPeriods().get(key));
             }
             BarChart<String, Number> bc = getChart(allVals);

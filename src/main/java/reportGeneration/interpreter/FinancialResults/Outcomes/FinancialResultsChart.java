@@ -15,9 +15,7 @@ import reportGeneration.storage.Periods;
 import reportGeneration.storage.ResultsStorage;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class FinancialResultsChart extends ChartBase {
     private ObservableMap<String, Double> valuesEBIT;
@@ -75,16 +73,16 @@ public class FinancialResultsChart extends ChartBase {
 
     public VBox get(int weight) {
         List<Double> allVals = new ArrayList<>();
-        for(String key : valuesRevenueGeneral.keySet()) {
+        for (String key : valuesRevenueGeneral.keySet()) {
             allVals.add(valuesRevenueGeneral.get(key));
         }
-        for(String key : valuesEBIT.keySet()) {
+        for (String key : valuesEBIT.keySet()) {
             allVals.add(valuesEBIT.get(key));
         }
-        for(String key : valuesGrossProfit.keySet()) {
+        for (String key : valuesGrossProfit.keySet()) {
             allVals.add(valuesGrossProfit.get(key));
         }
-        for(String key : valuesComprehensiveIncome.keySet()) {
+        for (String key : valuesComprehensiveIncome.keySet()) {
             allVals.add(valuesComprehensiveIncome.get(key));
         }
         BarChart<String, Number> bc = getChart(allVals);

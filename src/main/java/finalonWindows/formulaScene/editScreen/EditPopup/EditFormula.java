@@ -27,7 +27,7 @@ class EditFormula {
         this.grid = createGrid();
     }
 
-    public TreeSet<String> getTextAreaErrors(){
+    public TreeSet<String> getTextAreaErrors() {
         return textArea.getErrors();
     }
 

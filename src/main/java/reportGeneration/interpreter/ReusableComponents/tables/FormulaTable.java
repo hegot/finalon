@@ -5,7 +5,6 @@ import entities.Formula;
 import globalReusables.Setting;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.cell.PropertyValueFactory;
 import reportGeneration.interpreter.ReusableComponents.helpers.Calc;
 import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import reportGeneration.storage.Periods;

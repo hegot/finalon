@@ -1,7 +1,6 @@
 package reportGeneration.interpreter.AssetsLiabilitiesEquityAnalysis.AssetsReport.Outcomes;
 
 import entities.Item;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import javafx.scene.chart.BarChart;
 import javafx.scene.layout.VBox;
@@ -13,9 +12,7 @@ import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class AssetsCharts extends ChartBase {
     private ObservableMap<String, Double> valuesCurrent;
@@ -37,10 +34,10 @@ public class AssetsCharts extends ChartBase {
 
     public VBox get(int weight) {
         List<Double> allVals = new ArrayList<>();
-        for(String key : valuesCurrent.keySet()) {
+        for (String key : valuesCurrent.keySet()) {
             allVals.add(valuesCurrent.get(key));
         }
-        for(String key : valuesNonCurrent.keySet()) {
+        for (String key : valuesNonCurrent.keySet()) {
             allVals.add(valuesNonCurrent.get(key));
         }
         BarChart<String, Number> bc = getChart(allVals);

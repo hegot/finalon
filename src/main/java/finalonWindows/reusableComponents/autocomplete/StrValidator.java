@@ -13,9 +13,6 @@ public class StrValidator {
         this.ch = ch;
         this.text = text;
         this.beforeStr = Character.toString(ch);
-        System.out.println(ch);
-        System.out.println(text);
-        System.out.println(beforeStr);
 
         Boolean valid = digitValidate();
         if (!valid) {
