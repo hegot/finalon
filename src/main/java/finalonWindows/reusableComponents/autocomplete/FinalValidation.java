@@ -44,7 +44,7 @@ class FinalValidation extends ParserBase {
     private void validateWords() {
         String[] words = getChunks(input, false);
         for (String s : words) {
-            if (!entries.contains(s)) {
+            if (s.length() > 0 && !entries.contains(s)) {
                 errors.add("Index with name '" + s + "' do not exist - please correct or add it to your template");
             }
         }

@@ -73,7 +73,7 @@ public class FinancialRating {
             Double start = item.getCol1();
             Double end = item.getCol2();
             if (score > end && score <= start) {
-                out = "As a result we can confirm a " + item.getCol4() + " (" + item.getCol3() + ") financial situation.";
+                out = "As a result, we can confirm a " + item.getCol4() + " (" + item.getCol3() + ") financial situation.";
             }
         }
         return out;

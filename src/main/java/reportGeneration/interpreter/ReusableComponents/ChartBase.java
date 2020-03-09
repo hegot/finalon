@@ -19,6 +19,7 @@ import reportGeneration.storage.Periods;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class ChartBase {
 
@@ -50,15 +51,56 @@ public class ChartBase {
         });
     }
 
-    protected BarChart<String, Number> getChart() {
+    protected BarChart<String, Number> getChart(List<Double> values) {
         final NumberAxis yAxis = new NumberAxis();
         final BarChart<String, Number> bc = new BarChart<String, Number>(
                 new CategoryAxis(),
                 yAxis
         );
         yAxis.setLabel("Value");
-        bc.setStyle("-fx-font-size: 15px;");
+        bc.setStyle("-fx-font-size: 12px;");
         bc.setMinHeight(600);
+
+        Double max = Collections.max(values);
+        Double min = Collections.min(values);
+
+        NumberAxis axis = (NumberAxis) bc.getYAxis();
+        axis.setAutoRanging(false);
+        Double range = 10.00;
+        for (int i = 0; i < 1000000; i += 10) {
+            if (max > i * 5) {
+                range = i * 1.0;
+            }
+        }
+        Double k = 1.0;
+        if (max > 10) {
+            k = 10.0;
+        }
+        if (max > 100) {
+            k = 100.0;
+        }
+        if (max > 1000) {
+            k = 100.0;
+        }
+        if (max > 10000) {
+            k = 1000.0;
+        }
+        if (max > 100000) {
+            k = 100000.0;
+        }
+        if (max > 1000000) {
+            k = 1000000.0;
+        }
+        axis.setTickUnit(k);
+        Double upper = max + range;
+        upper = (Math.ceil(upper / k)) * k;
+        axis.setUpperBound(upper);
+        if (min > 0) {
+            axis.setLowerBound(0);
+        } else {
+            axis.setLowerBound(min - range);
+        }
+
         return bc;
     }
 

@@ -27,11 +27,15 @@ class EditFormula {
         this.grid = createGrid();
     }
 
+    public TreeSet<String> getTextAreaErrors(){
+        return textArea.getErrors();
+    }
+
     private GridPane createGrid() {
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
-        grid.setPadding(new Insets(20, 10, 10, 10));
+        grid.setPadding(new Insets(20, 0, 10, 0));
         grid.add(createRow("Name:", "name", formula.getName()), 0, 0);
         grid.add(createRow("Code:", "shortName", formula.getShortName()), 0, 1);
         if (!formula.getCategory().equals("section")) {
@@ -73,7 +77,7 @@ class EditFormula {
                     errorsBox.getChildren().clear();
                     for (String error : errors) {
                         Label err = new Label(error);
-                        err.getStyleClass().add("error");
+                        err.getStyleClass().add("formula-error");
                         errorsBox.getChildren().add(err);
                     }
                 } else {

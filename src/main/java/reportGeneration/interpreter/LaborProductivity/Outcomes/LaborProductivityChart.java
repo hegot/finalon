@@ -10,6 +10,9 @@ import reportGeneration.storage.Periods;
 import reportGeneration.storage.ResultsStorage;
 import reportGeneration.storage.SettingsStorage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LaborProductivityChart extends ChartBase {
     private Formula laborProductivity;
 
@@ -27,7 +30,11 @@ public class LaborProductivityChart extends ChartBase {
     public VBox get(int weight) {
         VBox vBox = new VBox(20);
         if (laborProductivity != null && laborProductivity.getPeriods().size() > 0) {
-            BarChart<String, Number> bc = getChart();
+            List<Double> allVals = new ArrayList<>();
+            for(String key : laborProductivity.getPeriods().keySet()) {
+                allVals.add(laborProductivity.getPeriods().get(key));
+            }
+            BarChart<String, Number> bc = getChart(allVals);
             bc.getData().addAll(
                     getSeries("Labor Productivity", laborProductivity.getPeriods())
             );

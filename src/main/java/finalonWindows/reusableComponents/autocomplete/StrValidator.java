@@ -13,6 +13,10 @@ public class StrValidator {
         this.ch = ch;
         this.text = text;
         this.beforeStr = Character.toString(ch);
+        System.out.println(ch);
+        System.out.println(text);
+        System.out.println(beforeStr);
+
         Boolean valid = digitValidate();
         if (!valid) {
             valid = letterValidate();
@@ -26,6 +30,9 @@ public class StrValidator {
                             valid = afterRoundBracketOpen();
                             if (!valid) {
                                 valid = afterRoundBracketClose();
+                                if (!valid) {
+                                    valid = afterDigit();
+                                }
                             }
                         }
                     }
@@ -51,6 +58,13 @@ public class StrValidator {
                     return true;
                 }
             }
+        }
+        return false;
+    }
+
+    private Boolean afterDigit() {
+        if (!beforeStr.matches("[^" + DIGITS + "]")) {
+            return !text.matches("[^" + DIGITS + OPERATORS + ")]");
         }
         return false;
     }
@@ -86,7 +100,7 @@ public class StrValidator {
 
     private Boolean afterSquareBracketClose() {
         if (beforeStr.matches("[\\]]")) {
-            return !text.matches("[^" + OPERATORS + "]");
+            return !text.matches("[^" + OPERATORS + ")]");
         }
         return false;
     }

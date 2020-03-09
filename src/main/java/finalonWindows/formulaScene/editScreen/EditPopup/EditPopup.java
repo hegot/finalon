@@ -7,12 +7,14 @@ import finalonWindows.formulaScene.editScreen.FormulaEditable;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 
 public class EditPopup {
@@ -80,6 +82,7 @@ public class EditPopup {
         if (formula.getCategory().equals("section")) {
             dialog.setTitle("Edit Section");
             vBox.getChildren().addAll(editFormula.getGrid(), errList);
+            vBox.setPadding(new Insets(10, 10, 10, 10));
             dialog.getDialogPane().setContent(vBox);
         } else {
             dialog.setTitle("Edit Formula");
@@ -100,14 +103,16 @@ public class EditPopup {
     private void saveAction(ActionEvent event) {
         errors.clear();
         validateFormula();
-        if (errors.size() == 0) {
+        TreeSet<String> errsTextarea = editFormula.getTextAreaErrors();
+        if (errors.size() == 0 && errsTextarea.size() == 0) {
             addFormula(formula);
             FormulaEditable.refresh();
         } else {
+            errList.getChildren().removeAll();
             for (String error : errors) {
                 Label label = new Label(error);
                 label.getStyleClass().add("formula-error");
-                errList.getChildren().add(label);
+                errList.getChildren().setAll(label);
             }
             event.consume();
         }
