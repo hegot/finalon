@@ -7,6 +7,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
+import reportGeneration.storage.SettingsStorage;
 
 public class FinConditionScaleTable {
     public ObservableList<ScaleItem> getItems() {
@@ -20,7 +21,15 @@ public class FinConditionScaleTable {
         output.add(new ScaleItem("-0.2", "-0.4", "CCC", "Unsatisfactory", "#FCE8E7"));
         output.add(new ScaleItem("-0.4", "-0.6", "CC", "Adverse", "#FC6666"));
         output.add(new ScaleItem("-0.6", "-0.8", "C", "Bad", "#FE1F1F"));
-        output.add(new ScaleItem("-0.8,", "-1.0", "D", "Critical", "#FE0000"));
+        output.add(new ScaleItem("-0.8", "-1.0", "D", "Critical", "#FE0000"));
+        if (SettingsStorage.get("numberFormat").equals("comma")) {
+            for (ScaleItem item : output) {
+                String col1 = item.getCol1().replace(".", ",");
+                item.setCol1(col1);
+                String col2 = item.getCol2().replace(".", ",");
+                item.setCol2(col2);
+            }
+        }
         return output;
     }
 

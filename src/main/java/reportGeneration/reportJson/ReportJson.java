@@ -30,7 +30,7 @@ public class ReportJson {
         JsonObject element = parser.parse(json).getAsJsonObject();
         for (Map.Entry<String, JsonElement> entry : element.entrySet()) {
             settings.put(entry.getKey(), entry.getValue().getAsString());
-            if(entry.getKey().equals("numberFormat")){
+            if (entry.getKey().equals("numberFormat")) {
                 String numberFormat = DbSettingHandler.getSetting(Setting.numberFormat);
                 settings.put(entry.getKey(), numberFormat);
             }

@@ -19,6 +19,11 @@ public class ScoreItem {
     private Double score2;
     private Double averageScore;
     private Double weightedScore;
+    private String score1Str;
+    private String score2Str;
+    private String averageScoreStr;
+    private String weightedScoreStr;
+    private String weightStr;
     private DecimalFormat df;
 
     public ScoreItem(
@@ -37,6 +42,12 @@ public class ScoreItem {
             this.score2 = calcScore2();
             this.averageScore = calcAverageScore();
             this.weightedScore = calcWeightedScore();
+
+            this.weightStr = Formatter.commaFormat(weight);
+            this.score1Str = Formatter.commaFormat(score1);
+            this.score2Str = Formatter.commaFormat(score2);
+            this.averageScoreStr = Formatter.commaFormat(averageScore);
+            this.weightedScoreStr = Formatter.commaFormat(weightedScore);
         }
     }
 
@@ -123,5 +134,25 @@ public class ScoreItem {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getWeightStr() {
+        return this.weightStr;
+    }
+
+    public String getScore1Str() {
+        return this.score1Str;
+    }
+
+    public String getScore2Str() {
+        return this.score2Str;
+    }
+
+    public String getAverageScoreStr() {
+        return this.averageScoreStr;
+    }
+
+    public String getWeightedScoreStr() {
+        return this.weightedScoreStr;
     }
 }

@@ -63,17 +63,17 @@ public class FinancialRatingTable {
 
         table.getColumns().addAll(
                 getNameCol(),
-                getCol("weight", "Weighting \n factor")
+                getCol("weightStr", "Weighting \n factor")
         );
         if (Periods.getPeriodArr().size() > 2) {
             table.getColumns().add(
-                    getCol("score1", "Score \n (Pre-end Period)")
+                    getCol("score1Str", "Score \n (Pre-end Period)")
             );
         }
         table.getColumns().addAll(
-                getCol("score2", "Score \n (End Period)"),
-                getCol("averageScore", "Average \n score"),
-                getCol("weightedScore", "Weighted average \n score")
+                getCol("score2Str", "Score \n (End Period)"),
+                getCol("averageScoreStr", "Average \n score"),
+                getCol("weightedScoreStr", "Weighted average \n score")
         );
         table.setItems(scores);
         return table;
