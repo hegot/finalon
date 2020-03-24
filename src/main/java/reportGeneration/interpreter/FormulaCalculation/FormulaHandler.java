@@ -8,8 +8,7 @@ import services.Logger;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
-import java.util.Arrays;
-import java.util.Map;
+import java.util.*;
 
 public class FormulaHandler {
     private Formula formula;
@@ -40,7 +39,7 @@ public class FormulaHandler {
     private String getValuesInPlace() {
         String formulaVal = formula.getValue();
         try {
-            String[] indexes = getIndexes();
+            ArrayList<String> indexes = getIndexes();
             Double val;
             String indexVal;
             for (String index : indexes) {
@@ -103,9 +102,13 @@ public class FormulaHandler {
         return null;
     }
 
-    private String[] getIndexes() {
+    private ArrayList<String> getIndexes() {
         String formulaVal = formula.getValue();
-        return new ParserBase().getChunks(formulaVal, true);
+        String[]array = new ParserBase().getChunks(formulaVal, true);
+        ArrayList<String>  list = new ArrayList<>(Arrays.asList(array));
+        Comparator<String> comparator = Comparator.comparing(String::length);
+        Collections.sort(list, comparator.reversed());
+        return list;
     }
 
     private String evaluateFormula(String value) {
