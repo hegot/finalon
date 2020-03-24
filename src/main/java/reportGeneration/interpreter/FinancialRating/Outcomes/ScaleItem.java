@@ -1,15 +1,15 @@
 package reportGeneration.interpreter.FinancialRating.Outcomes;
 
 public class ScaleItem {
-    private Double col1;
-    private Double col2;
+    private String col1;
+    private String col2;
     private String col3;
     private String col4;
     private String color;
 
     public ScaleItem(
-            Double col1,
-            Double col2,
+            String col1,
+            String col2,
             String col3,
             String col4,
             String color
@@ -21,11 +21,11 @@ public class ScaleItem {
         this.color = color;
     }
 
-    public Double getCol1() {
+    public String getCol1() {
         return col1;
     }
 
-    public Double getCol2() {
+    public String getCol2() {
         return col2;
     }
 

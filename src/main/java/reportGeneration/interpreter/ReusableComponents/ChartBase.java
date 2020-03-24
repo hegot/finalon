@@ -25,7 +25,7 @@ public class ChartBase {
 
     private void displayLabelForData(XYChart.Data<String, Double> data) {
         final Node node = data.getNode();
-        final Text dataText = new Text(data.getYValue() + "");
+        final Text dataText = new Text(Formatter.finalNumberFormat(data.getYValue()) + "");
         node.parentProperty().addListener(new ChangeListener<Parent>() {
             @Override
             public void changed(ObservableValue<? extends Parent> ov, Parent oldParent, Parent parent) {
@@ -117,6 +117,7 @@ public class ChartBase {
             String date;
             for (String period : Periods.getPeriodArr()) {
                 date = Formatter.formatDate(period);
+
                 XYChart.Data<String, Double> dataPiece = new XYChart.Data(date, values.get(period));
                 if (values.get(period) != null) {
                     dataPiece.nodeProperty().addListener(new ChangeListener<Node>() {

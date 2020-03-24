@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.ReusableComponents.helpers.Calc;
+import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import reportGeneration.interpreter.ReusableComponents.helpers.TableName;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.ResultsStorage;
@@ -45,21 +46,21 @@ public class LiabilitiesStructureChart {
             if (currentVal != null) {
                 Double val = Calc.part(currentVal, totalVal);
                 pieChartData.add(new PieChart.Data(
-                        current.getName() + " - " + val + "%",
+                        current.getName() + " - " + Formatter.finalNumberFormat(val) + "%",
                         val
                 ));
             }
             if (nonCurrentVal != null) {
                 Double val = Calc.part(nonCurrentVal, totalVal);
                 pieChartData.add(new PieChart.Data(
-                        nonCurrent.getName() + " - " + val + "%",
+                        nonCurrent.getName() + " - " + Formatter.finalNumberFormat(val) + "%",
                         val
                 ));
             }
             if (equityVal != null) {
                 Double val = Calc.part(equityVal, totalVal);
                 pieChartData.add(new PieChart.Data(
-                        equity.getName() + " - " + val + "%",
+                        equity.getName() + " - " + Formatter.finalNumberFormat(val) + "%",
                         val
                 ));
             }

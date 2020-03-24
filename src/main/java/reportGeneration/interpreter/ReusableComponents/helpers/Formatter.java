@@ -14,12 +14,15 @@ public class Formatter {
     }
 
     public static String finalNumberFormat(Double value) {
-        String val = localeFormat(value);
-        String format = SettingsStorage.get("numberFormat");
-        if (format.equals("comma")) {
-            val = val.replace('.', ',');
+        if (value != null) {
+            String val = localeFormat(value);
+            String format = SettingsStorage.get("numberFormat");
+            if (format.equals("comma")) {
+                val = val.replace('.', ',');
+            }
+            return val;
         }
-        return val;
+        return "";
     }
 
     public static String commaFormat(Double value) {

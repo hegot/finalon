@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import reportGeneration.interpreter.FinancialRating.Outcomes.FinConditionScaleTable;
 import reportGeneration.interpreter.FinancialRating.Outcomes.FinancialRatingTable;
 import reportGeneration.interpreter.FinancialRating.Outcomes.ScaleItem;
+import reportGeneration.interpreter.ReusableComponents.helpers.Formatter;
 import reportGeneration.interpreter.ReusableComponents.helpers.TableName;
 import reportGeneration.storage.FormulaStorage;
 import reportGeneration.storage.ResultsStorage;
@@ -68,14 +69,13 @@ public class FinancialRating {
     }
 
     private String getOutcome(ObservableList<ScaleItem> scales, Double score) {
-        String out = "";
         for (ScaleItem item : scales) {
-            Double start = item.getCol1();
-            Double end = item.getCol2();
+            Double start = Formatter.parseDouble(item.getCol1());
+            Double end = Formatter.parseDouble(item.getCol2());
             if (score > end && score <= start) {
-                out = "As a result, we can confirm a " + item.getCol4() + " (" + item.getCol3() + ") financial situation.";
+                return "As a result, we can confirm a " + item.getCol4() + " (" + item.getCol3() + ") financial situation.";
             }
         }
-        return out;
+        return "";
     }
 }

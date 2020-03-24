@@ -11,16 +11,16 @@ import javafx.scene.paint.Color;
 public class FinConditionScaleTable {
     public ObservableList<ScaleItem> getItems() {
         ObservableList<ScaleItem> output = FXCollections.observableArrayList();
-        output.add(new ScaleItem(1.0, 0.8, "AAA", "Excellent", "#0C9500"));
-        output.add(new ScaleItem(0.8, 0.6, "AA", "Very good", "#72FD37"));
-        output.add(new ScaleItem(0.6, 0.4, "A", "Good", "#8FFC60"));
-        output.add(new ScaleItem(0.4, 0.2, "BBB", "Positive", "#9DFE72"));
-        output.add(new ScaleItem(0.2, 0.0, "BB", "Normal", "#BEFDA3"));
-        output.add(new ScaleItem(0.0, -0.2, "B", "Satisfactory", "#EDFCE7"));
-        output.add(new ScaleItem(-0.2, -0.4, "CCC", "Unsatisfactory", "#FCE8E7"));
-        output.add(new ScaleItem(-0.4, -0.6, "CC", "Adverse", "#FC6666"));
-        output.add(new ScaleItem(-0.6, -0.8, "C", "Bad", "#FE1F1F"));
-        output.add(new ScaleItem(-0.8, -1.0, "D", "Critical", "#FE0000"));
+        output.add(new ScaleItem("1.0", "0.8", "AAA", "Excellent", "#0C9500"));
+        output.add(new ScaleItem("0.8", "0.6", "AA", "Very good", "#72FD37"));
+        output.add(new ScaleItem("0.6", "0.4", "A", "Good", "#8FFC60"));
+        output.add(new ScaleItem("0.4", "0.2", "BBB", "Positive", "#9DFE72"));
+        output.add(new ScaleItem("0.2", "0.0", "BB", "Normal", "#BEFDA3"));
+        output.add(new ScaleItem("0.0", "-0.2", "B", "Satisfactory", "#EDFCE7"));
+        output.add(new ScaleItem("-0.2", "-0.4", "CCC", "Unsatisfactory", "#FCE8E7"));
+        output.add(new ScaleItem("-0.4", "-0.6", "CC", "Adverse", "#FC6666"));
+        output.add(new ScaleItem("-0.6", "-0.8", "C", "Bad", "#FE1F1F"));
+        output.add(new ScaleItem("-0.8,", "-1.0", "D", "Critical", "#FE0000"));
         return output;
     }
 

@@ -1,7 +1,9 @@
 package reportGeneration.reportJson;
 
 import com.google.gson.*;
+import database.setting.DbSettingHandler;
 import entities.Item;
+import globalReusables.Setting;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -28,6 +30,10 @@ public class ReportJson {
         JsonObject element = parser.parse(json).getAsJsonObject();
         for (Map.Entry<String, JsonElement> entry : element.entrySet()) {
             settings.put(entry.getKey(), entry.getValue().getAsString());
+            if(entry.getKey().equals("numberFormat")){
+                String numberFormat = DbSettingHandler.getSetting(Setting.numberFormat);
+                settings.put(entry.getKey(), numberFormat);
+            }
         }
         return settings;
     }
