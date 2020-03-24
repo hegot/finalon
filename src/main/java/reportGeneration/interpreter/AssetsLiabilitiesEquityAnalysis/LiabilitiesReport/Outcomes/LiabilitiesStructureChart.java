@@ -28,7 +28,7 @@ public class LiabilitiesStructureChart {
         Item parent = ItemsStorage.get("EquityAndLiabilities");
         this.equity = ItemsStorage.get("EquityGeneral");
         this.nonCurrent = ItemsStorage.get("NonCurrentLiabilities");
-        this.current = ItemsStorage.get("CurrentLiabilities");
+        this.current = ItemsStorage.get("CurrentLiabilitiesGeneral");
         this.period = period;
         this.totalVal = parent.getVal(period);
         this.equityVal = equity.getVal(period);

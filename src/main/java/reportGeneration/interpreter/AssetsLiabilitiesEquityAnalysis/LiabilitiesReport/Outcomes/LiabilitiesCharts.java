@@ -19,7 +19,7 @@ public class LiabilitiesCharts extends ChartBase {
     private ObservableMap<String, Double> valuesEquity;
 
     public LiabilitiesCharts() {
-        this.valuesCurrent = ItemsStorage.get("CurrentLiabilities").getValues();
+        this.valuesCurrent = ItemsStorage.get("CurrentLiabilitiesGeneral").getValues();
         this.valuesNonCurrent = ItemsStorage.get("NonCurrentLiabilities").getValues();
         this.valuesEquity = ItemsStorage.get("EquityGeneral").getValues();
     }

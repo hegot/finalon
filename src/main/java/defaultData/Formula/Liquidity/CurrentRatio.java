@@ -13,7 +13,7 @@ public class CurrentRatio {
         Formulas.add(new Formula(CurrentRatio,
                 "Current Ratio",
                 "CurrentRatio",
-                "GeneralCurrentAssets/CurrentLiabilities",
+                "GeneralCurrentAssets/CurrentLiabilitiesGeneral",
                 "",
                 "formula",
                 "",

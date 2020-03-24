@@ -11,7 +11,7 @@ public class X1 {
         Formulas.add(new Formula(X1,
                 "Altman Z-score X1 (Working Capital/Total Assets)",
                 "X1",
-                "(GeneralCurrentAssets-CurrentLiabilities)/AssetsGeneral",
+                "(GeneralCurrentAssets-CurrentLiabilitiesGeneral)/AssetsGeneral",
                 "",
                 "formula",
                 "",

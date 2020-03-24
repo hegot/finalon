@@ -12,7 +12,7 @@ public class WorkingCapitalTurnover {
         Formulas.add(new Formula(WorkingCapitalTurnover,
                 "Working Capital Turnover",
                 "WorkingCapitalTurnover",
-                "RevenueGeneral/((GeneralCurrentAssets[1]-CurrentLiabilities[1]+GeneralCurrentAssets[0]-CurrentLiabilities[0])/2)",
+                "RevenueGeneral/((GeneralCurrentAssets[1]-CurrentLiabilitiesGeneral[1]+GeneralCurrentAssets[0]-CurrentLiabilitiesGeneral[0])/2)",
                 "",
                 "formula",
                 "times",

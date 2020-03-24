@@ -12,7 +12,7 @@ public class DebttoTangibleNetWorthRatio {
         Formulas.add(new Formula(DebttoTangibleNetWorthRatio,
                 "Debt to Tangible Net Worth Ratio",
                 "DebttoTangibleNetWorthRatio",
-                "(NonCurrentLiabilities+CurrentLiabilities)/(EquityGeneral-IntangibleAssetsOtherThanGoodwill-GoodwillGeneral)",
+                "(NonCurrentLiabilities+CurrentLiabilitiesGeneral)/(EquityGeneral-IntangibleAssetsOtherThanGoodwill-GoodwillGeneral)",
                 "",
                 "formula",
                 "",

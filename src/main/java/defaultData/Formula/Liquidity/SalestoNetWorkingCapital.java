@@ -12,7 +12,7 @@ public class SalestoNetWorkingCapital {
         Formulas.add(new Formula(SalestoNetWorkingCapital,
                 "Sales to Net Working Capital",
                 "SalestoNetWorkingCapital",
-                "RevenueGeneral/((GeneralCurrentAssets[1]-CurrentLiabilities[1]+GeneralCurrentAssets[0]-CurrentLiabilities[0])/2)",
+                "RevenueGeneral/((GeneralCurrentAssets[1]-CurrentLiabilitiesGeneral[1]+GeneralCurrentAssets[0]-CurrentLiabilitiesGeneral[0])/2)",
                 "",
                 "formula",
                 "",

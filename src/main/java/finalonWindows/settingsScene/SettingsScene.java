@@ -44,10 +44,9 @@ public class SettingsScene extends SceneBase {
         NumberFormatBlock numberFormat = new NumberFormatBlock(settings);
         CurrencyBlock currencyBlock = new CurrencyBlock(settings);
         YearsOrderBlock yearsOrderBlock = new YearsOrderBlock(settings);
-        ShowAllBlock showAllBlock = new ShowAllBlock(settings);
         HBox hbox = new HBox(20);
         hbox.getChildren().addAll(yearsOrderBlock.get(), currencyBlock.get());
-        vboxInner.getChildren().addAll(mainLabel, hbox, numberFormat.get(), showAllBlock.get(), submitBtn(), resetFormulaBtn());
+        vboxInner.getChildren().addAll(mainLabel, hbox, numberFormat.get(), submitBtn(), resetFormulaBtn());
         vbox.getChildren().addAll(new SettingsMenu().getMenu(), vboxInner);
         return vbox;
     }

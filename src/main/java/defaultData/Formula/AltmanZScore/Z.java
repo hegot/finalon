@@ -12,7 +12,7 @@ public class Z {
         Formulas.add(new Formula(ZScore,
                 "Altman Z-score Z",
                 "Z",
-                "0.717*(GeneralCurrentAssets-CurrentLiabilities)/AssetsGeneral+0.847*RetainedEarnings/AssetsGeneral+3.107*(ProfitLossBeforeTax+FinanceCosts)/AssetsGeneral+0.42*EquityGeneral/(NonCurrentLiabilities+CurrentLiabilities)+0.998*RevenueGeneral/AssetsGeneral",
+                "0.717*(GeneralCurrentAssets-CurrentLiabilitiesGeneral)/AssetsGeneral+0.847*RetainedEarnings/AssetsGeneral+3.107*(ProfitLossBeforeTax+FinanceCosts)/AssetsGeneral+0.42*EquityGeneral/(NonCurrentLiabilities+CurrentLiabilitiesGeneral)+0.998*RevenueGeneral/AssetsGeneral",
                 "",
                 "formula",
                 "",

@@ -29,7 +29,7 @@ public class LiabilitiesStructureAnalyzeEnd {
 
     public LiabilitiesStructureAnalyzeEnd() {
         Item EquityGeneral = ItemsStorage.get("EquityGeneral");
-        Item CurrentLiabilities = ItemsStorage.get("CurrentLiabilities");
+        Item CurrentLiabilities = ItemsStorage.get("CurrentLiabilitiesGeneral");
         Item NonCurrentLiabilities = ItemsStorage.get("NonCurrentLiabilities");
         this.parent = ItemsStorage.get("EquityAndLiabilities");
         this.period = Periods.endKey();

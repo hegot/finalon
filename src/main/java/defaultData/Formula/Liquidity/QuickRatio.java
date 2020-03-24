@@ -13,7 +13,7 @@ public class QuickRatio {
         Formulas.add(new Formula(QuickRatio,
                 "Quick Ratio (Acid Test Ratio)",
                 "QuickRatio",
-                "(CashAndCashEquivalents+TradeAndOtherCurrentReceivables)/CurrentLiabilities",
+                "(CashAndCashEquivalents+TradeAndOtherCurrentReceivables)/CurrentLiabilitiesGeneral",
                 "",
                 "formula",
                 "",

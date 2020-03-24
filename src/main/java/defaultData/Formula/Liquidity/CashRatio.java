@@ -12,7 +12,7 @@ public class CashRatio {
         Formulas.add(new Formula(CashRatio,
                 "Cash Ratio",
                 "CashRatio",
-                "CashAndCashEquivalents/CurrentLiabilities",
+                "CashAndCashEquivalents/CurrentLiabilitiesGeneral",
                 "",
                 "formula",
                 "",

@@ -50,8 +50,8 @@ public class DefaultTemplate {
         int NonCurrentLiabilities = counter;
         Items.add(new Item(NonCurrentLiabilities, "Non-current liabilities", "NonCurrentLiabilities", true, false, LiabilitiesGeneral, SOFP, 3));
         counter++;
-        int CurrentLiabilities = counter;
-        Items.add(new Item(CurrentLiabilities, "Current liabilities", "CurrentLiabilities", true, false, LiabilitiesGeneral, SOFP, 3));
+        int CurrentLiabilitiesGeneral = counter;
+        Items.add(new Item(CurrentLiabilitiesGeneral, "Current liabilities", "CurrentLiabilitiesGeneral", true, false, LiabilitiesGeneral, SOFP, 3));
         counter++;
 
 
@@ -178,25 +178,25 @@ public class DefaultTemplate {
 
         //Current liabilities
         int CurrentProvisionsForEmployeeBenefits = counter;
-        Items.add(new Item(CurrentProvisionsForEmployeeBenefits, "Current provisions for employee benefits", "CurrentProvisionsForEmployeeBenefits", true, false, CurrentLiabilities, SOFP, 4));
+        Items.add(new Item(CurrentProvisionsForEmployeeBenefits, "Current provisions for employee benefits", "CurrentProvisionsForEmployeeBenefits", true, false, CurrentLiabilitiesGeneral, SOFP, 4));
         counter++;
         int OtherShorttermProvisions = counter;
-        Items.add(new Item(OtherShorttermProvisions, "Other current provisions", "OtherShorttermProvisions", true, false, CurrentLiabilities, SOFP, 4));
+        Items.add(new Item(OtherShorttermProvisions, "Other current provisions", "OtherShorttermProvisions", true, false, CurrentLiabilitiesGeneral, SOFP, 4));
         counter++;
         int TradeAndOtherCurrentPayables = counter;
-        Items.add(new Item(TradeAndOtherCurrentPayables, "Trade and other current payables", "TradeAndOtherCurrentPayables", true, false, CurrentLiabilities, SOFP, 4));
+        Items.add(new Item(TradeAndOtherCurrentPayables, "Trade and other current payables", "TradeAndOtherCurrentPayables", true, false, CurrentLiabilitiesGeneral, SOFP, 4));
         counter++;
         int CurrentTaxLiabilitiesCurrent = counter;
-        Items.add(new Item(CurrentTaxLiabilitiesCurrent, "Current tax liabilities, current", "CurrentTaxLiabilitiesCurrent", true, false, CurrentLiabilities, SOFP, 4));
+        Items.add(new Item(CurrentTaxLiabilitiesCurrent, "Current tax liabilities, current", "CurrentTaxLiabilitiesCurrent", true, false, CurrentLiabilitiesGeneral, SOFP, 4));
         counter++;
         int OtherCurrentFinancialLiabilities = counter;
-        Items.add(new Item(OtherCurrentFinancialLiabilities, "Other current financial liabilities", "OtherCurrentFinancialLiabilities", true, false, CurrentLiabilities, SOFP, 4));
+        Items.add(new Item(OtherCurrentFinancialLiabilities, "Other current financial liabilities", "OtherCurrentFinancialLiabilities", true, false, CurrentLiabilitiesGeneral, SOFP, 4));
         counter++;
         int OtherCurrentNonfinancialLiabilities = counter;
-        Items.add(new Item(OtherCurrentNonfinancialLiabilities, "Other current non-financial liabilities", "OtherCurrentNonfinancialLiabilities", true, false, CurrentLiabilities, SOFP, 4));
+        Items.add(new Item(OtherCurrentNonfinancialLiabilities, "Other current non-financial liabilities", "OtherCurrentNonfinancialLiabilities", true, false, CurrentLiabilitiesGeneral, SOFP, 4));
         counter++;
         int LiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale = counter;
-        Items.add(new Item(LiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale, "Liabilities included in disposal groups classified as held for sale", "LiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale", true, false, CurrentLiabilities, SOFP, 4));
+        Items.add(new Item(LiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale, "Liabilities included in disposal groups classified as held for sale", "LiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale", true, false, CurrentLiabilitiesGeneral, SOFP, 4));
         counter++;
 
 

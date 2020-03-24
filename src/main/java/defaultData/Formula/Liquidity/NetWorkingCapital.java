@@ -12,7 +12,7 @@ public class NetWorkingCapital {
         Formulas.add(new Formula(NetWorkingCapital,
                 "Net Working Capital",
                 "NetWorkingCapital",
-                "GeneralCurrentAssets-CurrentLiabilities",
+                "GeneralCurrentAssets-CurrentLiabilitiesGeneral",
                 "",
                 "formula",
                 "money",
