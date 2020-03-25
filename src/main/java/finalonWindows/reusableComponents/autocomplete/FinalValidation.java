@@ -45,17 +45,17 @@ class FinalValidation extends ParserBase {
         String[] words = getChunks(input, false);
         for (String s : words) {
             if (s.length() > 0 && !entries.contains(s)) {
-                errors.add("Index with name '" + s + "' do not exist - please correct or add it to your template");
+                errors.add("Index with name '" + s + "' do not exist - \nplease correct or add it to your template");
             }
         }
     }
 
     private void validateBrackets() {
         if (!isBalanced(input, '(', ')')) {
-            errors.add("Some Curl Brackets '( )' are not closed inside your formula");
+            errors.add("Some Curl Brackets '( )' \nare not closed inside your formula");
         }
         if (!isBalanced(input, '[', ']')) {
-            errors.add("Some Square Brackets '[ ]' are not closed inside your formula");
+            errors.add("Some Square Brackets '[ ]' \nare not closed inside your formula");
         }
     }
 

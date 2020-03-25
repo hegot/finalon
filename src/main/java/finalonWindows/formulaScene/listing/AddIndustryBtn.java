@@ -58,7 +58,7 @@ public class AddIndustryBtn extends HBox {
         result.ifPresent(id -> {
             try {
                 runTask();
-                SceneSwitcher.runPreloader(4000, SceneName.FORMULALIST);
+                SceneSwitcher.runPreloader(12000, null);
             } catch (Exception e) {
                 System.out.println("Industry=" + industry.getText() + ", standard=" + standard.getValue().getName() + " not created");
                 e.printStackTrace();
@@ -84,6 +84,7 @@ public class AddIndustryBtn extends HBox {
             {
                 setOnSucceeded(workerStateEvent -> {
                     StandardAndIndustry.refreshIndustry();
+                    SceneSwitcher.goTo(SceneName.FORMULALIST);
                 });
                 setOnFailed(workerStateEvent -> getException().printStackTrace());
             }

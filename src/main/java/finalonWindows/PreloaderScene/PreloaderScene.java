@@ -15,10 +15,12 @@ public class PreloaderScene {
     public static VBox getScene(int duration, SceneName redirect) {
         VBox vbox = new VBox(0);
         vbox.getChildren().addAll(new SettingsMenu().getMenu(), getThrobber());
-        Timeline timeline = new Timeline(new KeyFrame(
-                Duration.millis(duration),
-                ae -> SceneSwitcher.goTo(redirect)));
-        timeline.play();
+        if(redirect != null){
+            Timeline timeline = new Timeline(new KeyFrame(
+                    Duration.millis(duration),
+                    ae -> SceneSwitcher.goTo(redirect)));
+            timeline.play();
+        }
         return vbox;
     }
 

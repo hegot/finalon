@@ -52,7 +52,7 @@ public class StepOne {
         ObservableList<String> steps = FXCollections.observableArrayList();
         steps.addAll("year", "half year", "quater", "month");
         ObservableList<String> periods = FXCollections.observableArrayList();
-        for (int i = 2; i < 8; i++) {
+        for (int i = 2; i < 13; i++) {
             periods.add(Integer.toString(i));
         }
         hBox.getChildren().addAll(

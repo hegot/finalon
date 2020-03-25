@@ -15,14 +15,16 @@ import javafx.scene.layout.VBox;
 import java.util.TreeSet;
 
 
-class EditFormula {
+public class EditFormula {
 
     private Formula formula;
     private EditRow[] arr;
     private GridPane grid;
     private AutoCompleteTextArea textArea;
+    public static VBox errorsBox = new VBox(1);
 
     EditFormula(Formula formula) {
+        errorsBox.getChildren().removeAll();
         this.formula = formula;
         this.grid = createGrid();
     }
@@ -35,6 +37,7 @@ class EditFormula {
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
+        grid.getStyleClass().add("formula-edit-grid");
         grid.setPadding(new Insets(20, 0, 10, 0));
         grid.add(createRow("Name:", "name", formula.getName()), 0, 0);
         grid.add(createRow("Code:", "shortName", formula.getShortName()), 0, 1);
@@ -43,6 +46,7 @@ class EditFormula {
             grid.add(new Label("Edit formula"), 0, 3);
             grid.add(formulaEditor(), 0, 4);
         }
+        grid.add(errorsBox, 0, 5);
         return grid;
     }
 
@@ -63,9 +67,7 @@ class EditFormula {
     }
 
 
-    private VBox formulaEditor() {
-        VBox vBox = new VBox(10);
-        VBox errorsBox = new VBox(1);
+    private AutoCompleteTextArea formulaEditor() {
         this.textArea = new AutoCompleteTextArea(formula.getValue());
         textArea.setPrefSize(650, 80);
         textArea.setWrapText(true);
@@ -77,6 +79,7 @@ class EditFormula {
                     errorsBox.getChildren().clear();
                     for (String error : errors) {
                         Label err = new Label(error);
+                        err.setWrapText(true);
                         err.getStyleClass().add("formula-error");
                         errorsBox.getChildren().add(err);
                     }
@@ -88,8 +91,7 @@ class EditFormula {
         textArea.textProperty().addListener((observable, oldValue, newValue) -> {
             formula.setValue(newValue);
         });
-        vBox.getChildren().addAll(textArea, errorsBox);
-        return vBox;
+        return textArea;
     }
 
 

@@ -11,11 +11,17 @@ import javafx.scene.control.cell.TextFieldTreeTableCell;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.stage.Screen;
 
+import java.util.ArrayList;
+
 public class FormulaEditable {
 
     private static int rootId;
     private static TreeTableView<Formula> table;
+    private static ArrayList<String> codes = new ArrayList<>();
 
+    public static ArrayList<String> getCodes(){
+        return codes;
+    }
 
     public static TreeTableView getFormulaTable(int root) {
         rootId = root;
@@ -116,17 +122,20 @@ public class FormulaEditable {
         for (Formula child : childs) {
             if (!coreSection(child)) {
                 TreeItem treeItem = new TreeItem<Formula>(child);
+                codes.add(child.getShortName());
                 treeItem.setExpanded(true);
                 root.getChildren().add(treeItem);
                 ObservableList<Formula> childs2 = DbFormulaHandler.getFormulas(child.getId());
                 for (Formula child2 : childs2) {
                     TreeItem treeItem2 = new TreeItem<Formula>(child2);
+                    codes.add(child2.getShortName());
                     treeItem2.setExpanded(true);
                     treeItem.getChildren().add(treeItem2);
                 }
             }
         }
     }
+
 
     private static Boolean coreSection(Formula formula) {
         if (formula.getShortName().equals("AssetsEquityStructureTrend") ||

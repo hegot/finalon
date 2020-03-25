@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.TreeSet;
 
 
@@ -28,9 +29,9 @@ public class EditPopup {
     private PrefixSuffix prefixSuffix;
     private PeriodsComparison periodsComparison;
     private ArrayList<String> errors = new ArrayList<>();
-    private VBox errList = new VBox(5);
 
     public EditPopup(TreeItem treeItem) {
+        errors.clear();
         this.formula = (Formula) treeItem.getValue();
         this.editFormula = new EditFormula(formula);
         formula.setChilds(getChilds());
@@ -81,7 +82,7 @@ public class EditPopup {
         VBox vBox = new VBox();
         if (formula.getCategory().equals("section")) {
             dialog.setTitle("Edit Section");
-            vBox.getChildren().addAll(editFormula.getGrid(), errList);
+            vBox.getChildren().addAll(editFormula.getGrid());
             vBox.setPadding(new Insets(10, 10, 10, 10));
             dialog.getDialogPane().setContent(vBox);
         } else {
@@ -94,7 +95,7 @@ public class EditPopup {
                     prefixSuffix.getPrefixSuffix(),
                     periodsComparison.getPeriodsComparison()
             );
-            vBox.getChildren().addAll(tabpane, errList);
+            vBox.getChildren().addAll(tabpane);
             dialog.getDialogPane().setContent(vBox);
         }
     }
@@ -102,17 +103,19 @@ public class EditPopup {
 
     private void saveAction(ActionEvent event) {
         errors.clear();
+        EditFormula.errorsBox.getChildren().removeAll();
         validateFormula();
         TreeSet<String> errsTextarea = editFormula.getTextAreaErrors();
         if (errors.size() == 0 && errsTextarea.size() == 0) {
+            formula.setCategory("formula");
             addFormula(formula);
             FormulaEditable.refresh();
         } else {
-            errList.getChildren().removeAll();
+            EditFormula.errorsBox.getChildren().removeAll();
             for (String error : errors) {
                 Label label = new Label(error);
                 label.getStyleClass().add("formula-error");
-                errList.getChildren().setAll(label);
+                EditFormula.errorsBox.getChildren().setAll(label);
             }
             event.consume();
         }
@@ -120,6 +123,7 @@ public class EditPopup {
 
     private void addFormula(Formula formula) {
         try {
+            EditFormula.errorsBox.getChildren().removeAll();
             DbFormulaHandler.updateFormula(formula);
             ObservableList<Formula> childs = formula.getChilds();
             for (Formula child : childs) {
@@ -144,12 +148,12 @@ public class EditPopup {
 
     private boolean isChild(String name) {
         if (
-                name != null &&
-                        name.equals(EvaluationTypes.PREFIX.toString()) ||
-                        name.equals(EvaluationTypes.SUFFIX.toString()) ||
-                        name.equals(EvaluationTypes.PERIOD_COMPARISON_NOCHANGE.toString()) ||
-                        name.equals(EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString()) ||
-                        name.equals(EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString())
+            name != null &&
+            name.equals(EvaluationTypes.PREFIX.toString()) ||
+            name.equals(EvaluationTypes.SUFFIX.toString()) ||
+            name.equals(EvaluationTypes.PERIOD_COMPARISON_NOCHANGE.toString()) ||
+            name.equals(EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString()) ||
+            name.equals(EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString())
         ) {
             return true;
         }
@@ -159,6 +163,16 @@ public class EditPopup {
 
     private void validateFormula() {
         Formula newFormula = editFormula.getFormula();
+        ArrayList<String> codes = FormulaEditable.getCodes();
+        if(formula.getCategory().equals("TO_BE_ADDED")){
+            if (codes.contains(newFormula.getShortName())) {
+                errors.add("Formula code you have added is already in use. \nPlease set up unique code.");
+            }
+        }
+        int occurrences = Collections.frequency(codes, newFormula.getShortName());
+        if (occurrences > 0) {
+            errors.add("Formula code you have added is already in use. \nPlease set up unique code.");
+        }
         if (newFormula.getName().length() == 0) {
             errors.add("Name field can not be empty! \n");
         }
@@ -169,9 +183,7 @@ public class EditPopup {
             if (newFormula.getValue().length() == 0) {
                 errors.add("Please add formula in text-field");
             }
-            formula.setCategory("formula");
         }
     }
-
 
 }

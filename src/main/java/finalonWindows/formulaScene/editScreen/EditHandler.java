@@ -2,6 +2,7 @@ package finalonWindows.formulaScene.editScreen;
 
 import database.formula.DbFormulaHandler;
 import entities.Formula;
+import finalonWindows.formulaScene.editScreen.EditPopup.EditFormula;
 import finalonWindows.formulaScene.editScreen.EditPopup.EditPopup;
 import finalonWindows.formulaScene.editScreen.IndustryOperations.FormulaAddBase;
 import finalonWindows.formulaScene.editScreen.IndustryOperations.IndustryOperations;
@@ -42,6 +43,7 @@ public class EditHandler extends FormulaAddBase {
                             Formula newFormula = new Formula(biggestId(), "", "", "", "", "TO_BE_ADDED", "", parentFormula.getId());
                             TreeItem treeItemNew = new TreeItem<Formula>(newFormula);
                             treeItem.getChildren().add(treeItemNew);
+                            EditFormula.errorsBox.getChildren().removeAll();
                             EditPopup popup = new EditPopup(treeItemNew);
                             popup.getdialog();
                         });
