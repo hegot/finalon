@@ -337,7 +337,7 @@ public class DefaultTemplate {
         Items.add(new Item(PurchaseOfPropertyPlantAndEquipment, "Purchase of property, plant and equipment", "PurchaseOfPropertyPlantAndEquipment", false, false, InvestingActivitiesGeneral, CFS, 4));
         counter++;
         int ProceedsFromSaleOfEquipment = counter;
-        Items.add(new Item(ProceedsFromSaleOfEquipment, " Proceeds from sale of equipment", " ProceedsFromSaleOfEquipment", true, false, InvestingActivitiesGeneral, CFS, 4));
+        Items.add(new Item(ProceedsFromSaleOfEquipment, "Proceeds from sale of equipment", "ProceedsFromSaleOfEquipment", true, false, InvestingActivitiesGeneral, CFS, 4));
         counter++;
         int InterestReceived = counter;
         Items.add(new Item(InterestReceived, "Interest received", "InterestReceived", true, false, InvestingActivitiesGeneral, CFS, 4));

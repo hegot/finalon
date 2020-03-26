@@ -6,34 +6,22 @@ import javafx.scene.control.TextArea;
 
 import java.util.TreeSet;
 
-
-/**
- * This class is a TextField which implements an "autocomplete" functionality, based on a supplied list of entries.
- *
- * @author Caleb Brinkman
- */
 public class AutoCompleteTextArea extends TextArea {
-    /**
-     * The existing autocomplete entries.
-     */
+    public static final String OPERATORS = ".*+-/:";
+    public static final String DIGITS = "0-9";
 
     private Suggestions suggestions;
     private StrParser parser;
     private StrValidator strValidator;
     private TreeSet<String> errors;
 
-    /**
-     * Construct a new AutoCompleteTextField.
-     */
     public AutoCompleteTextArea(String value) {
         super();
         this.setText(value);
         parser = new StrParser();
         suggestions = new Suggestions();
         strValidator = new StrValidator();
-
         this.errors = new TreeSet<String>();
-
         focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean aBoolean2) {
@@ -54,8 +42,11 @@ public class AutoCompleteTextArea extends TextArea {
         if (len > 0) {
             parser.change(cur, text, start, end);
             AutoCompleteTextArea anchor = AutoCompleteTextArea.this;
-            suggestions.change(cur, parser.endString(), anchor, parser.start(), parser.end());
-
+            String endString = parser.endString();
+            if(!text.matches("[^" + OPERATORS + DIGITS + ")\\[\\]]")){
+                endString = endString + text;
+            }
+            suggestions.change(cur, endString, anchor, parser.start(), parser.end());
             if (start > 0 && cur.length() >= start) {
                 Character before = cur.charAt(start - 1);
                 Boolean valid = strValidator.validate(before, text);
@@ -73,7 +64,6 @@ public class AutoCompleteTextArea extends TextArea {
 
     }
 
-
     @Override
     public void replaceSelection(String text) {
         if (strValidator.validSelection(text)) {
@@ -81,7 +71,6 @@ public class AutoCompleteTextArea extends TextArea {
             super.replaceSelection(text);
         }
     }
-
 
     public TreeSet<String> getErrors() {
         return errors;

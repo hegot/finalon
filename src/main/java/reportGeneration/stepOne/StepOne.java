@@ -35,9 +35,12 @@ public class StepOne {
         err.getChildren().add(errors);
         vbox.getChildren().addAll(
                 mainLabel,
-                ReportName.get(),
-                titledHbox("Template", TemplateSelect.getTpl()),
-                currencyRow(),
+                ReportName.get());
+        String reportId = SettingsStorage.get("reportId");
+        if (reportId.equals("-1")) {
+            vbox.getChildren().add(titledHbox("Template", TemplateSelect.getTpl()));
+        }
+        vbox.getChildren().addAll(currencyRow(),
                 standardIndustry(),
                 periodsRow(),
                 new DateSelect().get(),
@@ -84,29 +87,33 @@ public class StepOne {
     }
 
     private HBox standardIndustry() {
-        HBox hBox = StandardAndIndustry.get();
-        StandardAndIndustry.shouldUpdateSettings(true);
-        ComboBox<Formula> industry = StandardAndIndustry.getIndustry();
-        ComboBox<Formula> standard = StandardAndIndustry.getStandard();
-        standard.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Formula>() {
-            @Override
-            public void changed(ObservableValue<? extends Formula> arg0, Formula arg1, Formula arg2) {
-                if (arg2 != null) {
-                    FormulaStorage.reInit();
-                    TemplateSelect.reInit();
+        String reportId = SettingsStorage.get("reportId");
+        if (reportId.equals("-1")) {
+            HBox hBox = StandardAndIndustry.get();
+            StandardAndIndustry.shouldUpdateSettings(true);
+            ComboBox<Formula> industry = StandardAndIndustry.getIndustry();
+            ComboBox<Formula> standard = StandardAndIndustry.getStandard();
+            standard.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Formula>() {
+                @Override
+                public void changed(ObservableValue<? extends Formula> arg0, Formula arg1, Formula arg2) {
+                    if (arg2 != null) {
+                        FormulaStorage.reInit();
+                        TemplateSelect.reInit();
+                    }
                 }
-            }
-        });
-        industry.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Formula>() {
-            @Override
-            public void changed(ObservableValue<? extends Formula> arg0, Formula arg1, Formula arg2) {
-                if (arg2 != null) {
-                    FormulaStorage.reInit();
-                    TemplateSelect.reInit();
+            });
+            industry.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Formula>() {
+                @Override
+                public void changed(ObservableValue<? extends Formula> arg0, Formula arg1, Formula arg2) {
+                    if (arg2 != null) {
+                        FormulaStorage.reInit();
+                        TemplateSelect.reInit();
+                    }
                 }
-            }
-        });
-        return hBox;
+            });
+            return hBox;
+        }
+        return new HBox();
     }
 
 
