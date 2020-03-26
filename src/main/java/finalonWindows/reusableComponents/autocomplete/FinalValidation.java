@@ -24,10 +24,8 @@ class FinalValidation extends ParserBase {
     private static boolean isBalanced(String s, Character ch1, Character ch2) {
         Map<Character, Character> openClosePair = new HashMap<Character, Character>();
         openClosePair.put(ch1, ch2);
-
         Stack<Character> stack = new Stack<Character>();
         for (int i = 0; i < s.length(); i++) {
-
             if (openClosePair.containsKey(s.charAt(i))) {
                 stack.push(s.charAt(i));
 
@@ -45,7 +43,8 @@ class FinalValidation extends ParserBase {
         String[] words = getChunks(input, false);
         for (String s : words) {
             if (s.length() > 0 && !entries.contains(s)) {
-                errors.add("Index with name '" + s + "' do not exist - \nplease correct or add it to your template");
+                errors.add(": The index '" + s + "' do not exist. " +
+                        "\nPlease correct it or add it to your template.");
             }
         }
     }

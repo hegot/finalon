@@ -42,7 +42,7 @@ public class EditHandler extends FormulaAddBase {
                         btn.setOnAction((ActionEvent event) -> {
                             Formula newFormula = new Formula(biggestId(), "", "", "", "", "TO_BE_ADDED", "", parentFormula.getId());
                             TreeItem treeItemNew = new TreeItem<Formula>(newFormula);
-                            treeItem.getChildren().add(treeItemNew);
+                           // treeItem.getChildren().add(treeItemNew);
                             EditFormula.errorsBox.getChildren().removeAll();
                             EditPopup popup = new EditPopup(treeItemNew);
                             popup.getdialog();
