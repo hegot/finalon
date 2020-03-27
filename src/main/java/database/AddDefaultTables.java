@@ -1,18 +1,18 @@
 package database;
 
 import database.formula.DbFormulaHandler;
-import database.formula.FormulaCreator;
 import database.log.DbLogHandler;
 import database.report.DbReportHandler;
 import database.setting.DbSettingHandler;
 import database.template.DbItemHandler;
+import database.template.TemplateCreator;
 
 import java.sql.SQLException;
 
 public class AddDefaultTables {
 
     public void start() {
-        FormulaCreator formulaCreator = new FormulaCreator();
+        TemplateCreator templateCreator = new TemplateCreator();
         try {
             DbItemHandler.createTable();
             DbFormulaHandler.createTable();
@@ -21,7 +21,7 @@ public class AddDefaultTables {
             DbLogHandler.createTable();
 
             if (DbFormulaHandler.isEmpty()) {
-                formulaCreator.createFormulas();
+                templateCreator.saveTpl();
             }
         } catch (SQLException e) {
             e.printStackTrace();

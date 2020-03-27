@@ -99,7 +99,6 @@ public class IndexChangeTable extends ItemsTable {
                         item.getIsPositive(),
                         item.getFinResult(),
                         item.getParent(),
-                        item.getParentSheet(),
                         item.getLevel()
                 );
                 parent.setValues(item.getValues());

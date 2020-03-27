@@ -4,9 +4,14 @@ import database.template.DbItemHandler;
 import entities.Item;
 import finalonWindows.SceneBase;
 import finalonWindows.reusableComponents.SettingsMenu;
+import finalonWindows.templateScene.listing.partials.AddTemplateBtn;
+import finalonWindows.templateScene.listing.partials.SettingsMessage;
+import finalonWindows.templateScene.listing.partials.TemplateRow;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Label;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+
 
 
 public class TemplatesListing extends SceneBase {
@@ -31,7 +36,11 @@ public class TemplatesListing extends SceneBase {
         tilePane.setVgap(10);
         if (items.size() > 0) {
             for (Item item : items) {
-                tilePane.getChildren().add(new TemplateRow(item));
+                if(item.getId() == 1){
+                    tilePane.getChildren().add(defaultTpl());
+                }else{
+                    tilePane.getChildren().add(new TemplateRow(item));
+                }
             }
             vbox.getChildren().addAll(
                     tilePane,
@@ -46,4 +55,16 @@ public class TemplatesListing extends SceneBase {
         }
         return vbox;
     }
+
+    private VBox defaultTpl(){
+        VBox vBox = new VBox();
+        vBox.getStyleClass().add("row");
+        Label label = new Label("Default Template");
+        label.getStyleClass().add("row-label");
+        Label label2 = new Label("(can not be edited)");
+        label2.getStyleClass().add("row-description");
+        vBox.getChildren().addAll(label, label2);
+        return vBox;
+    }
+
 }

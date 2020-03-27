@@ -80,6 +80,7 @@
     -fx-border-insets: 15px;
     -fx-background-insets: 15px;
     -fx-cursor: hand;
+    -fx-padding: 10 0;
 }
 
 .templates-listing .row .btn-panel .btn{
@@ -102,12 +103,11 @@
     -fx-wrap-text: true;
 }
 
-.templates-listing .row .row-desc{
-    -fx-font-size: 14px;
-    -fx-padding: 10 10 20 10;
+.templates-listing .row .row-description{
     -fx-text-fill: #6a6c6f;
-    -fx-pref-width: 200px;
     -fx-alignment: center;
+    -fx-padding: 10;
+    -fx-pref-width: 200px;
 }
 
 .formula-edit .whiteBorderedPanel,

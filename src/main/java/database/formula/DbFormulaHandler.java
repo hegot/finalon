@@ -43,60 +43,6 @@ public class DbFormulaHandler extends DbHandlerBase {
     }
 
 
-    public static Map<Integer, Formula> findUsage(String code, int rootIndustry) {
-        Map<Integer, Formula> usages = new HashMap<Integer, Formula>();
-        Map<Integer, Formula> finalUsages = new HashMap<Integer, Formula>();
-        try (Statement statement = Connect.getConn().createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName, value, description, category, unit, parent FROM " + tableName + " WHERE value LIKE '%" + code + "%'");
-            while (resultSet.next()) {
-                usages.put(
-                        resultSet.getInt("id"),
-                        new Formula(
-                                resultSet.getInt("id"),
-                                resultSet.getString("name"),
-                                resultSet.getString("shortName"),
-                                resultSet.getString("value"),
-                                resultSet.getString("description"),
-                                resultSet.getString("category"),
-                                resultSet.getString("unit"),
-                                resultSet.getInt("parent")
-                        )
-                );
-            }
-            if (rootIndustry != 0) {
-                Formula formula;
-                for (Map.Entry<Integer, Formula> entry : usages.entrySet()) {
-                    formula = entry.getValue();
-                    if (formula != null) {
-                        int parentIndustryId = formula.getParentIndustryID(formula.getParent());
-                        if (parentIndustryId == rootIndustry) {
-                            finalUsages.put(formula.getId(), formula);
-                        }
-                    }
-                }
-            } else {
-                finalUsages = usages;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return finalUsages;
-    }
-
-    public static String usagesString(String code, int rootIndustry) {
-        Map<Integer, Formula> usages = findUsage(code, rootIndustry);
-        StringBuilder builder = new StringBuilder();
-        Set<String> names = new HashSet<String>();
-        for (Map.Entry<Integer, Formula> entry : usages.entrySet()) {
-            names.add(entry.getValue().getName());
-        }
-        Iterator it = names.iterator();
-        while (it.hasNext()) {
-            builder.append("«" + it.next() + "»\n");
-        }
-        return builder.toString();
-    }
-
     public static ObservableList<Formula> getFormulas(int parent) {
         ObservableList<Formula> Formulas = FXCollections.observableArrayList();
         try (Statement statement = Connect.getConn().createStatement()) {
@@ -150,15 +96,16 @@ public class DbFormulaHandler extends DbHandlerBase {
             StatTrigger.call(CallTypes.formula_customization_times);
             String[] returnId = {"id"};
             String sql = "INSERT INTO " + tableName + " (`id`, `name`, `shortName`,  `value`, `description`, `category`, `unit`, `parent`) " +
-                    "VALUES(NULL, ?, ?, ?, ?, ?, ?, ?)";
+                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = Connect.getConn().prepareStatement(sql, returnId);
-            statement.setObject(1, Formula.getName());
-            statement.setObject(2, Formula.getShortName());
-            statement.setObject(3, Formula.getValue());
-            statement.setObject(4, Formula.getDescription());
-            statement.setObject(5, Formula.getCategory());
-            statement.setObject(6, Formula.getUnit());
-            statement.setObject(7, Formula.getParent());
+            statement.setObject(1, Formula.getId());
+            statement.setObject(2, Formula.getName());
+            statement.setObject(3, Formula.getShortName());
+            statement.setObject(4, Formula.getValue());
+            statement.setObject(5, Formula.getDescription());
+            statement.setObject(6, Formula.getCategory());
+            statement.setObject(7, Formula.getUnit());
+            statement.setObject(8, Formula.getParent());
             int affectedRows = statement.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException("Creating formula failed, no rows affected.");
@@ -242,6 +189,28 @@ public class DbFormulaHandler extends DbHandlerBase {
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 return id;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Formula findTemplate(int id) {
+        try (Statement statement = Connect.getConn().createStatement()) {
+            ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName, value, description, category, unit, parent FROM "
+                    + tableName + " WHERE parent = " + id + " AND category='template'");
+            while (resultSet.next()) {
+                return new Formula(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("shortName"),
+                        resultSet.getString("value"),
+                        resultSet.getString("description"),
+                        resultSet.getString("category"),
+                        resultSet.getString("unit"),
+                        resultSet.getInt("parent")
+                );
             }
         } catch (SQLException e) {
             e.printStackTrace();

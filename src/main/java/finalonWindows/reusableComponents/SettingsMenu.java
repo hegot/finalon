@@ -16,7 +16,7 @@ public class SettingsMenu {
         MenuBar menuBar = new MenuBar();
         Menu menu = new Menu("navigation");
         menu.setGraphic(new ImageView("image/menuBtn.jpg"));
-        menu.getItems().addAll(home(), addCompany(), settings(), templates(), formulas(), reports(), logs());
+        menu.getItems().addAll(home(), addCompany(), settings(), templates(), reports(), logs());
         menuBar.getMenus().add(menu);
         return menuBar;
     }
@@ -54,16 +54,7 @@ public class SettingsMenu {
         return templates;
     }
 
-    private MenuItem formulas() {
-        MenuItem formulas = new MenuItem("Formula Customization");
-        formulas.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                SceneSwitcher.goTo(SceneName.FORMULALIST);
-            }
-        });
-        return formulas;
-    }
+
 
     private MenuItem settings() {
         MenuItem settings = new MenuItem("General Settings");

@@ -67,18 +67,6 @@
             </VBox>
 
             <VBox styleClass="content-block">
-                <Button onAction="#formulaAction" styleClass="tile-btn" text="Formula&#10;Customization">
-                    <graphic>
-                        <ImageView>
-                            <image>
-                                <Image url="@img/formula.png"/>
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-            </VBox>
-
-            <VBox styleClass="content-block">
                 <Button onAction="#reportsAction" styleClass="tile-btn" text="Your Saved&#10;Reports">
                     <graphic>
                         <ImageView>

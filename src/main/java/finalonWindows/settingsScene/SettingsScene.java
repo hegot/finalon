@@ -6,21 +6,14 @@ import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
 import finalonWindows.reusableComponents.SettingsMenu;
 import globalReusables.Setting;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
-
-import java.util.Optional;
 
 public class SettingsScene extends SceneBase {
 
@@ -46,7 +39,7 @@ public class SettingsScene extends SceneBase {
         YearsOrderBlock yearsOrderBlock = new YearsOrderBlock(settings);
         HBox hbox = new HBox(20);
         hbox.getChildren().addAll(yearsOrderBlock.get(), currencyBlock.get());
-        vboxInner.getChildren().addAll(mainLabel, hbox, numberFormat.get(), submitBtn(), resetFormulaBtn());
+        vboxInner.getChildren().addAll(mainLabel, hbox, numberFormat.get(), submitBtn());
         vbox.getChildren().addAll(new SettingsMenu().getMenu(), vboxInner);
         return vbox;
     }
@@ -72,48 +65,4 @@ public class SettingsScene extends SceneBase {
         return hbox;
     }
 
-    private VBox resetFormulaBtn() {
-        VBox vBox = new VBox(20);
-        vBox.getStyleClass().add("vbox-row");
-        Label label = new Label("You can reset Formulas to default state - before you made changes (all added industries and changes will be dropped!)");
-        label.getStyleClass().add("sub-label");
-        label.setWrapText(true);
-        label.getStyleClass().add("confirm-label");
-        Button btn = new Button("Reset Formulas");
-        btn.getStyleClass().add("blue-btn");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                try {
-                    resetFormulasAlert(label);
-                } catch (Exception exception) {
-                    System.out.println("Error while saving settings");
-                }
-            }
-        });
-        vBox.getChildren().addAll(label, btn);
-        return vBox;
-    }
-
-    private void resetFormulasAlert(Label label) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Reset Formulas");
-        alert.setHeaderText("Are you sure you want " +
-                "to reset formulas to default state?");
-        alert.setContentText("This action will delete all formula " +
-                "customizations and can not be undone.");
-        Optional<ButtonType> option = alert.showAndWait();
-
-        if (option.get() == ButtonType.OK) {
-            new ResetFormulas().reset();
-            label.setText("Formulas were reseted to default state");
-            Timeline timeline = new Timeline(
-                    new KeyFrame(
-                            Duration.millis(5000),
-                            ae -> label.setText("")
-                    )
-            );
-            timeline.play();
-        }
-    }
 }

@@ -39,13 +39,8 @@ public class CustomControl extends BorderPane {
     }
 
     @FXML
-    protected void formulaAction() {
-        SceneSwitcher.goTo(SceneName.FORMULALIST);
-    }
-
-    @FXML
     protected void helpAction() {
-        SceneSwitcher.goTo(SceneName.FORMULALIST);
+        SceneSwitcher.goTo(SceneName.TEMPLATESLIST);
     }
 
     @FXML

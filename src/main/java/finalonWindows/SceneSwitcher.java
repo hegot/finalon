@@ -1,19 +1,14 @@
 package finalonWindows;
 
-import defaultData.DefaultTemplate;
-import entities.Item;
 import finalonWindows.DeathScreen.DeathScreen;
+import finalonWindows.templateScene.FormulaEditPage.FormulaEditPage;
 import finalonWindows.LogsScreen.LogsScreen;
 import finalonWindows.PreloaderScene.PreloaderScene;
-import finalonWindows.formulaScene.editScreen.IndustryEdit;
-import finalonWindows.formulaScene.listing.IndustriesListing;
 import finalonWindows.mainScene.MainScene;
 import finalonWindows.reportsScene.ReportsListing;
 import finalonWindows.settingsScene.SettingsScene;
 import finalonWindows.templateScene.listing.TemplatesListing;
-import finalonWindows.templateScene.templates.TemplateEditPage;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import finalonWindows.templateScene.TemplateEditPage.TemplateEditPage;
 import javafx.scene.layout.VBox;
 import reportGeneration.AddReportScene;
 
@@ -45,16 +40,6 @@ public class SceneSwitcher {
             case REPORTLIST:
                 vbox = new ReportsListing().getScene();
                 break;
-            case ADDTEMPLATE:
-                ObservableList<Item> items = FXCollections.observableArrayList(DefaultTemplate.getTpl());
-                vbox = TemplateEditPage.getScene(items);
-                break;
-            case FORMULALIST:
-                vbox = new IndustriesListing().getScene();
-                break;
-            case ADDINDUSTRY:
-                vbox = new IndustryEdit().getScene();
-                break;
             case ADDREPORT:
                 vbox = new AddReportScene().getScene();
                 break;
@@ -74,8 +59,10 @@ public class SceneSwitcher {
         VBox vbox = new VBox();
         switch (sceneName) {
             case ADDTEMPLATE:
-                ObservableList<Item> items = FXCollections.observableArrayList(DefaultTemplate.getTpl());
-                vbox = TemplateEditPage.getScene(items, id);
+                vbox = TemplateEditPage.getScene(id);
+                break;
+            case EDITFORMULAS:
+                vbox = FormulaEditPage.getScene(id);
                 break;
         }
         window.getChildren().setAll(vbox);

@@ -1,5 +1,6 @@
 package defaultData.Formula;
 
+import database.formula.DbFormulaHandler;
 import defaultData.Formula.AltmanZScore.*;
 import defaultData.Formula.FinancialSustainability.*;
 import defaultData.Formula.InvestmentAnalysis.DegreeOfFinancialLeverage;
@@ -14,43 +15,20 @@ import javafx.collections.ObservableList;
 
 public class DefaultFormulas {
 
-    private static int counter = 1;
+    private static int counter;
 
-    public static ObservableList<Formula> getFormulas() {
+    public static ObservableList<Formula> getFormulas(Integer id) {
         ObservableList<Formula> Formulas = FXCollections.observableArrayList();
-
-        //Standard Level
-        int IFRSiD = counter;
-        Formulas.add(new Formula(IFRSiD, "IFRS", "", "", "", "standard", "", 0));
-        counter++;
-        int USGAAPiD = counter;
-        Formulas.add(new Formula(USGAAPiD, "US GAAP", "", "", "", "standard", "", 0));
-        counter++;
-        //IndustryLevel
-        int IFRSGeneraliD = counter;
-        Formulas.add(new Formula(IFRSGeneraliD, "IFRS General", "IFRS General", "", "", "industry", "", IFRSiD));
-        counter++;
-        int USGAAPGeneraliD = counter;
-        Formulas.add(new Formula(USGAAPGeneraliD, "US GAAP General", "US GAAP General", "", "", "industry", "", USGAAPiD));
-        counter++;
-        //IFRS Formula Level
-        ObservableList<Formula> IFRSFormulas = getIndustryChilds(IFRSGeneraliD);
-        ObservableList<Formula> USGAAPFormulas = getIndustryChilds(USGAAPGeneraliD);
+        int lastId = DbFormulaHandler.getLastId() + 1;
+        int ID = lastId;
+        int tplId = (id != null) ? id : 0;
+        Formulas.add(new Formula(ID, "Default", "", "", "", "template", "", tplId));
+        counter = lastId + 1;
+        ObservableList<Formula> IFRSFormulas = getIndustryChilds(ID);
         Formulas.addAll(IFRSFormulas);
-        Formulas.addAll(USGAAPFormulas);
         return Formulas;
     }
 
-    public static ObservableList<Formula> getFormulasForIndustry(int standard, String industry, int counterStart) {
-        counter = counterStart;
-        ObservableList<Formula> Formulas = FXCollections.observableArrayList();
-        int industryId = counter;
-        Formulas.add(new Formula(industryId, industry, industry, "", "", "industry", "", standard));
-        counter++;
-        ObservableList<Formula> childFormulas = getIndustryChilds(industryId);
-        Formulas.addAll(childFormulas);
-        return Formulas;
-    }
 
     private static ObservableList<Formula> getIndustryChilds(int parent) {
         ObservableList<Formula> Formulas = FXCollections.observableArrayList();

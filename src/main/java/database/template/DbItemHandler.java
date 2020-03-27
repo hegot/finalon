@@ -27,7 +27,6 @@ public class DbItemHandler extends DbHandlerBase {
                 "`isPositive` INTEGER," +
                 "`finResult` INTEGER," +
                 "`parent` INTEGER," +
-                "`parentSheet` INTEGER," +
                 "`level` INTEGER," +
                 "`weight` INTEGER" +
                 ");");
@@ -47,8 +46,8 @@ public class DbItemHandler extends DbHandlerBase {
     public static ObservableList<Item> getItems(int parent) {
         ObservableList<Item> Items = FXCollections.observableArrayList();
         try (Statement statement = Connect.getConn().createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName,  isPositive, finResult, parent, parentSheet, level, weight FROM "
-                    + tableName + " WHERE parentSheet = " + parent);
+            ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName,  isPositive, finResult, parent, level, weight FROM "
+                    + tableName + " WHERE parent = " + parent);
             while (resultSet.next()) {
                 Items.add(
                         new Item(
@@ -58,7 +57,6 @@ public class DbItemHandler extends DbHandlerBase {
                                 resultSet.getBoolean("isPositive"),
                                 resultSet.getBoolean("finResult"),
                                 resultSet.getInt("parent"),
-                                resultSet.getInt("parentSheet"),
                                 resultSet.getInt("level"),
                                 resultSet.getInt("weight")
                         )
@@ -73,7 +71,7 @@ public class DbItemHandler extends DbHandlerBase {
     public static Item getItem(int id) {
         Item item = new Item(0, "", "", false, false, 0, 0, 0);
         try (Statement statement = Connect.getConn().createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName,  isPositive, finResult, parent, parentSheet, level, weight FROM "
+            ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName,  isPositive, finResult, parent, level, weight FROM "
                     + tableName + " WHERE id = " + id);
             while (resultSet.next()) {
                 item = new Item(
@@ -83,7 +81,6 @@ public class DbItemHandler extends DbHandlerBase {
                         resultSet.getBoolean("isPositive"),
                         resultSet.getBoolean("finResult"),
                         resultSet.getInt("parent"),
-                        resultSet.getInt("parentSheet"),
                         resultSet.getInt("level"),
                         resultSet.getInt("weight")
                 );
@@ -98,7 +95,7 @@ public class DbItemHandler extends DbHandlerBase {
     public static ObservableList<Item> getTemplates() {
         ObservableList<Item> Items = FXCollections.observableArrayList();
         try (Statement statement = Connect.getConn().createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName,  isPositive, finResult, parent, parentSheet, level, weight FROM "
+            ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName,  isPositive, finResult, parent, level, weight FROM "
                     + tableName + " WHERE parent = 0");
             while (resultSet.next()) {
                 Items.add(
@@ -109,7 +106,6 @@ public class DbItemHandler extends DbHandlerBase {
                                 resultSet.getBoolean("isPositive"),
                                 resultSet.getBoolean("finResult"),
                                 resultSet.getInt("parent"),
-                                resultSet.getInt("parentSheet"),
                                 resultSet.getInt("level"),
                                 resultSet.getInt("weight")
                         )
@@ -125,8 +121,8 @@ public class DbItemHandler extends DbHandlerBase {
         ObservableList<Item> Items = FXCollections.observableArrayList();
         Item item = new Item(0, "", "", false, false, 0, 0, 0);
         try (Statement statement = Connect.getConn().createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName,  isPositive, finResult, parent, parentSheet, level, weight FROM "
-                    + tableName + " WHERE parentSheet = " + industryId + " AND parent = 0");
+            ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName,  isPositive, finResult, parent, level, weight FROM "
+                    + tableName + " WHERE parent = " + industryId);
             while (resultSet.next()) {
                 Items.add(
                         new Item(
@@ -136,7 +132,6 @@ public class DbItemHandler extends DbHandlerBase {
                                 resultSet.getBoolean("isPositive"),
                                 resultSet.getBoolean("finResult"),
                                 resultSet.getInt("parent"),
-                                resultSet.getInt("parentSheet"),
                                 resultSet.getInt("level"),
                                 resultSet.getInt("weight")
                         ));
@@ -147,18 +142,29 @@ public class DbItemHandler extends DbHandlerBase {
         return Items;
     }
 
+    public static int getLastId() {
+        try {
+            Statement stmt = Connect.getConn().createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT MAX(id) FROM " + tableName);
+            return rs.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public static int addItem(Item Item) {
         try {
             String[] returnId = {"id"};
-            String sql = "INSERT INTO " + tableName + " (`id`, `name`, `shortName`,  `isPositive`, `finResult`, `parent`, `parentSheet`, `level`, `weight`) " +
-                    "VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO " + tableName + " (`id`, `name`, `shortName`,  `isPositive`, `finResult`, `parent`, `level`, `weight`) " +
+                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = Connect.getConn().prepareStatement(sql, returnId);
-            statement.setObject(1, Item.getName());
-            statement.setObject(2, Item.getShortName());
-            statement.setObject(3, Item.getIsPositive());
-            statement.setObject(4, Item.getFinResult());
-            statement.setObject(5, Item.getParent());
-            statement.setObject(6, Item.getParentSheet());
+            statement.setObject(1, Item.getId());
+            statement.setObject(2, Item.getName());
+            statement.setObject(3, Item.getShortName());
+            statement.setObject(4, Item.getIsPositive());
+            statement.setObject(5, Item.getFinResult());
+            statement.setObject(6, Item.getParent());
             statement.setObject(7, Item.getLevel());
             statement.setObject(8, Item.getWeight());
             int affectedRows = statement.executeUpdate();
@@ -181,16 +187,15 @@ public class DbItemHandler extends DbHandlerBase {
     public static void updateItem(Item Item) throws ClassNotFoundException, SQLException {
         if (itemExists(Item.getId())) {
             try (PreparedStatement statement = Connect.getConn().prepareStatement(
-                    "UPDATE " + tableName + " SET `name` = ?,  `shortName` = ?, `isPositive` = ?, `finResult` = ?, `parent` = ?, `parentSheet` = ?, `level` = ?,  `weight` = ? WHERE `id` = " + Item.getId()
+                    "UPDATE " + tableName + " SET `name` = ?,  `shortName` = ?, `isPositive` = ?, `finResult` = ?, `parent` = ?,  `level` = ?,  `weight` = ? WHERE `id` = " + Item.getId()
             )) {
                 statement.setObject(1, Item.getName());
                 statement.setObject(2, Item.getShortName());
                 statement.setObject(3, Item.getIsPositive());
                 statement.setObject(4, Item.getFinResult());
                 statement.setObject(5, Item.getParent());
-                statement.setObject(6, Item.getParentSheet());
-                statement.setObject(7, Item.getLevel());
-                statement.setObject(8, Item.getWeight());
+                statement.setObject(6, Item.getLevel());
+                statement.setObject(7, Item.getWeight());
                 statement.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -246,18 +251,6 @@ public class DbItemHandler extends DbHandlerBase {
         return ids;
     }
 
-    public static ArrayList<Integer> templateIndustries() {
-        ArrayList<Integer> ids = new ArrayList<>();
-        try (Statement statement = Connect.getConn().createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT parentSheet FROM " + tableName + " WHERE parent = 0");
-            while (resultSet.next()) {
-                ids.add(resultSet.getInt("parentSheet"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return ids;
-    }
 
     public static TreeSet getCodes() {
         TreeSet entries = new TreeSet<String>();

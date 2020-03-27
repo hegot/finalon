@@ -6,10 +6,9 @@
 <?import javafx.scene.layout.VBox?>
 <fx:root xmlns:fx="http://javafx.com/fxml" type="VBox" styleClass="row">
     <Label styleClass="row-label" alignment="CENTER_LEFT" text="$labelText" textAlignment="LEFT"/>
-    <Label styleClass="row-desc" alignment="CENTER_LEFT" text="$describtionText" textAlignment="LEFT"/>
     <HBox spacing="20" styleClass="btn-panel">
-
-        <Button onAction="#editRowAction" styleClass="btn">
+        <Button onAction="#editTemplateAction" styleClass="btn">
+            Edit template
             <graphic>
                 <ImageView>
                     <image>
@@ -18,7 +17,18 @@
                 </ImageView>
             </graphic>
         </Button>
-
+    </HBox>
+    <HBox spacing="20" styleClass="btn-panel">
+        <Button onAction="#editFormulaAction" styleClass="btn">
+            Edit Formulas
+            <graphic>
+                <ImageView>
+                    <image>
+                        <Image url="@img/pencil.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
         <Button onAction="#deleteRowAction" styleClass="btn">
             <graphic>
                 <ImageView>

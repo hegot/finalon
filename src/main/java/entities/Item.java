@@ -16,7 +16,6 @@ public class Item implements Comparable<Item>, Cloneable {
     private Boolean isPositive;
     private Boolean finResult;
     private int parent;
-    private int parentSheet;
     private ObservableMap<String, Double> values;
     private Integer level;
     private Integer weight;
@@ -30,7 +29,6 @@ public class Item implements Comparable<Item>, Cloneable {
             Boolean isPositive,
             Boolean finResult,
             int parent,
-            int parentSheet,
             Integer level,
             Integer weight
     ) {
@@ -40,7 +38,6 @@ public class Item implements Comparable<Item>, Cloneable {
         this.isPositive = isPositive;
         this.finResult = finResult;
         this.parent = parent;
-        this.parentSheet = parentSheet;
         this.values = FXCollections.observableHashMap();
         this.level = level;
         this.weight = weight;
@@ -55,7 +52,6 @@ public class Item implements Comparable<Item>, Cloneable {
             Boolean isPositive,
             Boolean finResult,
             int parent,
-            int parentSheet,
             Integer level
     ) {
         this.id = id;
@@ -64,7 +60,6 @@ public class Item implements Comparable<Item>, Cloneable {
         this.isPositive = isPositive;
         this.finResult = finResult;
         this.parent = parent;
-        this.parentSheet = parentSheet;
         this.values = FXCollections.observableHashMap();
         this.level = level;
         this.weight = -1;
@@ -79,7 +74,6 @@ public class Item implements Comparable<Item>, Cloneable {
             Boolean isPositive,
             Boolean finResult,
             int parent,
-            int parentSheet,
             ObservableMap<String, Double> values,
             Integer level,
             Integer weight
@@ -90,7 +84,6 @@ public class Item implements Comparable<Item>, Cloneable {
         this.isPositive = isPositive;
         this.finResult = finResult;
         this.parent = parent;
-        this.parentSheet = parentSheet;
         this.values = values;
         this.level = level;
         this.weight = weight;
@@ -105,7 +98,6 @@ public class Item implements Comparable<Item>, Cloneable {
             Boolean isPositive,
             Boolean finResult,
             int parent,
-            int parentSheet,
             ObservableMap<String, Double> values,
             Integer level
     ) {
@@ -115,7 +107,6 @@ public class Item implements Comparable<Item>, Cloneable {
         this.isPositive = isPositive;
         this.finResult = finResult;
         this.parent = parent;
-        this.parentSheet = parentSheet;
         this.values = values;
         this.level = level;
         this.weight = -1;
@@ -195,14 +186,6 @@ public class Item implements Comparable<Item>, Cloneable {
 
     public void setParent(int parent) {
         this.parent = parent;
-    }
-
-    public int getParentSheet() {
-        return parentSheet;
-    }
-
-    public void setParentSheet(int parentSheet) {
-        this.parentSheet = parentSheet;
     }
 
     public ObservableMap<String, Double> getValues() {

@@ -58,7 +58,6 @@ public class ReportJson {
                     dataset.get("isPositive").getAsBoolean(),
                     dataset.get("finResult").getAsBoolean(),
                     dataset.get("parent").getAsInt(),
-                    dataset.get("parentSheet").getAsInt(),
                     values,
                     dataset.get("level").getAsInt(),
                     dataset.get("weight").getAsInt()
