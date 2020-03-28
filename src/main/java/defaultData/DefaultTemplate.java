@@ -1,6 +1,5 @@
 package defaultData;
 
-import database.formula.DbFormulaHandler;
 import database.template.DbItemHandler;
 import entities.Item;
 import javafx.collections.FXCollections;
@@ -25,17 +24,17 @@ public class DefaultTemplate {
         Items.add(new Item(CFS, "Cash Flow Statement", "CashFlowStatement", true, false, lastId, 0));
         counter++;
         int OD = counter;
-        Items.add(new Item(OD, "Other Data", "OtherData", true, false, lastId,  0));
+        Items.add(new Item(OD, "Other Data", "OtherData", true, false, lastId, 0));
         counter++;
 
         int AssetsGeneral = counter;
-        Items.add(new Item(AssetsGeneral, "Assets", "AssetsGeneral", true, false, SOFP,2));
+        Items.add(new Item(AssetsGeneral, "Assets", "AssetsGeneral", true, false, SOFP, 2));
         counter++;
         int NonCurrentAssets = counter;
-        Items.add(new Item(NonCurrentAssets, "Non-current assets", "NonCurrentAssets", true, false, AssetsGeneral,  3));
+        Items.add(new Item(NonCurrentAssets, "Non-current assets", "NonCurrentAssets", true, false, AssetsGeneral, 3));
         counter++;
         int GeneralCurrentAssets = counter;
-        Items.add(new Item(GeneralCurrentAssets, "Current assets", "GeneralCurrentAssets", true, false, AssetsGeneral,  3));
+        Items.add(new Item(GeneralCurrentAssets, "Current assets", "GeneralCurrentAssets", true, false, AssetsGeneral, 3));
         counter++;
 
         //Equity And Liabilities
@@ -60,7 +59,7 @@ public class DefaultTemplate {
 
         //Non-current assets
         int PropertyPlantAndEquipment = counter;
-        Items.add(new Item(PropertyPlantAndEquipment, "Property, plant and equipment", "PropertyPlantAndEquipment", true, false, NonCurrentAssets,  4));
+        Items.add(new Item(PropertyPlantAndEquipment, "Property, plant and equipment", "PropertyPlantAndEquipment", true, false, NonCurrentAssets, 4));
         counter++;
         int InvestmentProperty = counter;
         Items.add(new Item(InvestmentProperty, "Investment property", "InvestmentProperty", true, false, NonCurrentAssets, 4));
@@ -132,7 +131,7 @@ public class DefaultTemplate {
 
         //Equity
         int IssuedCapital = counter;
-        Items.add(new Item(IssuedCapital, "Issued (share) capital", "IssuedCapital", true, false, EquityGeneral,4));
+        Items.add(new Item(IssuedCapital, "Issued (share) capital", "IssuedCapital", true, false, EquityGeneral, 4));
         counter++;
         int SharePremium = counter;
         Items.add(new Item(SharePremium, "Share premium", "SharePremium", true, false, EquityGeneral, 4));
@@ -222,40 +221,40 @@ public class DefaultTemplate {
 
 
         int RevenueGeneral = counter;
-        Items.add(new Item(RevenueGeneral, "RevenueGeneral", "RevenueGeneral", true, false, GrossProfit,  4));
+        Items.add(new Item(RevenueGeneral, "RevenueGeneral", "RevenueGeneral", true, false, GrossProfit, 4));
         counter++;
         int CostOfSales = counter;
-        Items.add(new Item(CostOfSales, "Cost of sales", "CostOfSales", false, false, GrossProfit,  4));
+        Items.add(new Item(CostOfSales, "Cost of sales", "CostOfSales", false, false, GrossProfit, 4));
         counter++;
-        Items.add(new Item(GrossProfit, "Gross profit", "GrossProfit", true, true, ProfitLossFromOperatingActivities,  3));
+        Items.add(new Item(GrossProfit, "Gross profit", "GrossProfit", true, true, ProfitLossFromOperatingActivities, 3));
 
 
         int OtherIncomeGeneral = counter;
-        Items.add(new Item(OtherIncomeGeneral, "Other income", "OtherIncomeGeneral", true, false, ProfitLossFromOperatingActivities,  4));
+        Items.add(new Item(OtherIncomeGeneral, "Other income", "OtherIncomeGeneral", true, false, ProfitLossFromOperatingActivities, 4));
         counter++;
         int DistributionCostsGeneral = counter;
-        Items.add(new Item(DistributionCostsGeneral, "Distribution costs", "DistributionCostsGeneral", false, false, ProfitLossFromOperatingActivities,  4));
+        Items.add(new Item(DistributionCostsGeneral, "Distribution costs", "DistributionCostsGeneral", false, false, ProfitLossFromOperatingActivities, 4));
         counter++;
         int AdministrativeExpense = counter;
-        Items.add(new Item(AdministrativeExpense, "Administrative expense", "AdministrativeExpense", false, false, ProfitLossFromOperatingActivities,  4));
+        Items.add(new Item(AdministrativeExpense, "Administrative expense", "AdministrativeExpense", false, false, ProfitLossFromOperatingActivities, 4));
         counter++;
         int OtherExpenseByFunction = counter;
-        Items.add(new Item(OtherExpenseByFunction, "Other expense", "OtherExpenseByFunction", false, false, ProfitLossFromOperatingActivities,  4));
+        Items.add(new Item(OtherExpenseByFunction, "Other expense", "OtherExpenseByFunction", false, false, ProfitLossFromOperatingActivities, 4));
         counter++;
         int OtherGainsLosses = counter;
-        Items.add(new Item(OtherGainsLosses, "Other gains (losses)", "OtherGainsLosses", true, false, ProfitLossFromOperatingActivities,  4));
+        Items.add(new Item(OtherGainsLosses, "Other gains (losses)", "OtherGainsLosses", true, false, ProfitLossFromOperatingActivities, 4));
         counter++;
-        Items.add(new Item(ProfitLossFromOperatingActivities, "Profit (loss) from operating activities", "ProfitLossFromOperatingActivities", true, true, ProfitLossBeforeTax,  3));
+        Items.add(new Item(ProfitLossFromOperatingActivities, "Profit (loss) from operating activities", "ProfitLossFromOperatingActivities", true, true, ProfitLossBeforeTax, 3));
 
 
         int DiffDivPayAndNoncash = counter;
-        Items.add(new Item(DiffDivPayAndNoncash, "Difference between carrying amount of dividends payable and carrying amount of non-cash assets distributed", "DiffDivPayAndNoncash", true, false, ProfitLossBeforeTax,  4));
+        Items.add(new Item(DiffDivPayAndNoncash, "Difference between carrying amount of dividends payable and carrying amount of non-cash assets distributed", "DiffDivPayAndNoncash", true, false, ProfitLossBeforeTax, 4));
         counter++;
         int GainsLossesOnNetMonetaryPosition = counter;
-        Items.add(new Item(GainsLossesOnNetMonetaryPosition, "Gains (losses) on net monetary position", "GainsLossesOnNetMonetaryPosition", true, false, ProfitLossBeforeTax,  4));
+        Items.add(new Item(GainsLossesOnNetMonetaryPosition, "Gains (losses) on net monetary position", "GainsLossesOnNetMonetaryPosition", true, false, ProfitLossBeforeTax, 4));
         counter++;
         int GainDerecogAmort = counter;
-        Items.add(new Item(GainDerecogAmort, "Gain (loss) arising from derecognition of financial assets measured at amortised cost", "GainDerecogAmort", true, false, ProfitLossBeforeTax,  4));
+        Items.add(new Item(GainDerecogAmort, "Gain (loss) arising from derecognition of financial assets measured at amortised cost", "GainDerecogAmort", true, false, ProfitLossBeforeTax, 4));
         counter++;
         int FinanceIncome = counter;
         Items.add(new Item(FinanceIncome, "Finance income", "FinanceIncome", true, false, ProfitLossBeforeTax, 4));
@@ -264,7 +263,7 @@ public class DefaultTemplate {
         Items.add(new Item(FinanceCosts, "Finance costs", "FinanceCosts", false, false, ProfitLossBeforeTax, 4));
         counter++;
         int ImpairmentLoss = counter;
-        Items.add(new Item(ImpairmentLoss, "Impairment loss (impairment gain and reversal of impairment loss) determined in accordance with IFRS 9", "ImpairmentLoss", false, false, ProfitLossBeforeTax,  4));
+        Items.add(new Item(ImpairmentLoss, "Impairment loss (impairment gain and reversal of impairment loss) determined in accordance with IFRS 9", "ImpairmentLoss", false, false, ProfitLossBeforeTax, 4));
         counter++;
         int ShareAssociates = counter;
         Items.add(new Item(ShareAssociates, "Share of profit (loss) of associates and joint ventures accounted for using equity method", "ShareAssociates", true, false, ProfitLossBeforeTax, 4));
@@ -302,10 +301,10 @@ public class DefaultTemplate {
 
         //Cash Flow Statement
         int OperatingActivitiesGeneral = counter;
-        Items.add(new Item(OperatingActivitiesGeneral, "Operating activities", "OperatingActivitiesGeneral", true, false, CFS,2));
+        Items.add(new Item(OperatingActivitiesGeneral, "Operating activities", "OperatingActivitiesGeneral", true, false, CFS, 2));
         counter++;
         int InvestingActivitiesGeneral = counter;
-        Items.add(new Item(InvestingActivitiesGeneral, "Investing activities", "InvestingActivitiesGeneral", true, false, CFS,  2));
+        Items.add(new Item(InvestingActivitiesGeneral, "Investing activities", "InvestingActivitiesGeneral", true, false, CFS, 2));
         counter++;
         int FinancingActivitiesGeneral = counter;
         Items.add(new Item(FinancingActivitiesGeneral, "Financing activities", "FinancingActivitiesGeneral", true, false, CFS, 2));
@@ -314,7 +313,7 @@ public class DefaultTemplate {
         //Operating activities
         int CashReceiptsFromCustomers = counter;
 
-        Items.add(new Item(CashReceiptsFromCustomers, "Cash receipts from customers", "CashReceiptsFromCustomers", true, false, OperatingActivitiesGeneral,  4));
+        Items.add(new Item(CashReceiptsFromCustomers, "Cash receipts from customers", "CashReceiptsFromCustomers", true, false, OperatingActivitiesGeneral, 4));
         counter++;
         int CashPaidToSuppliersAndEmployees = counter;
         Items.add(new Item(CashPaidToSuppliersAndEmployees, "Cash paid to suppliers and employees", "CashPaidToSuppliersAndEmployees", false, false, OperatingActivitiesGeneral, 4));
@@ -387,7 +386,7 @@ public class DefaultTemplate {
         Items.add(new Item(NumberOfEmployees, "Number of employees", "NumberOfEmployees", true, false, OD, 4));
         counter++;
         int AmortizationGeneral = counter;
-        Items.add(new Item(AmortizationGeneral, "Depreciation and amortisation expense", "AmortizationGeneral", true, false, OD,4));
+        Items.add(new Item(AmortizationGeneral, "Depreciation and amortisation expense", "AmortizationGeneral", true, false, OD, 4));
 
 
         return Items;

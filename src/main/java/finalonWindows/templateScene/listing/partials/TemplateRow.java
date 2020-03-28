@@ -1,10 +1,9 @@
 package finalonWindows.templateScene.listing.partials;
 
-import database.template.TemplateCreator;
+import database.template.TemplateDeleter;
 import entities.Item;
 import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
-import database.template.TemplateDeleter;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

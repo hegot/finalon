@@ -104,8 +104,8 @@ public class FormulaHandler {
 
     private ArrayList<String> getIndexes() {
         String formulaVal = formula.getValue();
-        String[]array = new ParserBase().getChunks(formulaVal, true);
-        ArrayList<String>  list = new ArrayList<>(Arrays.asList(array));
+        String[] array = new ParserBase().getChunks(formulaVal, true);
+        ArrayList<String> list = new ArrayList<>(Arrays.asList(array));
         Comparator<String> comparator = Comparator.comparing(String::length);
         Collections.sort(list, comparator.reversed());
         return list;

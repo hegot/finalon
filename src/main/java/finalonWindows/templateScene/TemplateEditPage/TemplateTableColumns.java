@@ -1,7 +1,5 @@
 package finalonWindows.templateScene.TemplateEditPage;
 
-import database.formula.DbFormulaHandler;
-import entities.Formula;
 import entities.Item;
 import finalonWindows.templateScene.TemplateEditPage.Cells.ActionsCell;
 import finalonWindows.templateScene.TemplateEditPage.Cells.DragCell;
@@ -17,7 +15,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.util.Map;
 import java.util.Optional;
 
 class TemplateTableColumns {

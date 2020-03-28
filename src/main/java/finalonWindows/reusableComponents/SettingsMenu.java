@@ -55,7 +55,6 @@ public class SettingsMenu {
     }
 
 
-
     private MenuItem settings() {
         MenuItem settings = new MenuItem("General Settings");
         settings.setOnAction(new EventHandler<ActionEvent>() {

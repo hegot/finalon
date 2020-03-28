@@ -23,6 +23,42 @@ public class TemplateUpdateHandler {
         root.setName(tplName);
     }
 
+    private static void addAllChilds(int Id, ArrayList<Item> oldItems) {
+        ObservableList<Item> items = DbItemHandler.getItems(Id);
+        if (items.size() > 0) {
+            for (Item item : items) {
+                oldItems.add(item);
+                addAllChilds(item.getId(), oldItems);
+            }
+        }
+    }
+
+    public static void updateDependantFormulas(Item item) {
+        try {
+            if (item.getShortNameUpdated()) {
+                Item starter = DbItemHandler.getItem(item.getId());
+                if (starter != null && starter.getShortName().length() > 0) {
+                    Map<Integer, Formula> usages = FormulaUsage.findUsage(
+                            starter.getShortName(),
+                            TemplateEditTable.getRoot()
+                    );
+                    if (usages != null && usages.size() > 0) {
+                        for (Map.Entry<Integer, Formula> entry : usages.entrySet()) {
+                            Formula formula = entry.getValue();
+                            String value = formula.getValue();
+                            value = value.replace(starter.getShortName(), item.getShortName());
+                            formula.setValue(value);
+                            DbFormulaHandler.updateFormula(formula);
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
     public Item getRoot() {
         for (Item item : items) {
             if (item.getParent() == 0) {
@@ -61,16 +97,6 @@ public class TemplateUpdateHandler {
         }
     }
 
-    private static void addAllChilds(int Id,  ArrayList<Item> oldItems) {
-        ObservableList<Item> items = DbItemHandler.getItems(Id);
-        if (items.size() > 0) {
-            for(Item item : items){
-                oldItems.add(item);
-                addAllChilds(item.getId(), oldItems);
-            }
-        }
-    }
-
     public void updateTpl() {
         ArrayList<Item> oldItems = new ArrayList<>();
         oldItems.add(root);
@@ -91,32 +117,6 @@ public class TemplateUpdateHandler {
                 }
             }
         }
-    }
-
-    public static void updateDependantFormulas(Item item) {
-        try {
-            if (item.getShortNameUpdated()) {
-                Item starter = DbItemHandler.getItem(item.getId());
-                if (starter != null && starter.getShortName().length() > 0) {
-                    Map<Integer, Formula> usages = FormulaUsage.findUsage(
-                            starter.getShortName(),
-                            TemplateEditTable.getRoot()
-                    );
-                    if (usages != null && usages.size() > 0) {
-                        for (Map.Entry<Integer, Formula> entry : usages.entrySet()) {
-                            Formula formula = entry.getValue();
-                            String value = formula.getValue();
-                            value = value.replace(starter.getShortName(), item.getShortName());
-                            formula.setValue(value);
-                            DbFormulaHandler.updateFormula(formula);
-                        }
-                    }
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
     }
 
 

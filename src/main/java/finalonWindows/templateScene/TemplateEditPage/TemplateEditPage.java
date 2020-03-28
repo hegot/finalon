@@ -38,8 +38,8 @@ public class TemplateEditPage {
 
     static HBox templateName(int tplId) {
         HBox hbox = new HBox(10);
-        Item root =  DbItemHandler.getItem(tplId);
-        if(root != null){
+        Item root = DbItemHandler.getItem(tplId);
+        if (root != null) {
             hbox.getStyleClass().add("whiteBorderedPanel");
             Label label = new Label("Enter your template name: ");
             label.setPadding(new Insets(3, 0, 0, 0));

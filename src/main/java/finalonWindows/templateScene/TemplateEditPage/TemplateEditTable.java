@@ -25,8 +25,8 @@ public class TemplateEditTable {
     static TabPane getTemplateEditable(int id) {
         root = id;
         itemsList = FXCollections.observableArrayList();
-        Item root =  DbItemHandler.getItem(id);
-        if(root != null){
+        Item root = DbItemHandler.getItem(id);
+        if (root != null) {
             itemsList.add(root);
         }
         TabPane tabs = new TabPane();
@@ -97,7 +97,7 @@ public class TemplateEditTable {
     private static void addAllChilds(int Id, TableView<Item> table) {
         ObservableList<Item> items = DbItemHandler.getItems(Id);
         if (items.size() > 0) {
-            for(int i = 0; i< items.size(); i++){
+            for (int i = 0; i < items.size(); i++) {
                 Item item = items.get(i);
                 addAllChilds(item.getId(), table);
                 table.getItems().add(item);

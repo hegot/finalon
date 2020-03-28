@@ -1,11 +1,9 @@
 package finalonWindows.templateScene.TemplateEditPage.Cells;
 
-import database.formula.DbFormulaHandler;
 import entities.Formula;
 import entities.Item;
 import finalonWindows.reusableComponents.ImageButton;
 import finalonWindows.templateScene.TemplateEditPage.EventHandlers.FormulaUsage;
-import finalonWindows.templateScene.TemplateEditPage.TemplateEditPage;
 import finalonWindows.templateScene.TemplateEditPage.TemplateEditTable;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TableCell;

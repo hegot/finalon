@@ -17,11 +17,11 @@ import java.util.TreeSet;
 
 public class EditFormula {
 
+    public static VBox errorsBox = new VBox(1);
     private Formula formula;
     private EditRow[] arr;
     private GridPane grid;
     private AutoCompleteTextArea textArea;
-    public static VBox errorsBox = new VBox(1);
 
     EditFormula(Formula formula) {
         errorsBox.getChildren().removeAll();

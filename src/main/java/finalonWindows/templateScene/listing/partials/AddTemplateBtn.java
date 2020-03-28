@@ -1,10 +1,11 @@
 package finalonWindows.templateScene.listing.partials;
+
 import database.template.TemplateCreator;
-import javafx.concurrent.Task;
 import entities.Formula;
 import entities.FormulaConverter;
 import finalonWindows.SceneName;
 import finalonWindows.SceneSwitcher;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;

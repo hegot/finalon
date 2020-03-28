@@ -148,12 +148,12 @@ public class EditPopup {
 
     private boolean isChild(String name) {
         if (
-            name != null &&
-            name.equals(EvaluationTypes.PREFIX.toString()) ||
-            name.equals(EvaluationTypes.SUFFIX.toString()) ||
-            name.equals(EvaluationTypes.PERIOD_COMPARISON_NOCHANGE.toString()) ||
-            name.equals(EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString()) ||
-            name.equals(EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString())
+                name != null &&
+                        name.equals(EvaluationTypes.PREFIX.toString()) ||
+                        name.equals(EvaluationTypes.SUFFIX.toString()) ||
+                        name.equals(EvaluationTypes.PERIOD_COMPARISON_NOCHANGE.toString()) ||
+                        name.equals(EvaluationTypes.PERIOD_COMPARISON_DECREASE.toString()) ||
+                        name.equals(EvaluationTypes.PERIOD_COMPARISON_INCREASE.toString())
         ) {
             return true;
         }
@@ -164,7 +164,7 @@ public class EditPopup {
     private void validateFormula() {
         Formula newFormula = editFormula.getFormula();
         ArrayList<String> codes = FormulaEditable.getCodes();
-        if(formula.getCategory().equals("TO_BE_ADDED")){
+        if (formula.getCategory().equals("TO_BE_ADDED")) {
             if (codes.contains(newFormula.getShortName())) {
                 errors.add("Formula code you have added is already in use. \nPlease set up unique code.");
             }

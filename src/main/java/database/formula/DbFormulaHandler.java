@@ -12,7 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.*;
 
 public class DbFormulaHandler extends DbHandlerBase {
 
@@ -93,6 +92,9 @@ public class DbFormulaHandler extends DbHandlerBase {
 
     public static int addFormula(Formula Formula) {
         try {
+            if(Formula.getId() == -1){
+                Formula.setId(getLastId() + 1);
+            }
             StatTrigger.call(CallTypes.formula_customization_times);
             String[] returnId = {"id"};
             String sql = "INSERT INTO " + tableName + " (`id`, `name`, `shortName`,  `value`, `description`, `category`, `unit`, `parent`) " +

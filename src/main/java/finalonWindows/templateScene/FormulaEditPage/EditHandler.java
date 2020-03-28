@@ -2,11 +2,11 @@ package finalonWindows.templateScene.FormulaEditPage;
 
 import database.formula.DbFormulaHandler;
 import entities.Formula;
+import finalonWindows.reusableComponents.ImageButton;
 import finalonWindows.templateScene.FormulaEditPage.EditPopup.EditFormula;
 import finalonWindows.templateScene.FormulaEditPage.EditPopup.EditPopup;
 import finalonWindows.templateScene.FormulaEditPage.IndustryOperations.FormulaAddBase;
 import finalonWindows.templateScene.FormulaEditPage.IndustryOperations.IndustryOperations;
-import finalonWindows.reusableComponents.ImageButton;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;

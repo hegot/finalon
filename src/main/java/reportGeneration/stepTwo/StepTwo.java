@@ -2,14 +2,11 @@ package reportGeneration.stepTwo;
 
 import database.setting.DbSettingHandler;
 import database.template.DbItemHandler;
-import defaultData.DefaultTemplate;
 import entities.Item;
 import globalReusables.ItemsGetter;
 import globalReusables.Setting;
 import globalReusables.SheetsGetter;
-import globalReusables.StandardAndIndustry;
 import javafx.beans.binding.Bindings;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -19,7 +16,6 @@ import javafx.scene.layout.VBox;
 import reportGeneration.AddReportScene;
 import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
-import reportGeneration.storage.SettingsStorage;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,31 +28,7 @@ public class StepTwo {
     }
 
     public TabPane show() {
-        setItems();
         return getTemplateEditable();
-    }
-
-    private void setItems() {
-        if (items.size() == 0) {
-            ObservableList<Item> dbItems = FXCollections.observableArrayList();
-            Integer industryId = SettingsStorage.getInt("industry");
-            if (industryId == null) {
-                industryId = StandardAndIndustry.getIndustryId();
-            }
-
-            ObservableList<Item> tpls = DbItemHandler.getTemplateForIndustry(industryId);
-            if (tpls.size() > 0) {
-                Item tpl = tpls.get(0);
-                dbItems = DbItemHandler.getItems(tpl.getId());
-                dbItems.add(DbItemHandler.getItem(tpl.getId()));
-            }
-            if (dbItems.size() == 0) {
-                dbItems = FXCollections.observableArrayList(
-                        DefaultTemplate.getTpl()
-                );
-            }
-            items.addAll(dbItems);
-        }
     }
 
 
@@ -68,7 +40,6 @@ public class StepTwo {
         ObservableList<Item> Sheets = sheetsGetter.getSheets();
         Tab tab;
         Item sheet;
-        TableView<Item> table;
         for (Item Sheet : Sheets) {
             tab = new Tab();
             sheet = Sheet;

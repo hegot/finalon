@@ -43,7 +43,7 @@ public class AutoCompleteTextArea extends TextArea {
             parser.change(cur, text, start, end);
             AutoCompleteTextArea anchor = AutoCompleteTextArea.this;
             String endString = parser.endString();
-            if(!text.matches("[^" + OPERATORS + DIGITS + ")\\[\\]]")){
+            if (!text.matches("[^" + OPERATORS + DIGITS + ")\\[\\]]")) {
                 endString = endString + text;
             }
             suggestions.change(cur, endString, anchor, parser.start(), parser.end());

@@ -1,10 +1,6 @@
 package reportGeneration.stepOne;
 
 import defaultData.DefaultCurrency;
-import entities.Formula;
-import globalReusables.StandardAndIndustry;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,7 +14,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import reportGeneration.storage.FormulaStorage;
 import reportGeneration.storage.SettingsStorage;
 
 public class StepOne {
@@ -41,7 +36,6 @@ public class StepOne {
             vbox.getChildren().add(titledHbox("Template", TemplateSelect.getTpl()));
         }
         vbox.getChildren().addAll(currencyRow(),
-                standardIndustry(),
                 periodsRow(),
                 new DateSelect().get(),
                 err,
@@ -84,36 +78,6 @@ public class StepOne {
                 SettingsSelect.get(DefaultCurrency.getCurrencies(), "defaultCurrency", SettingsStorage.get("defaultCurrency"))
         );
         return hBox;
-    }
-
-    private HBox standardIndustry() {
-        String reportId = SettingsStorage.get("reportId");
-        if (reportId.equals("-1")) {
-            HBox hBox = StandardAndIndustry.get();
-            StandardAndIndustry.shouldUpdateSettings(true);
-            ComboBox<Formula> industry = StandardAndIndustry.getIndustry();
-            ComboBox<Formula> standard = StandardAndIndustry.getStandard();
-            standard.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Formula>() {
-                @Override
-                public void changed(ObservableValue<? extends Formula> arg0, Formula arg1, Formula arg2) {
-                    if (arg2 != null) {
-                        FormulaStorage.reInit();
-                        TemplateSelect.reInit();
-                    }
-                }
-            });
-            industry.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Formula>() {
-                @Override
-                public void changed(ObservableValue<? extends Formula> arg0, Formula arg1, Formula arg2) {
-                    if (arg2 != null) {
-                        FormulaStorage.reInit();
-                        TemplateSelect.reInit();
-                    }
-                }
-            });
-            return hBox;
-        }
-        return new HBox();
     }
 
 

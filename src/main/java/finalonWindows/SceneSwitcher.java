@@ -1,14 +1,14 @@
 package finalonWindows;
 
 import finalonWindows.DeathScreen.DeathScreen;
-import finalonWindows.templateScene.FormulaEditPage.FormulaEditPage;
 import finalonWindows.LogsScreen.LogsScreen;
 import finalonWindows.PreloaderScene.PreloaderScene;
 import finalonWindows.mainScene.MainScene;
 import finalonWindows.reportsScene.ReportsListing;
 import finalonWindows.settingsScene.SettingsScene;
-import finalonWindows.templateScene.listing.TemplatesListing;
+import finalonWindows.templateScene.FormulaEditPage.FormulaEditPage;
 import finalonWindows.templateScene.TemplateEditPage.TemplateEditPage;
+import finalonWindows.templateScene.listing.TemplatesListing;
 import javafx.scene.layout.VBox;
 import reportGeneration.AddReportScene;
 

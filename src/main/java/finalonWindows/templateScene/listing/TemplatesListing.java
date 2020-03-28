@@ -13,7 +13,6 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
 
-
 public class TemplatesListing extends SceneBase {
 
     public VBox getScene() {
@@ -36,9 +35,9 @@ public class TemplatesListing extends SceneBase {
         tilePane.setVgap(10);
         if (items.size() > 0) {
             for (Item item : items) {
-                if(item.getId() == 1){
+                if (item.getId() == 1) {
                     tilePane.getChildren().add(defaultTpl());
-                }else{
+                } else {
                     tilePane.getChildren().add(new TemplateRow(item));
                 }
             }
@@ -56,7 +55,7 @@ public class TemplatesListing extends SceneBase {
         return vbox;
     }
 
-    private VBox defaultTpl(){
+    private VBox defaultTpl() {
         VBox vBox = new VBox();
         vBox.getStyleClass().add("row");
         Label label = new Label("Default Template");

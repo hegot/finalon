@@ -21,7 +21,7 @@ public class FormulaEditable {
     private static TreeTableView<Formula> table;
     private static ArrayList<String> codes = new ArrayList<>();
 
-    public static ArrayList<String> getCodes(){
+    public static ArrayList<String> getCodes() {
         return codes;
     }
 

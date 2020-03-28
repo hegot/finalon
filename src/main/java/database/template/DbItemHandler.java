@@ -117,30 +117,6 @@ public class DbItemHandler extends DbHandlerBase {
         return Items;
     }
 
-    public static ObservableList<Item> getTemplateForIndustry(int industryId) {
-        ObservableList<Item> Items = FXCollections.observableArrayList();
-        Item item = new Item(0, "", "", false, false, 0, 0, 0);
-        try (Statement statement = Connect.getConn().createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT id, name, shortName,  isPositive, finResult, parent, level, weight FROM "
-                    + tableName + " WHERE parent = " + industryId);
-            while (resultSet.next()) {
-                Items.add(
-                        new Item(
-                                resultSet.getInt("id"),
-                                resultSet.getString("name"),
-                                resultSet.getString("shortName"),
-                                resultSet.getBoolean("isPositive"),
-                                resultSet.getBoolean("finResult"),
-                                resultSet.getInt("parent"),
-                                resultSet.getInt("level"),
-                                resultSet.getInt("weight")
-                        ));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return Items;
-    }
 
     public static int getLastId() {
         try {

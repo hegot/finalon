@@ -8,7 +8,7 @@ import java.util.*;
 
 public class FormulaUsage {
 
-    public static String usagesString(String code, int tplId){
+    public static String usagesString(String code, int tplId) {
         Map<Integer, Formula> usages = findUsage(code, tplId);
         StringBuilder builder = new StringBuilder();
         Set<String> names = new HashSet<String>();
@@ -22,7 +22,7 @@ public class FormulaUsage {
         return builder.toString();
     }
 
-    public static Map<Integer, Formula> findUsage(String code, int tplId){
+    public static Map<Integer, Formula> findUsage(String code, int tplId) {
         Map<Integer, Formula> finalUsages = new HashMap<Integer, Formula>();
         ArrayList<Formula> formulas = getFormulasForTpl(tplId);
         for (Formula formula : formulas) {
