@@ -30,7 +30,7 @@ public class StructureTable {
     public StructureTable(
             Item root
     ) {
-        ItemsGetter itemsGetter = new ItemsGetter(root, ItemsStorage.getItems(), true);
+        ItemsGetter itemsGetter = new ItemsGetter(root, ItemsStorage.getItems());
         this.items = itemsGetter.getItems();
         this.periodsArr = Periods.getPeriodArr();
         this.totalVals = getTotals(root);

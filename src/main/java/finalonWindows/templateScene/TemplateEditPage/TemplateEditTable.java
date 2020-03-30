@@ -9,6 +9,8 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 
+import java.util.Comparator;
+
 public class TemplateEditTable {
 
     private static ObservableList<Item> itemsList;
@@ -97,10 +99,16 @@ public class TemplateEditTable {
     private static void addAllChilds(int Id, TableView<Item> table) {
         ObservableList<Item> items = DbItemHandler.getItems(Id);
         if (items.size() > 0) {
+            items.sort(Comparator.comparing(Item::getWeight));
             for (int i = 0; i < items.size(); i++) {
                 Item item = items.get(i);
-                addAllChilds(item.getId(), table);
-                table.getItems().add(item);
+                if (item.getLevel() > 3) {
+                    table.getItems().add(item);
+                    addAllChilds(item.getId(), table);
+                } else {
+                    addAllChilds(item.getId(), table);
+                    table.getItems().add(item);
+                }
                 itemsList.add(item);
             }
         }

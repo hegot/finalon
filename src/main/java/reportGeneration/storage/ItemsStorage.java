@@ -66,4 +66,24 @@ public class ItemsStorage {
         return Items;
     }
 
+    private static int getRoot() {
+        for (Item item : items) {
+            if (item.getParent() == 0) {
+                return item.getId();
+            }
+        }
+        return 0;
+    }
+
+
+    public static ObservableList<Item> getSheets() {
+        int id = getRoot();
+        ObservableList<Item> Items = FXCollections.observableArrayList();
+        for (Item item : items) {
+            if (item.getParent() == id) {
+                Items.add(item);
+            }
+        }
+        return Items;
+    }
 }

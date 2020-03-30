@@ -1,5 +1,6 @@
 package finalonWindows.templateScene.TemplateEditPage.Cells;
 
+import database.template.DbItemHandler;
 import entities.Formula;
 import entities.Item;
 import finalonWindows.reusableComponents.ImageButton;
@@ -55,7 +56,7 @@ public class ActionsCell {
                             if (item != null) {
                                 index = (level.equals(5)) ? index + 1 : index;
                                 TableView table = this.getTableView();
-                                Item itemNew = new Item(-1, "Set indicator name here", "CodeProperty", true, false, item.getId(), level, index);
+                                Item itemNew = new Item(DbItemHandler.getLastId(), "Set indicator name here", "CodeProperty", true, false, item.getId(), level, index);
                                 table.getItems().add(index, itemNew);
                                 TemplateEditTable.getItems().add(itemNew);
                             }

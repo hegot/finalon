@@ -33,7 +33,8 @@ public class StepOne {
                 ReportName.get());
         String reportId = SettingsStorage.get("reportId");
         if (reportId.equals("-1")) {
-            vbox.getChildren().add(titledHbox("Template", TemplateSelect.getTpl()));
+            TemplateSelect select = new TemplateSelect();
+            vbox.getChildren().add(titledHbox("Template", select.get()));
         }
         vbox.getChildren().addAll(currencyRow(),
                 periodsRow(),

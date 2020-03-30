@@ -8,14 +8,14 @@ import reportGeneration.storage.Periods;
 
 import java.util.ArrayList;
 
-class ItemsGetter {
+class FrItemsGetter {
     private Item profitLossBeforeTax;
     private Item financeCosts;
     private Item grossProfit;
     private Item incomeTaxExpense;
     private ArrayList<String> periods;
 
-    ItemsGetter() {
+    FrItemsGetter() {
         this.periods = Periods.getPeriodArr();
         this.profitLossBeforeTax = ItemsStorage.get("ProfitLossBeforeTax");
         this.financeCosts = ItemsStorage.get("FinanceCosts");

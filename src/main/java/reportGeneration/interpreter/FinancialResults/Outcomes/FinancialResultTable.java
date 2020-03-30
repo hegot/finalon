@@ -29,7 +29,7 @@ public class FinancialResultTable extends ItemsTable {
     private Item grossProfit;
     private Item itemEbit;
     private Item comprehensiveIncome;
-    private ItemsGetter itemsGetter = new ItemsGetter();
+    private FrItemsGetter itemsGetter = new FrItemsGetter();
     private int periodsSize;
 
     public FinancialResultTable() {

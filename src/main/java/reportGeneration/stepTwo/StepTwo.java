@@ -1,11 +1,8 @@
 package reportGeneration.stepTwo;
 
 import database.setting.DbSettingHandler;
-import database.template.DbItemHandler;
 import entities.Item;
-import globalReusables.ItemsGetter;
 import globalReusables.Setting;
-import globalReusables.SheetsGetter;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Tab;
@@ -18,14 +15,9 @@ import reportGeneration.storage.ItemsStorage;
 import reportGeneration.storage.Periods;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 
 public class StepTwo {
-    private ObservableList<Item> items;
-
-    public StepTwo() {
-        this.items = ItemsStorage.getItems();
-    }
 
     public TabPane show() {
         return getTemplateEditable();
@@ -36,11 +28,10 @@ public class StepTwo {
         TabPane tabs = new TabPane();
         tabs.getStyleClass().add("report-tabs");
         tabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-        SheetsGetter sheetsGetter = new SheetsGetter(items);
-        ObservableList<Item> Sheets = sheetsGetter.getSheets();
+        ObservableList<Item> sheets = ItemsStorage.getSheets();
         Tab tab;
         Item sheet;
-        for (Item Sheet : Sheets) {
+        for (Item Sheet : sheets) {
             tab = new Tab();
             sheet = Sheet;
             tab.setText(sheet.getName());
@@ -108,12 +99,27 @@ public class StepTwo {
                 }
             }
         });
-        ItemsGetter itemsGetter = new ItemsGetter(Id, this.items);
-        ObservableList<Item> items = itemsGetter.getItems();
-        Collections.sort(items);
-        table.getItems().addAll(items);
+
+        addAllChilds(Id, table);
         return table;
     }
 
+
+    private static void addAllChilds(int Id, TableView<Item> table) {
+        ObservableList<Item> items = ItemsStorage.getItems(Id);
+        if (items.size() > 0) {
+            items.sort(Comparator.comparing(Item::getWeight));
+            for (int i = 0; i < items.size(); i++) {
+                Item item = items.get(i);
+                if (item.getLevel() > 3) {
+                    table.getItems().add(item);
+                    addAllChilds(item.getId(), table);
+                } else {
+                    addAllChilds(item.getId(), table);
+                    table.getItems().add(item);
+                }
+            }
+        }
+    }
 }
 

@@ -21,7 +21,7 @@ public class AddDefaultTables {
             DbLogHandler.createTable();
 
             if (DbFormulaHandler.isEmpty()) {
-                templateCreator.saveTpl();
+                templateCreator.saveTpl("Default Template");
             }
         } catch (SQLException e) {
             e.printStackTrace();

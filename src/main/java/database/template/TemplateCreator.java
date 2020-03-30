@@ -18,12 +18,15 @@ public class TemplateCreator {
     }
 
 
-    public void saveTpl() {
+    public void saveTpl(String title) {
         items.sort(Comparator.comparing(Item::getId));
+        Item root = items.get(0);
+        root.setName(title);
         for (Item item : items) {
+            item.setWeight(item.getId());
             DbItemHandler.addItem(item);
         }
-        ObservableList<Formula> formulas = DefaultFormulas.getFormulas(items.get(0).getId());
+        ObservableList<Formula> formulas = DefaultFormulas.getFormulas(root.getId());
         formulas.sort(Comparator.comparing(Formula::getId));
         for (Formula formula : formulas) {
             try {

@@ -23,7 +23,7 @@ public class SettingsStorage {
         settingsMap.put("step", "one");
         settingsMap.put("year", year);
         settingsMap.put("date", "31.12");
-        settingsMap.put("template", "");
+        settingsMap.put("template", "1");
         settingsMap.put("standard", "1");
         settingsMap.put("defaultCurrency", defaultCurrency);
         settingsMap.put("amount", "million");

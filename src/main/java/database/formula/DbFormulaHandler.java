@@ -92,7 +92,7 @@ public class DbFormulaHandler extends DbHandlerBase {
 
     public static int addFormula(Formula Formula) {
         try {
-            if(Formula.getId() == -1){
+            if (Formula.getId() == -1) {
                 Formula.setId(getLastId() + 1);
             }
             StatTrigger.call(CallTypes.formula_customization_times);

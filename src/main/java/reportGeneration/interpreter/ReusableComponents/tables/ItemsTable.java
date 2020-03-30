@@ -98,7 +98,7 @@ public class ItemsTable {
 
     protected TableView<Item> getTable(int Id) {
         TableView<Item> table = new TableView<>();
-        ItemsGetter itemsGetter = new ItemsGetter(Id, this.items, true);
+        ItemsGetter itemsGetter = new ItemsGetter(Id, this.items);
         table.getItems().addAll(itemsGetter.getItems());
         return table;
     }

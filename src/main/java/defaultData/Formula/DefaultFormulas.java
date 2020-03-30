@@ -21,7 +21,7 @@ public class DefaultFormulas {
         ObservableList<Formula> Formulas = FXCollections.observableArrayList();
         int lastId = DbFormulaHandler.getLastId() + 1;
         int ID = lastId;
-        int tplId = (id != null) ? id : 0;
+        int tplId = (id != null) ? id : -1;
         Formulas.add(new Formula(ID, "Default", "", "", "", "template", "", tplId));
         counter = lastId + 1;
         ObservableList<Formula> IFRSFormulas = getIndustryChilds(ID);

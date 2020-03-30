@@ -11,6 +11,7 @@ import finalonWindows.templateScene.TemplateEditPage.TemplateEditPage;
 import finalonWindows.templateScene.listing.TemplatesListing;
 import javafx.scene.layout.VBox;
 import reportGeneration.AddReportScene;
+import reportGeneration.storage.SettingsStorage;
 
 
 public class SceneSwitcher {
@@ -59,6 +60,7 @@ public class SceneSwitcher {
         VBox vbox = new VBox();
         switch (sceneName) {
             case ADDTEMPLATE:
+                SettingsStorage.replace("template", "1");
                 vbox = TemplateEditPage.getScene(id);
                 break;
             case EDITFORMULAS:
